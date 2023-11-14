@@ -1,0 +1,24 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "jsx": "react",
+    "types": ["react-native", "jest", "node"],
+    "typeRoots": ["src/types", "./node_modules/@types"],
+    "baseUrl": "./src/",
+    "paths": {
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"],
+      "navigation/*": ["navigation/*"],
+      "screens/*": ["screens/*"],
+      "services/*": ["services/*"],
+      "store/*": ["store/*"],
+      "theme/*": ["theme/*"],
+      "translations/*": ["translations/*"],
+      "types/*": ["types/*"],
+      "assets/*": ["assets/*"],
+      "utils/*": ["utils/*"],
+      "storage/*": ["storage/*"]
+    }
+  }
+}

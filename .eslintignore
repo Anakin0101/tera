@@ -1,0 +1,7 @@
+metro.config.js
+coverage
+node_modules
+ios
+android
+src/types/declarations
+

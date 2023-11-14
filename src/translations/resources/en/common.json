@@ -1,0 +1,154 @@
+{
+  "appName": {
+    "full": "React Native MyApp",
+    "initials": "RNB"
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "transactions": "Transactions",
+    "payments": "Payments",
+    "more": "More",
+    "hello": "Hello",
+    "settings": "Settings",
+    "passcode": "Passcode"
+  },
+  "onboarding": {
+    "next": "Next",
+    "skip": "Skip",
+    "templates": "Templates",
+    "buildTemplates": "Create and manage updated templates functionality"
+  },
+  "passAuth": {
+    "auth": "Sign In",
+    "personalData": "Enter personal data",
+    "username": "Username",
+    "password": "Password",
+    "save": "Save",
+    "forgot": "Forgot data?",
+    "signin": "Sign in",
+    "or": "or",
+    "signup": "Sign up"
+  },
+  "authErrors": {
+    "tryAgain": "Entered data is incorrect. Try again",
+    "blockWarning": "The entered data is incorrect. Try again. If the data is entered incorrectly for the fifth time, your account will be blocked for 10 minutes",
+    "tempBlocked": "The entered data is incorrect. Your account has been blocked for 10 minutes",
+    "lastWarning": "The entered data is incorrect. Try again. Entering data incorrectly again, your account will be blocked. To unlock, contact us at the number: 2 55 00 00 or contact the nearest Terabank branch",
+    "blocked": "The entered data is incorrect. Your account is blocked. Contact us to unlock at the number: 2 55 00 00 or contact the nearest Terabank branch"
+  },
+  "passcode": {
+    "headerTitle": "Set passcode",
+    "setPasscodeTitle": "Set 4-digit passcode",
+    "setPasscodeDescription": "Enter your passcode",
+    "repeatPasscodeTitle": "Repeat  passcode",
+    "passcodesDoNotMatch": "Passcodes do not match. please try again",
+    "device_is_trusted": "Device has been trusted!"
+  },
+  "settings": {
+    "choose_authorization_method": "Choose authorization method",
+    "sms_code_title": "SMS code",
+    "sms_code_desc": "with the use of password and one time code",
+    "passcode_title": "passcode",
+    "passcode_desc": "with the use of password and one time code",
+    "face_id_title": "Face ID",
+    "face_id_desc": "Authenticate with a Face ID",
+    "biometric_title": "Biometric data",
+    "biometric_desc": "with the use of password and one time code",
+    "personal_info": "Personal information",
+    "edit_user": "Edit user",
+    "email": "Email",
+    "security_settings": "Security settings",
+    "change_password": "Change password",
+    "change_code_word": "Change code word",
+    "security_level": "Security level",
+    "trusted_devices": "Trusted devices",
+    "additional_settings": "Additional settings",
+    "manage_notifications": "Manage notifications"
+  },
+  "trustDevice": {
+    "heading": "Device verification",
+    "title": "To install {{name}}, it is necessary to make the device trustworthy",
+    "description": "After verifying the device, you can log into mobile banking without an SMS and digital pass code",
+    "CTAText": "Verify the device",
+    "passcode_s": "Passcode",
+    "faceId_s": "Face ID",
+    "fingerprint_s": "Fingerprint"
+  },
+  "easyLogin": {
+    "title": "Easy login",
+    "description": "For easy access, use fingerprint or password login.",
+    "activate": "Activate",
+    "next_time": "Other time",
+    "do_not_ask_again": "Do not ask again"
+  },
+  "dashboard": {
+    "templates": "Templates",
+    "template": "Template",
+    "all": "All",
+    "transactions": "last transactions",
+    "upcomingTransactions": "upcoming transactions",
+    "assets": "assets and liabilities",
+    "pension": "Pension fund",
+    "banker": "My banker",
+    "tera": "Tera Bank",
+    "otherBanks": "Other Banks",
+    "account": "My Account",
+    "availableBalance": "Available balance",
+    "terabytes": "{{value}} terabyte",
+    "transfer": "Transfer",
+    "pay": "Payment",
+    "fill": "Top up"
+  },
+
+  "profile": {
+    "edit_settings": "Edit settings",
+    "logout": "Log out"
+  },
+  "transfers": {
+    "toOwnAccount": "Transfer to Own Account",
+    "tera": "Transfer to Tera",
+    "otherBanks": "Transfer to Another Bank",
+    "budget": "Budgetary Transfer",
+    "automatic": "Automatic Transfer",
+    "chooseService": "Choose Service",
+    "templates": "Templates",
+    "add": "Add",
+    "all": "See all",
+    "lastTransactions": "Last Transactions",
+    "search": "Search Account"
+  },
+  "products": {
+    "accountsAndCards": "Accounts and Cards ({{value}})",
+    "deposits": "Deposits ({{value}})",
+    "loans": "Loans ({{value}})",
+    "interest": "Interest",
+    "fee": "Fee",
+    "new": "New Product",
+    "history": "განცხადებების ისტორია",
+    "allAccounts": "Accounts and Cards",
+    "Offers": "Offers",
+    "more": "Learn more",
+    "newAccount": "New Account/Card",
+    "accountDetails": "Account Details",
+    "name": "Name",
+    "accountNumber": "Account Number",
+    "blockedFunds": "Blocked Funds",
+    "lastTransactions": "Last Transactions",
+    "transfer": "Transfer",
+    "payments": "Payments",
+    "requisite": "Requisites",
+    "share": "Share",
+    "blocked": "Blocked",
+    "expired": "Expired",
+    "cards": "Cards",
+    "cardRequest": "Card Request",
+    "details": "Details",
+    "accountBlocked": "Account is blocked",
+    "emptyCards": "You do not have a card linked to your account",
+    "loanArrears": "Loan Arrears",
+    "overdraft": "Active overdraft",
+    "availableAmount": "Available Amount",
+    "pay": "pay"
+  }
+}
