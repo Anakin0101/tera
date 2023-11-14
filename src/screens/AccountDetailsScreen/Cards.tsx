@@ -5,25 +5,8 @@ import { CardItem } from './CardItem';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { EmptyCards, Plus } from 'assets/SVGs';
 import { CardsProps } from './AccountDetailsScreen.types';
-
-// const dummyCards = [
-//   {
-//     name: 'ჩემი ბარათი',
-//     isFavourite: true,
-//     cardNumber: '**** 0453',
-//     isBlocked: true,
-//     isExpired: true,
-//     type: 'MasterCard',
-//   },
-//   {
-//     name: 'ჩემი ბარათი',
-//     isFavourite: false,
-//     cardNumber: '**** 0453',
-//     isBlocked: false,
-//     isExpired: false,
-//     type: 'Visa',
-//   },
-// ];
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
 
 const ListHeader = () => {
   const styles = useStyles();
@@ -35,10 +18,20 @@ const ListHeader = () => {
 };
 
 const ListFooter = () => {
+  const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
   const styles = useStyles();
   return (
     <View style={styles.footerContainer}>
-      <Button.Secondary text="products.cardRequest" fullWidth leftIcon={Plus} />
+      <Button.Secondary
+        text="products.cardRequest"
+        fullWidth
+        leftIcon={Plus}
+        onPress={() =>
+          navigate('CardDetailsScreen', {
+            iban: 'GE04KS0000001360115733',
+          })
+        }
+      />
     </View>
   );
 };
@@ -53,14 +46,14 @@ const EmptyComponent = () => {
   );
 };
 
-const Cards: FC<CardsProps> = ({ cards }) => {
+const Cards: FC<CardsProps> = ({ cards, fromCardDetails }) => {
   const styles = useStyles();
   const renderItem: ListRenderItem<any> = ({ item, index }) => {
     return <CardItem item={item} onPress={() => {}} isLast={index === cards.length - 1} />;
   };
 
   return (
-    <View style={styles.cardListWrapper}>
+    <View style={fromCardDetails ? styles.CardListWrapperWithoutBorder : styles.cardListWrapper}>
       <FlatList
         data={cards}
         renderItem={renderItem}

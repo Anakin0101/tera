@@ -24,6 +24,7 @@ import {
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   ACCOUNT_DETAILS_SCREEN,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
+  CARD_DETAILS_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -45,6 +46,9 @@ export type ProductsStackParamsList = {
   [PRODUCTS_SCREEN]: undefined;
   [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
   [ACCOUNT_DETAILS_SCREEN]: {
+    iban: string;
+  };
+  [CARD_DETAILS_SCREEN]: {
     iban: string;
   };
   [MY_ACCOUNT_SCROLLABLE_SCREEN]: undefined;

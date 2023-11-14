@@ -149,6 +149,7 @@
     "loanArrears": "Loan Arrears",
     "overdraft": "Active overdraft",
     "availableAmount": "Available Amount",
-    "pay": "pay"
+    "pay": "pay",
+    "cardDetails": "Card Details"
   }
 }
