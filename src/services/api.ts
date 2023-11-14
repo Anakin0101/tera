@@ -60,7 +60,6 @@ export const baseQueryWithInterceptor: BaseQueryFn<
 
   // We can pass custom headers, depending on a specific API request, just like this: {headerKey: "headerValue"}
   if (typeof args !== 'string') {
-    // console.log('addTrustedDevice', args);
     if (args.headers && args.body && args.body.headers) {
       customHeaders = {
         ...(args.body.headers as Record<string, string>),
