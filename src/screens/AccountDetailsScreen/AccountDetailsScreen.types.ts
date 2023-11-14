@@ -24,10 +24,12 @@ export interface CardSliderItemProps {
 
 export interface CardsProps {
   cards: CardType[];
+  isCardAccount?: boolean;
 }
 
 export interface DetailsProps {
   name: string;
   iban: string;
   blockedAmount?: number;
+  displayDivider: boolean;
 }

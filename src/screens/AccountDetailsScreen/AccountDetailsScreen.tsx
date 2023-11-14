@@ -30,9 +30,15 @@ export const AccountDetailsScreen = () => {
       case 'main':
         return <CardsSlider />;
       case 'cards':
-        return <Cards cards={groupedCardsByPan} />;
+        return <Cards cards={groupedCardsByPan} isCardAccount={account.isCardAccount} />;
       case 'details':
-        return <Details name={account?.accountName} iban={account?.iban} />;
+        return (
+          <Details
+            name={account?.accountName}
+            iban={account?.iban}
+            displayDivider={!!lastTransactions?.length}
+          />
+        );
       case 'transactions':
         return (
           <LastTransactions

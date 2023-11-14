@@ -7,6 +7,7 @@ import { EmptyCards, Plus } from 'assets/SVGs';
 import { CardsProps } from './AccountDetailsScreen.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { CardType } from 'services/apis/productsAPI/productsAPI.types';
 
 const ListHeader = () => {
   const styles = useStyles();
@@ -46,9 +47,9 @@ const EmptyComponent = () => {
   );
 };
 
-const Cards: FC<CardsProps> = ({ cards, fromCardDetails }) => {
+const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount }) => {
   const styles = useStyles();
-  const renderItem: ListRenderItem<any> = ({ item, index }) => {
+  const renderItem: ListRenderItem<CardType> = ({ item, index }) => {
     return <CardItem item={item} onPress={() => {}} isLast={index === cards.length - 1} />;
   };
 
@@ -58,10 +59,10 @@ const Cards: FC<CardsProps> = ({ cards, fromCardDetails }) => {
         data={cards}
         renderItem={renderItem}
         ListHeaderComponent={ListHeader}
-        ListFooterComponent={ListFooter}
+        ListFooterComponent={isCardAccount ? ListFooter : null}
         ListEmptyComponent={EmptyComponent}
       />
-      <Divider marginBottom={24} />
+      <Divider marginTop={32} />
     </View>
   );
 };

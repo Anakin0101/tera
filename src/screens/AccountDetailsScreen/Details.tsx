@@ -7,7 +7,7 @@ import { ChevronRight, Copy, Edit } from 'assets/SVGs';
 import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
 
-export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405 }) => {
+export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405, displayDivider }) => {
   const styles = useStyles();
 
   return (
@@ -28,7 +28,7 @@ export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405 }) 
           onPress={() => {}}
         />
       </View>
-      <Divider marginTop={32} />
+      {displayDivider && <Divider />}
     </View>
   );
 };
