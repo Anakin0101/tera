@@ -1,7 +1,8 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface LastTransactionProps {
-  item: any;
+  item: TransactionType;
   index: number;
 }
 

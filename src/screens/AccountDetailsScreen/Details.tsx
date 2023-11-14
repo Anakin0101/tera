@@ -1,33 +1,29 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Divider, Text } from 'components';
+import { DetailsItem } from './DetailsItem';
 import { formatMoney } from 'utils/formatMoney';
 import { ChevronRight, Copy, Edit } from 'assets/SVGs';
+import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { DetailsItem } from './DetailsItem';
 
-export const Details = () => {
+export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405 }) => {
   const styles = useStyles();
 
   return (
     <View style={styles.backgroundWhite}>
       <View style={styles.detailsSectionWrapper}>
         <Text children="products.details" size={18} demiBold />
-        <DetailsItem
-          label="products.name"
-          value="უნივერსალური ანგარიში"
-          icon={<Edit />}
-          onPress={() => {}}
-        />
+        <DetailsItem label="products.name" value={name} icon={<Edit />} onPress={() => {}} />
         <DetailsItem
           label="products.accountNumber"
-          value="GE48ZD000000034769234800"
+          value={iban}
           icon={<Copy />}
           onPress={() => {}}
         />
         <DetailsItem
           label="products.blockedFunds"
-          value={formatMoney(2405)}
+          value={formatMoney(blockedAmount)}
           icon={<ChevronRight />}
           onPress={() => {}}
         />

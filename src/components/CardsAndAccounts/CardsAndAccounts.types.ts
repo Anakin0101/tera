@@ -1,6 +1,7 @@
 import { Account, Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface IGroupedAccountsByIban {
+  accountNumber: number;
   accountName: string;
   accounts: Account[];
   iban: string;

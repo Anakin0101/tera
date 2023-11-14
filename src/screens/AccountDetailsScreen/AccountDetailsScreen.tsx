@@ -9,33 +9,6 @@ import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { useAccountDetails } from './container';
 
-const lastTransactions = [
-  {
-    title: 'რონის პიცა',
-    value: 'კვება',
-    amount: 320.5,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'მანქანის დაზღვევა',
-    value: 'ფინანსები',
-    amount: 410,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'პირადი გადარიცხვა',
-    value: 'პირადი გადარიცხვა',
-    amount: 250,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'პირადი გადარიცხვა',
-    value: 'პირადი გადარიცხვა',
-    amount: 25.7,
-    date: '20 სექ, 2021, 12:20',
-  },
-];
-
 const sections = [
   { title: 'main', data: [{}] },
   { title: 'cards', data: [{}] },
@@ -46,7 +19,11 @@ const sections = [
 export const AccountDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'AccountDetailsScreen'>>();
-  const { groupedCardsByPan } = useAccountDetails(params.iban);
+  const { account, groupedCardsByPan, lastTransactions } = useAccountDetails(params.iban);
+
+  if (!account) {
+    return null;
+  }
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
@@ -55,7 +32,7 @@ export const AccountDetailsScreen = () => {
       case 'cards':
         return <Cards cards={groupedCardsByPan} />;
       case 'details':
-        return <Details />;
+        return <Details name={account?.accountName} iban={account?.iban} />;
       case 'transactions':
         return (
           <LastTransactions

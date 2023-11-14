@@ -3,37 +3,11 @@ import { FlatList, ListRenderItem, Pressable, View } from 'react-native';
 import { Text } from '../index';
 import { useStyles } from './LastTransactions.styles';
 import LastTransactionItem from './LastTransactionItem';
-import { ILastTransaction, LastTransactionsProps } from './LastTransaction.types';
-
-const dummyData = [
-  {
-    title: 'გივი დაუთაშვილი',
-    value: 'GE07BS*****3232 GEL',
-    amount: 320.5,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'თემო გაბეჩავა',
-    value: 'GE07BS*****3232 GEL',
-    amount: 410,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'ზურა ჭავჭანიძე',
-    value: '01019052736',
-    amount: 250,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'გივი დაუთაშვილი',
-    value: '01019052736',
-    amount: 25.7,
-    date: '20 სექ, 2021, 12:20',
-  },
-];
+import { LastTransactionsProps } from './LastTransaction.types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export const LastTransactions: FC<LastTransactionsProps> = ({
-  data = dummyData,
+  data,
   sectionTitle = 'transfers.lastTransactions',
   headerContaienrStyle,
   headerLabelStyle,
@@ -42,7 +16,7 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
 }) => {
   const styles = useStyles();
 
-  const renderItem: ListRenderItem<ILastTransaction> = ({ item, index }) => {
+  const renderItem: ListRenderItem<TransactionType> = ({ item, index }) => {
     return <LastTransactionItem item={item} index={index} />;
   };
 
@@ -53,6 +27,10 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
       </Pressable>
     );
   };
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <>
