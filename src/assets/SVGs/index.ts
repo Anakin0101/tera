@@ -68,3 +68,4 @@ export { Star } from './Star';
 export { FullStar } from './FullStar';
 export { EmptyCards } from './EmptyCards';
 export { CardPayment } from './CardPayment';
+export { WalletSvg } from './Wallet';

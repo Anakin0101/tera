@@ -5,11 +5,13 @@ import {
   AllAcountsAndCardsScreen,
   MyAccountsScrollableScreen,
   ProductsScreen,
+  CardDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
   ACCOUNT_DETAILS_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
+  CARD_DETAILS_SCREEN,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -86,6 +88,21 @@ export const ProductsStack = () => {
           ),
           headerStyle: {
             backgroundColor: 'yellow',
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+        <Screen
+        name={CARD_DETAILS_SCREEN}
+        component={CardDetailsScreen}
+        options={{
+          title: t('products.cardDetails'),
+          headerStyle: {
+            backgroundColor: Colors.white,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',

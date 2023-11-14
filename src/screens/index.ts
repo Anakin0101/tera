@@ -17,3 +17,4 @@ export { MyAccounts } from './MyAccounts/MyAccounts';
 export { AllAcountsAndCardsScreen } from './AllAccountsAndCardsScreen/AllAcountsAndCardsScreen';
 export { AccountDetailsScreen } from './AccountDetailsScreen/AccountDetailsScreen';
 export { MyAccountsScrollableScreen } from './MyAccountScrollableScreen/MyAccountScrollableScreen';
+export { CardDetailsScreen } from './CardDetailsScreen/CardDetailsScreen';

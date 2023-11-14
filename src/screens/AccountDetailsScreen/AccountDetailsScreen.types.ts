@@ -24,4 +24,5 @@ export interface CardSliderItemProps {
 
 export interface CardsProps {
   cards: CardType[];
+  fromCardDetails?: boolean;
 }

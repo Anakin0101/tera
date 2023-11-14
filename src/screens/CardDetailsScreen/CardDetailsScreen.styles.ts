@@ -98,7 +98,6 @@ export const useStyles = () => {
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
     },
-    CardListWrapperWithoutBorder: { backgroundColor: Colors.white },
     smallCard: {
       width: 26,
       height: Spacing.l,
