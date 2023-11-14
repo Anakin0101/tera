@@ -24,5 +24,10 @@ export interface CardSliderItemProps {
 
 export interface CardsProps {
   cards: CardType[];
-  fromCardDetails?: boolean;
+}
+
+export interface DetailsProps {
+  name: string;
+  iban: string;
+  blockedAmount?: number;
 }

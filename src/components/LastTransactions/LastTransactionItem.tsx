@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Divider, Text } from '../index';
 import { useTheme } from 'hooks';
+import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { LastTransactionProps } from './LastTransaction.types';
 import { useStyles } from './LastTransactions.styles';
+import { formatDate } from 'utils/formatDate';
 
 const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
   const styles = useStyles();
@@ -14,12 +16,15 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
       <View style={styles.imageContainer} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
-          <Text size={14}>{item.title}</Text>
-          <Text size={14}>-${item.amount}</Text>
+          <Text size={14}>{item.description}</Text>
+          <Text size={14} medium color={item.isIncome ? Colors.success : Colors.black700}>
+            {!item.isIncome && '-'} {CurrencySignMap[item.currency]}
+            {item.amount}
+          </Text>
         </View>
         <View style={styles.details}>
-          <Text children={item.value} size={12} color={Colors.textBlack400} />
-          <Text children={item.date} size={12} color={Colors.textBlack400} />
+          <Text children="" size={12} color={Colors.textBlack400} />
+          <Text children={formatDate(item.docDate)} size={12} color={Colors.textBlack400} />
         </View>
         {index < 3 && <Divider height={1} marginTop={18} marginBottom={18} width="100%" />}
       </View>

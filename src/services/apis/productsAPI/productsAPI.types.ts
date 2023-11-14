@@ -117,3 +117,25 @@ export type LoanType = {
   totalPrincipalPayable: number;
   usedPrincipalAmount: number;
 };
+
+export type TransactionType = {
+  docDate: string;
+  description: string;
+  balanceStart: number;
+  balance: number;
+  amount: number;
+  isIncome: boolean;
+  senderIban: string;
+  currency: Currency;
+};
+
+export type LastTransactionReq = {
+  count: number;
+  accountNumber?: number;
+  startDate: string;
+  endDate: string;
+};
+
+export type LastTransactionRes = {
+  ops: TransactionType[];
+};

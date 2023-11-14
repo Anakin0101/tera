@@ -10,7 +10,7 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setAccounts, setTotalAvailableBalance } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
-import { groupedDataArray } from 'utils/groupDataByKey';
+import { groupAccountsByIban } from 'utils/groupData';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,10 @@ export const useTeraProducts = () => {
 
   useEffect(() => {
     if (accounts) {
-      const groupedAccounts: IGroupedAccountsByIban[] = groupedDataArray(accounts, 'accountIban');
+      const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(
+        accounts,
+        'accountIban',
+      );
       const balanceGEL = accounts.filter(acc => acc.ccy === 'GEL');
       const totalAvailableGEL = calculateSum(balanceGEL, 'balance');
 

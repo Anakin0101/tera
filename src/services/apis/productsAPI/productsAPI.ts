@@ -5,9 +5,12 @@ import { METHOD_NAMES } from 'services/constants';
 import {
   Account,
   DepositType,
+  LastTransactionReq,
+  LastTransactionRes,
   LoanType,
   OfferType,
   OffersAPIResponseType,
+  TransactionType,
 } from './productsAPI.types';
 
 export const productsAPI = createApi({
@@ -52,6 +55,19 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getLastTransactionsByAccNumber: builder.query<TransactionType[], LastTransactionReq>({
+      query: ({ accountNumber, count, startDate, endDate }) => ({
+        url: URLS.getCustomerOps,
+        method: METHOD_NAMES.POST,
+        body: {
+          accountNumber,
+          count,
+          startDate,
+          endDate,
+        },
+      }),
+      transformResponse: (response: LastTransactionRes) => response.ops,
+    }),
   }),
 });
 
@@ -60,4 +76,5 @@ export const {
   useGetOffersQuery,
   useGetDepositsQuery,
   useGetLoansByCustomerIdQuery,
+  useGetLastTransactionsByAccNumberQuery,
 } = productsAPI;
