@@ -28,7 +28,7 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
     );
   };
 
-  if (!data) {
+  if (!data?.length) {
     return null;
   }
 

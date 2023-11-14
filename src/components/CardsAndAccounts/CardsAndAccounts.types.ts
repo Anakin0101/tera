@@ -5,6 +5,7 @@ export interface IGroupedAccountsByIban {
   accountName: string;
   accounts: Account[];
   iban: string;
+  isCardAccount: boolean;
 }
 
 export interface CardsAndAccountsProps {

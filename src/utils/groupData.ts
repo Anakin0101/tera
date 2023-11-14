@@ -27,6 +27,7 @@ export const groupAccountsByIban = (
           accounts: [],
           accountName: currentObject.accountName,
           accountNumber: currentObject.accountNumber,
+          isCardAccount: currentObject.accountNameLat === 'Card Account',
         };
       }
       result[key].accounts.push(currentObject);

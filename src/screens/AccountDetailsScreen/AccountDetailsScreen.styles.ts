@@ -130,7 +130,7 @@ export const useStyles = () => {
     },
     footerContainer: {
       margin: Spacing.xl,
-      marginBottom: 32,
+      marginBottom: Spacing.zero,
     },
     badgeContainer: {
       ...Layout.row,
@@ -152,7 +152,7 @@ export const useStyles = () => {
     },
     detailsSectionWrapper: {
       backgroundColor: Colors.white,
-      paddingHorizontal: Spacing.xl,
+      padding: Spacing.xl,
     },
     detailsWrapper: {
       ...Layout.row,
