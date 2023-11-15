@@ -139,3 +139,12 @@ export type LastTransactionReq = {
 export type LastTransactionRes = {
   ops: TransactionType[];
 };
+
+export type UpdateAccountNameReq = {
+  userId: number;
+  customerId: number;
+  channelId: number;
+  culture: string;
+  accountId: number;
+  accountName: string;
+};

@@ -150,6 +150,11 @@
     "overdraft": "Active overdraft",
     "availableAmount": "Available Amount",
     "pay": "pay",
-    "cardDetails": "Card Details"
+    "cardDetails": "Card Details",
+    "accountName": "Account name",
+    "changeName": "Change Name"
+  },
+  "common": {
+    "save": "დამახსოვრება"
   }
 }

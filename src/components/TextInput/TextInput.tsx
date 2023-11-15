@@ -33,6 +33,7 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
       inputStyle,
       containerStyle,
       iconContainerStyle,
+      autoFocus,
     },
     ref,
   ) => {
@@ -87,6 +88,8 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
             keyboardType={keyboardType}
             onChangeText={onChangeText}
             secureTextEntry={secureText}
+            autoFocus={autoFocus}
+            autoComplete="off"
             style={[styles.input, inputStyle]}
           />
           {secureTextEntry && value && (

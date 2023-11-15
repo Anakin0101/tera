@@ -6,6 +6,7 @@ import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { LastTransactionProps } from './LastTransaction.types';
 import { useStyles } from './LastTransactions.styles';
 import { formatDate } from 'utils/formatDate';
+import { formatMoney } from 'utils/formatMoney';
 
 const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
   const styles = useStyles();
@@ -16,10 +17,12 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
       <View style={styles.imageContainer} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
-          <Text size={14}>{item.description}</Text>
+          <Text size={14} numberOfLines={1} style={{ flex: 1 }}>
+            {item.description}
+          </Text>
           <Text size={14} medium color={item.isIncome ? Colors.success : Colors.black700}>
             {!item.isIncome && '-'} {CurrencySignMap[item.currency]}
-            {item.amount}
+            {formatMoney(item.amount)}
           </Text>
         </View>
         <View style={styles.details}>

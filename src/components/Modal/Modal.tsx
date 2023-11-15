@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import {
   BottomSheetView,
   BottomSheetModal,
@@ -10,13 +10,14 @@ import useModal from './useModal';
 import { ModalHandler } from './Modal.types';
 import { useStyles } from './Modal.styles';
 import { Close } from 'assets/SVGs';
+import { Text } from '../index';
 
 const Backdrop = (props: BottomSheetBackdropProps) => {
   return <BottomSheetBackdrop disappearsOnIndex={-1} appearsOnIndex={0} {...props} />;
 };
 
 export const Modal = forwardRef<ModalHandler>((_, ref) => {
-  const { modalRef, element, close, title } = useModal(ref);
+  const { modalRef, element, close, title, titlePosition, enableDynamicSizing } = useModal(ref);
   const snapPoints = useMemo(() => ['70%'], []);
   const styles = useStyles();
 
@@ -26,13 +27,14 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
       keyboardBehavior="extend" // Set this to "padding"
       keyboardBlurBehavior="none" // Set this to "none" or remove it
       ref={modalRef}
-      enableDynamicSizing
+      enableDynamicSizing={enableDynamicSizing}
       backdropComponent={Backdrop}
       handleStyle={styles.handle}
       handleIndicatorStyle={styles.handleIndicator}
     >
       <BottomSheetView style={styles.container}>
         <View style={title ? styles.titleContainer : null}>
+          {titlePosition === 'center' && <View />}
           {title && <Text style={styles.title}>{title}</Text>}
           <Pressable onPress={close} style={styles.closeButton}>
             <Close />
