@@ -8,4 +8,7 @@ export interface ModalHandler {
 export interface ConfigureModal {
   element: ReactNode;
   title?: string;
+  titlePosition?: TitlePos;
+  enableDynamicSizing?: boolean;
 }
+export type TitlePos = 'center' | 'left';

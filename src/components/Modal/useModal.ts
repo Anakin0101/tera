@@ -1,20 +1,25 @@
 import { ReactNode, Ref, useImperativeHandle, useRef, useState } from 'react';
-import { ConfigureModal, ModalHandler } from './Modal.types';
+import { ConfigureModal, ModalHandler, TitlePos } from './Modal.types';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 const useModal = (ref: Ref<ModalHandler>) => {
   const modalRef = useRef<BottomSheetModal>(null);
   const [element, setElement] = useState<ReactNode>(null);
   const [title, setTitle] = useState<ReactNode>('');
+  const [titlePosition, setTitlePosition] = useState<TitlePos>('left');
+  const [enableDynamicSizing, setEnableDynamicSizing] = useState(true);
 
   const open = (options: ConfigureModal) => {
     setElement(options.element);
     setTitle(options.title);
+    options.titlePosition && setTitlePosition(options.titlePosition);
+    options.enableDynamicSizing && setEnableDynamicSizing(options.enableDynamicSizing);
     modalRef?.current?.present();
   };
 
   const close = () => {
     setTitle('');
+    setTitlePosition('left');
     setElement(null);
     modalRef?.current?.close();
   };
@@ -29,6 +34,8 @@ const useModal = (ref: Ref<ModalHandler>) => {
     title,
     element,
     close,
+    titlePosition,
+    enableDynamicSizing,
   };
 };
 

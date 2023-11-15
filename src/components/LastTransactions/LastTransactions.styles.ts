@@ -21,6 +21,7 @@ export const useStyles = () => {
     details: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
+      gap: Spacing.lg,
     },
     imageContainer: {
       width: 48,

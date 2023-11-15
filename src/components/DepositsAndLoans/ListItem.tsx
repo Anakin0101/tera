@@ -24,6 +24,7 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast }) => {
               children={isDeposit ? item.depositName : item.productName}
               size={14}
               color={Colors.textBlack500}
+              numberOfLines={1}
             />
             <Text size={16}>
               {formatMoney(isDeposit ? item.amount : item.totalDebt || 0)}

@@ -11,6 +11,7 @@ import {
   OfferType,
   OffersAPIResponseType,
   TransactionType,
+  UpdateAccountNameReq,
 } from './productsAPI.types';
 
 export const productsAPI = createApi({
@@ -68,6 +69,20 @@ export const productsAPI = createApi({
       }),
       transformResponse: (response: LastTransactionRes) => response.ops,
     }),
+    updateAccountName: builder.mutation<any, UpdateAccountNameReq>({
+      query: ({ userId, customerId, channelId, culture, accountId, accountName }) => ({
+        url: URLS.getCustomerOps,
+        method: METHOD_NAMES.PATCH,
+        body: {
+          userId,
+          customerId,
+          channelId,
+          culture,
+          accountId,
+          accountName,
+        },
+      }),
+    }),
   }),
 });
 
@@ -77,4 +92,5 @@ export const {
   useGetDepositsQuery,
   useGetLoansByCustomerIdQuery,
   useGetLastTransactionsByAccNumberQuery,
+  useUpdateAccountNameMutation,
 } = productsAPI;
