@@ -152,7 +152,8 @@
     "pay": "pay",
     "cardDetails": "Card Details",
     "accountName": "Account name",
-    "changeName": "Change Name"
+    "changeName": "Change Name",
+    "clipboard": "account number copied"
   },
   "common": {
     "save": "დამახსოვრება"

@@ -20,13 +20,24 @@ export interface DetailsItemProps {
 
 export interface CardSliderItemProps {
   item: any;
+  iban?: string;
 }
 
 export interface CardsProps {
   cards: CardType[];
   isCardAccount?: boolean;
+  fromCardDetails?: boolean;
+  iban?: string;
 }
 
+export type ActionType = {
+  title: string;
+  icon: React.ReactNode;
+};
+
+export type ActionButtonProps = {
+  actions: ActionType[];
+};
 export interface DetailsProps {
   name: string;
   iban: string;

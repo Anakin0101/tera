@@ -51,7 +51,9 @@ export type ProductsStackParamsList = {
   [CARD_DETAILS_SCREEN]: {
     iban: string;
   };
-  [MY_ACCOUNT_SCROLLABLE_SCREEN]: undefined;
+  [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
+    iban: string;
+  };
 };
 
 export type TransactionsStackParamsList = {

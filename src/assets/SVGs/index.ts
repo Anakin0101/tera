@@ -69,3 +69,6 @@ export { FullStar } from './FullStar';
 export { EmptyCards } from './EmptyCards';
 export { CardPayment } from './CardPayment';
 export { WalletSvg } from './Wallet';
+export { Block } from './Block';
+export { Insurance } from './Insurance';
+export { Pincode } from './PinCode';

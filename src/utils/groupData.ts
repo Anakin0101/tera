@@ -8,6 +8,7 @@ export const groupCardsByPan = (data: any[] = [], property: string): CardType[] 
       if (!result[key]) {
         result[key] = currentObject;
       }
+
       return result;
     }, {}),
   );

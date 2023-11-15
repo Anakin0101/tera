@@ -10,7 +10,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 
-export const CardSliderItem: FC<CardSliderItemProps> = ({ item }) => {
+export const CardSliderItem: FC<CardSliderItemProps> = ({ item, iban }) => {
+  if (!iban) {
+    return null;
+  }
   const { navigate } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
   const styles = useStyles();
 
@@ -18,7 +21,9 @@ export const CardSliderItem: FC<CardSliderItemProps> = ({ item }) => {
     <TouchableOpacity
       style={styles.card}
       onPress={() => {
-        navigate('MyAccountScrollableScreen');
+        navigate('MyAccountScrollableScreen', {
+          iban: iban,
+        });
       }}
     >
       <View>

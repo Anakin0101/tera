@@ -71,12 +71,13 @@ export const useStyles = () => {
     },
     actionButtonsContainer: {
       ...Layout.row,
-      ...Layout.justifyContentBetween,
+      ...Layout.justifyContentCenter,
       marginTop: Spacing.xlg,
       marginHorizontal: 30,
     },
     actionWrapper: {
       ...Layout.center,
+      paddingHorizontal: 8,
     },
     iconContainer: {
       width: 56,

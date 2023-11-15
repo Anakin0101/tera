@@ -39,7 +39,7 @@ const accounts = [
   },
 ];
 
-export const CardsSlider = () => {
+export const CardsSlider = ({ data, iban }: any) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
 
@@ -48,7 +48,7 @@ export const CardsSlider = () => {
   });
 
   const renderItem: ListRenderItem<any> = ({ item }) => {
-    return <CardSliderItem item={item} />;
+    return <CardSliderItem item={item} iban={iban} />;
   };
 
   return (
@@ -67,7 +67,7 @@ export const CardsSlider = () => {
           contentContainerStyle={styles.contentContainer}
         />
       </View>
-      <ActionButtons />
+      <ActionButtons actions={data} />
       <Indicator data={accounts} translateX={translateX} hideFirst={false} />
     </View>
   );

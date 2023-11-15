@@ -3,4 +3,6 @@ import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAcco
 export type ProductsStateProps = {
   groupedAccountsByIban: IGroupedAccountsByIban[];
   totalAvailableBalanceGEL: number;
+  cards: any;
+  lastTransactions: any;
 };

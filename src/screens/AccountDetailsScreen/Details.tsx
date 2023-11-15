@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Divider, Text } from 'components';
 import { DetailsItem } from './DetailsItem';
@@ -9,10 +9,28 @@ import { useStyles } from './AccountDetailsScreen.styles';
 import { openModal } from 'utils/modal';
 import { ChangeAccountNameModal } from 'components/modals';
 import { useTranslation } from 'react-i18next';
-
+import Clipboard from '@react-native-clipboard/clipboard';
+import { openToast } from 'utils/toast';
 export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405, displayDivider }) => {
+  const [copiedText, setCopiedText] = useState('');
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const copyToClipboard = (iban?: string) => {
+    if (!iban) {
+      return null;
+    }
+    Clipboard.setString(iban);
+    fetchCopiedText();
+  };
+
+  const fetchCopiedText = async () => {
+    const text = await Clipboard.getString();
+    setCopiedText(text);
+    if (text) {
+      openToast('products.clipboard', 'success');
+    }
+  };
 
   const handleChangeName = () => {
     openModal({
@@ -37,7 +55,9 @@ export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405, di
           label="products.accountNumber"
           value={iban}
           icon={<Copy />}
-          onPress={() => {}}
+          onPress={() => {
+            copyToClipboard(iban);
+          }}
         />
         <DetailsItem
           label="products.blockedFunds"
