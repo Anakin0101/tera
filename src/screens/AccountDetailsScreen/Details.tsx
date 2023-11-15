@@ -11,6 +11,7 @@ import { ChangeAccountNameModal } from 'components/modals';
 import { useTranslation } from 'react-i18next';
 
 export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405, displayDivider }) => {
+  console.log(name, iban, (blockedAmount = 2405), displayDivider, 'displayDivider');
   const styles = useStyles();
   const { t } = useTranslation();
 

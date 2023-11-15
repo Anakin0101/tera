@@ -19,20 +19,10 @@ const ListHeader = () => {
 };
 
 const ListFooter = () => {
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
   const styles = useStyles();
   return (
     <View style={styles.footerContainer}>
-      <Button.Secondary
-        text="products.cardRequest"
-        fullWidth
-        leftIcon={Plus}
-        onPress={() =>
-          navigate('CardDetailsScreen', {
-            iban: 'GE04KS0000001360115733',
-          })
-        }
-      />
+      <Button.Secondary text="products.cardRequest" fullWidth leftIcon={Plus} />
     </View>
   );
 };
@@ -47,10 +37,25 @@ const EmptyComponent = () => {
   );
 };
 
-const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount }) => {
+const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) => {
+  if (!iban) {
+    return null;
+  }
+  const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
   const styles = useStyles();
   const renderItem: ListRenderItem<CardType> = ({ item, index }) => {
-    return <CardItem item={item} onPress={() => {}} isLast={index === cards.length - 1} />;
+    console.log(item, 'itemadsd');
+    return (
+      <CardItem
+        item={item}
+        onPress={() => {
+          navigate('CardDetailsScreen', {
+            iban: iban,
+          });
+        }}
+        isLast={index === cards.length - 1}
+      />
+    );
   };
 
   return (

@@ -1,14 +1,15 @@
 import dayjs from 'dayjs';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useGetLastTransactionsByAccNumberQuery } from 'services/apis/productsAPI/productsAPI';
-import { CardType } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { groupCardsByPan } from 'utils/groupData';
-
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setCards, setLastTransactions } from 'store/slices/products';
 const currentDate = dayjs().toISOString();
 const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
 
 export const useAccountDetails = (iban: string) => {
+  const dispatch = useAppDispatch();
   const account = useAppSelector(state =>
     state.products.groupedAccountsByIban.find(acc => acc.iban === iban),
   );
@@ -27,8 +28,13 @@ export const useAccountDetails = (iban: string) => {
     return account?.accounts.filter(item => item.cards).flatMap(item => item.cards);
   }, [account?.accounts]);
 
-  const groupedCardsByPan: CardType[] = groupCardsByPan(cardsAttachedToAccount, 'pan');
-
+  const groupedCardsByPan = useMemo(() => {
+    return groupCardsByPan(cardsAttachedToAccount, 'pan');
+  }, [cardsAttachedToAccount]);
+  useEffect(() => {
+    dispatch(setCards(groupedCardsByPan));
+    dispatch(setLastTransactions(lastTransactions));
+  }, [groupedCardsByPan, lastTransactions]);
   return {
     account,
     groupedCardsByPan,

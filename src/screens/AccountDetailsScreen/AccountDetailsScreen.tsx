@@ -8,12 +8,32 @@ import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { useAccountDetails } from './container';
+import { Card, Note, Share, Swap } from 'assets/SVGs';
 
 const sections = [
   { title: 'main', data: [{}] },
   { title: 'cards', data: [{}] },
   { title: 'details', data: [{}] },
   { title: 'transactions', data: [{}] },
+];
+
+const actions = [
+  {
+    title: 'products.transfer',
+    icon: <Swap />,
+  },
+  {
+    title: 'products.payments',
+    icon: <Card />,
+  },
+  {
+    title: 'products.requisite',
+    icon: <Note />,
+  },
+  {
+    title: 'products.share',
+    icon: <Share />,
+  },
 ];
 
 export const AccountDetailsScreen = () => {
@@ -28,9 +48,15 @@ export const AccountDetailsScreen = () => {
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
-        return <CardsSlider />;
+        return <CardsSlider data={actions} iban={params.iban} />;
       case 'cards':
-        return <Cards cards={groupedCardsByPan} isCardAccount={account.isCardAccount} />;
+        return (
+          <Cards
+            cards={groupedCardsByPan}
+            isCardAccount={account.isCardAccount}
+            iban={params.iban}
+          />
+        );
       case 'details':
         return (
           <Details

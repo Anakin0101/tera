@@ -1,65 +1,62 @@
 import React from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
-import Cards from '../AccountDetailsScreen/Cards';
 import { Details } from '../AccountDetailsScreen/Details';
 import { CardsSlider } from '../AccountDetailsScreen/CardsSlider';
 import { LastTransactions, Wallet } from 'components';
+import { useStyles } from './CardDetailsScreen.styles';
+import { Block, Insurance, Pincode } from 'assets/SVGs';
 import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
-import { useStyles } from './CardDetailsScreen.styles';
-import { useAccountDetails } from '../AccountDetailsScreen/container';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
-const lastTransactions = [
+const actions = [
   {
-    title: 'რონის პიცა',
-    value: 'კვება',
-    amount: 320.5,
-    date: '20 სექ, 2021, 12:20',
+    title: 'products.transfer',
+    icon: <Block />,
   },
   {
-    title: 'მანქანის დაზღვევა',
-    value: 'ფინანსები',
-    amount: 410,
-    date: '20 სექ, 2021, 12:20',
+    title: 'products.payments',
+    icon: <Insurance />,
   },
   {
-    title: 'პირადი გადარიცხვა',
-    value: 'პირადი გადარიცხვა',
-    amount: 250,
-    date: '20 სექ, 2021, 12:20',
-  },
-  {
-    title: 'პირადი გადარიცხვა',
-    value: 'პირადი გადარიცხვა',
-    amount: 25.7,
-    date: '20 სექ, 2021, 12:20',
+    title: 'products.requisite',
+    icon: <Pincode />,
   },
 ];
 
 const sections = [
   { title: 'main', data: [{}] },
   { title: 'wallet', data: [{}] },
-  { title: 'cards', data: [{}] },
   { title: 'details', data: [{}] },
   { title: 'transactions', data: [{}] },
 ];
 
 export const CardDetailsScreen = () => {
-  const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
+  const { lastTransactions } = useAppSelector(state => state.products);
+  const account = useAppSelector(state =>
+    state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
+  );
+  if (!account) {
+    return null;
+  }
 
-  const { groupedCardsByPan } = useAccountDetails(params.iban);
+  const styles = useStyles();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
-        return <CardsSlider />;
+        return <CardsSlider data={actions} iban={params.iban} />;
       case 'wallet':
         return <Wallet />;
-      case 'cards':
-        return <Cards cards={groupedCardsByPan} fromCardDetails />;
       case 'details':
-        return <Details />;
+        return (
+          <Details
+            name={account?.accountName}
+            iban={account?.iban}
+            displayDivider={!!lastTransactions?.length}
+          />
+        );
       case 'transactions':
         return (
           <LastTransactions

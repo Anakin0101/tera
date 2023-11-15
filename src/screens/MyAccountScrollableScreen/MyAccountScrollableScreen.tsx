@@ -8,51 +8,40 @@ import { Details } from '../AccountDetailsScreen/Details';
 import { Divider, LastTransactions } from 'components';
 import { CardPayment, Swap } from 'assets/SVGs';
 import { FixedButton } from 'components';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useRoute } from '@react-navigation/native';
+import { ProductsStackRouteProps } from 'navigation/types';
 
 export const MyAccountsScrollableScreen = () => {
+  const { params } = useRoute<ProductsStackRouteProps<'MyAccountScrollableScreen'>>();
   const styles = useStyles();
   const sectionListRef = useRef<SectionList>(null);
   const [pressedIndex, setPressedIndex] = useState<number | null>(0);
-
+  const { cards, lastTransactions } = useAppSelector(state => state.products);
+  const account = useAppSelector(state =>
+    state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
+  );
+  if (!account) {
+    return null;
+  }
   const sections = [
     { title: 'cards', data: [{}], name: 'ბარათები' },
     { title: 'details', data: [{}], name: 'დეტალები' },
     { title: 'transactions', data: [{}], name: 'ტრანზაქციები' },
   ];
 
-  const lastTransactions = [
-    {
-      title: 'რონის პიცა',
-      value: 'კვება',
-      amount: 320.5,
-      date: '20 სექ, 2021, 12:20',
-    },
-    {
-      title: 'მანქანის დაზღვევა',
-      value: 'ფინანსები',
-      amount: 410,
-      date: '20 სექ, 2021, 12:20',
-    },
-    {
-      title: 'პირადი გადარიცხვა',
-      value: 'პირადი გადარიცხვა',
-      amount: 250,
-      date: '20 სექ, 2021, 12:20',
-    },
-    {
-      title: 'პირადი გადარიცხვა',
-      value: 'პირადი გადარიცხვა',
-      amount: 25.7,
-      date: '20 სექ, 2021, 12:20',
-    },
-  ];
-
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'cards':
-        return <Cards />;
+        return <Cards cards={cards} iban={params.iban} />;
       case 'details':
-        return <Details />;
+        return (
+          <Details
+            name={account?.accountName}
+            iban={account?.iban}
+            displayDivider={!!lastTransactions?.length}
+          />
+        );
       case 'transactions':
         return (
           <View style={{}}>

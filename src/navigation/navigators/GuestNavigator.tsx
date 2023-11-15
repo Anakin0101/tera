@@ -14,7 +14,7 @@ import {
   PASSCODE_LOGIN_SCREEN,
   PASSWORD_ONLY_LOGIN_SCREEN,
 } from '../ScreenNames';
-import { logAllKeychainValues } from 'utils/logKeychainValues';
+import { clearAllKeyChainValues } from 'utils/logKeychainValues';
 import { useGuestNavigator } from 'hooks/useGuestNavigator';
 
 const Stack = createStackNavigator<GuestStackParamList>();
@@ -29,8 +29,8 @@ export const GuestNavigator = () => {
 
   //   TODO TEMp!
   //   logAllKeychainValues();
-  //   clearrAllKeyChainValues();
-  logAllKeychainValues();
+  clearAllKeyChainValues();
+  // logAllKeychainValues();
 
   return (
     <Navigator initialRouteName={initialRoute} screenOptions={guestNavOptions}>
