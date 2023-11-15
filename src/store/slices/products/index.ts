@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductsStateProps } from './types';
+import { dashboardAPI } from 'services/apis/dashboardAPI/dashboardAPI';
 
 const initialState: ProductsStateProps = {
   groupedAccountsByIban: [],
   totalAvailableBalanceGEL: 0,
   cards: [],
   lastTransactions: [],
+  overdrafts: [],
 };
 
 const productsSlice = createSlice({
@@ -24,6 +26,11 @@ const productsSlice = createSlice({
     setLastTransactions: (state, { payload }) => {
       state.lastTransactions = payload;
     },
+  },
+  extraReducers: builder => {
+    builder.addMatcher(dashboardAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
+      state.overdrafts = payload;
+    });
   },
 });
 

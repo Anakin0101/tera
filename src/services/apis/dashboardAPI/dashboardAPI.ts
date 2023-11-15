@@ -4,7 +4,7 @@ import {
   GetTemplatesResponseType,
   GetCustomerOperationsResponseTypes,
   GetCustomerOperationsRequestTypes,
-  GetLiabilityResponseType,
+  OverdraftType,
 } from './dashboardAPI.types';
 import { URLS } from 'services/constants/urls';
 import { METHOD_NAMES } from 'services/constants';
@@ -44,7 +44,7 @@ export const dashboardAPI = createApi({
         },
       }),
     }),
-    getOverDraft: builder.query<GetLiabilityResponseType, void>({
+    getOverDraft: builder.query<OverdraftType[], void>({
       query: () => ({
         url: URLS.getOverdraft,
         method: METHOD_NAMES.GET,

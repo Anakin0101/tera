@@ -38,13 +38,14 @@ const EmptyComponent = () => {
 };
 
 const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) => {
+  const styles = useStyles();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
+
   if (!iban) {
     return null;
   }
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
-  const styles = useStyles();
+
   const renderItem: ListRenderItem<CardType> = ({ item, index }) => {
-    console.log(item, 'itemadsd');
     return (
       <CardItem
         item={item}

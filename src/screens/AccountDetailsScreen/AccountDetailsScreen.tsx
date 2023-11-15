@@ -9,9 +9,11 @@ import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { useAccountDetails } from './container';
 import { Card, Note, Share, Swap } from 'assets/SVGs';
+import { ActiveOverdraft } from './ActiveOverdraft';
 
 const sections = [
   { title: 'main', data: [{}] },
+  { title: 'overdrafts', data: [{}] },
   { title: 'cards', data: [{}] },
   { title: 'details', data: [{}] },
   { title: 'transactions', data: [{}] },
@@ -39,7 +41,9 @@ const actions = [
 export const AccountDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'AccountDetailsScreen'>>();
-  const { account, groupedCardsByPan, lastTransactions } = useAccountDetails(params.iban);
+  const { account, groupedCardsByPan, lastTransactions, relatedOverdraft } = useAccountDetails(
+    params.iban,
+  );
 
   if (!account) {
     return null;
@@ -49,12 +53,15 @@ export const AccountDetailsScreen = () => {
     switch (section.title) {
       case 'main':
         return <CardsSlider data={actions} iban={params.iban} />;
+      case 'overdrafts':
+        return <ActiveOverdraft relatedOverdraft={relatedOverdraft} />;
       case 'cards':
         return (
           <Cards
             cards={groupedCardsByPan}
             isCardAccount={account.isCardAccount}
             iban={params.iban}
+            fromCardDetails={!!relatedOverdraft}
           />
         );
       case 'details':
