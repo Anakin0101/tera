@@ -1,3 +1,4 @@
+import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { CardType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface CardItemProps {
@@ -44,3 +45,5 @@ export interface DetailsProps {
   blockedAmount?: number;
   displayDivider: boolean;
 }
+
+export type RelatedOverdraft = OverdraftType | null;

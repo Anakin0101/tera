@@ -1,3 +1,5 @@
+import { Currency } from '../productsAPI/productsAPI.types';
+
 export type GetTemplatesResponseType = {
   templates: Template[];
 };
@@ -10,11 +12,8 @@ export type GetTemplatesRequestType = {
 export type GetCustomerOperationsResponseTypes = {
   ops: Transactions[];
 };
-export type GetLiabilityResponseType = {
-  liabilities: Liability[];
-};
 
-export type Liability = {
+export type OverdraftType = {
   id: number;
   accountId: number;
   productName: string;
@@ -23,7 +22,7 @@ export type Liability = {
   startDate: string | null;
   endDate: string | null;
   overdraftLimit: number;
-  currency: string;
+  currency: Currency;
   totalDebt: number;
   totalInterest: number;
   usedPrincipalAmount: number;
