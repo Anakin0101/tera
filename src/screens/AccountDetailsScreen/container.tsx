@@ -1,3 +1,4 @@
+import React from 'react';
 import dayjs from 'dayjs';
 import { useEffect, useMemo } from 'react';
 import { useGetLastTransactionsByAccNumberQuery } from 'services/apis/productsAPI/productsAPI';
@@ -6,6 +7,7 @@ import { groupCardsByPan } from 'utils/groupData';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setCards, setLastTransactions } from 'store/slices/products';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
+import { Card, Note, Share, Swap } from 'assets/SVGs';
 
 const currentDate = dayjs().toISOString();
 const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
@@ -66,11 +68,37 @@ export const useAccountDetails = (iban: string) => {
     dispatch(setLastTransactions(lastTransactions));
   }, [dispatch, groupedCardsByPan, lastTransactions]);
 
+  const actions = useMemo(() => {
+    return [
+      {
+        title: 'products.transfer',
+        icon: <Swap />,
+        handlePress: () => {},
+      },
+      {
+        title: 'products.payments',
+        icon: <Card />,
+        handlePress: () => {},
+      },
+      {
+        title: 'products.requisite',
+        icon: <Note />,
+        handlePress: () => {},
+      },
+      {
+        title: 'products.share',
+        icon: <Share />,
+        handlePress: () => {},
+      },
+    ];
+  }, []);
+
   return {
     account,
     groupedCardsByPan,
     lastTransactions,
     relatedOverdraft,
     sliderData,
+    actions,
   };
 };

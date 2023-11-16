@@ -162,9 +162,12 @@
     "insurance": "დაზღვევა",
     "block": "დაბლოკვა",
     "changePin": "პინ კოდის შეცვლა",
-    "cardRenewal": "ბარათის განახლება"
+    "cardRenewal": "ბარათის განახლება",
+    "cardInsurance": "ბარათის დაზღვევა",
+    "select": "არჩევა",
+    "choosePackage": "აირჩიე პაკეტი",
+    "cancel": "გაუქმება"
   },
-
   "common": {
     "save": "დამახსოვრება"
   }

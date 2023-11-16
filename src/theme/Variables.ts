@@ -55,6 +55,7 @@ export const Colors = {
   accountText500: 'rgba(15, 15, 15, 0.64)',
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
+  insuranceBg: 'rgb(249, 243, 247)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
