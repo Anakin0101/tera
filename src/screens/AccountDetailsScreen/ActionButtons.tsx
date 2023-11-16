@@ -11,7 +11,7 @@ export const ActionButtons: FC<ActionButtonProps> = ({ actions }) => {
       {actions?.map(action => (
         <View style={styles.actionWrapper} key={action.title}>
           <View style={styles.iconContainer}>{action.icon}</View>
-          <View style={{ maxWidth: 85, marginTop: 12 }}>
+          <View style={styles.actionButtonLabel}>
             <Text label children={action.title} center />
           </View>
         </View>
