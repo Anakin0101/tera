@@ -46,6 +46,21 @@ export const useAccountDetails = (iban: string) => {
     return groupCardsByPan(cardsAttachedToAccount, 'pan');
   }, [cardsAttachedToAccount]);
 
+  const sliderData = useMemo(() => {
+    if (!account) {
+      return [];
+    }
+
+    if (!groupedCardsByPan.length) {
+      return [{ accounts: account?.accounts }];
+    }
+
+    return groupedCardsByPan.map(card => ({
+      card,
+      accounts: account?.accounts,
+    }));
+  }, [account, groupedCardsByPan]);
+
   useEffect(() => {
     dispatch(setCards(groupedCardsByPan));
     dispatch(setLastTransactions(lastTransactions));
@@ -56,5 +71,6 @@ export const useAccountDetails = (iban: string) => {
     groupedCardsByPan,
     lastTransactions,
     relatedOverdraft,
+    sliderData,
   };
 };

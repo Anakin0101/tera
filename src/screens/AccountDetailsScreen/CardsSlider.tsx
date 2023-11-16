@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ListRenderItem, View } from 'react-native';
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 import { Spacing } from 'theme/Variables';
@@ -7,39 +7,9 @@ import { ActionButtons } from './ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { CardSliderItem } from './CardSliderItem';
+import { CardsSliderProps, SliderData } from './AccountDetailsScreen.types';
 
-const accounts = [
-  {
-    id: 1,
-    name: 'ჩემი ანგარიში',
-    isBlocked: true,
-    isFavourite: false,
-    debt: 0,
-  },
-  {
-    id: 2,
-    name: 'ჩემი ანგარიში',
-    isBlocked: false,
-    isFavourite: false,
-    debt: 300,
-  },
-  {
-    id: 3,
-    name: 'ჩემი ანგარიში',
-    isBlocked: false,
-    isFavourite: false,
-    debt: 0,
-  },
-  {
-    id: 4,
-    name: 'ჩემი ანგარიში',
-    isBlocked: false,
-    isFavourite: true,
-    debt: 0,
-  },
-];
-
-export const CardsSlider = ({ data, iban }: any) => {
+export const CardsSlider: FC<CardsSliderProps> = ({ actions, iban, data }) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
 
@@ -47,7 +17,7 @@ export const CardsSlider = ({ data, iban }: any) => {
     translateX.value = event.contentOffset.x;
   });
 
-  const renderItem: ListRenderItem<any> = ({ item }) => {
+  const renderItem: ListRenderItem<SliderData> = ({ item }) => {
     return <CardSliderItem item={item} iban={iban} />;
   };
 
@@ -57,7 +27,7 @@ export const CardsSlider = ({ data, iban }: any) => {
         <Animated.FlatList
           horizontal
           pagingEnabled
-          data={accounts}
+          data={data}
           renderItem={renderItem}
           decelerationRate="fast"
           onScroll={scrollHandler}
@@ -67,8 +37,8 @@ export const CardsSlider = ({ data, iban }: any) => {
           contentContainerStyle={styles.contentContainer}
         />
       </View>
-      <ActionButtons actions={data} />
-      <Indicator data={accounts} translateX={translateX} hideFirst={false} />
+      <ActionButtons actions={actions} />
+      <Indicator data={data} translateX={translateX} hideFirst={false} />
     </View>
   );
 };

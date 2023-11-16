@@ -41,9 +41,8 @@ const actions = [
 export const AccountDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'AccountDetailsScreen'>>();
-  const { account, groupedCardsByPan, lastTransactions, relatedOverdraft } = useAccountDetails(
-    params.iban,
-  );
+  const { account, groupedCardsByPan, lastTransactions, relatedOverdraft, sliderData } =
+    useAccountDetails(params.iban);
 
   if (!account) {
     return null;
@@ -52,7 +51,7 @@ export const AccountDetailsScreen = () => {
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
-        return <CardsSlider data={actions} iban={params.iban} />;
+        return <CardsSlider actions={actions} iban={params.iban} data={sliderData} />;
       case 'overdrafts':
         return <ActiveOverdraft relatedOverdraft={relatedOverdraft} />;
       case 'cards':
