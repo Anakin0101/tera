@@ -153,7 +153,11 @@
     "cardDetails": "Card Details",
     "accountName": "Account name",
     "changeName": "Change Name",
-    "clipboard": "account number copied"
+    "clipboard": "account number copied",
+    "insurance": "Insurance",
+    "block": "Block",
+    "changePin": "Change Pin",
+    "cardRenewal": "Card Renewal"
   },
   "common": {
     "save": "დამახსოვრება"

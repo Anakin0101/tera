@@ -76,7 +76,7 @@ export const useStyles = () => {
       marginHorizontal: 30,
     },
     actionWrapper: {
-      ...Layout.center,
+      ...Layout.alignItemsCenter,
       paddingHorizontal: 8,
     },
     iconContainer: {
