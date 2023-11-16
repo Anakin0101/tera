@@ -1,5 +1,5 @@
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CardType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface CardItemProps {
   item: CardType;
@@ -20,7 +20,7 @@ export interface DetailsItemProps {
 }
 
 export interface CardSliderItemProps {
-  item: any;
+  item: SliderData;
   iban?: string;
 }
 
@@ -47,3 +47,13 @@ export interface DetailsProps {
 }
 
 export type RelatedOverdraft = OverdraftType | null;
+
+export interface SliderData {
+  card?: CardType;
+  accounts: Account[];
+}
+export interface CardsSliderProps {
+  iban: string;
+  actions: ActionType[];
+  data: SliderData[];
+}

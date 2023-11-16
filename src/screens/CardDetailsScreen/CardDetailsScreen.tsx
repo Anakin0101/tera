@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
 import { CardsSlider } from '../AccountDetailsScreen/CardsSlider';
@@ -32,21 +32,32 @@ const sections = [
 ];
 
 export const CardDetailsScreen = () => {
+  const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
   const { lastTransactions } = useAppSelector(state => state.products);
   const account = useAppSelector(state =>
     state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
   );
+  const { cards } = useAppSelector(state => state.products);
+
+  const sliderData = useMemo(() => {
+    if (!account) {
+      return [];
+    }
+    return cards.map(card => ({
+      card,
+      accounts: account?.accounts,
+    }));
+  }, [account, cards]);
+
   if (!account) {
     return null;
   }
 
-  const styles = useStyles();
-
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
-        return <CardsSlider data={actions} iban={params.iban} />;
+        return <CardsSlider actions={actions} iban={params.iban} data={sliderData} />;
       case 'wallet':
         return <Wallet />;
       case 'details':

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { Image, Pressable, View } from 'react-native';
 import { Divider, Text } from 'components';
 import { ChevronRight } from 'assets/SVGs';
 import { formatMoney } from 'utils/formatMoney';
@@ -8,6 +8,7 @@ import { config } from 'utils/config';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
+import Images from 'theme/Images';
 
 const PROGRESS_WIDTH = config.mobileWidth - 48 - 12 - 48;
 
@@ -23,7 +24,9 @@ export const ActiveOverdraft = ({ relatedOverdraft }: { relatedOverdraft?: Relat
       <View style={[styles.overdraftContainer]}>
         <Text children="products.overdraft" size={18} demiBold marginTop={32} />
         <View style={styles.overdraftDetailsWrapper}>
-          <View style={styles.cardContainer} />
+          <View style={styles.cardContainer}>
+            <Image source={Images().Overdraft} />
+          </View>
           <View>
             <View style={styles.overdraftDetails}>
               <View>

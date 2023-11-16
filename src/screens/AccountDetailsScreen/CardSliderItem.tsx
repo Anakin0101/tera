@@ -1,97 +1,83 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
-import { ChevronUp, ChevronDown, Star, FullStar, Alert } from 'assets/SVGs';
+import { ChevronUp, ChevronDown, Star, FullStar } from 'assets/SVGs';
 import { CardSliderItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { CurrencySignMap } from 'utils/CurrencySignMap';
 
 export const CardSliderItem: FC<CardSliderItemProps> = ({ item, iban }) => {
+  const styles = useStyles();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
+  const [index, setIndex] = useState(0);
+
   if (!iban) {
     return null;
   }
-  const { navigate } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
-  const styles = useStyles();
+
+  const handlePress = () => {
+    navigate('MyAccountScrollableScreen', { iban });
+  };
 
   return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => {
-        navigate('MyAccountScrollableScreen', {
-          iban: iban,
-        });
-      }}
-    >
+    <Pressable style={styles.card} onPress={handlePress}>
       <View>
-        <Text title children={item.name} regular color={Colors.inactiveTint} />
+        <Text
+          title
+          regular
+          children={item.accounts[index].accountName}
+          color={Colors.inactiveTint}
+        />
         <View style={styles.balance}>
           <Text size={30} lineHeight={36} marginTop={10} color={Colors.white}>
-            {formatMoney(item.debt ? -item.debt : item.isBlocked ? 0.0 : 48292.48)} ₾
+            {formatMoney(item.accounts[index].balance)} {CurrencySignMap[item.accounts[index].ccy]}
           </Text>
-          {!item.isBlocked && !item.debt && (
+          {item.accounts.length > 1 && (
             <View style={styles.arrowContainer}>
-              <Pressable onPress={() => {}}>
-                <ChevronUp />
+              <Pressable onPress={() => setIndex(prev => (prev === 0 ? prev : prev - 1))}>
+                <ChevronUp color={!index ? Colors.textWhite500 : Colors.textWhite} />
               </Pressable>
-              <Pressable onPress={() => {}}>
-                <ChevronDown />
+              <Pressable
+                onPress={() =>
+                  setIndex(prev => (prev === item.accounts.length - 1 ? prev : prev + 1))
+                }
+              >
+                <ChevronDown
+                  color={
+                    index === item.accounts.length - 1 ? Colors.textWhite500 : Colors.textWhite
+                  }
+                />
               </Pressable>
             </View>
           )}
         </View>
       </View>
-      {item.isBlocked || item.debt ? (
-        <View style={styles.blockMessage}>
+      {/* <View style={styles.blockMessage}>
           <Alert color={Colors.white} />
           <Text
             label
-            children={item.debt ? 'products.loanArrears' : 'products.accountBlocked'}
+            children={'products.accountBlocked'}
             color={Colors.white}
           />
-        </View>
-      ) : (
-        <View style={styles.currencies}>
-          <Pressable style={styles.currency}>
-            <Text color={Colors.textWhite500} label size={11}>
-              {formatMoney(1000000)} $
-            </Text>
-          </Pressable>
-          <Pressable style={styles.currency}>
-            <Text color={Colors.textWhite500} label size={11}>
-              {formatMoney(300000)} €
-            </Text>
-          </Pressable>
-          <Pressable style={styles.currency}>
-            <Text color={Colors.textWhite500} label size={11}>
-              {formatMoney(450000)} £
-            </Text>
-          </Pressable>
-          <Pressable style={styles.currency}>
-            <Text color={Colors.textWhite500} label size={11}>
-              {formatMoney(125000)} ₽
-            </Text>
-          </Pressable>
-          <Pressable style={styles.currency}>
-            <Text color={Colors.textWhite500} label size={11}>
-              {formatMoney(560000)} ₺
-            </Text>
-          </Pressable>
-          <Pressable style={styles.currency}>
-            <Text color={Colors.textWhite500} label size={11}>
-              {formatMoney(200000)} ₺
-            </Text>
-          </Pressable>
-        </View>
-      )}
-      {!item.isBlocked && !item.debt && (
-        <Pressable style={styles.startContainer}>
-          {item.isFavourite ? <FullStar /> : <Star />}
-        </Pressable>
-      )}
-    </TouchableOpacity>
+        </View> */}
+      <View style={styles.currencies}>
+        {item.accounts.map((account, idx) => {
+          return (
+            <Pressable style={styles.currency} onPress={() => setIndex(idx)}>
+              <Text color={Colors.textWhite500} label size={11}>
+                {formatMoney(account.availableBalance)} {CurrencySignMap[account.ccy]}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+      <Pressable style={styles.startContainer}>
+        {item.accounts[index].isFavourite ? <FullStar /> : <Star />}
+      </Pressable>
+    </Pressable>
   );
 };

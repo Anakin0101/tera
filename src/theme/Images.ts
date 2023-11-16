@@ -25,5 +25,6 @@ export default function () {
     CloseEye: require('assets/images/CloseEye.png'),
     Email: require('assets/images/Email.png'),
     Phone: require('assets/images/Phone.png'),
+    Overdraft: require('assets/images/overdraft.png'),
   };
 }
