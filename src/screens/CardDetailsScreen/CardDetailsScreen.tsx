@@ -11,15 +11,15 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 
 const actions = [
   {
-    title: 'products.transfer',
-    icon: <Block />,
-  },
-  {
-    title: 'products.payments',
+    title: 'products.insurance',
     icon: <Insurance />,
   },
   {
-    title: 'products.requisite',
+    title: 'products.block',
+    icon: <Block />,
+  },
+  {
+    title: 'products.changePin',
     icon: <Pincode />,
   },
 ];
