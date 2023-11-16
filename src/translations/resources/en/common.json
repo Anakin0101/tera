@@ -157,7 +157,11 @@
     "insurance": "Insurance",
     "block": "Block",
     "changePin": "Change Pin",
-    "cardRenewal": "Card Renewal"
+    "cardRenewal": "Card Renewal",
+    "cardInsurance": "Card Insurance",
+    "select": "Select",
+    "choosePackage": "Choose Package",
+    "cancel": "Cancel"
   },
   "common": {
     "save": "დამახსოვრება"

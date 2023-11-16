@@ -12,12 +12,14 @@ import {
   ACCOUNT_DETAILS_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   CARD_DETAILS_SCREEN,
+  CARD_INSURANCE,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CustomHeader } from 'components/CustomHeader';
+import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -96,11 +98,26 @@ export const ProductsStack = () => {
           },
         }}
       />
-        <Screen
+      <Screen
         name={CARD_DETAILS_SCREEN}
         component={CardDetailsScreen}
         options={{
           title: t('products.cardDetails'),
+          headerStyle: {
+            backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={CARD_INSURANCE}
+        component={CardInsuranceScreen}
+        options={{
+          title: t('products.cardInsurance'),
           headerStyle: {
             backgroundColor: Colors.white,
             shadowColor: 'transparent',
