@@ -34,6 +34,7 @@ export interface CardsProps {
 export type ActionType = {
   title: string;
   icon: React.ReactNode;
+  handlePress?: () => void;
 };
 
 export type ActionButtonProps = {

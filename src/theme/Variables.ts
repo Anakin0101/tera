@@ -56,6 +56,7 @@ export const Colors = {
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
   primaryToggleButtonCollor: 'rgba(159, 29, 107, 0.06)',
+  insuranceBg: 'rgb(249, 243, 247)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

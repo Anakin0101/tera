@@ -8,7 +8,6 @@ import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { useAccountDetails } from './container';
-import { Card, Note, Share, Swap } from 'assets/SVGs';
 import { ActiveOverdraft } from './ActiveOverdraft';
 
 const sections = [
@@ -19,29 +18,10 @@ const sections = [
   { title: 'transactions', data: [{}] },
 ];
 
-const actions = [
-  {
-    title: 'products.transfer',
-    icon: <Swap />,
-  },
-  {
-    title: 'products.payments',
-    icon: <Card />,
-  },
-  {
-    title: 'products.requisite',
-    icon: <Note />,
-  },
-  {
-    title: 'products.share',
-    icon: <Share />,
-  },
-];
-
 export const AccountDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'AccountDetailsScreen'>>();
-  const { account, groupedCardsByPan, lastTransactions, relatedOverdraft, sliderData } =
+  const { account, groupedCardsByPan, lastTransactions, relatedOverdraft, sliderData, actions } =
     useAccountDetails(params.iban);
 
   if (!account) {

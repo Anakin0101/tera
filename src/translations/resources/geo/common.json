@@ -168,10 +168,17 @@
     "information": "ინფორმაცია",
     "cardNumber": "ბარათის ნომერი",
     "dueDate": "ვადა",
-    "CVV": "CVV"
+    "CVV": "CVV",
+    "cardInsurance": "ბარათის დაზღვევა",
+    "select": "არჩევა",
+    "choosePackage": "აირჩიე პაკეტი",
+    "cancel": "გაუქმება",
+    "chooseLanguage": "აირჩიეთ ენა",
+    "requestRequisites": "რეკვიზიტების მოთხოვნა"
   },
-
   "common": {
-    "save": "დამახსოვრება"
+    "save": "დამახსოვრება",
+    "georgian": "ქართული",
+    "english": "ინგლისური"
   }
 }

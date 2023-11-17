@@ -222,5 +222,9 @@ export const useStyles = () => {
       backgroundColor: Colors.success,
       borderRadius: 20,
     },
+    actionButtonLabel: {
+      maxWidth: 85,
+      marginTop: Spacing.m,
+    },
   });
 };

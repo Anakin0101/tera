@@ -163,9 +163,17 @@
     "information": "information",
     "cardNumber": "Card Number",
     "dueDate": "Due Date",
-    "CVV": "CVV"
+    "CVV": "CVV",
+    "cardInsurance": "Card Insurance",
+    "select": "Select",
+    "choosePackage": "Choose Package",
+    "cancel": "Cancel",
+    "chooseLanguage": "Choose Language",
+    "requestRequisites": "Request for Requisites"
   },
   "common": {
-    "save": "დამახსოვრება"
+    "save": "Save",
+    "georgian": "Georgian",
+    "english": "English"
   }
 }

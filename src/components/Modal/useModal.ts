@@ -8,18 +8,22 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [title, setTitle] = useState<ReactNode>('');
   const [titlePosition, setTitlePosition] = useState<TitlePos>('left');
   const [enableDynamicSizing, setEnableDynamicSizing] = useState(true);
+  const [enableContentPanningGesture, setEnableContentPanningGesture] = useState(true);
 
   const open = (options: ConfigureModal) => {
     setElement(options.element);
     setTitle(options.title);
     options.titlePosition && setTitlePosition(options.titlePosition);
-    options.enableDynamicSizing && setEnableDynamicSizing(options.enableDynamicSizing);
+    options.disableDynamicSizing && setEnableDynamicSizing(false);
+    options.disablePanning && setEnableContentPanningGesture(false);
     modalRef?.current?.present();
   };
 
   const close = () => {
     setTitle('');
     setTitlePosition('left');
+    setEnableDynamicSizing(true);
+    setEnableContentPanningGesture(true);
     setElement(null);
     modalRef?.current?.close();
   };
@@ -36,6 +40,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     close,
     titlePosition,
     enableDynamicSizing,
+    enableContentPanningGesture,
   };
 };
 

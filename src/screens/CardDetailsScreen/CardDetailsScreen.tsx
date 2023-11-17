@@ -1,29 +1,29 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
 import { CardsSlider } from '../AccountDetailsScreen/CardsSlider';
 import { LastTransactions, Wallet } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
 import { Block, Insurance, Pincode } from 'assets/SVGs';
-import { useRoute } from '@react-navigation/native';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { CardHolderDetails } from './CardHolderDetails';
 
-const actions = [
-  {
-    title: 'products.insurance',
-    icon: <Insurance />,
-  },
-  {
-    title: 'products.block',
-    icon: <Block />,
-  },
-  {
-    title: 'products.changePin',
-    icon: <Pincode />,
-  },
-];
+// const actions = [
+//   {
+//     title: 'products.insurance',
+//     icon: <Insurance />,
+//   },
+//   {
+//     title: 'products.block',
+//     icon: <Block />,
+//   },
+//   {
+//     title: 'products.changePin',
+//     icon: <Pincode />,
+//   },
+// ];
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -37,6 +37,7 @@ export const CardDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
   const { item } = params;
+  const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
   const { lastTransactions } = useAppSelector(state => state.products);
   const account = useAppSelector(state =>
     state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
@@ -52,6 +53,31 @@ export const CardDetailsScreen = () => {
       accounts: account?.accounts,
     }));
   }, [account, cards]);
+
+  const handleInsurancePress = useCallback(() => {
+    navigate('CardInsuranceScreen');
+  }, [navigate]);
+
+  const actions = useMemo(
+    () => [
+      {
+        title: 'products.insurance',
+        icon: <Insurance />,
+        handlePress: handleInsurancePress,
+      },
+      {
+        title: 'products.block',
+        icon: <Block />,
+        handlePress: () => {},
+      },
+      {
+        title: 'products.changePin',
+        icon: <Pincode />,
+        handlePress: () => {},
+      },
+    ],
+    [handleInsurancePress],
+  );
 
   if (!account) {
     return null;

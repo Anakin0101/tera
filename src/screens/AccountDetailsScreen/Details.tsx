@@ -44,7 +44,7 @@ export const Details: FC<DetailsProps> = ({
       element: <ChangeAccountNameModal name={name} />,
       title: t('products.changeName'),
       titlePosition: 'center',
-      enableDynamicSizing: false,
+      disableDynamicSizing: true,
     });
   };
 
