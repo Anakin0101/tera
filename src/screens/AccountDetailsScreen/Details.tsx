@@ -37,7 +37,7 @@ export const Details: FC<DetailsProps> = ({ name, iban, blockedAmount = 2405, di
       element: <ChangeAccountNameModal name={name} />,
       title: t('products.changeName'),
       titlePosition: 'center',
-      enableDynamicSizing: false,
+      disableDynamicSizing: true,
     });
   };
 

@@ -17,7 +17,15 @@ const Backdrop = (props: BottomSheetBackdropProps) => {
 };
 
 export const Modal = forwardRef<ModalHandler>((_, ref) => {
-  const { modalRef, element, close, title, titlePosition, enableDynamicSizing } = useModal(ref);
+  const {
+    modalRef,
+    element,
+    close,
+    title,
+    titlePosition,
+    enableDynamicSizing,
+    enableContentPanningGesture,
+  } = useModal(ref);
   const snapPoints = useMemo(() => ['70%'], []);
   const styles = useStyles();
 
@@ -31,6 +39,7 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
       backdropComponent={Backdrop}
       handleStyle={styles.handle}
       handleIndicatorStyle={styles.handleIndicator}
+      enableContentPanningGesture={enableContentPanningGesture}
     >
       <BottomSheetView style={styles.container}>
         <View style={title ? styles.titleContainer : null}>
