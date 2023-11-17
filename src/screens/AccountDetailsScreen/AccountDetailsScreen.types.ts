@@ -14,8 +14,8 @@ export interface BadgeProps {
 
 export interface DetailsItemProps {
   label: string;
-  value: string;
-  icon: React.ReactNode;
+  value?: string;
+  icon?: React.ReactNode;
   onPress: () => void;
 }
 
@@ -45,6 +45,8 @@ export interface DetailsProps {
   iban: string;
   blockedAmount?: number;
   displayDivider: boolean;
+  information?: boolean;
+  cardHolder?: string;
 }
 
 export type RelatedOverdraft = OverdraftType | null;

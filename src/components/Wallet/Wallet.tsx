@@ -24,7 +24,6 @@ export const Wallet: FC<WalletProps> = () => {
           />
         </Pressable>
       </View>
-      <Divider />
     </>
   );
 };

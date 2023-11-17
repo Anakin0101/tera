@@ -8,6 +8,7 @@ import { Block, Insurance, Pincode } from 'assets/SVGs';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { CardHolderDetails } from './CardHolderDetails';
 
 // const actions = [
 //   {
@@ -28,19 +29,21 @@ const sections = [
   { title: 'main', data: [{}] },
   { title: 'wallet', data: [{}] },
   { title: 'details', data: [{}] },
+  { title: 'information', data: [{}] },
   { title: 'transactions', data: [{}] },
 ];
 
 export const CardDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
+  const { item } = params;
   const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
   const { lastTransactions } = useAppSelector(state => state.products);
   const account = useAppSelector(state =>
     state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
   );
   const { cards } = useAppSelector(state => state.products);
-
+  console.log(params, 'account');
   const sliderData = useMemo(() => {
     if (!account) {
       return [];
@@ -88,7 +91,17 @@ export const CardDetailsScreen = () => {
         return <Wallet />;
       case 'details':
         return (
+          <CardHolderDetails
+            accountNumber={item.accountNumber}
+            endDate={item.endDate}
+            cvv={item.priority}
+          />
+        );
+      case 'information':
+        return (
           <Details
+            information
+            cardHolder={item?.cardHolder}
             name={account?.accountName}
             iban={account?.iban}
             displayDivider={!!lastTransactions?.length}

@@ -52,6 +52,7 @@ const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) 
         onPress={() => {
           navigate('CardDetailsScreen', {
             iban: iban,
+            item: item,
           });
         }}
         isLast={index === cards.length - 1}
