@@ -8,6 +8,8 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setCards, setLastTransactions } from 'store/slices/products';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { Card, Note, Share, Swap } from 'assets/SVGs';
+import { openModal } from 'utils/modal';
+import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
 
 const currentDate = dayjs().toISOString();
 const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
@@ -68,6 +70,15 @@ export const useAccountDetails = (iban: string) => {
     dispatch(setLastTransactions(lastTransactions));
   }, [dispatch, groupedCardsByPan, lastTransactions]);
 
+  const handleRequisites = () => {
+    openModal({
+      element: <RequisitesModal />,
+      title: 'products.chooseLanguage',
+      titlePosition: 'center',
+      disablePanning: true,
+    });
+  };
+
   const actions = useMemo(() => {
     return [
       {
@@ -83,7 +94,7 @@ export const useAccountDetails = (iban: string) => {
       {
         title: 'products.requisite',
         icon: <Note />,
-        handlePress: () => {},
+        handlePress: handleRequisites,
       },
       {
         title: 'products.share',

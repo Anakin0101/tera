@@ -21,7 +21,7 @@ export const General = () => {
   return (
     <View style={styles.generalWrapper}>
       {data.map((item, index) => (
-        <View style={styles.container}>
+        <View style={styles.container} key={index}>
           <View style={styles.imageContainer} />
           <View style={styles.details}>
             <Text label marginTop={2} children={item.name} color={Colors.textBlack500} />

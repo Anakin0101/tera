@@ -9,6 +9,7 @@ export interface ConfigureModal {
   element: ReactNode;
   title?: string;
   titlePosition?: TitlePos;
-  enableDynamicSizing?: boolean;
+  disableDynamicSizing?: boolean;
+  disablePanning?: boolean;
 }
 export type TitlePos = 'center' | 'left';
