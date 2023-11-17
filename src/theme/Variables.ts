@@ -55,6 +55,7 @@ export const Colors = {
   accountText500: 'rgba(15, 15, 15, 0.64)',
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
+  primaryToggleButtonCollor: 'rgba(159, 29, 107, 0.06)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
@@ -89,6 +90,7 @@ export const Spacing = {
   l: 18,
   lg: 20,
   xl: 24,
+  xlm: 28,
   xlg: 32,
   xxl: 36,
   xxxl: 48,

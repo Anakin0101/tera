@@ -162,7 +162,13 @@
     "insurance": "დაზღვევა",
     "block": "დაბლოკვა",
     "changePin": "პინ კოდის შეცვლა",
-    "cardRenewal": "ბარათის განახლება"
+    "cardRenewal": "ბარათის განახლება",
+    "informationName": "ბარათის სახელი",
+    "informationCardOwner": "ბარათის მფლობელი",
+    "information": "ინფორმაცია",
+    "cardNumber": "ბარათის ნომერი",
+    "dueDate": "ვადა",
+    "CVV": "CVV"
   },
 
   "common": {

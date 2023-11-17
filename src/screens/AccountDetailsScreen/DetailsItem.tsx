@@ -16,12 +16,14 @@ export const DetailsItem: FC<DetailsItemProps> = ({ label, value, icon, onPress 
           <Text children={label} color={Colors.textBlack500} />
           <Text children={value} />
         </View>
-        <Pressable
-          onPress={onPress}
-          style={isBlockedFundsSection ? styles.blockedFundsIcon : styles.detailsIconContainer}
-        >
-          {icon}
-        </Pressable>
+        {icon && (
+          <Pressable
+            onPress={onPress}
+            style={isBlockedFundsSection ? styles.blockedFundsIcon : styles.detailsIconContainer}
+          >
+            {icon}
+          </Pressable>
+        )}
       </View>
     </View>
   );

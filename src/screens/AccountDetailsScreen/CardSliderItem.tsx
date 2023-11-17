@@ -20,7 +20,7 @@ export const CardSliderItem: FC<CardSliderItemProps> = ({ item, iban }) => {
   }
 
   const handlePress = () => {
-    navigate('MyAccountScrollableScreen', { iban });
+    // navigate('MyAccountScrollableScreen', { iban });
   };
 
   return (
