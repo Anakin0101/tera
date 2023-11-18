@@ -9,11 +9,13 @@ export const useStyles = () => {
 
   return StyleSheet.create({
     sectionList: {
+      backgroundColor: Colors.white,
+    },
+    contentContainer: {
       backgroundColor: Colors.dashboardBackground,
     },
     container: {
       ...Layout.fill,
-      backgroundColor: Colors.white,
     },
     cardContainer: {
       ...Layout.center,
@@ -149,6 +151,11 @@ export const useStyles = () => {
       height: Spacing.xxs,
       backgroundColor: Colors.success,
       borderRadius: 20,
+    },
+    blockedAmountsContainer: {
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
+      gap: Spacing.ml,
     },
   });
 };

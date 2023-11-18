@@ -6,7 +6,6 @@ import { openToast } from 'utils/toast';
 import { openModal } from 'utils/modal';
 import { Divider, Text } from 'components';
 import { DetailsItem } from './DetailsItem';
-import { formatMoney } from 'utils/formatMoney';
 import { ChevronRight, Copy, Edit } from 'assets/SVGs';
 import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';
@@ -15,7 +14,7 @@ import { useStyles } from './AccountDetailsScreen.styles';
 export const Details: FC<DetailsProps> = ({
   name,
   iban,
-  blockedAmount = 2405,
+  blockedAmounts,
   displayDivider,
   borderRadius,
   cardHolder,
@@ -66,12 +65,14 @@ export const Details: FC<DetailsProps> = ({
             value={cardHolder}
             onPress={() => {}}
           />
-          <DetailsItem
-            label="products.blockedFunds"
-            value={formatMoney(blockedAmount)}
-            icon={<ChevronRight />}
-            onPress={() => {}}
-          />
+          {blockedAmounts?.length ? (
+            <DetailsItem
+              label="products.blockedFunds"
+              value={blockedAmounts}
+              icon={<ChevronRight />}
+              onPress={() => {}}
+            />
+          ) : null}
         </View>
       ) : (
         <View style={styles.detailsSectionWrapper}>
@@ -90,12 +91,14 @@ export const Details: FC<DetailsProps> = ({
               copyToClipboard(iban);
             }}
           />
-          <DetailsItem
-            label="products.blockedFunds"
-            value={formatMoney(blockedAmount)}
-            icon={<ChevronRight />}
-            onPress={() => {}}
-          />
+          {blockedAmounts?.length ? (
+            <DetailsItem
+              label="products.blockedFunds"
+              value={blockedAmounts}
+              icon={<ChevronRight />}
+              onPress={() => {}}
+            />
+          ) : null}
         </View>
       )}
       {displayDivider && <Divider />}
