@@ -1,5 +1,5 @@
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { CardType, Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface CardItemProps {
   item: CardType;
@@ -14,7 +14,7 @@ export interface BadgeProps {
 
 export interface DetailsItemProps {
   label: string;
-  value?: string;
+  value?: string | BlockedAmount[];
   icon?: React.ReactNode;
   onPress: () => void;
 }
@@ -26,10 +26,15 @@ export interface CardsProps {
   iban?: string;
 }
 
+export type BlockedAmount = {
+  blockedAmount: number;
+  ccy: Currency;
+};
+
 export interface DetailsProps {
   name: string;
   iban: string;
-  blockedAmount?: number;
+  blockedAmounts?: BlockedAmount[];
   displayDivider: boolean;
   borderRadius?: boolean;
   information?: boolean;

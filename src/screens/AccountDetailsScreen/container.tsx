@@ -32,6 +32,15 @@ export const useAccountDetails = (iban: string, index: number) => {
     { skip: !account },
   );
 
+  const blockedAmounts = useMemo(() => {
+    return account?.accounts
+      .filter(item => item.blockedAmount)
+      .map(({ blockedAmount, ccy }) => ({
+        blockedAmount,
+        ccy,
+      }));
+  }, [account?.accounts]);
+
   const cardsAttachedToAccount = useMemo(() => {
     return account?.accounts.filter(item => item.cards).flatMap(item => item.cards);
   }, [account?.accounts]);
@@ -96,6 +105,7 @@ export const useAccountDetails = (iban: string, index: number) => {
     actions,
     overdraftRelatedToAcc,
     groupedCardsByPan,
+    blockedAmounts,
     lastTransactions,
     activeIndex,
     setActiveIndex,

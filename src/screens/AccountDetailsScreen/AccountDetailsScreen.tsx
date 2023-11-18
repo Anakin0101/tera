@@ -26,6 +26,7 @@ export const AccountDetailsScreen = () => {
     actions,
     overdraftRelatedToAcc,
     groupedCardsByPan,
+    blockedAmounts,
     lastTransactions,
     activeIndex,
     setActiveIndex,
@@ -64,7 +65,8 @@ export const AccountDetailsScreen = () => {
             name={account?.accountName}
             iban={account?.iban}
             displayDivider={!!lastTransactions?.length}
-            borderRadius={!account.isCardAccount}
+            borderRadius={!account.isCardAccount && !overdraftRelatedToAcc}
+            blockedAmounts={blockedAmounts}
           />
         );
       case 'transactions':
@@ -85,11 +87,12 @@ export const AccountDetailsScreen = () => {
   return (
     <View style={styles.container}>
       <SectionList
+        bounces={false}
         sections={sections}
         renderItem={renderItem}
-        style={styles.sectionList}
         showsVerticalScrollIndicator={false}
-        bounces={false}
+        style={styles.sectionList}
+        contentContainerStyle={styles.contentContainer}
       />
     </View>
   );
