@@ -9,6 +9,7 @@ import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { setCards, setLastTransactions } from 'store/slices/products';
 import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
 import { useGetLastTransactionsByAccNumberQuery } from 'services/apis/productsAPI/productsAPI';
+import { RequestStatusModal } from 'components/modals/RequestStatusModal/RequestStatusModal';
 
 const currentDate = dayjs().toISOString();
 const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
@@ -73,6 +74,12 @@ export const useAccountDetails = (iban: string, index: number) => {
       disablePanning: true,
     });
   };
+  const handlePayments = () => {
+    openModal({
+      element: <RequestStatusModal success message="პინ კოდს მიიღებთ SMS სახით" />,
+      disablePanning: true,
+    });
+  };
 
   const actions = useMemo(() => {
     return [
@@ -84,7 +91,7 @@ export const useAccountDetails = (iban: string, index: number) => {
       {
         title: 'products.payments',
         icon: <Card />,
-        handlePress: () => {},
+        handlePress: handlePayments,
       },
       {
         title: 'products.requisite',

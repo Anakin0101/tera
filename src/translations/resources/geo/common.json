@@ -177,12 +177,15 @@
     "requestRequisites": "რეკვიზიტების მოთხოვნა",
     "blockCard": "ბარათის დაბლოკვა",
     "unblockCard": "ბარათის განბლოკვა",
-    "tempInactive": "მოლოდინის რეჟიმში"
+    "tempInactive": "მოლოდინის რეჟიმში",
+    "completed": "მოქმედება\nშესრულებულია",
+    "failed": "მოქმედება ვერ\nშესრულდა"
   },
   "common": {
     "save": "დამახსოვრება",
     "georgian": "ქართული",
     "english": "ინგლისური",
-    "confirm": "დადასტურება"
+    "confirm": "დადასტურება",
+    "thankyou": "მადლობა"
   }
 }
