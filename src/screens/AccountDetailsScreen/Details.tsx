@@ -1,23 +1,25 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import Clipboard from '@react-native-clipboard/clipboard';
+import { openToast } from 'utils/toast';
+import { openModal } from 'utils/modal';
 import { Divider, Text } from 'components';
 import { DetailsItem } from './DetailsItem';
 import { formatMoney } from 'utils/formatMoney';
 import { ChevronRight, Copy, Edit } from 'assets/SVGs';
+import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { openModal } from 'utils/modal';
-import { ChangeAccountNameModal } from 'components/modals';
-import { useTranslation } from 'react-i18next';
-import Clipboard from '@react-native-clipboard/clipboard';
-import { openToast } from 'utils/toast';
+
 export const Details: FC<DetailsProps> = ({
-  information,
   name,
   iban,
   blockedAmount = 2405,
   displayDivider,
+  borderRadius,
   cardHolder,
+  information,
 }) => {
   const [copiedText, setCopiedText] = useState('');
   const styles = useStyles();
@@ -49,7 +51,7 @@ export const Details: FC<DetailsProps> = ({
   };
 
   return (
-    <View style={styles.backgroundWhite}>
+    <View style={borderRadius ? styles.wrapperWithBorder : styles.backgroundWhite}>
       {information ? (
         <View style={styles.detailsSectionWrapper}>
           <Text children="products.information" size={18} demiBold />

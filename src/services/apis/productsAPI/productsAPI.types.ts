@@ -1,5 +1,11 @@
 export type Currency = 'GEL' | 'USD' | 'EUR' | 'GBP';
 
+export enum CardStatusCode {
+  Issued = 6,
+  Blocked = 9,
+  TemporarilyInactive = 13,
+}
+
 export type CardType = {
   accountNumber: number;
   cardHolder: string;
@@ -15,7 +21,7 @@ export type CardType = {
   pan: string;
   priority: number;
   startDate: string;
-  status: number;
+  status: CardStatusCode;
 };
 
 export type Account = {

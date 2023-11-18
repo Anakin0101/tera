@@ -1,0 +1,19 @@
+import useTheme from 'hooks/useTheme';
+import { StyleSheet } from 'react-native';
+
+export const useStyles = () => {
+  const { Spacing, Layout, FontFamily } = useTheme();
+  return StyleSheet.create({
+    header: {
+      ...Layout.center,
+      marginTop: 8,
+    },
+    button: {
+      marginTop: 48,
+      paddingVertical: Spacing.m,
+    },
+    buttonText: {
+      fontFamily: FontFamily.medium,
+    },
+  });
+};

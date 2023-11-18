@@ -29,3 +29,7 @@ export const formatDate = (dateString: string) => {
 
   return `${day} ${isEnglish ? month : georgianMonths[month]},${yearAndHour}`;
 };
+
+export const getExpirationDate = (dateString: string) => {
+  return dayjs(dateString).format('MM/YY');
+};

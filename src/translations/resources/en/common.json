@@ -169,11 +169,15 @@
     "choosePackage": "Choose Package",
     "cancel": "Cancel",
     "chooseLanguage": "Choose Language",
-    "requestRequisites": "Request for Requisites"
+    "requestRequisites": "Request for Requisites",
+    "blockCard": "Block Card",
+    "unblockCard": "Unblock Card",
+    "tempInactive": "StandBy Mode"
   },
   "common": {
     "save": "Save",
     "georgian": "Georgian",
-    "english": "English"
+    "english": "English",
+    "confirm": "Confirm"
   }
 }

@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Button, Divider, Text } from 'components';
 import { CardItem } from './CardItem';
-import { useStyles } from './AccountDetailsScreen.styles';
-import { EmptyCards, Plus } from 'assets/SVGs';
 import { CardsProps } from './AccountDetailsScreen.types';
-import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { EmptyCards, Plus } from 'assets/SVGs';
 import { CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { useStyles } from './AccountDetailsScreen.styles';
 
 const ListHeader = () => {
   const styles = useStyles();
@@ -37,7 +37,7 @@ const EmptyComponent = () => {
   );
 };
 
-const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) => {
+export const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) => {
   const styles = useStyles();
   const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
 
@@ -53,6 +53,7 @@ const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) 
           navigate('CardDetailsScreen', {
             iban: iban,
             item: item,
+            index,
           });
         }}
         isLast={index === cards.length - 1}
@@ -60,18 +61,20 @@ const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) 
     );
   };
 
+  if (!isCardAccount) {
+    return null;
+  }
+
   return (
-    <View style={fromCardDetails ? styles.CardListWrapperWithoutBorder : styles.cardListWrapper}>
+    <View style={fromCardDetails ? styles.CardListWrapperWithoutBorder : styles.wrapperWithBorder}>
       <FlatList
         data={cards}
         renderItem={renderItem}
         ListHeaderComponent={ListHeader}
-        ListFooterComponent={isCardAccount ? ListFooter : null}
+        ListFooterComponent={ListFooter}
         ListEmptyComponent={EmptyComponent}
       />
       <Divider marginTop={32} />
     </View>
   );
 };
-
-export default Cards;

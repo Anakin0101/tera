@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import dayjs from 'dayjs';
-import { useEffect, useMemo } from 'react';
-import { useGetLastTransactionsByAccNumberQuery } from 'services/apis/productsAPI/productsAPI';
-import { useAppSelector } from 'store/hooks/useAppSelector';
-import { groupCardsByPan } from 'utils/groupData';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setCards, setLastTransactions } from 'store/slices/products';
-import { RelatedOverdraft } from './AccountDetailsScreen.types';
-import { Card, Note, Share, Swap } from 'assets/SVGs';
 import { openModal } from 'utils/modal';
+import { groupCardsByPan } from 'utils/groupData';
+import { Card, Note, Share, Swap } from 'assets/SVGs';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { RelatedOverdraft } from './AccountDetailsScreen.types';
+import { setCards, setLastTransactions } from 'store/slices/products';
 import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
+import { useGetLastTransactionsByAccNumberQuery } from 'services/apis/productsAPI/productsAPI';
 
 const currentDate = dayjs().toISOString();
 const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
 
-export const useAccountDetails = (iban: string) => {
+export const useAccountDetails = (iban: string, index: number) => {
   const dispatch = useAppDispatch();
-  const account = useAppSelector(state =>
-    state.products.groupedAccountsByIban.find(acc => acc.iban === iban),
-  );
-  const { overdrafts } = useAppSelector(state => state.products);
+  const [activeIndex, setActiveIndex] = useState(index);
+  const { groupedAccountsByIban, overdrafts } = useAppSelector(state => state.products);
+
+  const account = useMemo(() => {
+    return groupedAccountsByIban[activeIndex];
+  }, [groupedAccountsByIban, activeIndex]);
 
   const { data: lastTransactions } = useGetLastTransactionsByAccNumberQuery(
     {
@@ -31,17 +32,6 @@ export const useAccountDetails = (iban: string) => {
     { skip: !account },
   );
 
-  const relatedOverdraft = useMemo(() => {
-    let result: RelatedOverdraft = null;
-    account?.accounts?.forEach(acc => {
-      const match = overdrafts?.find(overdraft => acc.accountId === overdraft.accountId);
-      if (match) {
-        result = match;
-      }
-    });
-    return result;
-  }, [account?.accounts, overdrafts]);
-
   const cardsAttachedToAccount = useMemo(() => {
     return account?.accounts.filter(item => item.cards).flatMap(item => item.cards);
   }, [account?.accounts]);
@@ -50,25 +40,21 @@ export const useAccountDetails = (iban: string) => {
     return groupCardsByPan(cardsAttachedToAccount, 'pan');
   }, [cardsAttachedToAccount]);
 
-  const sliderData = useMemo(() => {
-    if (!account) {
-      return [];
-    }
-
-    if (!groupedCardsByPan.length) {
-      return [{ accounts: account?.accounts }];
-    }
-
-    return groupedCardsByPan.map(card => ({
-      card,
-      accounts: account?.accounts,
-    }));
-  }, [account, groupedCardsByPan]);
-
   useEffect(() => {
     dispatch(setCards(groupedCardsByPan));
     dispatch(setLastTransactions(lastTransactions));
   }, [dispatch, groupedCardsByPan, lastTransactions]);
+
+  const overdraftRelatedToAcc = useMemo(() => {
+    let result: RelatedOverdraft = null;
+    account?.accounts?.forEach(item => {
+      const match = overdrafts?.find(overdraft => item.accountId === overdraft.accountId);
+      if (match) {
+        result = match;
+      }
+    });
+    return result;
+  }, [account?.accounts, overdrafts]);
 
   const handleRequisites = () => {
     openModal({
@@ -106,10 +92,12 @@ export const useAccountDetails = (iban: string) => {
 
   return {
     account,
+    groupedAccountsByIban,
+    actions,
+    overdraftRelatedToAcc,
     groupedCardsByPan,
     lastTransactions,
-    relatedOverdraft,
-    sliderData,
-    actions,
+    activeIndex,
+    setActiveIndex,
   };
 };

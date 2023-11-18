@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { View } from 'react-native';
 import { Button, Divider, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
@@ -21,7 +21,7 @@ export const InsurancePackageItem: FC<InsurancePackageItemProps> = ({ item }) =>
       <View style={styles.termsWrapper}>
         {item.terms.map((term, index) => {
           return (
-            <>
+            <Fragment key={index}>
               <View style={styles.terms}>
                 <View style={styles.nameContainer}>
                   <Text>{term.name}</Text>
@@ -41,7 +41,7 @@ export const InsurancePackageItem: FC<InsurancePackageItemProps> = ({ item }) =>
                   color={Colors.inputBlack50}
                 />
               )}
-            </>
+            </Fragment>
           );
         })}
       </View>

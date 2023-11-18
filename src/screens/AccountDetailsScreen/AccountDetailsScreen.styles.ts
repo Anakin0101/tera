@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { config, horizontalScale } from 'utils/config';
+import { config } from 'utils/config';
 
 const PROGRESS_WIDTH = config.mobileWidth - 48 - 12 - 48;
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontSize, FontFamily, BorderRadius } = useTheme();
+  const { Layout, Colors, Spacing, FontSize, FontFamily } = useTheme();
 
   return StyleSheet.create({
     sectionList: {
@@ -15,77 +15,6 @@ export const useStyles = () => {
       ...Layout.fill,
       backgroundColor: Colors.white,
     },
-    contentContainer: {
-      gap: Spacing.m,
-      paddingHorizontal: 36,
-    },
-    cardsSlider: {
-      backgroundColor: Colors.dashboardBackground,
-      paddingVertical: Spacing.xl,
-    },
-    card: {
-      ...Layout.justifyContentBetween,
-      padding: 26,
-      borderRadius: Spacing.m,
-      backgroundColor: Colors.titleBlack,
-      width: horizontalScale(340),
-      height: 200,
-    },
-    balance: {
-      ...Layout.row,
-    },
-    arrowContainer: {
-      marginTop: Spacing.m,
-      marginLeft: Spacing.s,
-    },
-    startContainer: {
-      ...Layout.center,
-      ...Layout.absolute,
-      width: Spacing.xl,
-      height: Spacing.xl,
-      borderRadius: Spacing.m,
-      backgroundColor: Colors.white,
-      top: Spacing.ml,
-      right: Spacing.ml,
-    },
-    currencies: {
-      ...Layout.row,
-      ...Layout.flexWrap,
-      gap: Spacing.xs,
-      // marginTop: Spacing.ml,
-    },
-    currency: {
-      backgroundColor: Colors.currencyBackground,
-      padding: Spacing.xs,
-      borderRadius: 80,
-    },
-    blockMessage: {
-      ...Layout.row,
-      ...Layout.alignItemsCenter,
-      backgroundColor: Colors.error,
-      borderRadius: BorderRadius.full,
-      paddingHorizontal: Spacing.m,
-      paddingVertical: Spacing.xxs,
-      gap: Spacing.xs,
-      width: 180,
-    },
-    actionButtonsContainer: {
-      ...Layout.row,
-      ...Layout.justifyContentCenter,
-      marginTop: Spacing.xlg,
-      marginHorizontal: 30,
-    },
-    actionWrapper: {
-      ...Layout.alignItemsCenter,
-      paddingHorizontal: 8,
-    },
-    iconContainer: {
-      width: 56,
-      height: 56,
-      borderRadius: 28,
-      backgroundColor: Colors.white,
-      ...Layout.center,
-    },
     cardContainer: {
       ...Layout.center,
       width: 48,
@@ -94,7 +23,7 @@ export const useStyles = () => {
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
     },
-    cardListWrapper: {
+    wrapperWithBorder: {
       backgroundColor: Colors.white,
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
@@ -152,7 +81,6 @@ export const useStyles = () => {
       ...Layout.alignItemsCenter,
     },
     detailsSectionWrapper: {
-      backgroundColor: Colors.white,
       padding: Spacing.xl,
     },
     detailsWrapper: {
@@ -221,10 +149,6 @@ export const useStyles = () => {
       height: Spacing.xxs,
       backgroundColor: Colors.success,
       borderRadius: 20,
-    },
-    actionButtonLabel: {
-      maxWidth: 85,
-      marginTop: Spacing.m,
     },
   });
 };

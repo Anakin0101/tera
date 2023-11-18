@@ -57,6 +57,8 @@ export const Colors = {
   borderColor: 'rgba(196, 196, 196, 0.3)',
   primaryToggleButtonCollor: 'rgba(159, 29, 107, 0.06)',
   insuranceBg: 'rgb(249, 243, 247)',
+  creditCardBg: '#571538',
+  warningSolid: '#FFC423',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
