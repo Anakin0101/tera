@@ -53,6 +53,7 @@ export type ProductsStackParamsList = {
   [CARD_DETAILS_SCREEN]: {
     iban: string;
     index: number;
+    item: any;
   };
   [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
     iban: string;

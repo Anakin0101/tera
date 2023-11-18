@@ -45,18 +45,17 @@ export const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, i
     return null;
   }
 
-  const handlePress = (index: number) => {
-    navigate('CardDetailsScreen', {
-      iban,
-      index,
-    });
-  };
-
   const renderItem: ListRenderItem<CardType> = ({ item, index }) => {
     return (
       <CardItem
         item={item}
-        onPress={() => handlePress(index)}
+        onPress={() => {
+          navigate('CardDetailsScreen', {
+            iban: iban,
+            item: item,
+            index,
+          });
+        }}
         isLast={index === cards.length - 1}
       />
     );

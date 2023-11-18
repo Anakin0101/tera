@@ -60,7 +60,7 @@ export const AccountSliderItem: FC<AccountSliderItemProps> = ({ item, iban }) =>
       <View style={styles.currencies}>
         {item.accounts.map((account, idx) => {
           return (
-            <Pressable style={styles.currency} onPress={() => setIndex(idx)}>
+            <Pressable style={styles.currency} onPress={() => setIndex(idx)} key={idx}>
               <Text color={Colors.textWhite500} label size={11}>
                 {formatMoney(account.availableBalance)} {CurrencySignMap[account.ccy]}
               </Text>

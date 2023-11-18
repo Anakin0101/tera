@@ -85,6 +85,9 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       ...Layout.center,
     },
+    closeEye: {
+      ...Layout.absolute,
+    },
     cardContainer: {
       ...Layout.center,
       width: 48,
@@ -152,7 +155,9 @@ export const useStyles = () => {
     detailsSectionWrapper: {
       backgroundColor: Colors.white,
       paddingHorizontal: Spacing.xl,
+      paddingVertical: Spacing.xl,
     },
+    wrapper: { ...Layout.row, ...Layout.justifyContentBetween, ...Layout.alignItemsCenter },
     detailsWrapper: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
@@ -219,6 +224,19 @@ export const useStyles = () => {
       height: Spacing.xxs,
       backgroundColor: Colors.success,
       borderRadius: 20,
+    },
+    pressable: {
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
+      backgroundColor: Colors.primaryToggleButtonCollor,
+      borderRadius: Spacing.xlm,
+      paddingHorizontal: Spacing.ml,
+      paddingVertical: Spacing.s,
+    },
+    cardView: {
+      ...Layout.row,
+      width: '80%',
+      ...Layout.justifyContentBetween,
     },
   });
 };

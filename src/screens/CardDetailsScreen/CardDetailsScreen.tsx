@@ -9,17 +9,20 @@ import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/ty
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { openModal } from 'utils/modal';
 import { BlockCardModal } from 'components/modals/BlockCardModal/BlockCardModal';
+import { CardHolderDetails } from './CardHolderDetails';
 
 const sections = [
   { title: 'main', data: [{}] },
   { title: 'wallet', data: [{}] },
   { title: 'details', data: [{}] },
+  { title: 'information', data: [{}] },
   { title: 'transactions', data: [{}] },
 ];
 
 export const CardDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
+  const { item } = params;
   const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
   const { lastTransactions, groupedAccountsByIban } = useAppSelector(state => state.products);
   const { cards } = useAppSelector(state => state.products);
@@ -84,7 +87,17 @@ export const CardDetailsScreen = () => {
         return <Wallet />;
       case 'details':
         return (
+          <CardHolderDetails
+            accountNumber={item.accountNumber}
+            endDate={item.endDate}
+            cvv={item.priority}
+          />
+        );
+      case 'information':
+        return (
           <Details
+            information
+            cardHolder={item?.cardHolder}
             name={account?.accountName}
             iban={account?.iban}
             displayDivider={!!lastTransactions?.length}
