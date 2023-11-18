@@ -56,6 +56,8 @@ export const Colors = {
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
   insuranceBg: 'rgb(249, 243, 247)',
+  creditCardBg: '#571538',
+  warningSolid: '#FFC423',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

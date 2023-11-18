@@ -1,14 +1,13 @@
 import React from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
-import Cards from './Cards';
-import { Details } from './Details';
-import { CardsSlider } from './CardsSlider';
-import { LastTransactions } from 'components';
 import { useRoute } from '@react-navigation/native';
-import { ProductsStackRouteProps } from 'navigation/types';
-import { useStyles } from './AccountDetailsScreen.styles';
+import { Cards } from './Cards';
+import { Details } from './Details';
 import { useAccountDetails } from './container';
 import { ActiveOverdraft } from './ActiveOverdraft';
+import { CardsAndAccountsSlider, LastTransactions } from 'components';
+import { ProductsStackRouteProps } from 'navigation/types';
+import { useStyles } from './AccountDetailsScreen.styles';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -21,8 +20,16 @@ const sections = [
 export const AccountDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'AccountDetailsScreen'>>();
-  const { account, groupedCardsByPan, lastTransactions, relatedOverdraft, sliderData, actions } =
-    useAccountDetails(params.iban);
+  const {
+    account,
+    groupedAccountsByIban,
+    actions,
+    overdraftRelatedToAcc,
+    groupedCardsByPan,
+    lastTransactions,
+    activeIndex,
+    setActiveIndex,
+  } = useAccountDetails(params.iban, params.index);
 
   if (!account) {
     return null;
@@ -31,16 +38,24 @@ export const AccountDetailsScreen = () => {
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
-        return <CardsSlider actions={actions} iban={params.iban} data={sliderData} />;
+        return (
+          <CardsAndAccountsSlider
+            actions={actions}
+            iban={params.iban}
+            data={groupedAccountsByIban}
+            index={activeIndex}
+            setActiveIndex={setActiveIndex}
+          />
+        );
       case 'overdrafts':
-        return <ActiveOverdraft relatedOverdraft={relatedOverdraft} />;
+        return <ActiveOverdraft relatedOverdraft={overdraftRelatedToAcc} />;
       case 'cards':
         return (
           <Cards
             cards={groupedCardsByPan}
             isCardAccount={account.isCardAccount}
-            iban={params.iban}
-            fromCardDetails={!!relatedOverdraft}
+            iban={account.iban}
+            fromCardDetails={!!overdraftRelatedToAcc}
           />
         );
       case 'details':
@@ -49,6 +64,7 @@ export const AccountDetailsScreen = () => {
             name={account?.accountName}
             iban={account?.iban}
             displayDivider={!!lastTransactions?.length}
+            borderRadius={!account.isCardAccount}
           />
         );
       case 'transactions':

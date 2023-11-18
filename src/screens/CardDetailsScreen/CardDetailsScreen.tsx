@@ -1,28 +1,14 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
-import { CardsSlider } from '../AccountDetailsScreen/CardsSlider';
-import { LastTransactions, Wallet } from 'components';
+import { CardsAndAccountsSlider, LastTransactions, Wallet } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
 import { Block, Insurance, Pincode } from 'assets/SVGs';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-
-// const actions = [
-//   {
-//     title: 'products.insurance',
-//     icon: <Insurance />,
-//   },
-//   {
-//     title: 'products.block',
-//     icon: <Block />,
-//   },
-//   {
-//     title: 'products.changePin',
-//     icon: <Pincode />,
-//   },
-// ];
+import { openModal } from 'utils/modal';
+import { BlockCardModal } from 'components/modals/BlockCardModal/BlockCardModal';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -35,25 +21,26 @@ export const CardDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
   const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
-  const { lastTransactions } = useAppSelector(state => state.products);
-  const account = useAppSelector(state =>
-    state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
-  );
+  const { lastTransactions, groupedAccountsByIban } = useAppSelector(state => state.products);
   const { cards } = useAppSelector(state => state.products);
+  const [activeIndex, setActiveIndex] = useState(params.index);
 
-  const sliderData = useMemo(() => {
-    if (!account) {
-      return [];
-    }
-    return cards.map(card => ({
-      card,
-      accounts: account?.accounts,
-    }));
-  }, [account, cards]);
+  const account = useMemo(() => {
+    return groupedAccountsByIban[activeIndex];
+  }, [groupedAccountsByIban, activeIndex]);
 
   const handleInsurancePress = useCallback(() => {
     navigate('CardInsuranceScreen');
   }, [navigate]);
+
+  const handleBlockCard = () => {
+    openModal({
+      element: <BlockCardModal />,
+      title: 'products.blockCard',
+      titlePosition: 'center',
+      disablePanning: true,
+    });
+  };
 
   const actions = useMemo(
     () => [
@@ -65,7 +52,7 @@ export const CardDetailsScreen = () => {
       {
         title: 'products.block',
         icon: <Block />,
-        handlePress: () => {},
+        handlePress: handleBlockCard,
       },
       {
         title: 'products.changePin',
@@ -83,7 +70,16 @@ export const CardDetailsScreen = () => {
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
-        return <CardsSlider actions={actions} iban={params.iban} data={sliderData} />;
+        return (
+          <CardsAndAccountsSlider
+            actions={actions}
+            iban={params.iban}
+            data={cards}
+            index={activeIndex}
+            setActiveIndex={setActiveIndex}
+            displayCards
+          />
+        );
       case 'wallet':
         return <Wallet />;
       case 'details':

@@ -65,9 +65,10 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   const styles = useStyles();
   const { navigate } = useNavigation<ProductsStackScreenProps<'AccountDetailsScreen'>>();
 
-  const handlePress = (iban: string) => {
+  const handlePress = (iban: string, index: number) => {
     navigate('AccountDetailsScreen', {
       iban,
+      index,
     });
   };
 
@@ -80,7 +81,7 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
       <Account
         item={item}
         isLast={index === accounts.length - 1}
-        handlePress={() => handlePress(item.iban)}
+        handlePress={() => handlePress(item.iban, index)}
       />
     );
   };

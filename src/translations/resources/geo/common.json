@@ -168,11 +168,15 @@
     "choosePackage": "აირჩიე პაკეტი",
     "cancel": "გაუქმება",
     "chooseLanguage": "აირჩიეთ ენა",
-    "requestRequisites": "რეკვიზიტების მოთხოვნა"
+    "requestRequisites": "რეკვიზიტების მოთხოვნა",
+    "blockCard": "ბარათის დაბლოკვა",
+    "unblockCard": "ბარათის განბლოკვა",
+    "tempInactive": "მოლოდინის რეჟიმში"
   },
   "common": {
     "save": "დამახსოვრება",
     "georgian": "ქართული",
-    "english": "ინგლისური"
+    "english": "ინგლისური",
+    "confirm": "დადასტურება"
   }
 }

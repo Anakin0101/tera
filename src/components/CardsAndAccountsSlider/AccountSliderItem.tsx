@@ -4,27 +4,20 @@ import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
 import { ChevronUp, ChevronDown, Star, FullStar } from 'assets/SVGs';
-import { CardSliderItemProps } from './AccountDetailsScreen.types';
-import { useStyles } from './AccountDetailsScreen.styles';
-import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
+import { AccountSliderItemProps } from './CardsAndAccountsSlider.types';
+import { useStyles } from './CardsAndAccountsSlider.styles';
 
-export const CardSliderItem: FC<CardSliderItemProps> = ({ item, iban }) => {
+export const AccountSliderItem: FC<AccountSliderItemProps> = ({ item, iban }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
   const [index, setIndex] = useState(0);
 
   if (!iban) {
     return null;
   }
 
-  const handlePress = () => {
-    navigate('MyAccountScrollableScreen', { iban });
-  };
-
   return (
-    <Pressable style={styles.card} onPress={handlePress}>
+    <View style={styles.card}>
       <View>
         <Text
           title
@@ -75,9 +68,9 @@ export const CardSliderItem: FC<CardSliderItemProps> = ({ item, iban }) => {
           );
         })}
       </View>
-      <Pressable style={styles.startContainer}>
+      <Pressable style={styles.starContainer}>
         {item.accounts[index].isFavourite ? <FullStar /> : <Star />}
       </Pressable>
-    </Pressable>
+    </View>
   );
 };

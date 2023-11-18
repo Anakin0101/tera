@@ -1,5 +1,5 @@
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { Account, CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { CardType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface CardItemProps {
   item: CardType;
@@ -19,11 +19,6 @@ export interface DetailsItemProps {
   onPress: () => void;
 }
 
-export interface CardSliderItemProps {
-  item: SliderData;
-  iban?: string;
-}
-
 export interface CardsProps {
   cards: CardType[];
   isCardAccount?: boolean;
@@ -31,30 +26,16 @@ export interface CardsProps {
   iban?: string;
 }
 
-export type ActionType = {
-  title: string;
-  icon: React.ReactNode;
-  handlePress?: () => void;
-};
-
-export type ActionButtonProps = {
-  actions: ActionType[];
-};
 export interface DetailsProps {
   name: string;
   iban: string;
   blockedAmount?: number;
   displayDivider: boolean;
+  borderRadius?: boolean;
 }
 
 export type RelatedOverdraft = OverdraftType | null;
 
-export interface SliderData {
-  card?: CardType;
-  accounts: Account[];
-}
-export interface CardsSliderProps {
-  iban: string;
-  actions: ActionType[];
-  data: SliderData[];
-}
+export type ActiveOverdraftProps = {
+  relatedOverdraft?: RelatedOverdraft;
+};

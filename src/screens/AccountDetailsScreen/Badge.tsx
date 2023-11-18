@@ -5,7 +5,7 @@ import { Text } from 'components';
 import { BadgeProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
 
-const Badge: FC<BadgeProps> = ({ icon, label }) => {
+export const Badge: FC<BadgeProps> = ({ icon, label }) => {
   const styles = useStyles();
   return (
     <View style={styles.badge}>
@@ -14,5 +14,3 @@ const Badge: FC<BadgeProps> = ({ icon, label }) => {
     </View>
   );
 };
-
-export default Badge;

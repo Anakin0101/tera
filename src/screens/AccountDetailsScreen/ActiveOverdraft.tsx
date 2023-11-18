@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Image, Pressable, View } from 'react-native';
 import { Divider, Text } from 'components';
+import Images from 'theme/Images';
+import { config } from 'utils/config';
+import { Colors } from 'theme/Variables';
 import { ChevronRight } from 'assets/SVGs';
 import { formatMoney } from 'utils/formatMoney';
-import { Colors } from 'theme/Variables';
-import { config } from 'utils/config';
-import { useStyles } from './AccountDetailsScreen.styles';
-import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
-import Images from 'theme/Images';
+import { ActiveOverdraftProps } from './AccountDetailsScreen.types';
+import { useStyles } from './AccountDetailsScreen.styles';
 
 const PROGRESS_WIDTH = config.mobileWidth - 48 - 12 - 48;
 
-export const ActiveOverdraft = ({ relatedOverdraft }: { relatedOverdraft?: RelatedOverdraft }) => {
+export const ActiveOverdraft: FC<ActiveOverdraftProps> = ({ relatedOverdraft }) => {
   const styles = useStyles();
 
   if (!relatedOverdraft) {
