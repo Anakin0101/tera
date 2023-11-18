@@ -67,6 +67,7 @@ export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
                 <Pressable
                   style={styles.currencySignContainer}
                   onPress={() => handleCurrencyPress(cur)}
+                  key={cur}
                 >
                   <Text
                     label
