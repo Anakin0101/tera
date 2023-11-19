@@ -33,7 +33,7 @@ export type BlockedAmount = {
 
 export interface DetailsProps {
   name: string;
-  iban: string;
+  iban?: string;
   blockedAmounts?: BlockedAmount[];
   displayDivider: boolean;
   borderRadius?: boolean;

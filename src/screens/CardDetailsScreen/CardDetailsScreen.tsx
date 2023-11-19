@@ -22,15 +22,13 @@ const sections = [
 export const CardDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
-  const { item } = params;
   const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
-  const { lastTransactions, groupedAccountsByIban } = useAppSelector(state => state.products);
-  const { cards } = useAppSelector(state => state.products);
+  const { lastTransactions, cards } = useAppSelector(state => state.products);
   const [activeIndex, setActiveIndex] = useState(params.index);
 
-  const account = useMemo(() => {
-    return groupedAccountsByIban[activeIndex];
-  }, [groupedAccountsByIban, activeIndex]);
+  const card = useMemo(() => {
+    return cards[activeIndex];
+  }, [cards, activeIndex]);
 
   const handleInsurancePress = useCallback(() => {
     navigate('CardInsuranceScreen');
@@ -66,10 +64,6 @@ export const CardDetailsScreen = () => {
     [handleInsurancePress],
   );
 
-  if (!account) {
-    return null;
-  }
-
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'main':
@@ -88,18 +82,17 @@ export const CardDetailsScreen = () => {
       case 'details':
         return (
           <CardHolderDetails
-            accountNumber={item.accountNumber}
-            endDate={item.endDate}
-            cvv={item.priority}
+            accountNumber={card.pan}
+            endDate={card.endDate}
+            cvv={String(card.priority)}
           />
         );
       case 'information':
         return (
           <Details
             information
-            cardHolder={item?.cardHolder}
-            name={account?.accountName}
-            iban={account?.iban}
+            cardHolder={card.cardHolder}
+            name={card?.cardProductName}
             displayDivider={!!lastTransactions?.length}
           />
         );
