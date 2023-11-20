@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 
-export const useStyles = () => {
+export const useStyles = (seeAll?: boolean) => {
   const { Layout, Colors, Spacing, Fonts } = useTheme();
   return StyleSheet.create({
     listContainer: {
@@ -57,7 +57,7 @@ export const useStyles = () => {
     },
     header: {
       marginTop: Spacing.s,
-      marginBottom: Spacing.ml,
+      marginBottom: seeAll ? Spacing.xlm : Spacing.ml,
     },
   });
 };

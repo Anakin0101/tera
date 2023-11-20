@@ -38,3 +38,4 @@ export const MY_ACCOUNT_SCROLLABLE_SCREEN = 'MyAccountScrollableScreen';
 export const CARD_DETAILS_SCREEN = 'CardDetailsScreen';
 export const CARD_INSURANCE = 'CardInsuranceScreen';
 export const INSURANCE_PACKAGE_DETAILS = 'InsurancePackageDetailsScreen';
+export const DEPOSITS_SCREEN = 'DepositsScreen';

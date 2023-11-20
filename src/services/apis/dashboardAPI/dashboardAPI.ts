@@ -5,6 +5,7 @@ import {
   GetCustomerOperationsResponseTypes,
   GetCustomerOperationsRequestTypes,
   OverdraftType,
+  Asset,
 } from './dashboardAPI.types';
 import { URLS } from 'services/constants/urls';
 import { METHOD_NAMES } from 'services/constants';
@@ -64,7 +65,7 @@ export const dashboardAPI = createApi({
         },
       }),
     }),
-    getAssets: builder.query<any, void>({
+    getAssets: builder.query<Asset[], void>({
       query: () => ({
         url: URLS.getAssets,
         method: METHOD_NAMES.GET,

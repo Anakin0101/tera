@@ -5,21 +5,26 @@ import { ListItem } from './ListItem';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useStyles } from './DepositsAndLoans.styles';
-import { DepositsAndLoansProps, HeaderProps } from './DepositsAndLoans.types';
+import { DepositsAndLoansProps, FooterProps, HeaderProps } from './DepositsAndLoans.types';
 import { DepositType, LoanType } from 'services/apis/productsAPI/productsAPI.types';
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { DEPOSITS_SCREEN } from 'navigation/ScreenNames';
 
-const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount }) => {
-  const styles = useStyles();
+const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
+  const styles = useStyles(seeAll);
   const { Colors } = useTheme();
   return (
     <View style={styles.header}>
-      <Text
-        size={14}
-        lineHeight={20}
-        color={Colors.textBlack500}
-        translateProp={{ value: quantity }}
-        children={variant === 'deposit' ? 'products.deposits' : 'products.loans'}
-      />
+      {!seeAll && (
+        <Text
+          size={14}
+          lineHeight={20}
+          color={Colors.textBlack500}
+          translateProp={{ value: quantity }}
+          children={variant === 'deposit' ? 'products.deposits' : 'products.loans'}
+        />
+      )}
       <Text size={30} regular lineHeight={36} marginTop={8}>
         {formatMoney(totalAmount || 0)} ₾
       </Text>
@@ -27,10 +32,18 @@ const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount }) => {
   );
 };
 
-const ListFooter = () => {
+const ListFooter: FC<FooterProps> = ({ variant }) => {
   const styles = useStyles();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'DepositsScreen'>>();
+
+  const handlePress = () => {
+    if (variant === 'deposit') {
+      navigate(DEPOSITS_SCREEN);
+    }
+  };
+
   return (
-    <Pressable style={styles.seeAll}>
+    <Pressable onPress={handlePress} style={styles.seeAll}>
       <Text children="transfers.all" special size={14} lineHeight={20} />
     </Pressable>
   );
@@ -40,12 +53,12 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
   data,
   totalAmount,
   variant,
-  seeAll,
+  seeAll = false,
   displayDivider,
 }) => {
   const styles = useStyles();
 
-  if (!data) {
+  if (!data?.length) {
     return null;
   }
 
@@ -58,9 +71,14 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
       <FlatList
         data={seeAll ? data : data.slice(0, variant === 'deposit' ? 2 : 4)}
         renderItem={renderItem}
-        ListFooterComponent={ListFooter}
+        ListFooterComponent={!seeAll ? <ListFooter variant={variant} /> : null}
         ListHeaderComponent={
-          <ListHeader totalAmount={totalAmount} variant={variant} quantity={data.length} />
+          <ListHeader
+            seeAll={seeAll}
+            totalAmount={totalAmount}
+            variant={variant}
+            quantity={data.length}
+          />
         }
         style={styles.list}
       />

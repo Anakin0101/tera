@@ -19,4 +19,9 @@ export interface HeaderProps {
   variant: Variant;
   quantity: number;
   totalAmount: number;
+  seeAll: boolean;
+}
+
+export interface FooterProps {
+  variant: Variant;
 }
