@@ -188,7 +188,8 @@
     "agree": "ვეთანხმები ",
     "standardConditions": "საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
     "allDeposits": "ანაბრები",
-    "newDeposit": "ახალი ანაბარი"
+    "newDeposit": "ახალი ანაბარი",
+    "depositDetails": "ანაბრის დეტალები"
   },
   "common": {
     "save": "დამახსოვრება",

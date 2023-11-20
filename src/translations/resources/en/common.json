@@ -183,7 +183,8 @@
     "agree": "Agree to ",
     "standardConditions": "conduct banking operations standard conditions",
     "allDeposits": "Deposits",
-    "newDeposit": "New Deposit"
+    "newDeposit": "New Deposit",
+    "depositDetails": "Deposit Details"
   },
   "common": {
     "save": "Save",

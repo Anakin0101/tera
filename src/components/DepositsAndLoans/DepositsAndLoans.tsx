@@ -9,7 +9,7 @@ import { DepositsAndLoansProps, FooterProps, HeaderProps } from './DepositsAndLo
 import { DepositType, LoanType } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
-import { DEPOSITS_SCREEN } from 'navigation/ScreenNames';
+import { DEPOSITS_SCREEN, DEPOSIT_DETAILS_SCREEN } from 'navigation/ScreenNames';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
   const styles = useStyles(seeAll);
@@ -57,13 +57,20 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
   displayDivider,
 }) => {
   const styles = useStyles();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'DepositDetailsScreen'>>();
 
   if (!data?.length) {
     return null;
   }
 
+  const handlePress = () => {
+    if (variant === 'deposit') {
+      navigate(DEPOSIT_DETAILS_SCREEN);
+    }
+  };
+
   const renderItem: ListRenderItem<DepositType | LoanType> = ({ item, index }) => {
-    return <ListItem item={item} isLast={index === data.length - 1} />;
+    return <ListItem item={item} onPress={handlePress} isLast={index === data.length - 1} />;
   };
 
   return (

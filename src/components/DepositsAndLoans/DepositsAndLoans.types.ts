@@ -13,6 +13,7 @@ export interface DepositsAndLoansProps {
 export type ListItemProps = {
   item: DepositType | LoanType;
   isLast: boolean;
+  onPress: () => void;
 };
 
 export interface HeaderProps {
