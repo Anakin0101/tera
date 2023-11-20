@@ -181,7 +181,9 @@
     "commission": "Commission",
     "account": "Account",
     "agree": "Agree to ",
-    "standardConditions": "conduct banking operations standard conditions"
+    "standardConditions": "conduct banking operations standard conditions",
+    "allDeposits": "Deposits",
+    "newDeposit": "New Deposit"
   },
   "common": {
     "save": "Save",

@@ -27,6 +27,7 @@ import {
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
   INSURANCE_PACKAGE_DETAILS,
+  DEPOSITS_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -67,6 +68,7 @@ export type ProductsStackParamsList = {
     commission: number;
     cardId: number;
   };
+  [DEPOSITS_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

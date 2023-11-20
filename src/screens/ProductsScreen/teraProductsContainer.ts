@@ -3,12 +3,11 @@ import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAcco
 import { useEffect, useMemo } from 'react';
 import {
   useGetAccountsByCustomerIdQuery,
-  useGetDepositsQuery,
   useGetLoansByCustomerIdQuery,
 } from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setAccounts, setTotalAvailableBalance } from 'store/slices/products';
+import { setAccounts, setTotalAvailableBalance, setTotalDeposits } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 
@@ -16,9 +15,8 @@ export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
   const { customerId } = useAppSelector(state => state.profile);
   const { data: accounts } = useGetAccountsByCustomerIdQuery(customerId ?? skipToken);
-  const { data: deposits } = useGetDepositsQuery(customerId ?? skipToken);
   const { data: loans } = useGetLoansByCustomerIdQuery(customerId ?? skipToken);
-  const { groupedAccountsByIban, totalAvailableBalanceGEL } = useAppSelector(
+  const { groupedAccountsByIban, totalAvailableBalanceGEL, deposits } = useAppSelector(
     state => state.products,
   );
 
@@ -40,8 +38,13 @@ export const useTeraProducts = () => {
     if (!deposits) {
       return 0;
     }
-    return calculateSum(deposits, 'amount');
+    const filtered = deposits.filter(deposit => deposit.currency === 'GEL');
+    return calculateSum(filtered, 'amount');
   }, [deposits]);
+
+  useEffect(() => {
+    dispatch(setTotalDeposits(totalDeposits));
+  }, [dispatch, totalDeposits]);
 
   const totalLoans = useMemo(() => {
     if (!loans) {
