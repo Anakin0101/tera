@@ -31,8 +31,10 @@ export const CardDetailsScreen = () => {
   }, [cards, activeIndex]);
 
   const handleInsurancePress = useCallback(() => {
-    navigate('CardInsuranceScreen');
-  }, [navigate]);
+    navigate('CardInsuranceScreen', {
+      cardId: card.id,
+    });
+  }, [card.id, navigate]);
 
   const handleBlockCard = () => {
     openModal({

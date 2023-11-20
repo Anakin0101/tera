@@ -17,4 +17,9 @@ export interface InsurancePackage {
 
 export interface InsurancePackageItemProps {
   item: InsurancePackage;
+  onPress: (packageName: string, commission: number) => void;
+}
+
+export interface PackagesProps {
+  cardId: number;
 }

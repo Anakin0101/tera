@@ -18,3 +18,4 @@ export { AllAcountsAndCardsScreen } from './AllAccountsAndCardsScreen/AllAcounts
 export { AccountDetailsScreen } from './AccountDetailsScreen/AccountDetailsScreen';
 export { MyAccountsScrollableScreen } from './MyAccountScrollableScreen/MyAccountScrollableScreen';
 export { CardDetailsScreen } from './CardDetailsScreen/CardDetailsScreen';
+export { InsurancePackageDetails } from './InsurancePackageDetails/InsurancePackageDetails';

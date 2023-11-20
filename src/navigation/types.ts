@@ -26,6 +26,7 @@ import {
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
+  INSURANCE_PACKAGE_DETAILS,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -58,7 +59,14 @@ export type ProductsStackParamsList = {
   [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
     iban: string;
   };
-  [CARD_INSURANCE]: undefined;
+  [CARD_INSURANCE]: {
+    cardId: number;
+  };
+  [INSURANCE_PACKAGE_DETAILS]: {
+    packageName: string;
+    commission: number;
+    cardId: number;
+  };
 };
 
 export type TransactionsStackParamsList = {

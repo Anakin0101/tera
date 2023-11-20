@@ -16,7 +16,7 @@ export interface DetailsItemProps {
   label: string;
   value?: string | BlockedAmount[];
   icon?: React.ReactNode;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export interface CardsProps {
