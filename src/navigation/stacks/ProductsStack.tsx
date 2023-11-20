@@ -6,6 +6,7 @@ import {
   MyAccountsScrollableScreen,
   ProductsScreen,
   CardDetailsScreen,
+  InsurancePackageDetails,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,6 +14,7 @@ import {
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
+  INSURANCE_PACKAGE_DETAILS,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -120,6 +122,21 @@ export const ProductsStack = () => {
           title: t('products.cardInsurance'),
           headerStyle: {
             backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={INSURANCE_PACKAGE_DETAILS}
+        component={InsurancePackageDetails}
+        options={{
+          title: t('products.insurancePackageDetails'),
+          headerStyle: {
+            backgroundColor: '#F9F9F9',
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',
