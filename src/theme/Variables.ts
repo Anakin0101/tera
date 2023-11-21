@@ -13,6 +13,7 @@ import { ThemeNavigationColors } from 'types/declarations/theme';
 export const Colors = {
   transparent: 'rgba(0,0,0,0)',
   inputBackground: '#FFFFFF',
+  defaultBackground: '#F9F9F9',
   white: '#ffffff',
   gray: 'rgba(246, 246, 247, 1)',
   gray200: 'rgba(161, 161, 161, 0.2)',
@@ -65,7 +66,7 @@ export const Colors = {
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
   primary: Colors.primary,
-  background: Colors.headerBackground,
+  background: Colors.defaultBackground,
   card: '#EFEFEF',
 };
 

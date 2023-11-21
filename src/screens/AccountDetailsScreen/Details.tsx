@@ -8,7 +8,7 @@ import { ChevronRight, Copy, Edit } from 'assets/SVGs';
 import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { useCopyToClipboard } from 'hooks/useCopyToClipboard';
+import { useCopyToClipboard } from 'hooks';
 
 export const Details: FC<DetailsProps> = ({
   name,

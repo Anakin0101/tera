@@ -120,7 +120,12 @@ export const Carousel: FC<CarouselProps> = ({
         dotContainerStyle={dotContainerStyle}
       />
       <View style={[styles.buttonContainer, buttonContainerStyle]}>
-        <Button.Primary text="onboarding.next" onPress={handleNext} fullWidth />
+        <Button.Primary
+          text="onboarding.next"
+          onPress={handleNext}
+          customWrapperStyle={styles.customButtonStyle}
+          fullWidth
+        />
         {skipable && (
           <View style={skipButtonContainerStyle}>
             <Button.Text

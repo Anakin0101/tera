@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { MainNavigationProps } from 'navigation/types';
 import React from 'react';
 import { setOTPCode, setUserCredentials } from 'store/slices/userInfo';
-import { useKeyChain } from 'hooks/useKeychain';
 import { CREATE_PASSCODE_SCREEN } from 'navigation/ScreenNames';
 import { setDeviceToken } from 'store/slices/deviceInfo';
 
@@ -17,22 +16,21 @@ export const useTrustDeviceModal = () => {
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<MainNavigationProps<'DashboardScreen'>>();
   const { otpCode } = useAppSelector(state => state.userInfo);
-  const { savedPasscode } = useKeyChain();
   const { deviceToken: savedDeviceToken } = useAppSelector(state => state.deviceInfo);
 
-  const handleOTPVerification = () => {
-    addTrustedDevice({
-      headers: {
-        'X-Bank-Otp': otpCode,
-        'X-Bank-userip': userIp,
-        'X-Bank-Getauthmethod': 'false',
-        'X-Bank-Sendotp': 'false',
-        'X-Bank-Isstrongauthrequest': 'false',
-        'X-Bank-DeviceToken': savedDeviceToken,
-      },
-      Passcode: savedPasscode || '',
-      //   Passcode: '11111',
-    }).then(res => {
+  const handleOTPVerification = async () => {
+    try {
+      const res = await addTrustedDevice({
+        headers: {
+          'X-Bank-Otp': otpCode,
+          'X-Bank-userip': userIp,
+          'X-Bank-Getauthmethod': 'false',
+          'X-Bank-Sendotp': 'false',
+          'X-Bank-Isstrongauthrequest': 'false',
+          'X-Bank-DeviceToken': savedDeviceToken,
+        },
+      });
+
       if ('data' in res) {
         const { accessToken, refreshToken, deviceToken } = res.data;
         if (accessToken && refreshToken) {
@@ -48,7 +46,9 @@ export const useTrustDeviceModal = () => {
         }
       }
       closeModal();
-    });
+    } catch (error) {
+      console.error('Error in handleOTPVerification:', error);
+    }
   };
 
   const handlePasscodeSet = (enteredOTP: string) => {
@@ -57,15 +57,17 @@ export const useTrustDeviceModal = () => {
     navigate(CREATE_PASSCODE_SCREEN);
   };
 
-  const openOTPModal = () => {
-    addTrustedDevice({
-      headers: {
-        'X-Bank-userip': userIp,
-        'X-Bank-Getauthmethod': 'true',
-        'X-Bank-Sendotp': 'true',
-        'X-Bank-Isstrongauthrequest': 'true',
-      },
-    }).then(res => {
+  const openOTPModal = async () => {
+    try {
+      const res = await addTrustedDevice({
+        headers: {
+          'X-Bank-userip': userIp,
+          'X-Bank-Getauthmethod': 'true',
+          'X-Bank-Sendotp': 'true',
+          'X-Bank-Isstrongauthrequest': 'true',
+        },
+      });
+
       if ('data' in res) {
         const { deviceToken } = res.data;
         if (deviceToken) {
@@ -79,7 +81,9 @@ export const useTrustDeviceModal = () => {
           element: <OTPModalTemp onFinished={handlePasscodeSet} />,
         });
       }
-    });
+    } catch (error) {
+      console.error('Error in openOTPModal:', error);
+    }
   };
 
   return {

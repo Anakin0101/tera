@@ -43,7 +43,7 @@ export const CardDetailsScreen = () => {
       case 'wallet':
         return <Wallet />;
       case 'details':
-        if (card.status != 13) {
+        if (card.status !== 13) {
           return (
             <CardHolderDetails
               accountNumber={card.pan}

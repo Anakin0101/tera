@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useGetUserProfileInfoQuery } from 'services/apis';
 import {
   useGetTemplatesQuery,
@@ -41,6 +41,11 @@ export const useDashboardScreen = () => {
     }
   }, [dispatch, profile]);
 
+  const isDashboardMounted = useMemo(() => {
+    const mounted = !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName;
+    return mounted;
+  }, [assets, banker, profile?.firstName, templates?.templates.length]);
+
   return {
     templates,
     temlpatesLoading,
@@ -56,5 +61,6 @@ export const useDashboardScreen = () => {
     getLoanCustomerId,
     assets,
     banker,
+    isDashboardMounted,
   };
 };

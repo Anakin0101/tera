@@ -1,67 +1,91 @@
+import { useEffect, useState } from 'react';
 import Biometrics from 'react-native-biometrics';
-import { activateBiometricsAuth } from 'utils/keychain';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setBiometricStatus } from 'store/slices/userInfo';
+import { activateBiometricsAuth, getBiometricsAuthStatus } from 'utils/keychain';
 
 export const useBiometrics = () => {
-  // initial activation
-  const handleBiometricActivation = async (onActivationSuccess: () => void) => {
-    try {
-      const { available, biometryType } = await Biometrics.isSensorAvailable();
-      if (available) {
-        const simplePromptConfig = {
-          promptMessage: 'biometric message',
-          cancelButtonText: 'close',
-        };
+  const [deviceSupportsBiometricAuth, setDeviceSupportsBiometricAuth] = useState<boolean | null>(
+    null,
+  );
+  const dispatch = useAppDispatch();
 
-        switch (biometryType) {
-          case Biometrics.Biometrics:
-            simplePromptConfig.promptMessage = 'biometric message';
-            break;
-          case Biometrics.FaceID:
-            simplePromptConfig.promptMessage = 'biometric message';
-            break;
-        }
-        const { success } = await Biometrics.simplePrompt(simplePromptConfig);
+  useEffect(() => {
+    const checkBiometrics = async () => {
+      const value = await getBiometricsAuthStatus();
+      dispatch(setBiometricStatus(!!value));
+    };
 
-        if (success) {
-          await activateBiometricsAuth();
-          onActivationSuccess?.();
-        }
-      } else {
-        //alert here
-      }
-    } catch (e) {}
+    checkBiometrics();
+  }, [dispatch]);
+
+  const checkBiometricSensor = async () => {
+    const { available, biometryType, error } = await Biometrics.isSensorAvailable();
+    if (error) {
+      console.error('Biometric auth may not be supported:', error);
+      setDeviceSupportsBiometricAuth(false);
+      return null;
+    }
+
+    if (available && biometryType) {
+      setDeviceSupportsBiometricAuth(true);
+      const promptMessageMap = {
+        [Biometrics.Biometrics]: 'biometric message for TouchID Android',
+        [Biometrics.TouchID]: 'biometric message for TouchID iOS only',
+        [Biometrics.FaceID]: 'biometric message for FaceID iOS only',
+      };
+
+      return {
+        promptMessage: promptMessageMap[biometryType] || 'biometric message',
+        cancelButtonText: 'close',
+      };
+    }
+    return null;
   };
 
-  const handleBiometricVerification = async (onActivationSuccess: () => void) => {
+  const handleBiometricPrompt = async (
+    onSuccess: () => void,
+    onError: () => void,
+    isActivation: boolean,
+  ) => {
+    const simplePromptConfig = await checkBiometricSensor();
+    if (!simplePromptConfig) {
+      return;
+    }
+
     try {
-      const { available, biometryType } = await Biometrics.isSensorAvailable();
-      if (available) {
-        const simplePromptConfig = {
-          promptMessage: 'biometric message',
-          cancelButtonText: 'close',
-        };
-
-        switch (biometryType) {
-          case Biometrics.Biometrics:
-            simplePromptConfig.promptMessage = 'biometric message';
-            break;
-          case Biometrics.FaceID:
-            simplePromptConfig.promptMessage = 'biometric message';
-            break;
+      const { success } = await Biometrics.simplePrompt(simplePromptConfig);
+      if (success) {
+        if (isActivation) {
+          await activateBiometricsAuth();
         }
-        const { success } = await Biometrics.simplePrompt(simplePromptConfig);
-
-        if (success) {
-          onActivationSuccess?.();
-        }
-      } else {
-        //alert here
+        onSuccess?.();
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Biometric prompt error:', e);
+      onError?.();
+    }
+  };
+
+  // initial activation
+  const handleBiometricActivation = (
+    onActivationSuccess: () => void,
+    onActivationError: () => void,
+  ) => {
+    handleBiometricPrompt(onActivationSuccess, onActivationError, true);
+  };
+
+  //   We use verification, when the biometric auth is already set in keychain and we just want to log the user in
+  const handleBiometricVerification = (
+    onActivationSuccess: () => void,
+    onActivationError: () => void,
+  ) => {
+    handleBiometricPrompt(onActivationSuccess, onActivationError, false);
   };
 
   return {
     handleBiometricActivation,
     handleBiometricVerification,
+    deviceSupportsBiometricAuth,
   };
 };

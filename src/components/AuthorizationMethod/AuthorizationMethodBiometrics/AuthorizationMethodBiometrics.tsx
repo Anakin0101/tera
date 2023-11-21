@@ -1,57 +1,58 @@
 import { SwitchComponent } from 'components/Switch/Switch';
-import { usePasscode } from 'hooks';
 import React, { FC, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { AUTH_METHOD_NAMES } from 'screens/AuthorizationMethodsScreen/AuthorizationMethodsScreen.types';
 import { SupportedAuthMethodsType } from 'store/slices/userInfo/types';
 import { AuthorizationMethod } from '../AuthorizationMethod';
-import { DialPad } from 'assets/SVGs';
+import { FaceIdSvg } from 'assets/SVGs';
+import { usePasscode } from 'hooks';
 import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
-type AuthorizationMethodPasscodeProps = {
-  handleSetNewPasscode?: () => void;
+type AuthorizationMethodBiometricsProps = {
+  handleSetBiometrics?: () => void;
 };
 
-export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> = ({
-  handleSetNewPasscode,
+export const AuthorizationMethodBiometrics: FC<AuthorizationMethodBiometricsProps> = ({
+  handleSetBiometrics,
 }) => {
   const isFocused = useIsFocused();
+
   const { verifyPasscode, clearPasscode } = usePasscode();
-  const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
+  const biometricAuthSet = useAppSelector(state => state.userInfo.isBiometricSet);
 
   const { control, setValue } = useForm<SupportedAuthMethodsType>({
     defaultValues: {
-      passcode: isPasscodeSet,
+      biometrics: biometricAuthSet,
     },
   });
 
   useEffect(() => {
     if (isFocused) {
-      setValue('passcode', isPasscodeSet);
+      setValue('biometrics', biometricAuthSet);
     }
-  }, [isFocused, isPasscodeSet, setValue]);
+  }, [isFocused, biometricAuthSet, setValue]);
 
   const handleSwitchToggle = (newValue: boolean) => {
     if (newValue === false) {
       verifyPasscode(() => {
         clearPasscode();
-        setValue('passcode', newValue);
+        setValue('biometrics', newValue);
       }, true);
     } else if (newValue === true) {
-      handleSetNewPasscode?.();
-      setValue('passcode', newValue);
+      handleSetBiometrics?.();
+      setValue('biometrics', newValue);
     }
   };
   return (
     <AuthorizationMethod
-      icon={DialPad}
-      title={'settings.passcode_title'}
-      desc={'settings.passcode_desc'}
+      icon={FaceIdSvg}
+      title={'settings.biometrics_title'}
+      desc={'settings.biometrics_desc'}
       children={
         <Controller
-          key={AUTH_METHOD_NAMES.passcode}
-          name={AUTH_METHOD_NAMES.passcode as keyof SupportedAuthMethodsType}
+          key={AUTH_METHOD_NAMES.biometrics}
+          name={AUTH_METHOD_NAMES.biometrics as keyof SupportedAuthMethodsType}
           control={control}
           render={({ field: { value } }) => (
             <SwitchComponent value={value} onValueChange={val => handleSwitchToggle(val)} />

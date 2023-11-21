@@ -3,8 +3,8 @@ import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   return StyleSheet.create({
-    container: {
-      marginTop: verticalScale(67),
+    wrapper: {
+      marginTop: verticalScale(60),
     },
   });
 };

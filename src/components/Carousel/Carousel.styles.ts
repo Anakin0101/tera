@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
-import { verticalScale, config } from 'utils/config';
+import { verticalScale, config, horizontalScale } from 'utils/config';
 
 const { mobileWidth } = config;
 
@@ -9,10 +9,10 @@ const useStyles = () => {
 
   return StyleSheet.create({
     itemContainer: {
-      width: mobileWidth - 2 * Spacing.xl,
+      width: horizontalScale(mobileWidth) - 2 * Spacing.xl,
     },
     imageContainer: {
-      height: verticalScale(350),
+      height: verticalScale(300),
     },
     image: {
       ...Layout.fullSize,
@@ -45,11 +45,12 @@ const useStyles = () => {
       marginTop: verticalScale(32),
       color: Colors.inactiveTint,
     },
-    list: {
-      marginTop: verticalScale(Spacing.xxl),
-    },
+    list: {},
     skipLabel: {
       color: Colors.textBlack500,
+    },
+    customButtonStyle: {
+      marginBottom: Spacing.xs,
     },
   });
 };
