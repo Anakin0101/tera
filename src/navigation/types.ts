@@ -70,7 +70,9 @@ export type ProductsStackParamsList = {
     cardId: number;
   };
   [DEPOSITS_SCREEN]: undefined;
-  [DEPOSIT_DETAILS_SCREEN]: undefined;
+  [DEPOSIT_DETAILS_SCREEN]: {
+    index: number;
+  };
 };
 
 export type TransactionsStackParamsList = {

@@ -122,5 +122,9 @@ export const useStyles = () => {
       ...Layout.row,
       gap: Spacing.s,
     },
+    depositItem: {
+      backgroundColor: Colors.white,
+      padding: Spacing.xlg,
+    },
   });
 };

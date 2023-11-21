@@ -63,7 +63,7 @@ export const AccountDetailsScreen = () => {
         return (
           <Details
             name={account?.accountName}
-            iban={account?.iban}
+            iban={account.iban}
             displayDivider={!!lastTransactions?.length}
             borderRadius={!account.isCardAccount && !overdraftRelatedToAcc}
             blockedAmounts={blockedAmounts}

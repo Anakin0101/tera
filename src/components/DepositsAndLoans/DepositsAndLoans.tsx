@@ -63,14 +63,18 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
     return null;
   }
 
-  const handlePress = () => {
+  const handlePress = (index: number) => {
     if (variant === 'deposit') {
-      navigate(DEPOSIT_DETAILS_SCREEN);
+      navigate(DEPOSIT_DETAILS_SCREEN, {
+        index,
+      });
     }
   };
 
   const renderItem: ListRenderItem<DepositType | LoanType> = ({ item, index }) => {
-    return <ListItem item={item} onPress={handlePress} isLast={index === data.length - 1} />;
+    return (
+      <ListItem item={item} onPress={() => handlePress(index)} isLast={index === data.length - 1} />
+    );
   };
 
   return (

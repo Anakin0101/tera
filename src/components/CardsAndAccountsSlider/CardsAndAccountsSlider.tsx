@@ -5,11 +5,12 @@ import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native
 import { horizontalScale } from 'utils/config';
 import { Spacing } from 'theme/Variables';
 import { CardSliderItem } from './CardSliderItem';
-import { CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { CardType, DepositType } from 'services/apis/productsAPI/productsAPI.types';
 import { ActionButtons } from './ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
 import { AccountSliderItem } from './AccountSliderItem';
 import { useStyles } from './CardsAndAccountsSlider.styles';
+import { DepositSliderItem } from './DepositSliderItem';
 
 const viewabilityConfig = {
   itemVisiblePercentThreshold: 60,
@@ -27,6 +28,7 @@ export const CardsAndAccountsSlider: FC<SliderProps> = ({
   index,
   setActiveIndex,
   displayCards,
+  type,
 }) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
@@ -68,6 +70,10 @@ export const CardsAndAccountsSlider: FC<SliderProps> = ({
     return <CardSliderItem item={item} />;
   };
 
+  const renderDepositItem: ListRenderItem<DepositType> = ({ item }) => {
+    return <DepositSliderItem item={item} />;
+  };
+
   return (
     <View style={styles.slider}>
       <View>
@@ -76,7 +82,13 @@ export const CardsAndAccountsSlider: FC<SliderProps> = ({
           horizontal
           pagingEnabled
           data={data}
-          renderItem={displayCards ? renderCardItem : renderAccountItem}
+          renderItem={
+            type === 'Deposit'
+              ? renderDepositItem
+              : displayCards
+              ? renderCardItem
+              : renderAccountItem
+          }
           decelerationRate="fast"
           onScroll={scrollHandler}
           scrollEventThrottle={16}

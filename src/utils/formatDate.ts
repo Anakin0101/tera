@@ -33,3 +33,7 @@ export const formatDate = (dateString: string) => {
 export const getExpirationDate = (dateString: string) => {
   return dayjs(dateString).format('MM/YY');
 };
+
+export const getFormattedDate = (dateString: string, template = 'DD-MM-YYYY') => {
+  return dayjs(dateString).format(template);
+};

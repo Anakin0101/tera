@@ -70,15 +70,6 @@ export const useStyles = () => {
       gap: Spacing.xs,
       marginTop: Spacing.xs,
     },
-    badge: {
-      ...Layout.row,
-      ...Layout.alignItemsCenter,
-      backgroundColor: Colors.error100,
-      gap: Spacing.xxs,
-      padding: 5,
-      minWidth: 100,
-      borderRadius: 50,
-    },
     emptyCards: {
       ...Layout.alignItemsCenter,
     },

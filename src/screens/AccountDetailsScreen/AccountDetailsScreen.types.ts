@@ -7,11 +7,6 @@ export interface CardItemProps {
   onPress?: () => void;
 }
 
-export interface BadgeProps {
-  icon: React.ReactNode;
-  label: string;
-}
-
 export interface DetailsItemProps {
   label: string;
   value?: string | BlockedAmount[];

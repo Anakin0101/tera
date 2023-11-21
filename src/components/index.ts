@@ -41,3 +41,4 @@ export { Offers } from './Offers/Offers';
 export { FixedButton } from './FixedButton/FixedButton';
 export { Wallet } from './Wallet/Wallet';
 export { CardsAndAccountsSlider } from './CardsAndAccountsSlider/CardsAndAccountsSlider';
+export { Badge } from './Badge/Badge';
