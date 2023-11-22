@@ -40,5 +40,5 @@ export { DepositsAndLoans } from './DepositsAndLoans/DepositsAndLoans';
 export { Offers } from './Offers/Offers';
 export { FixedButton } from './FixedButton/FixedButton';
 export { Wallet } from './Wallet/Wallet';
-export { CardsAndAccountsSlider } from './CardsAndAccountsSlider/CardsAndAccountsSlider';
+export { Slider } from './Slider/Slider';
 export { Badge } from './Badge/Badge';

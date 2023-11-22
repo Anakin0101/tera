@@ -1,5 +1,5 @@
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { CardType, Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CardType, Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface CardItemProps {
   item: CardType;
@@ -40,4 +40,12 @@ export type RelatedOverdraft = OverdraftType | null;
 
 export type ActiveOverdraftProps = {
   relatedOverdraft?: RelatedOverdraft;
+};
+
+export interface AccountsSliderData {
+  accounts: Account[];
+}
+
+export type AccountSliderItemProps = {
+  item: AccountsSliderData;
 };

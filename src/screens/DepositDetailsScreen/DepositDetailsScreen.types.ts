@@ -4,3 +4,7 @@ export interface DepositDetailsProps {
   deposit: DepositType;
   copyToClipboard: (text: string, message: string) => void;
 }
+
+export interface DepositSliderItemProps {
+  item: DepositType;
+}

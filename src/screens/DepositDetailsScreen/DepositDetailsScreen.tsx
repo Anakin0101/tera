@@ -1,11 +1,12 @@
 import React from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
-import { CardsAndAccountsSlider } from 'components';
+import { Slider } from 'components';
 import { useDepositDetails } from './container';
 import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './DepositDetailsScreen.styles';
 import { DepositDetails } from './DepositDetails';
+import { DepositSliderItem } from './DepositSliderItem';
 
 const sections = [
   { title: 'slider', data: [{}] },
@@ -22,9 +23,9 @@ export const DepositDetailsScreen = () => {
     switch (section.title) {
       case 'slider':
         return (
-          <CardsAndAccountsSlider
-            type="Deposit"
+          <Slider
             data={deposits}
+            renderItem={DepositSliderItem}
             actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}

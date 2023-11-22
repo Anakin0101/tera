@@ -10,12 +10,20 @@ export const Badge: FC<BadgeProps> = ({
   label,
   backgroundColor,
   textColor = Colors.error,
+  height,
   style,
   textStyle,
 }) => {
   const styles = useStyles();
   return (
-    <View style={[styles.badge, backgroundColor ? { backgroundColor } : null, style]}>
+    <View
+      style={[
+        styles.badge,
+        backgroundColor ? { backgroundColor } : null,
+        height ? { height } : null,
+        style,
+      ]}
+    >
       <View>{icon}</View>
       <Text label children={label} color={textColor} style={textStyle} />
     </View>
