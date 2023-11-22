@@ -6,7 +6,7 @@ import { Button, Checkbox, Divider, Text } from 'components';
 import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
-import { CardSliderItem } from 'components/CardsAndAccountsSlider/CardSliderItem';
+import { CardSliderItem } from 'screens/CardDetailsScreen/CardSliderItem';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './InsurancePackageDetails.styles';

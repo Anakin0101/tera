@@ -99,6 +99,12 @@ type BankExternalTransaction = {
   trustedAddDate: string | null;
 };
 
+export enum DepositTypeEnum {
+  Increasing = 5,
+  Universal = 10,
+  Saving = 11,
+}
+
 export type Asset = {
   accountId: number;
   accountNumber: number;
@@ -123,5 +129,5 @@ export type Asset = {
   totalAccrualPercent: number;
   totalCapitalizedPercent: number;
   totalInterest: number;
-  typeId: number;
+  typeId: DepositTypeEnum;
 };

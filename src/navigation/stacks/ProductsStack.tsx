@@ -8,6 +8,7 @@ import {
   CardDetailsScreen,
   InsurancePackageDetails,
   DepositsScreen,
+  DepositDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -16,6 +17,7 @@ import {
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
   DEPOSITS_SCREEN,
+  DEPOSIT_DETAILS_SCREEN,
   INSURANCE_PACKAGE_DETAILS,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
@@ -138,7 +140,7 @@ export const ProductsStack = () => {
         options={{
           title: t('products.insurancePackageDetails'),
           headerStyle: {
-            backgroundColor: '#F9F9F9',
+            backgroundColor: Colors.lightGray,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',
@@ -154,6 +156,21 @@ export const ProductsStack = () => {
           title: t('products.allDeposits'),
           headerStyle: {
             backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={DEPOSIT_DETAILS_SCREEN}
+        component={DepositDetailsScreen}
+        options={{
+          title: t('products.depositDetails'),
+          headerStyle: {
+            backgroundColor: Colors.lightGray,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',

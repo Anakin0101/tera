@@ -158,7 +158,7 @@
     "cardDetails": "ბარათის დეტალები",
     "accountName": "ანგარიშის სახელი",
     "changeName": "სახელის ცვლილება",
-    "clipboard": "ანგარიშის ნომერი დაკოპირებული",
+    "clipboard": "ანგარიშის ნომერი დაკოპირებულია",
     "insurance": "დაზღვევა",
     "block": "დაბლოკვა",
     "changePin": "პინ კოდის შეცვლა",
@@ -188,7 +188,21 @@
     "agree": "ვეთანხმები ",
     "standardConditions": "საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
     "allDeposits": "ანაბრები",
-    "newDeposit": "ახალი ანაბარი"
+    "newDeposit": "ახალი ანაბარი",
+    "depositDetails": "ანაბრის დეტალები"
+  },
+  "deposits": {
+    "agreementNumber": "ხელშეკრულების ნომერი",
+    "startDate": "გახსნის თარიღი",
+    "period": "ხანგრძლივობა",
+    "depositType": "ანაბრის ტიპი",
+    "interestRate": "საპროცენტო განაკვეთი",
+    "accruedBenefit": "დარიცხული სარგებელი",
+    "utilizedBenefits": "ათვისებული სარგებელი",
+    "agreementDoc": "ხელშეკრულების დოკუმენტი",
+    "addMoney": "თანხის დამატება",
+    "extraction": "ამონაწერი",
+    "agreementNumCopied": "ხელშეკრულების ნომერი დაკოპირებულია"
   },
   "common": {
     "save": "დამახსოვრება",

@@ -3,18 +3,14 @@ import { Pressable, View } from 'react-native';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
-import { ChevronUp, ChevronDown, Star, FullStar } from 'assets/SVGs';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
-import { AccountSliderItemProps } from './CardsAndAccountsSlider.types';
-import { useStyles } from './CardsAndAccountsSlider.styles';
+import { ChevronUp, ChevronDown, Star, FullStar } from 'assets/SVGs';
+import { AccountSliderItemProps } from './AccountDetailsScreen.types';
+import { useStyles } from './AccountDetailsScreen.styles';
 
-export const AccountSliderItem: FC<AccountSliderItemProps> = ({ item, iban }) => {
+export const AccountSliderItem: FC<AccountSliderItemProps> = ({ item }) => {
   const styles = useStyles();
   const [index, setIndex] = useState(0);
-
-  if (!iban) {
-    return null;
-  }
 
   return (
     <View style={styles.card}>
@@ -49,14 +45,6 @@ export const AccountSliderItem: FC<AccountSliderItemProps> = ({ item, iban }) =>
           )}
         </View>
       </View>
-      {/* <View style={styles.blockMessage}>
-          <Alert color={Colors.white} />
-          <Text
-            label
-            children={'products.accountBlocked'}
-            color={Colors.white}
-          />
-        </View> */}
       <View style={styles.currencies}>
         {item.accounts.map((account, idx) => {
           return (

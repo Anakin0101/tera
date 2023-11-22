@@ -238,5 +238,37 @@ export const useStyles = () => {
       width: '80%',
       ...Layout.justifyContentBetween,
     },
+    cardItem: {
+      ...Layout.justifyContentBetween,
+      height: 200,
+      width: horizontalScale(340),
+      backgroundColor: Colors.creditCardBg,
+      borderRadius: Spacing.m,
+      padding: 22,
+    },
+    cardHeader: {
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+      marginTop: Spacing.s,
+    },
+    insuredIcon: {
+      ...Layout.center,
+      width: Spacing.xl,
+      height: Spacing.xl,
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.white,
+    },
+    cardFooter: {
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+    },
+    cardInfo: {
+      ...Layout.row,
+      gap: Spacing.m,
+    },
+    badgesContainer: {
+      ...Layout.row,
+      gap: Spacing.s,
+    },
   });
 };

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useTheme } from 'hooks';
@@ -7,14 +7,14 @@ import { ListItemProps } from './DepositsAndLoans.types';
 import { useStyles } from './DepositsAndLoans.styles';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
 
-export const ListItem: FC<ListItemProps> = ({ item, isLast }) => {
+export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
   const isDeposit = 'depositId' in item;
 
   return (
-    <View style={styles.account}>
+    <Pressable onPress={onPress} style={styles.account}>
       <View style={styles.cardContainer} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
@@ -51,6 +51,6 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast }) => {
         </View>
         {!isLast && <Divider height={1} marginTop={18} marginBottom={18} width="100%" />}
       </View>
-    </View>
+    </Pressable>
   );
 };
