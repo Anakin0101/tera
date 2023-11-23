@@ -174,7 +174,10 @@
     "unblockCard": "Unblock Card",
     "tempInactive": "StandBy Mode",
     "completed": "Action Done",
-    "failed": "Action Failed"
+    "failed": "Action Failed",
+    "updateCard": "Update Card",
+    "insure": "Standart",
+    "type": "Card Type"
   },
   "common": {
     "save": "Save",

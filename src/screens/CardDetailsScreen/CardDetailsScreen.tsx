@@ -1,16 +1,13 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
 import { CardsAndAccountsSlider, LastTransactions, Wallet } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
-import { Block, Insurance, Pincode } from 'assets/SVGs';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/types';
-import { useAppSelector } from 'store/hooks/useAppSelector';
-import { openModal } from 'utils/modal';
-import { BlockCardModal } from 'components/modals/BlockCardModal/BlockCardModal';
+import { useRoute } from '@react-navigation/native';
+import { ProductsStackRouteProps } from 'navigation/types';
 import { CardHolderDetails } from './CardHolderDetails';
-
+import { useCardDetails } from './container';
+import { TemporarilyInactiveDetails } from '../AccountDetailsScreen/TemporarilyInactiveDetails';
 const sections = [
   { title: 'main', data: [{}] },
   { title: 'wallet', data: [{}] },
@@ -22,49 +19,14 @@ const sections = [
 export const CardDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
-  const { lastTransactions, cards } = useAppSelector(state => state.products);
-  const [activeIndex, setActiveIndex] = useState(params.index);
 
-  const card = useMemo(() => {
-    return cards[activeIndex];
-  }, [cards, activeIndex]);
-
-  const handleInsurancePress = useCallback(() => {
-    navigate('CardInsuranceScreen');
-  }, [navigate]);
-
-  const handleBlockCard = () => {
-    openModal({
-      element: <BlockCardModal />,
-      title: 'products.blockCard',
-      titlePosition: 'center',
-      disablePanning: true,
-    });
-  };
-
-  const actions = useMemo(
-    () => [
-      {
-        title: 'products.insurance',
-        icon: <Insurance />,
-        handlePress: handleInsurancePress,
-      },
-      {
-        title: 'products.block',
-        icon: <Block />,
-        handlePress: handleBlockCard,
-      },
-      {
-        title: 'products.changePin',
-        icon: <Pincode />,
-        handlePress: () => {},
-      },
-    ],
-    [handleInsurancePress],
-  );
+  const { actions, cards, card, blockedAmounts, lastTransactions, activeIndex, setActiveIndex } =
+    useCardDetails(params.index);
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+    if (card.status === 13 && section.title !== 'main' && section.title !== 'details') {
+      return null;
+    }
     switch (section.title) {
       case 'main':
         return (
@@ -80,22 +42,36 @@ export const CardDetailsScreen = () => {
       case 'wallet':
         return <Wallet />;
       case 'details':
-        return (
-          <CardHolderDetails
-            accountNumber={card.pan}
-            endDate={card.endDate}
-            cvv={String(card.priority)}
-          />
-        );
+        if (card.status != 13) {
+          return (
+            <CardHolderDetails
+              accountNumber={card.pan}
+              endDate={card.endDate}
+              cvv={String(card.priority)}
+            />
+          );
+        } else {
+          return (
+            <TemporarilyInactiveDetails
+              cardHolder={card.cardHolder}
+              name={card?.cardProductName}
+              insure="products.insure"
+              displayDivider={!!lastTransactions?.length}
+              blockedAmounts={blockedAmounts}
+            />
+          );
+        }
       case 'information':
         return (
           <Details
-            information
             cardHolder={card.cardHolder}
             name={card?.cardProductName}
+            insure="products.insure"
             displayDivider={!!lastTransactions?.length}
+            blockedAmounts={blockedAmounts}
           />
         );
+
       case 'transactions':
         return (
           <LastTransactions

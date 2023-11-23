@@ -6,7 +6,7 @@ import { useStyles } from './RequestStatusModal.styles';
 import { Done, Fail } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 
-export const RequestStatusModal: FC<RequestStatusModalProps> = ({ success, message }) => {
+export const RequestStatusModal: FC<RequestStatusModalProps> = ({ success, message, onClose }) => {
   const styles = useStyles();
   return (
     <View style={styles.container}>
@@ -25,6 +25,7 @@ export const RequestStatusModal: FC<RequestStatusModalProps> = ({ success, messa
       />
       <Text children={message} label marginTop={20} color={Colors.textBlack400} />
       <Button.Primary
+        onPress={onClose}
         text="common.thankyou"
         customWrapperStyle={styles.button}
         customTextStyle={styles.buttonText}

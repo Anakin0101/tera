@@ -76,3 +76,4 @@ export { TeraCardLogo } from './TeraCardLogo';
 export { CardEye } from './CardEye';
 export { Done } from './Done';
 export { Fail } from './Fail';
+export { UpdateCard } from './UpdateCard';

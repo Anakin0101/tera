@@ -76,6 +76,13 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       ...Layout.center,
     },
+    iconUpdateContainer: {
+      width: 56,
+      height: 56,
+      borderRadius: 28,
+      backgroundColor: Colors.primaryActionButton,
+      ...Layout.center,
+    },
     actionButtonLabel: {
       maxWidth: 85,
       marginTop: Spacing.m,
