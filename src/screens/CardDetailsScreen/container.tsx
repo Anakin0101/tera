@@ -157,7 +157,6 @@ export const useCardDetails = (index: number) => {
 
   const actions = useMemo(() => {
     const currentCard = cards[activeIndex];
-    console.log(currentCard, 'currentCard');
     const isBlocked = currentCard?.status === CardStatusCode.Blocked;
     const isTemporarilyInactive = currentCard?.status === CardStatusCode.TemporarilyInactive;
     let updatedActions = getUpdatedActions(isBlocked, isTemporarilyInactive);

@@ -51,9 +51,9 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
         </View>
         <Button.Secondary text="common:passAuth.signup" onPress={() => {}} fullWidth />
       </View>
-      <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
+      {/* <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
         <Text children="Start with onboarding" marginTop={20} />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };

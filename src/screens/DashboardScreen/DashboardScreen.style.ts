@@ -67,5 +67,12 @@ export const useStyleTheme = () => {
       marginTop: MetricsSizes.regular,
       padding: Spacing.xl,
     },
+    list: {
+      marginLeft: Spacing.xl,
+    },
+    contentContainer: {
+      gap: Spacing.m,
+      paddingRight: 5,
+    },
   });
 };
