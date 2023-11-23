@@ -9,7 +9,7 @@ import { DepositsAndLoansProps, FooterProps, HeaderProps } from './DepositsAndLo
 import { DepositType, LoanType } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
-import { DEPOSITS_SCREEN, DEPOSIT_DETAILS_SCREEN } from 'navigation/ScreenNames';
+import { DEPOSITS_SCREEN, DEPOSIT_DETAILS_SCREEN, LOANS_SCREEN } from 'navigation/ScreenNames';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
   const styles = useStyles(seeAll);
@@ -39,6 +39,8 @@ const ListFooter: FC<FooterProps> = ({ variant }) => {
   const handlePress = () => {
     if (variant === 'deposit') {
       navigate(DEPOSITS_SCREEN);
+    } else {
+      navigate(LOANS_SCREEN);
     }
   };
 

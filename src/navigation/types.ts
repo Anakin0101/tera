@@ -29,6 +29,7 @@ import {
   INSURANCE_PACKAGE_DETAILS,
   DEPOSITS_SCREEN,
   DEPOSIT_DETAILS_SCREEN,
+  LOANS_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -73,6 +74,7 @@ export type ProductsStackParamsList = {
   [DEPOSIT_DETAILS_SCREEN]: {
     index: number;
   };
+  [LOANS_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

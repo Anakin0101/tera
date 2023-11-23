@@ -16,7 +16,5 @@ export const URLS = {
   getBankerInfo: 'api/Customers/GetBankerInfo',
   getAccountsByCustomerId: 'api/Account/GetAccountsByCustomerId',
   getOffers: 'api/Offers/GetOffers',
-  getDepositsByClientId: 'api/Deposit/GetDepositByClientId',
-  getLoansByCustomerId: 'api/Loan/GetLoanByCustomerId',
   getCustomerOps: 'api/Transaction/GetCustomerOps',
 };

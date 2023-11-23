@@ -9,7 +9,9 @@ const initialState: ProductsStateProps = {
   lastTransactions: [],
   overdrafts: [],
   deposits: [],
+  loans: [],
   totalDepositsGEL: 0,
+  totalDebtGEL: 0,
 };
 
 const productsSlice = createSlice({
@@ -31,6 +33,9 @@ const productsSlice = createSlice({
     setTotalDeposits: (state, { payload }) => {
       state.totalDepositsGEL = payload;
     },
+    setTotalDebt: (state, { payload }) => {
+      state.totalDebtGEL = payload;
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(dashboardAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
@@ -39,6 +44,12 @@ const productsSlice = createSlice({
     builder.addMatcher(dashboardAPI.endpoints.getAssets.matchFulfilled, (state, { payload }) => {
       state.deposits = payload;
     });
+    builder.addMatcher(
+      dashboardAPI.endpoints.getLoanCustomerId.matchFulfilled,
+      (state, { payload }) => {
+        state.loans = payload;
+      },
+    );
   },
 });
 
@@ -48,5 +59,6 @@ export const {
   setCards,
   setLastTransactions,
   setTotalDeposits,
+  setTotalDebt,
 } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;

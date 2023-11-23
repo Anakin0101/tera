@@ -19,6 +19,7 @@ import {
   DEPOSITS_SCREEN,
   DEPOSIT_DETAILS_SCREEN,
   INSURANCE_PACKAGE_DETAILS,
+  LOANS_SCREEN,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -26,6 +27,7 @@ import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CustomHeader } from 'components/CustomHeader';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
+import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -171,6 +173,21 @@ export const ProductsStack = () => {
           title: t('products.depositDetails'),
           headerStyle: {
             backgroundColor: Colors.lightGray,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={LOANS_SCREEN}
+        component={LoansScreen}
+        options={{
+          title: t('loans.title'),
+          headerStyle: {
+            backgroundColor: Colors.white,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',

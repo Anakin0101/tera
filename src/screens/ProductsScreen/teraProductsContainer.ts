@@ -1,13 +1,15 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { useEffect, useMemo } from 'react';
-import {
-  useGetAccountsByCustomerIdQuery,
-  useGetLoansByCustomerIdQuery,
-} from 'services/apis/productsAPI/productsAPI';
+import { useGetAccountsByCustomerIdQuery } from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setAccounts, setTotalAvailableBalance, setTotalDeposits } from 'store/slices/products';
+import {
+  setAccounts,
+  setTotalAvailableBalance,
+  setTotalDebt,
+  setTotalDeposits,
+} from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 
@@ -15,8 +17,7 @@ export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
   const { customerId } = useAppSelector(state => state.profile);
   const { data: accounts } = useGetAccountsByCustomerIdQuery(customerId ?? skipToken);
-  const { data: loans } = useGetLoansByCustomerIdQuery(customerId ?? skipToken);
-  const { groupedAccountsByIban, totalAvailableBalanceGEL, deposits } = useAppSelector(
+  const { groupedAccountsByIban, totalAvailableBalanceGEL, deposits, loans } = useAppSelector(
     state => state.products,
   );
 
@@ -42,16 +43,18 @@ export const useTeraProducts = () => {
     return calculateSum(filtered, 'amount');
   }, [deposits]);
 
-  useEffect(() => {
-    dispatch(setTotalDeposits(totalDeposits));
-  }, [dispatch, totalDeposits]);
-
   const totalLoans = useMemo(() => {
     if (!loans) {
       return 0;
     }
-    return calculateSum(loans, 'totalDebt');
+    const filtered = loans.filter(loan => loan.currency === 'GEL');
+    return calculateSum(filtered, 'totalDebt');
   }, [loans]);
+
+  useEffect(() => {
+    dispatch(setTotalDeposits(totalDeposits));
+    dispatch(setTotalDebt(totalLoans));
+  }, [dispatch, totalDeposits, totalLoans]);
 
   return {
     groupedAccountsByIban,

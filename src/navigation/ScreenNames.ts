@@ -40,3 +40,4 @@ export const CARD_INSURANCE = 'CardInsuranceScreen';
 export const INSURANCE_PACKAGE_DETAILS = 'InsurancePackageDetailsScreen';
 export const DEPOSITS_SCREEN = 'DepositsScreen';
 export const DEPOSIT_DETAILS_SCREEN = 'DepositDetailsScreen';
+export const LOANS_SCREEN = 'LoansScreen';

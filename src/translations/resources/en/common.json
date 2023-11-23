@@ -198,6 +198,10 @@
     "extraction": "Extraction",
     "agreementNumCopied": "Agreement number has been copied"
   },
+  "loans": {
+    "title": "Loans",
+    "new": "New Loan"
+  },
   "common": {
     "save": "Save",
     "georgian": "Georgian",

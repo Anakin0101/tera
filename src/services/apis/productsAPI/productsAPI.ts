@@ -6,7 +6,6 @@ import {
   Account,
   LastTransactionReq,
   LastTransactionRes,
-  LoanType,
   OfferType,
   OffersAPIResponseType,
   TransactionType,
@@ -36,15 +35,6 @@ export const productsAPI = createApi({
         },
       }),
       transformResponse: (response: OffersAPIResponseType) => response.offers,
-    }),
-    getLoansByCustomerId: builder.query<LoanType[], number>({
-      query: CustomerId => ({
-        url: URLS.getLoansByCustomerId,
-        method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
-      }),
     }),
     getLastTransactionsByAccNumber: builder.query<TransactionType[], LastTransactionReq>({
       query: ({ accountNumber, count, startDate, endDate }) => ({
@@ -79,7 +69,6 @@ export const productsAPI = createApi({
 export const {
   useGetAccountsByCustomerIdQuery,
   useGetOffersQuery,
-  useGetLoansByCustomerIdQuery,
   useGetLastTransactionsByAccNumberQuery,
   useUpdateAccountNameMutation,
 } = productsAPI;
