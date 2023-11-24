@@ -1,4 +1,5 @@
-import { DepositType, LoanType } from 'services/apis/productsAPI/productsAPI.types';
+import { LoanType } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { DepositType } from 'services/apis/productsAPI/productsAPI.types';
 
 type Variant = 'deposit' | 'loan';
 

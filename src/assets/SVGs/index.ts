@@ -77,3 +77,5 @@ export { CardEye } from './CardEye';
 export { Done } from './Done';
 export { Fail } from './Fail';
 export { Add } from './Add';
+export { List } from './List';
+export { History } from './History';

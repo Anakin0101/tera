@@ -1,11 +1,12 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { moderateScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Colors, FontSize, Fonts, FontFamily } = useTheme();
   return StyleSheet.create({
     default: {
-      fontSize: FontSize.small,
+      fontSize: moderateScale(FontSize.small),
       fontFamily: FontFamily.Regular,
       lineHeight: FontSize.large,
       color: Colors.textBlack,
@@ -17,15 +18,15 @@ export const useStyleTheme = () => {
       ...Fonts.textCenter,
     },
     label: {
-      fontSize: FontSize.tiny,
+      fontSize: moderateScale(FontSize.tiny),
       lineHeight: FontSize.regular,
     },
     title: {
-      fontSize: FontSize.small,
+      fontSize: moderateScale(FontSize.small),
       lineHeight: 22,
     },
     headline: {
-      fontSize: FontSize.large,
+      fontSize: moderateScale(FontSize.large),
       lineHeight: 34,
     },
     secondary: {

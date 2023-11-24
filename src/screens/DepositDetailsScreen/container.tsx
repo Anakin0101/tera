@@ -17,7 +17,10 @@ export const useDepositDetails = (index: number) => {
   }, [activeIndex, deposits]);
 
   const actions = useMemo(() => {
-    if (deposit.typeId === DepositTypeEnum.Saving || deposit.typeId === DepositTypeEnum.Universal) {
+    if (
+      deposit?.typeId === DepositTypeEnum.Saving ||
+      deposit?.typeId === DepositTypeEnum.Universal
+    ) {
       return [
         {
           title: t('deposits.addMoney'),
@@ -42,7 +45,7 @@ export const useDepositDetails = (index: number) => {
       ];
     }
 
-    if (deposit.typeId === DepositTypeEnum.Increasing) {
+    if (deposit?.typeId === DepositTypeEnum.Increasing) {
       return [
         {
           title: t('deposits.addMoney'),
@@ -64,7 +67,7 @@ export const useDepositDetails = (index: number) => {
         handlePress: () => {},
       },
     ];
-  }, [deposit.typeId, t]);
+  }, [deposit?.typeId, t]);
 
   return {
     deposits,

@@ -22,10 +22,10 @@ const georgianMonths = {
   Dec: 'დეკ',
 };
 
-export const formatDate = (dateString: string) => {
+export const formatDate = (dateString: string, template = 'YYYY,HH:mm') => {
   const day = dayjs(dateString).format('DD');
   const month = dayjs(dateString).format('MMM') as keyof typeof georgianMonths;
-  const yearAndHour = dayjs(dateString).format('YYYY,HH:mm');
+  const yearAndHour = dayjs(dateString).format(template);
 
   return `${day} ${isEnglish ? month : georgianMonths[month]},${yearAndHour}`;
 };

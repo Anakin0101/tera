@@ -200,7 +200,22 @@
   },
   "loans": {
     "title": "Loans",
-    "new": "New Loan"
+    "new": "New Loan",
+    "details": "Loan Details",
+    "schedule": "Schedule",
+    "history": "History",
+    "nextPayment": "Next payment {{value}}",
+    "next": "Next payment",
+    "name": "Name",
+    "type": "Loan type",
+    "ccy": "Currency",
+    "remainingPrincipal": "Remaining principal",
+    "date": "Borrowing and completion date",
+    "initialAmount": "The initial amount of the loan",
+    "totalInterest": "Total interest payable on schedule",
+    "annualInterestRage": "Annual interest rate",
+    "acc": "Loan servicing account",
+    "saving": "Total amount saved by offset"
   },
   "common": {
     "save": "Save",
