@@ -42,3 +42,4 @@ export { FixedButton } from './FixedButton/FixedButton';
 export { Wallet } from './Wallet/Wallet';
 export { Slider } from './Slider/Slider';
 export { Badge } from './Badge/Badge';
+export { Collapsible } from './Collapsible/Collapsible';

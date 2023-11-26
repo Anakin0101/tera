@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Text } from 'components';
 import { formatDate } from 'utils/formatDate';
 import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
-import { Edit } from 'assets/SVGs';
+import { Edit, Note } from 'assets/SVGs';
 import { LoanDetailsProps } from './LoanDetailsScreen.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 
@@ -26,6 +26,12 @@ export const LoanDetails: FC<LoanDetailsProps> = ({ loan }) => {
       <DetailsItem label="loans.annualInterestRage" value={`${loan.interestRate}%`} />
       <DetailsItem label="loans.acc" value={''} />
       <DetailsItem label="loans.saving" value={''} />
+      <Pressable style={styles.agreementButton}>
+        <View style={styles.innerContainer}>
+          <Note />
+          <Text children="deposits.agreementDoc" special />
+        </View>
+      </Pressable>
     </View>
   );
 };

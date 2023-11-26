@@ -14,9 +14,9 @@ export const useStyles = () => {
     container: {
       ...Layout.fill,
     },
-    nextWrapper: {
+    nextPaymentWrapper: {
       backgroundColor: Colors.white,
-      paddingHorizontal: Spacing.xl,
+      paddingHorizontal: moderateScale(Spacing.xl),
       paddingVertical: Spacing.xlg,
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
@@ -25,9 +25,8 @@ export const useStyles = () => {
       ...Layout.row,
       backgroundColor: Colors.dashboardBackground,
       borderRadius: Spacing.m,
-      paddingHorizontal: Spacing.ml,
       paddingVertical: Spacing.lg,
-      gap: Spacing.m,
+      gap: moderateScale(Spacing.m),
     },
     nextIcon: {
       ...Layout.center,
@@ -36,12 +35,7 @@ export const useStyles = () => {
       borderRadius: Spacing.xl,
       backgroundColor: Colors.white,
     },
-    nextDetails: {
-      ...Layout.fill,
-      ...Layout.rowHCenter,
-      ...Layout.justifyContentBetween,
-    },
-    nextDate: {
+    nextPaymentDate: {
       ...Layout.row,
       ...Layout.alignItemsCenter,
       gap: Spacing.s,
@@ -49,15 +43,22 @@ export const useStyles = () => {
     actionButtonsContainer: {
       gap: Spacing.ml,
     },
-
+    nextPaymentContent: {
+      marginLeft: horizontalScale(60),
+      borderTopWidth: 1,
+      borderTopColor: Colors.inputBlack50,
+      paddingTop: 6,
+    },
+    nextPaymentDetails: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
+      marginTop: 3,
+    },
     details: {
       backgroundColor: Colors.white,
-      // borderTopLeftRadius: Spacing.xl,
-      // borderTopRightRadius: Spacing.xl,
       paddingHorizontal: Spacing.xl,
       paddingVertical: Spacing.xlg,
     },
-
     agreementButton: {
       borderWidth: 1,
       borderRadius: 52,
@@ -72,15 +73,11 @@ export const useStyles = () => {
     },
     card: {
       ...Layout.justifyContentBetween,
-      padding: 26,
       borderRadius: Spacing.m,
-      backgroundColor: Colors.titleBlack,
       width: horizontalScale(340),
-      height: 200,
-    },
-    depositItem: {
       backgroundColor: Colors.white,
-      padding: Spacing.xlg,
+      padding: moderateScale(Spacing.xlg),
+      height: 200,
     },
     header: {
       ...Layout.rowHCenter,

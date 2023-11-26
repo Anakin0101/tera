@@ -215,7 +215,11 @@
     "totalInterest": "Total interest payable on schedule",
     "annualInterestRage": "Annual interest rate",
     "acc": "Loan servicing account",
-    "saving": "Total amount saved by offset"
+    "saving": "Total amount saved by offset",
+    "principal": "Principal",
+    "interest": "Interest",
+    "commission": "Commission",
+    "savedByOffset": "Amount saved by offset"
   },
   "common": {
     "save": "Save",

@@ -12,7 +12,7 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
   const styles = useStyles();
 
   return (
-    <View style={[styles.card, styles.depositItem]}>
+    <View style={styles.card}>
       <View style={styles.header}>
         <View style={styles.iconContainer} />
         <View>
