@@ -71,11 +71,6 @@ export const withLoginScreen = <P extends object, T extends keyof GuestStackPara
           <View style={styles.languageSwitcherContainer}>
             <LanguageSwitcher />
           </View>
-          <View style={styles.languageSwitcherContainer}>
-            <Button.Primary onPress={handleThemeChange}>
-              <Text>Change the theme - temporary</Text>
-            </Button.Primary>
-          </View>
           <View style={styles.wrappedComponentWrapperStyle}>
             <WrappedComponent {...(props as P)} handleNavigation={handleNavigation} />
           </View>

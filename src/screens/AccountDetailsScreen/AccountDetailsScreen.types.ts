@@ -34,6 +34,7 @@ export interface DetailsProps {
   borderRadius?: boolean;
   information?: boolean;
   cardHolder?: string;
+  insure?: string;
 }
 
 export type RelatedOverdraft = OverdraftType | null;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { Text } from 'components';
 import { useStyles } from './DashboardUpcoming.styles';
 import useTheme from 'hooks/useTheme';
@@ -26,6 +26,13 @@ export const DashboardUpcomingOps = ({ data }: any) => {
               style={styles.titleContainer}
               color={Colors.textBlack}
             />
+            <TouchableOpacity>
+              <Text
+                children={'dashboard.all'}
+                style={styles.titleContainer}
+                color={Colors.primary}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.dashboardTemplatesWrapper}>
             <FlatList

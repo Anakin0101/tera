@@ -2,10 +2,15 @@ import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
 
 export const useStyles = () => {
-  const { Layout, Fonts, Spacing, FontSize } = useTheme();
+  const { Layout, Fonts, Spacing, FontSize, Colors } = useTheme();
 
   return StyleSheet.create({
     headerContainer: {},
+    assetsView: {
+      paddingLeft: Spacing.xl,
+      paddingVertical: Spacing.xlg,
+      backgroundColor: Colors.white,
+    },
     titleContainer: {
       ...Fonts.textBold,
       fontSize: FontSize.regularPlus,
@@ -21,6 +26,23 @@ export const useStyles = () => {
     },
     dashboardTemplatesContent: {
       paddingVertical: Spacing.xl,
+    },
+    mask: {
+      width: 40,
+      height: 40,
+      ...Layout.alignItemsCenter,
+      marginLeft: Spacing.s,
+      ...Layout.center,
+    },
+    eyeIcon: {
+      width: 40,
+      height: 40,
+      marginBottom: Spacing.lg,
+    },
+    wrapMask: {
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+      width: '90%',
     },
   });
 };

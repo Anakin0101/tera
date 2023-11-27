@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { ListRenderItem, View } from 'react-native';
+import { ListRenderItem, View, TouchableOpacity } from 'react-native';
 import { OffersProps } from './Offers.types';
 import { config, horizontalScale } from 'utils/config';
 import { useStyles } from './Offers.styles';
+import useTheme from 'hooks/useTheme';
+import { Text } from 'components';
 import { CheckShield } from 'assets/SVGs';
-import { Text } from '../index';
 import Indicator from 'components/CardsAndBalance/Indicator';
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 
@@ -13,7 +14,7 @@ const padding = config.mobileWidth - horizontalScale(320) - 24;
 export const Offers: FC<OffersProps> = ({ data }) => {
   const styles = useStyles(padding);
   const translateX = useSharedValue(0);
-
+  const { Colors } = useTheme();
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateX.value = event.contentOffset.x;
   });
@@ -38,8 +39,13 @@ export const Offers: FC<OffersProps> = ({ data }) => {
   }
 
   return (
-    <>
-      <Text children="products.offers" demiBold style={styles.title} />
+    <View style={styles.offersWrapper}>
+      <View style={styles.headerWrapper}>
+        <Text children="products.offers" demiBold style={styles.title} />
+        <TouchableOpacity>
+          <Text children={'dashboard.all'} style={styles.titleContainer} color={Colors.primary} />
+        </TouchableOpacity>
+      </View>
       <Animated.FlatList
         horizontal
         pagingEnabled
@@ -54,7 +60,7 @@ export const Offers: FC<OffersProps> = ({ data }) => {
         contentContainerStyle={styles.contentContainer}
       />
       <Indicator data={data} translateX={translateX} hideFirst={false} />
-    </>
+    </View>
   );
 };
 

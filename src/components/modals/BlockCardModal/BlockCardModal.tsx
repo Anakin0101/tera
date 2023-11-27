@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { useStyles } from './BlockCardModal.styles';
+import { blockCardProps } from './BlockCardModal.types';
 
-export const BlockCardModal = () => {
+export const BlockCardModal: FC<blockCardProps> = ({ onPress, shouldBlock }) => {
   const styles = useStyles();
 
   return (
@@ -12,11 +13,18 @@ export const BlockCardModal = () => {
       <View style={styles.header}>
         <Text
           center
-          children={'ნამდვილად გსურთ “ჩემი ბარათის”\nდაბლოკვა?'}
+          children={
+            !shouldBlock
+              ? 'ნამდვილად გსურთ “ჩემი ბარათის”\nგანბლოკვა?'
+              : 'ნამდვილად გსურთ “ჩემი ბარათის”\nდაბლოკვა?'
+          }
           color={Colors.textBlack500}
         />
       </View>
       <Button.Primary
+        onPress={() => {
+          onPress();
+        }}
         fixedWidth
         text="common.confirm"
         customWrapperStyle={styles.button}

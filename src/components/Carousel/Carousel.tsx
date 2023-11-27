@@ -18,7 +18,7 @@ export const Carousel: FC<CarouselProps> = ({
   withTimer,
   titleStyle,
   resizeMode,
-  delay = 5000,
+  delay = 10000,
   skipable = true,
   dotContainerStyle,
   textContainerStyle,

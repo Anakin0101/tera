@@ -184,7 +184,10 @@
     "standardConditions": "conduct banking operations standard conditions",
     "allDeposits": "Deposits",
     "newDeposit": "New Deposit",
-    "depositDetails": "Deposit Details"
+    "depositDetails": "Deposit Details",
+    "updateCard": "Update Card",
+    "insure": "Standart",
+    "type": "Card Type"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",

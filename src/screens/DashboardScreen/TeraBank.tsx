@@ -26,7 +26,8 @@ import { ITeraBankProps } from './DashboardScreen.types';
 import { useStyleTheme } from './DashboardScreen.style';
 import { useDashboardScreen } from './container';
 import { Banker } from 'components';
-import { Offers, tempData } from './Sections';
+import { tempData } from './Sections';
+import { Offers } from 'components';
 import { DashboardPensionFund } from 'components/DashboardPensionFund/DashboardPensionFund';
 
 const sections = [

@@ -42,6 +42,7 @@ export const LanguageSwitcher = () => {
   return (
     <Button.Secondary
       size="medium"
+      customTextStyle={{ color: Colors.textBlack }}
       customWrapperStyle={{ backgroundColor: Colors.gray }}
       text={currentLanguage.label}
       leftIcon={currentLanguage.icon}

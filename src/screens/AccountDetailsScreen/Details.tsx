@@ -18,6 +18,7 @@ export const Details: FC<DetailsProps> = ({
   borderRadius,
   cardHolder,
   information,
+  insure,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ export const Details: FC<DetailsProps> = ({
             value={cardHolder}
             onPress={() => {}}
           />
+          <DetailsItem label="დაზღვევა" value={insure} onPress={handleChangeName} />
           {blockedAmounts?.length ? (
             <DetailsItem
               label="products.blockedFunds"

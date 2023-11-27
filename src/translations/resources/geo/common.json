@@ -189,7 +189,10 @@
     "standardConditions": "საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
     "allDeposits": "ანაბრები",
     "newDeposit": "ახალი ანაბარი",
-    "depositDetails": "ანაბრის დეტალები"
+    "depositDetails": "ანაბრის დეტალები",
+    "updateCard": "ბარათის განახლება",
+    "insure": "სტანდარტი",
+    "type": "ბარათის ტიპი"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",

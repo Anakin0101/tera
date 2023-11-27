@@ -33,9 +33,9 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
       <View style={styles.buttonCont}>
         <Button.Primary text="common:passAuth.signin" onPress={handleSignIn} fullWidth />
       </View>
-      <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
+      {/* <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
         <Text children="Start with onboarding" marginTop={20} />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };

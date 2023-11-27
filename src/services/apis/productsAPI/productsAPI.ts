@@ -73,6 +73,24 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    BlockCard: builder.mutation<any, any>({
+      query: ({ cardId }) => ({
+        url: URLS.BlockCard,
+        method: METHOD_NAMES.POST,
+        body: {
+          cardId,
+        },
+      }),
+    }),
+    UnblockCard: builder.mutation<any, any>({
+      query: ({ cardId }) => ({
+        url: URLS.UnblockCard,
+        method: METHOD_NAMES.POST,
+        body: {
+          cardId,
+        },
+      }),
+    }),
   }),
 });
 
@@ -82,4 +100,6 @@ export const {
   useGetLoansByCustomerIdQuery,
   useGetLastTransactionsByAccNumberQuery,
   useUpdateAccountNameMutation,
+  useBlockCardMutation,
+  useUnblockCardMutation,
 } = productsAPI;

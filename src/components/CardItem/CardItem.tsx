@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useStyles } from './CardItem.styles';
 import { IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CardItemProps } from './CardItem.types';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const CardItem: React.FC<CardItemProps> = ({
   title,
@@ -12,15 +13,13 @@ export const CardItem: React.FC<CardItemProps> = ({
   iconSource,
   isSecure = false,
 }) => {
-  const [securePension, setSecurePension] = useState(false);
   const styles = useStyles();
-
+  const securePension = useAppSelector(state => state.dashboard.maskText);
   const renderMaskedValue = () => {
     const stringValue = String(value);
-    const maskedValue = stringValue.replace(/./g, '•');
+    const maskedValue = '•'.repeat(5);
     return isSecure && securePension ? maskedValue : stringValue;
   };
-
   return (
     <TouchableOpacity style={styles.wrapper}>
       <View style={styles.iconView}>
@@ -42,19 +41,6 @@ export const CardItem: React.FC<CardItemProps> = ({
               numberOfLines={1}
               ellipsizeMode="tail"
             />
-            {isSecure && (
-              <TouchableOpacity
-                style={styles.mask}
-                onPress={() => {
-                  setSecurePension(prev => !prev);
-                }}
-              >
-                <IconComponent
-                  pngLocalIcon={securePension ? Images().OpenEye : Images().CloseEye}
-                  customIconComponentStyles={styles.eyeIcon}
-                />
-              </TouchableOpacity>
-            )}
           </View>
         </View>
       </View>
