@@ -1,9 +1,10 @@
 import React from 'react';
-import { SectionListRenderItem } from 'react-native';
-import { useStyles } from './CardInsuranceScreen.styles';
-import { SectionList } from 'react-native';
+import { SectionList, SectionListRenderItem } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { General } from './General';
 import { Packages } from './Packages';
+import { ProductsStackRouteProps } from 'navigation/types';
+import { useStyles } from './CardInsuranceScreen.styles';
 
 const sections = [
   { title: 'general', data: [{}] },
@@ -12,13 +13,14 @@ const sections = [
 
 export const CardInsuranceScreen = () => {
   const styles = useStyles();
+  const { params } = useRoute<ProductsStackRouteProps<'CardInsuranceScreen'>>();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'general':
         return <General />;
       case 'package':
-        return <Packages />;
+        return <Packages cardId={params.cardId} />;
       default:
         return null;
     }

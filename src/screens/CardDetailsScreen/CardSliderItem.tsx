@@ -1,14 +1,12 @@
-import { Alert, CheckShieldSmall, Lock, MasterCard, TeraCardLogo, Visa } from 'assets/SVGs';
-import { Text } from '../index';
 import React, { FC } from 'react';
 import { View } from 'react-native';
-
+import { Badge, Text } from 'components';
 import { getExpirationDate } from 'utils/formatDate';
 import { Colors } from 'theme/Variables';
-import { CardSliderItemProps } from './CardsAndAccountsSlider.types';
-import { useStyles } from './CardsAndAccountsSlider.styles';
+import { Alert, CheckShieldSmall, Lock, MasterCard, TeraCardLogo, Visa } from 'assets/SVGs';
 import { CardStatusCode } from 'services/apis/productsAPI/productsAPI.types';
-import { CardStatusBadge } from './CardStatusBadge';
+import { CardSliderItemProps } from './CardDetailsScreen.types';
+import { useStyles } from './CardDetailsScreen.styles';
 
 export const CardSliderItem: FC<CardSliderItemProps> = ({ item }) => {
   const styles = useStyles();
@@ -18,16 +16,28 @@ export const CardSliderItem: FC<CardSliderItemProps> = ({ item }) => {
         <TeraCardLogo />
         <View style={styles.badgesContainer}>
           {item.status === CardStatusCode.Blocked && (
-            <CardStatusBadge icon={<Lock />} text="products.blocked" />
+            <Badge
+              height={25}
+              icon={<Lock />}
+              label="products.blocked"
+              backgroundColor={Colors.white}
+            />
           )}
           {item.status === CardStatusCode.Issued && (
-            <CardStatusBadge icon={<Alert />} text="products.expired" />
+            <Badge
+              height={25}
+              icon={<Alert />}
+              label="products.expired"
+              backgroundColor={Colors.white}
+            />
           )}
           {item.status === CardStatusCode.TemporarilyInactive && (
-            <CardStatusBadge
+            <Badge
+              height={25}
               icon={<Alert color={Colors.warningSolid} />}
-              text="products.tempInactive"
+              label="products.tempInactive"
               textColor={Colors.warningSolid}
+              backgroundColor={Colors.white}
             />
           )}
           {item.isInsured && (

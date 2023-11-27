@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { Text } from 'components';
-import { ActionButtonProps } from './CardsAndAccountsSlider.types';
-import { useStyles } from './CardsAndAccountsSlider.styles';
+import { ActionButtonProps } from './Slider.types';
+import { useStyles } from './Slider.styles';
 
 export const ActionButtons: FC<ActionButtonProps> = ({ actions }) => {
   const styles = useStyles();

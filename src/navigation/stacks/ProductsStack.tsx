@@ -6,6 +6,9 @@ import {
   MyAccountsScrollableScreen,
   ProductsScreen,
   CardDetailsScreen,
+  InsurancePackageDetails,
+  DepositsScreen,
+  DepositDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,6 +16,9 @@ import {
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
+  DEPOSITS_SCREEN,
+  DEPOSIT_DETAILS_SCREEN,
+  INSURANCE_PACKAGE_DETAILS,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -120,6 +126,51 @@ export const ProductsStack = () => {
           title: t('products.cardInsurance'),
           headerStyle: {
             backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={INSURANCE_PACKAGE_DETAILS}
+        component={InsurancePackageDetails}
+        options={{
+          title: t('products.insurancePackageDetails'),
+          headerStyle: {
+            backgroundColor: Colors.lightGray,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={DEPOSITS_SCREEN}
+        component={DepositsScreen}
+        options={{
+          title: t('products.allDeposits'),
+          headerStyle: {
+            backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={DEPOSIT_DETAILS_SCREEN}
+        component={DepositDetailsScreen}
+        options={{
+          title: t('products.depositDetails'),
+          headerStyle: {
+            backgroundColor: Colors.lightGray,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',

@@ -98,3 +98,36 @@ type BankExternalTransaction = {
   isTrusted: boolean;
   trustedAddDate: string | null;
 };
+
+export enum DepositTypeEnum {
+  Increasing = 5,
+  Universal = 10,
+  Saving = 11,
+}
+
+export type Asset = {
+  accountId: number;
+  accountNumber: number;
+  agreementNumber: string;
+  amount: number;
+  canCredit: boolean;
+  canDebit: boolean;
+  currency: Currency;
+  depositId: number;
+  depositName: string;
+  depositNameEng: string;
+  depositType: string;
+  depositTypeEng: string;
+  endDate: string;
+  iban: string;
+  interestPercent: number;
+  isCD: boolean;
+  nominalAmount: number;
+  period: number;
+  productId: number;
+  startDate: string;
+  totalAccrualPercent: number;
+  totalCapitalizedPercent: number;
+  totalInterest: number;
+  typeId: DepositTypeEnum;
+};

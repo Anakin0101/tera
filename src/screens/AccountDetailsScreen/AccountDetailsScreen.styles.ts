@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { config } from 'utils/config';
+import { config, horizontalScale } from 'utils/config';
 
 const PROGRESS_WIDTH = config.mobileWidth - 48 - 12 - 48;
 
@@ -69,15 +69,6 @@ export const useStyles = () => {
       ...Layout.alignItemsCenter,
       gap: Spacing.xs,
       marginTop: Spacing.xs,
-    },
-    badge: {
-      ...Layout.row,
-      ...Layout.alignItemsCenter,
-      backgroundColor: Colors.error100,
-      gap: Spacing.xxs,
-      padding: 5,
-      minWidth: 100,
-      borderRadius: 50,
     },
     emptyCards: {
       ...Layout.alignItemsCenter,
@@ -156,6 +147,41 @@ export const useStyles = () => {
       ...Layout.row,
       ...Layout.alignItemsCenter,
       gap: Spacing.ml,
+    },
+    card: {
+      ...Layout.justifyContentBetween,
+      padding: 26,
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.titleBlack,
+      width: horizontalScale(340),
+      height: 200,
+    },
+    balance: {
+      ...Layout.row,
+    },
+    arrowContainer: {
+      marginTop: Spacing.m,
+      marginLeft: Spacing.s,
+    },
+    starContainer: {
+      ...Layout.center,
+      ...Layout.absolute,
+      width: Spacing.xl,
+      height: Spacing.xl,
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.white,
+      top: Spacing.ml,
+      right: Spacing.ml,
+    },
+    currencies: {
+      ...Layout.row,
+      ...Layout.flexWrap,
+      gap: Spacing.xs,
+    },
+    currency: {
+      backgroundColor: Colors.currencyBackground,
+      padding: Spacing.xs,
+      borderRadius: 80,
     },
   });
 };

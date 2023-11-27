@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
-import { Badge } from './Badge';
 import { useTheme } from 'hooks';
-import { Divider, Text } from 'components';
+import { Badge, Divider, Text } from 'components';
 import { CheckShieldSmall, ChevronRight, Visa, MasterCard, Lock, Alert } from 'assets/SVGs';
 import { CardItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';

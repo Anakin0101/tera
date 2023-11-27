@@ -1,8 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import Clipboard from '@react-native-clipboard/clipboard';
-import { openToast } from 'utils/toast';
 import { openModal } from 'utils/modal';
 import { Divider, Text } from 'components';
 import { DetailsItem } from './DetailsItem';
@@ -10,6 +8,7 @@ import { ChevronRight, Copy, Edit } from 'assets/SVGs';
 import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
+import { useCopyToClipboard } from 'hooks/useCopyToClipboard';
 
 export const Details: FC<DetailsProps> = ({
   name,
@@ -21,25 +20,9 @@ export const Details: FC<DetailsProps> = ({
   information,
   insure,
 }) => {
-  const [copiedText, setCopiedText] = useState('');
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const copyToClipboard = (iban?: string) => {
-    if (!iban) {
-      return null;
-    }
-    Clipboard.setString(iban);
-    fetchCopiedText();
-  };
-
-  const fetchCopiedText = async () => {
-    const text = await Clipboard.getString();
-    setCopiedText(text);
-    if (text) {
-      openToast('products.clipboard', 'success');
-    }
-  };
+  const { copyToClipboard } = useCopyToClipboard();
 
   const handleChangeName = () => {
     openModal({
@@ -48,6 +31,10 @@ export const Details: FC<DetailsProps> = ({
       titlePosition: 'center',
       disableDynamicSizing: true,
     });
+  };
+
+  const copyIban = () => {
+    iban && copyToClipboard(iban, 'products.clipboard');
   };
 
   return (
@@ -89,9 +76,7 @@ export const Details: FC<DetailsProps> = ({
             label="products.accountNumber"
             value={iban}
             icon={<Copy />}
-            onPress={() => {
-              copyToClipboard(iban);
-            }}
+            onPress={copyIban}
           />
           {blockedAmounts?.length ? (
             <DetailsItem

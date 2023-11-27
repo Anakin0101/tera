@@ -1,5 +1,5 @@
 import { ViewToken } from 'react-native';
-import { Account, CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface AccountsSliderData {
   accounts: Account[];
@@ -12,26 +12,20 @@ export type ActionType = {
   handlePress?: () => void;
 };
 
-export interface SliderProps {
-  iban: string;
+export type SliderProps<ItemT> = {
+  data: ItemT[];
+  renderItem: React.FC<{ item: ItemT }>;
   actions: ActionType[];
-  data: AccountsSliderData[] | CardType[];
-  displayCards?: boolean;
   index: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-}
+};
 
 export type ViewableItems = {
   viewableItems: ViewToken[];
 };
 
-export type CardSliderItemProps = {
-  item: CardType;
-};
-
 export type AccountSliderItemProps = {
   item: AccountsSliderData;
-  iban?: string;
 };
 
 export type ActionButtonProps = {

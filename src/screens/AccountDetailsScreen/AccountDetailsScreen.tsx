@@ -5,9 +5,10 @@ import { Cards } from './Cards';
 import { Details } from './Details';
 import { useAccountDetails } from './container';
 import { ActiveOverdraft } from './ActiveOverdraft';
-import { CardsAndAccountsSlider, LastTransactions } from 'components';
+import { Slider, LastTransactions } from 'components';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
+import { AccountSliderItem } from './AccountSliderItem';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -40,10 +41,10 @@ export const AccountDetailsScreen = () => {
     switch (section.title) {
       case 'main':
         return (
-          <CardsAndAccountsSlider
-            actions={actions}
-            iban={params.iban}
+          <Slider
             data={groupedAccountsByIban}
+            renderItem={AccountSliderItem}
+            actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}
           />
@@ -63,7 +64,7 @@ export const AccountDetailsScreen = () => {
         return (
           <Details
             name={account?.accountName}
-            iban={account?.iban}
+            iban={account.iban}
             displayDivider={!!lastTransactions?.length}
             borderRadius={!account.isCardAccount && !overdraftRelatedToAcc}
             blockedAmounts={blockedAmounts}

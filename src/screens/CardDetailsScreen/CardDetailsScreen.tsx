@@ -1,13 +1,15 @@
 import React from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
-import { CardsAndAccountsSlider, LastTransactions, Wallet } from 'components';
+import { Slider, LastTransactions, Wallet } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
 import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { CardHolderDetails } from './CardHolderDetails';
 import { useCardDetails } from './container';
 import { TemporarilyInactiveDetails } from '../AccountDetailsScreen/TemporarilyInactiveDetails';
+import { CardSliderItem } from './CardSliderItem';
+
 const sections = [
   { title: 'main', data: [{}] },
   { title: 'wallet', data: [{}] },
@@ -30,13 +32,12 @@ export const CardDetailsScreen = () => {
     switch (section.title) {
       case 'main':
         return (
-          <CardsAndAccountsSlider
-            actions={actions}
-            iban={params.iban}
+          <Slider
             data={cards}
+            renderItem={CardSliderItem}
+            actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}
-            displayCards
           />
         );
       case 'wallet':

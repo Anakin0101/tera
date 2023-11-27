@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Button, Divider, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
@@ -7,11 +7,11 @@ import { Colors, FontSize } from 'theme/Variables';
 import { InsurancePackageItemProps } from './CardInsuranceScreen.types';
 import { useStyles } from './CardInsuranceScreen.styles';
 
-export const InsurancePackageItem: FC<InsurancePackageItemProps> = ({ item }) => {
+export const InsurancePackageItem: FC<InsurancePackageItemProps> = ({ item, onPress }) => {
   const styles = useStyles();
 
   return (
-    <View style={styles.insuranceItem}>
+    <Pressable onPress={() => onPress(item.name, item.commission)} style={styles.insuranceItem}>
       <Text medium headline>
         {item.name}
       </Text>
@@ -51,6 +51,6 @@ export const InsurancePackageItem: FC<InsurancePackageItemProps> = ({ item }) =>
         customWrapperStyle={styles.button}
         customTextStyle={styles.buttonText}
       />
-    </View>
+    </Pressable>
   );
 };

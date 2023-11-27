@@ -4,7 +4,6 @@ import { URLS } from 'services/constants/urls';
 import { METHOD_NAMES } from 'services/constants';
 import {
   Account,
-  DepositType,
   LastTransactionReq,
   LastTransactionRes,
   LoanType,
@@ -37,15 +36,6 @@ export const productsAPI = createApi({
         },
       }),
       transformResponse: (response: OffersAPIResponseType) => response.offers,
-    }),
-    getDeposits: builder.query<DepositType[], number>({
-      query: CustomerId => ({
-        url: URLS.getDepositsByClientId,
-        method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
-      }),
     }),
     getLoansByCustomerId: builder.query<LoanType[], number>({
       query: CustomerId => ({
@@ -107,7 +97,6 @@ export const productsAPI = createApi({
 export const {
   useGetAccountsByCustomerIdQuery,
   useGetOffersQuery,
-  useGetDepositsQuery,
   useGetLoansByCustomerIdQuery,
   useGetLastTransactionsByAccNumberQuery,
   useUpdateAccountNameMutation,

@@ -1,15 +1,12 @@
-import React, { FC, useCallback, useEffect, useRef } from 'react';
-import { FlatList, ListRenderItem, Platform, View } from 'react-native';
-import { AccountsSliderData, SliderProps, ViewableItems } from './CardsAndAccountsSlider.types';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { FlatList, Platform, View } from 'react-native';
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
-import { horizontalScale } from 'utils/config';
 import { Spacing } from 'theme/Variables';
-import { CardSliderItem } from './CardSliderItem';
-import { CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { horizontalScale } from 'utils/config';
 import { ActionButtons } from './ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
-import { AccountSliderItem } from './AccountSliderItem';
-import { useStyles } from './CardsAndAccountsSlider.styles';
+import { SliderProps, ViewableItems } from './Slider.types';
+import { useStyles } from './Slider.styles';
 
 const viewabilityConfig = {
   itemVisiblePercentThreshold: 60,
@@ -20,14 +17,13 @@ const interval = horizontalScale(340) + Spacing.m;
 
 const ReanimatedFlatlist = Animated.createAnimatedComponent<any>(FlatList);
 
-export const CardsAndAccountsSlider: FC<SliderProps> = ({
+export const Slider = <ItemT,>({
   actions,
-  iban,
   data,
   index,
   setActiveIndex,
-  displayCards,
-}) => {
+  renderItem: Item,
+}: SliderProps<ItemT>) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
   const ref = useRef<FlatList>(null);
@@ -60,12 +56,8 @@ export const CardsAndAccountsSlider: FC<SliderProps> = ({
     translateX.value = event.contentOffset.x;
   });
 
-  const renderAccountItem: ListRenderItem<AccountsSliderData> = ({ item }) => {
-    return <AccountSliderItem item={item} iban={iban} />;
-  };
-
-  const renderCardItem: ListRenderItem<CardType> = ({ item }) => {
-    return <CardSliderItem item={item} />;
+  const renderItem = ({ item }: { item: ItemT }) => {
+    return <Item item={item} />;
   };
 
   return (
@@ -76,7 +68,7 @@ export const CardsAndAccountsSlider: FC<SliderProps> = ({
           horizontal
           pagingEnabled
           data={data}
-          renderItem={displayCards ? renderCardItem : renderAccountItem}
+          renderItem={renderItem}
           decelerationRate="fast"
           onScroll={scrollHandler}
           scrollEventThrottle={16}

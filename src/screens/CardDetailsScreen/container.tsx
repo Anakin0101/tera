@@ -50,8 +50,10 @@ export const useCardDetails = (index: number) => {
   }, [cardsAttachedToAccount]);
 
   const handleInsurancePress = useCallback(() => {
-    navigate('CardInsuranceScreen');
-  }, [navigate]);
+    navigate('CardInsuranceScreen', {
+      cardId: card.id,
+    });
+  }, [card.id, navigate]);
 
   const blockPress = (shouldBlock: boolean) => {
     if (shouldBlock) {
