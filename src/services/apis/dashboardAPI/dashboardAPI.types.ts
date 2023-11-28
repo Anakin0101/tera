@@ -19,8 +19,8 @@ export type OverdraftType = {
   productName: string;
   agreementNumber: string;
   interestRate: number;
-  startDate: string | null;
-  endDate: string | null;
+  startDate: string;
+  endDate: string;
   overdraftLimit: number;
   currency: Currency;
   totalDebt: number;
@@ -28,7 +28,7 @@ export type OverdraftType = {
   usedPrincipalAmount: number;
   creditPeriodInMonths: number;
   restCreditPeriodInMonths: number;
-  nextPaymentDate: string | null;
+  nextPaymentDate: string;
   nextPaymentAmount: number;
 };
 export type GetCustomerOperationsRequestTypes = {
@@ -132,6 +132,14 @@ export type Asset = {
   typeId: DepositTypeEnum;
 };
 
+export enum CreditStatus {
+  Current = 60,
+  Late = 70,
+  Overdue = 80,
+  WrittenOff = 90,
+  Closed = 255,
+}
+
 export type LoanType = {
   accountId: number;
   accountNumber: number;
@@ -141,7 +149,7 @@ export type LoanType = {
   creditId: number;
   creditIsOn: boolean;
   creditPeriodInMonths: number;
-  creditStatus: number;
+  creditStatus: CreditStatus;
   currency: Currency;
   defferdInterestAmount: number;
   defferdPrincipalAmount: number;

@@ -17,9 +17,8 @@ export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
   const { customerId } = useAppSelector(state => state.profile);
   const { data: accounts } = useGetAccountsByCustomerIdQuery(customerId ?? skipToken);
-  const { groupedAccountsByIban, totalAvailableBalanceGEL, deposits, loans } = useAppSelector(
-    state => state.products,
-  );
+  const { groupedAccountsByIban, totalAvailableBalanceGEL, deposits, loans, overdrafts } =
+    useAppSelector(state => state.products);
 
   useEffect(() => {
     if (accounts) {
@@ -56,6 +55,8 @@ export const useTeraProducts = () => {
     dispatch(setTotalDebt(totalLoans));
   }, [dispatch, totalDeposits, totalLoans]);
 
+  const allLoans = [...overdrafts, ...loans];
+
   return {
     groupedAccountsByIban,
     totalAvailableBalanceGEL,
@@ -63,5 +64,6 @@ export const useTeraProducts = () => {
     totalDeposits,
     loans,
     totalLoans,
+    allLoans,
   };
 };

@@ -27,6 +27,7 @@ export const useStyles = () => {
       borderRadius: Spacing.m,
       paddingVertical: Spacing.lg,
       gap: moderateScale(Spacing.m),
+      paddingHorizontal: Spacing.ml,
     },
     nextIcon: {
       ...Layout.center,
@@ -76,7 +77,7 @@ export const useStyles = () => {
       borderRadius: Spacing.m,
       width: horizontalScale(340),
       backgroundColor: Colors.white,
-      padding: moderateScale(Spacing.xlg),
+      padding: moderateScale(30),
       height: 200,
     },
     header: {
@@ -96,6 +97,37 @@ export const useStyles = () => {
       ...Layout.row,
       ...Layout.center,
       backgroundColor: Colors.inputBlack50,
+    },
+    progressbarWrapper: {
+      marginTop: Spacing.xxs,
+    },
+    progressbarContainer: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
+    },
+    titleContainer: {
+      ...Layout.fill,
+    },
+    collapsibleHeaderWrapper: {
+      height: 60,
+      borderBottomWidth: 1,
+      ...Layout.justifyContentCenter,
+      borderBottomColor: Colors.inputBlack50,
+    },
+    collapsibleHeader: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
+      paddingRight: 10,
+    },
+    collapsibleContent: {
+      borderRadius: Spacing.zero,
+      paddingHorizontal: Spacing.zero,
+    },
+    overdueWrapper: {
+      marginVertical: 10,
+    },
+    totalDebtWrapper: {
+      marginTop: 10,
     },
   });
 };

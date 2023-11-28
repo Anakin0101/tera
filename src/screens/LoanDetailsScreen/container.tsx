@@ -5,13 +5,17 @@ import { List, History } from 'assets/SVGs';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useLoanDetails = (index: number) => {
-  const { loans } = useAppSelector(state => state.products);
+  const { loans, overdrafts } = useAppSelector(state => state.products);
   const [activeIndex, setActiveIndex] = useState(index);
   const { t } = useTranslation();
 
+  const data = useMemo(() => {
+    return [...overdrafts, ...loans];
+  }, [loans, overdrafts]);
+
   const loan = useMemo(() => {
-    return loans[activeIndex];
-  }, [activeIndex, loans]);
+    return data[activeIndex];
+  }, [activeIndex, data]);
 
   const actions = useMemo(() => {
     return [
@@ -34,5 +38,6 @@ export const useLoanDetails = (index: number) => {
     setActiveIndex,
     actions,
     loan,
+    data,
   };
 };

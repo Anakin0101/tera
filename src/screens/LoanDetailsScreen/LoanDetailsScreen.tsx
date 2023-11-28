@@ -8,7 +8,7 @@ import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './LoanDetailsScreen.styles';
 import { NextPayment } from './NextPayment';
 import { formatDate } from 'utils/formatDate';
-import { LoanDetails } from './LoanDetails';
+import { Details } from './Details';
 
 const sections = [
   { title: 'slider', data: [{}] },
@@ -19,14 +19,14 @@ const sections = [
 export const LoanDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'LoanDetailsScreen'>>();
-  const { loans, activeIndex, setActiveIndex, actions, loan } = useLoanDetails(params.index);
+  const { activeIndex, setActiveIndex, actions, loan, data } = useLoanDetails(params.index);
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'slider':
         return (
           <Slider
-            data={loans}
+            data={data}
             renderItem={LoanSliderItem}
             actions={actions}
             index={activeIndex}
@@ -43,7 +43,7 @@ export const LoanDetailsScreen = () => {
           />
         );
       case 'details':
-        return <LoanDetails loan={loan} />;
+        return <Details data={loan} />;
       default:
         return null;
     }

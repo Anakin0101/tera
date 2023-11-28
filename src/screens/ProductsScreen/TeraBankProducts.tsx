@@ -41,6 +41,7 @@ const TeraBankProducts = () => {
     loans,
     totalLoans,
     groupedAccountsByIban,
+    allLoans,
   } = useTeraProducts();
 
   const renderSectionListItem: SectionListRenderItem<any, any> = ({ section }) => {
@@ -63,7 +64,7 @@ const TeraBankProducts = () => {
           />
         );
       case 'loans':
-        return <DepositsAndLoans data={loans} variant="loan" totalAmount={totalLoans} />;
+        return <DepositsAndLoans data={allLoans} variant="loan" totalAmount={totalLoans} />;
       default:
         return null;
     }

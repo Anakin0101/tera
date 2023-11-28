@@ -5,8 +5,12 @@ import { ListItem } from './ListItem';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useStyles } from './DepositsAndLoans.styles';
-import { DepositsAndLoansProps, FooterProps, HeaderProps } from './DepositsAndLoans.types';
-import { DepositType } from 'services/apis/productsAPI/productsAPI.types';
+import {
+  DepositsAndLoansProps,
+  FooterProps,
+  HeaderProps,
+  RenderItemType,
+} from './DepositsAndLoans.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import {
@@ -15,7 +19,6 @@ import {
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
-import { LoanType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
   const styles = useStyles(seeAll);
@@ -86,7 +89,7 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
     });
   };
 
-  const renderItem: ListRenderItem<DepositType | LoanType> = ({ item, index }) => {
+  const renderItem: ListRenderItem<RenderItemType> = ({ item, index }) => {
     return (
       <ListItem
         item={item}

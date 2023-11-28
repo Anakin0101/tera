@@ -1,8 +1,8 @@
-import { LoanType } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { LoanType, OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface LoanSliderItemProps {
-  item: LoanType;
+  item: OverdraftType | LoanType;
 }
 
 export interface NextPaymentProps {
@@ -13,4 +13,29 @@ export interface NextPaymentProps {
 
 export interface LoanDetailsProps {
   loan: LoanType;
+}
+
+export interface DetailsProps {
+  data: OverdraftType | LoanType;
+}
+
+export interface CollapsibleHeaderProps {
+  title: string;
+  total: number;
+  currency: Currency;
+}
+
+export interface TotalDebtContentProps {
+  totalPrincipalPayable: number;
+  totalInterestPayable: number;
+  totalPenalty: number;
+  currency: Currency;
+}
+export interface OverdueContentProps {
+  overduePrincipalAmount: number;
+  overduePrincipalPenalty: number;
+  overdueInterestAmount: number;
+  overdueInterestPenalty: number;
+  defferdPrincipalAmount: number;
+  currency: Currency;
 }

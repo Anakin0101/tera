@@ -29,14 +29,12 @@ const ListFooter = () => {
 
 export const LoansScreen = () => {
   const styles = useStyles();
-  const { loans, totalDebtGEL } = useLoans();
+  const { totalDebtGEL, data } = useLoans();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'loans':
-        return (
-          <DepositsAndLoans seeAll data={loans} variant="deposit" totalAmount={totalDebtGEL} />
-        );
+        return <DepositsAndLoans seeAll data={data} variant="loan" totalAmount={totalDebtGEL} />;
       //   case 'offers':
       //     return <Offers data={offers} />;
       default:
