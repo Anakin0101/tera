@@ -18,7 +18,7 @@ interface AccountData {
 }
 
 export const MyAccounts = () => {
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
   const { t } = useTranslation();
   const styles = useStyles();
   const [value, setValue] = useState('');
@@ -39,13 +39,12 @@ export const MyAccounts = () => {
   }, [groupedAccountsByIban]);
   useEffect(() => {
     if (selectedAccount !== null) {
-      navigate('TransferToAccountScreen', { selected: selectedAccount });
+      navigate('ToAccountScreen', { selected: selectedAccount });
     }
   }, [navigate, selectedAccount]);
 
   const handleAccountSelection = (accountId: number) => {
     setSelectedAccount(prev => (prev !== accountId ? accountId : null));
-    // TransferToAccountScreen
   };
 
   const renderItem: SectionListRenderItem<any, any> = ({ item, index, section }) => {

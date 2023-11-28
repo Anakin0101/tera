@@ -3,7 +3,7 @@ import { TextInput, View, SectionList, SectionListRenderItem } from 'react-nativ
 import { useTranslation } from 'react-i18next';
 import { Search } from 'assets/SVGs';
 import { Text } from 'components';
-import { useStyles } from './TransferToAccount.styles';
+import { useStyles } from './ToAccountScreen.styles';
 import { DynamicAccount } from 'components';
 import { useTeraProducts } from 'screens/ProductsScreen/teraProductsContainer';
 import { useRoute } from '@react-navigation/native';
@@ -17,8 +17,8 @@ interface AccountData {
   accountIban: string;
 }
 
-export const TransferToAccountScreen = () => {
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
+export const ToAccountScreen = () => {
+  const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
   const { selected } = params;
 
   const { t } = useTranslation();
