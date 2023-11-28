@@ -11,6 +11,7 @@ export { ControlledInput } from './TextInput/TextInput';
 export { CustomHeader } from './CustomHeader';
 export { NumericKey } from './NumericKey/NumericKey';
 export { Account } from './Account/Account';
+export { DynamicAccount } from './DynamicAccount/DynamicAccount';
 export { TrustDeviceModal } from './modals/index';
 export { DashboardTabBar } from './DashboardTabBar/DashboardTabBar';
 export { HomeHeader } from './HomeHeader/HomeHeader';

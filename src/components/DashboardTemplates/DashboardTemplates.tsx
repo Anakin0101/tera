@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { TemplateCard, Text, Button } from 'components';
+import { TemplateCard, Text } from 'components';
 import { useStyles } from './DashboardTemplates.styles';
 import { getDashboardTemplates } from './utils/DashboardTemplatesMapper.utils';
 import useTheme from 'hooks/useTheme';

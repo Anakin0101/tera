@@ -17,10 +17,17 @@ export interface ActionButtonsProps {
 }
 
 export interface ActionButtonProps {
+  actions: ActionType[];
   children: React.ReactNode;
   progress: SharedValue<number>;
   onSpacePress: () => void;
 }
+export type ActionType = {
+  isUpdate?: boolean;
+  title: string;
+  icon: React.ReactNode;
+  handlePress?: () => void;
+};
 
 export interface IButton {
   icon: React.ReactNode;

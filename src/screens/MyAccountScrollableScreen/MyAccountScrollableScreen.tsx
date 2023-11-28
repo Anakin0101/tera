@@ -3,7 +3,7 @@ import { SectionList, View, TouchableOpacity, Text, SectionListRenderItem } from
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useStyles } from './MyAccountScrollableScreen.styles';
-import Cards from '../AccountDetailsScreen/Cards';
+import { Cards } from '../AccountDetailsScreen/Cards';
 import { Details } from '../AccountDetailsScreen/Details';
 import { Divider, LastTransactions } from 'components';
 import { CardPayment, Swap } from 'assets/SVGs';
@@ -13,6 +13,7 @@ import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
 
 export const MyAccountsScrollableScreen = () => {
+  const { setOptions } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
   const { params } = useRoute<ProductsStackRouteProps<'MyAccountScrollableScreen'>>();
   const styles = useStyles();
   const sectionListRef = useRef<SectionList>(null);
@@ -21,6 +22,13 @@ export const MyAccountsScrollableScreen = () => {
   const account = useAppSelector(state =>
     state.products.groupedAccountsByIban.find(acc => acc.iban === params.iban),
   );
+
+  useLayoutEffect(() => {
+    setOptions({
+      title: 'navigation.more',
+    });
+  }, [setOptions]);
+
   if (!account) {
     return null;
   }
@@ -59,14 +67,6 @@ export const MyAccountsScrollableScreen = () => {
         return null;
     }
   };
-
-  const { setOptions } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
-
-  useLayoutEffect(() => {
-    setOptions({
-      title: 'navigation.more',
-    });
-  }, [setOptions]);
 
   const handlePress = (index: number) => {
     if (sectionListRef.current) {

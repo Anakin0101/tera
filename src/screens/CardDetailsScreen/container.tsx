@@ -61,7 +61,7 @@ export const useCardDetails = (index: number) => {
         cardId: card.id,
       })
         .unwrap()
-        .then(response => {
+        .then(() => {
           openModal({
             element: (
               <RequestStatusModal success message="ბარათი დაბლოკილია" onClose={closeModal} />
@@ -86,7 +86,7 @@ export const useCardDetails = (index: number) => {
         cardId: card.id,
       })
         .unwrap()
-        .then(response => {
+        .then(() => {
           openModal({
             element: (
               <RequestStatusModal success message="ბარათი განბლოკილია" onClose={closeModal} />
@@ -176,6 +176,7 @@ export const useCardDetails = (index: number) => {
     }
 
     return updatedActions;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cards, activeIndex, handleBlockCard, handleInsurancePress]);
 
   return {
