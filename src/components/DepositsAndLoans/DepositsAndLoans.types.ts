@@ -1,12 +1,16 @@
-import { LoanType, OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import {
+  LoanType,
+  OverdraftType,
+  CreditCardType,
+} from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { DepositType } from 'services/apis/productsAPI/productsAPI.types';
 
 type Variant = 'deposit' | 'loan';
 
-export type RenderItemType = DepositType | LoanType | OverdraftType;
+export type RenderItemType = DepositType | LoanType | OverdraftType | CreditCardType;
 
 export interface DepositsAndLoansProps {
-  data?: RenderItemType[] | (LoanType | OverdraftType)[];
+  data?: RenderItemType[];
   variant: Variant;
   totalAmount: number;
   seeAll?: boolean;

@@ -241,7 +241,15 @@
     "overdueInterestPenalty": "Overdue Interest Penalty",
     "defferdPrincipalAmount": "Defferd Principal Amount",
     "allDebt": "Total Debt",
-    "creditPeriod": "{{value}} Month(s)"
+    "creditPeriod": "{{value}} Month(s)",
+    "billingDay": "Billing Day",
+    "creditCardStatus": "Credit Card Status",
+    "interestFreeCreditPayable": "Amount for using interest-free credit",
+    "minPayable": "Minimum Payable",
+    "minPrincipalPayable": "Minimum Principal Payable",
+    "minInterestPayable": "Minimum Interest Payable",
+    "creditLimit": "Credit Limit",
+    "paymentDeadline": "Debt Payment deadline"
   },
   "creditStatus": {
     "current": "Active",

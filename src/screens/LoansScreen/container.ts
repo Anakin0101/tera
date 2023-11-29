@@ -1,9 +1,9 @@
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useLoans = () => {
-  const { loans, totalDebtGEL, overdrafts } = useAppSelector(state => state.products);
+  const { loans, totalDebtGEL, overdrafts, creditCards } = useAppSelector(state => state.products);
 
-  const data = [...overdrafts, ...loans];
+  const data = [...overdrafts, ...creditCards, ...loans];
 
   return {
     loans,

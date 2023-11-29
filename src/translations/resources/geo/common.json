@@ -240,7 +240,15 @@
     "overdueInterestPenalty": "ჯარიმა ვადაგადაცილებულ პროცენტზე",
     "defferdPrincipalAmount": "გადავადებული ძირი",
     "allDebt": "ჯამური დავალიანება",
-    "creditPeriod": "{{value}} თვე"
+    "creditPeriod": "{{value}} თვე",
+    "billingDay": "დაანგარიშების რიცხვი",
+    "creditCardStatus": "საკრედიტო ბარათის სტატუსი",
+    "interestFreeCreditPayable": "უპროცენტო კრედიტით სარგებლობისთვის გადასახდელი თანხა",
+    "minPayable": "მინიმალური შენატანი",
+    "minPrincipalPayable": "მინიმალური ძირი",
+    "minInterestPayable": "მინიმალური პროცენტი",
+    "creditLimit": "საკრედიტო ლიმიტი",
+    "paymentDeadline": "დავალიანების დაფარვის ბოლო ვადა"
   },
   "creditStatus": {
     "current": "აქტიური",

@@ -6,11 +6,16 @@ import { LoanDetails } from './LoanDetails';
 import { OverdraftDetails } from './OverdraftDetails';
 import { DetailsProps } from './LoanDetailsScreen.types';
 import { useStyles } from './LoanDetailsScreen.styles';
+import { CreditCardDetails } from './CreditCardDetails';
 
 export const Details: FC<DetailsProps> = ({ data }) => {
   const styles = useStyles();
 
   const renderDetails = () => {
+    if ('creditLimit' in data) {
+      return <CreditCardDetails creditCard={data} />;
+    }
+
     if ('creditStatus' in data) {
       return <LoanDetails loan={data} />;
     }

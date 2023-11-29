@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { ProgressBar, Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
-import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { LoanSliderItemProps } from './LoanDetailsScreen.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 import { formatDate } from 'utils/formatDate';
@@ -16,6 +15,8 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
 
   const isOverdraft = 'overdraftLimit' in item;
 
+  const isCreditCard = 'creditLimit' in item;
+
   return (
     <View style={styles.card}>
       <View>
@@ -25,9 +26,13 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
             <Text numberOfLines={1} children={item.productName} color={Colors.inactiveTint} />
             <Text size={30} medium lineHeight={34}>
               {formatMoney(
-                isOverdraft ? item?.overdraftLimit - item?.usedPrincipalAmount : item?.amount || 0,
-              )}{' '}
-              {CurrencySignMap[item.currency]}
+                isOverdraft
+                  ? item?.overdraftLimit - item?.usedPrincipalAmount
+                  : isCreditCard
+                  ? item.creditLimit
+                  : item?.amount,
+                item.currency,
+              )}
             </Text>
           </View>
         </View>

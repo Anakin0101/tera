@@ -23,6 +23,9 @@ const georgianMonths = {
 };
 
 export const formatDate = (dateString: string, template = 'YYYY,HH:mm') => {
+  if (!dateString) {
+    return '';
+  }
   const day = dayjs(dateString).format('DD');
   const month = dayjs(dateString).format('MMM') as keyof typeof georgianMonths;
   const yearAndHour = dayjs(dateString).format(template);

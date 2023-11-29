@@ -14,7 +14,7 @@ import {
 import { CreditStatus } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 
-const getLoanStatus = (status: CreditStatus) => {
+export const getLoanStatus = (status: CreditStatus) => {
   switch (status) {
     case CreditStatus.Current:
       return 'creditStatus.current';
@@ -29,7 +29,7 @@ const getLoanStatus = (status: CreditStatus) => {
   }
 };
 
-const Header: FC<CollapsibleHeaderProps> = ({ title, total, currency }) => {
+export const Header: FC<CollapsibleHeaderProps> = ({ title, total, currency }) => {
   const styles = useStyles();
   return (
     <View style={styles.collapsibleHeaderWrapper}>
@@ -66,7 +66,7 @@ const TotalDebtContent: FC<TotalDebtContentProps> = ({
   );
 };
 
-const Overdue: FC<OverdueContentProps> = ({
+export const Overdue: FC<OverdueContentProps> = ({
   overduePrincipalAmount,
   overduePrincipalPenalty,
   overdueInterestAmount,
@@ -93,10 +93,12 @@ const Overdue: FC<OverdueContentProps> = ({
         <Text size={13} children="loans.overdueInterestPenalty" color={Colors.textBlack500} />
         <Text children={formatMoney(overdueInterestPenalty, currency)} />
       </View>
-      <View style={styles.nextPaymentDetails}>
-        <Text size={13} children="loans.defferdPrincipalAmount" color={Colors.textBlack500} />
-        <Text children={formatMoney(defferdPrincipalAmount, currency)} />
-      </View>
+      {defferdPrincipalAmount ? (
+        <View style={styles.nextPaymentDetails}>
+          <Text size={13} children="loans.defferdPrincipalAmount" color={Colors.textBlack500} />
+          <Text children={formatMoney(defferdPrincipalAmount, currency)} />
+        </View>
+      ) : null}
     </View>
   );
 };

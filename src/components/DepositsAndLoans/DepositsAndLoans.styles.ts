@@ -60,5 +60,8 @@ export const useStyles = (seeAll?: boolean) => {
       marginTop: Spacing.s,
       marginBottom: seeAll ? Spacing.xlm : Spacing.ml,
     },
+    textContainer: {
+      ...Layout.fill,
+    },
   });
 };

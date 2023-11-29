@@ -13,12 +13,18 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 }) => {
   const styles = useStyles();
   return (
-    <View style={[styles.progress, { width }]}>
+    <View
+      style={[
+        styles.progress,
+        marginTop ? { marginTop } : null,
+        height ? { height } : null,
+        { width },
+      ]}
+    >
       <View
         style={[
           styles.indicator,
           backgroundColor ? { backgroundColor } : null,
-          marginTop ? { marginTop } : null,
           height ? { height } : null,
           { width: (width / max) * used },
         ]}

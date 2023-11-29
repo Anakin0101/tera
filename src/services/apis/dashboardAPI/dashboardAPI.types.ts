@@ -176,3 +176,37 @@ export type LoanType = {
   totalPrincipalPayable: number;
   usedPrincipalAmount: number;
 };
+
+export type CreditCardType = {
+  creditId: number;
+  accountId: number;
+  accountNumber: number;
+  agreementNumber: string;
+  currency: Currency;
+  creditLimit: number;
+  interestRate: number;
+  creditStartDate: string;
+  creditEndDate: string;
+  billingDay: number;
+  creditStatus: number;
+  creditIsOn: true;
+  usedPrincipalAmount: number;
+  notUsedPrincipalAmount: number;
+  accruedInterest: number;
+  interestFreeCreditPayable: number;
+  minPayable: number;
+  minPrincipalPayable: number;
+  minInterestPayable: number;
+  paymentEndDate: string;
+  totalPenalty: number;
+  overduePrincipalAmount: number;
+  overduePrincipalPenalty: number;
+  overdueInterestAmount: number;
+  overdueInterestPenalty: number;
+  canShowAgreement: false;
+  creditPeriodInMonths: number;
+  restCreditPeriodInMonths: number;
+  nextPaymentDate: string;
+  nextPaymentAmount: number;
+  productName: string;
+};

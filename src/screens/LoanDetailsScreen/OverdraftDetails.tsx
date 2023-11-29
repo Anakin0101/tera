@@ -12,7 +12,10 @@ export const OverdraftDetails = ({ overdraft }: { overdraft: OverdraftType }) =>
       <DetailsItem label="loans.interestRate" value={`${overdraft.interestRate}%`} />
       <DetailsItem label="loans.startDate" value={formatDate(overdraft.startDate, ' YYYY')} />
       <DetailsItem label="loans.endDate" value={formatDate(overdraft.endDate, ' YYYY')} />
-      <DetailsItem label="loans.accruedInterest" value={formatMoney(overdraft.totalInterest)} />
+      <DetailsItem
+        label="loans.accruedInterest"
+        value={formatMoney(overdraft.totalInterest, overdraft.currency)}
+      />
       <DetailsItem
         label="loans.allDebt"
         value={formatMoney(overdraft.totalDebt, overdraft.currency)}

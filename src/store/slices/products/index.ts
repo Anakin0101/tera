@@ -12,6 +12,7 @@ const initialState: ProductsStateProps = {
   loans: [],
   totalDepositsGEL: 0,
   totalDebtGEL: 0,
+  creditCards: [],
 };
 
 const productsSlice = createSlice({
@@ -48,6 +49,12 @@ const productsSlice = createSlice({
       dashboardAPI.endpoints.getLoanCustomerId.matchFulfilled,
       (state, { payload }) => {
         state.loans = payload;
+      },
+    );
+    builder.addMatcher(
+      dashboardAPI.endpoints.getCreditCards.matchFulfilled,
+      (state, { payload }) => {
+        state.creditCards = payload;
       },
     );
   },
