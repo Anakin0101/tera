@@ -13,9 +13,11 @@ import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEas
 import { useLazyGetTrustedDevicesQuery } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { openModal } from 'utils/modal';
+import { resetKeychainValues } from 'utils/logKeychainValues';
 
 export const DashboardScreen = () => {
   const handleClearAllFromStorage = () => {
+    resetKeychainValues();
     storage.clearAll();
   };
 
@@ -24,13 +26,7 @@ export const DashboardScreen = () => {
   const [getTrustedDevices] = useLazyGetTrustedDevicesQuery();
   const { userIp, deviceToken } = useAppSelector(state => state.deviceInfo);
 
-  // const onChangeTheme = () => {
-  //   dispatch(changeTheme({ darkMode: !isDark }));
-  // };
-
   useEffect(() => {
-    // clearCredentials();
-    // TODO - needs to be added
     getTrustedDevices({
       headers: {
         'X-Bank-UserIp': userIp,
@@ -50,15 +46,6 @@ export const DashboardScreen = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showEasyLoginPrompt]);
-
-  //   TODO - temp!!
-
-  // const handleClearLoginName = () => {
-  //   setCredentials({ username: '' });
-  // };
-  // const handleClearCredentials = () => {
-  //   clearCredentials();
-  // };
 
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);

@@ -5,19 +5,20 @@ import { withLoginScreen } from 'components/HOC';
 import { PasswordOnlyLoginBaseProps } from './PasswordOnlyLoginScreen.types';
 import useStyles from './PasswordOnlyLoginScreen.styles';
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { useKeyChain } from 'hooks/useKeychain';
-import { useLogin } from 'hooks/useLogin';
+import { useTranslation } from 'react-i18next';
+import { useUserReset, useLogin, useKeyChain } from 'hooks';
 
 const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   const styles = useStyles();
-
   const { savedUserName } = useKeyChain();
   const { handleSignIn, control } = useLogin(savedUserName);
+  const { t } = useTranslation();
+  const { resetUser } = useUserReset();
 
   return (
     <View style={styles.wrapper}>
       {savedUserName && <Account user={savedUserName} />}
-      <Button.Secondary text="მომხმარებლის შეცვლა" size="medium" />
+      <Button.Secondary text={t('passAuth.change_user')} size="medium" onPress={resetUser} />
       <ControlledInput
         control={control}
         name="password"

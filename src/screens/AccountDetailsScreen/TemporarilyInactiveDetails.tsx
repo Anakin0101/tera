@@ -21,11 +21,11 @@ export const TemporarilyInactiveDetails: FC<DetailsProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const copyToClipboard = (iban?: string) => {
-    if (!iban) {
+  const copyToClipboard = (ibanLocal?: string) => {
+    if (!ibanLocal) {
       return null;
     }
-    Clipboard.setString(iban);
+    Clipboard.setString(ibanLocal);
     fetchCopiedText();
   };
 

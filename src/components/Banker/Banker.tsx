@@ -23,7 +23,7 @@ export const Banker = ({ data }: any) => {
       <View style={styles.cardwrapper}>
         <View style={styles.dashboardTemplatesContainer}>
           <Text
-            children={`dashboard.banker`}
+            children={'dashboard.banker'}
             style={styles.titleContainer}
             color={Colors.textBlack}
           />

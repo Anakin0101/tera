@@ -22,7 +22,7 @@ import {
 import { hideHeader, presentationModal, tabOptions } from 'navigation/config';
 import { MainStackParamsList, TabParamList } from 'navigation/types';
 import { ModalNavigator } from 'navigation/stacks/ModalStack';
-import { useMainNavigator } from 'hooks/useMainNavigator';
+import { useMainNavigator } from 'hooks';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setShouldCloseCards } from 'store/slices/dashboard';
 

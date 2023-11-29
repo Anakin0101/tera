@@ -1,11 +1,14 @@
 import { LanguageSwitcher } from 'components/LanguageSwitcher/LanguageSwitcher';
 import React, { ComponentType } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyleTheme } from './withLoginScreen.styles';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { GuestStackScreenProps, GuestStackParamList } from 'navigation/types';
-import { useKeyChain } from 'hooks/useKeychain';
+import { useKeyChain } from 'hooks';
+import { Button } from 'components/Button/Button';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { changeTheme } from 'store/slices/theme';
 
 interface WithLoginScreenProps {
   handleNavigation?: () => void;
@@ -28,8 +31,8 @@ export const withLoginScreen = <P extends object, T extends keyof GuestStackPara
   return (props: WithLoginScreenProps) => {
     const { savedUserName } = useKeyChain();
 
-    // const dispatch = useAppDispatch();
-    // const { dark: isDark } = useTheme();
+    const dispatch = useAppDispatch();
+    const { dark: isDark } = useTheme();
 
     const screenName =
       screenNameString && typeof screenNameString === 'string'
@@ -58,15 +61,20 @@ export const withLoginScreen = <P extends object, T extends keyof GuestStackPara
       }
     };
 
-    // const handleThemeChange = () => {
-    //   dispatch(changeTheme({ darkMode: !isDark }));
-    // };
+    const handleThemeChange = () => {
+      dispatch(changeTheme({ darkMode: !isDark }));
+    };
 
     return (
       <SafeAreaView style={styles.loginScreenContainerStyle}>
         <View style={styles.loginScreenWrapperStyle}>
           <View style={styles.languageSwitcherContainer}>
             <LanguageSwitcher />
+          </View>
+          <View style={styles.temporaryThemeCTAContainer}>
+            <Button.Primary onPress={handleThemeChange}>
+              <Text>Change the theme - temporary</Text>
+            </Button.Primary>
           </View>
           <View style={styles.wrappedComponentWrapperStyle}>
             <WrappedComponent {...(props as P)} handleNavigation={handleNavigation} />

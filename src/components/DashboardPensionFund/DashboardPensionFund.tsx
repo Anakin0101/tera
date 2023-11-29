@@ -26,7 +26,7 @@ export const DashboardPensionFund = ({ data }: any) => {
           <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
               <Text
-                children={`dashboard.pension`}
+                children={'dashboard.pension'}
                 style={styles.titleContainer}
                 color={Colors.textBlack}
               />

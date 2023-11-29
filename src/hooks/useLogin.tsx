@@ -4,11 +4,10 @@ import { useForm } from 'react-hook-form';
 import { useLoginByRefreshTokenMutation, useLoginUserMutation } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setUserCredentials } from 'store/slices/userInfo';
-import { setCredentials } from 'utils/keychain';
+import { setPasscodeTries, setUserCredentials } from 'store/slices/userInfo';
+import { setUsername } from 'utils/keychain';
 import { closeModal, openModal } from 'utils/modal';
 import { openToast } from 'utils/toast';
-import { useKeyChain } from './useKeychain';
 
 export const useLogin = (savedUsername?: string | null | undefined) => {
   const { control, reset, getValues } = useForm();
@@ -16,7 +15,6 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
   const [loginByRefreshToken] = useLoginByRefreshTokenMutation();
   const dispatch = useAppDispatch();
   const { refreshToken } = useAppSelector(state => state.userInfo);
-  const { savedPasscode = '' } = useKeyChain();
   const { userIp } = useAppSelector(state => state.deviceInfo);
 
   const getFormValues = () => {
@@ -48,6 +46,7 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
             }),
           );
           closeModal();
+          dispatch(setPasscodeTries(0));
         }
       })
       .catch(err => {
@@ -69,6 +68,7 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
       .unwrap()
       .then(res => {
         if (res.success) {
+          dispatch(setPasscodeTries(0));
           res.accessToken
             ? dispatch(
                 setUserCredentials({
@@ -95,17 +95,35 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
   const handleSaveUserToggle = () => {
     const { loginName, save } = getFormValues();
     if (save) {
-      setCredentials({ username: loginName });
+      setUsername({ username: loginName });
     }
   };
 
-  const handlePasscodeSignIn = () => {
-    loginByRefreshToken({
-      refreshToken,
-      //   Passcode: savedPasscode,
-      Passcode: savedPasscode || '',
-      headers: { 'X-Bank-UserIp': userIp },
-    });
+  const handlePasscodeSignIn = async () => {
+    try {
+      const res = await loginByRefreshToken({
+        refreshToken,
+        headers: { 'X-Bank-UserIp': userIp },
+      }).unwrap();
+
+      if (res) {
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken, error } = res;
+        if (newAccessToken && newRefreshToken) {
+          dispatch(setPasscodeTries(0));
+          dispatch(
+            setUserCredentials({
+              accessToken: newAccessToken,
+              refreshToken: newRefreshToken,
+            }),
+          );
+        }
+        if (error) {
+          console.error('error in loginByRefreshToken service: ', error);
+        }
+      }
+    } catch (error) {
+      console.error('Error in handlePasscodeSignIn:', error);
+    }
   };
 
   return {

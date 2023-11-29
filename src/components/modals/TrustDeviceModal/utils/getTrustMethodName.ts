@@ -12,9 +12,11 @@ export const getTrustMethodName = (methodName: AuthmethodTypes) => {
   switch (methodName) {
     case AUTH_METHOD_NAMES.passcode:
       return 'trustDevice.passcode_s';
-    case AUTH_METHOD_NAMES.faceId:
-      return 'trustDevice.faceId_s';
-    case AUTH_METHOD_NAMES.fingerPrint:
-      return 'trustDevice.fingerprint_s';
+    case AUTH_METHOD_NAMES.biometrics:
+      return 'trustDevice.biometric_s';
+    // case AUTH_METHOD_NAMES.faceId:
+    //   return 'trustDevice.faceId_s';
+    // case AUTH_METHOD_NAMES.fingerPrint:
+    //   return 'trustDevice.fingerprint_s';
   }
 };

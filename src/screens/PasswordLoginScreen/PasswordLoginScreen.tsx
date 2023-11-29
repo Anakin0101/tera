@@ -4,9 +4,8 @@ import { Button, Text, ControlledInput } from 'components';
 import { withLoginScreen } from 'components/HOC';
 import { PasswordLoginBaseProps } from './PasswordLoginScreen.types';
 import useStyles from './PasswordLoginScreen.styles';
-
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { useLogin } from 'hooks/useLogin';
+import { useLogin } from 'hooks';
 
 const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
   const styles = useStyles();

@@ -15,6 +15,9 @@ const initialState: UserInfoStateProps = {
     profileInfo: null,
   },
   isLoggingOut: false,
+  isPasscodeSet: undefined,
+  isBiometricSet: undefined,
+  passcodeTries: 0,
 };
 
 const userInfoSlice = createSlice({
@@ -33,6 +36,15 @@ const userInfoSlice = createSlice({
     },
     setOTPCode: (state, action) => {
       state.otpCode = action.payload;
+    },
+    setPasscodeStatus: (state, action) => {
+      state.isPasscodeSet = action.payload;
+    },
+    setBiometricStatus: (state, action) => {
+      state.isBiometricSet = action.payload;
+    },
+    setPasscodeTries: (state, action) => {
+      state.passcodeTries = action.payload;
     },
   },
   extraReducers: builder => {
@@ -64,6 +76,13 @@ const userInfoSlice = createSlice({
   },
 });
 
-export const { setUserCredentials, setIgnoreEasyLogin, setPostponeEasyLogin, setOTPCode } =
-  userInfoSlice.actions;
+export const {
+  setUserCredentials,
+  setIgnoreEasyLogin,
+  setPostponeEasyLogin,
+  setOTPCode,
+  setPasscodeStatus,
+  setBiometricStatus,
+  setPasscodeTries,
+} = userInfoSlice.actions;
 export const userInfoReducer = userInfoSlice.reducer;

@@ -29,7 +29,8 @@
     "forgot": "დაგავიწყდა მონაცემები?",
     "signin": "ავტორიზაცია",
     "or": "ან",
-    "signup": "რეგისტრაცია"
+    "signup": "რეგისტრაცია",
+    "change_user": "მომხმარებლის შეცვლა"
   },
   "authErrors": {
     "tryAgain": "შეყვანილი მონაცემები არასწორია. სცადე ახლიდან",
@@ -65,7 +66,9 @@
     "security_level": "უსაფრთხოების დონე",
     "trusted_devices": "სანდო მოწყობილობები",
     "additional_settings": "დამატებითი პარამეტრები",
-    "manage_notifications": "ნოტიფიკაციების მართვა"
+    "manage_notifications": "ნოტიფიკაციების მართვა",
+    "biometrics_title": "ბიომეტრიული მონაცემებით",
+    "biometrics_desc": "სისტემაში შესვლა თითის ანაბეჭდისა და სახის ავტორიზაციის გამოყენებით"
   },
   "trustDevice": {
     "heading": "მოწყობილობის გასანდოება",
@@ -74,11 +77,12 @@
     "CTAText": "გაასანდოვე მოწყობილობა",
     "passcode_s": "პასკოდის",
     "faceId_s": "Face ID - ის",
-    "fingerprint_s": "Finger Print - ის"
+    "fingerprint_s": "Finger Print - ის",
+    "biometric_s": "ბიომეტრიულის"
   },
   "easyLogin": {
     "title": "მარტივი შესვლა",
-    "description": "მარტივი შესვლისთვის გამოიყენე თითის ანაბეჭდით ან პასკოდით შესვლა",
+    "description": "მარტივი შესვლისთვის გამოიყენე ბიომეტრიული მონაცემები ან პასკოდი",
     "activate": "გააქტიურება",
     "next_time": "სხვა დროს",
     "do_not_ask_again": "აღარ შემომთავაზო"

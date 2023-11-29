@@ -1,5 +1,6 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Layout, Spacing } = useTheme();
@@ -7,8 +8,8 @@ export const useStyleTheme = () => {
     wrapper: {
       ...Layout.justifyContentCenter,
       ...Layout.alignItemsCenter,
-      paddingHorizontal: Spacing.xxl,
+      marginTop: verticalScale(99),
     },
-    pinLine: { paddingVertical: 50 },
+    pinLine: { marginTop: Spacing.xl, marginBottom: Spacing.xlg },
   });
 };

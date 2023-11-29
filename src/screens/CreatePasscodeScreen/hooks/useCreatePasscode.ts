@@ -3,6 +3,8 @@ import { setPasscode as savePasscode } from 'utils/keychain';
 import { PasscodeView } from '../CreatePasscodeScreen.types';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
+import { setPasscodeStatus } from 'store/slices/userInfo';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
 
 export const useCreatePasscode = (successCallBack: () => void) => {
   const { t } = useTranslation();
@@ -10,6 +12,7 @@ export const useCreatePasscode = (successCallBack: () => void) => {
   const [valueLength, setValueLength] = useState(0);
   const [passcode, setPasscode] = useState('');
   const [repeatPasscode, setRepeatPasscode] = useState('');
+  const dispatch = useAppDispatch();
 
   const DELETE_KEY = 11;
   const MAX_INPUT_COUNT = 4;
@@ -54,7 +57,7 @@ export const useCreatePasscode = (successCallBack: () => void) => {
         setView('SetPasscode');
       } else {
         savePasscode(passcode);
-        // savePasscode('11111');
+        dispatch(setPasscodeStatus(!!passcode));
         setView('SetPasscode');
         setPasscode('');
         setRepeatPasscode('');
@@ -62,7 +65,7 @@ export const useCreatePasscode = (successCallBack: () => void) => {
         successCallBack();
       }
     }
-  }, [repeatPasscode, passcode, t, successCallBack]);
+  }, [repeatPasscode, passcode, t, successCallBack, dispatch]);
 
   return {
     onRepeatPasscodePress,

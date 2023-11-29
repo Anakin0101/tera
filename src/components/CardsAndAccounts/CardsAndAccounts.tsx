@@ -13,6 +13,7 @@ import {
 import { useStyles } from './CardsAndAccounts.styles';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { ACCOUNT_DETAILS_SCREEN, ALL_ACCOUNTS_AND_CARDS_SCREEN } from 'navigation/ScreenNames';
 
 const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance }) => {
   const styles = useStyles();
@@ -44,7 +45,7 @@ const ListFooter = () => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'AllAccountsAndCardsScreen'>>();
 
   const onPress = () => {
-    navigate('AllAccountsAndCardsScreen');
+    navigate(ALL_ACCOUNTS_AND_CARDS_SCREEN);
   };
 
   return (
@@ -66,7 +67,7 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   const { navigate } = useNavigation<ProductsStackScreenProps<'AccountDetailsScreen'>>();
 
   const handlePress = (iban: string, index: number) => {
-    navigate('AccountDetailsScreen', {
+    navigate(ACCOUNT_DETAILS_SCREEN, {
       iban,
       index,
     });

@@ -1,10 +1,8 @@
 import { SvgProps } from 'react-native-svg';
 
 export const AUTH_METHOD_NAMES = {
-  sms: 'sms',
   passcode: 'passcode',
-  fingerPrint: 'fingerPrint',
-  faceId: 'faceId',
+  biometrics: 'biometrics',
 };
 
 export type AuthmethodTypes = keyof typeof AUTH_METHOD_NAMES;
