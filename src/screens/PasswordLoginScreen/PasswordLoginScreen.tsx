@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
 import { withLoginScreen } from 'components/HOC';
 import { PasswordLoginBaseProps } from './PasswordLoginScreen.types';
 import useStyles from './PasswordLoginScreen.styles';
-import { removeValue } from 'storage/index';
-import { APP_LAUNCHED } from 'storage/constants';
+
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useLogin } from 'hooks/useLogin';
 

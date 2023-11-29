@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, View, SectionList, SectionListRenderItem } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Search } from 'assets/SVGs';
 import { Text } from 'components';
-import { useStyles } from './MyAccounts.styles';
+import { useStyles } from './ToAccountScreen.styles';
 import { DynamicAccount } from 'components';
-import { useTeraTransfers } from './container';
+import { useTeraProducts } from 'screens/ProductsScreen/teraProductsContainer';
+import { useRoute } from '@react-navigation/native';
+import { TransactionsStackRouteProps } from 'navigation/types';
+import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
-import { setAccountFromData } from 'store/slices/transfers/indext';
+import { setAccountToData } from 'store/slices/transfers/indext';
 interface Section {
   title: string;
   data: AccountData[];
@@ -19,37 +21,39 @@ interface AccountData {
   accountIban: string;
 }
 
-export const MyAccounts = () => {
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
-  const { t } = useTranslation();
+export const ToAccountScreen = () => {
+  const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
+  const { selected } = params;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const styles = useStyles();
   const [value, setValue] = useState('');
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
-
-  const { groupedAccountsByIban } = useTeraTransfers();
+  const { groupedAccountsByIban } = useTeraProducts();
   const [sections, setSections] = useState<Section[]>([]);
 
   useEffect(() => {
-    if (groupedAccountsByIban) {
-      const formattedSections = groupedAccountsByIban.map(group => {
-        return {
-          title: group.accountName,
-          data: group.accounts,
-        };
-      });
-      setSections(formattedSections);
-    }
-  }, [groupedAccountsByIban]);
-  useEffect(() => {
     if (selectedAccount !== null) {
-      navigate('ToAccountScreen', { selected: selectedAccount });
+      navigate('TransferToAccountScreen');
     }
   }, [navigate, selectedAccount]);
 
+  useEffect(() => {
+    if (groupedAccountsByIban) {
+      const filteredAccounts = groupedAccountsByIban.map(group => {
+        return {
+          title: group.accountName,
+          data: group.accounts.filter(account => account.accountId !== selected),
+        };
+      });
+      setSections(filteredAccounts);
+    }
+  }, [groupedAccountsByIban, selected]);
+
   const handleAccountSelection = (accountId: number, item: any) => {
     setSelectedAccount(prev => (prev !== accountId ? accountId : null));
-    dispatch(setAccountFromData(item));
+    dispatch(setAccountToData(item));
   };
 
   const renderItem: SectionListRenderItem<any, any> = ({ item, index, section }) => {
