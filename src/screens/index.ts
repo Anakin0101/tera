@@ -22,3 +22,4 @@ export { InsurancePackageDetails } from './InsurancePackageDetails/InsurancePack
 export { DepositsScreen } from './DepositsScreen/DepositsScreen';
 export { DepositDetailsScreen } from './DepositDetailsScreen/DepositDetailsScreen';
 export { ToAccountScreen } from './ToAccountScreen/ToAccountScreen';
+export { TransferToAccountScreen } from './TransferToAccountScreen/TransferToAccountScreen';

@@ -31,6 +31,7 @@ export const MODAL_SCREEN_ONE = 'ModalScreenOne';
 //transactions
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
 export const TO_ACCOUNT_SCREEN = 'ToAccountScreen';
+export const TRANSFER_TO_ACCOUNT_SCREEN = 'TransferToAccountScreen';
 
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';

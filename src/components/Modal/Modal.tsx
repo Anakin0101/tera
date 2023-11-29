@@ -25,6 +25,7 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
     titlePosition,
     enableDynamicSizing,
     enableContentPanningGesture,
+    enablePadding = false,
   } = useModal(ref);
   const snapPoints = useMemo(() => ['70%'], []);
   const styles = useStyles();
@@ -32,8 +33,8 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
   return (
     <BottomSheetModal
       snapPoints={snapPoints}
-      keyboardBehavior="extend" // Set this to "padding"
-      keyboardBlurBehavior="none" // Set this to "none" or remove it
+      keyboardBehavior="extend"
+      keyboardBlurBehavior="none"
       ref={modalRef}
       enableDynamicSizing={enableDynamicSizing}
       backdropComponent={Backdrop}
@@ -41,7 +42,7 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
       handleIndicatorStyle={styles.handleIndicator}
       enableContentPanningGesture={enableContentPanningGesture}
     >
-      <BottomSheetView style={styles.container}>
+      <BottomSheetView style={enablePadding ? styles.paddingContainer : styles.container}>
         <View style={title ? styles.titleContainer : null}>
           {titlePosition === 'center' && <View />}
           {title && <Text style={styles.title}>{title}</Text>}

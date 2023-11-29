@@ -8,6 +8,10 @@ import { DynamicAccount } from 'components';
 import { useTeraProducts } from 'screens/ProductsScreen/teraProductsContainer';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps } from 'navigation/types';
+import { useNavigation } from '@react-navigation/native';
+import { TransactionsStackScreenProps } from 'navigation/types';
+import { useDispatch } from 'react-redux';
+import { setAccountToData } from 'store/slices/transfers/indext';
 interface Section {
   title: string;
   data: AccountData[];
@@ -19,14 +23,21 @@ interface AccountData {
 
 export const ToAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
   const { selected } = params;
-
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const styles = useStyles();
   const [value, setValue] = useState('');
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
   const { groupedAccountsByIban } = useTeraProducts();
   const [sections, setSections] = useState<Section[]>([]);
+
+  useEffect(() => {
+    if (selectedAccount !== null) {
+      navigate('TransferToAccountScreen');
+    }
+  }, [navigate, selectedAccount]);
 
   useEffect(() => {
     if (groupedAccountsByIban) {
@@ -40,8 +51,9 @@ export const ToAccountScreen = () => {
     }
   }, [groupedAccountsByIban, selected]);
 
-  const handleAccountSelection = (accountId: number) => {
+  const handleAccountSelection = (accountId: number, item: any) => {
     setSelectedAccount(prev => (prev !== accountId ? accountId : null));
+    dispatch(setAccountToData(item));
   };
 
   const renderItem: SectionListRenderItem<any, any> = ({ item, index, section }) => {
@@ -50,7 +62,7 @@ export const ToAccountScreen = () => {
       <>
         {isNewTitle && <Text children={section.title} marginTop={16} />}
         <DynamicAccount
-          onPress={() => handleAccountSelection(item.accountId)}
+          onPress={() => handleAccountSelection(item.accountId, item)}
           isSelected={selectedAccount === item.accountId}
           data={item}
         />

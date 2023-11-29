@@ -9,6 +9,10 @@ export const useStyles = () => {
       padding: Spacing.xl,
       paddingBottom: Spacing.xxl,
     },
+    paddingContainer: {
+      ...Layout.justifyContentCenter,
+      paddingBottom: Spacing.xxl,
+    },
     handle: {
       margin: -Spacing.m,
       padding: Spacing.zero,

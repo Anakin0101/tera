@@ -42,7 +42,7 @@ const TeraBankProducts = () => {
     totalLoans,
     groupedAccountsByIban,
   } = useTeraProducts();
-  console.log(groupedAccountsByIban, 'groupedAccountsByIban');
+
   const renderSectionListItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'accounts':

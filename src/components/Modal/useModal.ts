@@ -6,6 +6,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const modalRef = useRef<BottomSheetModal>(null);
   const [element, setElement] = useState<ReactNode>(null);
   const [title, setTitle] = useState<ReactNode>('');
+  const [enablePadding, setEnablePadding] = useState<boolean | undefined>(false);
   const [titlePosition, setTitlePosition] = useState<TitlePos>('left');
   const [enableDynamicSizing, setEnableDynamicSizing] = useState(true);
   const [enableContentPanningGesture, setEnableContentPanningGesture] = useState(true);
@@ -13,6 +14,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const open = (options: ConfigureModal) => {
     setElement(options.element);
     setTitle(options.title);
+    setEnablePadding(options.enablePadding);
     options.titlePosition && setTitlePosition(options.titlePosition);
     options.disableDynamicSizing && setEnableDynamicSizing(false);
     options.disablePanning && setEnableContentPanningGesture(false);
@@ -26,6 +28,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     setEnableContentPanningGesture(true);
     setElement(null);
     modalRef?.current?.close();
+    setEnablePadding(false);
   };
 
   useImperativeHandle(ref, () => ({
@@ -41,6 +44,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     titlePosition,
     enableDynamicSizing,
     enableContentPanningGesture,
+    enablePadding,
   };
 };
 

@@ -8,6 +8,8 @@ import { useStyles } from './MyAccounts.styles';
 import { DynamicAccount } from 'components';
 import { useTeraTransfers } from './container';
 import { TransactionsStackScreenProps } from 'navigation/types';
+import { useDispatch } from 'react-redux';
+import { setAccountFromData } from 'store/slices/transfers/indext';
 interface Section {
   title: string;
   data: AccountData[];
@@ -20,9 +22,11 @@ interface AccountData {
 export const MyAccounts = () => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const styles = useStyles();
   const [value, setValue] = useState('');
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
+
   const { groupedAccountsByIban } = useTeraTransfers();
   const [sections, setSections] = useState<Section[]>([]);
 
@@ -43,8 +47,9 @@ export const MyAccounts = () => {
     }
   }, [navigate, selectedAccount]);
 
-  const handleAccountSelection = (accountId: number) => {
+  const handleAccountSelection = (accountId: number, item: any) => {
     setSelectedAccount(prev => (prev !== accountId ? accountId : null));
+    dispatch(setAccountFromData(item));
   };
 
   const renderItem: SectionListRenderItem<any, any> = ({ item, index, section }) => {
@@ -53,7 +58,7 @@ export const MyAccounts = () => {
       <>
         {isNewTitle && <Text children={section.title} marginTop={16} />}
         <DynamicAccount
-          onPress={() => handleAccountSelection(item.accountId)}
+          onPress={() => handleAccountSelection(item.accountId, item)}
           isSelected={selectedAccount === item.accountId}
           data={item}
         />

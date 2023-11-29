@@ -30,6 +30,7 @@ import {
   DEPOSITS_SCREEN,
   DEPOSIT_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
+  TRANSFER_TO_ACCOUNT_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -80,8 +81,9 @@ export type TransactionsStackParamsList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
   [TO_ACCOUNT_SCREEN]: {
-    selected: any;
+    selected?: any;
   };
+  [TRANSFER_TO_ACCOUNT_SCREEN]: undefined;
 };
 
 export type PaymentsStackParamsList = {};

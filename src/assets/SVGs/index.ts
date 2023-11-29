@@ -78,3 +78,6 @@ export { Done } from './Done';
 export { Fail } from './Fail';
 export { UpdateCard } from './UpdateCard';
 export { Add } from './Add';
+export { ChevronLeft } from './ChevronLeft';
+export { EditSvg } from './EditSvg';
+export { TinyChevron } from './TinyChevron';
