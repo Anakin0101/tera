@@ -248,7 +248,15 @@
     "minPrincipalPayable": "მინიმალური ძირი",
     "minInterestPayable": "მინიმალური პროცენტი",
     "creditLimit": "საკრედიტო ლიმიტი",
-    "paymentDeadline": "დავალიანების დაფარვის ბოლო ვადა"
+    "paymentDeadline": "დავალიანების დაფარვის ბოლო ვადა",
+    "operations": "ოპერაციები",
+    "cover": "დაფარვა"
+  },
+  "loanSchedule": {
+    "totalPayable": "სულ გადასახდელი",
+    "principal": "ძირი: {{value}}",
+    "interest": "პროცენტი: {{value}}",
+    "commission": "საკომისიო: {{value}}"
   },
   "creditStatus": {
     "current": "აქტიური",

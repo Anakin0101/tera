@@ -11,5 +11,7 @@ export interface ConfigureModal {
   titlePosition?: TitlePos;
   disableDynamicSizing?: boolean;
   disablePanning?: boolean;
+  snapPoints?: (string | number)[];
+  hideHandle?: boolean;
 }
 export type TitlePos = 'center' | 'left';

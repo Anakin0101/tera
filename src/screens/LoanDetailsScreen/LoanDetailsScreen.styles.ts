@@ -42,7 +42,7 @@ export const useStyles = () => {
       gap: Spacing.s,
     },
     actionButtonsContainer: {
-      gap: Spacing.ml,
+      gap: Spacing.xl,
     },
     nextPaymentContent: {
       marginLeft: horizontalScale(60),
@@ -128,6 +128,9 @@ export const useStyles = () => {
     },
     totalDebtWrapper: {
       marginTop: 10,
+    },
+    actionButtons: {
+      ...Layout.justifyContentBetween,
     },
   });
 };

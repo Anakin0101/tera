@@ -31,7 +31,9 @@ export const LoanDetailsScreen = () => {
             actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}
-            actionButtonsContainer={styles.actionButtonsContainer}
+            actionButtonsContainer={
+              actions.length === 4 ? styles.actionButtons : styles.actionButtonsContainer
+            }
           />
         );
       case 'next':

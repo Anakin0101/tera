@@ -249,7 +249,15 @@
     "minPrincipalPayable": "Minimum Principal Payable",
     "minInterestPayable": "Minimum Interest Payable",
     "creditLimit": "Credit Limit",
-    "paymentDeadline": "Debt Payment deadline"
+    "paymentDeadline": "Debt Payment deadline",
+    "operations": "Operations",
+    "cover": "Cover"
+  },
+  "loanSchedule": {
+    "totalPayable": "Total Payable",
+    "principal": "Principal: {{value}}",
+    "interest": "Interest: {{value}}",
+    "commission": "Commission: {{value}}"
   },
   "creditStatus": {
     "current": "Active",

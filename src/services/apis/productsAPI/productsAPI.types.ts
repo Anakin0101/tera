@@ -117,3 +117,12 @@ export type UpdateAccountNameReq = {
   accountId: number;
   accountName: string;
 };
+
+export type LoanSchedule = {
+  nextPaymentDay: string;
+  principal: number;
+  interest: number;
+  balance: number;
+  totalDebt: number;
+  insurance: number;
+};

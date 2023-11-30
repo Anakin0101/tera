@@ -2,6 +2,9 @@ import dayjs from 'dayjs';
 import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(isSameOrBefore);
 
 const savedLanguage = getValue(SELECTED_LANGUAGE);
 
@@ -22,6 +25,21 @@ const georgianMonths = {
   Dec: 'დეკ',
 };
 
+const georgianMonthsFull = {
+  January: 'იანვარი',
+  February: 'თებერვალი',
+  March: 'მარტი',
+  April: 'აპრილი',
+  May: 'მაისი',
+  June: 'ივნისი',
+  July: 'ივლისი',
+  August: 'აგვისტო',
+  September: 'სექტემბერი',
+  October: 'ოქტომბერი',
+  November: 'ნოემბერი',
+  December: 'დეკემბერი',
+};
+
 export const formatDate = (dateString: string, template = 'YYYY,HH:mm') => {
   if (!dateString) {
     return '';
@@ -39,4 +57,22 @@ export const getExpirationDate = (dateString: string) => {
 
 export const getFormattedDate = (dateString: string, template = 'DD-MM-YYYY') => {
   return dayjs(dateString).format(template);
+};
+
+export const formatDateFullMonth = (dateString: string) => {
+  if (!dateString) {
+    return '';
+  }
+  const day = dayjs(dateString).format('D');
+  const month = dayjs(dateString).format('MMMM') as keyof typeof georgianMonthsFull;
+  const year = dayjs(dateString).format('YYYY');
+
+  return `${day} ${isEnglish ? month : georgianMonthsFull[month]}, ${year}`;
+};
+
+export const isDateBefore = (dateString: string) => {
+  const current = dayjs();
+  const date = dayjs(dateString);
+
+  return current.isSameOrBefore(date, 'date');
 };
