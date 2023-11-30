@@ -1,7 +1,6 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import {
   AUTHORIZATION_METHODS_SCREEN,
-  CREATE_PASSCODE_SCREEN,
   DASHBOARD_SCREEN,
   ONBOARDING_SCREEN,
   PASSCODE_LOGIN_SCREEN,
@@ -11,15 +10,12 @@ import {
   PRODUCTS_STACK,
   PRODUCTS_SCREEN,
   PROFILE_SCREEN,
-  PROFILE_STACK,
-  SETTINGS_SCREEN,
   TRANSACTIONS_SCREEN,
   TRANSACTIONS_STACK,
   HOME_STACK,
   INITIAL_STACK,
   ALL_TEMPLATES_SCREEN,
   MODAL_STACK,
-  MODAL_SCREEN_ONE,
   MY_ACCOUNTS_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   ACCOUNT_DETAILS_SCREEN,
@@ -31,6 +27,10 @@ import {
   DEPOSIT_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
   TRANSFER_TO_ACCOUNT_SCREEN,
+  SETTINGS_SCREEN,
+  CREATE_PASSCODE_SCREEN,
+  VERIFY_EASY_LOGIN_SCREEN,
+  PROFILE_STACK,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -40,7 +40,10 @@ export type MainStackParamsList = {
 };
 
 export type ModalStackParamsList = {
-  [MODAL_SCREEN_ONE]: undefined;
+  [SETTINGS_SCREEN]: undefined;
+  [AUTHORIZATION_METHODS_SCREEN]: undefined;
+  [CREATE_PASSCODE_SCREEN]: undefined;
+  [VERIFY_EASY_LOGIN_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {
@@ -90,10 +93,6 @@ export type PaymentsStackParamsList = {};
 
 export type ProfileStackParamsList = {
   [PROFILE_SCREEN]: undefined;
-  [SETTINGS_SCREEN]: undefined;
-  [AUTHORIZATION_METHODS_SCREEN]: undefined;
-  [CREATE_PASSCODE_SCREEN]: undefined;
-  [PASSCODE_LOGIN_SCREEN]: undefined;
 };
 
 export type GuestStackParamList = {
@@ -111,7 +110,7 @@ export type TabParamList = {
   [PROFILE_STACK]: NavigatorScreenParams<ProfileStackParamsList>;
 };
 
-export type MainNavigatorParams = MainStackParamsList &
+export type MainParamsList = MainStackParamsList &
   ModalStackParamsList &
   DashboardStackParamsList &
   ProductsStackParamsList &
@@ -194,9 +193,9 @@ export type ModalStackRouteProps<T extends keyof ModalStackParamsList> = RoutePr
 >;
 
 // Main stack intellisense - for all authorized user stacks
-export type MainNavigationProps<T extends keyof MainNavigatorParams> = StackNavigationProp<
-  MainNavigatorParams,
+export type MainStackScreenProps<T extends keyof MainParamsList> = StackNavigationProp<
+  MainParamsList,
   T
 >;
 
-export type MainRouteProps<T extends keyof MainNavigatorParams> = RouteProp<MainNavigatorParams, T>;
+export type MainStackRouteProps<T extends keyof MainParamsList> = RouteProp<MainParamsList, T>;

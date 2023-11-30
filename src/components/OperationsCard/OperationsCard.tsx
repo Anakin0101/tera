@@ -4,9 +4,10 @@ import { useStyles } from './OperationsCard.styles';
 import { IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import dayjs from 'dayjs';
+import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
-export const OperationsCard = (props: any) => {
-  const { amount, docDate, description, index, data } = props;
+export const OperationsCard = (props: Transactions & { showUnderline?: boolean }) => {
+  const { amount, docDate, description, showUnderline } = props;
   const inputDate = dayjs(docDate);
   const formattedDate = inputDate.format('D MMM, YYYY, HH:mm');
 
@@ -62,7 +63,7 @@ export const OperationsCard = (props: any) => {
           )}
         </View>
       </View>
-      {index < data.length - 1 && <View style={[styles.underline]} />}
+      {showUnderline && <View style={styles.underline} />}
     </View>
   );
 };

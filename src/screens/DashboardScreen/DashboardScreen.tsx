@@ -10,8 +10,6 @@ import useTheme from 'hooks/useTheme';
 import { storage } from 'storage/index';
 import { EasyLoginModal } from 'components/modals';
 import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEasyLoginModal';
-import { useLazyGetTrustedDevicesQuery } from 'services/apis';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 import { openModal } from 'utils/modal';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 
@@ -23,17 +21,6 @@ export const DashboardScreen = () => {
 
   const { Fonts } = useTheme();
   const { showEasyLoginPrompt, handleNavigateToAuthorizationMethodsScreeen } = useEasyLoginModal();
-  const [getTrustedDevices] = useLazyGetTrustedDevicesQuery();
-  const { userIp, deviceToken } = useAppSelector(state => state.deviceInfo);
-
-  useEffect(() => {
-    getTrustedDevices({
-      headers: {
-        'X-Bank-UserIp': userIp,
-        'X-Bank-DeviceToken': deviceToken,
-      },
-    });
-  }, [deviceToken, getTrustedDevices, userIp]);
 
   useEffect(() => {
     showEasyLoginPrompt &&

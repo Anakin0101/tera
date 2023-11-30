@@ -4,7 +4,7 @@ import { useAddTrustedDeviceMutation } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useNavigation } from '@react-navigation/native';
-import { MainNavigationProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { setOTPCode, setUserCredentials } from 'store/slices/userInfo';
 import { CREATE_PASSCODE_SCREEN } from 'navigation/ScreenNames';
@@ -14,7 +14,7 @@ export const useTrustDeviceModal = () => {
   const [addTrustedDevice] = useAddTrustedDeviceMutation();
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<MainNavigationProps<'DashboardScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'CreatePasscodeScreen'>>();
   const { otpCode } = useAppSelector(state => state.userInfo);
   const { deviceToken: savedDeviceToken } = useAppSelector(state => state.deviceInfo);
 

@@ -9,4 +9,5 @@ export type DeviceInfoStateProps = {
     isLoading: boolean | null;
     error: boolean | null;
   };
+  deviceSupportsBiometricAuth: boolean | null;
 };

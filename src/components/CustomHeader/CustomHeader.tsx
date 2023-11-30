@@ -44,6 +44,7 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
   };
 
   const handleGoBack = () => {
+    // TODO - Go back does not work on Android
     goBack();
   };
 

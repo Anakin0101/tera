@@ -28,7 +28,7 @@ const mutex = new Mutex();
  */
 const defaultHeaders = (headers: Headers, api: Pick<BaseQueryApi, 'getState'>) => {
   const state = api.getState() as RootState;
-  const accessToken = state.userInfo.accessToken;
+  const accessToken = state?.userInfo?.accessToken || '';
   if (accessToken) {
     headers.set('Authorization', `Bearer ${accessToken}`);
   }

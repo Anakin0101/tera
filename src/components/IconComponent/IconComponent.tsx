@@ -32,6 +32,12 @@ export const IconComponent = ({
   // TODO - still need to handle Back-end received imgUrl (https://some_image_url)
   return (
     <Pressable
+      hitSlop={{
+        top: 5,
+        bottom: 5,
+        left: 5,
+        right: 5,
+      }}
       onPress={handler}
       style={[
         styles.iconCommonStyles,

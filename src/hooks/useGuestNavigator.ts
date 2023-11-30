@@ -5,10 +5,10 @@ import { useKeyChain } from './useKeychain';
 import { GuestStackParamList } from 'navigation/types';
 import {
   ONBOARDING_SCREEN,
+  PASSCODE_LOGIN_SCREEN,
   PASSWORD_LOGIN_SCREEN,
   PASSWORD_ONLY_LOGIN_SCREEN,
 } from 'navigation/ScreenNames';
-import { usePasscode } from './usePasscode';
 import { useLogin } from './useLogin';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
@@ -18,7 +18,6 @@ export const useGuestNavigator = () => {
   const { loading: keyChainLoading, savedPasscode, savedUserName } = useKeyChain();
   const [initialRoute, setInitialRoute] =
     useState<keyof GuestStackParamList>(PASSWORD_LOGIN_SCREEN);
-  const { verifyPasscode } = usePasscode();
   const { handlePasscodeSignIn } = useLogin();
   const refreshToken = useAppSelector(state => state.userInfo.refreshToken);
   const passcodeTries = useAppSelector(state => state.userInfo.passcodeTries);
@@ -32,9 +31,11 @@ export const useGuestNavigator = () => {
         setIsFirstLaunch(true);
         setInitialRoute(ONBOARDING_SCREEN);
       } else if (savedPasscode && refreshToken && passcodeTries < 3) {
-        verifyPasscode(() => {
-          handlePasscodeSignIn();
-        }, false);
+        // TODO - DO NOT DELETE
+        // verifyPasscode(() => {
+        //   handlePasscodeSignIn();
+        // }, false);
+        setInitialRoute(PASSCODE_LOGIN_SCREEN);
       } else if (!savedPasscode && savedUserName) {
         setInitialRoute(PASSWORD_ONLY_LOGIN_SCREEN);
       }
@@ -52,7 +53,6 @@ export const useGuestNavigator = () => {
     refreshToken,
     savedPasscode,
     savedUserName,
-    verifyPasscode,
   ]);
 
   return {

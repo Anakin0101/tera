@@ -5,9 +5,9 @@ import { AUTH_METHOD_NAMES } from 'screens/AuthorizationMethodsScreen/Authorizat
 import { SupportedAuthMethodsType } from 'store/slices/userInfo/types';
 import { AuthorizationMethod } from '../AuthorizationMethod';
 import { FaceIdSvg } from 'assets/SVGs';
-import { usePasscode } from 'hooks';
 import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useBiometrics } from 'hooks/useBiometrics';
 
 type AuthorizationMethodBiometricsProps = {
   handleSetBiometrics?: () => void;
@@ -17,8 +17,8 @@ export const AuthorizationMethodBiometrics: FC<AuthorizationMethodBiometricsProp
   handleSetBiometrics,
 }) => {
   const isFocused = useIsFocused();
+  const { clearBiometrics } = useBiometrics();
 
-  const { verifyPasscode, clearPasscode } = usePasscode();
   const biometricAuthSet = useAppSelector(state => state.userInfo.isBiometricSet);
 
   const { control, setValue } = useForm<SupportedAuthMethodsType>({
@@ -35,13 +35,9 @@ export const AuthorizationMethodBiometrics: FC<AuthorizationMethodBiometricsProp
 
   const handleSwitchToggle = (newValue: boolean) => {
     if (newValue === false) {
-      verifyPasscode(() => {
-        clearPasscode();
-        setValue('biometrics', newValue);
-      }, true);
+      clearBiometrics();
     } else if (newValue === true) {
       handleSetBiometrics?.();
-      setValue('biometrics', newValue);
     }
   };
   return (

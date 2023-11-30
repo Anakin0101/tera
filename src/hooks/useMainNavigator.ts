@@ -34,6 +34,4 @@ export const useMainNavigator = () => {
   useEffect(() => {
     getIsDeviceTrusted();
   }, [getIsDeviceTrusted]);
-
-  return {};
 };
