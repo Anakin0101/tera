@@ -3,8 +3,10 @@ import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(isSameOrBefore);
+dayjs.extend(customParseFormat);
 
 const savedLanguage = getValue(SELECTED_LANGUAGE);
 
@@ -59,13 +61,14 @@ export const getFormattedDate = (dateString: string, template = 'DD-MM-YYYY') =>
   return dayjs(dateString).format(template);
 };
 
-export const formatDateFullMonth = (dateString: string) => {
+export const formatDateFullMonth = (dateString: string, template?: string) => {
   if (!dateString) {
     return '';
   }
-  const day = dayjs(dateString).format('D');
-  const month = dayjs(dateString).format('MMMM') as keyof typeof georgianMonthsFull;
-  const year = dayjs(dateString).format('YYYY');
+
+  const day = dayjs(dateString, template).format('D');
+  const month = dayjs(dateString, template).format('MMMM') as keyof typeof georgianMonthsFull;
+  const year = dayjs(dateString, template).format('YYYY');
 
   return `${day} ${isEnglish ? month : georgianMonthsFull[month]}, ${year}`;
 };

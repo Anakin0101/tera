@@ -126,3 +126,14 @@ export type LoanSchedule = {
   totalDebt: number;
   insurance: number;
 };
+
+export type LoanHistory = {
+  loanId: number;
+  date: string;
+  paymentDate: string;
+  principal: number;
+  interest: number;
+  penalty: number;
+  fee: number;
+  total: number;
+};

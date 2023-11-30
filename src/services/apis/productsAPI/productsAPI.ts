@@ -6,6 +6,7 @@ import {
   Account,
   LastTransactionReq,
   LastTransactionRes,
+  LoanHistory,
   LoanSchedule,
   OfferType,
   OffersAPIResponseType,
@@ -71,6 +72,13 @@ export const productsAPI = createApi({
         params: { loanId },
       }),
     }),
+    getLoanHistory: builder.query<LoanHistory[], number>({
+      query: loanId => ({
+        url: URLS.getLoanHistory,
+        method: METHOD_NAMES.GET,
+        params: { loanId },
+      }),
+    }),
   }),
 });
 
@@ -80,4 +88,5 @@ export const {
   useGetLastTransactionsByAccNumberQuery,
   useUpdateAccountNameMutation,
   useGetLoanScheduleQuery,
+  useGetLoanHistoryQuery,
 } = productsAPI;

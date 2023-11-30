@@ -9,14 +9,21 @@ import { useStyles } from './LoanScheduleModal.styles';
 export const ScheduleItem: FC<ScheduleItemProps> = ({ item }) => {
   const styles = useStyles();
 
+  const isSchedule = 'totalDebt' in item;
+
   return (
     <Collapsible
       headerHeight={40}
       contentHeight={90}
       renderHeader={
         <View style={styles.itemHeader}>
-          <Text children={formatDateFullMonth(item.nextPaymentDay)} />
-          <Text children={formatMoney(item.totalDebt)} />
+          <Text
+            children={formatDateFullMonth(
+              isSchedule ? item.nextPaymentDay : item.paymentDate,
+              !isSchedule ? 'DD/MM/YYYY' : undefined,
+            )}
+          />
+          <Text children={formatMoney(isSchedule ? item.totalDebt : item.total)} />
         </View>
       }
       renderContent={
@@ -31,7 +38,7 @@ export const ScheduleItem: FC<ScheduleItemProps> = ({ item }) => {
           />
           <Text
             children="loanSchedule.commission"
-            translateProp={{ value: formatMoney(item.insurance) }}
+            translateProp={{ value: formatMoney(isSchedule ? item.insurance : item.fee) }}
           />
         </View>
       }

@@ -254,6 +254,7 @@
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
+    "totalPaid": "სულ გადახდილი",
     "principal": "ძირი: {{value}}",
     "interest": "პროცენტი: {{value}}",
     "commission": "საკომისიო: {{value}}"

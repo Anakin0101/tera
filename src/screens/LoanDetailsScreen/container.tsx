@@ -32,6 +32,18 @@ export const useLoanDetails = (index: number) => {
     }
   }, [headerHeight, loan]);
 
+  const onHistoryPress = useCallback(() => {
+    if ('creditId' in loan) {
+      openModal({
+        element: <LoanScheduleModal creditId={loan.creditId} showHistory />,
+        title: 'loans.history',
+        hideHandle: true,
+        disableDynamicSizing: true,
+        snapPoints: [config.mobileHeight - headerHeight],
+      });
+    }
+  }, [headerHeight, loan]);
+
   const actions = useMemo(() => {
     if ('creditLimit' in loan) {
       return [
@@ -87,10 +99,10 @@ export const useLoanDetails = (index: number) => {
       {
         title: 'loans.history',
         icon: <History />,
-        handlePress: () => {},
+        handlePress: onHistoryPress,
       },
     ];
-  }, [loan, onSchedulePress]);
+  }, [loan, onHistoryPress, onSchedulePress]);
 
   return {
     loans,

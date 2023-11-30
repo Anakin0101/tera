@@ -255,6 +255,7 @@
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",
+    "totalPaid": "Total Paid",
     "principal": "Principal: {{value}}",
     "interest": "Interest: {{value}}",
     "commission": "Commission: {{value}}"
