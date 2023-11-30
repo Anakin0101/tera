@@ -17,6 +17,8 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
 
   const isCreditCard = 'creditLimit' in item;
 
+  const isInstalment = item.productName === 'განვადება';
+
   return (
     <View style={styles.card}>
       <View>
@@ -57,12 +59,30 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
             />
           </View>
         )}
+        {isInstalment && (
+          <View style={styles.progressbarWrapper}>
+            <View style={[styles.progressbarContainer, { alignSelf: 'flex-end' }]}>
+              <Text
+                color={Colors.textBlack500}
+                children={formatMoney(item.usedPrincipalAmount, item.currency)}
+              />
+            </View>
+            <ProgressBar
+              marginTop={2}
+              max={2000}
+              used={item.usedPrincipalAmount}
+              width={PROGRESS_WIDTH}
+              height={moderateScale(6)}
+              backgroundColor={Colors.primary}
+            />
+          </View>
+        )}
       </View>
       <View style={styles.footer}>
         <Text
           label
           children={'loans.nextPayment'}
-          translateProp={{ value: formatDate(item?.nextPaymentDate, ' YYYY ') }}
+          translateProp={{ value: formatDate(item?.nextPaymentDate, ' YYYY') }}
           color={Colors.textBlack500}
         />
         <Text

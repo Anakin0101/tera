@@ -56,6 +56,7 @@ export const ActiveOverdraft: FC<ActiveOverdraftProps> = ({ relatedOverdraft }) 
               width={PROGRESS_WIDTH}
               max={relatedOverdraft.overdraftLimit}
               used={relatedOverdraft.usedPrincipalAmount}
+              marginTop={16}
             />
           </View>
         </View>

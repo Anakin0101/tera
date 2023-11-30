@@ -204,7 +204,7 @@
     "details": "Loan Details",
     "schedule": "Schedule",
     "history": "History",
-    "nextPayment": "Next payment {{value}}",
+    "nextPayment": "Next payment {{value}}: ",
     "next": "Next payment",
     "name": "Name",
     "type": "Loan type",
@@ -251,7 +251,8 @@
     "creditLimit": "Credit Limit",
     "paymentDeadline": "Debt Payment deadline",
     "operations": "Operations",
-    "cover": "Cover"
+    "cover": "Cover",
+    "prepayment": "Pre-payment"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",

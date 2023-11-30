@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useMemo, useState } from 'react';
-import { List, History, CreditCard, Note, Swap } from 'assets/SVGs';
+import { List, History, CreditCard, Note, Swap, CardArrow } from 'assets/SVGs';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { openModal } from 'utils/modal';
 import { config } from 'utils/config';
@@ -45,6 +45,25 @@ export const useLoanDetails = (index: number) => {
   }, [headerHeight, loan]);
 
   const actions = useMemo(() => {
+    if (loan.productName === 'განვადება') {
+      return [
+        {
+          title: 'loans.prepayment',
+          icon: <CardArrow />,
+          handlePress: () => {},
+        },
+        {
+          title: 'loans.schedule',
+          icon: <List />,
+          handlePress: onSchedulePress,
+        },
+        {
+          title: 'loans.history',
+          icon: <History />,
+          handlePress: onHistoryPress,
+        },
+      ];
+    }
     if ('creditLimit' in loan) {
       return [
         {

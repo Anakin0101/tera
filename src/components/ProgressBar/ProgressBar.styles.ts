@@ -14,6 +14,7 @@ export const useStyles = () => {
       height: Spacing.xxs,
       backgroundColor: Colors.success,
       borderRadius: 20,
+      maxWidth: '100%',
     },
   });
 };

@@ -79,3 +79,4 @@ export { Fail } from './Fail';
 export { Add } from './Add';
 export { List } from './List';
 export { History } from './History';
+export { CardArrow } from './CardArrow';

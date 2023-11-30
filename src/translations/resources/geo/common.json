@@ -210,7 +210,7 @@
     "details": "სესხის დეტალები",
     "schedule": "გრაფიკი",
     "history": "ისტორია",
-    "nextPayment": "შემდეგი გადახდა {{value}}",
+    "nextPayment": "შემდეგი გადახდა {{value}}: ",
     "next": "შემდეგი გადახდა",
     "name": "დასახელება",
     "type": "სესხის ტიპი",
@@ -250,7 +250,8 @@
     "creditLimit": "საკრედიტო ლიმიტი",
     "paymentDeadline": "დავალიანების დაფარვის ბოლო ვადა",
     "operations": "ოპერაციები",
-    "cover": "დაფარვა"
+    "cover": "დაფარვა",
+    "prepayment": "წინსწრებით დაფარვა"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
