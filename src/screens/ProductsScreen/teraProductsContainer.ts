@@ -26,6 +26,8 @@ export const useTeraProducts = () => {
     creditCards,
   } = useAppSelector(state => state.products);
 
+  const allLoans = [...overdrafts, ...creditCards, ...loans];
+
   useEffect(() => {
     if (accounts) {
       const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(
@@ -49,19 +51,21 @@ export const useTeraProducts = () => {
   }, [deposits]);
 
   const totalLoans = useMemo(() => {
-    if (!loans) {
-      return 0;
-    }
-    const filtered = loans.filter(loan => loan.currency === 'GEL');
-    return calculateSum(filtered, 'totalDebt');
-  }, [loans]);
+    const loansInGEL = loans.filter(loan => loan.currency === 'GEL');
+    const overdraftsInGEL = overdrafts.filter(overdraft => overdraft.currency === 'GEL');
+    const creditCardGEL = creditCards.filter(cc => cc.currency === 'GEL');
+
+    const loansSum = calculateSum(loansInGEL, 'totalDebt');
+    const overdraftsSum = calculateSum(overdraftsInGEL, 'totalDebt');
+    const ccSum = calculateSum(creditCardGEL, 'creditLimit');
+
+    return loansSum + overdraftsSum + ccSum;
+  }, [creditCards, loans, overdrafts]);
 
   useEffect(() => {
     dispatch(setTotalDeposits(totalDeposits));
     dispatch(setTotalDebt(totalLoans));
   }, [dispatch, totalDeposits, totalLoans]);
-
-  const allLoans = [...overdrafts, ...creditCards, ...loans];
 
   return {
     groupedAccountsByIban,

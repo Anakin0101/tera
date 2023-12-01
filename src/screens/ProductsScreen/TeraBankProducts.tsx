@@ -38,7 +38,6 @@ const TeraBankProducts = () => {
     totalAvailableBalanceGEL,
     deposits,
     totalDeposits,
-    loans,
     totalLoans,
     groupedAccountsByIban,
     allLoans,
@@ -51,7 +50,7 @@ const TeraBankProducts = () => {
           <CardsAndAccounts
             accounts={groupedAccountsByIban}
             totalAvailableBalance={totalAvailableBalanceGEL}
-            showDivider={!!deposits?.length || !!loans?.length}
+            showDivider={!!deposits?.length || !!allLoans?.length}
           />
         );
       case 'deposits':
@@ -60,7 +59,7 @@ const TeraBankProducts = () => {
             data={deposits}
             variant="deposit"
             totalAmount={totalDeposits}
-            displayDivider={!!loans?.length}
+            displayDivider={!!allLoans?.length}
           />
         );
       case 'loans':

@@ -202,7 +202,9 @@
     "agreementDoc": "ხელშეკრულების დოკუმენტი",
     "addMoney": "თანხის დამატება",
     "extraction": "ამონაწერი",
-    "agreementNumCopied": "ხელშეკრულების ნომერი დაკოპირებულია"
+    "agreementNumCopied": "ხელშეკრულების ნომერი დაკოპირებულია",
+    "endDate": "ანაბრის ვადა",
+    "willBeCancelled": "გაუქმდება {{value}} დღეში"
   },
   "loans": {
     "title": "სესხები",
@@ -251,7 +253,8 @@
     "paymentDeadline": "დავალიანების დაფარვის ბოლო ვადა",
     "operations": "ოპერაციები",
     "cover": "დაფარვა",
-    "prepayment": "წინსწრებით დაფარვა"
+    "prepayment": "წინსწრებით დაფარვა",
+    "iban": "სესხის მომსახურე ანგარიში"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",

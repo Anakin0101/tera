@@ -196,7 +196,9 @@
     "utilizedBenefits": "Utilized Benefit",
     "agreementDoc": "Agreement Document",
     "extraction": "Extraction",
-    "agreementNumCopied": "Agreement number has been copied"
+    "agreementNumCopied": "Agreement number has been copied",
+    "endDate": "End Date",
+    "willBeCancelled": "will be cancelled in {{value}} days"
   },
   "loans": {
     "title": "Loans",
@@ -252,7 +254,8 @@
     "paymentDeadline": "Debt Payment deadline",
     "operations": "Operations",
     "cover": "Cover",
-    "prepayment": "Pre-payment"
+    "prepayment": "Pre-payment",
+    "iban": "Loan servicing account"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",

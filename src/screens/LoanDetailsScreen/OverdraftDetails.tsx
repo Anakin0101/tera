@@ -4,6 +4,7 @@ import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { formatDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
+import { getLoanStatus } from './LoanDetails';
 
 export const OverdraftDetails = ({ overdraft }: { overdraft: OverdraftType }) => {
   return (
@@ -16,6 +17,8 @@ export const OverdraftDetails = ({ overdraft }: { overdraft: OverdraftType }) =>
         label="loans.accruedInterest"
         value={formatMoney(overdraft.totalInterest, overdraft.currency)}
       />
+      <DetailsItem label="loans.iban" value={overdraft.accountIban} />
+      <DetailsItem label="loans.status" value={getLoanStatus(overdraft.status)} />
       <DetailsItem
         label="loans.allDebt"
         value={formatMoney(overdraft.totalDebt, overdraft.currency)}

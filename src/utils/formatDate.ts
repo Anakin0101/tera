@@ -79,3 +79,10 @@ export const isDateBefore = (dateString: string) => {
 
   return current.isSameOrBefore(date, 'date');
 };
+
+export const getDaysDifference = (dateString: string) => {
+  const date1 = dayjs();
+  const date2 = dayjs(dateString);
+
+  return date2.diff(date1, 'day');
+};

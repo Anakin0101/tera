@@ -16,6 +16,7 @@ export type GetCustomerOperationsResponseTypes = {
 export type OverdraftType = {
   id: number;
   accountId: number;
+  accountIban: string;
   productName: string;
   agreementNumber: string;
   interestRate: number;
@@ -30,6 +31,7 @@ export type OverdraftType = {
   restCreditPeriodInMonths: number;
   nextPaymentDate: string;
   nextPaymentAmount: number;
+  status: CreditStatus;
 };
 export type GetCustomerOperationsRequestTypes = {
   count: number;
