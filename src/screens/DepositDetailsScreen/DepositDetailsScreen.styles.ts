@@ -63,5 +63,18 @@ export const useStyles = () => {
       ...Layout.center,
       backgroundColor: Colors.inputBlack50,
     },
+    actionButtons: {
+      ...Layout.justifyContentBetween,
+    },
+    actionButtonsContainer: {
+      gap: Spacing.xl,
+    },
+    durationContainer: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
+    },
+    badgeContainer: {
+      marginTop: Spacing.lg,
+    },
   });
 };

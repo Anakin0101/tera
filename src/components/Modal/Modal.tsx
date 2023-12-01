@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import { Pressable, View } from 'react-native';
 import {
   BottomSheetView,
@@ -25,9 +25,10 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
     titlePosition,
     enableDynamicSizing,
     enableContentPanningGesture,
+    snapPoints,
+    hideHandle,
     enablePadding = false,
   } = useModal(ref);
-  const snapPoints = useMemo(() => ['70%'], []);
   const styles = useStyles();
 
   return (
@@ -39,7 +40,7 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
       enableDynamicSizing={enableDynamicSizing}
       backdropComponent={Backdrop}
       handleStyle={styles.handle}
-      handleIndicatorStyle={styles.handleIndicator}
+      handleIndicatorStyle={[styles.handleIndicator, hideHandle && { height: 0 }]}
       enableContentPanningGesture={enableContentPanningGesture}
     >
       <BottomSheetView style={enablePadding ? styles.paddingContainer : styles.container}>

@@ -1,4 +1,4 @@
-import { ViewToken } from 'react-native';
+import { StyleProp, ViewStyle, ViewToken } from 'react-native';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface AccountsSliderData {
@@ -18,6 +18,7 @@ export type SliderProps<ItemT> = {
   actions: ActionType[];
   index: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  actionButtonsContainer?: StyleProp<ViewStyle>;
 };
 
 export type ViewableItems = {
@@ -30,6 +31,7 @@ export type AccountSliderItemProps = {
 
 export type ActionButtonProps = {
   actions: ActionType[];
+  actionButtonsContainer?: StyleProp<ViewStyle>;
 };
 
 export type StatusBadgeProps = {

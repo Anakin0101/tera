@@ -87,43 +87,6 @@ export type DepositType = {
   typeId: number;
 };
 
-export type LoanType = {
-  accountId: number;
-  accountNumber: number;
-  accruedInterest: number;
-  agreementNumber: string;
-  amount: number;
-  creditId: number;
-  creditIsOn: boolean;
-  creditPeriodInMonths: number;
-  creditStatus: number;
-  currency: Currency;
-  defferdInterestAmount: number;
-  defferdPrincipalAmount: number;
-  endDate: string;
-  hasInsurance: true;
-  hasSubsidizedInterest: boolean;
-  interestRate: number;
-  nextPaymentAmount: number;
-  nextPaymentDate: string;
-  nextPaymentsCount: number;
-  notUsedPrincipalAmount: number;
-  overdueInterestAmount: number;
-  overdueInterestPenalty: number;
-  overduePrincipalAmount: number;
-  overduePrincipalPenalty: number;
-  productName: string;
-  restCreditPeriodInMonths: number;
-  startDate: string;
-  totalDebt: number;
-  totalInterestPayable: number;
-  totalOverduePayable: number;
-  totalPayable: number;
-  totalPenalty: number;
-  totalPrincipalPayable: number;
-  usedPrincipalAmount: number;
-};
-
 export type TransactionType = {
   docDate: string;
   description: string;
@@ -153,4 +116,24 @@ export type UpdateAccountNameReq = {
   culture: string;
   accountId: number;
   accountName: string;
+};
+
+export type LoanSchedule = {
+  nextPaymentDay: string;
+  principal: number;
+  interest: number;
+  balance: number;
+  totalDebt: number;
+  insurance: number;
+};
+
+export type LoanHistory = {
+  loanId: number;
+  date: string;
+  paymentDate: string;
+  principal: number;
+  interest: number;
+  penalty: number;
+  fee: number;
+  total: number;
 };

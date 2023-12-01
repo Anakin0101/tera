@@ -29,6 +29,9 @@ export const DepositDetailsScreen = () => {
             actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}
+            actionButtonsContainer={
+              actions.length === 4 ? styles.actionButtons : styles.actionButtonsContainer
+            }
           />
         );
       case 'details':

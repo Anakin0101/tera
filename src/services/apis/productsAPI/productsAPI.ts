@@ -6,7 +6,8 @@ import {
   Account,
   LastTransactionReq,
   LastTransactionRes,
-  LoanType,
+  LoanHistory,
+  LoanSchedule,
   OfferType,
   OffersAPIResponseType,
   TransactionType,
@@ -37,15 +38,6 @@ export const productsAPI = createApi({
       }),
       transformResponse: (response: OffersAPIResponseType) => response.offers,
     }),
-    getLoansByCustomerId: builder.query<LoanType[], number>({
-      query: CustomerId => ({
-        url: URLS.getLoansByCustomerId,
-        method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
-      }),
-    }),
     getLastTransactionsByAccNumber: builder.query<TransactionType[], LastTransactionReq>({
       query: ({ accountNumber, count, startDate, endDate }) => ({
         url: URLS.getCustomerOps,
@@ -73,6 +65,20 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getLoanSchedule: builder.query<LoanSchedule[], number>({
+      query: loanId => ({
+        url: URLS.getLoanSchedule,
+        method: METHOD_NAMES.GET,
+        params: { loanId },
+      }),
+    }),
+    getLoanHistory: builder.query<LoanHistory[], number>({
+      query: loanId => ({
+        url: URLS.getLoanHistory,
+        method: METHOD_NAMES.GET,
+        params: { loanId },
+      }),
+    }),
     BlockCard: builder.mutation<any, any>({
       query: ({ cardId }) => ({
         url: URLS.BlockCard,
@@ -97,9 +103,10 @@ export const productsAPI = createApi({
 export const {
   useGetAccountsByCustomerIdQuery,
   useGetOffersQuery,
-  useGetLoansByCustomerIdQuery,
   useGetLastTransactionsByAccNumberQuery,
   useUpdateAccountNameMutation,
+  useGetLoanScheduleQuery,
+  useGetLoanHistoryQuery,
   useBlockCardMutation,
   useUnblockCardMutation,
 } = productsAPI;

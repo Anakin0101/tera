@@ -16,11 +16,12 @@ export type GetCustomerOperationsResponseTypes = {
 export type OverdraftType = {
   id: number;
   accountId: number;
+  accountIban: string;
   productName: string;
   agreementNumber: string;
   interestRate: number;
-  startDate: string | null;
-  endDate: string | null;
+  startDate: string;
+  endDate: string;
   overdraftLimit: number;
   currency: Currency;
   totalDebt: number;
@@ -28,8 +29,9 @@ export type OverdraftType = {
   usedPrincipalAmount: number;
   creditPeriodInMonths: number;
   restCreditPeriodInMonths: number;
-  nextPaymentDate: string | null;
+  nextPaymentDate: string;
   nextPaymentAmount: number;
+  status: CreditStatus;
 };
 export type GetCustomerOperationsRequestTypes = {
   count: number;
@@ -130,4 +132,83 @@ export type Asset = {
   totalCapitalizedPercent: number;
   totalInterest: number;
   typeId: DepositTypeEnum;
+};
+
+export enum CreditStatus {
+  Current = 60,
+  Late = 70,
+  Overdue = 80,
+  WrittenOff = 90,
+  Closed = 255,
+}
+
+export type LoanType = {
+  accountId: number;
+  accountNumber: number;
+  accruedInterest: number;
+  agreementNumber: string;
+  amount: number;
+  creditId: number;
+  creditIsOn: boolean;
+  creditPeriodInMonths: number;
+  creditStatus: CreditStatus;
+  currency: Currency;
+  defferdInterestAmount: number;
+  defferdPrincipalAmount: number;
+  endDate: string;
+  hasInsurance: true;
+  hasSubsidizedInterest: boolean;
+  interestRate: number;
+  nextPaymentAmount: number;
+  nextPaymentDate: string;
+  nextPaymentsCount: number;
+  notUsedPrincipalAmount: number;
+  overdueInterestAmount: number;
+  overdueInterestPenalty: number;
+  overduePrincipalAmount: number;
+  overduePrincipalPenalty: number;
+  productName: string;
+  restCreditPeriodInMonths: number;
+  startDate: string;
+  totalDebt: number;
+  totalInterestPayable: number;
+  totalOverduePayable: number;
+  totalPayable: number;
+  totalPenalty: number;
+  totalPrincipalPayable: number;
+  usedPrincipalAmount: number;
+};
+
+export type CreditCardType = {
+  creditId: number;
+  accountId: number;
+  accountNumber: number;
+  agreementNumber: string;
+  currency: Currency;
+  creditLimit: number;
+  interestRate: number;
+  creditStartDate: string;
+  creditEndDate: string;
+  billingDay: number;
+  creditStatus: number;
+  creditIsOn: true;
+  usedPrincipalAmount: number;
+  notUsedPrincipalAmount: number;
+  accruedInterest: number;
+  interestFreeCreditPayable: number;
+  minPayable: number;
+  minPrincipalPayable: number;
+  minInterestPayable: number;
+  paymentEndDate: string;
+  totalPenalty: number;
+  overduePrincipalAmount: number;
+  overduePrincipalPenalty: number;
+  overdueInterestAmount: number;
+  overdueInterestPenalty: number;
+  canShowAgreement: false;
+  creditPeriodInMonths: number;
+  restCreditPeriodInMonths: number;
+  nextPaymentDate: string;
+  nextPaymentAmount: number;
+  productName: string;
 };

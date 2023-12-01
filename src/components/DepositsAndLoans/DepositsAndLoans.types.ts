@@ -1,9 +1,16 @@
-import { DepositType, LoanType } from 'services/apis/productsAPI/productsAPI.types';
+import {
+  LoanType,
+  OverdraftType,
+  CreditCardType,
+} from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { DepositType } from 'services/apis/productsAPI/productsAPI.types';
 
 type Variant = 'deposit' | 'loan';
 
+export type RenderItemType = DepositType | LoanType | OverdraftType | CreditCardType;
+
 export interface DepositsAndLoansProps {
-  data?: DepositType[] | LoanType[];
+  data?: RenderItemType[];
   variant: Variant;
   totalAmount: number;
   seeAll?: boolean;
@@ -11,7 +18,7 @@ export interface DepositsAndLoansProps {
 }
 
 export type ListItemProps = {
-  item: DepositType | LoanType;
+  item: RenderItemType;
   isLast: boolean;
   onPress: () => void;
 };

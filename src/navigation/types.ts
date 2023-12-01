@@ -29,6 +29,8 @@ import {
   INSURANCE_PACKAGE_DETAILS,
   DEPOSITS_SCREEN,
   DEPOSIT_DETAILS_SCREEN,
+  LOANS_SCREEN,
+  LOAN_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
   TRANSFER_TO_ACCOUNT_SCREEN,
 } from './ScreenNames';
@@ -73,6 +75,10 @@ export type ProductsStackParamsList = {
   };
   [DEPOSITS_SCREEN]: undefined;
   [DEPOSIT_DETAILS_SCREEN]: {
+    index: number;
+  };
+  [LOANS_SCREEN]: undefined;
+  [LOAN_DETAILS_SCREEN]: {
     index: number;
   };
 };

@@ -1,19 +1,31 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
-import { Text } from 'components';
+import { Badge, Text } from 'components';
 import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
-import { getFormattedDate } from 'utils/formatDate';
+import { formatDate, getDaysDifference, getFormattedDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
-import { Copy, Edit, Note } from 'assets/SVGs';
+import { Alert, Copy, Note } from 'assets/SVGs';
 import { DepositDetailsProps } from './DepositDetailsScreen.types';
 import { useStyles } from './DepositDetailsScreen.styles';
 
 export const DepositDetails: FC<DepositDetailsProps> = ({ deposit, copyToClipboard }) => {
   const styles = useStyles();
+  const diff = getDaysDifference(deposit.endDate);
+
   return (
     <View style={styles.details}>
       <Text children="products.details" size={18} medium />
-      <DetailsItem label="products.name" value={deposit.depositName} icon={<Edit />} />
+      {diff > 0 && diff <= 10 ? (
+        <View style={styles.durationContainer}>
+          <DetailsItem label="deposits.endDate" value={formatDate(deposit.endDate, ' YYYY')} />
+          <Badge
+            icon={<Alert />}
+            label="deposits.willBeCancelled"
+            translateProps={{ value: diff }}
+            style={styles.badgeContainer}
+          />
+        </View>
+      ) : null}
       <DetailsItem
         icon={<Copy />}
         value={deposit.iban}

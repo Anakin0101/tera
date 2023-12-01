@@ -21,7 +21,6 @@ export const useStyles = () => {
     },
     actionWrapper: {
       ...Layout.alignItemsCenter,
-      paddingHorizontal: 8,
     },
     iconContainer: {
       width: 56,
