@@ -4,22 +4,39 @@ import { CardItem, Divider, Text } from 'components';
 import { useStyles } from './DashboardPensionFund.styles';
 import useTheme from 'hooks/useTheme';
 import Images from 'theme/Images';
-
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useDispatch } from 'react-redux';
+import { setMaskText } from 'store/slices/dashboard';
+import { IconComponent } from 'components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 export const DashboardPensionFund = ({ data }: any) => {
   const styles = useStyles();
-
+  const dispatch = useDispatch();
   const { Colors } = useTheme();
+  const securePension = useAppSelector(state => state.dashboard.maskText);
+
+  const handleSecurePensionToggle = () => {
+    dispatch(setMaskText(!securePension));
+  };
 
   return (
     <>
       <View style={styles.pensionView}>
         <View style={styles.dashboardTemplatesContainer}>
           <View>
-            <Text
-              children={`dashboard.pension`}
-              style={styles.titleContainer}
-              color={Colors.textBlack}
-            />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+              <Text
+                children={'dashboard.pension'}
+                style={styles.titleContainer}
+                color={Colors.textBlack}
+              />
+              <TouchableOpacity style={styles.mask} onPress={() => handleSecurePensionToggle()}>
+                <IconComponent
+                  pngLocalIcon={!securePension ? Images().OpenEye : Images().CloseEye}
+                  customIconComponentStyles={styles.eyeIcon}
+                />
+              </TouchableOpacity>
+            </View>
             <View style={styles.wrapper}>
               <CardItem title="დანაზოგი" value={data} iconSource={Images().PensionIcon} isSecure />
             </View>

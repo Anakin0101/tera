@@ -8,6 +8,7 @@ const initialState: DashboardStateProps = {
   },
   shouldCloseCards: false,
   scrollToTop: false,
+  maskText: false,
 };
 
 const dashboardSlice = createSlice({
@@ -20,8 +21,11 @@ const dashboardSlice = createSlice({
     setScrollToTop: (state, { payload }) => {
       state.scrollToTop = payload;
     },
+    setMaskText: (state, { payload }) => {
+      state.maskText = payload;
+    },
   },
 });
 
-export const { setShouldCloseCards, setScrollToTop } = dashboardSlice.actions;
+export const { setShouldCloseCards, setScrollToTop, setMaskText } = dashboardSlice.actions;
 export const dashboardReducer = dashboardSlice.reducer;

@@ -14,10 +14,12 @@ export type UserInfoStateProps = {
   };
   isLoggingOut: boolean;
   otpCode?: string;
+  isPasscodeSet: boolean | undefined;
+  isBiometricSet: boolean | undefined;
+  passcodeTries: number;
 };
 
 export type SupportedAuthMethodsType = {
   passcode?: boolean;
-  faceId?: boolean;
-  fingerPrint?: boolean;
+  biometrics?: boolean;
 };

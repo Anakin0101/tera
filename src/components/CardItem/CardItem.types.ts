@@ -1,6 +1,6 @@
 export interface CardItemProps {
   title: string;
-  value: number;
+  value: string | number;
   iconSource: string;
   isSecure?: boolean;
 }

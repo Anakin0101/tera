@@ -28,7 +28,8 @@
     "forgot": "Forgot data?",
     "signin": "Sign in",
     "or": "or",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "change_user": "Change user"
   },
   "authErrors": {
     "tryAgain": "Entered data is incorrect. Try again",
@@ -64,7 +65,9 @@
     "security_level": "Security level",
     "trusted_devices": "Trusted devices",
     "additional_settings": "Additional settings",
-    "manage_notifications": "Manage notifications"
+    "manage_notifications": "Manage notifications",
+    "biometrics_title": "With Biometric information",
+    "biometrics_desc": "With the use of Face ID or Fingerprint"
   },
   "trustDevice": {
     "heading": "Device verification",
@@ -73,7 +76,8 @@
     "CTAText": "Verify the device",
     "passcode_s": "Passcode",
     "faceId_s": "Face ID",
-    "fingerprint_s": "Fingerprint"
+    "fingerprint_s": "Fingerprint",
+    "biometric_s": "Biometric"
   },
   "easyLogin": {
     "title": "Easy login",
@@ -184,7 +188,10 @@
     "standardConditions": "conduct banking operations standard conditions",
     "allDeposits": "Deposits",
     "newDeposit": "New Deposit",
-    "depositDetails": "Deposit Details"
+    "depositDetails": "Deposit Details",
+    "updateCard": "Update Card",
+    "insure": "Standart",
+    "type": "Card Type"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",

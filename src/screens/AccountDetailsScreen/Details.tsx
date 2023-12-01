@@ -8,7 +8,7 @@ import { ChevronRight, Copy, Edit } from 'assets/SVGs';
 import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { useCopyToClipboard } from 'hooks/useCopyToClipboard';
+import { useCopyToClipboard } from 'hooks';
 
 export const Details: FC<DetailsProps> = ({
   name,
@@ -18,6 +18,7 @@ export const Details: FC<DetailsProps> = ({
   borderRadius,
   cardHolder,
   information,
+  insure,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ export const Details: FC<DetailsProps> = ({
             value={cardHolder}
             onPress={() => {}}
           />
+          <DetailsItem label="დაზღვევა" value={insure} onPress={handleChangeName} />
           {blockedAmounts?.length ? (
             <DetailsItem
               label="products.blockedFunds"

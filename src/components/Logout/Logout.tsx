@@ -4,8 +4,7 @@ import { useStyleTheme } from './Logout.styles';
 import { useTranslation } from 'react-i18next';
 import { IconComponent, Text } from 'components';
 import { LogoutIcon } from 'assets/SVGs';
-import useTheme from 'hooks/useTheme';
-import { useLogout } from 'hooks/useLogout';
+import { useLogout, useTheme } from 'hooks';
 
 export const Logout = () => {
   const styles = useStyleTheme();

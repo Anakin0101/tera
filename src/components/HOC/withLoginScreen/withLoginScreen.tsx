@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyleTheme } from './withLoginScreen.styles';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { GuestStackScreenProps, GuestStackParamList } from 'navigation/types';
-import { useKeyChain } from 'hooks/useKeychain';
+import { useKeyChain } from 'hooks';
 import { Button } from 'components/Button/Button';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { changeTheme } from 'store/slices/theme';
@@ -71,7 +71,7 @@ export const withLoginScreen = <P extends object, T extends keyof GuestStackPara
           <View style={styles.languageSwitcherContainer}>
             <LanguageSwitcher />
           </View>
-          <View style={styles.languageSwitcherContainer}>
+          <View style={styles.temporaryThemeCTAContainer}>
             <Button.Primary onPress={handleThemeChange}>
               <Text>Change the theme - temporary</Text>
             </Button.Primary>

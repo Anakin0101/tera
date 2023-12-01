@@ -1,11 +1,10 @@
-import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
-  const { Spacing } = useTheme();
   return StyleSheet.create({
     container: {
-      paddingTop: Spacing.ml,
+      marginTop: verticalScale(67),
     },
   });
 };

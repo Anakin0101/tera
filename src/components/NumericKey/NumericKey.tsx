@@ -6,7 +6,16 @@ import { NUmericKeyProps } from './NumericKey.types';
 export const NumericKey: FC<NUmericKeyProps> = ({ onPress, pinNumber }) => {
   const styles = useStyleTheme();
   return (
-    <TouchableOpacity style={styles.pinItem} onPress={() => onPress(pinNumber)}>
+    <TouchableOpacity
+      style={styles.pinItem}
+      onPress={() => onPress(pinNumber)}
+      hitSlop={{
+        top: 5,
+        bottom: 5,
+        left: 25,
+        right: 25,
+      }}
+    >
       <Text style={styles.pinItemText}>{pinNumber.toString()}</Text>
     </TouchableOpacity>
   );

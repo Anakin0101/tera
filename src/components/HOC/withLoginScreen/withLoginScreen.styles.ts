@@ -15,6 +15,10 @@ export const useStyleTheme = () => {
     languageSwitcherContainer: {
       ...Layout.alignSelfEnd,
     },
+    temporaryThemeCTAContainer: {
+      position: 'absolute',
+      left: 0,
+    },
     wrappedComponentWrapperStyle: {},
   });
 };

@@ -13,6 +13,7 @@ import { ThemeNavigationColors } from 'types/declarations/theme';
 export const Colors = {
   transparent: 'rgba(0,0,0,0)',
   inputBackground: '#FFFFFF',
+  defaultBackground: '#F9F9F9',
   white: '#ffffff',
   gray: 'rgba(246, 246, 247, 1)',
   gray200: 'rgba(161, 161, 161, 0.2)',
@@ -28,6 +29,7 @@ export const Colors = {
   textGray400: '#4D4D4D',
   textGray200: '#A1A1A1',
   primary: '#A0226D',
+
   textPrimary: '#A0226D',
   secondary: '#9F1D6B0F',
   inactiveTint: '#777C8B',
@@ -59,11 +61,12 @@ export const Colors = {
   insuranceBg: 'rgb(249, 243, 247)',
   creditCardBg: '#571538',
   warningSolid: '#FFC423',
+  primaryActionButton: 'rgba(160, 34, 109, 0.1)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
   primary: Colors.primary,
-  background: Colors.headerBackground,
+  background: Colors.defaultBackground,
   card: '#EFEFEF',
 };
 

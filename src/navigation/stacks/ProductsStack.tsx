@@ -30,13 +30,29 @@ import { ProductsStackParamsList } from 'navigation/types';
 import { CustomHeader } from 'components/CustomHeader';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
 import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
+import { Colors } from 'theme/Variables';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
+
+const ProductsStackHeaderMap = {
+  [MY_ACCOUNT_SCROLLABLE_SCREEN]: () => {
+    return (
+      <CustomHeader
+        title="ჩემი ანგარიში"
+        accountTitle="38.191 ლ"
+        isInitialScreen
+        customHeaderContainerStyle={{ backgroundColor: Colors.lightGray }}
+        titlePosition={'center'}
+        backElement={{ position: 'left' }}
+      />
+    );
+  },
+};
 
 export const ProductsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
-  const { FontFamily, Colors } = useTheme();
+  const { FontFamily } = useTheme();
   return (
     <Navigator initialRouteName={PRODUCTS_SCREEN}>
       <Screen
@@ -88,16 +104,7 @@ export const ProductsStack = () => {
         name={MY_ACCOUNT_SCROLLABLE_SCREEN}
         component={MyAccountsScrollableScreen}
         options={{
-          header: () => (
-            <CustomHeader
-              title="ჩემი ანგარიში"
-              accountTitle="38.191 ლ"
-              isInitialScreen
-              customHeaderContainerStyle={{ backgroundColor: Colors.lightGray }}
-              titlePosition={'center'}
-              backElement={{ position: 'left' }}
-            />
-          ),
+          header: ProductsStackHeaderMap[MY_ACCOUNT_SCROLLABLE_SCREEN],
           headerStyle: {
             backgroundColor: 'yellow',
             shadowColor: 'transparent',

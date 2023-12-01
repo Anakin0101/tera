@@ -10,6 +10,7 @@ import {
 } from 'navigation/ScreenNames';
 import { usePasscode } from './usePasscode';
 import { useLogin } from './useLogin';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useGuestNavigator = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,6 +20,8 @@ export const useGuestNavigator = () => {
     useState<keyof GuestStackParamList>(PASSWORD_LOGIN_SCREEN);
   const { verifyPasscode } = usePasscode();
   const { handlePasscodeSignIn } = useLogin();
+  const refreshToken = useAppSelector(state => state.userInfo.refreshToken);
+  const passcodeTries = useAppSelector(state => state.userInfo.passcodeTries);
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -28,10 +31,10 @@ export const useGuestNavigator = () => {
         await setValue(APP_LAUNCHED, true);
         setIsFirstLaunch(true);
         setInitialRoute(ONBOARDING_SCREEN);
-      } else if (savedPasscode) {
+      } else if (savedPasscode && refreshToken && passcodeTries < 3) {
         verifyPasscode(() => {
           handlePasscodeSignIn();
-        });
+        }, false);
       } else if (!savedPasscode && savedUserName) {
         setInitialRoute(PASSWORD_ONLY_LOGIN_SCREEN);
       }
@@ -42,7 +45,15 @@ export const useGuestNavigator = () => {
     };
 
     fetchInitialData();
-  }, [handlePasscodeSignIn, keyChainLoading, savedPasscode, savedUserName, verifyPasscode]);
+  }, [
+    handlePasscodeSignIn,
+    keyChainLoading,
+    passcodeTries,
+    refreshToken,
+    savedPasscode,
+    savedUserName,
+    verifyPasscode,
+  ]);
 
   return {
     loading,

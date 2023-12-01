@@ -18,6 +18,7 @@ import {
 import { ProfileStackParamsList } from 'navigation/types';
 import { CustomHeader } from 'components/index';
 import { CustomHeaderOptions } from 'components/CustomHeader/CustomHeader.types';
+import { hideHeader } from 'navigation/config';
 
 const ProfileStack = createStackNavigator<ProfileStackParamsList>();
 
@@ -41,11 +42,6 @@ const ProfileStackHeaderMap = {
         bottomBorder
         {...props}
       />
-    );
-  },
-  [PASSCODE_LOGIN_SCREEN]: (props: CustomHeaderOptions) => {
-    return (
-      <CustomHeader title={'passcode.headerTitle'} backElement={{ position: 'left' }} {...props} />
     );
   },
   [CREATE_PASSCODE_SCREEN]: (props: CustomHeaderOptions) => {
@@ -79,11 +75,7 @@ export const ProfileNavigator = () => {
         component={AuthorizationMethodsScreen}
         options={{ header: ProfileStackHeaderMap[AUTHORIZATION_METHODS_SCREEN] }}
       />
-      <Screen
-        name={PASSCODE_LOGIN_SCREEN}
-        component={PasscodeLoginScreen}
-        options={{ header: ProfileStackHeaderMap[PASSCODE_LOGIN_SCREEN] }}
-      />
+      <Screen name={PASSCODE_LOGIN_SCREEN} component={PasscodeLoginScreen} options={hideHeader} />
       <Screen
         name={CREATE_PASSCODE_SCREEN}
         component={CreatePasscodeScreen}

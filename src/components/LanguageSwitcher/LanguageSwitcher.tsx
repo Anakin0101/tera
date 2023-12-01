@@ -42,9 +42,10 @@ export const LanguageSwitcher = () => {
   return (
     <Button.Secondary
       size="medium"
-      customWrapperStyle={{ backgroundColor: Colors.gray }}
+      customWrapperStyle={{ backgroundColor: Colors.dashboardBackground }}
       text={currentLanguage.label}
       leftIcon={currentLanguage.icon}
+      customTextStyle={{ color: Colors.titleBlack }}
       onPress={() =>
         handleLanguageChange(
           i18next.language === LanguageKeys.geo ? LanguageKeys.en : LanguageKeys.geo,

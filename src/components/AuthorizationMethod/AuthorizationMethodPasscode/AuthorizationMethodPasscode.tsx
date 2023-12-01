@@ -1,25 +1,25 @@
 import { SwitchComponent } from 'components/Switch/Switch';
-import { usePasscode } from 'hooks/usePasscode';
+import { usePasscode } from 'hooks';
 import React, { FC, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
 import { AUTH_METHOD_NAMES } from 'screens/AuthorizationMethodsScreen/AuthorizationMethodsScreen.types';
 import { SupportedAuthMethodsType } from 'store/slices/userInfo/types';
-import { useStyles } from '../AuthorizationMethod.styles';
-import { IconComponent } from 'components/IconComponent/IconComponent';
+import { AuthorizationMethod } from '../AuthorizationMethod';
 import { DialPad } from 'assets/SVGs';
-import { useTranslation } from 'react-i18next';
+import { useIsFocused } from '@react-navigation/native';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 type AuthorizationMethodPasscodeProps = {
-  handleSetNewPasscode?: any;
+  handleSetNewPasscode?: () => void;
 };
 
 export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> = ({
   handleSetNewPasscode,
 }) => {
-  const { verifyPasscode, isPasscodeSet, clearPasscode } = usePasscode();
-  const styles = useStyles();
-  const { t } = useTranslation();
+  const isFocused = useIsFocused();
+  const { verifyPasscode, clearPasscode } = usePasscode();
+  const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
+
   const { control, setValue } = useForm<SupportedAuthMethodsType>({
     defaultValues: {
       passcode: isPasscodeSet,
@@ -27,32 +27,28 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
   });
 
   useEffect(() => {
-    setValue('passcode', isPasscodeSet);
-  }, [isPasscodeSet, setValue]);
+    if (isFocused) {
+      setValue('passcode', isPasscodeSet);
+    }
+  }, [isFocused, isPasscodeSet, setValue]);
 
   const handleSwitchToggle = (newValue: boolean) => {
     if (newValue === false) {
       verifyPasscode(() => {
         clearPasscode();
         setValue('passcode', newValue);
-      });
+      }, true);
     } else if (newValue === true) {
-      handleSetNewPasscode();
+      handleSetNewPasscode?.();
       setValue('passcode', newValue);
     }
   };
   return (
-    <View style={styles.AuthorizationMethodContainer}>
-      <View style={styles.AuthorizationMethodLeftContainer}>
-        <View style={styles.iconContainer}>
-          <IconComponent IconJSX={DialPad} />
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.AuthorizationMethodTitleStyle}>{t('settings.passcode_title')}</Text>
-          <Text style={styles.AuthorizationMethodDescStyle}>{t('settings.passcode_desc')}</Text>
-        </View>
-      </View>
-      <View style={styles.AuthorizationMethodEnablerContainer}>
+    <AuthorizationMethod
+      icon={DialPad}
+      title={'settings.passcode_title'}
+      desc={'settings.passcode_desc'}
+      children={
         <Controller
           key={AUTH_METHOD_NAMES.passcode}
           name={AUTH_METHOD_NAMES.passcode as keyof SupportedAuthMethodsType}
@@ -61,7 +57,7 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
             <SwitchComponent value={value} onValueChange={val => handleSwitchToggle(val)} />
           )}
         />
-      </View>
-    </View>
+      }
+    />
   );
 };

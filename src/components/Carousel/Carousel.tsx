@@ -18,7 +18,7 @@ export const Carousel: FC<CarouselProps> = ({
   withTimer,
   titleStyle,
   resizeMode,
-  delay = 5000,
+  delay = 10000,
   skipable = true,
   dotContainerStyle,
   textContainerStyle,
@@ -120,7 +120,12 @@ export const Carousel: FC<CarouselProps> = ({
         dotContainerStyle={dotContainerStyle}
       />
       <View style={[styles.buttonContainer, buttonContainerStyle]}>
-        <Button.Primary text="onboarding.next" onPress={handleNext} fullWidth />
+        <Button.Primary
+          text="onboarding.next"
+          onPress={handleNext}
+          customWrapperStyle={styles.customButtonStyle}
+          fullWidth
+        />
         {skipable && (
           <View style={skipButtonContainerStyle}>
             <Button.Text

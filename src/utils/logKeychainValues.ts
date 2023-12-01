@@ -1,19 +1,32 @@
-import { getCredentials, getPasscode, getPassword, clearCredentials } from './keychain';
+import {
+  getUserName,
+  getPasscode,
+  getPassword,
+  clearCredentials,
+  getBiometricsAuthStatus,
+} from './keychain';
 
 // TODO - should be removed - testing purposes only!!
 export const logAllKeychainValues = async () => {
   try {
-    // Retrieve credentials
-    const credentials = await getCredentials();
-    console.warn('Generic Credentials:', credentials);
+    // Retrieve username
+    const username = await getUserName();
 
     // Retrieve password
     const password = await getPassword();
-    console.warn('Password:', password);
 
     // Retrieve passcode
     const passcode = await getPasscode();
-    console.warn('Passcode:', passcode);
+
+    // Retrieve biometric auth status
+    const biometricAuthStatus = await getBiometricsAuthStatus();
+
+    console.warn({
+      username,
+      password,
+      passcode,
+      biometricAuthStatus,
+    });
 
     // Any other keychain values you've stored can be added similarly...
   } catch (error) {
@@ -22,7 +35,7 @@ export const logAllKeychainValues = async () => {
 };
 
 // TODO - should be removed - testing purposes only!!
-export const clearAllKeyChainValues = async () => {
+export const resetKeychainValues = async () => {
   try {
     clearCredentials();
   } catch (error) {

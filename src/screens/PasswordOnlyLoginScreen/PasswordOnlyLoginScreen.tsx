@@ -1,25 +1,24 @@
 import React, { FC } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text, ControlledInput, Account } from 'components';
 import { withLoginScreen } from 'components/HOC';
 import { PasswordOnlyLoginBaseProps } from './PasswordOnlyLoginScreen.types';
 import useStyles from './PasswordOnlyLoginScreen.styles';
-import { removeValue } from 'storage/index';
-import { APP_LAUNCHED } from 'storage/constants';
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { useKeyChain } from 'hooks/useKeychain';
-import { useLogin } from 'hooks/useLogin';
+import { useTranslation } from 'react-i18next';
+import { useUserReset, useLogin, useKeyChain } from 'hooks';
 
 const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   const styles = useStyles();
-
   const { savedUserName } = useKeyChain();
   const { handleSignIn, control } = useLogin(savedUserName);
+  const { t } = useTranslation();
+  const { resetUser } = useUserReset();
 
   return (
     <View style={styles.wrapper}>
       {savedUserName && <Account user={savedUserName} />}
-      <Button.Secondary text="მომხმარებლის შეცვლა" size="medium" />
+      <Button.Secondary text={t('passAuth.change_user')} size="medium" onPress={resetUser} />
       <ControlledInput
         control={control}
         name="password"
@@ -33,9 +32,9 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
       <View style={styles.buttonCont}>
         <Button.Primary text="common:passAuth.signin" onPress={handleSignIn} fullWidth />
       </View>
-      <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
+      {/* <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
         <Text children="Start with onboarding" marginTop={20} />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };

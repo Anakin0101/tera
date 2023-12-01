@@ -1,11 +1,14 @@
 import { useTheme } from 'hooks';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 const useStyles = () => {
   const { Layout, Spacing, Colors } = useTheme();
 
   return StyleSheet.create({
-    wrapper: {},
+    wrapper: {
+      marginTop: verticalScale(36),
+    },
     chechboxContainer: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,

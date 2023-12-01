@@ -19,4 +19,6 @@ export const URLS = {
   getCustomerOps: 'api/Transaction/GetCustomerOps',
   getLoanSchedule: 'api/Loan/GetLoanSchedule',
   getLoanHistory: 'api/Loan/GetLoanPayments',
+  BlockCard: 'api/Account/BlockCard',
+  UnblockCard: 'api/Account/UnblockCard',
 };

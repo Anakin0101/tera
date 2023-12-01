@@ -6,6 +6,7 @@ export interface AccountsSliderData {
 }
 
 export type ActionType = {
+  isUpdate?: boolean;
   title: string;
   icon: React.ReactNode;
   handlePress?: () => void;

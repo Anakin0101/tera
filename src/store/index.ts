@@ -27,6 +27,7 @@ import { deviceInfoReducer } from './slices/deviceInfo';
 import { profileReducer } from './slices/profile';
 import { productsAPI } from 'services/apis/productsAPI/productsAPI';
 import { productsReducer } from './slices/products';
+import { transfersReducer } from './slices/transfers/indext';
 
 const persistedTheme = persistReducer(themePersistConfig, themeReducer);
 const persistedUserInfo = persistReducer(userInfoPersistConfig, userInfoReducer);
@@ -41,6 +42,7 @@ const reducers = combineReducers({
   dashboard: persistedDashboard,
   profile: persistedProfile,
   products: productsReducer,
+  transfers: transfersReducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,

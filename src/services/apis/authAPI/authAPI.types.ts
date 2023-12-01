@@ -22,12 +22,22 @@ export type LoginAPIRequestType = {
   headers?: Record<string, any>;
 };
 export type LoginByRefreshTokenAPIResponseType = {
-  [key: string]: any;
+  accessToken: string | null;
+  refreshToken: string | null;
+  renewCredintials?: boolean;
+  isBlocked?: boolean;
+  otpRequired?: boolean;
+  authMethod?: unknown;
+  authorized?: boolean;
+  authContext?: unknown;
+  success?: boolean;
+  error?: string;
+  pending?: boolean;
+  channelData?: unknown;
 };
 
 export type LoginByRefreshTokenAPIRequestType = {
   refreshToken: string;
-  Passcode: string;
   headers?: Record<string, any>;
 };
 
@@ -43,7 +53,6 @@ export type AddTrustedDeviceAPIResponseType = {
 
 export type AddTrustedDeviceAPIRequestType = {
   otp?: string;
-  Passcode?: string;
   headers?: Record<string, any>;
 };
 

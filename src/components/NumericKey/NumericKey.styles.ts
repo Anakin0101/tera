@@ -6,12 +6,11 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     pinItem: {
       width: 70,
-      height: 70,
+      height: 46,
       borderRadius: Spacing.xxl,
       ...Layout.justifyContentCenter,
       ...Layout.alignItemsCenter,
     },
-
     pinItemText: {
       fontSize: FontSize.regularPlus,
       color: Colors.pinColor,

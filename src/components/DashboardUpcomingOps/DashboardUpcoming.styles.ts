@@ -9,10 +9,11 @@ export const useStyles = () => {
       ...Layout.row,
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
+      width: '90%',
     },
     titleContainer: {
       ...Fonts.textBold,
-      fontSize: FontSize.regularPlus,
+      fontSize: FontSize.regular,
       fontWeight: '400',
     },
     dashboardTemplatesContainer: {

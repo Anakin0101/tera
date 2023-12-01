@@ -3,6 +3,8 @@ import { withLoginScreen } from 'components/HOC';
 import { Carousel } from 'components/index';
 import Images from 'theme/Images';
 import { PASSWORD_LOGIN_SCREEN, PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { View } from 'react-native';
+import { useStyleTheme } from './OnboardingScreen.styles';
 
 const data = [
   {
@@ -27,7 +29,12 @@ interface OnboardingScreenBaseProps {
 }
 
 const OnboardingScreenBase: FC<OnboardingScreenBaseProps> = ({ handleNavigation }) => {
-  return <Carousel data={data} onSkip={handleNavigation} onTimeout={handleNavigation} withTimer />;
+  const styles = useStyleTheme();
+  return (
+    <View style={styles.wrapper}>
+      <Carousel data={data} onSkip={handleNavigation} onTimeout={handleNavigation} withTimer />
+    </View>
+  );
 };
 
 export const OnboardingScreen = withLoginScreen<

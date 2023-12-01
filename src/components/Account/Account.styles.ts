@@ -6,13 +6,12 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     container: {
       ...Layout.alignItemsCenter,
-      marginHorizontal: Spacing.ml,
-      paddingHorizontal: Spacing.xs,
-      paddingVertical: Spacing.ml,
     },
-    label: { paddingHorizontal: Spacing.xl, paddingVertical: Spacing.ml },
+    label: { paddingTop: Spacing.xl, fontSize: FontSize.large },
     user: {
-      fontSize: FontSize.small,
+      fontSize: FontSize.large,
+      paddingTop: Spacing.s,
+      paddingBottom: Spacing.xl,
     },
   });
 };

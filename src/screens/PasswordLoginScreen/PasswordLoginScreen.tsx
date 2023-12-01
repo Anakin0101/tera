@@ -1,13 +1,11 @@
 import React, { FC } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
 import { withLoginScreen } from 'components/HOC';
 import { PasswordLoginBaseProps } from './PasswordLoginScreen.types';
 import useStyles from './PasswordLoginScreen.styles';
-import { removeValue } from 'storage/index';
-import { APP_LAUNCHED } from 'storage/constants';
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { useLogin } from 'hooks/useLogin';
+import { useLogin } from 'hooks';
 
 const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
   const styles = useStyles();
@@ -51,9 +49,9 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
         </View>
         <Button.Secondary text="common:passAuth.signup" onPress={() => {}} fullWidth />
       </View>
-      <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
+      {/* <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
         <Text children="Start with onboarding" marginTop={20} />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };

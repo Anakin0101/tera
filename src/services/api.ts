@@ -11,12 +11,13 @@ import { Mutex } from 'async-mutex';
 import { URLS } from './constants/urls';
 import { RootState } from 'store/index';
 import { Platform } from 'react-native';
+import { METHOD_NAMES } from './constants';
 
 // http://10.213.0.136:4040/swagger/index.html
 // https://middleware-tst.terabank.ge/swagger/index.html
 // const BASE_URL = 'https://middleware-tst.terabank.ge/';
-const BASE_URL = 'http://10.213.0.136:4040/';
-// const BASE_URL = 'https://middleware-tst.terabank.ge/';
+// const BASE_URL = 'http://10.213.0.136:4040/';
+const BASE_URL = 'https://middleware-tst.terabank.ge/';
 
 const mutex = new Mutex();
 
@@ -36,7 +37,6 @@ const defaultHeaders = (headers: Headers, api: Pick<BaseQueryApi, 'getState'>) =
   headers.set('X-Bank-Ostype', Platform.OS);
   headers.set('X-Bank-Devicedescription', 'Mobile-bank-terra');
   headers.set('X-Bank-DeviceId', state.deviceInfo.deviceId || '1');
-  headers.set('User-Agent', 'terabank');
   headers.set('X-Bank-UserAgent', state.deviceInfo.userAgent || '1');
 
   return headers;
@@ -47,6 +47,68 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: defaultHeaders,
 });
 
+const refreshTokenLogic = async (
+  api: BaseQueryApi,
+  userIp: string,
+  refreshToken: string,
+  extraOptions: any,
+) => {
+  const state = api.getState() as RootState;
+  const refreshResult = await baseQuery(
+    {
+      method: METHOD_NAMES.POST,
+      url: URLS.refreshToken,
+      headers: { 'X-Bank-UserIp': userIp },
+      body: { refreshToken },
+    },
+    api,
+    extraOptions,
+  );
+
+  if (refreshResult.data) {
+    // TODO: Dispatch actions to update tokens in the state
+    state.userInfo.accessToken = (refreshResult.data as any).accessToken;
+    state.userInfo.refreshToken = (refreshResult.data as any).refreshToken;
+
+    return { success: true };
+  } else {
+    return { success: false };
+  }
+};
+
+const logoutLogic = async (api: BaseQueryApi, userIp: string, deviceToken: string) => {
+  const state = api.getState() as RootState;
+  try {
+    state.userInfo.isLoggingOut = true;
+    const res = await baseQuery(
+      {
+        url: URLS.logout,
+        method: METHOD_NAMES.POST,
+        body: {
+          headers: {
+            'X-Bank-UserIp': userIp,
+            'X-Bank-DeviceToken': deviceToken,
+          },
+        },
+      },
+      api,
+      {}, // extraOptions if any
+    );
+    if (res) {
+      state.userInfo.postponeEasyLogin = false;
+      state.userInfo.isLoggingOut = false;
+      state.userInfo.accessToken = '';
+      state.userInfo.userProfileInfo = {
+        loading: false,
+        error: undefined,
+        profileInfo: null,
+      };
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+};
+
 export const baseQueryWithInterceptor: BaseQueryFn<
   FetchArgs,
   unknown,
@@ -55,7 +117,7 @@ export const baseQueryWithInterceptor: BaseQueryFn<
   FetchBaseQueryMeta
 > = async (args, api, extraOptions) => {
   const state = api.getState() as RootState;
-  const { refreshToken } = state.userInfo;
+
   let customHeaders: Record<string, string> = {};
 
   // We can pass custom headers, depending on a specific API request, just like this: {headerKey: "headerValue"}
@@ -92,24 +154,16 @@ export const baseQueryWithInterceptor: BaseQueryFn<
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
-        const refreshResult = await baseQuery(
-          {
-            method: 'POST',
-            url: URLS.refreshToken,
-            body: { refreshToken },
-          },
-          api,
-          extraOptions,
-        );
+        const userIp = state.deviceInfo.userIp || '';
+        const deviceToken = state.deviceInfo.deviceToken || '';
+        const refreshToken = state.userInfo.refreshToken;
 
-        if (refreshResult.data) {
-          // save access and refresh tokens here - TODO
-          //   const state = api.getState() as RootState;
-          //   state.userInfo.accessToken = refreshResult.data.accessToken;
-          //   state.userInfo.refreshToken = refreshResult.data.refreshToken;
+        const { success } = await refreshTokenLogic(api, userIp, refreshToken, extraOptions);
+
+        if (success) {
           result = await baseQuery(args, api, extraOptions);
         } else {
-          // log out here
+          await logoutLogic(api, userIp, deviceToken);
         }
       } finally {
         release();
