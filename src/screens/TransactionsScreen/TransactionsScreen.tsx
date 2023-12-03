@@ -2,7 +2,7 @@ import React from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { TransferTemplates, ChooseService, LastTransactions } from 'components';
 import { useStyles } from './TransactionsScreen.styles';
-
+import { useTransactionsScreen } from './container';
 const sections = [
   { title: 'services', data: [{}] },
   { title: 'templates', data: [{}] },
@@ -11,13 +11,19 @@ const sections = [
 
 export const TransactionsScreen = () => {
   const styles = useStyles();
+  const { templates, temlpatesLoading } = useTransactionsScreen();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'services':
         return <ChooseService />;
       case 'templates':
-        return <TransferTemplates />;
+        return (
+          <TransferTemplates
+            templates={templates?.templates.slice(0, 4)}
+            temlpatesLoading={temlpatesLoading}
+          />
+        );
       case 'transfers':
         return <LastTransactions />;
       default:

@@ -6,7 +6,13 @@ import { CustomTextInput } from 'components/CustomInput/CustomInput';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { EditSvg } from 'assets/SVGs';
 import { transferProps } from './TransferToAccountScreen.types';
-export const Transfer = ({ onTextChange, inputRef, openTransferModal }: transferProps) => {
+export const Transfer = ({
+  onTextChange,
+  inputRef,
+  openTransferScreen,
+  selectedData,
+  selectedItem,
+}: transferProps) => {
   const styles = useStyleTheme();
   return (
     <View style={styles.transferWrapper}>
@@ -17,8 +23,11 @@ export const Transfer = ({ onTextChange, inputRef, openTransferModal }: transfer
         onTextChange={onTextChange}
         focusOnMount={true}
       />
-      <TouchableOpacity style={styles.button} onPress={openTransferModal}>
-        <Text children="პირადი გადარიცხვა" style={{ fontSize: 14 }} />
+      <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
+        <Text
+          children={!selectedData ? selectedItem.name : selectedData}
+          style={{ fontSize: 14 }}
+        />
         <EditSvg style={{ marginLeft: 10 }} />
       </TouchableOpacity>
     </View>

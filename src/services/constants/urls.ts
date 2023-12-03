@@ -21,4 +21,5 @@ export const URLS = {
   getCustomerOps: 'api/Transaction/GetCustomerOps',
   BlockCard: 'api/Account/BlockCard',
   UnblockCard: 'api/Account/UnblockCard',
+  getAmount: 'api/transfers/ConvertAmount',
 };

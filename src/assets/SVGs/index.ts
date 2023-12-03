@@ -81,3 +81,4 @@ export { Add } from './Add';
 export { ChevronLeft } from './ChevronLeft';
 export { EditSvg } from './EditSvg';
 export { TinyChevron } from './TinyChevron';
+export { ConvertSvg } from './Convert';

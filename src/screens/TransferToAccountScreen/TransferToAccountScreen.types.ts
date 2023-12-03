@@ -16,5 +16,7 @@ export interface cardSwapProps {
 export interface transferProps {
   onTextChange: (text: string) => void;
   inputRef: any;
-  openTransferModal: () => void;
+  openTransferScreen: () => void;
+  selectedData: any;
+  selectedItem: any;
 }

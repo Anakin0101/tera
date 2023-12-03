@@ -9,13 +9,15 @@ const Template: FC<ITemplateProps> = ({ item, index }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
+  const bankData = item.bankExternal || item.bankInternal || item.internal;
+
   return (
     <View style={styles.templateWrapper}>
       <View style={styles.imageContainer} />
       <View style={styles.details}>
-        <Text size={14}>{item.name}</Text>
+        <Text size={14}>{bankData?.receiverName || item?.name}</Text>
         <Text size={12} color={Colors.textBlack400}>
-          {item.iban}
+          {bankData?.creditIban || bankData?.debitIban}
         </Text>
         {index < 3 && <Divider height={1} marginTop={18} marginBottom={18} width="100%" />}
       </View>

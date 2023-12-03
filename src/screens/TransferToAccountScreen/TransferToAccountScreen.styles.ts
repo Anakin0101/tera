@@ -35,6 +35,7 @@ export const useStyleTheme = () => {
       marginTop: 70,
     },
     transferWrapper: {
+      width: '100%',
       ...Layout.justifyContentCenter,
       alignItems: 'center',
       paddingVertical: 30,

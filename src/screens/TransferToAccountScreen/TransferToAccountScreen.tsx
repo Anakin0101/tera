@@ -1,42 +1,107 @@
-import React, { useState, useRef } from 'react';
-import { View, Keyboard } from 'react-native';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useRef, useEffect } from 'react';
+import { View, BackHandler, TextInput } from 'react-native';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { Transfer } from './Transfer';
 import { CardSwap } from './CardSwap';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button } from 'components';
-import { openModal } from 'utils/modal';
-import { DestinationModal } from 'components/DestinationModal/DestinationModal';
+import { setSelectedPrice } from 'store/slices/transfers/indext';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { TransactionsStackScreenProps } from 'navigation/types';
+import { useDispatch } from 'react-redux';
+import { Convert } from './Convert';
+import { useConvertAmountBuy } from './useConvertAmountBuy';
 
-export const TransferToAccountScreen = ({}) => {
-  const { accountFromData, accountToData } = useAppSelector(state => state.transfers);
+interface AccountData {
+  ccy: string;
+}
+
+interface TransferToAccountScreenProps {}
+
+export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
+  const { accountFromData, accountToData, selectedData, selectedItem } = useAppSelector(
+    state => state.transfers,
+  ) as unknown as {
+    accountFromData: AccountData;
+    accountToData: AccountData;
+    selectedData: any;
+    selectedItem: any;
+  };
+
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'PrivateTransactionScreen'>>();
+  let queryParams = {
+    amountBuy: 0.01,
+    currencyBuy: accountFromData?.ccy || '',
+    currencySell: accountToData?.ccy || '',
+  };
+  const { convertAmount } = useConvertAmountBuy(queryParams);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const inputRef = useRef<TextInput>(null);
+  const isFocused = useIsFocused();
 
   const handleTextChange = (text: string) => {
+    dispatch(setSelectedPrice(text));
     setIsButtonDisabled(!text || text.trim() === '');
   };
-  const openTransferModal = () => {
-    Keyboard.dismiss();
-    openModal({
-      title: 'დანიშნულება',
-      element: <DestinationModal />,
-    });
+
+  const openTransferScreen = () => {
+    navigate('PrivateTransactionScreen');
   };
 
+  const navigateToTransferDetails = () => {
+    navigate('TransferDetailScreen');
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      return false;
+    });
+
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current?.focus();
+    }
+  }, [isFocused]);
+
   const styles = useStyleTheme();
+
   return (
     <View style={styles.container}>
-      {/* <Convert /> */}
-      <Transfer
-        onTextChange={handleTextChange}
-        inputRef={inputRef}
-        openTransferModal={openTransferModal}
-      />
+      {accountFromData?.ccy !== accountToData?.ccy ? (
+        <Convert
+          accountFromData={accountFromData}
+          accountToData={accountToData}
+          selectedData={selectedData}
+          selectedItem={selectedItem}
+          convertAmount={convertAmount}
+          openTransferScreen={openTransferScreen}
+        />
+      ) : (
+        <Transfer
+          selectedData={selectedData}
+          selectedItem={selectedItem}
+          onTextChange={handleTextChange}
+          inputRef={inputRef}
+          openTransferScreen={openTransferScreen}
+        />
+      )}
+
       <CardSwap accountFromData={accountFromData} accountToData={accountToData} />
       <View style={styles.buttonView}>
-        <Button.Primary text="onboarding.next" fullWidth disabled={isButtonDisabled} />
+        <Button.Primary
+          text="onboarding.next"
+          fullWidth
+          disabled={isButtonDisabled}
+          onPress={navigateToTransferDetails}
+        />
       </View>
     </View>
   );
