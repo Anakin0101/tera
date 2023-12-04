@@ -6,16 +6,20 @@ import { useConvertAmountBuy } from './useConvertAmountBuy';
 import { useConvertAmountSell } from './useConvertAmountSell';
 import { ConvertSvg } from 'assets/SVGs';
 import { EditSvg } from 'assets/SVGs';
+import { setConvertionData } from 'store/slices/transfers/indext';
+import { useDispatch } from 'react-redux';
 export const Convert = ({
   accountFromData,
   accountToData,
   openTransferScreen,
   selectedData,
   selectedItem,
+  setIsButtonDisabled,
 }: any) => {
   const styles = useStyleTheme();
-  const [inputValueBuy, setInputValueBuy] = useState(''); // Initialized with '0'
-  const [inputValueSell, setInputValueSell] = useState(''); // Initialized with '0'
+  const dispatch = useDispatch();
+  const [inputValueBuy, setInputValueBuy] = useState('');
+  const [inputValueSell, setInputValueSell] = useState('');
   const [sourceInput, setSourceInput] = useState<'buy' | 'sell' | null>(null);
 
   const { convertAmount: buyAmount, convertLoading: buyLoading } = useConvertAmountBuy({
@@ -33,7 +37,7 @@ export const Convert = ({
   useEffect(() => {
     if (buyAmount && sourceInput === 'buy' && !sellLoading) {
       const updatedValue = parseFloat(inputValueBuy) / buyAmount.specialRate;
-      const roundedValue = updatedValue.toFixed(2); // Round to two decimal places
+      const roundedValue = updatedValue.toFixed(2);
       setInputValueSell(roundedValue);
     }
   }, [buyAmount, inputValueBuy, sellLoading, sourceInput]);
@@ -41,7 +45,7 @@ export const Convert = ({
   useEffect(() => {
     if (sellAmount && sourceInput === 'sell' && !buyLoading) {
       const updatedValue = parseFloat(inputValueSell) * sellAmount.specialRate;
-      const roundedValue = updatedValue.toFixed(2); // Round to two decimal places
+      const roundedValue = updatedValue.toFixed(2);
       setInputValueBuy(roundedValue);
     }
   }, [sellAmount, inputValueSell, buyLoading, sourceInput]);
@@ -55,38 +59,49 @@ export const Convert = ({
 
   const handleBuyInputChange = (text: string) => {
     setInputValueBuy(text);
+    setIsButtonDisabled(!text || text.trim() === '');
     setSourceInput('buy');
   };
 
   const handleSellInputChange = (text: string) => {
     setInputValueSell(text);
+    setIsButtonDisabled(!text || text.trim() === '');
     setSourceInput('sell');
   };
+  useEffect(() => {
+    if (buyAmount && sellAmount) {
+      dispatch(setConvertionData({ buyAmount: buyAmount, sellAmount: sellAmount }));
+    }
+  }, [buyAmount, sellAmount, dispatch]);
 
-  const renderIcon = (currency: string) => {
+  const getCurrencyIcon = (currency: string) => {
+    switch (currency) {
+      case 'GEL':
+        return '₾';
+      case 'USD':
+        return '$';
+
+      default:
+        return currency;
+    }
+  };
+
+  const renderIcon = (currency: string | undefined) => {
     return (
       <TouchableOpacity style={{ padding: 5 }}>
-        <Text children={currency === 'GEL' ? '₾' : '$'} />
+        <Text children={getCurrencyIcon(currency || '')} />
       </TouchableOpacity>
     );
   };
 
   return (
     <View style={styles.transferWrapper}>
-      <View
-        style={{
-          flexDirection: 'row',
-
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '90%',
-        }}
-      >
+      <View style={styles.transferView}>
         <View style={{ justifyContent: 'flex-start' }}>
-          <Text children="გაყიდვა" style={{ fontSize: 14, marginLeft: 10 }} />
+          <Text children="გაყიდვა" style={styles.sellText} />
           <View style={{ flexDirection: 'row' }}>
             <TextInput
-              style={{ width: 70, fontSize: 24 }}
+              style={styles.amountInput}
               value={inputValueBuy}
               onChangeText={handleBuyInputChange}
               placeholder={`00.00`}
@@ -100,10 +115,10 @@ export const Convert = ({
           <ConvertSvg />
         </View>
         <View style={{ alignItems: 'flex-end' }}>
-          <Text children="ყიდვა" style={{ fontSize: 14 }} />
+          <Text children="ყიდვა" style={styles.buyText} />
           <View style={{ flexDirection: 'row' }}>
             <TextInput
-              style={{ width: 70, fontSize: 24 }}
+              style={styles.amountInput}
               value={inputValueSell}
               onChangeText={handleSellInputChange}
               placeholder={`00.00`}
@@ -117,16 +132,13 @@ export const Convert = ({
       <View style={{ flexDirection: 'row' }}>
         <Text
           children={`სტანდარტული კურსი: ${buyAmount?.standardRate}/`}
-          style={{ fontSize: 12 }}
+          style={styles.courseText}
         />
-        <Text children={`შენი კურსი: ${buyAmount?.specialRate}`} style={{ fontSize: 12 }} />
+        <Text children={`შენი კურსი: ${buyAmount?.specialRate}`} style={styles.courseText} />
       </View>
       <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
-        <Text
-          children={!selectedData ? selectedItem.name : selectedData}
-          style={{ fontSize: 14 }}
-        />
-        <EditSvg style={{ marginLeft: 10 }} />
+        <Text children={!selectedData ? selectedItem.name : selectedData} style={styles.text} />
+        <EditSvg style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

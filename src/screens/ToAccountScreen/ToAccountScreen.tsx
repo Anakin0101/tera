@@ -32,13 +32,21 @@ export const ToAccountScreen = () => {
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
   const { groupedAccountsByIban } = useTeraProducts();
   const [sections, setSections] = useState<Section[]>([]);
-
+  const [filteredSections, setFilteredSections] = useState<Section[]>([]);
   useEffect(() => {
     if (selectedAccount !== null) {
       navigate('TransferToAccountScreen');
     }
   }, [navigate, selectedAccount]);
 
+  useEffect(() => {
+    if (sections && sections.length > 0) {
+      const filtered = sections.filter(section =>
+        section.title.toLowerCase().includes(value.toLowerCase()),
+      );
+      setFilteredSections(filtered);
+    }
+  }, [sections, value]);
   useEffect(() => {
     if (groupedAccountsByIban) {
       const filteredAccounts = groupedAccountsByIban.map(group => {
@@ -83,7 +91,7 @@ export const ToAccountScreen = () => {
       </View>
 
       <SectionList
-        sections={sections}
+        sections={filteredSections}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}

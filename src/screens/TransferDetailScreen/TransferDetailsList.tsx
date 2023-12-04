@@ -5,8 +5,14 @@ import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 
 export const TransferDetailsList = ({ selectedItemFromStore }: any) => {
-  const { accountFromData, accountToData, selectedItem, selectedData, selectedPrice } =
-    selectedItemFromStore;
+  const {
+    accountFromData,
+    accountToData,
+    selectedItem,
+    selectedData,
+    selectedPrice,
+    convertionData,
+  } = selectedItemFromStore;
   const styles = useStyleTheme();
   return (
     <>
@@ -16,23 +22,29 @@ export const TransferDetailsList = ({ selectedItemFromStore }: any) => {
             label="საიდან"
             card={accountFromData.accountName}
             value={accountFromData.accountIban}
-            //   onPress={handleChangeName}
           />
           <DetailsItem
             label="სად"
             card={accountToData.accountName}
             value={accountToData.accountIban}
-            //   onPress={copyIban}
           />
-          <DetailsItem
-            label="თანხა"
-            value={`${selectedPrice} ₾`}
-            //   onPress={copyIban}
-          />
+          {convertionData.buyAmount ? (
+            <DetailsItem label="თანხა" value={`${convertionData.buyAmount.amountBuy} ₾`} />
+          ) : (
+            <DetailsItem label="თანხა" value={`${selectedPrice} ₾`} />
+          )}
+          {convertionData.buyAmount && (
+            <DetailsItem label="მისაღები" value={`${convertionData.buyAmount.amountSell} ₾`} />
+          )}
+          {convertionData.buyAmount && (
+            <DetailsItem
+              label="კურსი"
+              value={`შენი კურსი 1$= ${convertionData.buyAmount.specialRate} ₾`}
+            />
+          )}
           <DetailsItem
             label="დანიშნულება"
             value={!selectedData ? selectedItem.name : selectedData}
-            //   onPress={copyIban}
           />
         </View>
       </View>

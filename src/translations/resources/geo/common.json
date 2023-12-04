@@ -125,7 +125,10 @@
     "add": "დამატება",
     "all": "ყველა",
     "lastTransactions": "ბოლო გადარიცხვები",
-    "search": "მოძებნე ანგარიში"
+    "search": "მოძებნე ანგარიში",
+    "account": "პირადი გადარიცხვა/კონვერტაცია",
+    "yourCurrency": "შენი კურსი  1{{currency}} = {{value}}",
+    "amount": "თანხის რაოდენობა"
   },
   "products": {
     "accountsAndCards": "ანგარიშები და ბარათები ({{value}})",

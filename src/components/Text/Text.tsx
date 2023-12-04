@@ -60,7 +60,7 @@ export const Text = forwardRef<RNText, TextProps>(
           medium && styles.medium,
           style,
         ]}
-        children={translate && typeof children === 'string' ? t(children, translateProp) : children}
+        children={translate && typeof children == 'string' ? t(children, translateProp) : children}
         {...props}
       />
     );

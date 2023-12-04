@@ -16,7 +16,7 @@ export const Transfer = ({
   const styles = useStyleTheme();
   return (
     <View style={styles.transferWrapper}>
-      <Text children="თანხის რაოდენობა" />
+      <Text children="transfers.amount" />
       <CustomTextInput
         inputRef={inputRef}
         placeholder="$00.00"
@@ -24,11 +24,8 @@ export const Transfer = ({
         focusOnMount={true}
       />
       <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
-        <Text
-          children={!selectedData ? selectedItem.name : selectedData}
-          style={{ fontSize: 14 }}
-        />
-        <EditSvg style={{ marginLeft: 10 }} />
+        <Text children={!selectedData ? selectedItem.name : selectedData} style={styles.text} />
+        <EditSvg style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

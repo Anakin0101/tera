@@ -7,6 +7,7 @@ const initialState = {
     id: 1,
     name: 'პირადი გადარიცხვა',
   },
+  convertionData: null,
   selectedData: null,
   selectedPrice: 0,
 };
@@ -50,6 +51,9 @@ const transfersSlice = createSlice({
     setSelectedPrice: (state, action) => {
       state.selectedPrice = action.payload;
     },
+    setConvertionData: (state, action) => {
+      state.convertionData = action.payload;
+    },
   },
 });
 
@@ -62,5 +66,6 @@ export const {
   clearSelectedItem,
   setOtherValueForID4,
   setSelectedPrice,
+  setConvertionData,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

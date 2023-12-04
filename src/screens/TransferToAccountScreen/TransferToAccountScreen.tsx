@@ -81,6 +81,7 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
           accountToData={accountToData}
           selectedData={selectedData}
           selectedItem={selectedItem}
+          setIsButtonDisabled={setIsButtonDisabled}
           convertAmount={convertAmount}
           openTransferScreen={openTransferScreen}
         />
@@ -106,3 +107,5 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     </View>
   );
 };
+
+//შეცვალე აიქონი

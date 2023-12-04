@@ -1,5 +1,6 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { FontSize } from 'theme/Variables';
 
 export const useStyleTheme = () => {
   const { Spacing, Layout, Colors } = useTheme();
@@ -50,5 +51,12 @@ export const useStyleTheme = () => {
     backgroundWhite: {
       backgroundColor: Colors.white,
     },
+    buyWrapper: {
+      ...Layout.row,
+    },
+    textLabel: {
+      fontSize: FontSize.small,
+    },
+    text: { fontSize: FontSize.regular, fontWeight: 'bold' },
   });
 };
