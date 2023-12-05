@@ -47,7 +47,7 @@ export const InsurancePackageItem: FC<InsurancePackageItemProps> = ({ item, onPr
       </View>
       <Button.Primary
         fullWidth
-        text={item.isSelected ? 'products.cancel' : 'products.select'}
+        text={item.isSelected ? 'common.cancel' : 'common.select'}
         customWrapperStyle={styles.button}
         customTextStyle={styles.buttonText}
       />
