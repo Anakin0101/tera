@@ -51,15 +51,14 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   };
 
   const navigateToTransferDetails = () => {
-    if (accountFromData?.ccy !== accountToData?.ccy) {
-      navigate(TRANSFER_DETAIL_SCREEN, {
-        convertion: true,
-      });
-    } else {
-      navigate(TRANSFER_DETAIL_SCREEN, {
-        convertion: false,
-      });
+    if (isButtonDisabled) {
+      return;
     }
+
+    const convertionValue = accountFromData?.ccy !== accountToData?.ccy;
+    navigate(TRANSFER_DETAIL_SCREEN, {
+      convertion: convertionValue,
+    });
   };
 
   useEffect(() => {

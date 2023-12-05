@@ -7,8 +7,24 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { ChooseService } from 'components/index';
 import { TRANSACTIONS_SCREEN } from 'navigation/ScreenNames';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { TransactionsStackRouteProps } from 'navigation/types';
+import { useRoute } from '@react-navigation/native';
+import { getCurrencyIcon } from 'utils/currency';
+interface SelectedItem {
+  selectedPrice: any;
+  convertionData: any;
+  accountFromData: any;
+  accountToData: any;
+}
 
 export const TransactionFinishedScreen = () => {
+  const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: SelectedItem }) => state.transfers,
+  );
+  const { accountFromData, accountToData, selectedPrice, convertionData } = selectedItemFromStore;
+
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransactionsScreen'>>();
   const navigateToMain = () => {
     navigate(TRANSACTIONS_SCREEN);
@@ -34,7 +50,20 @@ export const TransactionFinishedScreen = () => {
         <SuccessTransaction />
         <View style={styles.textWrapper}>
           <Text children="transfers.success" style={styles.text} numberOfLines={2} />
-          <Text children="თანხა" style={styles.amount} />
+          {!params.convertion ? (
+            <Text
+              children={`თანხა :${selectedPrice} ${getCurrencyIcon(accountFromData.ccy)}`}
+              style={styles.amount}
+            />
+          ) : (
+            <Text
+              children={`გადარიცხული თანხა ${convertionData.buyAmount.amountBuy} ${getCurrencyIcon(
+                accountFromData.ccy,
+              )} = ${convertionData.buyAmount.amountSell} ${getCurrencyIcon(accountToData.ccy)}`}
+              style={styles.amount}
+            />
+          )}
+
           <View style={styles.btnWrapper}>
             <ChooseService fromTransaction serviceData={data} />
             <Button.Primary text="მთავარზე დაბრუნება" onPress={navigateToMain} />

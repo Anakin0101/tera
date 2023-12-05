@@ -3,6 +3,20 @@ import { Currency } from '../productsAPI/productsAPI.types';
 export type GetTemplatesResponseType = {
   templates: Template[];
 };
+export type convertAmountType = {
+  amountBuy: number;
+  amountSell: number;
+  conversionAvailableLimit: number;
+  currencyBuy: string;
+  currencySell: string;
+  specialItems: number;
+  specialRate: number;
+  specialRateUsed: boolean;
+  specialReversed: boolean;
+  standardItems: number;
+  standardRate: number;
+  standardReversed: boolean;
+};
 
 export type GetTemplatesRequestType = {
   //   headers?: Record<string, any>; TODO - update!!

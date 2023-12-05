@@ -83,7 +83,7 @@ export const PrivateTransactionScreen = () => {
             {renderItemContent(item)}
             {selectedItem === item.id && selectedItem !== 4 && (
               <View style={styles.check}>
-                <CheckCircle />
+                <CheckCircle style={{ marginTop: 24 }} />
               </View>
             )}
           </TouchableOpacity>

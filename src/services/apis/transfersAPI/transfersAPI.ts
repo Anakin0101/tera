@@ -5,6 +5,7 @@ import { METHOD_NAMES } from 'services/constants';
 import {
   GetTemplatesResponseType,
   convertAmountBuyRequestType,
+  convertAmountType,
   convertAmountSellRequestType,
 } from './transfersAPI.types';
 
@@ -26,8 +27,7 @@ export const transfersAPI = createApi({
       }),
     }),
 
-    // TODO - Akaki - replace any wirth real response data
-    convertAmountBuy: builder.query<any, convertAmountBuyRequestType>({
+    convertAmountBuy: builder.query<convertAmountType, convertAmountBuyRequestType>({
       query: ({ amountBuy, currencyBuy, currencySell }) => ({
         url: `${URLS.getAmount}?amountBuy=${amountBuy}&currencyBuy=${currencyBuy}&currencySell=${currencySell}`,
         method: METHOD_NAMES.GET,
@@ -35,8 +35,7 @@ export const transfersAPI = createApi({
       }),
     }),
 
-    // TODO - Akaki - replace any wirth real response data
-    convertAmountSell: builder.query<any, convertAmountSellRequestType>({
+    convertAmountSell: builder.query<convertAmountType, convertAmountSellRequestType>({
       query: ({ amountSell, currencyBuy, currencySell }) => {
         const params = {
           ...(amountSell !== undefined && { amountSell }),

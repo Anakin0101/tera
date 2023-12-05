@@ -16,8 +16,12 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
 
   const styles = useStyleTheme();
 
-  const renderDetailsItem = (label: string, value: string | BlockedAmount[] | undefined) => {
-    return <DetailsItem label={label} value={value} />;
+  const renderDetailsItem = (
+    label: string,
+    value: string | BlockedAmount[] | undefined,
+    iban?: string,
+  ) => {
+    return <DetailsItem label={label} value={value} iban={iban} />;
   };
 
   const renderTransferDetails = () => {
@@ -26,9 +30,10 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
         <View style={styles.detailsSectionWrapper}>
           {renderDetailsItem(
             'საიდან',
-            `${accountFromData.accountName} - ${accountFromData.accountIban}`,
+            `${accountFromData.accountName} - `,
+            accountFromData.accountIban,
           )}
-          {renderDetailsItem('სად', `${accountToData.accountName} - ${accountToData.accountIban}`)}
+          {renderDetailsItem('სად', `${accountToData.accountName} -`, accountToData.accountIban)}
           {convertion
             ? renderDetailsItem('თანხა', `${convertionData.buyAmount.amountBuy} ₾`)
             : renderDetailsItem('თანხა', `${selectedPrice} ₾`)}

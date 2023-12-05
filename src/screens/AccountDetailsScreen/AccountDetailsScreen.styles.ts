@@ -81,7 +81,7 @@ export const useStyles = () => {
       ...Layout.justifyContentBetween,
     },
     detailsContainer: {
-      marginTop: Spacing.ml,
+      marginTop: Spacing.md,
     },
     detailsIconContainer: {
       width: 40,

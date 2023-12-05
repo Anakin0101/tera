@@ -12,7 +12,7 @@ import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
 import { useTransferDetails } from './container';
 import { TRANSACTION_FINISHED_SCREEN } from 'navigation/ScreenNames';
-
+import { getCurrencyIcon } from 'utils/currency';
 interface SelectedItem {
   selectedPrice: any;
   convertionData: any;
@@ -28,7 +28,7 @@ export const TransferDetailScreen = () => {
   const { handleExchangeAmount, handleTransferToOwnAccount } = useTransferDetails();
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
-  const { accountFromData, accountToData, convertionData } = selectedItemFromStore;
+  const { accountFromData, accountToData, convertionData, selectedPrice } = selectedItemFromStore;
 
   const handleButtonPress = async () => {
     if (params.convertion) {
@@ -66,18 +66,6 @@ export const TransferDetailScreen = () => {
 
   const { buyAmount } = selectedItemFromStore?.convertionData as ConvertionData;
 
-  const getCurrencySymbol = (currency: any) => {
-    switch (currency) {
-      case 'GEL':
-        return '₾';
-      case 'USD':
-        return '$';
-
-      default:
-        return currency;
-    }
-  };
-
   const renderConversionDetails = () => {
     return (
       <View style={styles.card}>
@@ -87,24 +75,33 @@ export const TransferDetailScreen = () => {
         />
         <View>
           <Text children="transfers.account" style={styles.textLabel} />
-          <View style={styles.buyWrapper}>
+          {params.convertion && (
+            <View style={styles.buyWrapper}>
+              <Text
+                children={`${buyAmount.amountBuy} ${getCurrencyIcon(buyAmount.currencyBuy)} = `}
+                style={styles.text}
+              />
+              <Text
+                children={`${buyAmount.amountSell} ${getCurrencyIcon(buyAmount.currencySell)} `}
+                style={styles.text}
+              />
+            </View>
+          )}
+          {params.convertion ? (
             <Text
-              children={`${buyAmount.amountBuy} ${getCurrencySymbol(buyAmount.currencyBuy)} = `}
+              children="transfers.yourCurrency"
+              style={styles.text}
+              translateProp={{
+                currency: `${getCurrencyIcon(buyAmount.currencySell)}`,
+                value: ` ${buyAmount?.specialRate} ${getCurrencyIcon(buyAmount.currencyBuy)}`,
+              }}
+            />
+          ) : (
+            <Text
+              children={`${selectedPrice} ${getCurrencyIcon(accountFromData.ccy)}`}
               style={styles.text}
             />
-            <Text
-              children={`${buyAmount.amountSell} ${getCurrencySymbol(buyAmount.currencySell)} `}
-              style={styles.text}
-            />
-          </View>
-          <Text
-            children="transfers.yourCurrency"
-            style={styles.text}
-            translateProp={{
-              currency: `${getCurrencySymbol(buyAmount.currencySell)}`,
-              value: ` ${buyAmount?.specialRate} ${getCurrencySymbol(buyAmount.currencyBuy)}`,
-            }}
-          />
+          )}
         </View>
       </View>
     );

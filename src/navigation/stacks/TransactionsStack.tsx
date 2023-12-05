@@ -77,9 +77,9 @@ export const TransactionsStack = () => {
         name={TRANSFER_DETAIL_SCREEN}
         component={TransferDetailScreen}
         options={{
-          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
+          title: '',
           headerStyle: {
-            backgroundColor: '#F9F9F9', // Set the background color here
+            backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
         }}
@@ -88,9 +88,9 @@ export const TransactionsStack = () => {
         name={TRANSACTION_FINISHED_SCREEN}
         component={TransactionFinishedScreen}
         options={{
-          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
+          title: '',
           headerStyle: {
-            backgroundColor: '#F9F9F9', // Set the background color here
+            backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
         }}

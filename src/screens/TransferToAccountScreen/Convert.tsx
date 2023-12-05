@@ -7,6 +7,7 @@ import { ConvertSvg } from 'assets/SVGs';
 import { EditSvg } from 'assets/SVGs';
 import { setConvertionData } from 'store/slices/transfers/indext';
 import { useDispatch } from 'react-redux';
+import { getCurrencyIcon } from 'utils/currency';
 export const Convert = ({
   accountFromData,
   accountToData,
@@ -73,18 +74,6 @@ export const Convert = ({
       dispatch(setConvertionData({ buyAmount: buyAmount, sellAmount: sellAmount }));
     }
   }, [buyAmount, sellAmount, dispatch]);
-
-  const getCurrencyIcon = (currency: string) => {
-    switch (currency) {
-      case 'GEL':
-        return '₾';
-      case 'USD':
-        return '$';
-
-      default:
-        return currency;
-    }
-  };
 
   const renderIcon = (currency: string | undefined) => {
     return (

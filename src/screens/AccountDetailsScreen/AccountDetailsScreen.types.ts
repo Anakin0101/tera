@@ -12,6 +12,7 @@ export interface DetailsItemProps {
   value?: string | BlockedAmount[];
   icon?: React.ReactNode;
   card?: string;
+  iban?: string;
   onPress?: () => void;
 }
 
