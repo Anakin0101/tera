@@ -9,6 +9,18 @@ export type GetTemplatesRequestType = {
   headers?: any;
 };
 
+export type convertAmountBuyRequestType = {
+  amountBuy?: number;
+  currencyBuy?: string;
+  currencySell?: string;
+};
+
+export type convertAmountSellRequestType = {
+  amountSell?: number;
+  currencyBuy: string;
+  currencySell: string;
+};
+
 export type GetCustomerOperationsResponseTypes = {
   ops: Transactions[];
 };

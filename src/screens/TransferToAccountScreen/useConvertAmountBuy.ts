@@ -2,8 +2,15 @@ import {
   useConvertAmountBuyQuery,
   useConvertAmountSellQuery,
 } from 'services/apis/transfersAPI/transfersAPI';
+import {
+  convertAmountBuyRequestType,
+  convertAmountSellRequestType,
+} from 'services/apis/transfersAPI/transfersAPI.types';
 
-export const useConvertAmount = (amountBuyParams?: any, amountSellParams?: any) => {
+export const useConvertAmount = (
+  amountBuyParams: convertAmountBuyRequestType,
+  amountSellParams?: convertAmountSellRequestType,
+) => {
   const {
     data: buyAmount,
     isLoading: buyLoading,

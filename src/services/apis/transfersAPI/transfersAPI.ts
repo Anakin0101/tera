@@ -2,7 +2,11 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
 import { URLS } from 'services/constants/urls';
 import { METHOD_NAMES } from 'services/constants';
-import { GetTemplatesResponseType } from './transfersAPI.types';
+import {
+  GetTemplatesResponseType,
+  convertAmountBuyRequestType,
+  convertAmountSellRequestType,
+} from './transfersAPI.types';
 
 const commonHeaders = {
   'X-Bank-UserIp': '1',
@@ -22,10 +26,8 @@ export const transfersAPI = createApi({
       }),
     }),
 
-    convertAmountBuy: builder.query<
-      any,
-      { amountBuy: number; currencyBuy: string; currencySell: string }
-    >({
+    // TODO - Akaki - replace any wirth real response data
+    convertAmountBuy: builder.query<any, convertAmountBuyRequestType>({
       query: ({ amountBuy, currencyBuy, currencySell }) => ({
         url: `${URLS.getAmount}?amountBuy=${amountBuy}&currencyBuy=${currencyBuy}&currencySell=${currencySell}`,
         method: METHOD_NAMES.GET,
@@ -33,10 +35,8 @@ export const transfersAPI = createApi({
       }),
     }),
 
-    convertAmountSell: builder.query<
-      any,
-      { amountSell: number | undefined; currencyBuy: string; currencySell: string }
-    >({
+    // TODO - Akaki - replace any wirth real response data
+    convertAmountSell: builder.query<any, convertAmountSellRequestType>({
       query: ({ amountSell, currencyBuy, currencySell }) => {
         const params = {
           ...(amountSell !== undefined && { amountSell }),

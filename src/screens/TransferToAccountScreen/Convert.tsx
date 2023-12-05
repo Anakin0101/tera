@@ -104,7 +104,7 @@ export const Convert = ({
               style={styles.amountInput}
               value={inputValueBuy}
               onChangeText={handleBuyInputChange}
-              placeholder={`00.00`}
+              placeholder={'00.00'}
               keyboardType="numeric"
               textAlign="right"
             />
@@ -121,7 +121,7 @@ export const Convert = ({
               style={styles.amountInput}
               value={inputValueSell}
               onChangeText={handleSellInputChange}
-              placeholder={`00.00`}
+              placeholder={'00.00'}
               keyboardType="numeric"
               textAlign="right"
             />
