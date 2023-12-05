@@ -11,7 +11,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { Convert } from './Convert';
-import { useConvertAmountBuy } from './useConvertAmountBuy';
+import { useConvertAmount } from './useConvertAmountBuy';
 import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 interface AccountData {
   ccy: string;
@@ -35,7 +35,7 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     currencyBuy: accountFromData?.ccy || '',
     currencySell: accountToData?.ccy || '',
   };
-  const { convertAmount } = useConvertAmountBuy(queryParams);
+  const { buyAmount } = useConvertAmount(queryParams);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
           selectedData={selectedData}
           selectedItem={selectedItem}
           setIsButtonDisabled={setIsButtonDisabled}
-          convertAmount={convertAmount}
+          convertAmount={buyAmount}
           openTransferScreen={openTransferScreen}
         />
       ) : (

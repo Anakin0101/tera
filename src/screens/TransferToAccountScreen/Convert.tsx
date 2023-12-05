@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Text } from 'components';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
-import { useConvertAmountBuy } from './useConvertAmountBuy';
-import { useConvertAmountSell } from './useConvertAmountSell';
+import { useConvertAmount } from './useConvertAmountBuy';
 import { ConvertSvg } from 'assets/SVGs';
 import { EditSvg } from 'assets/SVGs';
 import { setConvertionData } from 'store/slices/transfers/indext';
@@ -22,17 +21,18 @@ export const Convert = ({
   const [inputValueSell, setInputValueSell] = useState('');
   const [sourceInput, setSourceInput] = useState<'buy' | 'sell' | null>(null);
 
-  const { convertAmount: buyAmount, convertLoading: buyLoading } = useConvertAmountBuy({
-    amountBuy: inputValueBuy.length > 0 ? parseFloat(inputValueBuy) : 0.01,
-    currencyBuy: accountFromData?.ccy,
-    currencySell: accountToData?.ccy,
-  });
-
-  const { convertAmount: sellAmount, convertLoading: sellLoading } = useConvertAmountSell({
-    ...(inputValueSell.length > 0 && { amountSell: parseFloat(inputValueSell) }),
-    currencyBuy: accountFromData?.ccy,
-    currencySell: accountToData?.ccy,
-  });
+  const { buyAmount, buyLoading, sellAmount, sellLoading } = useConvertAmount(
+    {
+      amountBuy: inputValueBuy.length > 0 ? parseFloat(inputValueBuy) : 0.01,
+      currencyBuy: accountFromData?.ccy,
+      currencySell: accountToData?.ccy,
+    },
+    {
+      ...(inputValueSell.length > 0 && { amountSell: parseFloat(inputValueSell) }),
+      currencyBuy: accountFromData?.ccy,
+      currencySell: accountToData?.ccy,
+    },
+  );
 
   useEffect(() => {
     if (buyAmount && sourceInput === 'buy' && !sellLoading) {

@@ -1,16 +1,35 @@
-import { useConvertAmountBuyQuery } from 'services/apis/transfersAPI/transfersAPI';
+import {
+  useConvertAmountBuyQuery,
+  useConvertAmountSellQuery,
+} from 'services/apis/transfersAPI/transfersAPI';
 
-export const useConvertAmountBuy = (queryParams: {
-  amountBuy: number;
-  currencyBuy: string;
-  currencySell: string;
-}) => {
-  const { data, isLoading, error, refetch } = useConvertAmountBuyQuery(queryParams);
+export const useConvertAmount = (amountBuyParams?: any, amountSellParams?: any) => {
+  const {
+    data: buyAmount,
+    isLoading: buyLoading,
+    error: buyError,
+    refetch: buyRefetch,
+  } = useConvertAmountBuyQuery(amountBuyParams);
+
+  const {
+    data: sellAmount,
+    isLoading: sellLoading,
+    error: sellError,
+    refetch: sellRefetch,
+  } = useConvertAmountSellQuery(
+    amountSellParams && amountSellParams.amountSell !== undefined
+      ? amountSellParams
+      : { amountSell: 0, currencyBuy: '', currencySell: '' },
+  );
 
   return {
-    convertAmount: data,
-    convertLoading: isLoading,
-    convertError: error,
-    convertRefetch: refetch,
+    buyAmount,
+    buyLoading,
+    buyError,
+    buyRefetch,
+    sellAmount,
+    sellLoading,
+    sellError,
+    sellRefetch,
   };
 };
