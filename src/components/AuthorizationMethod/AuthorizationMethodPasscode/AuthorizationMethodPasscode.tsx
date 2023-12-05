@@ -1,5 +1,4 @@
 import { SwitchComponent } from 'components/Switch/Switch';
-import { usePasscode } from 'hooks';
 import React, { FC, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { AUTH_METHOD_NAMES } from 'screens/AuthorizationMethodsScreen/AuthorizationMethodsScreen.types';
@@ -8,6 +7,8 @@ import { AuthorizationMethod } from '../AuthorizationMethod';
 import { DialPad } from 'assets/SVGs';
 import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useVerifyPasscode } from 'hooks/useVerifyPasscode';
+import { useBiometrics } from 'hooks/useBiometrics';
 
 type AuthorizationMethodPasscodeProps = {
   handleSetNewPasscode?: () => void;
@@ -17,8 +18,10 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
   handleSetNewPasscode,
 }) => {
   const isFocused = useIsFocused();
-  const { verifyPasscode, clearPasscode } = usePasscode();
+  const { removePasscode } = useVerifyPasscode();
+  const { clearBiometrics } = useBiometrics();
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
+  const isBiometricSet = useAppSelector(state => state.userInfo.isBiometricSet);
 
   const { control, setValue } = useForm<SupportedAuthMethodsType>({
     defaultValues: {
@@ -34,13 +37,20 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
 
   const handleSwitchToggle = (newValue: boolean) => {
     if (newValue === false) {
-      verifyPasscode(() => {
-        clearPasscode();
-        setValue('passcode', newValue);
-      }, true);
+      // TODO - temporarily leaving verifyPasscode for testing purposes
+      removePasscode();
+      if (isBiometricSet) {
+        clearBiometrics();
+      }
+      //   TODO - verification will be needed
+      //   verifyPasscode(() => {
+      //     removePasscode();
+      //     if (isBiometricSet) {
+      //       clearBiometrics();
+      //     }
+      //   }, true);
     } else if (newValue === true) {
       handleSetNewPasscode?.();
-      setValue('passcode', newValue);
     }
   };
   return (

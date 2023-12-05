@@ -1,4 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import { OTPModalTemp } from 'components/modals/OTPModal/OTPModalTemp';
+import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { GuestStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoginByRefreshTokenMutation, useLoginUserMutation } from 'services/apis';
@@ -16,6 +19,7 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
   const dispatch = useAppDispatch();
   const { refreshToken } = useAppSelector(state => state.userInfo);
   const { userIp } = useAppSelector(state => state.deviceInfo);
+  const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
 
   const getFormValues = () => {
     const { loginName, password, save } = getValues();
@@ -57,7 +61,7 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
   };
 
   const handleSignIn = () => {
-    const { loginName, password } = getFormValues();
+    const { loginName, password, save } = getFormValues();
     loginUser({
       loginName,
       password,
@@ -68,6 +72,9 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
       .unwrap()
       .then(res => {
         if (res.success) {
+          if (save) {
+            setUsername(loginName);
+          }
           dispatch(setPasscodeTries(0));
           res.accessToken
             ? dispatch(
@@ -92,13 +99,6 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
       });
   };
 
-  const handleSaveUserToggle = () => {
-    const { loginName, save } = getFormValues();
-    if (save) {
-      setUsername({ username: loginName });
-    }
-  };
-
   const handlePasscodeSignIn = async () => {
     try {
       const res = await loginByRefreshToken({
@@ -118,6 +118,8 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
           );
         }
         if (error) {
+          openToast(error, 'error');
+          navigate(PASSWORD_LOGIN_SCREEN);
           console.error('error in loginByRefreshToken service: ', error);
         }
       }
@@ -129,7 +131,6 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
   return {
     handleSignIn,
     control,
-    handleSaveUserToggle,
     handlePasscodeSignIn,
   };
 };

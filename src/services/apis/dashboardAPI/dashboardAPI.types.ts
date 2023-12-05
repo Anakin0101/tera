@@ -56,6 +56,8 @@ export type Template = {
 };
 
 export type Transactions = {
+  opId: number;
+  opUId: string;
   amount: number;
   balance: number;
   balanceStart: number;

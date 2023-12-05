@@ -44,7 +44,7 @@
     "setPasscodeDescription": "Enter your passcode",
     "repeatPasscodeTitle": "Repeat  passcode",
     "passcodesDoNotMatch": "Passcodes do not match. please try again",
-    "device_is_trusted": "Device has been trusted!"
+    "easy_login_success": "Easy login has been successfully activated"
   },
   "settings": {
     "choose_authorization_method": "Choose authorization method",

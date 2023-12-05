@@ -1,28 +1,35 @@
-import { Alert } from 'react-native';
 import KeyChain, { Result } from 'react-native-keychain';
 
+const USERNAME_SERVICE = 'usernameService';
 const PASSCODE_SERVICE = 'passcodeService';
 const PASSWORD_SERVICE = 'passwordService';
 const BIOMETRIC_AUTH_SERVICE = 'biometricAuthService';
 
-type Credentials = {
-  username?: string;
+export const setUsername = async (username: string): Promise<boolean | Result> => {
+  try {
+    return await KeyChain.setGenericPassword('username', username, {
+      service: USERNAME_SERVICE,
+    });
+  } catch (error) {
+    console.error('Error setting username:', error);
+    return false;
+  }
 };
 
-export const setUsername = async ({ username = '' }: Credentials): Promise<boolean | Result> => {
+export const clearUsername = async (): Promise<boolean | Result> => {
   try {
-    return await KeyChain.setGenericPassword(username, '');
+    return await KeyChain.resetGenericPassword({ service: USERNAME_SERVICE });
   } catch (error) {
-    console.error('Error setting userName:', error);
+    console.error('Error setting passcode:', error);
     return false;
   }
 };
 
 export const getUserName = async (): Promise<string | null> => {
   try {
-    const credentials = await KeyChain.getGenericPassword();
-    if (credentials && credentials.username) {
-      return credentials.username;
+    const credentials = await KeyChain.getGenericPassword({ service: USERNAME_SERVICE });
+    if (credentials && credentials.password) {
+      return credentials.password;
     }
     return null;
   } catch (error) {
@@ -66,6 +73,15 @@ export const setPasscode = async (passcode: string): Promise<boolean | Result> =
   }
 };
 
+export const clearPasscode = async (): Promise<boolean | Result> => {
+  try {
+    return await KeyChain.resetGenericPassword({ service: PASSCODE_SERVICE });
+  } catch (error) {
+    console.error('Error setting passcode:', error);
+    return false;
+  }
+};
+
 export const getPasscode = async (): Promise<string | null> => {
   try {
     const credentials = await KeyChain.getGenericPassword({ service: PASSCODE_SERVICE });
@@ -79,12 +95,20 @@ export const getPasscode = async (): Promise<string | null> => {
   }
 };
 
-export const activateBiometricsAuth = async (): Promise<boolean> => {
+export const setBiometricsAuth = async (value: boolean): Promise<boolean | Result> => {
   try {
-    await KeyChain.setGenericPassword('biometric-auth-status', 'true', {
+    return await KeyChain.setGenericPassword('biometric-auth-status', String(value), {
       service: BIOMETRIC_AUTH_SERVICE,
     });
-    return true;
+  } catch (error) {
+    console.error('Error activating biometric authentication:', error);
+    return false;
+  }
+};
+
+export const clearBiometricsAuth = async (): Promise<boolean | Result> => {
+  try {
+    return await KeyChain.resetGenericPassword({ service: BIOMETRIC_AUTH_SERVICE });
   } catch (error) {
     console.error('Error activating biometric authentication:', error);
     return false;
@@ -95,8 +119,7 @@ export const getBiometricsAuthStatus = async (): Promise<boolean | null> => {
   try {
     const credentials = await KeyChain.getGenericPassword({ service: BIOMETRIC_AUTH_SERVICE });
     if (credentials && credentials.username === 'biometric-auth-status') {
-      Alert.alert('getBiometricsAuthStatus', credentials.password);
-      return !!credentials.password;
+      return credentials.password !== 'false';
     } else {
       return null;
     }
@@ -109,8 +132,10 @@ export const getBiometricsAuthStatus = async (): Promise<boolean | null> => {
 export const clearCredentials = async (): Promise<boolean> => {
   try {
     await KeyChain.resetGenericPassword();
+    await KeyChain.resetGenericPassword({ service: USERNAME_SERVICE });
     await KeyChain.resetGenericPassword({ service: PASSCODE_SERVICE });
     await KeyChain.resetGenericPassword({ service: PASSWORD_SERVICE });
+    await KeyChain.resetGenericPassword({ service: BIOMETRIC_AUTH_SERVICE });
     return true;
   } catch (error) {
     console.error('Error clearing credentials:', error);

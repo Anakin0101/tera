@@ -1,8 +1,8 @@
-import { ProfileStackParamsList } from 'navigation/types';
+import { ModalStackParamsList } from 'navigation/types';
 import { SvgProps } from 'react-native-svg';
 
 export type SubContentProps = {
-  navigateTo: keyof ProfileStackParamsList;
+  navigateTo: keyof ModalStackParamsList;
   title: string;
   icon: (props: SvgProps) => React.JSX.Element;
 };

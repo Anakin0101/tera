@@ -4,7 +4,7 @@ import { Button, Text, ControlledInput, Account } from 'components';
 import { withLoginScreen } from 'components/HOC';
 import { PasswordOnlyLoginBaseProps } from './PasswordOnlyLoginScreen.types';
 import useStyles from './PasswordOnlyLoginScreen.styles';
-import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
 import { useUserReset, useLogin, useKeyChain } from 'hooks';
 
@@ -41,5 +41,5 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
 
 export const PasswordOnlyLoginScreen = withLoginScreen<
   PasswordOnlyLoginBaseProps,
-  typeof PASSCODE_LOGIN_SCREEN
->(PasswordOnlyLoginScreenBase, PASSCODE_LOGIN_SCREEN);
+  typeof PASSWORD_ONLY_LOGIN_SCREEN
+>(PasswordOnlyLoginScreenBase, PASSWORD_ONLY_LOGIN_SCREEN);

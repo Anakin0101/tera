@@ -1,17 +1,20 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { MainNavigator } from './navigators/MainNavigator';
 import useTheme from 'hooks/useTheme';
 import { GuestNavigator } from './navigators/GuestNavigator';
-import { useBootstrapApp } from 'hooks';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useBootstrapApp } from 'hooks/useBootstrapApp';
 
 export const Navigation = () => {
+  const navigationRef = useNavigationContainerRef();
   const { NavigationTheme } = useTheme();
-  const { isAuth, navigationRef } = useBootstrapApp();
+  const accessToken = useAppSelector(state => state.userInfo.accessToken);
+  useBootstrapApp();
 
   return (
     <NavigationContainer ref={navigationRef} theme={NavigationTheme}>
-      {isAuth ? <MainNavigator /> : <GuestNavigator />}
+      {accessToken ? <MainNavigator /> : <GuestNavigator />}
     </NavigationContainer>
   );
 };

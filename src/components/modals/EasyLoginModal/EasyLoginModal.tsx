@@ -8,6 +8,7 @@ import { FaceIdColoredSvg } from 'assets/SVGs';
 import { debounce } from 'utils/debounce';
 import { setPostponeEasyLogin, setIgnoreEasyLogin } from 'store/slices/userInfo';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { closeModal } from 'utils/modal';
 
 export const EasyLoginModal: FC<EasyLoginModalProps> = ({ openAuthorizationMethodsScreen }) => {
   const [ignoreEasyLoginValue, setIgnoreEasyLoginValue] = useState<boolean>(false);
@@ -22,10 +23,12 @@ export const EasyLoginModal: FC<EasyLoginModalProps> = ({ openAuthorizationMetho
   const handleIgnoreEasyLoginToggle = (newValue: boolean) => {
     setIgnoreEasyLoginValue(newValue);
     debouncedDispatch(newValue);
+    closeModal?.();
   };
 
   const handlePostponeEasyLogin = () => {
     dispatch(setPostponeEasyLogin(true));
+    closeModal?.();
   };
 
   return (

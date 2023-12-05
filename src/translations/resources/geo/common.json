@@ -45,7 +45,7 @@
     "setPasscodeDescription": "ჩაწერე შენთვის სასურველი პასკოდი",
     "repeatPasscodeTitle": "გაიმეორე პასკოდი",
     "passcodesDoNotMatch": "შეყვანილი პასკოდები არ ემთხვევა, გთხოვთ სცადეთ ხელახლა",
-    "device_is_trusted": "მოწყობილობა გასანდოვდა"
+    "easy_login_success": "მარტივი შესვლა გააქტიურებულია"
   },
   "settings": {
     "choose_authorization_method": "ავტორიზაციის მეთოდის არჩევა",

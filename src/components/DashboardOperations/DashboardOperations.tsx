@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { FlatList, View } from 'react-native';
 import { Button, Divider, Text } from 'components';
 import { useStyles } from './DashboardOperations.styles';
 import useTheme from 'hooks/useTheme';
-
 import { OperationsCard } from 'components/OperationsCard/OperationsCard';
-export const DashboardOperations = ({ data }: any) => {
-  const styles = useStyles();
+import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
+type DashboardOperationsProps = {
+  data?: Transactions[];
+};
+
+export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
+  const styles = useStyles();
   const { Colors } = useTheme();
 
   return (
@@ -26,10 +30,11 @@ export const DashboardOperations = ({ data }: any) => {
               <FlatList
                 showsHorizontalScrollIndicator={false}
                 data={data}
-                renderItem={({ item, index }) => {
-                  return <OperationsCard {...item} index={index} data={data} />;
-                }}
-                keyExtractor={index => String(index)}
+                // TODO - check with Back end - opId or opUId do not come from back end
+                renderItem={({ item, index }) => (
+                  <OperationsCard {...item} showUnderline={data && index < data?.length - 1} />
+                )}
+                keyExtractor={item => item.docDate}
               />
             </View>
           </View>

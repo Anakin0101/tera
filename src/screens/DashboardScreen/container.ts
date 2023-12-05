@@ -15,8 +15,10 @@ import { setCustomerId } from 'store/slices/profile';
 export const useDashboardScreen = () => {
   const dispatch = useAppDispatch();
   const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery();
-  const [getCustomerOperations, { data: customOperations, isLoading: customerOperationsLoading }] =
-    useGetCustomerOperationsMutation();
+  const [
+    getCustomerOperations,
+    { data: customerOperations, isLoading: customerOperationsLoading },
+  ] = useGetCustomerOperationsMutation();
   const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
   const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
   const { data: getLoanCustomerId, isLoading: customerIdLoading } = useGetLoanCustomerIdQuery();
@@ -55,7 +57,7 @@ export const useDashboardScreen = () => {
     bankerLoading,
     overDraftLoading,
     creditCardsLoading,
-    customOperations,
+    customerOperations,
     creditCards,
     overDraft,
     getLoanCustomerId,

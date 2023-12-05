@@ -1,9 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import { useKeyChain } from 'hooks';
-import { AUTHORIZATION_METHODS_SCREEN, PROFILE_STACK } from 'navigation/ScreenNames';
-import { MainNavigationProps } from 'navigation/types';
-import { useEffect, useMemo } from 'react';
-import { useDashboardScreen } from 'screens/DashboardScreen/container';
+import { AUTHORIZATION_METHODS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import { useMemo } from 'react';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { closeModal } from 'utils/modal';
 
@@ -15,33 +13,16 @@ import { closeModal } from 'utils/modal';
  * @returns showEasyLoginPrompt: boolean - whether to show easy login modal
  */
 export const useEasyLoginModal = () => {
-  const navigation = useNavigation<MainNavigationProps<'DashboardStack'>>();
-  const { isDashboardMounted } = useDashboardScreen();
+  const navigation = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const { ignoreEasyLogin, postponeEasyLogin } = useAppSelector(state => state.userInfo);
-  const { savedPasscode, loading } = useKeyChain();
-  //   const easyLoginActivated = faceId || fingerPrint || savedPasscode;
-  const easyLoginActivated = savedPasscode;
+  const { isPasscodeSet, isBiometricBeingSet } = useAppSelector(state => state.userInfo);
+
+  const easyLoginActivated = isPasscodeSet || isBiometricBeingSet;
 
   const showEasyLoginPrompt = useMemo(() => {
-    return (
-      navigation.isFocused() &&
-      !ignoreEasyLogin &&
-      !savedPasscode &&
-      !postponeEasyLogin &&
-      !loading &&
-      isDashboardMounted &&
-      !easyLoginActivated
-    );
-  }, [
-    navigation,
-    ignoreEasyLogin,
-    savedPasscode,
-    postponeEasyLogin,
-    loading,
-    isDashboardMounted,
-    easyLoginActivated,
-  ]);
+    return navigation.isFocused() && !ignoreEasyLogin && !postponeEasyLogin && !easyLoginActivated;
+  }, [navigation, ignoreEasyLogin, postponeEasyLogin, easyLoginActivated]);
 
   /**
    * handles navigation to "AuthorizationMethodsScreen", when "activate" is pressed on the EasyLoginModal
@@ -49,17 +30,10 @@ export const useEasyLoginModal = () => {
   const handleNavigateToAuthorizationMethodsScreeen = () => {
     closeModal();
 
-    navigation.navigate(PROFILE_STACK, {
+    navigation.navigate(MODAL_STACK, {
       screen: AUTHORIZATION_METHODS_SCREEN,
     });
   };
-
-  /**
-   * if user enables "do not remind" toggle or select "next time" and the redux state updates, we automatically close the modal
-   */
-  useEffect(() => {
-    (ignoreEasyLogin || postponeEasyLogin) && closeModal();
-  }, [ignoreEasyLogin, postponeEasyLogin]);
 
   return {
     showEasyLoginPrompt,

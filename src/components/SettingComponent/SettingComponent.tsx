@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, Text } from 'react-native';
 import { IconComponent } from 'components/IconComponent/IconComponent';
 import { SubContentProps } from 'screens/SettingsScreen/SettingsScreen.types';
-import { ProfileStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
 
 export const SettingComponent = (props: SubContentProps) => {
   const { icon, title, navigateTo } = props;
   const { t } = useTranslation();
   const styles = useStyles();
-  const { navigate } = useNavigation<ProfileStackScreenProps<'SettingsScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'SettingsScreen'>>();
 
   const handleNavigation = () => {
     navigate(navigateTo);

@@ -27,11 +27,8 @@ export const GuestNavigator = () => {
     return null;
   }
 
-  //   Alert.alert(initialRoute);
-
   //   TODO TEMp!
   logAllKeychainValues();
-  //   resetKeychainValues();
 
   return (
     <Navigator initialRouteName={initialRoute} screenOptions={guestNavOptions}>
