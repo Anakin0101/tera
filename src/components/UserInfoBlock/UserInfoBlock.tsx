@@ -6,13 +6,13 @@ import { Text } from 'components';
 
 export const UserInfoBlock = () => {
   const styles = useStyleTheme();
-  const { profileInfo } = useAppSelector(state => state.userInfo.userProfileInfo);
+  const userProfileInfo = useAppSelector(state => state.userInfo.userProfileInfo);
 
   const fullName = useMemo(() => {
-    const { firstName = '', lastName = '' } = profileInfo || {};
+    const { firstName = '', lastName = '' } = userProfileInfo || {};
 
     return `${firstName} ${lastName}`;
-  }, [profileInfo]);
+  }, [userProfileInfo]);
   return (
     <View style={styles.userInfoBlockContainer}>
       <View style={styles.userIconContainer}>

@@ -1,4 +1,3 @@
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { GetUserInfoAPIResponseType } from 'services/apis/authAPI/authAPI.types';
 
 export type UserInfoStateProps = {
@@ -7,11 +6,7 @@ export type UserInfoStateProps = {
   deviceToken: string;
   ignoreEasyLogin: boolean;
   postponeEasyLogin: boolean;
-  userProfileInfo: {
-    loading?: any;
-    error?: FetchBaseQueryError;
-    profileInfo: GetUserInfoAPIResponseType | null;
-  };
+  userProfileInfo: GetUserInfoAPIResponseType | null;
   isLoggingOut: boolean;
   otpCode?: string;
   isPasscodeSet: boolean | undefined;

@@ -9,11 +9,7 @@ const initialState: UserInfoStateProps = {
   otpCode: '',
   ignoreEasyLogin: false,
   postponeEasyLogin: false,
-  userProfileInfo: {
-    loading: false,
-    error: undefined,
-    profileInfo: null,
-  },
+  userProfileInfo: null,
   isLoggingOut: false,
   isPasscodeSet: undefined,
   isBiometricSet: undefined,
@@ -59,29 +55,19 @@ const userInfoSlice = createSlice({
       state.passcodeTries = payload;
     },
     resetUserProfileInfo: state => {
-      state.userProfileInfo = {
-        loading: false,
-        error: undefined,
-        profileInfo: null,
-      };
+      state.userProfileInfo = null;
     },
     setIsLoggingOut: (state, { payload }) => {
       state.isLoggingOut = payload;
     },
   },
   extraReducers: builder => {
-    builder
-      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchPending, state => {
-        state.userProfileInfo.loading = true;
-      })
-      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchFulfilled, (state, { payload }) => {
-        state.userProfileInfo.loading = false;
-        state.userProfileInfo.profileInfo = payload;
-      })
-      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchRejected, (state, { payload }) => {
-        state.userProfileInfo.error = payload;
-        state.userProfileInfo.loading = false;
-      });
+    builder.addMatcher(
+      authAPI.endpoints.getUserProfileInfo.matchFulfilled,
+      (state, { payload }) => {
+        state.userProfileInfo = payload;
+      },
+    );
     builder
       .addMatcher(authAPI.endpoints.logoutUser.matchPending, state => {
         state.isLoggingOut = true;

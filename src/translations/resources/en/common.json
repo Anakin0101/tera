@@ -30,7 +30,7 @@
     "or": "or",
     "signup": "Sign up",
     "change_user": "Change user",
-	"change_user_desc": "In case of user change, easy login will be deactivated"
+    "change_user_desc": "In case of user change, easy login will be deactivated"
   },
   "authErrors": {
     "tryAgain": "Entered data is incorrect. Try again",
@@ -290,8 +290,8 @@
     "english": "English",
     "confirm": "Confirm",
     "thankyou": "Thank you",
-	"cancel": "Cancel",
-	"change": "Change",
-	"select": "Select"
+    "cancel": "Cancel",
+    "change": "Change",
+    "select": "Select"
   }
 }
