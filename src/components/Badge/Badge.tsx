@@ -13,6 +13,7 @@ export const Badge: FC<BadgeProps> = ({
   height,
   style,
   textStyle,
+  translateProps,
 }) => {
   const styles = useStyles();
   return (
@@ -25,7 +26,13 @@ export const Badge: FC<BadgeProps> = ({
       ]}
     >
       <View>{icon}</View>
-      <Text label children={label} color={textColor} style={textStyle} />
+      <Text
+        label
+        children={label}
+        color={textColor}
+        style={textStyle}
+        translateProp={translateProps}
+      />
     </View>
   );
 };

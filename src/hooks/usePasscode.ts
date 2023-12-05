@@ -1,23 +1,24 @@
-import { useNavigation } from '@react-navigation/native';
-import { PASSCODE_LOGIN_SCREEN, PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { GuestStackScreenProps } from 'navigation/types';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import passcodeEvents, { PASSCODE_EVENTS_PASSCODE_VERIFIED } from 'utils/eventBus';
-import { getPasscode, setPasscode } from 'utils/keychain';
+import { clearUsername, getPasscode, setPasscode } from 'utils/keychain';
+import { resetUserCredentials, setPasscodeStatus, setPasscodeTries } from 'store/slices/userInfo';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { useLogin } from './useLogin';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 import { openToast } from 'utils/toast';
 import { delayedNavigation } from 'utils/navigationUtils';
-import { setPasscodeStatus, setPasscodeTries } from 'store/slices/userInfo';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useNavigation } from '@react-navigation/native';
+import { GuestStackScreenProps } from 'navigation/types';
+import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 
 export const usePasscode = () => {
+  const { handlePasscodeSignIn } = useLogin();
+  const dispatch = useAppDispatch();
+  const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
   const [pinNumber, setPinNumber] = useState<string>('');
   const [savedPasscode, setSavedPasscode] = useState<string | null>('');
-  const { goBack, navigate } =
-    useNavigation<GuestStackScreenProps<'PasscodeLoginScreen' | 'PasswordLoginScreen'>>();
+
   const tries = useRef<number>(0);
   const biometricAuthSet = useAppSelector(state => state.userInfo.isBiometricSet);
-  const dispatch = useAppDispatch();
   const passcodeTries = useAppSelector(state => state.userInfo.passcodeTries);
 
   //   checks whether passcode is set or not in keychain
@@ -35,100 +36,10 @@ export const usePasscode = () => {
   const clearPasscode = async () => {
     const result = await setPasscode('');
     if (result) {
-      setSavedPasscode(null);
       dispatch(setPasscodeStatus(null));
+      setSavedPasscode(null);
     }
   };
-
-  //   handles verification of entered passcode, accepts callback fn
-  const verifyPasscode = (onSuccess?: () => void, shouldGoBack?: boolean) => {
-    if (!onSuccess) {
-      onSuccess = () => {};
-    }
-
-    passcodeEvents.on(PASSCODE_EVENTS_PASSCODE_VERIFIED, () => {
-      if (shouldGoBack) {
-        goBack();
-      }
-      onSuccess?.();
-    });
-
-    navigate(PASSCODE_LOGIN_SCREEN);
-  };
-
-  /**
-   * Depending on number of tries, we show user different error messages
-   * On the third try (if no previous try from Biometrics) we redirect user to PasswordLoginScreen
-   * if Biometric was tried before, only two tries should remain
-   * @returns function (openToast)
-   */
-  //   const getErrorMessage = () => {
-  //     dispatch(setPasscodeTries(passcodeTries + 1));
-
-  //     if (passcodeTries === 1) {
-  //       openToast('შეყვანილი მონაცემები არასწორია', 'error');
-  //       return;
-  //     }
-
-  //     if (passcodeTries === 2) {
-  //       if (biometricAuthSet) {
-  //         openToast(
-  //           'შეყვანილი მონაცემები არასწორია, გთხოვთ გაიაროთ ავტორიზაცია მომხმარებლითა და პაროლით',
-  //           'error',
-  //         );
-  //         delayedNavigation(() => navigate(PASSWORD_LOGIN_SCREEN), 2000);
-  //       } else {
-  //         openToast('შეყვანილი მონაცემები არასწორია', 'error');
-  //       }
-  //     } else if (passcodeTries === 3 && !biometricAuthSet) {
-  //       openToast(
-  //         'შეყვანილი მონაცემები არასწორია, გთხოვთ გაიაროთ ავტორიზაცია მომხმარებლითა და პაროლით',
-  //         'error',
-  //       );
-  //       delayedNavigation(() => navigate(PASSWORD_LOGIN_SCREEN), 2000);
-  //     }
-  //   };
-
-  const getErrorMessage = useCallback(() => {
-    tries.current += 1;
-    dispatch(setPasscodeTries(passcodeTries + 1));
-
-    if (tries.current === 1) {
-      openToast('შეყვანილი მონაცემები არასწორია', 'error');
-      return;
-    }
-
-    if (tries.current === 2) {
-      if (biometricAuthSet) {
-        openToast(
-          'შეყვანილი მონაცემები არასწორია, გთხოვთ გაიაროთ ავტორიზაცია მომხმარებლითა და პაროლით',
-          'error',
-        );
-        delayedNavigation(() => navigate(PASSWORD_LOGIN_SCREEN), 2000);
-      } else {
-        openToast('შეყვანილი მონაცემები არასწორია', 'error');
-      }
-    } else if (tries.current === 3 && !biometricAuthSet) {
-      openToast(
-        'შეყვანილი მონაცემები არასწორია, გთხოვთ გაიაროთ ავტორიზაცია მომხმარებლითა და პაროლით',
-        'error',
-      );
-      delayedNavigation(() => navigate(PASSWORD_LOGIN_SCREEN), 2000);
-    }
-  }, [biometricAuthSet, dispatch, navigate, passcodeTries]);
-
-  useEffect(() => {
-    (async () => {
-      if (pinNumber.length === 4) {
-        if (savedPasscode === null || savedPasscode !== pinNumber) {
-          getErrorMessage();
-          setPinNumber('');
-        } else {
-          passcodeEvents.emit(PASSCODE_EVENTS_PASSCODE_VERIFIED);
-        }
-      }
-    })();
-  }, [pinNumber, savedPasscode, getErrorMessage]);
 
   const watchKeyboard = (value: number) => {
     if (value !== 10 && value !== 11) {
@@ -144,10 +55,63 @@ export const usePasscode = () => {
 
   const passcodeLength = useMemo(() => pinNumber.length, [pinNumber]);
 
+  const handleWrongPasscode = useCallback(() => {
+    dispatch(resetUserCredentials());
+    clearUsername();
+    delayedNavigation(() => navigate(PASSWORD_LOGIN_SCREEN), 2000);
+  }, [dispatch, navigate]);
+
+  /** Depending on number of tries, we show user different error messages
+   * On the third try (if no previous try from Biometrics) we redirect user to PasswordLoginScreen
+   * if Biometric was tried before, only two tries should remain
+   * @returns function (openToast)
+   */
+  const getErrorMessage = useCallback(() => {
+    tries.current += 1;
+    dispatch(setPasscodeTries(passcodeTries + 1));
+
+    if (tries.current === 1) {
+      openToast('შეყვანილი მონაცემები არასწორია', 'error');
+      return;
+    }
+
+    if (tries.current === 2) {
+      if (biometricAuthSet) {
+        openToast(
+          'შეყვანილი მონაცემები არასწორია, გთხოვთ გაიაროთ ავტორიზაცია მომხმარებლითა და პაროლით',
+          'error',
+        );
+        handleWrongPasscode();
+      } else {
+        openToast('შეყვანილი მონაცემები არასწორია', 'error');
+      }
+    } else if (tries.current === 3 && !biometricAuthSet) {
+      openToast(
+        'შეყვანილი მონაცემები არასწორია, გთხოვთ გაიაროთ ავტორიზაცია მომხმარებლითა და პაროლით',
+        'error',
+      );
+      handleWrongPasscode();
+    }
+  }, [biometricAuthSet, dispatch, handleWrongPasscode, passcodeTries]);
+
+  useEffect(() => {
+    (async () => {
+      if (pinNumber.length === 4) {
+        if (savedPasscode === null || savedPasscode !== pinNumber) {
+          getErrorMessage();
+          setPinNumber('');
+        } else {
+          handlePasscodeSignIn?.();
+        }
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pinNumber]);
+
   return {
-    verifyPasscode,
     watchKeyboard,
     passcodeLength,
     clearPasscode,
+    savedPasscode,
   };
 };

@@ -6,6 +6,8 @@ import {
   GetCustomerOperationsRequestTypes,
   OverdraftType,
   Asset,
+  LoanType,
+  CreditCardType,
 } from './dashboardAPI.types';
 import { URLS } from 'services/constants/urls';
 import { METHOD_NAMES } from 'services/constants';
@@ -35,7 +37,7 @@ export const dashboardAPI = createApi({
         body: operations,
       }),
     }),
-    getCreditCards: builder.query<any, void>({
+    getCreditCards: builder.query<CreditCardType[], void>({
       query: () => ({
         url: URLS.getCreditCard,
         method: METHOD_NAMES.GET,
@@ -55,7 +57,7 @@ export const dashboardAPI = createApi({
         },
       }),
     }),
-    getLoanCustomerId: builder.query<any, void>({
+    getLoanCustomerId: builder.query<LoanType[], void>({
       query: () => ({
         url: URLS.getLoanCustomerId,
         method: METHOD_NAMES.GET,

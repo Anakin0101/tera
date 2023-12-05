@@ -9,19 +9,19 @@ export const useStyleTheme = () => {
       paddingBottom: Spacing.xxl,
     },
     innerTopContainer: {
-      marginTop: 40,
+      marginTop: Spacing.xlg,
       display: 'flex',
       flexDirection: 'column',
       ...Layout.alignItemsCenter,
     },
     title: {
       fontSize: FontSize.large,
-      marginBottom: 20,
+      marginBottom: Spacing.m,
       color: Colors.textBlack,
     },
     label: {
       fontSize: FontSize.small,
-      marginBottom: 50,
+      marginBottom: 56,
       color: Colors.textBlack500,
     },
 

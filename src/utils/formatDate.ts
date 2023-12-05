@@ -2,6 +2,11 @@ import dayjs from 'dayjs';
 import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(isSameOrBefore);
+dayjs.extend(customParseFormat);
 
 const savedLanguage = getValue(SELECTED_LANGUAGE);
 
@@ -22,10 +27,28 @@ const georgianMonths = {
   Dec: 'დეკ',
 };
 
-export const formatDate = (dateString: string) => {
+const georgianMonthsFull = {
+  January: 'იანვარი',
+  February: 'თებერვალი',
+  March: 'მარტი',
+  April: 'აპრილი',
+  May: 'მაისი',
+  June: 'ივნისი',
+  July: 'ივლისი',
+  August: 'აგვისტო',
+  September: 'სექტემბერი',
+  October: 'ოქტომბერი',
+  November: 'ნოემბერი',
+  December: 'დეკემბერი',
+};
+
+export const formatDate = (dateString: string, template = 'YYYY,HH:mm') => {
+  if (!dateString) {
+    return '';
+  }
   const day = dayjs(dateString).format('DD');
   const month = dayjs(dateString).format('MMM') as keyof typeof georgianMonths;
-  const yearAndHour = dayjs(dateString).format('YYYY,HH:mm');
+  const yearAndHour = dayjs(dateString).format(template);
 
   return `${day} ${isEnglish ? month : georgianMonths[month]},${yearAndHour}`;
 };
@@ -36,4 +59,30 @@ export const getExpirationDate = (dateString: string) => {
 
 export const getFormattedDate = (dateString: string, template = 'DD-MM-YYYY') => {
   return dayjs(dateString).format(template);
+};
+
+export const formatDateFullMonth = (dateString: string, template?: string) => {
+  if (!dateString) {
+    return '';
+  }
+
+  const day = dayjs(dateString, template).format('D');
+  const month = dayjs(dateString, template).format('MMMM') as keyof typeof georgianMonthsFull;
+  const year = dayjs(dateString, template).format('YYYY');
+
+  return `${day} ${isEnglish ? month : georgianMonthsFull[month]}, ${year}`;
+};
+
+export const isDateBefore = (dateString: string) => {
+  const current = dayjs();
+  const date = dayjs(dateString);
+
+  return current.isSameOrBefore(date, 'date');
+};
+
+export const getDaysDifference = (dateString: string) => {
+  const date1 = dayjs();
+  const date2 = dayjs(dateString);
+
+  return date2.diff(date1, 'day');
 };

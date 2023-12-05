@@ -10,6 +10,8 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [titlePosition, setTitlePosition] = useState<TitlePos>('left');
   const [enableDynamicSizing, setEnableDynamicSizing] = useState(true);
   const [enableContentPanningGesture, setEnableContentPanningGesture] = useState(true);
+  const [snapPoints, setSnapPoints] = useState<(string | number)[]>(['70%']);
+  const [hideHandle, setHideHandle] = useState(false);
 
   const open = (options: ConfigureModal) => {
     setElement(options.element);
@@ -18,6 +20,8 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.titlePosition && setTitlePosition(options.titlePosition);
     options.disableDynamicSizing && setEnableDynamicSizing(false);
     options.disablePanning && setEnableContentPanningGesture(false);
+    options.snapPoints && setSnapPoints(options.snapPoints);
+    options.hideHandle && setHideHandle(options.hideHandle);
     modalRef?.current?.present();
   };
 
@@ -26,6 +30,8 @@ const useModal = (ref: Ref<ModalHandler>) => {
     setTitlePosition('left');
     setEnableDynamicSizing(true);
     setEnableContentPanningGesture(true);
+    setSnapPoints(['70%']);
+    setHideHandle(false);
     setElement(null);
     modalRef?.current?.close();
     setEnablePadding(false);
@@ -44,6 +50,8 @@ const useModal = (ref: Ref<ModalHandler>) => {
     titlePosition,
     enableDynamicSizing,
     enableContentPanningGesture,
+    snapPoints,
+    hideHandle,
     enablePadding,
   };
 };

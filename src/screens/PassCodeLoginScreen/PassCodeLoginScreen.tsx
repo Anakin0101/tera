@@ -1,11 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Button } from 'components/Button/Button';
 import { View } from 'react-native';
 import PinKeyboard from 'components/PinKeyboard/PinKeyboard';
 import { PinLine } from 'components/PinLine/PinLine';
 import { useStyleTheme } from './PassCodeLoginScreen.styles';
 import { Account } from 'components/index';
-import passcodeEvents, { PASSCODE_EVENTS_PASSCODE_VERIFIED } from 'utils/eventBus';
 import { withLoginScreen } from 'components/HOC';
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
@@ -19,12 +18,6 @@ const PasscodeLoginScreenBase: FC<PasscodeLoginBaseProps> = () => {
   const { savedUserName } = useKeyChain();
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
-
-  useEffect(() => {
-    return () => {
-      passcodeEvents.off(PASSCODE_EVENTS_PASSCODE_VERIFIED);
-    };
-  }, []);
 
   return (
     <View style={styles.wrapper}>

@@ -1,13 +1,15 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { useEffect, useMemo } from 'react';
-import {
-  useGetAccountsByCustomerIdQuery,
-  useGetLoansByCustomerIdQuery,
-} from 'services/apis/productsAPI/productsAPI';
+import { useGetAccountsByCustomerIdQuery } from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setAccounts, setTotalAvailableBalance, setTotalDeposits } from 'store/slices/products';
+import {
+  setAccounts,
+  setTotalAvailableBalance,
+  setTotalDebt,
+  setTotalDeposits,
+} from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 
@@ -15,10 +17,16 @@ export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
   const { customerId } = useAppSelector(state => state.profile);
   const { data: accounts } = useGetAccountsByCustomerIdQuery(customerId ?? skipToken);
-  const { data: loans } = useGetLoansByCustomerIdQuery(customerId ?? skipToken);
-  const { groupedAccountsByIban, totalAvailableBalanceGEL, deposits } = useAppSelector(
-    state => state.products,
-  );
+  const {
+    groupedAccountsByIban,
+    totalAvailableBalanceGEL,
+    deposits,
+    loans,
+    overdrafts,
+    creditCards,
+  } = useAppSelector(state => state.products);
+
+  const allLoans = [...overdrafts, ...creditCards, ...loans];
 
   useEffect(() => {
     if (accounts) {
@@ -42,16 +50,22 @@ export const useTeraProducts = () => {
     return calculateSum(filtered, 'amount');
   }, [deposits]);
 
+  const totalLoans = useMemo(() => {
+    const loansInGEL = loans.filter(loan => loan.currency === 'GEL');
+    const overdraftsInGEL = overdrafts.filter(overdraft => overdraft.currency === 'GEL');
+    const creditCardGEL = creditCards.filter(cc => cc.currency === 'GEL');
+
+    const loansSum = calculateSum(loansInGEL, 'totalDebt');
+    const overdraftsSum = calculateSum(overdraftsInGEL, 'totalDebt');
+    const ccSum = calculateSum(creditCardGEL, 'creditLimit');
+
+    return loansSum + overdraftsSum + ccSum;
+  }, [creditCards, loans, overdrafts]);
+
   useEffect(() => {
     dispatch(setTotalDeposits(totalDeposits));
-  }, [dispatch, totalDeposits]);
-
-  const totalLoans = useMemo(() => {
-    if (!loans) {
-      return 0;
-    }
-    return calculateSum(loans, 'totalDebt');
-  }, [loans]);
+    dispatch(setTotalDebt(totalLoans));
+  }, [dispatch, totalDeposits, totalLoans]);
 
   return {
     groupedAccountsByIban,
@@ -60,5 +74,6 @@ export const useTeraProducts = () => {
     totalDeposits,
     loans,
     totalLoans,
+    allLoans,
   };
 };

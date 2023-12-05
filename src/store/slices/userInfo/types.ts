@@ -17,6 +17,7 @@ export type UserInfoStateProps = {
   isPasscodeSet: boolean | undefined;
   isBiometricSet: boolean | undefined;
   passcodeTries: number;
+  isBiometricBeingSet: boolean | undefined;
 };
 
 export type SupportedAuthMethodsType = {

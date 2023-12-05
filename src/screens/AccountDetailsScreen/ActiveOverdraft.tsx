@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Image, Pressable, View } from 'react-native';
-import { Divider, Text } from 'components';
+import { Divider, ProgressBar, Text } from 'components';
 import Images from 'theme/Images';
 import { config } from 'utils/config';
 import { Colors } from 'theme/Variables';
@@ -52,18 +52,12 @@ export const ActiveOverdraft: FC<ActiveOverdraftProps> = ({ relatedOverdraft }) 
                 <ChevronRight />
               </Pressable>
             </View>
-            <View style={styles.progress}>
-              <View
-                style={[
-                  styles.indicator,
-                  {
-                    width:
-                      (PROGRESS_WIDTH / relatedOverdraft.overdraftLimit) *
-                      relatedOverdraft.usedPrincipalAmount,
-                  },
-                ]}
-              />
-            </View>
+            <ProgressBar
+              width={PROGRESS_WIDTH}
+              max={relatedOverdraft.overdraftLimit}
+              used={relatedOverdraft.usedPrincipalAmount}
+              marginTop={16}
+            />
           </View>
         </View>
       </View>

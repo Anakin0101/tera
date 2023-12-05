@@ -1,8 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { ProfileStackScreenProps } from 'navigation/types';
-import { useNavigation } from '@react-navigation/native';
-import { AUTHORIZATION_METHODS_SCREEN } from 'navigation/ScreenNames';
+import { Text, View } from 'react-native';
 import { useStyleTheme } from './SettingsScreen.styles';
 import { SettingsScreenConfig } from './SettingsScreen.config';
 import { SettingsConfigType, SubContentProps } from './SettingsScreen.types';
@@ -12,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 export const SettingsScreen = () => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
-  const { navigate } = useNavigation<ProfileStackScreenProps<'SettingsScreen'>>();
 
   return (
     <View style={styles.container}>
@@ -24,9 +20,6 @@ export const SettingsScreen = () => {
           ))}
         </View>
       ))}
-      <TouchableOpacity onPress={() => navigate(AUTHORIZATION_METHODS_SCREEN)}>
-        <Text>Navigate to authorization methods screen</Text>
-      </TouchableOpacity>
     </View>
   );
 };

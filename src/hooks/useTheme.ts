@@ -1,4 +1,3 @@
-import { useColorScheme } from 'react-native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { Common, Fonts, Gutters, Images, Layout, themes, DefaultVariables } from 'theme';
 import {
@@ -7,17 +6,18 @@ import {
   ThemeNavigationTheme,
   ThemeNavigationColors,
 } from 'types/declarations/theme';
-import { ThemeState } from 'store/slices/theme/types';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export default function () {
   // Get the scheme device
-  const colorScheme = useColorScheme();
-
+  //    TODO - change colorScheme back to useColorScheme when darkMode
+  //   Also, change currentTheme back
   // Get current theme from the store
-  const currentTheme = useAppSelector((state: { theme: ThemeState }) => state.theme.theme);
-  const isDark = useAppSelector((state: { theme: ThemeState }) => state.theme.darkMode);
-  const darkMode = isDark === null ? colorScheme === 'dark' : isDark;
+  //   const currentTheme = useAppSelector((state: { theme: ThemeState }) => state.theme.theme);
+  //   const colorScheme = useColorScheme();
+  //   const isDark = useAppSelector((state: { theme: ThemeState }) => state.theme.darkMode);
+  //   const darkMode = isDark === null ? colorScheme === 'dark' : isDark;
+  const darkMode = false;
+  const currentTheme = 'default';
 
   let variables = {};
   let partialTheme = {};

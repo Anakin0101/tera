@@ -7,7 +7,15 @@ import { useStyles } from './AccountDetailsScreen.styles';
 import { formatMoney } from 'utils/formatMoney';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
 
-export const DetailsItem: FC<DetailsItemProps> = ({ label, value, iban, icon, card, onPress }) => {
+export const DetailsItem: FC<DetailsItemProps> = ({
+  label,
+  value,
+  iban,
+  icon,
+  card,
+  onPress,
+  translateProp,
+}) => {
   const styles = useStyles();
   const blockedFundsSection = Array.isArray(value);
 
@@ -28,7 +36,7 @@ export const DetailsItem: FC<DetailsItemProps> = ({ label, value, iban, icon, ca
               ))}
             </View>
           ) : (
-            <Text children={value} />
+            <Text children={value} translateProp={translateProp} />
           )}
           {iban && <Text children={iban} />}
         </View>

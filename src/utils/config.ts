@@ -16,3 +16,7 @@ export const horizontalScale = (size: number) => {
 export const verticalScale = (size: number) => {
   return (config.mobileHeight / DESIGN_HEIGHT) * size;
 };
+
+export const moderateScale = (size: number, factor = 0.5) => {
+  return size + (horizontalScale(size) - size) * factor;
+};

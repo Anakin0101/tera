@@ -10,10 +10,9 @@ export const PROFILE_STACK = 'ProfileStack';
 export const PAYMENTS_SCREEN = 'PaymentsScreen';
 export const TRANSACTIONS_SCREEN = 'TransactionsScreen';
 export const PRODUCTS_SCREEN = 'ProductsScreen';
+
+// PROFILE
 export const PROFILE_SCREEN = 'ProfileScreen';
-export const SETTINGS_SCREEN = 'SettingsScreen';
-export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
-export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 
 // auth - Login
 export const ONBOARDING_SCREEN = 'OnboardingScreen';
@@ -26,7 +25,10 @@ export const DASHBOARD_SCREEN = 'DashboardScreen';
 export const ALL_TEMPLATES_SCREEN = 'AllTemplatesScreen';
 
 // modal screens
-export const MODAL_SCREEN_ONE = 'ModalScreenOne';
+export const SETTINGS_SCREEN = 'SettingsScreen';
+export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
+export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
+export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
 
 //transactions
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
@@ -44,3 +46,5 @@ export const CARD_INSURANCE = 'CardInsuranceScreen';
 export const INSURANCE_PACKAGE_DETAILS = 'InsurancePackageDetailsScreen';
 export const DEPOSITS_SCREEN = 'DepositsScreen';
 export const DEPOSIT_DETAILS_SCREEN = 'DepositDetailsScreen';
+export const LOANS_SCREEN = 'LoansScreen';
+export const LOAN_DETAILS_SCREEN = 'LoanDetailsScreen';

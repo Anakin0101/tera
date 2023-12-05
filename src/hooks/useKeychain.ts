@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getPasscode, getUserName } from 'utils/keychain';
+import { getBiometricsAuthStatus, getPasscode, getUserName } from 'utils/keychain';
 
 export const useKeyChain = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [savedUserName, setSavedUserName] = useState<string | null | undefined>();
   const [savedPasscode, setSavedPasscode] = useState<string | null | undefined>();
+  const [savedBiometricStatus, setSavedBiometricStatus] = useState<boolean | null | undefined>();
 
   useEffect(() => {
     const fetchKeyChainData = async () => {
@@ -12,6 +13,8 @@ export const useKeyChain = () => {
       setSavedUserName(username);
       const passcode = await getPasscode();
       setSavedPasscode(passcode);
+      const biometricAuth = await getBiometricsAuthStatus();
+      setSavedBiometricStatus(biometricAuth);
       setLoading(false);
     };
 
@@ -21,5 +24,6 @@ export const useKeyChain = () => {
     loading,
     savedUserName,
     savedPasscode,
+    savedBiometricStatus,
   };
 };

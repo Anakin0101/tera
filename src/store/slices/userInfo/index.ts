@@ -18,33 +18,55 @@ const initialState: UserInfoStateProps = {
   isPasscodeSet: undefined,
   isBiometricSet: undefined,
   passcodeTries: 0,
+  isBiometricBeingSet: undefined,
 };
 
 const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
-    setUserCredentials: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
+    setUserCredentials: (state, { payload }) => {
+      state.accessToken = payload.accessToken;
+      state.refreshToken = payload.refreshToken;
     },
-    setIgnoreEasyLogin: (state, action) => {
-      state.ignoreEasyLogin = action.payload;
+    resetUserCredentials: state => {
+      state.accessToken = '';
+      state.refreshToken = '';
     },
-    setPostponeEasyLogin: (state, action) => {
-      state.postponeEasyLogin = action.payload;
+    setAccessToken: (state, { payload }) => {
+      state.accessToken = payload.accessToken;
     },
-    setOTPCode: (state, action) => {
-      state.otpCode = action.payload;
+    setIgnoreEasyLogin: (state, { payload }) => {
+      state.ignoreEasyLogin = payload;
     },
-    setPasscodeStatus: (state, action) => {
-      state.isPasscodeSet = action.payload;
+    setPostponeEasyLogin: (state, { payload }) => {
+      state.postponeEasyLogin = payload;
     },
-    setBiometricStatus: (state, action) => {
-      state.isBiometricSet = action.payload;
+    setOTPCode: (state, { payload }) => {
+      state.otpCode = payload;
     },
-    setPasscodeTries: (state, action) => {
-      state.passcodeTries = action.payload;
+    setPasscodeStatus: (state, { payload }) => {
+      state.isPasscodeSet = payload;
+    },
+    setIsBiometricBeingSet: (state, { payload }) => {
+      state.isBiometricBeingSet = payload;
+    },
+
+    setBiometricStatus: (state, { payload }) => {
+      state.isBiometricSet = payload;
+    },
+    setPasscodeTries: (state, { payload }) => {
+      state.passcodeTries = payload;
+    },
+    resetUserProfileInfo: state => {
+      state.userProfileInfo = {
+        loading: false,
+        error: undefined,
+        profileInfo: null,
+      };
+    },
+    setIsLoggingOut: (state, { payload }) => {
+      state.isLoggingOut = payload;
     },
   },
   extraReducers: builder => {
@@ -52,12 +74,12 @@ const userInfoSlice = createSlice({
       .addMatcher(authAPI.endpoints.getUserProfileInfo.matchPending, state => {
         state.userProfileInfo.loading = true;
       })
-      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchFulfilled, (state, action) => {
+      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchFulfilled, (state, { payload }) => {
         state.userProfileInfo.loading = false;
-        state.userProfileInfo.profileInfo = action.payload;
+        state.userProfileInfo.profileInfo = payload;
       })
-      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchRejected, (state, action) => {
-        state.userProfileInfo.error = action.payload;
+      .addMatcher(authAPI.endpoints.getUserProfileInfo.matchRejected, (state, { payload }) => {
+        state.userProfileInfo.error = payload;
         state.userProfileInfo.loading = false;
       });
     builder
@@ -78,11 +100,16 @@ const userInfoSlice = createSlice({
 
 export const {
   setUserCredentials,
+  resetUserCredentials,
   setIgnoreEasyLogin,
   setPostponeEasyLogin,
   setOTPCode,
   setPasscodeStatus,
   setBiometricStatus,
   setPasscodeTries,
+  setIsBiometricBeingSet,
+  setAccessToken,
+  resetUserProfileInfo,
+  setIsLoggingOut,
 } = userInfoSlice.actions;
 export const userInfoReducer = userInfoSlice.reducer;

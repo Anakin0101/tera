@@ -3,6 +3,7 @@ import { Text as RNText } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { TextProps } from './Text.types';
 import { useStyleTheme } from './Text.styles';
+import { moderateScale } from 'utils/config';
 
 export const Text = forwardRef<RNText, TextProps>(
   (
@@ -49,7 +50,7 @@ export const Text = forwardRef<RNText, TextProps>(
           center && styles.center,
           color ? { color } : null,
           lineHeight ? { lineHeight } : null,
-          size ? { fontSize: size } : null,
+          size ? { fontSize: moderateScale(size) } : null,
           marginTop ? { marginTop } : null,
           bold && styles.bold,
           black && styles.black,

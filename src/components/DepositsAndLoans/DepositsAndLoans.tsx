@@ -5,11 +5,20 @@ import { ListItem } from './ListItem';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useStyles } from './DepositsAndLoans.styles';
-import { DepositsAndLoansProps, FooterProps, HeaderProps } from './DepositsAndLoans.types';
-import { DepositType, LoanType } from 'services/apis/productsAPI/productsAPI.types';
+import {
+  DepositsAndLoansProps,
+  FooterProps,
+  HeaderProps,
+  RenderItemType,
+} from './DepositsAndLoans.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
-import { DEPOSITS_SCREEN, DEPOSIT_DETAILS_SCREEN } from 'navigation/ScreenNames';
+import {
+  DEPOSITS_SCREEN,
+  DEPOSIT_DETAILS_SCREEN,
+  LOANS_SCREEN,
+  LOAN_DETAILS_SCREEN,
+} from 'navigation/ScreenNames';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
   const styles = useStyles(seeAll);
@@ -36,14 +45,19 @@ const ListFooter: FC<FooterProps> = ({ variant }) => {
   const styles = useStyles();
   const { navigate } = useNavigation<ProductsStackScreenProps<'DepositsScreen'>>();
 
-  const handlePress = () => {
-    if (variant === 'deposit') {
-      navigate(DEPOSITS_SCREEN);
-    }
+  const navigateToDeposits = () => {
+    navigate(DEPOSITS_SCREEN);
+  };
+
+  const navigateToLoans = () => {
+    navigate(LOANS_SCREEN);
   };
 
   return (
-    <Pressable onPress={handlePress} style={styles.seeAll}>
+    <Pressable
+      onPress={variant === 'deposit' ? navigateToDeposits : navigateToLoans}
+      style={styles.seeAll}
+    >
       <Text children="transfers.all" special size={14} lineHeight={20} />
     </Pressable>
   );
@@ -63,17 +77,27 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
     return null;
   }
 
-  const handlePress = (index: number) => {
-    if (variant === 'deposit') {
-      navigate(DEPOSIT_DETAILS_SCREEN, {
-        index,
-      });
-    }
+  const navigateToDepositDetails = (index: number) => {
+    navigate(DEPOSIT_DETAILS_SCREEN, {
+      index,
+    });
   };
 
-  const renderItem: ListRenderItem<DepositType | LoanType> = ({ item, index }) => {
+  const navigateToLoanDetails = (index: number) => {
+    navigate(LOAN_DETAILS_SCREEN, {
+      index,
+    });
+  };
+
+  const renderItem: ListRenderItem<RenderItemType> = ({ item, index }) => {
     return (
-      <ListItem item={item} onPress={() => handlePress(index)} isLast={index === data.length - 1} />
+      <ListItem
+        item={item}
+        onPress={() =>
+          variant === 'deposit' ? navigateToDepositDetails(index) : navigateToLoanDetails(index)
+        }
+        isLast={index === data.length - 1}
+      />
     );
   };
 

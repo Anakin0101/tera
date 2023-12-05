@@ -1,5 +1,9 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
-import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import {
+  CreditCardType,
+  LoanType,
+  OverdraftType,
+} from 'services/apis/dashboardAPI/dashboardAPI.types';
 import {
   CardType,
   DepositType,
@@ -14,4 +18,7 @@ export type ProductsStateProps = {
   overdrafts: OverdraftType[];
   deposits: DepositType[];
   totalDepositsGEL: number;
+  loans: LoanType[];
+  totalDebtGEL: number;
+  creditCards: CreditCardType[];
 };

@@ -52,7 +52,7 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
 
   const {
     templates,
-    customOperations,
+    customerOperations,
     creditCards,
     overDraft,
     getLoanCustomerId,
@@ -144,7 +144,7 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
       case 'banker':
         return <Banker data={banker} />;
       case 'transactions':
-        return <DashboardOperations data={customOperations?.ops} />;
+        return <DashboardOperations data={customerOperations?.ops} />;
       default:
         return null;
     }

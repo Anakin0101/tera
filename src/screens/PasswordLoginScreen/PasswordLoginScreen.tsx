@@ -4,13 +4,13 @@ import { Button, Text, ControlledInput } from 'components';
 import { withLoginScreen } from 'components/HOC';
 import { PasswordLoginBaseProps } from './PasswordLoginScreen.types';
 import useStyles from './PasswordLoginScreen.styles';
-import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useLogin } from 'hooks';
 
 const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
   const styles = useStyles();
 
-  const { handleSignIn, control, handleSaveUserToggle } = useLogin();
+  const { handleSignIn, control } = useLogin();
 
   return (
     <View style={styles.wrapper}>
@@ -36,7 +36,6 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
           type="checkbox"
           name="save"
           label="common:passAuth.save"
-          handleChange={handleSaveUserToggle}
         />
         <Text children="common:passAuth.forgot" label special />
       </View>
@@ -58,5 +57,5 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
 
 export const PasswordLoginScreen = withLoginScreen<
   PasswordLoginBaseProps,
-  typeof PASSCODE_LOGIN_SCREEN
->(PasswordLoginScreenBase, PASSCODE_LOGIN_SCREEN);
+  typeof PASSWORD_LOGIN_SCREEN
+>(PasswordLoginScreenBase, PASSWORD_LOGIN_SCREEN);

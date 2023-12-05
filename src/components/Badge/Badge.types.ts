@@ -1,3 +1,4 @@
+import { TOptions } from 'i18next';
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface BadgeProps {
@@ -8,4 +9,5 @@ export interface BadgeProps {
   textStyle?: StyleProp<TextStyle>;
   backgroundColor?: string;
   textColor?: string;
+  translateProps?: TOptions;
 }

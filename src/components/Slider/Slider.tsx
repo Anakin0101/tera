@@ -23,6 +23,7 @@ export const Slider = <ItemT,>({
   index,
   setActiveIndex,
   renderItem: Item,
+  actionButtonsContainer,
 }: SliderProps<ItemT>) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
@@ -79,7 +80,7 @@ export const Slider = <ItemT,>({
           viewabilityConfig={viewabilityConfig}
         />
       </View>
-      <ActionButtons actions={actions} />
+      <ActionButtons actions={actions} actionButtonsContainer={actionButtonsContainer} />
       <Indicator data={data} translateX={translateX} hideFirst={false} />
     </View>
   );

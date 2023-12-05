@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
+import { moderateScale } from 'utils/config';
 
 export const useStyles = (seeAll?: boolean) => {
   const { Layout, Colors, Spacing, Fonts } = useTheme();
@@ -26,8 +27,8 @@ export const useStyles = (seeAll?: boolean) => {
     },
     cardContainer: {
       ...Layout.center,
-      width: 48,
-      height: 48,
+      width: moderateScale(48),
+      height: moderateScale(48),
       borderWidth: 1,
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
@@ -36,8 +37,8 @@ export const useStyles = (seeAll?: boolean) => {
       ...Layout.alignItemsCenter,
       backgroundColor: Colors.inputBlack50,
       borderRadius: 48,
-      paddingHorizontal: 20,
-      paddingVertical: 7,
+      paddingHorizontal: moderateScale(20),
+      paddingVertical: moderateScale(7),
     },
     detailsWrapper: {
       ...Layout.fill,
@@ -52,12 +53,15 @@ export const useStyles = (seeAll?: boolean) => {
       ...Layout.alignItemsCenter,
       backgroundColor: Colors.lightRed,
       borderRadius: 48,
-      paddingHorizontal: 20,
-      paddingVertical: 7,
+      paddingHorizontal: moderateScale(20),
+      paddingVertical: moderateScale(7),
     },
     header: {
       marginTop: Spacing.s,
       marginBottom: seeAll ? Spacing.xlm : Spacing.ml,
+    },
+    textContainer: {
+      ...Layout.fill,
     },
   });
 };
