@@ -34,7 +34,9 @@ export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
 export const TO_ACCOUNT_SCREEN = 'ToAccountScreen';
 export const TRANSFER_TO_ACCOUNT_SCREEN = 'TransferToAccountScreen';
-
+export const PRIVATE_TRANSACTION_SCREEN = 'PrivateTransactionScreen';
+export const TRANSFER_DETAIL_SCREEN = 'TransferDetailScreen';
+export const TRANSACTION_FINISHED_SCREEN = 'TransactionFinishedScreen';
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';

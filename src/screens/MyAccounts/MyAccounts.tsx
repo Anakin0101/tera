@@ -10,6 +10,7 @@ import { useTeraTransfers } from './container';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountFromData } from 'store/slices/transfers/indext';
+import { TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 interface Section {
   title: string;
   data: AccountData[];
@@ -29,6 +30,7 @@ export const MyAccounts = () => {
 
   const { groupedAccountsByIban } = useTeraTransfers();
   const [sections, setSections] = useState<Section[]>([]);
+  const [filteredSections, setFilteredSections] = useState<Section[]>([]);
 
   useEffect(() => {
     if (groupedAccountsByIban) {
@@ -38,12 +40,23 @@ export const MyAccounts = () => {
           data: group.accounts,
         };
       });
+
       setSections(formattedSections);
     }
   }, [groupedAccountsByIban]);
+
+  useEffect(() => {
+    if (sections && sections.length > 0) {
+      const filtered = sections.filter(section =>
+        section.title.toLowerCase().includes(value.toLowerCase()),
+      );
+      setFilteredSections(filtered);
+    }
+  }, [sections, value]);
+
   useEffect(() => {
     if (selectedAccount !== null) {
-      navigate('ToAccountScreen', { selected: selectedAccount });
+      navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
     }
   }, [navigate, selectedAccount]);
 
@@ -79,7 +92,7 @@ export const MyAccounts = () => {
       </View>
 
       <SectionList
-        sections={sections}
+        sections={filteredSections}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}

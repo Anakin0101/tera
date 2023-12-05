@@ -28,6 +28,7 @@ import { profileReducer } from './slices/profile';
 import { productsAPI } from 'services/apis/productsAPI/productsAPI';
 import { productsReducer } from './slices/products';
 import { transfersReducer } from './slices/transfers/indext';
+import { transfersAPI } from 'services/apis/transfersAPI/transfersAPI';
 
 const persistedTheme = persistReducer(themePersistConfig, themeReducer);
 const persistedUserInfo = persistReducer(userInfoPersistConfig, userInfoReducer);
@@ -46,6 +47,7 @@ const reducers = combineReducers({
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,
+  [transfersAPI.reducerPath]: transfersAPI.reducer,
 });
 
 const rootReducer: Reducer<RootState> = (state, action) => {
@@ -55,7 +57,12 @@ const rootReducer: Reducer<RootState> = (state, action) => {
   return reducers(state, action);
 };
 
-const middlewares = [authAPI.middleware, dashboardAPI.middleware, productsAPI.middleware];
+const middlewares = [
+  authAPI.middleware,
+  dashboardAPI.middleware,
+  productsAPI.middleware,
+  transfersAPI.middleware,
+];
 
 if (__DEV__) {
   const createDebugger = require('redux-flipper').default;

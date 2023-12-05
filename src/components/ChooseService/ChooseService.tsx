@@ -8,6 +8,13 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { Budget, Calendar, Refreshing, UserArrowRight, Users } from 'assets/SVGs';
 import { Service } from './ChooseService.types';
 import { useStyles } from './ChooseService.styles';
+interface ServiceData {
+  serviceData?: Service[];
+}
+
+interface FromTransaction {
+  fromTransaction?: boolean;
+}
 
 const data = [
   {
@@ -37,7 +44,7 @@ const data = [
   },
 ];
 
-export const ChooseService = () => {
+export const ChooseService = ({ fromTransaction, serviceData }: FromTransaction & ServiceData) => {
   const styles = useStyles();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
 
@@ -50,10 +57,10 @@ export const ChooseService = () => {
 
   return (
     <>
-      <Text children="transfers.chooseService" style={styles.header} />
+      {!fromTransaction && <Text children="transfers.chooseService" style={styles.header} />}
       <FlatList
         horizontal
-        data={data}
+        data={serviceData ? serviceData : data}
         renderItem={renderItem}
         style={styles.flatlist}
         showsHorizontalScrollIndicator={false}

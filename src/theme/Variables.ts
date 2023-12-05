@@ -82,6 +82,7 @@ export const FontSize = {
   semiLarge: 20,
   large: 24,
   extraLarge: 32,
+  xxxl: 50,
 };
 
 export const Spacing = {

@@ -29,6 +29,9 @@ import {
   LOAN_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
   TRANSFER_TO_ACCOUNT_SCREEN,
+  PRIVATE_TRANSACTION_SCREEN,
+  TRANSFER_DETAIL_SCREEN,
+  TRANSACTION_FINISHED_SCREEN,
   SETTINGS_SCREEN,
   CREATE_PASSCODE_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
@@ -93,6 +96,13 @@ export type TransactionsStackParamsList = {
     selected?: any;
   };
   [TRANSFER_TO_ACCOUNT_SCREEN]: undefined;
+  [PRIVATE_TRANSACTION_SCREEN]: undefined;
+  [TRANSFER_DETAIL_SCREEN]: {
+    convertion?: boolean;
+  };
+  [TRANSACTION_FINISHED_SCREEN]: {
+    convertion?: boolean;
+  };
 };
 
 export type PaymentsStackParamsList = {};

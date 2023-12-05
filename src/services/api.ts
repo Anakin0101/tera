@@ -16,8 +16,8 @@ import { METHOD_NAMES } from './constants';
 // http://10.213.0.136:4040/swagger/index.html
 // https://middleware-tst.terabank.ge/swagger/index.html
 // const BASE_URL = 'https://middleware-tst.terabank.ge/';
-// const BASE_URL = 'http://10.213.0.136:4040/';
-const BASE_URL = 'https://middleware-tst.terabank.ge/';
+const BASE_URL = 'http://10.213.0.136:4040/';
+// const BASE_URL = 'https://middleware-tst.terabank.ge/';
 
 const mutex = new Mutex();
 

@@ -10,7 +10,9 @@ import { CurrencySignMap } from 'utils/CurrencySignMap';
 export const DetailsItem: FC<DetailsItemProps> = ({
   label,
   value,
+  iban,
   icon,
+  card,
   onPress,
   translateProp,
 }) => {
@@ -22,6 +24,8 @@ export const DetailsItem: FC<DetailsItemProps> = ({
       <View style={blockedFundsSection ? styles.blockedFundsContainer : styles.detailsWrapper}>
         <View>
           <Text children={label} color={Colors.textBlack500} />
+          {card && <Text children={card} />}
+
           {blockedFundsSection ? (
             <View style={styles.blockedAmountsContainer}>
               {value.map(item => (
@@ -34,6 +38,7 @@ export const DetailsItem: FC<DetailsItemProps> = ({
           ) : (
             <Text children={value} translateProp={translateProp} />
           )}
+          {iban && <Text children={iban} />}
         </View>
         {icon && (
           <Pressable

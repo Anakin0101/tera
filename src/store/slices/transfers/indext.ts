@@ -3,6 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   accountFromData: null,
   accountToData: null,
+  selectedItem: {
+    id: 1,
+    name: 'პირადი გადარიცხვა',
+  },
+  convertionData: null,
+  selectedData: null,
+  selectedPrice: 0,
 };
 
 const transfersSlice = createSlice({
@@ -21,9 +28,44 @@ const transfersSlice = createSlice({
     clearAccountToData: state => {
       state.accountToData = null;
     },
+    setSelectedTransferItem: (state, action) => {
+      state.selectedItem = action.payload;
+      if (action.payload.id === 4) {
+        state.selectedData = action.payload.otherValue || null;
+      } else {
+        state.selectedData = null;
+      }
+    },
+    clearSelectedItem: state => {
+      state.selectedItem = {
+        id: 1,
+        name: 'პირადი გადარიცხვა',
+      };
+      state.selectedData = null;
+    },
+    setOtherValueForID4: (state, action) => {
+      if (state.selectedItem.id === 4) {
+        state.selectedData = action.payload.otherValue || null;
+      }
+    },
+    setSelectedPrice: (state, action) => {
+      state.selectedPrice = action.payload;
+    },
+    setConvertionData: (state, action) => {
+      state.convertionData = action.payload;
+    },
   },
 });
 
-export const { setAccountFromData, setAccountToData, clearAccountFromData, clearAccountToData } =
-  transfersSlice.actions;
+export const {
+  setAccountFromData,
+  setAccountToData,
+  clearAccountFromData,
+  clearAccountToData,
+  setSelectedTransferItem,
+  clearSelectedItem,
+  setOtherValueForID4,
+  setSelectedPrice,
+  setConvertionData,
+} = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

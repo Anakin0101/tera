@@ -11,7 +11,7 @@ const ServiceItem: FC<ServiceItemProps> = ({ onPress, item }) => {
       <View style={styles.wrapper}>
         <View style={styles.iconContainer}>{item.icon}</View>
         <View style={styles.textContainer}>
-          <Text center size={12} lineHeight={18} children={item.name} />
+          <Text center size={11} lineHeight={18} children={item.name} />
         </View>
       </View>
     </Pressable>

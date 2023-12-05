@@ -120,7 +120,14 @@
     "add": "Add",
     "all": "See all",
     "lastTransactions": "Last Transactions",
-    "search": "Search Account"
+    "search": "Search Account",
+    "account": "Personal Transfer/Convertation",
+    "yourCurrency": "Your Course  1({{currency}}) = ({{value}})",
+    "amount": "Amount",
+    "saveAsTemplate": "Save as Template",
+    "shareCheck": "Share check",
+    "automaticPay": "Automatic Payment",
+    "success": "Transaction Finished"
   },
   "products": {
     "accountsAndCards": "Accounts and Cards ({{value}})",

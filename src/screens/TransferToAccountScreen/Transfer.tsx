@@ -6,20 +6,26 @@ import { CustomTextInput } from 'components/CustomInput/CustomInput';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { EditSvg } from 'assets/SVGs';
 import { transferProps } from './TransferToAccountScreen.types';
-export const Transfer = ({ onTextChange, inputRef, openTransferModal }: transferProps) => {
+export const Transfer = ({
+  onTextChange,
+  inputRef,
+  openTransferScreen,
+  selectedData,
+  selectedItem,
+}: transferProps) => {
   const styles = useStyleTheme();
   return (
     <View style={styles.transferWrapper}>
-      <Text children="თანხის რაოდენობა" />
+      <Text children="transfers.amount" />
       <CustomTextInput
         inputRef={inputRef}
         placeholder="$00.00"
         onTextChange={onTextChange}
         focusOnMount={true}
       />
-      <TouchableOpacity style={styles.button} onPress={openTransferModal}>
-        <Text children="პირადი გადარიცხვა" style={{ fontSize: 14 }} />
-        <EditSvg style={{ marginLeft: 10 }} />
+      <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
+        <Text children={!selectedData ? selectedItem.name : selectedData} style={styles.text} />
+        <EditSvg style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

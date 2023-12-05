@@ -6,26 +6,7 @@ import { Plus } from 'assets/SVGs';
 import { ITemplate } from './TransferTemplates.types';
 import { useStyles } from './TransferTemplates.styles';
 
-const data = [
-  {
-    name: 'გივი დაუთაშვილი',
-    iban: 'GE07BS*****3232 GEL',
-  },
-  {
-    name: 'თემო გაბეჩავა',
-    iban: 'GE07BS*****3232 GEL',
-  },
-  {
-    name: 'ზურა ჭავჭანიძე',
-    iban: '01019052736',
-  },
-  {
-    name: 'გივი დაუთაშვილი',
-    iban: '01019052736',
-  },
-];
-
-export const TransferTemplates = () => {
+export const TransferTemplates = ({ templates }: any) => {
   const styles = useStyles();
 
   const renderItem: ListRenderItem<ITemplate> = ({ item, index }) => {
@@ -52,7 +33,7 @@ export const TransferTemplates = () => {
         </Pressable>
       </View>
       <FlatList
-        data={data}
+        data={templates}
         renderItem={renderItem}
         style={styles.list}
         ListFooterComponent={footer}

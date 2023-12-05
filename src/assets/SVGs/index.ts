@@ -84,3 +84,5 @@ export { CardArrow } from './CardArrow';
 export { ChevronLeft } from './ChevronLeft';
 export { EditSvg } from './EditSvg';
 export { TinyChevron } from './TinyChevron';
+export { ConvertSvg } from './Convert';
+export { SuccessTransaction } from './SuccessTransaction';

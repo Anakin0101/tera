@@ -17,7 +17,7 @@ export const useStyles = () => {
     },
     wrapper: {
       ...Layout.center,
-      ...Layout.flexWrap,
+      // ...Layout.flexWrap,
       maxWidth: 80,
     },
     iconContainer: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native';
 import { customInputTypes } from './CustomInput.types';
+import { useStyleTheme } from './CustomInput.styles';
 export const CustomTextInput = ({
   focusOnMount,
   onTextChange,
@@ -8,6 +9,7 @@ export const CustomTextInput = ({
   placeholder,
   ...props
 }: customInputTypes) => {
+  const styles = useStyleTheme();
   const [, setTextInput] = useState('');
 
   const handleTextChange = (text: string) => {
@@ -28,12 +30,7 @@ export const CustomTextInput = ({
       onChangeText={handleTextChange}
       placeholder={placeholder}
       {...props}
-      style={{
-        fontSize: 50,
-        borderWidth: 0,
-        padding: 10,
-        color: 'black',
-      }}
+      style={styles.input}
       selectionColor="rgba(159, 29, 107, 1)"
       textAlign="right"
       placeholderTextColor="#000"

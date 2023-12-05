@@ -8,11 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { clearAccountFromData, clearAccountToData } from 'store/slices/transfers/indext';
-import { cardSwapProps } from './TransferToAccountScreen.types';
 
 export type cardProps = {
-  accountFromData: cardSwapProps | null;
-  accountToData: cardSwapProps | null;
+  accountFromData: any;
+  accountToData: any;
 };
 
 const CardItem = ({
