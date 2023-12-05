@@ -123,7 +123,11 @@
     "search": "Search Account",
     "account": "Personal Transfer/Convertation",
     "yourCurrency": "Your Course  1({{currency}}) = ({{value}})",
-    "amount": "Amount"
+    "amount": "Amount",
+    "saveAsTemplate": "Save as Template",
+    "shareCheck": "Share check",
+    "automaticPay": "Automatic Payment",
+    "success": "Transaction Finished"
   },
   "products": {
     "accountsAndCards": "Accounts and Cards ({{value}})",

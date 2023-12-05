@@ -1,10 +1,10 @@
 import React from 'react';
-
 import { View } from 'react-native';
 import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
 import { useStyleTheme } from './TransferDetailScreen.styles';
+import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
 
-export const TransferDetailsList = ({ selectedItemFromStore }: any) => {
+export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) => {
   const {
     accountFromData,
     accountToData,
@@ -13,41 +13,33 @@ export const TransferDetailsList = ({ selectedItemFromStore }: any) => {
     selectedPrice,
     convertionData,
   } = selectedItemFromStore;
+
   const styles = useStyleTheme();
-  return (
-    <>
+
+  const renderDetailsItem = (label: string, value: string | BlockedAmount[] | undefined) => {
+    return <DetailsItem label={label} value={value} />;
+  };
+
+  const renderTransferDetails = () => {
+    return (
       <View style={styles.backgroundWhite}>
         <View style={styles.detailsSectionWrapper}>
-          <DetailsItem
-            label="საიდან"
-            card={accountFromData.accountName}
-            value={accountFromData.accountIban}
-          />
-          <DetailsItem
-            label="სად"
-            card={accountToData.accountName}
-            value={accountToData.accountIban}
-          />
-          {convertionData.buyAmount ? (
-            <DetailsItem label="თანხა" value={`${convertionData.buyAmount.amountBuy} ₾`} />
-          ) : (
-            <DetailsItem label="თანხა" value={`${selectedPrice} ₾`} />
+          {renderDetailsItem(
+            'საიდან',
+            `${accountFromData.accountName} - ${accountFromData.accountIban}`,
           )}
-          {convertionData.buyAmount && (
-            <DetailsItem label="მისაღები" value={`${convertionData.buyAmount.amountSell} ₾`} />
-          )}
-          {convertionData.buyAmount && (
-            <DetailsItem
-              label="კურსი"
-              value={`შენი კურსი 1$= ${convertionData.buyAmount.specialRate} ₾`}
-            />
-          )}
-          <DetailsItem
-            label="დანიშნულება"
-            value={!selectedData ? selectedItem.name : selectedData}
-          />
+          {renderDetailsItem('სად', `${accountToData.accountName} - ${accountToData.accountIban}`)}
+          {convertion
+            ? renderDetailsItem('თანხა', `${convertionData.buyAmount.amountBuy} ₾`)
+            : renderDetailsItem('თანხა', `${selectedPrice} ₾`)}
+          {convertion && renderDetailsItem('მისაღები', `${convertionData.buyAmount.amountSell} ₾`)}
+          {convertion &&
+            renderDetailsItem('კურსი', `შენი კურსი 1$= ${convertionData.buyAmount.specialRate} ₾`)}
+          {renderDetailsItem('დანიშნულება', !selectedData ? selectedItem.name : selectedData)}
         </View>
       </View>
-    </>
-  );
+    );
+  };
+
+  return renderTransferDetails();
 };

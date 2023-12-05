@@ -1,7 +1,7 @@
 export interface Service {
   name: string;
   icon: React.ReactNode;
-  screen: any;
+  screen?: any;
 }
 
 export interface ServiceItemProps {

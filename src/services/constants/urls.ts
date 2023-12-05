@@ -22,4 +22,6 @@ export const URLS = {
   BlockCard: 'api/Account/BlockCard',
   UnblockCard: 'api/Account/UnblockCard',
   getAmount: 'api/transfers/ConvertAmount',
+  transferToOwnAccount: 'api/Transfers/TransferToOwnAccount',
+  exchange: 'api/Transfers/Exchange',
 };

@@ -52,8 +52,27 @@ export const transfersAPI = createApi({
         };
       },
     }),
+    transferToOwnAccount: builder.mutation<any, any>({
+      query: operations => ({
+        url: URLS.transferToOwnAccount,
+        method: METHOD_NAMES.POST,
+        body: operations,
+      }),
+    }),
+    exchangeAmount: builder.mutation<any, any>({
+      query: operations => ({
+        url: URLS.exchange,
+        method: METHOD_NAMES.POST,
+        body: operations,
+      }),
+    }),
   }),
 });
 
-export const { useGetTemplatesQuery, useConvertAmountBuyQuery, useConvertAmountSellQuery } =
-  transfersAPI;
+export const {
+  useGetTemplatesQuery,
+  useConvertAmountBuyQuery,
+  useConvertAmountSellQuery,
+  useTransferToOwnAccountMutation,
+  useExchangeAmountMutation,
+} = transfersAPI;

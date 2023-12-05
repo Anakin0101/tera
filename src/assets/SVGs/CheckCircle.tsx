@@ -1,8 +1,13 @@
 import * as React from 'react';
 import Svg, { SvgProps, Path } from 'react-native-svg';
 
-export const CheckCircle = (props: SvgProps) => (
-  <Svg width={24} height={24} fill="none" {...props}>
+interface CheckCircleProps extends SvgProps {
+  width?: number;
+  height?: number;
+}
+
+export const CheckCircle = ({ width = 34, height = 54, ...props }: CheckCircleProps) => (
+  <Svg width={width} height={height} fill="none" {...props}>
     <Path
       fill="#43B64B"
       fillRule="evenodd"

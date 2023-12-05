@@ -33,6 +33,7 @@ import {
   TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
+  TRANSACTION_FINISHED_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -87,7 +88,12 @@ export type TransactionsStackParamsList = {
   };
   [TRANSFER_TO_ACCOUNT_SCREEN]: undefined;
   [PRIVATE_TRANSACTION_SCREEN]: undefined;
-  [TRANSFER_DETAIL_SCREEN]: undefined;
+  [TRANSFER_DETAIL_SCREEN]: {
+    convertion?: boolean;
+  };
+  [TRANSACTION_FINISHED_SCREEN]: {
+    convertion?: boolean;
+  };
 };
 
 export type PaymentsStackParamsList = {};

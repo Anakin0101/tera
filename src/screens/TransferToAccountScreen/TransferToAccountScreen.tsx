@@ -12,7 +12,7 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { Convert } from './Convert';
 import { useConvertAmountBuy } from './useConvertAmountBuy';
-
+import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 interface AccountData {
   ccy: string;
 }
@@ -29,7 +29,7 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     selectedItem: any;
   };
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'PrivateTransactionScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   let queryParams = {
     amountBuy: 0.01,
     currencyBuy: accountFromData?.ccy || '',
@@ -48,11 +48,19 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   };
 
   const openTransferScreen = () => {
-    navigate('PrivateTransactionScreen');
+    navigate(PRIVATE_TRANSACTION_SCREEN);
   };
 
   const navigateToTransferDetails = () => {
-    navigate('TransferDetailScreen');
+    if (accountFromData?.ccy !== accountToData?.ccy) {
+      navigate(TRANSFER_DETAIL_SCREEN, {
+        convertion: true,
+      });
+    } else {
+      navigate(TRANSFER_DETAIL_SCREEN, {
+        convertion: false,
+      });
+    }
   };
 
   useEffect(() => {

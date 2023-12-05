@@ -10,6 +10,7 @@ import { useTeraTransfers } from './container';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountFromData } from 'store/slices/transfers/indext';
+import { TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 interface Section {
   title: string;
   data: AccountData[];
@@ -55,7 +56,7 @@ export const MyAccounts = () => {
 
   useEffect(() => {
     if (selectedAccount !== null) {
-      navigate('ToAccountScreen', { selected: selectedAccount });
+      navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
     }
   }, [navigate, selectedAccount]);
 

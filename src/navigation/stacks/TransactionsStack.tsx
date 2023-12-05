@@ -9,9 +9,11 @@ import {
   TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
+  TRANSACTION_FINISHED_SCREEN,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
+import { TransactionFinishedScreen } from 'screens/TransactionFinishedScreen/TransactionFinishedScreen';
 
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
@@ -20,6 +22,7 @@ export type TransactionsStackParamList = {
   [TRANSFER_TO_ACCOUNT_SCREEN]: undefined;
   [PRIVATE_TRANSACTION_SCREEN]: undefined;
   [TRANSFER_DETAIL_SCREEN]: undefined;
+  [TRANSACTION_FINISHED_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -73,6 +76,17 @@ export const TransactionsStack = () => {
       <Screen
         name={TRANSFER_DETAIL_SCREEN}
         component={TransferDetailScreen}
+        options={{
+          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
+          headerStyle: {
+            backgroundColor: '#F9F9F9', // Set the background color here
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FINISHED_SCREEN}
+        component={TransactionFinishedScreen}
         options={{
           title: t('საკუთარ ანგარიშზე გადარიცხვა'),
           headerStyle: {
