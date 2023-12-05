@@ -1,0 +1,32 @@
+import useTheme from 'hooks/useTheme';
+import { StyleSheet } from 'react-native';
+import { FontFamily } from 'theme/Variables';
+
+export const useStyles = () => {
+  const { Spacing, Layout } = useTheme();
+  return StyleSheet.create({
+    container: {
+      ...Layout.alignItemsCenter,
+    },
+    iconContainer: {
+      ...Layout.center,
+      width: 64,
+      height: 64,
+      borderRadius: 64,
+    },
+    buttonsContainer: {
+      marginTop: Spacing.xlg,
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+      ...Layout.fullWidth,
+    },
+    button: {
+      paddingVertical: Spacing.m,
+      flexGrow: 1,
+      margin: Spacing.xs,
+    },
+    buttonText: {
+      fontFamily: FontFamily.medium,
+    },
+  });
+};

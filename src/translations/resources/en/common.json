@@ -29,7 +29,8 @@
     "signin": "Sign in",
     "or": "or",
     "signup": "Sign up",
-    "change_user": "Change user"
+    "change_user": "Change user",
+	"change_user_desc": "In case of user change, easy login will be deactivated"
   },
   "authErrors": {
     "tryAgain": "Entered data is incorrect. Try again",
@@ -176,9 +177,7 @@
     "dueDate": "Due Date",
     "CVV": "CVV",
     "cardInsurance": "Card Insurance",
-    "select": "Select",
     "choosePackage": "Choose Package",
-    "cancel": "Cancel",
     "chooseLanguage": "Choose Language",
     "requestRequisites": "Request for Requisites",
     "blockCard": "Block Card",
@@ -290,6 +289,9 @@
     "georgian": "Georgian",
     "english": "English",
     "confirm": "Confirm",
-    "thankyou": "Thank you"
+    "thankyou": "Thank you",
+	"cancel": "Cancel",
+	"change": "Change",
+	"select": "Select"
   }
 }
