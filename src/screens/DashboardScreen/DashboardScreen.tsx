@@ -50,12 +50,12 @@ export const DashboardScreen = () => {
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
-  const zIndex = useSharedValue(1);
+  // const zIndex = useSharedValue(1);
 
   const renderItem: ListRenderItem<string> = ({ item }) => {
     switch (item) {
       case 'terabank':
-        return <TeraBank translateY={translateY} zIndex={zIndex} />;
+        return <TeraBank translateY={translateY} />;
       case 'otherbanks':
         return <OtherBanks />;
       default:
@@ -73,12 +73,15 @@ export const DashboardScreen = () => {
 
   return (
     <>
-      <HomeHeader translateY={translateY} zIndex={zIndex} />
+      <HomeHeader
+        translateY={translateY}
+        //  zIndex={zIndex}
+      />
       <DashboardTabBar
         onTabPress={onTabPress}
         translateX={translateX}
         translateY={translateY}
-        zIndex={zIndex}
+        // zIndex={zIndex}
       />
       <FlatList
         horizontal

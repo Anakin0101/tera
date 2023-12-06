@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Animated, {
   withTiming,
@@ -7,12 +7,13 @@ import Animated, {
   Extrapolation,
   useSharedValue,
   useAnimatedStyle,
-  interpolateColor,
+  // interpolateColor,
   useAnimatedScrollHandler,
+  Extrapolate,
 } from 'react-native-reanimated';
 import { Card } from './Card';
 import Indicator from './Indicator';
-import useTheme from 'hooks/useTheme';
+// import useTheme from 'hooks/useTheme';
 import { ActionButtons } from './ActionButtons';
 import AvailableBalance from './AvailableBalance';
 import { setShouldCloseCards } from 'store/slices/dashboard';
@@ -49,9 +50,14 @@ const data = [
   },
 ];
 
-export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, translateY }) => {
+export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({
+  anim,
+  // zIndex,
+  translateY,
+  // isOpened,
+}) => {
   const styles = useStyles();
-  const { Colors } = useTheme();
+  // const { Colors } = useTheme();
   const dispatch = useDispatch();
   const ref = useRef<Animated.ScrollView>(null);
   const progress = useSharedValue(0);
@@ -74,21 +80,25 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, trans
     if (!index) {
       return;
     }
+    // dispatch(setIsCardOpen(true));
     ref.current?.scrollTo({
       x: index * (CARD_WIDTH_WITHOUT_PADDING - 15) + index,
       y: 0,
       animated: true,
     });
+    // isOpened.value = true;
     progress.value = withTiming(1);
     anim.value = withTiming(1);
   };
 
   const onSpacePress = () => {
+    // dispatch(setIsCardOpen(false));
     ref.current?.scrollTo({
       x: 0,
       y: 0,
       animated: true,
     });
+    // isOpened.value = false;
     progress.value = withTiming(0);
     anim.value = withTiming(0);
   };
@@ -107,20 +117,20 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, trans
   });
 
   const zIndexCards = useAnimatedStyle(() => ({
-    zIndex: zIndex.value,
+    zIndex: translateY.value <= 0 ? 1 : 0,
   }));
 
-  const zIndexOverlay = useAnimatedStyle(() => ({
-    zIndex: zIndex.value / 2,
-  }));
+  // const zIndexOverlay = useAnimatedStyle(() => ({
+  //   zIndex: zIndex.value / 2,
+  // }));
 
-  const overlayColor = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(
-      translateY.value,
-      [0, 20],
-      [Colors.dashboardBackground, Colors.overlay],
-    ),
-  }));
+  // const overlayColor = useAnimatedStyle(() => ({
+  //   backgroundColor: interpolateColor(
+  //     translateY.value,
+  //     [0, 20],
+  //     [Colors.dashboardBackground, Colors.overlay],
+  //   ),
+  // }));
 
   const additionalPadding =
     data.length === 2
@@ -133,7 +143,7 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, trans
 
   return (
     <>
-      <Animated.View style={[styles.container, zIndexCards]}>
+      <Animated.View style={styles.container}>
         <Pressable style={styles.scrollViewWrapper} onPress={onSpacePress}>
           <Animated.ScrollView
             ref={ref}
@@ -144,7 +154,7 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, trans
             onScroll={scrollHandler}
             scrollEventThrottle={16}
             snapToInterval={OPEN_CARD_WIDTH + 10}
-            style={[scrollViewWrapper]}
+            style={scrollViewWrapper}
             disableIntervalMomentum={true}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={[
@@ -159,7 +169,7 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, trans
                 key={index}
                 item={card}
                 index={index}
-                zIndex={zIndex}
+                // zIndex={zIndex}
                 progress={progress}
                 translateX={translateX}
                 onCardPress={() => onCardPress(index)}
@@ -172,7 +182,7 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({ anim, zIndex, trans
         </ActionButtons>
         <AvailableBalance progress={progress} />
       </Animated.View>
-      <Animated.View style={[styles.overlay, overlayColor, zIndexOverlay]} />
+      {/* <Animated.View style={[styles.overlay, overlayColor, zIndexOverlay]} /> */}
     </>
   );
 };

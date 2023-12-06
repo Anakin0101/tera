@@ -1,17 +1,21 @@
 import { LayoutChangeEvent } from 'react-native';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Animated, { interpolate, interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
+import Animated, {
+  interpolate,
+  //  interpolateColor,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import { ITabBarProps } from './DashboardTabBar.types';
 import { config } from 'utils/config';
 import { TabBarLabel } from '../index';
 import { useStyles } from './DashboardTabBar.styles';
-import { Colors } from 'theme/Variables';
+// import { Colors } from 'theme/Variables';
 
 export const DISTANCE_BETWEEN_TABS = 25;
 
 export const DashboardTabBar: FC<ITabBarProps> = ({
-  zIndex,
+  // zIndex,
   translateX,
   translateY,
   onTabPress,
@@ -47,19 +51,20 @@ export const DashboardTabBar: FC<ITabBarProps> = ({
 
   const zIdx = useAnimatedStyle(() => {
     return {
-      zIndex: zIndex.value,
+      // zIndex: zIndex.value,
+      zIndex: translateY.value <= 0 ? 1 : 0,
     };
   });
 
-  const color = useAnimatedStyle(() => {
-    return {
-      backgroundColor: interpolateColor(
-        translateY.value,
-        [0, 20],
-        [Colors.dashboardBackground, Colors.overlay],
-      ),
-    };
-  });
+  // const color = useAnimatedStyle(() => {
+  //   return {
+  //     backgroundColor: interpolateColor(
+  //       translateY.value,
+  //       [0, 20],
+  //       [Colors.dashboardBackground, Colors.overlay],
+  //     ),
+  //   };
+  // });
 
   return (
     <>
@@ -86,7 +91,7 @@ export const DashboardTabBar: FC<ITabBarProps> = ({
           ]}
         />
       </Animated.View>
-      <Animated.View style={[styles.overlay, color]} />
+      {/* <Animated.View style={[styles.overlay, color]} /> */}
     </>
   );
 };

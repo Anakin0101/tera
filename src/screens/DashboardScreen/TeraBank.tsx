@@ -1,5 +1,13 @@
 import React, { FC, RefObject, useEffect, useRef } from 'react';
-import { View, SectionList, SectionListRenderItem } from 'react-native';
+import {
+  View,
+  SectionList,
+  SectionListRenderItem,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
   runOnJS,
@@ -9,6 +17,8 @@ import Animated, {
   interpolateColor,
   useAnimatedReaction,
   useAnimatedScrollHandler,
+  SharedValue,
+  Extrapolate,
 } from 'react-native-reanimated';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setScrollToTop, setShouldCloseCards } from 'store/slices/dashboard';
@@ -21,6 +31,7 @@ import {
   DashboardSkeleton,
   DashboardTemplates,
   DashboardUpcomingOps,
+  Text,
 } from 'components';
 import { ITeraBankProps } from './DashboardScreen.types';
 import { useStyleTheme } from './DashboardScreen.style';
@@ -42,13 +53,46 @@ const sections = [
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
-const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
+type Props = {
+  translateY: SharedValue<number>;
+};
+
+const BackDrop = ({ translateY }: Props) => {
+  const { Colors } = useTheme();
+
+  const backDropAnimation = useAnimatedStyle(() => {
+    const opacity = interpolate(translateY.value, [0, 230], [0, 0.8]);
+    const display = opacity === 0 ? 'none' : 'flex';
+    return {
+      opacity,
+      display,
+    };
+  });
+
+  return (
+    <TouchableWithoutFeedback>
+      <Animated.View
+        style={[
+          {
+            ...StyleSheet.absoluteFillObject,
+            display: 'none',
+          },
+          backDropAnimation,
+          { backgroundColor: Colors.overlay },
+        ]}
+      />
+    </TouchableWithoutFeedback>
+  );
+};
+
+const MainBank: FC<ITeraBankProps> = ({ translateY }) => {
   const styles = useStyleTheme();
   const { Colors } = useTheme();
   const dispatch = useAppDispatch();
   const anim = useSharedValue(0);
   const ref: RefObject<SectionList<any, any>> = useRef(null);
   const { scrollToTop } = useAppSelector(state => state.dashboard);
+  const shouldClose = useSharedValue(false);
 
   const {
     templates,
@@ -86,10 +130,19 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
     }
   }, [dispatch, scrollToTop]);
 
+  // useAnimatedReaction(
+  //   () => zIndex.value,
+  //   result => {
+  //     if (result === 0) {
+  //       runOnJS(closing)();
+  //     }
+  //   },
+  //   [],
+  // );
   useAnimatedReaction(
-    () => zIndex.value,
+    () => shouldClose.value,
     result => {
-      if (result === 0) {
+      if (result) {
         runOnJS(closing)();
       }
     },
@@ -98,14 +151,15 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateY.value = event.contentOffset.y;
-    event.contentOffset.y > 5 ? (zIndex.value = 0) : (zIndex.value = 1);
+    // event.contentOffset.y > 5 ? (zIndex.value = 0) : (zIndex.value = 1);
+    event.contentOffset.y > 5 ? (shouldClose.value = true) : (shouldClose.value = false);
   });
 
   const borderColor = useAnimatedStyle(() => {
     return {
       borderColor: interpolateColor(
         translateY.value,
-        [0, 20],
+        [0, 230],
         [Colors.dashboardBackground, Colors.overlay],
       ),
     };
@@ -121,11 +175,7 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'templates':
-        return (
-          <View>
-            <DashboardTemplates data={templates} />
-          </View>
-        );
+        return <DashboardTemplates data={templates} />;
       case 'payments':
         return <DashboardUpcomingOps data={tempData.payments} />;
       case 'assets':
@@ -150,26 +200,27 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
     }
   };
 
-  if (
-    customerOperationsLoading ||
-    customerIdLoading ||
-    assetsLoading ||
-    bankerLoading ||
-    overDraftLoading ||
-    creditCardsLoading
-  ) {
-    return (
-      <View style={styles.LoaderContenr}>
-        <View style={styles.loader}>
-          <DashboardSkeleton />
-        </View>
-      </View>
-    );
-  }
+  // if (
+  //   customerOperationsLoading ||
+  //   customerIdLoading ||
+  //   assetsLoading ||
+  //   bankerLoading ||
+  //   overDraftLoading ||
+  //   creditCardsLoading
+  // ) {
+  //   return (
+  //     <View style={styles.LoaderContenr}>
+  //       <View style={styles.loader}>
+  //         <DashboardSkeleton />
+  //       </View>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.wrapper}>
-      <CardsAndBalance anim={anim} translateY={translateY} zIndex={zIndex} />
+      <CardsAndBalance anim={anim} translateY={translateY} />
+      <BackDrop translateY={translateY} />
       <Animated.View style={[styles.sectionList, borderColor]}>
         <AnimatedSectionList
           ref={ref}

@@ -37,8 +37,10 @@ export const useStyleTheme = () => {
     sectionList: {
       ...Layout.overflowHidden,
       width: config.mobileWidth,
-      borderTopLeftRadius: Spacing.ml,
-      borderTopRightRadius: Spacing.ml,
+      // borderTopLeftRadius: Spacing.ml,
+      // borderTopRightRadius: Spacing.ml,
+      borderTopLeftRadius: 18,
+      borderTopRightRadius: 18,
     },
     sectionListContent: {
       flexGrow: 1,
