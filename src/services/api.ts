@@ -12,6 +12,13 @@ import { URLS } from './constants/urls';
 import { RootState } from 'store/index';
 import { Platform } from 'react-native';
 import { METHOD_NAMES } from './constants';
+import {
+  resetUserProfileInfo,
+  setAccessToken,
+  setPostponeEasyLogin,
+  setRefreshToken,
+} from 'store/slices/userInfo';
+import { RefreshTokenAPIResponse } from './apis/authAPI/authAPI.types';
 
 // http://10.213.0.136:4040/swagger/index.html
 // https://middleware-tst.terabank.ge/swagger/index.html
@@ -26,9 +33,16 @@ const mutex = new Mutex();
  * @param headers
  * @returns default headers, that will be used in all API request cycle
  */
-const defaultHeaders = (headers: Headers, api: Pick<BaseQueryApi, 'getState'>) => {
+const defaultHeaders = (
+  headers: Headers,
+  api: Pick<BaseQueryApi, 'getState'>,
+  newAccessToken?: string,
+) => {
   const state = api.getState() as RootState;
-  const accessToken = state?.userInfo?.accessToken || '';
+  const oldAccessToken = state?.userInfo?.accessToken || '';
+
+  const accessToken = newAccessToken || oldAccessToken || '';
+
   if (accessToken) {
     headers.set('Authorization', `Bearer ${accessToken}`);
   }
@@ -46,64 +60,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   prepareHeaders: defaultHeaders,
 });
-
-const refreshTokenLogic = async (
-  api: BaseQueryApi,
-  userIp: string,
-  refreshToken: string,
-  extraOptions: any,
-) => {
-  const state = api.getState() as RootState;
-  const refreshResult = await baseQuery(
-    {
-      method: METHOD_NAMES.POST,
-      url: URLS.refreshToken,
-      headers: { 'X-Bank-UserIp': userIp },
-      body: { refreshToken },
-    },
-    api,
-    extraOptions,
-  );
-
-  if (refreshResult.data) {
-    // TODO: Dispatch actions to update tokens in the state
-    state.userInfo.accessToken = (refreshResult.data as any).accessToken;
-    state.userInfo.refreshToken = (refreshResult.data as any).refreshToken;
-
-    return { success: true };
-  } else {
-    return { success: false };
-  }
-};
-
-const logoutLogic = async (api: BaseQueryApi, userIp: string, deviceToken: string) => {
-  const state = api.getState() as RootState;
-  try {
-    state.userInfo.isLoggingOut = true;
-    const res = await baseQuery(
-      {
-        url: URLS.logout,
-        method: METHOD_NAMES.POST,
-        body: {
-          headers: {
-            'X-Bank-UserIp': userIp,
-            'X-Bank-DeviceToken': deviceToken,
-          },
-        },
-      },
-      api,
-      {}, // extraOptions if any
-    );
-    if (res) {
-      state.userInfo.postponeEasyLogin = false;
-      state.userInfo.isLoggingOut = false;
-      state.userInfo.accessToken = '';
-      state.userInfo.userProfileInfo = null;
-    }
-  } catch (error) {
-    console.error('Error during logout:', error);
-  }
-};
 
 export const baseQueryWithInterceptor: BaseQueryFn<
   FetchArgs,
@@ -154,12 +110,60 @@ export const baseQueryWithInterceptor: BaseQueryFn<
         const deviceToken = state.deviceInfo.deviceToken || '';
         const refreshToken = state.userInfo.refreshToken;
 
-        const { success } = await refreshTokenLogic(api, userIp, refreshToken, extraOptions);
+        const refreshResult = await baseQuery(
+          {
+            method: METHOD_NAMES.POST,
+            url: URLS.refreshToken,
+            headers: { 'X-Bank-UserIp': userIp },
+            body: { refreshToken },
+          },
+          api,
+          extraOptions,
+        );
 
-        if (success) {
-          result = await baseQuery(args, api, extraOptions);
+        if (
+          refreshResult.data &&
+          typeof refreshResult.data === 'object' &&
+          'accessToken' in refreshResult.data &&
+          refreshResult.data.accessToken !== '' &&
+          'refreshToken' in refreshResult.data &&
+          refreshResult.data.refreshToken !== ''
+        ) {
+          const data = refreshResult.data as RefreshTokenAPIResponse;
+          api.dispatch(setRefreshToken(data.refreshToken));
+          api.dispatch(setAccessToken(data.accessToken));
+
+          const updatedHeaders = defaultHeaders(new Headers(customHeaders), api, data.accessToken);
+          const updatedArgs = {
+            ...enhancedArgs,
+            headers: updatedHeaders,
+          };
+
+          result = await baseQuery(updatedArgs, api, extraOptions);
         } else {
-          await logoutLogic(api, userIp, deviceToken);
+          try {
+            const res = await baseQuery(
+              {
+                url: URLS.logout,
+                method: METHOD_NAMES.POST,
+                body: {
+                  headers: {
+                    'X-Bank-UserIp': userIp,
+                    'X-Bank-DeviceToken': deviceToken,
+                  },
+                },
+              },
+              api,
+              {},
+            );
+            if (res && res.data) {
+              api.dispatch(setPostponeEasyLogin(false));
+              api.dispatch(setAccessToken(''));
+              api.dispatch(resetUserProfileInfo());
+            }
+          } catch (error) {
+            console.error('Error during logout:', error);
+          }
         }
       } finally {
         release();

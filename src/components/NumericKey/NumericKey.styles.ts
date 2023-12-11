@@ -5,9 +5,9 @@ export const useStyleTheme = () => {
   const { Colors, FontSize, Spacing, Layout } = useTheme();
   return StyleSheet.create({
     pinItem: {
-      width: 70,
-      height: 46,
-      borderRadius: Spacing.xxl,
+      margin: Spacing.xxs,
+      flex: 1,
+      ...Layout.fullSize,
       ...Layout.justifyContentCenter,
       ...Layout.alignItemsCenter,
     },

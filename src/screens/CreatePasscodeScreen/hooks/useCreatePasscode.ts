@@ -65,7 +65,8 @@ export const useCreatePasscode = (successCallBack: () => void) => {
         successCallBack();
       }
     }
-  }, [repeatPasscode, passcode, t, successCallBack, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [repeatPasscode, passcode]);
 
   return {
     onRepeatPasscodePress,

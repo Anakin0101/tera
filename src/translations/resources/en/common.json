@@ -10,6 +10,7 @@
     "payments": "Payments",
     "more": "More",
     "hello": "Hello",
+    "greetings": "Greetings",
     "settings": "Settings",
     "passcode": "Passcode"
   },
@@ -293,5 +294,8 @@
     "cancel": "Cancel",
     "change": "Change",
     "select": "Select"
+  },
+  "form": {
+    "is_required": "is required"
   }
 }

@@ -7,13 +7,31 @@ import useStyles from './PasswordOnlyLoginScreen.styles';
 import { PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
 import { useUserReset, useLogin, useKeyChain } from 'hooks';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   const styles = useStyles();
   const { savedUserName } = useKeyChain();
-  const { handleSignIn, control } = useLogin(savedUserName);
+  const { handleSignIn } = useLogin();
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
+
+  type FormData = {
+    password: string;
+  };
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit: SubmitHandler<FormData> = data => {
+    const { password } = data;
+    if (savedUserName) {
+      handleSignIn(savedUserName, password);
+    }
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -25,16 +43,14 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
         label="common:passAuth.password"
         marginTop={20}
         secureTextEntry
+        errors={errors}
       />
       <View style={styles.chechboxContainer}>
         <Text children="common:passAuth.forgot" label special />
       </View>
       <View style={styles.buttonCont}>
-        <Button.Primary text="common:passAuth.signin" onPress={handleSignIn} fullWidth />
+        <Button.Primary text="common:passAuth.signin" onPress={handleSubmit(onSubmit)} fullWidth />
       </View>
-      {/* <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
-        <Text children="Start with onboarding" marginTop={20} />
-      </Pressable> */}
     </View>
   );
 };

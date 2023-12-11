@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Alert, Text, View, ViewStyle } from 'react-native';
+import { Alert, SafeAreaView, View, ViewStyle } from 'react-native';
 
 import { useStyleTheme } from './CustomHeader.styles';
 import { CustomHeaderOptions, ElementsType } from './CustomHeader.types';
@@ -8,6 +8,7 @@ import { Back, Notification, Search, Chat } from 'assets/SVGs';
 import { useTranslation } from 'react-i18next';
 import { SvgProps } from 'react-native-svg';
 import { IconComponent } from 'components/IconComponent/IconComponent';
+import { CustomStatusBar, Text } from 'components/index';
 
 export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
   isInitialScreen = false,
@@ -20,6 +21,8 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
   titlePosition = 'center',
   customHeaderContainerStyle,
   bottomBorder,
+  whiteBackground,
+  statusBarColor,
 }) => {
   const { t } = useTranslation();
   const styles = useStyleTheme();
@@ -29,7 +32,8 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
     handler?: () => void,
     IconJSX?: (props: SvgProps) => React.JSX.Element,
     native?: boolean,
-  ) => <IconComponent handler={handler} IconJSX={IconJSX} native={native} />;
+    hasBorder?: boolean,
+  ) => <IconComponent handler={handler} IconJSX={IconJSX} native={native} hasBorder={hasBorder} />;
 
   const handleSearch = () => {
     Alert.alert('search!!!');
@@ -58,20 +62,28 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
   const renderContent = (position: 'left' | 'center' | 'right') => {
     const components = elements
       .filter(element => element && element.position === position)
-      .map(({ handler, icon, native }) => getComponentByElement(handler, icon, native));
+      .map(({ handler, icon, native, hasBorder }) =>
+        getComponentByElement(handler, icon, native, hasBorder),
+      );
 
     const containerStyle = `${position}Container` as keyof typeof styles;
 
     return (
       <View style={styles[containerStyle] as ViewStyle}>
-        <View>
+        <>
           {position === titlePosition && (
-            <Text style={[styles.text, isInitialScreen && styles.isInitialScreenText]}>
+            <Text
+              style={[
+                styles.text,
+                isInitialScreen && styles.isInitialScreenText,
+                backElement && styles.withBackButtonStyle,
+              ]}
+            >
               {t(title)}
             </Text>
           )}
           {position === titlePosition && <Text style={styles.accountText}>{accountTitle}</Text>}
-        </View>
+        </>
         {components.length > 0 && (
           <View style={styles.componentsWrapper}>
             {components.map((comp, index) => (
@@ -84,17 +96,23 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        isInitialScreen && styles.initialContainer,
-        customHeaderContainerStyle,
-        bottomBorder && styles.borderBottom,
-      ]}
-    >
-      {renderContent('left')}
-      {renderContent('center')}
-      {renderContent('right')}
-    </View>
+    <>
+      <CustomStatusBar backgroundColor={statusBarColor} />
+      <SafeAreaView>
+        <View
+          style={[
+            styles.container,
+            isInitialScreen && styles.initialContainer,
+            whiteBackground && styles.whiteBackground,
+            customHeaderContainerStyle,
+            bottomBorder && styles.borderBottom,
+          ]}
+        >
+          {renderContent('left')}
+          {renderContent('center')}
+          {renderContent('right')}
+        </View>
+      </SafeAreaView>
+    </>
   );
 };

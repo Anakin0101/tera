@@ -6,6 +6,7 @@ export type Position = 'left' | 'right' | 'center';
 
 export type IconComponentProps = {
   position?: Position;
+  hasBorder?: boolean;
 };
 
 export type TitleProps = {
@@ -24,6 +25,8 @@ export type CustomHeaderProps = {
   accountTitle?: string;
   customHeaderContainerStyle?: ViewStyle;
   bottomBorder?: boolean;
+  whiteBackground?: boolean;
+  statusBarColor?: string;
 };
 
 export type IconProps = SvgProps & {

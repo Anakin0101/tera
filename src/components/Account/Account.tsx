@@ -4,14 +4,15 @@ import { AccountProps } from './Account.types';
 import { useStyleTheme } from './Account.styles';
 import { UserIcon } from 'assets/SVGs';
 import { useTranslation } from 'react-i18next';
+import { verticalScale } from 'utils/config';
 
 export const Account: FC<AccountProps> = ({ user, style }) => {
   const { t } = useTranslation();
   const styles = useStyleTheme();
   return (
     <View style={[styles.container, style]}>
-      <UserIcon width={96} height={96} />
-      <Text style={styles.label}>{t('navigation.hello')}</Text>
+      <UserIcon width={verticalScale(64)} height={verticalScale(64)} />
+      <Text style={styles.label}>{t('navigation.greetings')}</Text>
       <Text style={styles.user}>{user}</Text>
     </View>
   );

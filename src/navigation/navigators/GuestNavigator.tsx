@@ -31,7 +31,7 @@ export const GuestNavigator = () => {
   logAllKeychainValues();
 
   return (
-    <Navigator initialRouteName={initialRoute} screenOptions={guestNavOptions}>
+    <Navigator initialRouteName={initialRoute} screenOptions={guestNavOptions} key={initialRoute}>
       <Screen component={OnboardingScreen} name={ONBOARDING_SCREEN} />
       <Screen component={PasswordLoginScreen} name={PASSWORD_LOGIN_SCREEN} />
       <Screen component={PasswordOnlyLoginScreen} name={PASSWORD_ONLY_LOGIN_SCREEN} />

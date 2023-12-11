@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "ios-14-pro": "react-native run-ios --simulator='iPhone 14 pro'",
+    "ios-se": "react-native run-ios --simulator='iPhone SE (3rd generation)'",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --write .",

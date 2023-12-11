@@ -6,11 +6,10 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     container: {
       ...Layout.fullSize,
-      ...Layout.justifyContentStart,
-      paddingHorizontal: Spacing.xl,
     },
     wrapper: {
       marginTop: Spacing.xl,
+      paddingHorizontal: Spacing.xl,
     },
   });
 };

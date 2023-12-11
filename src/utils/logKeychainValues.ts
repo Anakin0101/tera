@@ -37,8 +37,10 @@ export const logAllKeychainValues = async () => {
 // TODO - should be removed - testing purposes only!!
 export const resetKeychainValues = async () => {
   try {
-    clearCredentials();
+    const val = await clearCredentials();
+    return val;
   } catch (error) {
     console.error('Error logging keychain values:', error);
+    return false;
   }
 };

@@ -30,6 +30,8 @@ import { productsReducer } from './slices/products';
 import { transfersReducer } from './slices/transfers/indext';
 import { transfersAPI } from 'services/apis/transfersAPI/transfersAPI';
 
+const __DEV__ = process.env.NODE_ENV === 'development';
+
 const persistedTheme = persistReducer(themePersistConfig, themeReducer);
 const persistedUserInfo = persistReducer(userInfoPersistConfig, userInfoReducer);
 const persistedDeviceInfo = persistReducer(deviceInfoPersistConfig, deviceInfoReducer);
@@ -73,9 +75,11 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: __DEV__
+        ? false
+        : {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+          },
     }).concat(middlewares),
 });
 

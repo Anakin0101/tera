@@ -1,19 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import { OTPModalTemp } from 'components/modals/OTPModal/OTPModalTemp';
+import { OTPModal } from 'components/modals';
 import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { GuestStackScreenProps } from 'navigation/types';
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { useLoginByRefreshTokenMutation, useLoginUserMutation } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setPasscodeTries, setUserCredentials } from 'store/slices/userInfo';
-import { setUsername } from 'utils/keychain';
 import { closeModal, openModal } from 'utils/modal';
 import { openToast } from 'utils/toast';
 
-export const useLogin = (savedUsername?: string | null | undefined) => {
-  const { control, reset, getValues } = useForm();
+export const useLogin = () => {
   const [loginUser] = useLoginUserMutation();
   const [loginByRefreshToken] = useLoginByRefreshTokenMutation();
   const dispatch = useAppDispatch();
@@ -21,17 +18,7 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
 
-  const getFormValues = () => {
-    const { loginName, password, save } = getValues();
-    return {
-      loginName: savedUsername || loginName,
-      password,
-      save,
-    };
-  };
-
-  const handleSignInWithOTP = (OTPCode: string) => {
-    const { loginName, password } = getFormValues();
+  const handleSignInWithOTP = (OTPCode: string, loginName: string, password: string) => {
     loginUser({
       loginName,
       password,
@@ -60,43 +47,39 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
       });
   };
 
-  const handleSignIn = () => {
-    const { loginName, password, save } = getFormValues();
-    loginUser({
-      loginName,
-      password,
-      headers: {
-        'X-Bank-Isstrongauthrequest': '1',
-      },
-    })
-      .unwrap()
-      .then(res => {
-        if (res.success) {
-          if (save) {
-            setUsername(loginName);
-          }
-          dispatch(setPasscodeTries(0));
-          res.accessToken
-            ? dispatch(
-                setUserCredentials({
-                  accessToken: res.accessToken,
-                  refreshToken: res.refreshToken,
-                }),
-              )
-            : openModal({
-                element: <OTPModalTemp onFinished={code => handleSignInWithOTP(code)} />,
-              });
-        }
+  const handleSignIn = (loginName: string, password: string) => {
+    if (loginName && password) {
+      loginUser({
+        loginName,
+        password,
+        headers: {
+          'X-Bank-Isstrongauthrequest': '1',
+        },
       })
-      .catch(err => {
-        reset({
-          loginName: '',
-          password: '',
+        .unwrap()
+        .then(res => {
+          if (res.success) {
+            dispatch(setPasscodeTries(0));
+            res.accessToken
+              ? dispatch(
+                  setUserCredentials({
+                    accessToken: res.accessToken,
+                    refreshToken: res.refreshToken,
+                  }),
+                )
+              : openModal({
+                  element: (
+                    <OTPModal onFinished={code => handleSignInWithOTP(code, loginName, password)} />
+                  ),
+                });
+          }
+        })
+        .catch(err => {
+          const errorTitle = (err as { [key: string]: any })?.data?.title;
+          openToast(errorTitle, 'error');
+          console.error(err);
         });
-        const errorTitle = (err as { [key: string]: any })?.data?.title;
-        openToast(errorTitle, 'error');
-        console.error(err);
-      });
+    }
   };
 
   const handlePasscodeSignIn = async () => {
@@ -130,7 +113,6 @@ export const useLogin = (savedUsername?: string | null | undefined) => {
 
   return {
     handleSignIn,
-    control,
     handlePasscodeSignIn,
   };
 };

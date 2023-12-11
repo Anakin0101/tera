@@ -1,5 +1,5 @@
 import { closeModal, openModal } from 'utils/modal';
-import { OTPModalTemp } from 'components/modals/OTPModal/OTPModalTemp';
+import { OTPModal } from 'components/modals';
 import { useAddTrustedDeviceMutation } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -52,8 +52,8 @@ export const useTrustDeviceModal = () => {
   };
 
   const handlePasscodeSet = (enteredOTP: string) => {
-    dispatch(setOTPCode(enteredOTP));
     closeModal();
+    dispatch(setOTPCode(enteredOTP));
     navigate(CREATE_PASSCODE_SCREEN);
   };
 
@@ -78,7 +78,7 @@ export const useTrustDeviceModal = () => {
           );
         }
         openModal({
-          element: <OTPModalTemp onFinished={handlePasscodeSet} />,
+          element: <OTPModal onFinished={handlePasscodeSet} />,
         });
       }
     } catch (error) {

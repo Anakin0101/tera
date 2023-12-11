@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -25,18 +24,13 @@ import { ModalNavigator } from 'navigation/stacks/ModalStack';
 import { useMainNavigator } from 'hooks';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setShouldCloseCards } from 'store/slices/dashboard';
-
-const transactionsIcon = () => (
-  <View
-    style={{
-      width: 40,
-      height: 40,
-      marginTop: 20,
-      borderRadius: 20,
-      backgroundColor: '#f9f1f6',
-    }}
-  />
-);
+import {
+  HomeStackIcon,
+  PaymentsStackIcon,
+  ProductsStackIcon,
+  ProfileStackIcon,
+  TransactionsStackIcon,
+} from 'navigation/TabBarIcons';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const RootStack = createStackNavigator<MainStackParamsList>();
@@ -51,7 +45,10 @@ const TabNavigator = () => {
       <Screen
         name={HOME_STACK}
         component={DashboardStack}
-        options={{ title: t('common:navigation.home') }}
+        options={{
+          title: t('common:navigation.home'),
+          tabBarIcon: HomeStackIcon,
+        }}
         listeners={({ navigation }) => ({
           tabPress: () => {
             const { isFocused, state, goBack } = navigation;
@@ -72,25 +69,25 @@ const TabNavigator = () => {
       <Screen
         name={PRODUCTS_STACK}
         component={ProductsStack}
-        options={{ title: t('common:navigation.products') }}
+        options={{ title: t('common:navigation.products'), tabBarIcon: ProductsStackIcon }}
       />
       <Screen
         name={TRANSACTIONS_STACK}
         component={TransactionsStack}
         options={{
           title: '',
-          tabBarIcon: transactionsIcon,
+          tabBarIcon: TransactionsStackIcon,
         }}
       />
       <Screen
         name={PAYMENTS_STACK}
         component={PaymentsStack}
-        options={{ title: t('common:navigation.payments') }}
+        options={{ title: t('common:navigation.payments'), tabBarIcon: PaymentsStackIcon }}
       />
       <Screen
         name={PROFILE_STACK}
         component={ProfileNavigator}
-        options={{ title: t('common:navigation.more') }}
+        options={{ title: t('common:navigation.more'), tabBarIcon: ProfileStackIcon }}
       />
     </Navigator>
   );

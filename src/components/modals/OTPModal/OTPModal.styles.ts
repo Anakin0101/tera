@@ -1,15 +1,25 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Spacing, Layout, Colors, FontSize, Fonts } = useTheme();
   return StyleSheet.create({
-    borderStyleBase: {
-      width: 30,
-      height: 45,
+    container: {
+      ...Layout.alignItemsCenter,
+      height: verticalScale(200),
+      paddingHorizontal: Spacing.xxl,
     },
-    container: { ...Layout.alignItemsCenter, height: 500 },
-    text: { fontSize: FontSize.large, textAlign: 'center' },
+    OTPNumberLabel: { fontSize: verticalScale(FontSize.large), textAlign: 'center' },
+    OTPInputContainer: { flexDirection: 'row', justifyContent: 'center', height: 50 },
+    inputItem: {
+      width: Spacing.xxl,
+      height: Spacing.xxxl,
+      margin: Spacing.xs,
+      textAlign: 'center',
+      borderBottomWidth: 1,
+      borderBottomColor: Colors.gray200,
+    },
     label: {
       fontSize: FontSize.small,
       textAlign: 'center',

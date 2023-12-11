@@ -11,7 +11,6 @@ export const useStyleTheme = () => {
     },
     iconRoundedStyles: {
       borderRadius: BorderRadius.full,
-      backgroundColor: Colors.white,
       padding: Spacing.xs,
       margin: Spacing.xs,
     },

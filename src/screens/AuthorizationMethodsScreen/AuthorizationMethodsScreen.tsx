@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, SafeAreaView, View } from 'react-native';
 import { useStyleTheme } from './AuthorizationMethodsScreen.styles';
 import { AuthorizationMethodPasscode } from 'components/AuthorizationMethod/AuthorizationMethodPasscode/AuthorizationMethodPasscode';
 import { useNavigation } from '@react-navigation/native';
@@ -67,13 +67,13 @@ export const AuthorizationMethodsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
         <AuthorizationMethodPasscode handleSetNewPasscode={handleSetNewPasscode} />
         {deviceSupportsBiometricAuth && (
           <AuthorizationMethodBiometrics handleSetBiometrics={handleSetBiometrics} />
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

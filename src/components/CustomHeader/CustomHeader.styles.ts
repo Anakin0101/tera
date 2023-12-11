@@ -1,5 +1,6 @@
 import useTheme from 'hooks/useTheme';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { FontSize, Spacing, Layout, BorderRadius, Colors, Fonts } = useTheme();
@@ -8,31 +9,36 @@ export const useStyleTheme = () => {
       ...Layout.row,
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
-      backgroundColor: Colors.headerBackground,
-      paddingHorizontal: Spacing.ml,
-      // TODO !! - think of a better solution here for notch
-      paddingTop: Platform.OS === 'ios' ? Spacing.xxl : Spacing.ml,
-      height: 96,
+      backgroundColor: Colors.dashboardBackground,
+      height: verticalScale(68),
     },
     initialContainer: {
-      height: 116,
+      height: verticalScale(104),
+    },
+    whiteBackground: {
+      backgroundColor: Colors.white,
     },
     leftContainer: {
       ...Layout.row,
       ...Layout.justifyContentStart,
+      marginLeft: Spacing.ml,
+      height: '100%',
+      alignItems: 'center',
+    },
+    withBackButtonStyle: {
+      marginLeft: -Spacing.xlg,
     },
     centerContainer: {
       ...Layout.growfull,
       ...Layout.rowCenter,
-      paddingHorizontal: 'auto',
-      marginHorizontal: 'auto',
-      minWidth: '60%',
+      height: '100%',
     },
     rightContainer: {
       ...Layout.row,
       ...Layout.justifyContentEnd,
-      maxWidth: '30%',
-      ...Layout.growfull,
+      marginRight: Spacing.ml,
+      position: 'absolute',
+      right: 0,
     },
     componentsWrapper: {
       ...Layout.row,

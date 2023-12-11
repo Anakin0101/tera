@@ -57,7 +57,12 @@ export type AddTrustedDeviceAPIRequestType = {
 };
 
 // logout
-export type LogoutAPIResponseType = {};
+export type LogoutAPIResponseType = {
+  success: boolean;
+  error: unknown;
+  pending: boolean;
+  channelData: unknown;
+};
 export type LogoutAPIRequestType = {};
 
 // getTrustedDevices
@@ -109,4 +114,9 @@ export type GetUserInfoAPIResponseType = {
   passwordExpired: boolean;
   createdAutomatically: boolean;
   secretWord: string;
+};
+
+export type RefreshTokenAPIResponse = {
+  accessToken: string;
+  refreshToken: string;
 };

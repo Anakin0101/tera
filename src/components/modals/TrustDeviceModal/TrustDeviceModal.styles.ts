@@ -1,5 +1,6 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Colors, FontSize, Spacing, Layout } = useTheme();
@@ -8,8 +9,8 @@ export const useStyleTheme = () => {
       ...Layout.center,
     },
     icon: {
-      paddingTop: Spacing.xxl,
-      paddingBottom: Spacing.xl,
+      paddingTop: verticalScale(Spacing.xxl),
+      paddingBottom: verticalScale(Spacing.xl),
     },
     text: {
       fontSize: FontSize.regular,
@@ -20,8 +21,8 @@ export const useStyleTheme = () => {
       fontSize: FontSize.small,
       textAlign: 'center',
       color: Colors.textBlack500,
-      paddingTop: Spacing.lg,
-      paddingBottom: Spacing.xxxl,
+      paddingTop: verticalScale(Spacing.lg),
+      paddingBottom: verticalScale(Spacing.xxxl),
     },
   });
 };

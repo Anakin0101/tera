@@ -17,6 +17,7 @@ export const userInfoPersistConfig = {
     'postponeEasyLogin',
     'isPasscodeSet',
     'isBiometricSet',
+    'isUsernameSet',
     'passcodeTries',
   ],
 };
