@@ -8,4 +8,5 @@ export type DashboardStateProps = {
   maskText: boolean;
   shouldCloseCards: boolean;
   scrollToTop: boolean;
+  // isCardOpen: boolean;
 };

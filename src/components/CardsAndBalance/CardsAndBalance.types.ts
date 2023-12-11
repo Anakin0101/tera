@@ -3,7 +3,8 @@ import { SharedValue } from 'react-native-reanimated';
 export interface ICardsAndBalanceProps {
   anim: SharedValue<number>;
   translateY: SharedValue<number>;
-  zIndex: SharedValue<number>;
+  // zIndex: SharedValue<number>;
+  // isOpened: SharedValue<boolean>;
 }
 
 export interface AvailableBalanceProps {
@@ -45,7 +46,7 @@ export interface CardProps {
   onCardPress: () => void;
   progress: SharedValue<number>;
   translateX: SharedValue<number>;
-  zIndex: SharedValue<number>;
+  // zIndex: SharedValue<number>;
 }
 
 export interface IndicatorProps {

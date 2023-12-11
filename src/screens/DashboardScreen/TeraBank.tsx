@@ -1,5 +1,5 @@
 import React, { FC, RefObject, useEffect, useRef } from 'react';
-import { View, SectionList, SectionListRenderItem } from 'react-native';
+import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
   runOnJS,
@@ -9,13 +9,14 @@ import Animated, {
   interpolateColor,
   useAnimatedReaction,
   useAnimatedScrollHandler,
+  Extrapolation,
+  withTiming,
 } from 'react-native-reanimated';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setScrollToTop, setShouldCloseCards } from 'store/slices/dashboard';
+import { setScrollToTop } from 'store/slices/dashboard';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useTheme } from 'hooks';
 import {
-  CardsAndBalance,
   DashboardAssets,
   DashboardOperations,
   DashboardSkeleton,
@@ -29,6 +30,12 @@ import { Banker } from 'components';
 import { tempData } from './Sections';
 import { Offers } from 'components';
 import { DashboardPensionFund } from 'components/DashboardPensionFund/DashboardPensionFund';
+import { config } from 'utils/config';
+import AvailableBalance from 'components/CardsAndBalance/AvailableBalance';
+import { OPEN_CARD_WIDTH } from 'constants/Dashboard';
+import { Card } from 'components/CardsAndBalance/Card';
+import { ActionButtons } from 'components/CardsAndBalance/ActionButtons';
+import Indicator from 'components/CardsAndBalance/Indicator';
 
 const sections = [
   { title: 'templates', data: [{}] },
@@ -42,13 +49,44 @@ const sections = [
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
-const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
+const CARD_WIDTH_WITHOUT_PADDING = OPEN_CARD_WIDTH + 24;
+const EMPTY_SPACE = (config.mobileWidth - OPEN_CARD_WIDTH) / 2;
+
+const data = [
+  {
+    color: '#922a69',
+  },
+  {
+    color: '#1F1E24',
+  },
+  {
+    color: '#922a69',
+  },
+  {
+    color: '#922a69',
+  },
+  {
+    color: '#922a69',
+  },
+  {
+    color: '#922a69',
+  },
+  {
+    color: '#922a69',
+  },
+];
+
+const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   const styles = useStyleTheme();
   const { Colors } = useTheme();
   const dispatch = useAppDispatch();
-  const anim = useSharedValue(0);
-  const ref: RefObject<SectionList<any, any>> = useRef(null);
+  const sectionListRef: RefObject<SectionList<any, any>> = useRef(null);
+  const scrollViewRef = useRef<Animated.ScrollView>(null);
   const { scrollToTop } = useAppSelector(state => state.dashboard);
+  const shouldClose = useSharedValue(false);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  const cardsOffset = useSharedValue(0);
 
   const {
     templates,
@@ -65,14 +103,20 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
     overDraftLoading,
     creditCardsLoading,
   } = useDashboardScreen();
-  useScrollToTop(ref);
+
+  useScrollToTop(sectionListRef);
 
   const closing = () => {
-    dispatch(setShouldCloseCards(true));
+    scrollViewRef.current?.scrollTo({
+      x: 0,
+      y: 0,
+      animated: true,
+    });
+    cardsOffset.value = withTiming(0);
   };
 
   const scrollToTopHandler = () => {
-    ref?.current?.scrollToLocation({
+    sectionListRef?.current?.scrollToLocation({
       itemIndex: 0,
       viewOffset: 200,
       sectionIndex: 0,
@@ -87,9 +131,9 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
   }, [dispatch, scrollToTop]);
 
   useAnimatedReaction(
-    () => zIndex.value,
+    () => shouldClose.value,
     result => {
-      if (result === 0) {
+      if (result) {
         runOnJS(closing)();
       }
     },
@@ -98,21 +142,22 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateY.value = event.contentOffset.y;
-    event.contentOffset.y > 5 ? (zIndex.value = 0) : (zIndex.value = 1);
+    scroll.value = event.contentOffset.y;
+    event.contentOffset.y > 0 ? (shouldClose.value = true) : (shouldClose.value = false);
   });
 
   const borderColor = useAnimatedStyle(() => {
     return {
       borderColor: interpolateColor(
         translateY.value,
-        [0, 20],
+        [0, 230],
         [Colors.dashboardBackground, Colors.overlay],
       ),
     };
   });
 
   const animPaddingTop = useAnimatedStyle(() => {
-    const paddingTop = interpolate(anim.value, [0, 1], [230, 425]);
+    const paddingTop = interpolate(cardsOffset.value, [0, 1], [230, 425]);
     return {
       paddingTop,
     };
@@ -121,11 +166,7 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
       case 'templates':
-        return (
-          <View>
-            <DashboardTemplates data={templates} />
-          </View>
-        );
+        return <DashboardTemplates data={templates} />;
       case 'payments':
         return <DashboardUpcomingOps data={tempData.payments} />;
       case 'assets':
@@ -150,6 +191,57 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
     }
   };
 
+  const openCards = (index: number) => {
+    if (!index) {
+      return;
+    }
+    scrollViewRef.current?.scrollTo({
+      x: index * (CARD_WIDTH_WITHOUT_PADDING - 15) + index,
+      y: 0,
+      animated: true,
+    });
+    cardsOffset.value = withTiming(1);
+  };
+
+  const closeCards = () => {
+    scrollViewRef.current?.scrollTo({
+      x: 0,
+      y: 0,
+      animated: true,
+    });
+    cardsOffset.value = withTiming(0);
+  };
+
+  const handleScroll = useAnimatedScrollHandler(event => {
+    translateX.value = event.contentOffset.x;
+    cardsOffset.value = interpolate(event.contentOffset.x, [0, 250], [0, 1], Extrapolation.CLAMP);
+  });
+
+  const cardContainerStyle = useAnimatedStyle(() => {
+    return {
+      zIndex: translateY.value > 0 ? -1 : 999,
+      height: interpolate(cardsOffset.value, [0, 1], [170, 260], Extrapolation.CLAMP),
+    };
+  });
+
+  const backDropAnimation = useAnimatedStyle(() => {
+    const opacity = interpolate(translateY.value, [0, 230], [0, 0.8]);
+    const display = opacity === 0 ? 'none' : 'flex';
+    return {
+      opacity,
+      display,
+    };
+  });
+
+  const additionalPadding =
+    data.length === 2
+      ? EMPTY_SPACE - 5
+      : data.length === 3
+      ? EMPTY_SPACE - 15
+      : data.length === 4
+      ? EMPTY_SPACE - 20
+      : 0;
+
   if (
     customerOperationsLoading ||
     customerIdLoading ||
@@ -168,24 +260,63 @@ const MainBank: FC<ITeraBankProps> = ({ translateY, zIndex }) => {
   }
 
   return (
-    <View style={styles.wrapper}>
-      <CardsAndBalance anim={anim} translateY={translateY} zIndex={zIndex} />
-      <Animated.View style={[styles.sectionList, borderColor]}>
-        <AnimatedSectionList
-          ref={ref}
-          sections={sections}
-          renderItem={renderItem}
-          bounces={false}
-          nestedScrollEnabled
-          style={animPaddingTop}
-          onScroll={scrollHandler}
-          scrollEventThrottle={16}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(_, index) => index.toString()}
-          contentContainerStyle={styles.sectionListContent}
-        />
-      </Animated.View>
-    </View>
+    <>
+      <View style={styles.wrapper}>
+        <Animated.View style={[styles.cardsContainer, cardContainerStyle]}>
+          <Pressable style={[styles.scrollViewWrapper]} onPress={closeCards}>
+            <Animated.ScrollView
+              ref={scrollViewRef}
+              horizontal
+              bounces={false}
+              pagingEnabled
+              decelerationRate="fast"
+              onScroll={handleScroll}
+              scrollEventThrottle={16}
+              snapToInterval={OPEN_CARD_WIDTH + 10}
+              disableIntervalMomentum={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={[
+                styles.content,
+                {
+                  width: data.length * CARD_WIDTH_WITHOUT_PADDING + additionalPadding,
+                },
+              ]}
+            >
+              {data.map((card, index) => (
+                <Card
+                  key={index}
+                  item={card}
+                  index={index}
+                  progress={cardsOffset}
+                  translateX={translateX}
+                  onCardPress={() => openCards(index)}
+                />
+              ))}
+            </Animated.ScrollView>
+          </Pressable>
+          <ActionButtons progress={cardsOffset} onSpacePress={closeCards}>
+            <Indicator data={data} translateX={translateX} />
+          </ActionButtons>
+          <AvailableBalance progress={cardsOffset} />
+        </Animated.View>
+        <Animated.View style={[styles.backdrop, backDropAnimation]} />
+        <Animated.View style={[styles.sectionList, borderColor]}>
+          <AnimatedSectionList
+            ref={sectionListRef}
+            sections={sections}
+            renderItem={renderItem}
+            bounces={false}
+            nestedScrollEnabled
+            style={animPaddingTop}
+            onScroll={scrollHandler}
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(_, index) => index.toString()}
+            contentContainerStyle={styles.sectionListContent}
+          />
+        </Animated.View>
+      </View>
+    </>
   );
 };
 
