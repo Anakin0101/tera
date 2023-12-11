@@ -42,11 +42,12 @@ export const Slider = <ItemT,>({
     } else {
       scrollTo(index);
     }
-  }, [index]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: ViewableItems) => {
-      if (viewableItems.length) {
+      if (viewableItems && viewableItems.length) {
         setActiveIndex(viewableItems[0].index || 0);
       }
     },

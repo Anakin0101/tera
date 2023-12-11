@@ -1,12 +1,6 @@
 import React, { FC } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import Animated, {
-  SharedValue,
-  interpolate,
-  // interpolateColor,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
-import useTheme from 'hooks/useTheme';
+import { TouchableWithoutFeedback, View } from 'react-native';
+import Animated, { SharedValue, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { IconComponent, Text } from '../index';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setScrollToTop } from 'store/slices/dashboard';
@@ -29,7 +23,7 @@ type Props = {
 };
 
 const BackDrop = ({ translateY, close }: Props) => {
-  const { Colors } = useTheme();
+  const styles = useStyles();
   const backDropAnimation = useAnimatedStyle(() => {
     const opacity = interpolate(translateY.value, [0, 230], [0, 0.8]);
     const display = opacity === 0 ? 'none' : 'flex';
@@ -41,48 +35,22 @@ const BackDrop = ({ translateY, close }: Props) => {
 
   return (
     <TouchableWithoutFeedback onPress={close}>
-      <Animated.View
-        style={[
-          {
-            ...StyleSheet.absoluteFillObject,
-            display: 'none',
-          },
-          backDropAnimation,
-          { backgroundColor: Colors.overlay },
-        ]}
-      />
+      <Animated.View style={[styles.backdrop, backDropAnimation]} />
     </TouchableWithoutFeedback>
   );
 };
 
-export const HomeHeader: FC<IHomeHeaderProps> = ({
-  // zIndex,
-  translateY,
-}) => {
+export const HomeHeader: FC<IHomeHeaderProps> = ({ translateY }) => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
-  // const { Colors } = useTheme();
 
   const onTouch = () => {
     dispatch(setScrollToTop(true));
   };
 
-  // const overlayColor = useAnimatedStyle(() => ({
-  //   backgroundColor: interpolateColor(
-  //     translateY.value,
-  //     [0, 20],
-  //     [Colors.dashboardBackground, Colors.overlay],
-  //   ),
-  // }));
-
   const zIndexHeader = useAnimatedStyle(() => ({
-    // zIndex: zIndex.value,
     zIndex: translateY.value !== 0 ? 0 : 1,
   }));
-
-  // const zIndexOverlay = useAnimatedStyle(() => ({
-  //   zIndex: zIndex.value / 2,
-  // }));
 
   return (
     <View style={styles.wrapper}>
@@ -104,7 +72,6 @@ export const HomeHeader: FC<IHomeHeaderProps> = ({
           <Badge quantity={4} />
         </Animated.View>
       </Animated.View>
-      {/* <Animated.View style={[styles.overlay, overlayColor, zIndexOverlay]} onTouchStart={onTouch} /> */}
       <BackDrop translateY={translateY} close={onTouch} />
     </View>
   );

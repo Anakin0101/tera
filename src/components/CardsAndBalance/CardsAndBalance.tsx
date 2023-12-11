@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Animated, {
   withTiming,
@@ -9,7 +9,6 @@ import Animated, {
   useAnimatedStyle,
   // interpolateColor,
   useAnimatedScrollHandler,
-  Extrapolate,
 } from 'react-native-reanimated';
 import { Card } from './Card';
 import Indicator from './Indicator';
@@ -53,7 +52,7 @@ const data = [
 export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({
   anim,
   // zIndex,
-  translateY,
+  // translateY,
   // isOpened,
 }) => {
   const styles = useStyles();
@@ -116,9 +115,17 @@ export const CardsAndBalance: FC<ICardsAndBalanceProps> = ({
     anim.value = interpolate(event.contentOffset.x, [0, 250], [0, 1], Extrapolation.CLAMP);
   });
 
-  const zIndexCards = useAnimatedStyle(() => ({
-    zIndex: translateY.value <= 0 ? 1 : 0,
-  }));
+  // const zIndex = useDerivedValue(() => {
+  //   return translateY.value > 0 || dragBegin.value ? -1 : 1000;
+  // });
+
+  // const zIndexCards = useAnimatedStyle(() => ({
+  //   zIndex: zIndex.value,
+  // }));
+
+  // const zIndexCards = useAnimatedStyle(() => ({
+  //   zIndex: dragBegin.value ? -1 : 999,
+  // }));
 
   // const zIndexOverlay = useAnimatedStyle(() => ({
   //   zIndex: zIndex.value / 2,

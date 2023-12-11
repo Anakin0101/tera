@@ -49,13 +49,12 @@ export const DashboardScreen = () => {
 
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
-  // const zIndex = useSharedValue(1);
+  const scroll = useSharedValue(0);
 
   const renderItem: ListRenderItem<string> = ({ item }) => {
     switch (item) {
       case 'terabank':
-        return <TeraBank translateY={translateY} />;
+        return <TeraBank scroll={scroll} />;
       case 'otherbanks':
         return <OtherBanks />;
       default:
@@ -73,16 +72,8 @@ export const DashboardScreen = () => {
 
   return (
     <>
-      <HomeHeader
-        translateY={translateY}
-        //  zIndex={zIndex}
-      />
-      <DashboardTabBar
-        onTabPress={onTabPress}
-        translateX={translateX}
-        translateY={translateY}
-        // zIndex={zIndex}
-      />
+      <HomeHeader translateY={scroll} />
+      <DashboardTabBar onTabPress={onTabPress} translateX={translateX} translateY={scroll} />
       <FlatList
         horizontal
         pagingEnabled
@@ -96,12 +87,6 @@ export const DashboardScreen = () => {
       <Pressable onPress={handleClearAllFromStorage}>
         <Text style={[Fonts.semiLarge]} children="Clear all from storage" />
       </Pressable>
-      {/* <Pressable onPress={handleClearLoginName}>
-        <Text style={[Fonts.semiLarge]} children="clear user's loginName" />
-      </Pressable>
-      <Pressable onPress={handleClearCredentials}>
-        <Text style={[Fonts.semiLarge]} children="clear credentials" />
-      </Pressable> */}
     </>
   );
 };

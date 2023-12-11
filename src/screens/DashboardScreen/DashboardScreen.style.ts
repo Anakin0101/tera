@@ -76,5 +76,22 @@ export const useStyleTheme = () => {
       gap: Spacing.m,
       paddingRight: 5,
     },
+    cardsContainer: {
+      ...Layout.absolute,
+      top: MetricsSizes.regular,
+      width: config.mobileWidth,
+    },
+    scrollViewWrapper: {
+      marginTop: MetricsSizes.regular,
+    },
+    content: {
+      gap: 10,
+      paddingLeft: 35,
+    },
+    backdrop: {
+      ...StyleSheet.absoluteFillObject,
+      display: 'none',
+      backgroundColor: Colors.overlay,
+    },
   });
 };
