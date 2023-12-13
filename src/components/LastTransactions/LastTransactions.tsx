@@ -5,6 +5,8 @@ import { useStyles } from './LastTransactions.styles';
 import LastTransactionItem from './LastTransactionItem';
 import { LastTransactionsProps } from './LastTransaction.types';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
 
 export const LastTransactions: FC<LastTransactionsProps> = ({
   data,
@@ -15,6 +17,11 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
   style,
 }) => {
   const styles = useStyles();
+  const { navigate } = useNavigation<MainStackScreenProps<'AllTransactionsScreen'>>();
+
+  const pressHandler = () => {
+    navigate('AllTransactionsScreen');
+  };
 
   const renderItem: ListRenderItem<TransactionType> = ({ item, index }) => {
     return <LastTransactionItem item={item} index={index} />;
@@ -22,7 +29,7 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
 
   const footer = () => {
     return (
-      <Pressable style={styles.seeAll}>
+      <Pressable style={styles.seeAll} onPress={pressHandler}>
         <Text children="transfers.all" special size={14} lineHeight={20} />
       </Pressable>
     );

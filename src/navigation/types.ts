@@ -43,6 +43,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type MainStackParamsList = {
   [INITIAL_STACK]: undefined;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
+  [ALL_TRANSACTIONS_SCREEN]: { iban?: string } | undefined;
 };
 
 export type ModalStackParamsList = {
@@ -55,7 +56,6 @@ export type ModalStackParamsList = {
 export type DashboardStackParamsList = {
   [DASHBOARD_SCREEN]: undefined;
   [ALL_TEMPLATES_SCREEN]: undefined;
-  [ALL_TRANSACTIONS_SCREEN]: undefined;
 };
 
 export type ProductsStackParamsList = {

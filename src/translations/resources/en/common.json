@@ -299,6 +299,7 @@
     "is_required": "is required"
   },
   "transactions": {
+    "title": "Transactions",
     "searchTransaction": "Search for a transaction",
     "date": "Date",
     "account": "Account",

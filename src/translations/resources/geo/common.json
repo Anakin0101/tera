@@ -298,6 +298,7 @@
     "is_required": "უნდა იყოს შევსებული"
   },
   "transactions": {
+    "title": "ტრანზაქციები",
     "searchTransaction": "მოძებნე ტრანზაქცია",
     "date": "თარიღი",
     "account": "ანგარიში",

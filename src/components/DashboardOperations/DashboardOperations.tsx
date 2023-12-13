@@ -6,7 +6,7 @@ import useTheme from 'hooks/useTheme';
 import { OperationsCard } from 'components/OperationsCard/OperationsCard';
 import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { useNavigation } from '@react-navigation/native';
-import { DashboardStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 
 type DashboardOperationsProps = {
   data?: Transactions[];
@@ -15,7 +15,7 @@ type DashboardOperationsProps = {
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
-  const { navigate } = useNavigation<DashboardStackScreenProps<'AllTransactionsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'AllTransactionsScreen'>>();
 
   const handlePress = () => {
     navigate('AllTransactionsScreen');
