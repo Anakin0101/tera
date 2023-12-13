@@ -297,5 +297,13 @@
   },
   "form": {
     "is_required": "is required"
+  },
+  "transactions": {
+    "searchTransaction": "Search for a transaction",
+    "date": "Date",
+    "account": "Account",
+    "transactionType": "Transaction type",
+    "income": "Income",
+    "expense": "Expense"
   }
 }

@@ -1,0 +1,58 @@
+import { StyleSheet } from 'react-native';
+import { useTheme } from 'hooks';
+import { config, moderateScale } from 'utils/config';
+
+export const useStyles = () => {
+  const { Layout, Spacing, Colors, FontFamily } = useTheme();
+
+  return StyleSheet.create({
+    container: {
+      marginHorizontal: Spacing.xl,
+    },
+    inputContaner: {
+      ...Layout.rowHCenter,
+      backgroundColor: Colors.white,
+      paddingHorizontal: Spacing.ml,
+      paddingVertical: Spacing.md,
+      borderRadius: 40,
+      marginTop: moderateScale(Spacing.xl),
+    },
+    input: {
+      marginHorizontal: Spacing.s,
+      fontFamily: FontFamily.Regular,
+    },
+    scrollView: {
+      marginTop: Spacing.xl,
+    },
+    contentContainer: {
+      gap: Spacing.s,
+    },
+    filterItem: {
+      paddingHorizontal: Spacing.ml,
+      paddingVertical: Spacing.s,
+      backgroundColor: Colors.white,
+      borderRadius: 40,
+    },
+    totalsContainer: {
+      ...Layout.row,
+      marginTop: Spacing.xl,
+      gap: Spacing.m,
+    },
+    total: {
+      ...Layout.fill,
+      paddingVertical: Spacing.l,
+      paddingHorizontal: Spacing.lg,
+      borderRadius: Spacing.m,
+    },
+    sectionListWrapper: {
+      ...Layout.overflowHidden,
+      marginTop: Spacing.lg,
+      width: config.mobileWidth,
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
+      borderColor: Colors.white,
+      backgroundColor: Colors.white,
+      height: 500,
+    },
+  });
+};

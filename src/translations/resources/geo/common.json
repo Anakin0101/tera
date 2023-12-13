@@ -296,5 +296,13 @@
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული"
+  },
+  "transactions": {
+    "searchTransaction": "მოძებნე ტრანზაქცია",
+    "date": "თარიღი",
+    "account": "ანგარიში",
+    "transactionType": "ტრანზაქციის ტიპი",
+    "income": "შემოსავალი",
+    "expense": "ხარჯი"
   }
 }

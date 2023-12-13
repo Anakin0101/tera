@@ -5,6 +5,8 @@ import { useStyles } from './DashboardOperations.styles';
 import useTheme from 'hooks/useTheme';
 import { OperationsCard } from 'components/OperationsCard/OperationsCard';
 import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { useNavigation } from '@react-navigation/native';
+import { DashboardStackScreenProps } from 'navigation/types';
 
 type DashboardOperationsProps = {
   data?: Transactions[];
@@ -13,6 +15,11 @@ type DashboardOperationsProps = {
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
+  const { navigate } = useNavigation<DashboardStackScreenProps<'AllTransactionsScreen'>>();
+
+  const handlePress = () => {
+    navigate('AllTransactionsScreen');
+  };
 
   return (
     <>
@@ -39,7 +46,7 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
             </View>
           </View>
         </View>
-        <Button.Outline fixedWidth text="dashboard.all" />
+        <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
       </View>
       <Divider />
     </>

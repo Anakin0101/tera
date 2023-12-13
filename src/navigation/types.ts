@@ -36,6 +36,7 @@ import {
   CREATE_PASSCODE_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
   PROFILE_STACK,
+  ALL_TRANSACTIONS_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -54,6 +55,7 @@ export type ModalStackParamsList = {
 export type DashboardStackParamsList = {
   [DASHBOARD_SCREEN]: undefined;
   [ALL_TEMPLATES_SCREEN]: undefined;
+  [ALL_TRANSACTIONS_SCREEN]: undefined;
 };
 
 export type ProductsStackParamsList = {

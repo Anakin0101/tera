@@ -8,7 +8,7 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { setCards, setLastTransactions } from 'store/slices/products';
 import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
-import { useGetLastTransactionsByAccNumberQuery } from 'services/apis/productsAPI/productsAPI';
+import { useGetLastTransactionsByAccNumberMutation } from 'services/apis/productsAPI/productsAPI';
 import { RequestStatusModal } from 'components/modals/RequestStatusModal/RequestStatusModal';
 
 const currentDate = dayjs().toISOString();
@@ -23,15 +23,19 @@ export const useAccountDetails = (iban: string, index: number) => {
     return groupedAccountsByIban[activeIndex];
   }, [groupedAccountsByIban, activeIndex]);
 
-  const { data: lastTransactions } = useGetLastTransactionsByAccNumberQuery(
-    {
-      count: 4,
-      startDate: threeMonthsAgo,
-      endDate: currentDate,
-      accountNumber: account?.accountNumber,
-    },
-    { skip: !account },
-  );
+  const [getLastTransactions, { data: lastTransactions }] =
+    useGetLastTransactionsByAccNumberMutation();
+
+  useEffect(() => {
+    if (account) {
+      getLastTransactions({
+        count: 4,
+        startDate: threeMonthsAgo,
+        endDate: currentDate,
+        accountNumber: account?.accountNumber,
+      });
+    }
+  }, [account, getLastTransactions]);
 
   const blockedAmounts = useMemo(() => {
     return account?.accounts

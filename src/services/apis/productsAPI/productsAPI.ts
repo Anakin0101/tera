@@ -38,7 +38,7 @@ export const productsAPI = createApi({
       }),
       transformResponse: (response: OffersAPIResponseType) => response.offers,
     }),
-    getLastTransactionsByAccNumber: builder.query<TransactionType[], LastTransactionReq>({
+    getLastTransactionsByAccNumber: builder.mutation<TransactionType[], LastTransactionReq>({
       query: ({ accountNumber, count, startDate, endDate }) => ({
         url: URLS.getCustomerOps,
         method: METHOD_NAMES.POST,
@@ -103,7 +103,7 @@ export const productsAPI = createApi({
 export const {
   useGetAccountsByCustomerIdQuery,
   useGetOffersQuery,
-  useGetLastTransactionsByAccNumberQuery,
+  useGetLastTransactionsByAccNumberMutation,
   useUpdateAccountNameMutation,
   useGetLoanScheduleQuery,
   useGetLoanHistoryQuery,
