@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { config, moderateScale } from 'utils/config';
+import { config } from 'utils/config';
 
 export const useStyles = () => {
   const { Layout, Spacing, Colors, FontFamily } = useTheme();
@@ -15,7 +15,6 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.ml,
       paddingVertical: Spacing.md,
       borderRadius: 40,
-      marginTop: moderateScale(Spacing.xl),
     },
     input: {
       marginHorizontal: Spacing.s,
@@ -52,7 +51,22 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.xl,
       borderColor: Colors.white,
       backgroundColor: Colors.white,
-      height: 500,
+    },
+    sectionHeader: {
+      margin: Spacing.xl,
+    },
+    itemWrapper: {
+      marginHorizontal: Spacing.xl,
+    },
+    headerContainer: {
+      marginHorizontal: Spacing.xl,
+      marginTop: Spacing.l,
+    },
+    listWrapper: {
+      ...Layout.overflowHidden,
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
+      borderColor: Colors.white,
     },
   });
 };
