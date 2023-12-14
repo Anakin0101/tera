@@ -16,9 +16,10 @@ import { useStyles } from './AllTransactionsScreen.styles';
 import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
 import { formatDate } from 'utils/formatDate';
 import { openModal } from 'utils/modal';
-import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsByAccModal/FilterTransactionsByAccModal';
+import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsModal/FilterByAccount';
 import { useAllTransactions } from './container';
 import { HeaderProps } from './AllTransactionsScreen.types';
+import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
 
 const filters = ['transactions.date', 'transactions.account', 'transactions.transactionType'];
 
@@ -144,6 +145,24 @@ const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
     });
   };
 
+  const onTransactionTypePress = () => {
+    openModal({
+      element: <FilterByTransactionType setFilters={setFilters} />,
+      disablePanning: true,
+      title: 'transactions.transactionType',
+      snapPoints: ['100%'],
+    });
+  };
+
+  const handlePress = (filter: string) => {
+    if (filter === 'transactions.account') {
+      onAccountPress();
+    }
+    if (filter === 'transactions.transactionType') {
+      onTransactionTypePress();
+    }
+  };
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.inputContaner}>
@@ -162,7 +181,7 @@ const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
         showsHorizontalScrollIndicator={false}
       >
         {filters.map(filter => (
-          <Pressable style={styles.filterItem} key={filter} onPress={onAccountPress}>
+          <Pressable style={styles.filterItem} key={filter} onPress={() => handlePress(filter)}>
             <Text children={filter} special />
           </Pressable>
         ))}

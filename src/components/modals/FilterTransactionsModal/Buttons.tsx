@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button } from 'components';
-import { useStyles } from './FilterTransactionsByAccModal.styles';
-import { ButtonsProps } from './FilterTransactionsByAccModal.types';
+import { useStyles } from './FilterTransactionsModal.styles';
+import { ButtonsProps } from './FilterTransactionsModal.types';
 
 export const Buttons: FC<ButtonsProps> = ({ onClearPress, onSelectPress }) => {
   const styles = useStyles();

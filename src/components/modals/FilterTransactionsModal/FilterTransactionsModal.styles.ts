@@ -52,13 +52,26 @@ export const useStyles = () => {
       borderColor: Colors.inputBlack50,
       borderRadius: Spacing.xlm,
     },
-    selectedCurrency: {
+    selectedItem: {
       borderColor: Colors.primary,
       backgroundColor: Colors.secondary,
     },
     title: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
+    },
+    transactionTypeModal: {
+      ...Layout.row,
+      ...Layout.flexWrap,
+      gap: Spacing.s,
+      marginTop: Spacing.xl,
+    },
+    type: {
+      paddingVertical: Spacing.m,
+      paddingHorizontal: Spacing.ml,
+      borderWidth: 1,
+      borderColor: Colors.inputBlack50,
+      borderRadius: Spacing.xlm,
     },
   });
 };

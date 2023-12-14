@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { Text } from 'components';
-import { useStyles } from './FilterTransactionsByAccModal.styles';
-import { SelectCurrencyProps } from './FilterTransactionsByAccModal.types';
+import { useStyles } from './FilterTransactionsModal.styles';
+import { SelectCurrencyProps } from './FilterTransactionsModal.types';
 
 export const SelectCurrency: FC<SelectCurrencyProps> = ({
   iban,
@@ -21,7 +21,7 @@ export const SelectCurrency: FC<SelectCurrencyProps> = ({
             <Pressable
               key={account.ccy}
               onPress={() => setCurrency(account.ccy)}
-              style={[styles.ccy, currency === account.ccy && styles.selectedCurrency]}
+              style={[styles.ccy, currency === account.ccy && styles.selectedItem]}
             >
               <Text children={account.ccy} medium special={currency === account.ccy} />
             </Pressable>

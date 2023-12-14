@@ -7,8 +7,8 @@ import { Colors } from 'theme/Variables';
 import { closeModal } from 'utils/modal';
 import { SelectCurrency } from './SelectCurrency';
 import { useFilterTransactionsByAcc } from './container';
-import { TransactionByAccModalProps } from './FilterTransactionsByAccModal.types';
-import { useStyles } from './FilterTransactionsByAccModal.styles';
+import { TransactionByAccModalProps } from './FilterTransactionsModal.types';
+import { useStyles } from './FilterTransactionsModal.styles';
 
 export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ setFilters }) => {
   const styles = useStyles();
