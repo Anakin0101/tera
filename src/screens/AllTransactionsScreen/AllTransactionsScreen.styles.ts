@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { config } from 'utils/config';
+import { config, moderateScale } from 'utils/config';
 
 export const useStyles = () => {
   const { Layout, Spacing, Colors, FontFamily } = useTheme();
@@ -67,6 +67,39 @@ export const useStyles = () => {
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
       borderColor: Colors.white,
+    },
+    buttonsContainer: {
+      ...Layout.rowHCenter,
+      gap: Spacing.md,
+      marginTop: 30,
+    },
+    buttonWrapper: {
+      ...Layout.fill,
+      paddingVertical: moderateScale(16),
+    },
+    buttonLabel: {
+      fontFamily: FontFamily.medium,
+    },
+    outline: {
+      width: Spacing.lg,
+      height: Spacing.lg,
+      borderWidth: Spacing.xxxs,
+      borderRadius: Spacing.m,
+      ...Layout.center,
+      borderColor: Colors.textBlack400,
+    },
+    inner: {
+      width: Spacing.md,
+      height: Spacing.md,
+      borderRadius: 5,
+      backgroundColor: Colors.primary,
+    },
+    selected: {
+      borderColor: Colors.primary,
+    },
+    account: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
     },
   });
 };

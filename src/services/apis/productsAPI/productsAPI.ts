@@ -19,13 +19,10 @@ export const productsAPI = createApi({
   baseQuery: baseQueryWithInterceptor,
   tagTypes: ['Auth'],
   endpoints: builder => ({
-    getAccountsByCustomerId: builder.query<Account[], number>({
-      query: CustomerId => ({
+    getAccountsByCustomerId: builder.query<Account[], void>({
+      query: () => ({
         url: URLS.getAccountsByCustomerId,
         method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
       }),
     }),
     getOffers: builder.query<OfferType[], number>({

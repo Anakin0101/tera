@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   FlatList,
+  Pressable,
   ScrollView,
   SectionList,
   SectionListRenderItem,
@@ -14,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { useStyles } from './AllTransactionsScreen.styles';
 import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
 import { formatDate } from 'utils/formatDate';
+import { openModal } from 'utils/modal';
+import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsByAccModal/FilterTransactionsByAccModal';
 
 const filters = ['transactions.date', 'transactions.account', 'transactions.transactionType'];
 
@@ -130,6 +133,15 @@ const ListHeader = () => {
   const { t } = useTranslation();
   const [value, onChangeText] = useState('');
 
+  const onAccountPress = () => {
+    openModal({
+      element: <FilterTransactionsByAccModal />,
+      title: 'transactions.account',
+      disablePanning: true,
+      snapPoints: ['100%'],
+    });
+  };
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.inputContaner}>
@@ -148,9 +160,9 @@ const ListHeader = () => {
         showsHorizontalScrollIndicator={false}
       >
         {filters.map(filter => (
-          <View style={styles.filterItem} key={filter}>
+          <Pressable style={styles.filterItem} key={filter} onPress={onAccountPress}>
             <Text children={filter} special />
-          </View>
+          </Pressable>
         ))}
       </ScrollView>
       <Totals income={2048} expense={1956} />

@@ -293,7 +293,8 @@
     "thankyou": "Thank you",
     "cancel": "Cancel",
     "change": "Change",
-    "select": "Select"
+    "select": "Select",
+    "clear": "Clear"
   },
   "form": {
     "is_required": "is required"
