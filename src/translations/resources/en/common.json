@@ -294,7 +294,8 @@
     "cancel": "Cancel",
     "change": "Change",
     "select": "Select",
-    "clear": "Clear"
+    "clear": "Clear",
+    "currency": "Currency"
   },
   "form": {
     "is_required": "is required"

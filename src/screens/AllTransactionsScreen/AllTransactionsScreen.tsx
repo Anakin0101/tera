@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -17,6 +17,8 @@ import LastTransactionItem from 'components/LastTransactions/LastTransactionItem
 import { formatDate } from 'utils/formatDate';
 import { openModal } from 'utils/modal';
 import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsByAccModal/FilterTransactionsByAccModal';
+import { useAllTransactions } from './container';
+import { HeaderProps } from './AllTransactionsScreen.types';
 
 const filters = ['transactions.date', 'transactions.account', 'transactions.transactionType'];
 
@@ -128,16 +130,16 @@ const DATA = [
   },
 ];
 
-const ListHeader = () => {
+const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [value, onChangeText] = useState('');
 
   const onAccountPress = () => {
     openModal({
-      element: <FilterTransactionsByAccModal />,
-      title: 'transactions.account',
+      element: <FilterTransactionsByAccModal setFilters={setFilters} />,
       disablePanning: true,
+      hideCloseButton: true,
       snapPoints: ['100%'],
     });
   };
@@ -200,13 +202,15 @@ const ListFooter = () => {
 
 export const AllTransactionsScreen = () => {
   const styles = useStyles();
+  const { setFilters } = useAllTransactions();
+
   return (
     <View style={styles.listWrapper}>
       <FlatList
         data={['']}
         renderItem={() => null}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={ListHeader}
+        ListHeaderComponent={<ListHeader setFilters={setFilters} />}
         ListFooterComponent={ListFooter}
       />
     </View>

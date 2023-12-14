@@ -38,5 +38,27 @@ export const useStyles = () => {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
     },
+    currencyModal: {
+      marginTop: Spacing.xlg,
+    },
+    currencyContainer: {
+      ...Layout.rowHCenter,
+      gap: Spacing.m,
+    },
+    ccy: {
+      paddingHorizontal: Spacing.xl,
+      paddingVertical: Spacing.s,
+      borderWidth: 1,
+      borderColor: Colors.inputBlack50,
+      borderRadius: Spacing.xlm,
+    },
+    selectedCurrency: {
+      borderColor: Colors.primary,
+      backgroundColor: Colors.secondary,
+    },
+    title: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
+    },
   });
 };

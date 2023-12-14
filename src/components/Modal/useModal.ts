@@ -12,6 +12,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [enableContentPanningGesture, setEnableContentPanningGesture] = useState(true);
   const [snapPoints, setSnapPoints] = useState<(string | number)[]>(['70%']);
   const [hideHandle, setHideHandle] = useState(false);
+  const [hideCloseButton, setHideCloseButton] = useState(false);
 
   const open = (options: ConfigureModal) => {
     setElement(options.element);
@@ -22,6 +23,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.disablePanning && setEnableContentPanningGesture(false);
     options.snapPoints && setSnapPoints(options.snapPoints);
     options.hideHandle && setHideHandle(options.hideHandle);
+    options.hideCloseButton && setHideCloseButton(options.hideCloseButton);
     modalRef?.current?.present();
   };
 
@@ -32,6 +34,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     setEnableContentPanningGesture(true);
     setSnapPoints(['70%']);
     setHideHandle(false);
+    setHideCloseButton(false);
     setElement(null);
     modalRef?.current?.close();
     setEnablePadding(false);
@@ -53,6 +56,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     snapPoints,
     hideHandle,
     enablePadding,
+    hideCloseButton,
   };
 };
 
