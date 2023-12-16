@@ -4,12 +4,12 @@ import { Button, Divider, Text } from 'components';
 import { useStyles } from './DashboardOperations.styles';
 import useTheme from 'hooks/useTheme';
 import { OperationsCard } from 'components/OperationsCard/OperationsCard';
-import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 type DashboardOperationsProps = {
-  data?: Transactions[];
+  data?: TransactionType[];
 };
 
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {

@@ -8,7 +8,7 @@ import { useStyles } from './LastTransactions.styles';
 import { formatDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 
-const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
+const LastTransactionItem: FC<LastTransactionProps> = ({ item }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
@@ -29,7 +29,7 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
           <Text children="" size={12} color={Colors.textBlack400} />
           <Text children={formatDate(item.docDate)} size={12} color={Colors.textBlack400} />
         </View>
-        {index < 3 && <Divider height={1} marginTop={18} marginBottom={18} width="100%" />}
+        <Divider height={1} marginTop={18} marginBottom={18} width="100%" />
       </View>
     </View>
   );

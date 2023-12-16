@@ -1,4 +1,4 @@
-import { Currency } from '../productsAPI/productsAPI.types';
+import { Currency, TransactionType } from '../productsAPI/productsAPI.types';
 
 export type GetTemplatesResponseType = {
   templates: Template[];
@@ -10,7 +10,7 @@ export type GetTemplatesRequestType = {
 };
 
 export type GetCustomerOperationsResponseTypes = {
-  ops: Transactions[];
+  ops: TransactionType[];
 };
 
 export type OverdraftType = {
@@ -35,8 +35,8 @@ export type OverdraftType = {
 };
 export type GetCustomerOperationsRequestTypes = {
   count: number;
-  culture: string;
-  currency: string;
+  culture?: string;
+  currency?: string;
   endDate: string;
   startDate: string;
   accountNumber?: number | null;
@@ -62,8 +62,9 @@ export type Transactions = {
   balance: number;
   balanceStart: number;
   description: string;
-  docDate: any;
+  docDate: string;
   isIncome: boolean;
+  id: number;
 };
 
 type InternalTransaction = {

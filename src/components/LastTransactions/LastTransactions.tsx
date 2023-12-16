@@ -23,8 +23,8 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
     navigate('AllTransactionsScreen');
   };
 
-  const renderItem: ListRenderItem<TransactionType> = ({ item, index }) => {
-    return <LastTransactionItem item={item} index={index} />;
+  const renderItem: ListRenderItem<TransactionType> = ({ item }) => {
+    return <LastTransactionItem item={item} />;
   };
 
   const footer = () => {

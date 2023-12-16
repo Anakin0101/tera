@@ -4,9 +4,9 @@ import { useStyles } from './OperationsCard.styles';
 import { IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import dayjs from 'dayjs';
-import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
-export const OperationsCard = (props: Transactions & { showUnderline?: boolean }) => {
+export const OperationsCard = (props: TransactionType & { showUnderline?: boolean }) => {
   const { amount, docDate, description, showUnderline } = props;
   const inputDate = dayjs(docDate);
   const formattedDate = inputDate.format('D MMM, YYYY, HH:mm');

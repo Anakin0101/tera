@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Pressable,
   ScrollView,
@@ -18,119 +19,18 @@ import { formatDate } from 'utils/formatDate';
 import { openModal } from 'utils/modal';
 import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsModal/FilterByAccount';
 import { useAllTransactions } from './container';
-import { HeaderProps } from './AllTransactionsScreen.types';
+import {
+  FooterProps,
+  HeaderProps,
+  KeyExtractor,
+  RenderSectionHeader,
+  ISections,
+} from './AllTransactionsScreen.types';
 import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
 import { FilterByDate } from 'components/modals/FilterTransactionsModal/FilterByDate';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 const filters = ['transactions.date', 'transactions.account', 'transactions.transactionType'];
-
-const DATA = [
-  {
-    title: '2023-12-13T00:00:00',
-    data: [
-      {
-        docDate: '2023-12-13T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-      {
-        docDate: '2023-12-13T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-    ],
-  },
-  {
-    title: '2023-12-12T00:00:00',
-    data: [
-      {
-        docDate: '2023-12-12T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-      {
-        docDate: '2023-12-12T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-      {
-        docDate: '2023-12-12T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-      {
-        docDate: '2023-12-12T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-    ],
-  },
-  {
-    title: '2023-12-10T00:00:00',
-    data: [
-      {
-        docDate: '2023-12-10T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-      {
-        docDate: '2023-12-10T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-      {
-        docDate: '2023-12-10T00:00:00',
-        description: 'პირადი გადარიცხვა',
-        balanceStart: 300,
-        balance: 250,
-        amount: 200,
-        isIncome: true,
-        senderIban: 'TR000000',
-        currency: 'GEL',
-      },
-    ],
-  },
-];
 
 const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
   const styles = useStyles();
@@ -204,46 +104,60 @@ const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
   );
 };
 
-const ListFooter = () => {
+const Sections: FC<FooterProps> = ({ sections }) => {
   const styles = useStyles();
 
-  const renderItem: SectionListRenderItem<any, any> = ({ item, index }) => {
+  const renderItem: SectionListRenderItem<TransactionType, ISections> = ({ item }) => {
     return (
       <View style={styles.itemWrapper}>
-        <LastTransactionItem item={item} index={index} />
+        <LastTransactionItem item={item} />
       </View>
     );
   };
 
+  const renderSectionHeader: RenderSectionHeader = ({ section }) => {
+    return (
+      <View style={styles.sectionHeader}>
+        <Text children={formatDate(section.title, ' YYYY')} size={16} medium />
+      </View>
+    );
+  };
+
+  const keyExtractor: KeyExtractor = (item, index) => String(item.id + index);
+
   return (
     <View style={styles.sectionListWrapper}>
-      <SectionList
-        sections={DATA}
-        renderItem={renderItem}
-        renderSectionHeader={({ section }) => (
-          <View style={styles.sectionHeader}>
-            <Text children={formatDate(section.title, ' YYYY')} size={16} medium />
-          </View>
-        )}
-        stickySectionHeadersEnabled={false}
-        showsVerticalScrollIndicator={false}
-      />
+      {sections ? (
+        <SectionList
+          sections={sections}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          renderSectionHeader={renderSectionHeader}
+          stickySectionHeadersEnabled={false}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={<View style={styles.listFooter} />}
+        />
+      ) : (
+        <View style={styles.indicator}>
+          <ActivityIndicator />
+        </View>
+      )}
     </View>
   );
 };
 
 export const AllTransactionsScreen = () => {
   const styles = useStyles();
-  const { setFilters } = useAllTransactions();
+  const { setFilters, sections } = useAllTransactions();
 
   return (
     <View style={styles.listWrapper}>
       <FlatList
         data={['']}
-        renderItem={() => null}
+        nestedScrollEnabled
         showsVerticalScrollIndicator={false}
+        renderItem={() => <Sections sections={sections} />}
         ListHeaderComponent={<ListHeader setFilters={setFilters} />}
-        ListFooterComponent={ListFooter}
       />
     </View>
   );

@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { useTheme } from 'hooks';
+import { useDefaultHeaderHeight, useTheme } from 'hooks';
 import { config, moderateScale } from 'utils/config';
 
 export const useStyles = () => {
   const { Layout, Spacing, Colors, FontFamily } = useTheme();
+  const { headerHeight } = useDefaultHeaderHeight();
 
   return StyleSheet.create({
     container: {
@@ -13,7 +14,7 @@ export const useStyles = () => {
       ...Layout.rowHCenter,
       backgroundColor: Colors.white,
       paddingHorizontal: Spacing.ml,
-      paddingVertical: Spacing.md,
+      height: 40,
       borderRadius: 40,
     },
     input: {
@@ -51,6 +52,7 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.xl,
       borderColor: Colors.white,
       backgroundColor: Colors.white,
+      minHeight: config.mobileHeight - headerHeight - 240,
     },
     sectionHeader: {
       margin: Spacing.xl,
@@ -100,6 +102,14 @@ export const useStyles = () => {
     account: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
+    },
+    indicator: {
+      marginTop: Spacing.xl,
+      height: config.mobileHeight - headerHeight - 205,
+    },
+    listFooter: {
+      height: 50,
+      backgroundColor: Colors.white,
     },
   });
 };

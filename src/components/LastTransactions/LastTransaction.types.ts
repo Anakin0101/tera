@@ -3,7 +3,6 @@ import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface LastTransactionProps {
   item: TransactionType;
-  index: number;
 }
 
 export interface ILastTransaction {
