@@ -123,7 +123,7 @@ const Sections: FC<FooterProps> = ({ sections }) => {
     );
   };
 
-  const keyExtractor: KeyExtractor = (item, index) => String(item.id + index);
+  const keyExtractor: KeyExtractor = item => String(item.id);
 
   return (
     <View style={styles.sectionListWrapper}>
