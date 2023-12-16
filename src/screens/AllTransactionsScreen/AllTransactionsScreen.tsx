@@ -20,6 +20,7 @@ import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactio
 import { useAllTransactions } from './container';
 import { HeaderProps } from './AllTransactionsScreen.types';
 import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
+import { FilterByDate } from 'components/modals/FilterTransactionsModal/FilterByDate';
 
 const filters = ['transactions.date', 'transactions.account', 'transactions.transactionType'];
 
@@ -136,6 +137,15 @@ const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
   const { t } = useTranslation();
   const [value, onChangeText] = useState('');
 
+  const onDatePress = () => {
+    openModal({
+      element: <FilterByDate setFilters={setFilters} />,
+      disablePanning: true,
+      title: 'transactions.date',
+      snapPoints: ['100%'],
+    });
+  };
+
   const onAccountPress = () => {
     openModal({
       element: <FilterTransactionsByAccModal setFilters={setFilters} />,
@@ -155,6 +165,9 @@ const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
   };
 
   const handlePress = (filter: string) => {
+    if (filter === 'transactions.date') {
+      onDatePress();
+    }
     if (filter === 'transactions.account') {
       onAccountPress();
     }

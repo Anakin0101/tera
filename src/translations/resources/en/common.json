@@ -295,7 +295,9 @@
     "change": "Change",
     "select": "Select",
     "clear": "Clear",
-    "currency": "Currency"
+    "currency": "Currency",
+    "from": "From",
+    "to": "To"
   },
   "form": {
     "is_required": "is required"
@@ -307,6 +309,7 @@
     "account": "Account",
     "transactionType": "Transaction type",
     "income": "Income",
-    "expense": "Expense"
+    "expense": "Expense",
+    "selectDate": "Select Date"
   }
 }

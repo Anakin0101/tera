@@ -73,5 +73,28 @@ export const useStyles = () => {
       borderColor: Colors.inputBlack50,
       borderRadius: Spacing.xlm,
     },
+    filterByDateWrapper: {
+      marginTop: Spacing.xl,
+    },
+    dateContainer: {
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentBetween,
+      gap: Spacing.l,
+    },
+    date: {
+      ...Layout.fill,
+      borderBottomWidth: 1,
+      borderBottomColor: Colors.inputBlack50,
+      paddingBottom: Spacing.s,
+    },
+    intervalScrollView: {
+      marginVertical: Spacing.xl,
+    },
+    intervalContent: {
+      gap: Spacing.s,
+    },
+    calendar: {
+      marginTop: Spacing.m,
+    },
   });
 };
