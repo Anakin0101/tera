@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'hooks';
-import { Button, Divider, Text } from 'components';
+import { Button, Text } from 'components';
 import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
 import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
 import { MainStackScreenProps } from 'navigation/types';
@@ -53,14 +53,8 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
             </View>
           </View>
         </View>
-        <Button.Outline
-          fixedWidth
-          text="dashboard.all"
-          onPress={handlePress}
-          customWrapperStyle={styles.button}
-        />
+        <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
       </View>
-      <Divider />
     </>
   );
 };

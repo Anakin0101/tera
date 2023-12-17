@@ -31,8 +31,5 @@ export const useStyles = () => {
     dashboardTemplatesContent: {
       paddingVertical: Spacing.xl,
     },
-    button: {
-      marginTop: Spacing.xl,
-    },
   });
 };
