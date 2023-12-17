@@ -21,6 +21,10 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
     navigate('AllTransactionsScreen');
   };
 
+  const onOperationPress = () => {
+    navigate('TransactionDetailsScreen');
+  };
+
   return (
     <>
       <View style={styles.wrapper}>
@@ -39,7 +43,11 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
                 data={data}
                 // TODO - check with Back end - opId or opUId do not come from back end
                 renderItem={({ item, index }) => (
-                  <OperationsCard {...item} showUnderline={data && index < data?.length - 1} />
+                  <OperationsCard
+                    {...item}
+                    onPress={onOperationPress}
+                    showUnderline={data && index < data?.length - 1}
+                  />
                 )}
                 keyExtractor={item => item.docDate}
               />

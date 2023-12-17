@@ -310,6 +310,7 @@
     "transactionType": "Transaction type",
     "income": "Income",
     "expense": "Expense",
-    "selectDate": "Select Date"
+    "selectDate": "Select Date",
+    "details": "Transaction Details"
   }
 }

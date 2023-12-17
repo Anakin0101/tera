@@ -38,6 +38,7 @@ export const PRIVATE_TRANSACTION_SCREEN = 'PrivateTransactionScreen';
 export const TRANSFER_DETAIL_SCREEN = 'TransferDetailScreen';
 export const TRANSACTION_FINISHED_SCREEN = 'TransactionFinishedScreen';
 export const ALL_TRANSACTIONS_SCREEN = 'AllTransactionsScreen';
+export const TRANSACTION_DETAILS_SCREEN = 'TransactionDetailsScreen';
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';

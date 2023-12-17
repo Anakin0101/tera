@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Divider, Text } from '../index';
 import { useTheme } from 'hooks';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
@@ -8,12 +8,12 @@ import { useStyles } from './LastTransactions.styles';
 import { formatDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 
-const LastTransactionItem: FC<LastTransactionProps> = ({ item }) => {
+const LastTransactionItem: FC<LastTransactionProps> = ({ item, onPress }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
   return (
-    <View style={styles.transactionWrapper}>
+    <Pressable onPress={onPress} style={styles.transactionWrapper}>
       <View style={styles.imageContainer} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
@@ -31,7 +31,7 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item }) => {
         </View>
         <Divider height={1} marginTop={18} marginBottom={18} width="100%" />
       </View>
-    </View>
+    </Pressable>
   );
 };
 

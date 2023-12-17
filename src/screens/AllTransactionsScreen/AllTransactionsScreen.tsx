@@ -29,6 +29,8 @@ import {
 import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
 import { FilterByDate } from 'components/modals/FilterTransactionsModal/FilterByDate';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
 
 const filters = ['transactions.date', 'transactions.account', 'transactions.transactionType'];
 
@@ -106,11 +108,16 @@ const ListHeader: FC<HeaderProps> = ({ setFilters }) => {
 
 const Sections: FC<FooterProps> = ({ sections }) => {
   const styles = useStyles();
+  const { navigate } = useNavigation<MainStackScreenProps<'TransactionDetailsScreen'>>();
+
+  const onTransactionPress = () => {
+    navigate('TransactionDetailsScreen');
+  };
 
   const renderItem: SectionListRenderItem<TransactionType, ISections> = ({ item }) => {
     return (
       <View style={styles.itemWrapper}>
-        <LastTransactionItem item={item} />
+        <LastTransactionItem item={item} onPress={onTransactionPress} />
       </View>
     );
   };

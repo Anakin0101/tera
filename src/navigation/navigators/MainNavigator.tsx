@@ -18,6 +18,7 @@ import {
   PRODUCTS_STACK,
   PROFILE_STACK,
   TRANSACTIONS_STACK,
+  TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { hideHeader, tabOptions } from 'navigation/config';
 import { MainStackParamsList, TabParamList } from 'navigation/types';
@@ -32,7 +33,7 @@ import {
   ProfileStackIcon,
   TransactionsStackIcon,
 } from 'navigation/TabBarIcons';
-import { AllTransactionsScreen } from 'screens';
+import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
 import { Colors, FontFamily } from 'theme/Variables';
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -110,6 +111,19 @@ export const MainNavigator = () => {
         component={AllTransactionsScreen}
         options={{
           title: t('transactions.title'),
+          headerStyle: {
+            backgroundColor: Colors.defaultBackground,
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerTitleStyle: { fontFamily: FontFamily.Regular },
+        }}
+      />
+      <Screen
+        name={TRANSACTION_DETAILS_SCREEN}
+        component={TransactionDetailsScreen}
+        options={{
+          title: t('transactions.details'),
           headerStyle: {
             backgroundColor: Colors.defaultBackground,
             shadowColor: 'transparent',

@@ -25,3 +25,4 @@ export { LoanDetailsScreen } from './LoanDetailsScreen/LoanDetailsScreen';
 export { ToAccountScreen } from './ToAccountScreen/ToAccountScreen';
 export { TransferToAccountScreen } from './TransferToAccountScreen/TransferToAccountScreen';
 export { AllTransactionsScreen } from './AllTransactionsScreen/AllTransactionsScreen';
+export { TransactionDetailsScreen } from './TransactionDetailsScreen/TransactionDetailsScreen';
