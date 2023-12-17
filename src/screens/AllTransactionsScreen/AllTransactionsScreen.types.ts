@@ -14,6 +14,7 @@ export type TransactionFilters = {
 };
 export interface HeaderProps {
   setFilters: React.Dispatch<React.SetStateAction<TransactionFilters>>;
+  filters: TransactionFilters;
 }
 
 export interface ISections {

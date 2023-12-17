@@ -101,3 +101,4 @@ export { Bookmark } from './Bookmark';
 export { Download } from './Download';
 export { Income } from './Income';
 export { Outcome } from './Outcome';
+export { Clear } from './Clear';

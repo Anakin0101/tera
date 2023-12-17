@@ -111,5 +111,21 @@ export const useStyles = () => {
       height: 50,
       backgroundColor: Colors.white,
     },
+    unselected: {
+      backgroundColor: Colors.white,
+    },
+    selectedFilterWrapper: {
+      backgroundColor: Colors.secondary,
+    },
+    selectedFilterContainer: {
+      ...Layout.rowHCenter,
+      gap: 5,
+    },
+    text: {
+      width: 70,
+    },
+    transactionTypeLabel: {
+      maxWidth: 150,
+    },
   });
 };
