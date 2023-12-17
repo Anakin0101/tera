@@ -312,5 +312,20 @@
     "expense": "Expense",
     "selectDate": "Select Date",
     "details": "Transaction Details"
+  },
+  "transactionDetails": {
+    "to": "To",
+    "sender": "Sender",
+    "bank": "Bank",
+    "receiver": "Receiver",
+    "paymentType": "Payment Type",
+    "amount": "Amount",
+    "desc": "Description",
+    "docNumber": "Document Number",
+    "refund": "Refund",
+    "automaticTransfers": "Automatic\nTransfers",
+    "saveAsTemplate": "Save as\nTemplate",
+    "downloadReceipt": "Download the\nReceipt",
+    "repeatTransaction": "Repeat\nTransaction"
   }
 }

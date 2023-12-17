@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import dayjs from 'dayjs';
 import { openModal } from 'utils/modal';
 import { groupCardsByPan } from 'utils/groupData';
 import { Card, Note, Share, Swap } from 'assets/SVGs';
@@ -10,9 +9,7 @@ import { setCards, setLastTransactions } from 'store/slices/products';
 import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
 import { useGetLastTransactionsByAccNumberMutation } from 'services/apis/productsAPI/productsAPI';
 import { RequestStatusModal } from 'components/modals/RequestStatusModal/RequestStatusModal';
-
-const currentDate = dayjs().toISOString();
-const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
+import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
 export const useAccountDetails = (iban: string, index: number) => {
   const dispatch = useAppDispatch();
@@ -30,8 +27,8 @@ export const useAccountDetails = (iban: string, index: number) => {
     if (account) {
       getLastTransactions({
         count: 4,
-        startDate: threeMonthsAgo,
-        endDate: currentDate,
+        startDate: getDateThreeMonthAgeISO(),
+        endDate: getCurrentDateISO(),
         accountNumber: account?.accountNumber,
       });
     }

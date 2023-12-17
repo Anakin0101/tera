@@ -1,16 +1,12 @@
 import React, { FC } from 'react';
 import { FlatList, View } from 'react-native';
-import { Button, Divider, Text } from 'components';
-import { useStyles } from './DashboardOperations.styles';
-import useTheme from 'hooks/useTheme';
-import { OperationsCard } from 'components/OperationsCard/OperationsCard';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'hooks';
+import { Button, Divider, Text } from 'components';
+import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
+import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
 import { MainStackScreenProps } from 'navigation/types';
-import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
-
-type DashboardOperationsProps = {
-  data?: TransactionType[];
-};
+import { useStyles } from './DashboardOperations.styles';
 
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
   const styles = useStyles();
@@ -23,6 +19,16 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
 
   const onOperationPress = () => {
     navigate('TransactionDetailsScreen');
+  };
+
+  const renderItem: RenderItem = ({ item, index }) => {
+    return (
+      <LastTransactionItem
+        item={item}
+        onPress={onOperationPress}
+        showUnderline={data && index < data.length - 1}
+      />
+    );
   };
 
   return (
@@ -39,22 +45,20 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
             </View>
             <View style={styles.dashboardTemplatesWrapper}>
               <FlatList
-                showsHorizontalScrollIndicator={false}
                 data={data}
-                // TODO - check with Back end - opId or opUId do not come from back end
-                renderItem={({ item, index }) => (
-                  <OperationsCard
-                    {...item}
-                    onPress={onOperationPress}
-                    showUnderline={data && index < data?.length - 1}
-                  />
-                )}
+                renderItem={renderItem}
                 keyExtractor={item => item.docDate}
+                showsHorizontalScrollIndicator={false}
               />
             </View>
           </View>
         </View>
-        <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
+        <Button.Outline
+          fixedWidth
+          text="dashboard.all"
+          onPress={handlePress}
+          customWrapperStyle={styles.button}
+        />
       </View>
       <Divider />
     </>

@@ -86,3 +86,11 @@ export const getDaysDifference = (dateString: string) => {
 
   return date2.diff(date1, 'day');
 };
+
+export const getCurrentDateISO = () => {
+  return dayjs().toISOString();
+};
+
+export const getDateThreeMonthAgeISO = () => {
+  return dayjs().subtract(3, 'month').toISOString();
+};

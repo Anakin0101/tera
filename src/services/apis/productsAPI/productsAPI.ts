@@ -94,6 +94,17 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getTransactionDetails: builder.mutation<any, number>({
+      query: opId => ({
+        url: URLS.getTransactionDetails,
+        method: METHOD_NAMES.POST,
+        body: {
+          opId,
+          count: 1,
+          currency: 'USD',
+        },
+      }),
+    }),
   }),
 });
 
@@ -106,4 +117,5 @@ export const {
   useGetLoanHistoryQuery,
   useBlockCardMutation,
   useUnblockCardMutation,
+  useGetTransactionDetailsMutation,
 } = productsAPI;

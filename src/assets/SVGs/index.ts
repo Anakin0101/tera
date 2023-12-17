@@ -96,3 +96,8 @@ export { TabBarPayments } from './TabBarPayments';
 export { TabBarPaymentsActive } from './TabBarPaymentsActive';
 export { TabBarProfile } from './TabBarProfile';
 export { TabBarProfileActive } from './TabBarProfileActive';
+export { Repeat } from './Repeat';
+export { Bookmark } from './Bookmark';
+export { Download } from './Download';
+export { Income } from './Income';
+export { Outcome } from './Outcome';

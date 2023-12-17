@@ -11,6 +11,7 @@ import {
 } from 'services/apis/dashboardAPI/dashboardAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setCustomerId } from 'store/slices/profile';
+import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
 export const useDashboardScreen = () => {
   const dispatch = useAppDispatch();
@@ -28,11 +29,11 @@ export const useDashboardScreen = () => {
 
   useEffect(() => {
     getCustomerOperations({
-      count: 5,
+      count: 4,
       culture: 'ka',
       currency: 'gel',
-      endDate: '2023-10-24T16:24:09.087Z',
-      startDate: '2023-08-24T16:24:09.087Z',
+      endDate: getCurrentDateISO(),
+      startDate: getDateThreeMonthAgeISO(),
       accountNumber: null,
     });
   }, [getCustomerOperations]);

@@ -2,10 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { TransactionFilters } from './AllTransactionsScreen.types';
 import { useGetCustomerOperationsMutation } from 'services/apis/dashboardAPI/dashboardAPI';
 import { groupTransactionsByDate } from 'utils/groupData';
-import dayjs from 'dayjs';
-
-const currentDate = dayjs().toISOString();
-const threeMonthsAgo = dayjs().subtract(3, 'month').toISOString();
+import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
 export const useAllTransactions = () => {
   const [getCustomerOperations, { data: customerOperations }] = useGetCustomerOperationsMutation();
@@ -20,8 +17,8 @@ export const useAllTransactions = () => {
   useEffect(() => {
     getCustomerOperations({
       count: 20,
-      startDate: threeMonthsAgo,
-      endDate: currentDate,
+      startDate: getDateThreeMonthAgeISO(),
+      endDate: getCurrentDateISO(),
       accountNumber: null,
     });
   }, [getCustomerOperations]);

@@ -4,6 +4,7 @@ import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 export interface LastTransactionProps {
   item: TransactionType;
   onPress: () => void;
+  showUnderline?: boolean;
 }
 
 export interface ILastTransaction {

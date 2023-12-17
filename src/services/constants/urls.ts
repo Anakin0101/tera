@@ -24,4 +24,5 @@ export const URLS = {
   getAmount: 'api/v1/transfers/ConvertAmount',
   transferToOwnAccount: 'api/v1/Transfers/TransferToOwnAccount',
   exchange: 'api/v1/Transfers/Exchange',
+  getTransactionDetails: 'api/v1/Transaction/GetTransactionDetails',
 };

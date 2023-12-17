@@ -311,5 +311,20 @@
     "expense": "ხარჯი",
     "selectDate": "აირჩიე თარიღი",
     "details": "ტრანზაქციის დეტალები"
+  },
+  "transactionDetails": {
+    "to": "სად",
+    "sender": "გამომგზავნი",
+    "bank": "ბანკი",
+    "receiver": "მიმღები",
+    "paymentType": "გადახდის ტიპი",
+    "amount": "თანხა",
+    "desc": "აღწერა",
+    "docNumber": "დოკუმენტის ნომერი",
+    "refund": "თანხის\nდაბრუნება",
+    "automaticTransfers": "ავტომატური\nგადარიცხვები",
+    "saveAsTemplate": "შაბლონად\nშენახვა",
+    "downloadReceipt": "ჩამოტვირთე\nქვითარი",
+    "repeatTransaction": "ტრანზაქციის\nგანმეორება"
   }
 }
