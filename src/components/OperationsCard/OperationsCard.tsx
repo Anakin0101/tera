@@ -5,9 +5,11 @@ import { IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import dayjs from 'dayjs';
 import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { getCurrencyIcon } from 'utils/currency';
 
 export const OperationsCard = (props: Transactions & { showUnderline?: boolean }) => {
-  const { amount, docDate, description, showUnderline } = props;
+  const { amount, docDate, description, showUnderline, currency } = props;
+
   const inputDate = dayjs(docDate);
   const formattedDate = inputDate.format('D MMM, YYYY, HH:mm');
 
@@ -47,7 +49,7 @@ export const OperationsCard = (props: Transactions & { showUnderline?: boolean }
         <View style={styles.ops}>
           {amount && (
             <Text
-              children={amount}
+              children={`${amount} ${getCurrencyIcon(currency)}`}
               style={styles.templateAmount}
               numberOfLines={1}
               ellipsizeMode="tail"

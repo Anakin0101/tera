@@ -64,6 +64,7 @@ export type Transactions = {
   description: string;
   docDate: any;
   isIncome: boolean;
+  currency: string;
 };
 
 type InternalTransaction = {

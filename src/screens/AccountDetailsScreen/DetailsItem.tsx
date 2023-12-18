@@ -29,14 +29,14 @@ export const DetailsItem: FC<DetailsItemProps> = ({
           {blockedFundsSection ? (
             <View style={styles.blockedAmountsContainer}>
               {value.map(item => (
-                <Text key={item.ccy}>
+                <Text key={item.ccy} style={{ backgroundColor: 'red' }}>
                   {CurrencySignMap[item.ccy]}
                   {formatMoney(item.blockedAmount)}
                 </Text>
               ))}
             </View>
           ) : (
-            <Text children={value} translateProp={translateProp} />
+            <Text children={value} translateProp={translateProp} style={{ fontWeight: 'bold' }} />
           )}
           {iban && <Text children={iban} />}
         </View>

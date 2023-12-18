@@ -26,6 +26,7 @@ export const useStyles = () => {
     },
     dashboardTemplatesWrapper: {
       marginVertical: Spacing.ml,
+      width: '90%',
       ...Layout.row,
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,

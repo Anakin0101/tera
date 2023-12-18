@@ -3,6 +3,7 @@ import { TOptions } from 'i18next';
 
 export type TextProps = {
   size?: number;
+  withoutLineHeight?: boolean;
   color?: string;
   lineHeight?: number;
   uppercase?: boolean;

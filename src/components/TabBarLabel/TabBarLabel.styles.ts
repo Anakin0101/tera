@@ -8,5 +8,15 @@ export const useStyles = () => {
     sectionList: {
       fontFamily: FontFamily.medium,
     },
+    otherBanksStyle: {
+      borderWidth: 2,
+      borderColor: 'rgba(29, 29, 29, 0.05)',
+      borderRadius: 40,
+      paddingHorizontal: 10,
+      paddingVertical: 12,
+      alignItems: 'center',
+      height: 50,
+      justifyContent: 'center',
+    },
   });
 };

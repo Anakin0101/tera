@@ -106,7 +106,6 @@ export const ProductsStack = () => {
         options={{
           header: ProductsStackHeaderMap[MY_ACCOUNT_SCROLLABLE_SCREEN],
           headerStyle: {
-            backgroundColor: 'yellow',
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',

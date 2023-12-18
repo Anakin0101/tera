@@ -6,20 +6,35 @@ import Images from 'theme/Images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CardItemProps } from './CardItem.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { getCurrencyIcon } from 'utils/currency';
+
+const renderMaskedValue = (
+  value: string | number,
+  currency: string,
+  isSecure: boolean,
+  maskDebit: boolean,
+) => {
+  const stringValue = `${String(value)} ${getCurrencyIcon(currency)}`;
+  const maskedValue = '•'.repeat(5);
+  const maskedCurrency = '•';
+  return isSecure && maskDebit ? `${maskedValue}${maskedCurrency}` : stringValue;
+};
 
 export const CardItem: React.FC<CardItemProps> = ({
   title,
   value,
   iconSource,
   isSecure = false,
+  currency,
+  fromPension,
 }) => {
   const styles = useStyles();
-  const securePension = useAppSelector(state => state.dashboard.maskText);
-  const renderMaskedValue = () => {
-    const stringValue = String(value);
-    const maskedValue = '•'.repeat(5);
-    return isSecure && securePension ? maskedValue : stringValue;
-  };
+  const securePension = useAppSelector(state => state.dashboard);
+
+  const renderedValue = fromPension
+    ? renderMaskedValue(value, currency, isSecure, securePension.maskText)
+    : renderMaskedValue(value, currency, isSecure, securePension.maskDebit);
+
   return (
     <TouchableOpacity style={styles.wrapper}>
       <View style={styles.iconView}>
@@ -36,7 +51,7 @@ export const CardItem: React.FC<CardItemProps> = ({
           />
           <View style={styles.maskedView}>
             <Text
-              children={renderMaskedValue()}
+              children={renderedValue}
               style={styles.templateCardAmount}
               numberOfLines={1}
               ellipsizeMode="tail"

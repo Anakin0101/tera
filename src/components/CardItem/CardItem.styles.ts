@@ -39,7 +39,7 @@ export const useStyles = () => {
       fontSize: FontSize.regular,
       color: Colors.textBlack,
       fontWeight: '400',
-      width: 70,
+      width: 80,
     },
     mask: {
       width: 40,

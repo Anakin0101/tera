@@ -2,21 +2,18 @@ import {
   useConvertAmountBuyQuery,
   useConvertAmountSellQuery,
 } from 'services/apis/transfersAPI/transfersAPI';
-import {
-  convertAmountBuyRequestType,
-  convertAmountSellRequestType,
-} from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useConvertAmount = (
-  amountBuyParams: convertAmountBuyRequestType,
-  amountSellParams?: convertAmountSellRequestType,
+  amountBuyParams: any,
+  amountSellParams?: any,
+  shouldCallApi: boolean = true,
 ) => {
   const {
     data: buyAmount,
     isLoading: buyLoading,
     error: buyError,
     refetch: buyRefetch,
-  } = useConvertAmountBuyQuery(amountBuyParams);
+  } = useConvertAmountBuyQuery(amountBuyParams, { skip: !shouldCallApi });
 
   const {
     data: sellAmount,
@@ -27,6 +24,9 @@ export const useConvertAmount = (
     amountSellParams && amountSellParams.amountSell !== undefined
       ? amountSellParams
       : { amountSell: 0, currencyBuy: '', currencySell: '' },
+    {
+      skip: !shouldCallApi,
+    },
   );
 
   return {

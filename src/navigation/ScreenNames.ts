@@ -37,6 +37,8 @@ export const TRANSFER_TO_ACCOUNT_SCREEN = 'TransferToAccountScreen';
 export const PRIVATE_TRANSACTION_SCREEN = 'PrivateTransactionScreen';
 export const TRANSFER_DETAIL_SCREEN = 'TransferDetailScreen';
 export const TRANSACTION_FINISHED_SCREEN = 'TransactionFinishedScreen';
+export const OTHER_BANK_TANSACTION_SCREEN = 'OtherBankTransactionScreen';
+export const TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN = 'TransferToOtherBankAccountScreen';
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';

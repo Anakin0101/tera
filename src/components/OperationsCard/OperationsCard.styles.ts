@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
 import { Spacing } from 'theme/Variables';
-
+import { horizontalScale } from 'utils/config';
 export const useStyles = () => {
   const { Layout, FontSize, Colors } = useTheme();
 
   return StyleSheet.create({
     templateCardContainer: {
       ...Layout.row,
-      width: '90%',
+      maxWidth: '90%',
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
     },
@@ -29,7 +29,7 @@ export const useStyles = () => {
       marginLeft: Spacing.s,
     },
     templateCardTitle: {
-      width: 150,
+      width: horizontalScale(150),
       fontSize: FontSize.small,
       color: Colors.textBlack,
       fontWeight: '400',
@@ -39,7 +39,11 @@ export const useStyles = () => {
       color: Colors.textBlack,
       fontWeight: '400',
     },
-    ops: { ...Layout.alignItemsEnd, marginLeft: Spacing.md, width: 120 },
+    ops: {
+      ...Layout.alignItemsEnd,
+      marginLeft: Spacing.md,
+      width: horizontalScale(110),
+    },
     dateText: {
       fontSize: FontSize.dwarf,
       color: Colors.textBlack,

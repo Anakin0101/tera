@@ -86,6 +86,7 @@ export { EditSvg } from './EditSvg';
 export { TinyChevron } from './TinyChevron';
 export { ConvertSvg } from './Convert';
 export { SuccessTransaction } from './SuccessTransaction';
+export { Invoice } from './Invoice';
 export { TabBarHome } from './TabBarHome';
 export { TabBarHomeActive } from './TabBarHomeActive';
 export { TabBarProducts } from './TabBarProducts';

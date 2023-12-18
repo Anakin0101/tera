@@ -14,7 +14,7 @@ export const DashboardSkeleton = () => {
         backgroundColor="rgba(254, 254, 254, 1)"
         marginHorizontal={14}
       >
-        <SkeletonPlaceholder>
+        <>
           <SkeletonPlaceholder.Item flexDirection="row" justifyContent="space-between">
             <SkeletonPlaceholder.Item>
               <SkeletonPlaceholder.Item
@@ -46,7 +46,7 @@ export const DashboardSkeleton = () => {
               backgroundColor="rgba(225, 230, 239, 1)"
             />
           </SkeletonPlaceholder.Item>
-        </SkeletonPlaceholder>
+        </>
       </SkeletonPlaceholder.Item>
       <SkeletonPlaceholder.Item
         borderRadius={8}
@@ -56,7 +56,7 @@ export const DashboardSkeleton = () => {
         marginHorizontal={14}
         backgroundColor="rgba(254, 254, 254, 1)"
       >
-        <SkeletonPlaceholder>
+        <>
           <SkeletonPlaceholder.Item backgroundColor="rgba(254, 254, 254, 1)">
             <SkeletonPlaceholder.Item>
               <SkeletonPlaceholder.Item
@@ -68,9 +68,9 @@ export const DashboardSkeleton = () => {
               />
             </SkeletonPlaceholder.Item>
           </SkeletonPlaceholder.Item>
-        </SkeletonPlaceholder>
+        </>
         <SkeletonPlaceholder.Item marginLeft={5}>
-          <SkeletonPlaceholder>
+          <>
             <View style={{ flexDirection: 'row' }}>
               {[...Array(4)].map((_, index) => (
                 <View key={index}>
@@ -92,7 +92,7 @@ export const DashboardSkeleton = () => {
                 </View>
               ))}
             </View>
-          </SkeletonPlaceholder>
+          </>
         </SkeletonPlaceholder.Item>
       </SkeletonPlaceholder.Item>
       <Divider style={{ marginTop: 20 }} />
@@ -104,9 +104,9 @@ export const DashboardSkeleton = () => {
         width="100%"
         marginHorizontal={14}
       >
-        <SkeletonPlaceholder>
+        <>
           <SkeletonPlaceholder.Item
-            backgroundColor="rgba(34, 39, 47, 1)"
+            backgroundColor="rgba(254, 254, 254, 1)"
             flexDirection="row"
             alignItems="center"
             width="100%"
@@ -121,8 +121,8 @@ export const DashboardSkeleton = () => {
               />
             </SkeletonPlaceholder.Item>
           </SkeletonPlaceholder.Item>
-        </SkeletonPlaceholder>
-        <SkeletonPlaceholder>
+        </>
+        <>
           <SkeletonPlaceholder.Item flexDirection="row" marginTop={10}>
             <SkeletonPlaceholder.Item>
               <SkeletonPlaceholder.Item
@@ -152,7 +152,7 @@ export const DashboardSkeleton = () => {
               />
             </SkeletonPlaceholder.Item>
           </SkeletonPlaceholder.Item>
-        </SkeletonPlaceholder>
+        </>
       </SkeletonPlaceholder.Item>
     </>
   );

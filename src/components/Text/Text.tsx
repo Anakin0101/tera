@@ -11,6 +11,7 @@ export const Text = forwardRef<RNText, TextProps>(
       children,
       color,
       size,
+      withoutLineHeight,
       lineHeight,
       uppercase,
       center,
@@ -40,7 +41,7 @@ export const Text = forwardRef<RNText, TextProps>(
       <RNText
         ref={ref}
         style={[
-          styles.default,
+          withoutLineHeight ? styles.withoutLineHeight : styles.default,
           label && styles.label,
           title && styles.title,
           headline && styles.headline,

@@ -38,7 +38,14 @@ export const DashboardPensionFund = ({ data }: any) => {
               </TouchableOpacity>
             </View>
             <View style={styles.wrapper}>
-              <CardItem title="დანაზოგი" value={data} iconSource={Images().PensionIcon} isSecure />
+              <CardItem
+                title="დანაზოგი"
+                fromPension
+                value={data}
+                iconSource={Images().PensionIcon}
+                isSecure
+                currency="₾"
+              />
             </View>
           </View>
         </View>

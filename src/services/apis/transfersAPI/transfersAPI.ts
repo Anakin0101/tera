@@ -5,7 +5,7 @@ import { METHOD_NAMES } from 'services/constants';
 import {
   GetTemplatesResponseType,
   convertAmountBuyRequestType,
-  convertAmountType,
+  convertAmountSellType,
   convertAmountSellRequestType,
 } from './transfersAPI.types';
 
@@ -27,7 +27,7 @@ export const transfersAPI = createApi({
       }),
     }),
 
-    convertAmountBuy: builder.query<convertAmountType, convertAmountBuyRequestType>({
+    convertAmountBuy: builder.query<any, convertAmountBuyRequestType>({
       query: ({ amountBuy, currencyBuy, currencySell }) => ({
         url: `${URLS.getAmount}?amountBuy=${amountBuy}&currencyBuy=${currencyBuy}&currencySell=${currencySell}`,
         method: METHOD_NAMES.GET,
@@ -35,7 +35,7 @@ export const transfersAPI = createApi({
       }),
     }),
 
-    convertAmountSell: builder.query<convertAmountType, convertAmountSellRequestType>({
+    convertAmountSell: builder.query<convertAmountSellType, convertAmountSellRequestType>({
       query: ({ amountSell, currencyBuy, currencySell }) => {
         const params = {
           ...(amountSell !== undefined && { amountSell }),
@@ -65,6 +65,36 @@ export const transfersAPI = createApi({
         body: operations,
       }),
     }),
+    checkIban: builder.query<any, any>({
+      query: iban => ({
+        url: `${URLS.checkIban}?iban=${iban}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
+    transferToSomeone: builder.mutation<any, any>({
+      query: operations => ({
+        url: URLS.transferToSomeone,
+        method: METHOD_NAMES.POST,
+        body: operations.body,
+        headers: operations.headers,
+        formData: true,
+      }),
+    }),
+    getTransferInfo: builder.query<any, any>({
+      query: ({
+        transferType,
+        debitAccountId,
+        amount,
+        fastPayment,
+        ensured,
+        receiverBankCode,
+      }) => ({
+        url: `${URLS.getTransferInfo}?transferType=${transferType}&debitAccountId=${debitAccountId}&amount=${amount}&fastPayment=${fastPayment}&ensured=${ensured}&receiverBankCode=${receiverBankCode}`,
+        method: METHOD_NAMES.GET,
+        headers: commonHeaders,
+      }),
+    }),
   }),
 });
 
@@ -73,5 +103,8 @@ export const {
   useConvertAmountBuyQuery,
   useConvertAmountSellQuery,
   useTransferToOwnAccountMutation,
+  useTransferToSomeoneMutation,
   useExchangeAmountMutation,
+  useLazyCheckIbanQuery,
+  useLazyGetTransferInfoQuery,
 } = transfersAPI;

@@ -7,11 +7,14 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button } from 'components';
 import { setSelectedPrice } from 'store/slices/transfers/indext';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
+import { clearSelectedData } from 'store/slices/transfers/indext';
 import { useDispatch } from 'react-redux';
 import { Convert } from './Convert';
 import { useConvertAmount } from './useConvertAmountBuy';
 import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
+import { useRoute } from '@react-navigation/native';
+
 interface AccountData {
   ccy: string;
 }
@@ -19,25 +22,40 @@ interface AccountData {
 interface TransferToAccountScreenProps {}
 
 export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
-  const { accountFromData, accountToData, selectedData, selectedItem } = useAppSelector(
+  const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+
+  const { accountFromData, accountToData, selectedData } = useAppSelector(
     state => state.transfers,
   ) as unknown as {
     accountFromData: AccountData;
     accountToData: AccountData;
     selectedData: any;
-    selectedItem: any;
   };
+  const dispatch = useDispatch();
+  const [shouldCallApi, setShouldCallApi] = useState(true);
+  const { fromOtherBank } = params;
+  useEffect(() => {
+    if (fromOtherBank) {
+      setShouldCallApi(false);
+    }
+  }, [fromOtherBank, accountFromData, accountToData]);
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  useEffect(() => {
+    return () => {
+      dispatch(clearSelectedData());
+    };
+  }, [dispatch]);
+
   let queryParams = {
     amountBuy: 0.01,
     currencyBuy: accountFromData?.ccy || '',
     currencySell: accountToData?.ccy || '',
   };
-  const { buyAmount } = useConvertAmount(queryParams);
+  const { buyAmount } = useConvertAmount(queryParams, shouldCallApi);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const dispatch = useDispatch();
+
   const inputRef = useRef<TextInput>(null);
   const isFocused = useIsFocused();
 
@@ -47,17 +65,26 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   };
 
   const openTransferScreen = () => {
-    navigate(PRIVATE_TRANSACTION_SCREEN);
+    const convertionValue = accountFromData?.ccy !== accountToData?.ccy;
+    if (convertionValue) {
+      navigate(PRIVATE_TRANSACTION_SCREEN, {
+        from: 'convert',
+      });
+    } else {
+      navigate(PRIVATE_TRANSACTION_SCREEN, {
+        from: 'transfer',
+      });
+    }
   };
 
   const navigateToTransferDetails = () => {
     if (isButtonDisabled) {
       return;
     }
-
     const convertionValue = accountFromData?.ccy !== accountToData?.ccy;
     navigate(TRANSFER_DETAIL_SCREEN, {
       convertion: convertionValue,
+      fromOtherBank: fromOtherBank,
     });
   };
 
@@ -81,20 +108,19 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
 
   return (
     <View style={styles.container}>
-      {accountFromData?.ccy !== accountToData?.ccy ? (
+      {accountFromData?.ccy !== accountToData?.ccy && !fromOtherBank ? (
         <Convert
           accountFromData={accountFromData}
           accountToData={accountToData}
           selectedData={selectedData}
-          selectedItem={selectedItem}
           setIsButtonDisabled={setIsButtonDisabled}
           convertAmount={buyAmount}
           openTransferScreen={openTransferScreen}
         />
       ) : (
         <Transfer
+          accountFromData={accountFromData}
           selectedData={selectedData}
-          selectedItem={selectedItem}
           onTextChange={handleTextChange}
           inputRef={inputRef}
           openTransferScreen={openTransferScreen}

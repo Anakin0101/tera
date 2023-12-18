@@ -1,10 +1,14 @@
 import {
   useExchangeAmountMutation,
   useTransferToOwnAccountMutation,
+  useTransferToSomeoneMutation,
+  useLazyGetTransferInfoQuery,
 } from 'services/apis/transfersAPI/transfersAPI';
 export const useTransferDetails = () => {
   const [exchangeAmountMutation] = useExchangeAmountMutation();
   const [transferToOwnAccountMutation] = useTransferToOwnAccountMutation();
+  const [transferToSomeoneMutation, { data }] = useTransferToSomeoneMutation();
+  const [getTransferInfo] = useLazyGetTransferInfoQuery();
 
   const handleExchangeAmount = async (params: any) => {
     try {
@@ -27,8 +31,21 @@ export const useTransferDetails = () => {
     }
   };
 
+  const handleTransferInfo = async (info: any) => {
+    try {
+      const response = await getTransferInfo(info);
+      return response;
+    } catch (error) {
+      console.error('Transfer to Someone Account Error:', error);
+      throw error;
+    }
+  };
+
   return {
     handleExchangeAmount,
     handleTransferToOwnAccount,
+    data,
+    handleTransferInfo,
+    transferToSomeoneMutation,
   };
 };
