@@ -14,9 +14,10 @@ export type UserInfoStateProps = {
   otpCode?: string;
   isPasscodeSet: boolean | undefined;
   isBiometricSet: boolean | undefined;
-  isUsernameSet: boolean | undefined;
   passcodeTries: number;
   isBiometricBeingSet: boolean | undefined;
+  loginName: string | undefined;
+  shouldSaveUsername: boolean | undefined;
 };
 
 export type SupportedAuthMethodsType = {

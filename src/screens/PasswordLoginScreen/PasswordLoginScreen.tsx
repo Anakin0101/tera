@@ -7,9 +7,8 @@ import { useLogin } from 'hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { withLoginScreen } from 'components/HOC';
 import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { setUsername } from 'utils/keychain';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setUserameStatus } from 'store/slices/userInfo';
+import { setShouldSaveUsername } from 'store/slices/userInfo';
 
 type FormData = {
   username: string;
@@ -30,10 +29,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
 
   const onSubmit: SubmitHandler<FormData> = data => {
     const { username, password, save } = data;
-    if (save) {
-      setUsername(username);
-      dispatch(setUserameStatus(!!username));
-    }
+    dispatch(setShouldSaveUsername(Boolean(save)));
     handleSignIn(username, password);
   };
 

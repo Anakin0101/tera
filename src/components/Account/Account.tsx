@@ -13,7 +13,7 @@ export const Account: FC<AccountProps> = ({ user, style }) => {
     <View style={[styles.container, style]}>
       <UserIcon width={verticalScale(64)} height={verticalScale(64)} />
       <Text style={styles.label}>{t('navigation.greetings')}</Text>
-      <Text style={styles.user}>{user}</Text>
+      <Text style={styles.user}>{user?.toUpperCase()}</Text>
     </View>
   );
 };

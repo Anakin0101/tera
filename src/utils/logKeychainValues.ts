@@ -1,17 +1,8 @@
-import {
-  getUserName,
-  getPasscode,
-  getPassword,
-  clearCredentials,
-  getBiometricsAuthStatus,
-} from './keychain';
+import { getPasscode, getPassword, clearCredentials, getBiometricsAuthStatus } from './keychain';
 
 // TODO - should be removed - testing purposes only!!
 export const logAllKeychainValues = async () => {
   try {
-    // Retrieve username
-    const username = await getUserName();
-
     // Retrieve password
     const password = await getPassword();
 
@@ -22,7 +13,6 @@ export const logAllKeychainValues = async () => {
     const biometricAuthStatus = await getBiometricsAuthStatus();
 
     console.warn({
-      username,
       password,
       passcode,
       biometricAuthStatus,

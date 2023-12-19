@@ -26,5 +26,11 @@ export default function () {
     Email: require('assets/images/Email.png'),
     Phone: require('assets/images/Phone.png'),
     Overdraft: require('assets/images/overdraft.png'),
+    NotificationColored: require('assets/images/NotificationColored.png'),
+    CurrencyRates: require('assets/images/CurrencyRates.png'),
+    Locations: require('assets/images/Locations.png'),
+    PensionFund: require('assets/images/PensionFund.png'),
+    Finances: require('assets/images/Finances.png'),
+    Documents: require('assets/images/Documents.png'),
   };
 }

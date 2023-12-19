@@ -7,13 +7,15 @@ import { useStyleTheme } from './VerifyEasyLoginScreen.styles';
 import { Account } from 'components/index';
 import passcodeEvents, { PASSCODE_EVENTS_PASSCODE_VERIFIED } from 'utils/eventBus';
 import { useTranslation } from 'react-i18next';
-import { useUserReset, useKeyChain } from 'hooks';
+import { useUserReset } from 'hooks';
 import { useVerifyPasscode } from 'hooks/useVerifyPasscode';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const VerifyEasyLoginScreen = () => {
   const styles = useStyleTheme();
   const { watchKeyboard, passcodeLength } = useVerifyPasscode();
-  const { savedUserName } = useKeyChain();
+  const savedUserName = useAppSelector(state => state.userInfo.loginName);
+
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
 

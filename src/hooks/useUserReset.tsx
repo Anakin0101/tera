@@ -8,8 +8,10 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import {
   resetUserCredentials,
   setBiometricStatus,
+  setIgnoreEasyLogin,
+  setLoginName,
   setPasscodeStatus,
-  setUserameStatus,
+  setShouldSaveUsername,
 } from 'store/slices/userInfo';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { closeModal, openModal } from 'utils/modal';
@@ -23,8 +25,10 @@ export const useUserReset = () => {
     if (result) {
       dispatch(setBiometricStatus(null));
       dispatch(setPasscodeStatus(null));
-      dispatch(setUserameStatus(null));
+      dispatch(setLoginName(null));
+      dispatch(setShouldSaveUsername(undefined));
       dispatch(resetUserCredentials());
+      dispatch(setIgnoreEasyLogin(false));
       closeModal();
       navigate(PASSWORD_LOGIN_SCREEN);
     } else {

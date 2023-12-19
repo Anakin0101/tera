@@ -7,9 +7,9 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     container: {
       ...Layout.center,
+      paddingHorizontal: Spacing.xl,
     },
     contentWrapper: {
-      paddingHorizontal: Spacing.xl,
       ...Layout.center,
     },
     toggleContainer: {

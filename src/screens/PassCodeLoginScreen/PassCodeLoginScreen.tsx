@@ -8,7 +8,7 @@ import { Account } from 'components/index';
 import { withLoginScreen } from 'components/HOC';
 import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
-import { useUserReset, usePasscode, useKeyChain, useLogin, useBiometrics } from 'hooks';
+import { useUserReset, usePasscode, useLogin, useBiometrics } from 'hooks';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
 interface PasscodeLoginBaseProps {}
@@ -16,12 +16,12 @@ interface PasscodeLoginBaseProps {}
 const PasscodeLoginScreenBase: FC<PasscodeLoginBaseProps> = () => {
   const styles = useStyleTheme();
   const { watchKeyboard, passcodeLength } = usePasscode();
-  const { savedUserName } = useKeyChain();
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
   const logoutStatus = useAppSelector(state => state.userInfo.logoutStatus);
   const { handlePasscodeSignIn } = useLogin();
   const { handleBiometricVerification } = useBiometrics();
+  const savedUserName = useAppSelector(state => state.userInfo.loginName);
 
   const handleBiometricAuth = useCallback(() => {
     handleBiometricVerification(

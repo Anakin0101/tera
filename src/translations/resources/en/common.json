@@ -83,7 +83,7 @@
   },
   "easyLogin": {
     "title": "Easy login",
-    "description": "For easy access, use fingerprint or password login.",
+    "description": "For easy access, use biometric data or passcode.",
     "activate": "Activate",
     "next_time": "Other time",
     "do_not_ask_again": "Do not ask again"
@@ -109,7 +109,17 @@
 
   "profile": {
     "edit_settings": "Edit settings",
-    "logout": "Log out"
+    "logout": "Log out",
+    "notifications": "Notifications",
+    "currency_rates": "Currency rates",
+    "locations": "Locations",
+    "pension_fund": "Pension fund",
+    "my_finances": "My finances",
+    "my_documents": "My documents",
+    "statement_history": "Statement history",
+    "choose_authorization_method": "Choose authorization method",
+    "switch_to_language": "Switch to {{ language }}",
+    "confidentiality_policy": "Confidentiality policy"
   },
   "transfers": {
     "toOwnAccount": "Transfer to Own Account",
@@ -289,6 +299,8 @@
     "save": "Save",
     "georgian": "Georgian",
     "english": "English",
+	"in_georgian": "Georgian",
+    "in_english": "English",
     "confirm": "Confirm",
     "thankyou": "Thank you",
     "cancel": "Cancel",

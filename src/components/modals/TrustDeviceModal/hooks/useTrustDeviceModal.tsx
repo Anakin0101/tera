@@ -79,6 +79,8 @@ export const useTrustDeviceModal = () => {
         }
         openModal({
           element: <OTPModal onFinished={handlePasscodeSet} />,
+          disableDynamicSizing: true,
+          disablePanning: true,
         });
       }
     } catch (error) {

@@ -7,16 +7,22 @@ export const useStyleTheme = () => {
   //   TODO - need to create a HOC which will hold all screens with borderTopLeft and right radius
   return StyleSheet.create({
     container: {
-      flex: 1,
+      ...Layout.fullSize,
       ...Layout.justifyContentStart,
-      backgroundColor: Colors.white,
+      paddingTop: Spacing.s,
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
+      flex: 1,
+      backgroundColor: Colors.white,
     },
     wrapper: {
+      backgroundColor: Colors.headerBackground,
+    },
+    sectionContainer: {
+      marginTop: Spacing.xxs,
+      backgroundColor: Colors.white,
       paddingHorizontal: Spacing.xl,
     },
-
     titleStyle: {
       ...Fonts.titleregularPlus,
       marginTop: verticalScale(Spacing.xlg),

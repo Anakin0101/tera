@@ -3,7 +3,7 @@ import { setPasscode as savePasscode } from 'utils/keychain';
 import { PasscodeView } from '../CreatePasscodeScreen.types';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
-import { setPasscodeStatus } from 'store/slices/userInfo';
+import { setPasscodeStatus, setShouldSaveUsername } from 'store/slices/userInfo';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 
 export const useCreatePasscode = (successCallBack: () => void) => {
@@ -57,6 +57,7 @@ export const useCreatePasscode = (successCallBack: () => void) => {
         setView('SetPasscode');
       } else {
         savePasscode(passcode);
+        dispatch(setShouldSaveUsername(true));
         dispatch(setPasscodeStatus(!!passcode));
         setView('SetPasscode');
         setPasscode('');

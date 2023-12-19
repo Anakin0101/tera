@@ -14,10 +14,10 @@ export const BiometricKey: FC<BiometricKeyProps> = ({ handleBiometricAuth }) => 
       style={styles.pinItem}
       onPress={handleBiometricAuth}
       hitSlop={{
-        top: 5,
-        bottom: 5,
-        left: 25,
-        right: 25,
+        top: 20,
+        bottom: 20,
+        left: 20,
+        right: 20,
       }}
     >
       {icon}

@@ -114,7 +114,17 @@
 
   "profile": {
     "edit_settings": "პარამეტრების ცვლილება",
-    "logout": "გასვლა"
+    "logout": "გასვლა",
+    "notifications": "ნოტიფიკაციები",
+    "currency_rates": "ვალუტის კურსები",
+    "locations": "ლოკაციები",
+    "pension_fund": "საპენსიო ფონდი",
+    "my_finances": "ჩემი ფინანსები",
+    "my_documents": "ჩემი დოკუმენტები",
+    "statement_history": "განცხადებების ისტორია",
+    "choose_authorization_method": "ავტორიზაციის მეთოდის არჩევა",
+    "switch_to_language": "შეცვალე ენა {{ language }}",
+    "confidentiality_policy": "კონფიდენციალურობის პოლიტიკა"
   },
   "transfers": {
     "toOwnAccount": "საკუთარ ანგარიშზე გადარიცხვა",
@@ -288,6 +298,8 @@
     "save": "დამახსოვრება",
     "georgian": "ქართული",
     "english": "ინგლისური",
+    "in_georgian": "ქართულზე",
+    "in_english": "ინგლისურზე",
     "confirm": "დადასტურება",
     "thankyou": "მადლობა",
     "cancel": "გაუქმება",

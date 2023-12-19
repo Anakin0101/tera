@@ -34,7 +34,8 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
                 renderItem={({ item, index }) => (
                   <OperationsCard {...item} showUnderline={data && index < data?.length - 1} />
                 )}
-                keyExtractor={item => item.docDate}
+                // TODO - key is duplicated!!!
+                keyExtractor={item => `test---${item.docDate}`}
               />
             </View>
           </View>

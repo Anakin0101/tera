@@ -97,3 +97,6 @@ export { TabBarPayments } from './TabBarPayments';
 export { TabBarPaymentsActive } from './TabBarPaymentsActive';
 export { TabBarProfile } from './TabBarProfile';
 export { TabBarProfileActive } from './TabBarProfileActive';
+export { Statements } from './Statements';
+export { Passcode } from './Passcode';
+export { Confidentiality } from './Confidentiality';

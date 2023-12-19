@@ -8,10 +8,11 @@ export const useStyleTheme = () => {
       ...Layout.row,
       ...Layout.justifyContentStart,
       ...Layout.alignItemsCenter,
-      padding: Spacing.m,
-      marginBottom: 10,
+      paddingVertical: Spacing.m,
       paddingHorizontal: Spacing.xl,
       backgroundColor: Colors.white,
+      marginTop: Spacing.xxs,
+      paddingBottom: Spacing.xlg,
     },
     textStyles: {
       marginLeft: Spacing.lg,

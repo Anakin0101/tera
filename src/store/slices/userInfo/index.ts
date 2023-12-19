@@ -13,9 +13,10 @@ const initialState: UserInfoStateProps = {
   logoutStatus: undefined,
   isPasscodeSet: undefined,
   isBiometricSet: undefined,
-  isUsernameSet: undefined,
   passcodeTries: 0,
   isBiometricBeingSet: undefined,
+  loginName: undefined,
+  shouldSaveUsername: undefined,
 };
 
 const userInfoSlice = createSlice({
@@ -55,14 +56,17 @@ const userInfoSlice = createSlice({
     setBiometricStatus: (state, { payload }) => {
       state.isBiometricSet = payload;
     },
-    setUserameStatus: (state, { payload }) => {
-      state.isUsernameSet = payload;
+    setLoginName: (state, { payload }) => {
+      state.loginName = payload;
     },
     setPasscodeTries: (state, { payload }) => {
       state.passcodeTries = payload;
     },
     resetUserProfileInfo: state => {
       state.userProfileInfo = initialState.userProfileInfo;
+    },
+    setShouldSaveUsername: (state, { payload }) => {
+      state.shouldSaveUsername = payload;
     },
   },
   extraReducers: builder => {
@@ -90,7 +94,8 @@ export const {
   setIsBiometricBeingSet,
   setAccessToken,
   resetUserProfileInfo,
-  setUserameStatus,
   setRefreshToken,
+  setLoginName,
+  setShouldSaveUsername,
 } = userInfoSlice.actions;
 export const userInfoReducer = userInfoSlice.reducer;

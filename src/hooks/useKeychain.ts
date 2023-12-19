@@ -1,29 +1,33 @@
 import { useEffect, useState } from 'react';
-import { getBiometricsAuthStatus, getPasscode, getUserName } from 'utils/keychain';
+import { getBiometricsAuthStatus, getPasscode } from 'utils/keychain';
+
+type State = {
+  loading: boolean | null;
+  savedPasscode: string | null;
+  savedBiometricStatus: boolean | null;
+};
 
 export const useKeyChain = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [savedUserName, setSavedUserName] = useState<string | null | undefined>();
-  const [savedPasscode, setSavedPasscode] = useState<string | null | undefined>();
-  const [savedBiometricStatus, setSavedBiometricStatus] = useState<boolean | null | undefined>();
+  const [keyChainData, setKeyChainData] = useState<State>({
+    loading: true,
+    savedPasscode: null,
+    savedBiometricStatus: null,
+  });
 
   useEffect(() => {
     const fetchKeyChainData = async () => {
-      const username = await getUserName();
-      setSavedUserName(username);
       const passcode = await getPasscode();
-      setSavedPasscode(passcode);
       const biometricAuth = await getBiometricsAuthStatus();
-      setSavedBiometricStatus(biometricAuth);
-      setLoading(false);
+
+      setKeyChainData({
+        loading: false,
+        savedPasscode: passcode,
+        savedBiometricStatus: biometricAuth,
+      });
     };
 
     fetchKeyChainData();
   }, []);
-  return {
-    loading,
-    savedUserName,
-    savedPasscode,
-    savedBiometricStatus,
-  };
+
+  return keyChainData;
 };
