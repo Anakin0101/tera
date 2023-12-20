@@ -304,9 +304,47 @@
     "thankyou": "მადლობა",
     "cancel": "გაუქმება",
     "change": "შეცვლა",
-    "select": "არჩევა"
+    "select": "არჩევა",
+    "clear": "გასუფთავება",
+    "currency": "ვალუტა",
+    "from": "საიდან",
+    "to": "სადამდე"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული"
+  },
+  "transactions": {
+    "title": "ტრანზაქციები",
+    "searchTransaction": "მოძებნე ტრანზაქცია",
+    "date": "თარიღი",
+    "account": "ანგარიში",
+    "transactionType": "ტრანზაქციის ტიპი",
+    "income": "შემოსავალი",
+    "expense": "ხარჯი",
+    "selectDate": "აირჩიე თარიღი",
+    "details": "ტრანზაქციის დეტალები"
+  },
+  "transactionDetails": {
+    "to": "სად",
+    "sender": "გამომგზავნი",
+    "bank": "ბანკი",
+    "receiver": "მიმღები",
+    "paymentType": "გადახდის ტიპი",
+    "amount": "თანხა",
+    "desc": "აღწერა",
+    "docNumber": "დოკუმენტის ნომერი",
+    "refund": "თანხის\nდაბრუნება",
+    "automaticTransfers": "ავტომატური\nგადარიცხვები",
+    "saveAsTemplate": "შაბლონად\nშენახვა",
+    "downloadReceipt": "ჩამოტვირთე\nქვითარი",
+    "repeatTransaction": "ტრანზაქციის\nგანმეორება"
+  },
+  "filters": {
+    "income": "ჩარიცხვა / თანხის შეტანა",
+    "outcome": "გადარიცხვა / თანხის გატანა",
+    "toOwnAccount": "საკუთარ ანგარიშებს შორის გადარიცხვა",
+    "exchange": "კონვერტაცია",
+    "toTreasure": "სახაზინო გადარიცხვა",
+    "payments": "გადახდები"
   }
 }

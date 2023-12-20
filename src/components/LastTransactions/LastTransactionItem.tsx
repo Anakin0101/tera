@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
-import { Divider, Text } from '../index';
+import { Pressable, View } from 'react-native';
 import { useTheme } from 'hooks';
+import { Divider, Text } from '../index';
+import { formatDate } from 'utils/formatDate';
+import { formatMoney } from 'utils/formatMoney';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { LastTransactionProps } from './LastTransaction.types';
 import { useStyles } from './LastTransactions.styles';
-import { formatDate } from 'utils/formatDate';
-import { formatMoney } from 'utils/formatMoney';
 
-const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
+const LastTransactionItem: FC<LastTransactionProps> = ({ item, onPress, showUnderline = true }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
   return (
-    <View style={styles.transactionWrapper}>
+    <Pressable onPress={onPress} style={styles.transactionWrapper}>
       <View style={styles.imageContainer} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
@@ -29,9 +29,9 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item, index }) => {
           <Text children="" size={12} color={Colors.textBlack400} />
           <Text children={formatDate(item.docDate)} size={12} color={Colors.textBlack400} />
         </View>
-        {index < 3 && <Divider height={1} marginTop={18} marginBottom={18} width="100%" />}
+        {showUnderline && <Divider height={1} marginTop={18} marginBottom={18} width="100%" />}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

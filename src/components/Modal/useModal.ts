@@ -24,6 +24,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [enableContentPanningGesture, setEnableContentPanningGesture] = useState(true);
   const [snapPoints, setSnapPoints] = useState<(string | number)[]>([initial_snapPoints]);
   const [hideHandle, setHideHandle] = useState(false);
+  const [hideCloseButton, setHideCloseButton] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
 
   useLayoutEffect(() => {
@@ -58,6 +59,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.disablePanning && setEnableContentPanningGesture(false);
     options.snapPoints && setSnapPoints(options.snapPoints);
     options.hideHandle && setHideHandle(options.hideHandle);
+    options.hideCloseButton && setHideCloseButton(options.hideCloseButton);
     modalRef?.current?.present();
   };
 
@@ -70,6 +72,8 @@ const useModal = (ref: Ref<ModalHandler>) => {
     setEnableContentPanningGesture(true);
     setSnapPoints([initial_snapPoints]);
     setHideHandle(false);
+    setHideCloseButton(false);
+    setElement(null);
     modalRef?.current?.close();
   };
 
@@ -89,6 +93,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     snapPoints,
     hideHandle,
     enablePadding,
+    hideCloseButton,
   };
 };
 

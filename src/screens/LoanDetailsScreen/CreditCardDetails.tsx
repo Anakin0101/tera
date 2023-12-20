@@ -4,7 +4,7 @@ import { Collapsible } from 'components';
 import { formatDate, getFormattedDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 import { Header, Overdue, getLoanStatus } from './LoanDetails';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { CreditCardType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 

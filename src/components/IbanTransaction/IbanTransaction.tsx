@@ -4,7 +4,7 @@ import { Text } from 'components';
 import { Button, TextInput, TransferTemplates } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { debounce } from 'utils/debounce';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';

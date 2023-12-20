@@ -10,6 +10,7 @@ import {
   ProfileNavigator,
 } from 'navigation/stacks';
 import {
+  ALL_TRANSACTIONS_SCREEN,
   HOME_STACK,
   INITIAL_STACK,
   MODAL_STACK,
@@ -17,6 +18,7 @@ import {
   PRODUCTS_STACK,
   PROFILE_STACK,
   TRANSACTIONS_STACK,
+  TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { hideHeader, tabOptions } from 'navigation/config';
 import { MainStackParamsList, TabParamList } from 'navigation/types';
@@ -31,6 +33,8 @@ import {
   ProfileStackIcon,
   TransactionsStackIcon,
 } from 'navigation/TabBarIcons';
+import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
+import { Colors, FontFamily } from 'theme/Variables';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const RootStack = createStackNavigator<MainStackParamsList>();
@@ -94,13 +98,40 @@ const TabNavigator = () => {
 };
 
 export const MainNavigator = () => {
+  const { t } = useTranslation();
   const { Navigator, Screen } = RootStack;
   useMainNavigator();
 
   return (
-    <Navigator initialRouteName={INITIAL_STACK} screenOptions={hideHeader}>
+    <Navigator initialRouteName={INITIAL_STACK}>
       <Screen name={INITIAL_STACK} component={TabNavigator} options={hideHeader} />
       <Screen name={MODAL_STACK} component={ModalNavigator} />
+      <Screen
+        name={ALL_TRANSACTIONS_SCREEN}
+        component={AllTransactionsScreen}
+        options={{
+          title: t('transactions.title'),
+          headerStyle: {
+            backgroundColor: Colors.defaultBackground,
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerTitleStyle: { fontFamily: FontFamily.Regular },
+        }}
+      />
+      <Screen
+        name={TRANSACTION_DETAILS_SCREEN}
+        component={TransactionDetailsScreen}
+        options={{
+          title: t('transactions.details'),
+          headerStyle: {
+            backgroundColor: Colors.defaultBackground,
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerTitleStyle: { fontFamily: FontFamily.Regular },
+        }}
+      />
     </Navigator>
   );
 };

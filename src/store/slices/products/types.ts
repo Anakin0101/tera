@@ -21,4 +21,5 @@ export type ProductsStateProps = {
   loans: LoanType[];
   totalDebtGEL: number;
   creditCards: CreditCardType[];
+  selectedTransaction: TransactionType | null;
 };

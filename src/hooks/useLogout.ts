@@ -1,4 +1,5 @@
 import { useLogoutUserMutation } from 'services/apis';
+import { resetStateAction } from 'store/actions/reset';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { resetUserProfileInfo, setAccessToken, setPostponeEasyLogin } from 'store/slices/userInfo';
@@ -21,6 +22,7 @@ export const useLogout = () => {
         dispatch(setPostponeEasyLogin(false));
         dispatch(setAccessToken(''));
         dispatch(resetUserProfileInfo());
+        dispatch(resetStateAction());
       }
     } catch (error) {
       console.error('Error during logout:', error);

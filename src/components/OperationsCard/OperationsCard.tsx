@@ -1,14 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useStyles } from './OperationsCard.styles';
 import { IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import dayjs from 'dayjs';
-import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { getCurrencyIcon } from 'utils/currency';
 
-export const OperationsCard = (props: Transactions & { showUnderline?: boolean }) => {
-  const { amount, docDate, description, showUnderline, currency } = props;
+export const OperationsCard = (
+  props: TransactionType & { showUnderline?: boolean; onPress: () => void },
+) => {
+  const { amount, docDate, description, showUnderline, onPress, currency } = props;
 
   const inputDate = dayjs(docDate);
   const formattedDate = inputDate.format('D MMM, YYYY, HH:mm');
@@ -16,7 +18,7 @@ export const OperationsCard = (props: Transactions & { showUnderline?: boolean }
   const styles = useStyles();
 
   return (
-    <View>
+    <Pressable onPress={onPress}>
       <View style={styles.templateCardContainer}>
         <View style={styles.wrapper}>
           <IconComponent
@@ -66,6 +68,6 @@ export const OperationsCard = (props: Transactions & { showUnderline?: boolean }
         </View>
       </View>
       {showUnderline && <View style={styles.underline} />}
-    </View>
+    </Pressable>
   );
 };

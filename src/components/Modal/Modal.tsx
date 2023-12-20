@@ -28,6 +28,7 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
     snapPoints,
     hideHandle,
     enablePadding = false,
+    hideCloseButton,
   } = useModal(ref);
   const styles = useStyles();
 
@@ -47,9 +48,11 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
         <View style={title ? styles.titleContainer : null}>
           {titlePosition === 'center' && <View />}
           {title && <Text style={styles.title}>{title}</Text>}
-          <Pressable onPress={close} style={styles.closeButton}>
-            <Close />
-          </Pressable>
+          {!hideCloseButton && (
+            <Pressable onPress={close} style={styles.closeButton}>
+              <Close />
+            </Pressable>
+          )}
         </View>
         {element}
       </BottomSheetView>

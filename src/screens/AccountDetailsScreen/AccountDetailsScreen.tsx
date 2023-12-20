@@ -47,6 +47,7 @@ export const AccountDetailsScreen = () => {
             actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}
+            actionButtonsContainer={styles.actionButtons}
           />
         );
       case 'overdrafts':
@@ -78,6 +79,7 @@ export const AccountDetailsScreen = () => {
             style={styles.transactionsContainer}
             headerLabelStyle={styles.headerLabelStyle}
             headerContaienrStyle={styles.backgroundWhite}
+            accountNumber={account.accountNumber}
           />
         );
       default:

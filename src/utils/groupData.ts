@@ -1,5 +1,5 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
-import { CardType } from 'services/apis/productsAPI/productsAPI.types';
+import { CardType, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export const groupCardsByPan = (data: any[] = [], property: string): CardType[] => {
   return Object.values(
@@ -35,4 +35,23 @@ export const groupAccountsByIban = (
       return result;
     }, {}),
   );
+};
+
+export const groupTransactionsByDate = (transactions: TransactionType[]) => {
+  return Object.entries(
+    transactions.reduce((result: Record<string, TransactionType[]>, item) => {
+      const docDate = item.docDate;
+
+      if (!result[docDate]) {
+        result[docDate] = [];
+      }
+
+      result[docDate].push(item);
+
+      return result;
+    }, {}),
+  ).map(([docDate, data]) => ({
+    title: docDate,
+    data,
+  }));
 };

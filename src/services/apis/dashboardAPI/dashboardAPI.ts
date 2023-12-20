@@ -11,6 +11,7 @@ import {
 } from './dashboardAPI.types';
 import { URLS } from 'services/constants/urls';
 import { METHOD_NAMES } from 'services/constants';
+import { TransactionType } from '../productsAPI/productsAPI.types';
 
 export const dashboardAPI = createApi({
   reducerPath: 'dashboardAPI',
@@ -27,15 +28,13 @@ export const dashboardAPI = createApi({
         },
       }),
     }),
-    getCustomerOperations: builder.mutation<
-      GetCustomerOperationsResponseTypes,
-      GetCustomerOperationsRequestTypes
-    >({
+    getCustomerOperations: builder.mutation<TransactionType[], GetCustomerOperationsRequestTypes>({
       query: operations => ({
         url: URLS.getCustomperOps,
         method: METHOD_NAMES.POST,
         body: operations,
       }),
+      transformResponse: (response: GetCustomerOperationsResponseTypes) => response.ops,
     }),
     getCreditCards: builder.query<CreditCardType[], void>({
       query: () => ({

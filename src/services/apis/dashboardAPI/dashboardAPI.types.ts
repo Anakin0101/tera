@@ -1,4 +1,4 @@
-import { Currency } from '../productsAPI/productsAPI.types';
+import { Currency, TransactionType } from '../productsAPI/productsAPI.types';
 
 export type GetTemplatesResponseType = {
   templates: Template[];
@@ -10,7 +10,7 @@ export type GetTemplatesRequestType = {
 };
 
 export type GetCustomerOperationsResponseTypes = {
-  ops: Transactions[];
+  ops: TransactionType[];
 };
 
 export type OverdraftType = {
@@ -35,11 +35,14 @@ export type OverdraftType = {
 };
 export type GetCustomerOperationsRequestTypes = {
   count: number;
-  culture: string;
-  currency: string;
+  culture?: string;
+  currency?: Currency | null;
   endDate: string;
   startDate: string;
   accountNumber?: number | null;
+  opCategory?: OpCategoryEnum | null;
+  searchWords?: string;
+  splitOps?: boolean;
 };
 export type Template = {
   id: number;
@@ -62,8 +65,9 @@ export type Transactions = {
   balance: number;
   balanceStart: number;
   description: string;
-  docDate: any;
+  docDate: string;
   isIncome: boolean;
+  id: number;
   currency: string;
 };
 
@@ -215,3 +219,12 @@ export type CreditCardType = {
   nextPaymentAmount: number;
   productName: string;
 };
+
+export enum OpCategoryEnum {
+  Income = 1,
+  ToSomeone = 2,
+  ToOwnAccount = 3,
+  Exchange = 4,
+  ToTreasure = 5,
+  Payments = 6,
+}

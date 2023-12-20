@@ -17,15 +17,12 @@ import {
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Auth'],
+  tagTypes: ['Products', 'Transaction'],
   endpoints: builder => ({
-    getAccountsByCustomerId: builder.query<Account[], number>({
-      query: CustomerId => ({
+    getAccountsByCustomerId: builder.query<Account[], void>({
+      query: () => ({
         url: URLS.getAccountsByCustomerId,
         method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
       }),
     }),
     getOffers: builder.query<OfferType[], number>({
@@ -38,7 +35,7 @@ export const productsAPI = createApi({
       }),
       transformResponse: (response: OffersAPIResponseType) => response.offers,
     }),
-    getLastTransactionsByAccNumber: builder.query<TransactionType[], LastTransactionReq>({
+    getLastTransactionsByAccNumber: builder.mutation<TransactionType[], LastTransactionReq>({
       query: ({ accountNumber, count, startDate, endDate }) => ({
         url: URLS.getCustomerOps,
         method: METHOD_NAMES.POST,
@@ -103,7 +100,7 @@ export const productsAPI = createApi({
 export const {
   useGetAccountsByCustomerIdQuery,
   useGetOffersQuery,
-  useGetLastTransactionsByAccNumberQuery,
+  useGetLastTransactionsByAccNumberMutation,
   useUpdateAccountNameMutation,
   useGetLoanScheduleQuery,
   useGetLoanHistoryQuery,

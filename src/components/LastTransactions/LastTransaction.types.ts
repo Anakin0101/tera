@@ -3,7 +3,8 @@ import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface LastTransactionProps {
   item: TransactionType;
-  index: number;
+  onPress: () => void;
+  showUnderline?: boolean;
 }
 
 export interface ILastTransaction {
@@ -20,4 +21,5 @@ export interface LastTransactionsProps {
   headerContaienrStyle?: StyleProp<ViewStyle>;
   headerLabelStyle?: StyleProp<TextStyle>;
   showFooter?: boolean;
+  accountNumber?: number;
 }

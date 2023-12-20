@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { openModal } from 'utils/modal';
 import { Divider, Text } from 'components';
-import { DetailsItem } from './DetailsItem';
+import { DetailsItem } from '../../components/DetailsItem/DetailsItem';
 import { ChevronRight, Copy, Edit } from 'assets/SVGs';
 import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';

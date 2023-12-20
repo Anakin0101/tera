@@ -14,5 +14,6 @@ export interface ConfigureModal {
   snapPoints?: (string | number)[];
   hideHandle?: boolean;
   enablePadding?: boolean | undefined;
+  hideCloseButton?: boolean;
 }
 export type TitlePos = 'center' | 'left';

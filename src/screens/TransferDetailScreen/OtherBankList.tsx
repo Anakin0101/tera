@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
 

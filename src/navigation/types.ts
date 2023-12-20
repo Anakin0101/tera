@@ -36,6 +36,8 @@ import {
   CREATE_PASSCODE_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
   PROFILE_STACK,
+  ALL_TRANSACTIONS_SCREEN,
+  TRANSACTION_DETAILS_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
 } from './ScreenNames';
@@ -44,6 +46,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type MainStackParamsList = {
   [INITIAL_STACK]: undefined;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
+  [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
+  [TRANSACTION_DETAILS_SCREEN]: undefined;
 };
 
 export type ModalStackParamsList = {

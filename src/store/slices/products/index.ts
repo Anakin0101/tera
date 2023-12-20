@@ -13,6 +13,7 @@ const initialState: ProductsStateProps = {
   totalDepositsGEL: 0,
   totalDebtGEL: 0,
   creditCards: [],
+  selectedTransaction: null,
 };
 
 const productsSlice = createSlice({
@@ -36,6 +37,9 @@ const productsSlice = createSlice({
     },
     setTotalDebt: (state, { payload }) => {
       state.totalDebtGEL = payload;
+    },
+    setSelectedTransaction: (state, { payload }) => {
+      state.selectedTransaction = payload;
     },
   },
   extraReducers: builder => {
@@ -67,5 +71,6 @@ export const {
   setLastTransactions,
   setTotalDeposits,
   setTotalDebt,
+  setSelectedTransaction,
 } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;

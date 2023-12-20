@@ -185,7 +185,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       case 'banker':
         return <Banker data={banker} />;
       case 'transactions':
-        return <DashboardOperations data={customerOperations?.ops} />;
+        return <DashboardOperations data={customerOperations} />;
       default:
         return null;
     }

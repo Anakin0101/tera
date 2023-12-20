@@ -299,15 +299,53 @@
     "save": "Save",
     "georgian": "Georgian",
     "english": "English",
-	"in_georgian": "Georgian",
+    "in_georgian": "Georgian",
     "in_english": "English",
     "confirm": "Confirm",
     "thankyou": "Thank you",
     "cancel": "Cancel",
     "change": "Change",
-    "select": "Select"
+    "select": "Select",
+    "clear": "Clear",
+    "currency": "Currency",
+    "from": "From",
+    "to": "To"
   },
   "form": {
     "is_required": "is required"
+  },
+  "transactions": {
+    "title": "Transactions",
+    "searchTransaction": "Search for a transaction",
+    "date": "Date",
+    "account": "Account",
+    "transactionType": "Transaction type",
+    "income": "Income",
+    "expense": "Expense",
+    "selectDate": "Select Date",
+    "details": "Transaction Details"
+  },
+  "transactionDetails": {
+    "to": "To",
+    "sender": "Sender",
+    "bank": "Bank",
+    "receiver": "Receiver",
+    "paymentType": "Payment Type",
+    "amount": "Amount",
+    "desc": "Description",
+    "docNumber": "Document Number",
+    "refund": "Refund",
+    "automaticTransfers": "Automatic\nTransfers",
+    "saveAsTemplate": "Save as\nTemplate",
+    "downloadReceipt": "Download the\nReceipt",
+    "repeatTransaction": "Repeat\nTransaction"
+  },
+  "filters": {
+    "income": "Income",
+    "outcome": "Outcome",
+    "toOwnAccount": "To Own Account",
+    "exchange": "Exchange",
+    "toTreasure": "To Treasure",
+    "payments": "Payments"
   }
 }

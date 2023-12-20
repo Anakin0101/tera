@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { formatDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
