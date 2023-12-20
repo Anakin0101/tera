@@ -1,5 +1,6 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { FontSize, Spacing, Layout } = useTheme();
@@ -7,11 +8,11 @@ export const useStyleTheme = () => {
     container: {
       ...Layout.alignItemsCenter,
     },
-    label: { paddingTop: Spacing.xl, fontSize: FontSize.large },
+    label: { paddingTop: verticalScale(Spacing.xl), fontSize: verticalScale(FontSize.large) },
     user: {
-      fontSize: FontSize.large,
+      fontSize: verticalScale(FontSize.large),
       paddingTop: Spacing.s,
-      paddingBottom: Spacing.xl,
+      paddingBottom: verticalScale(Spacing.xl),
     },
   });
 };

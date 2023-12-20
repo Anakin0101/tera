@@ -9,23 +9,25 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { IconComponent } from 'components';
 import Images from 'theme/Images';
 import { useDispatch } from 'react-redux';
-import { setMaskText } from 'store/slices/dashboard';
+import { setMaskDebit } from 'store/slices/dashboard';
 
 const filterAssetsAndCalculateSum = (assets: any[], currencyToExclude: string) => {
   const filteredAssets = assets.filter(
     (asset: { currency: any }) => asset.currency !== currencyToExclude,
   );
-  return calculateSum(filteredAssets, 'amount');
+  const totalAmount = calculateSum(filteredAssets, 'amount');
+  const totalCurrency = filteredAssets.length > 0 ? filteredAssets[0].currency : '';
+  return { amount: totalAmount, currency: totalCurrency };
 };
 
 export const DashboardAssets = ({ creditCards, overDraft, getLoanCustomerId, assets }: any) => {
-  const securePension = useAppSelector(state => state.dashboard.maskText);
+  const securePension = useAppSelector(state => state.dashboard.maskDebit);
   const styles = useStyles();
   const dispatch = useDispatch();
   const { Colors } = useTheme();
 
   const handleSecurePensionToggle = () => {
-    dispatch(setMaskText(!securePension));
+    dispatch(setMaskDebit(!securePension));
   };
 
   const liabilitiesSum = calculateSum(overDraft, 'overdraftLimit');
@@ -34,7 +36,6 @@ export const DashboardAssets = ({ creditCards, overDraft, getLoanCustomerId, ass
     getLoanCustomerId !== undefined ? getLoanCustomerId : [],
     'amount',
   );
-
   const assetsSum = filterAssetsAndCalculateSum(assets !== undefined ? assets : [], 'USD');
 
   const totalSum = liabilitiesSum + creditCardLoansSum + getLoanCustomerIdSum;
@@ -57,7 +58,11 @@ export const DashboardAssets = ({ creditCards, overDraft, getLoanCustomerId, ass
                 />
               </TouchableOpacity>
             </View>
-            <AssetsCard assetsSum={assetsSum} totalSum={totalSum} />
+            <AssetsCard
+              assetsSum={assetsSum.amount}
+              totalSum={totalSum}
+              currency={assetsSum.currency}
+            />
           </View>
         </View>
       </View>

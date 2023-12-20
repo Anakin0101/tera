@@ -6,6 +6,7 @@ import { PROFILE_SCREEN } from 'navigation/ScreenNames';
 import { ProfileStackParamsList } from 'navigation/types';
 import { CustomHeader } from 'components/index';
 import { CustomHeaderOptions } from 'components/CustomHeader/CustomHeader.types';
+import { Colors } from 'theme/Variables';
 
 const ProfileStack = createStackNavigator<ProfileStackParamsList>();
 
@@ -18,6 +19,7 @@ const ProfileStackHeaderMap = {
         titlePosition={'left'}
         searchElement={{ position: 'right' }}
         notificationsElement={{ position: 'right' }}
+        statusBarColor={Colors.dashboardBackground}
       />
     );
   },

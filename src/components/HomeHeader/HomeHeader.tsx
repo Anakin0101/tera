@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
-import Animated, { interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
-import useTheme from 'hooks/useTheme';
+import { TouchableWithoutFeedback, View } from 'react-native';
+import Animated, { SharedValue, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { IconComponent, Text } from '../index';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setScrollToTop } from 'store/slices/dashboard';
@@ -18,29 +17,39 @@ const Badge: FC<IBadgeProps> = ({ quantity }) => {
   );
 };
 
-export const HomeHeader: FC<IHomeHeaderProps> = ({ translateY, zIndex }) => {
+type Props = {
+  translateY: SharedValue<number>;
+  close: () => void;
+};
+
+const BackDrop = ({ translateY, close }: Props) => {
+  const styles = useStyles();
+  const backDropAnimation = useAnimatedStyle(() => {
+    const opacity = interpolate(translateY.value, [0, 230], [0, 0.8]);
+    const display = opacity === 0 ? 'none' : 'flex';
+    return {
+      opacity,
+      display,
+    };
+  });
+
+  return (
+    <TouchableWithoutFeedback onPress={close}>
+      <Animated.View style={[styles.backdrop, backDropAnimation]} />
+    </TouchableWithoutFeedback>
+  );
+};
+
+export const HomeHeader: FC<IHomeHeaderProps> = ({ translateY }) => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
-  const { Colors } = useTheme();
 
   const onTouch = () => {
     dispatch(setScrollToTop(true));
   };
 
-  const overlayColor = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(
-      translateY.value,
-      [0, 20],
-      [Colors.dashboardBackground, Colors.overlay],
-    ),
-  }));
-
   const zIndexHeader = useAnimatedStyle(() => ({
-    zIndex: zIndex.value,
-  }));
-
-  const zIndexOverlay = useAnimatedStyle(() => ({
-    zIndex: zIndex.value / 2,
+    zIndex: translateY.value !== 0 ? 0 : 1,
   }));
 
   return (
@@ -63,7 +72,7 @@ export const HomeHeader: FC<IHomeHeaderProps> = ({ translateY, zIndex }) => {
           <Badge quantity={4} />
         </Animated.View>
       </Animated.View>
-      <Animated.View style={[styles.overlay, overlayColor, zIndexOverlay]} onTouchStart={onTouch} />
+      <BackDrop translateY={translateY} close={onTouch} />
     </View>
   );
 };

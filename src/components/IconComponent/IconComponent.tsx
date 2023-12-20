@@ -33,10 +33,10 @@ export const IconComponent = ({
   return (
     <Pressable
       hitSlop={{
-        top: 5,
-        bottom: 5,
-        left: 5,
-        right: 5,
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30,
       }}
       onPress={handler}
       style={[

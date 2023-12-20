@@ -1,16 +1,37 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
-import { withLoginScreen } from 'components/HOC';
 import { PasswordLoginBaseProps } from './PasswordLoginScreen.types';
 import useStyles from './PasswordLoginScreen.styles';
-import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useLogin } from 'hooks';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { withLoginScreen } from 'components/HOC';
+import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setShouldSaveUsername } from 'store/slices/userInfo';
+
+type FormData = {
+  username: string;
+  password: string;
+  save: string;
+};
 
 const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
   const styles = useStyles();
+  const { handleSignIn } = useLogin();
+  const dispatch = useAppDispatch();
 
-  const { handleSignIn, control } = useLogin();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit: SubmitHandler<FormData> = data => {
+    const { username, password, save } = data;
+    dispatch(setShouldSaveUsername(Boolean(save)));
+    handleSignIn(username, password);
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -18,10 +39,12 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
       <Text children="common:passAuth.personalData" secondary marginTop={4} />
       <ControlledInput
         control={control}
-        name="loginName"
+        name="username"
         label="common:passAuth.username"
         marginTop={48}
+        errors={errors}
         required
+        errorMessage="common:form.is_required"
       />
       <ControlledInput
         control={control}
@@ -29,6 +52,9 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
         label="common:passAuth.password"
         marginTop={20}
         secureTextEntry
+        errors={errors}
+        required
+        errorMessage="common:form.is_required"
       />
       <View style={styles.chechboxContainer}>
         <ControlledInput
@@ -40,7 +66,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
         <Text children="common:passAuth.forgot" label special />
       </View>
       <View style={styles.buttonCont}>
-        <Button.Primary text="common:passAuth.signin" onPress={handleSignIn} fullWidth />
+        <Button.Primary text="common:passAuth.signin" onPress={handleSubmit(onSubmit)} fullWidth />
         <View style={styles.dividerContainer}>
           <View style={styles.divider} />
           <Text children="common:passAuth.or" label special style={styles.text} />
@@ -48,9 +74,6 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
         </View>
         <Button.Secondary text="common:passAuth.signup" onPress={() => {}} fullWidth />
       </View>
-      {/* <Pressable onPress={() => removeValue(APP_LAUNCHED)}>
-        <Text children="Start with onboarding" marginTop={20} />
-      </Pressable> */}
     </View>
   );
 };

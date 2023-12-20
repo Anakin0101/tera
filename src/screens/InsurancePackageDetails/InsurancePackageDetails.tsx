@@ -3,7 +3,7 @@ import { Pressable, ScrollView, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Divider, Text } from 'components';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
 import { CardSliderItem } from 'screens/CardDetailsScreen/CardSliderItem';

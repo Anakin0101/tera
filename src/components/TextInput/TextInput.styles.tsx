@@ -10,6 +10,9 @@ export const useStyleTheme = () => {
       ...Layout.justifyContentCenter,
       borderBottomColor: Colors.inputBlack50,
     },
+    withErrorInputContainer: {
+      borderBottomColor: Colors.error,
+    },
     label: {
       position: 'absolute',
       color: Colors.textBlack500,
@@ -26,6 +29,10 @@ export const useStyleTheme = () => {
     },
     iconContainer: {
       marginBottom: Spacing.ml - Spacing.xxxs,
+    },
+    errorMessage: {
+      color: Colors.error,
+      fontSize: FontSize.tiny,
     },
   });
 };

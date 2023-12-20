@@ -2,23 +2,29 @@ import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 
 export const useStyleTheme = () => {
-  const { Spacing, Layout } = useTheme();
+  const { Spacing } = useTheme();
   return StyleSheet.create({
     loginScreenContainerStyle: {
-      ...Layout.fullSize,
-      paddingHorizontal: Spacing.xl,
-      paddingVertical: Spacing.lg,
+      flex: 1,
     },
     loginScreenWrapperStyle: {
-      ...Layout.fullSize,
+      flex: 1,
+      marginHorizontal: Spacing.xxs,
+      marginVertical: Spacing.lg,
     },
     languageSwitcherContainer: {
-      ...Layout.alignSelfEnd,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      marginRight: Spacing.xl,
     },
     temporaryThemeCTAContainer: {
       position: 'absolute',
       left: 0,
     },
-    wrappedComponentWrapperStyle: {},
+    wrappedComponentWrapperStyle: {
+      flexGrow: 1,
+    },
   });
 };

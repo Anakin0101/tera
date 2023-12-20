@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
-import { DetailsItemProps } from './AccountDetailsScreen.types';
-import { useStyles } from './AccountDetailsScreen.styles';
 import { formatMoney } from 'utils/formatMoney';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
+import { DetailsItemProps } from './DetailsItem.types';
+import { useStyles } from './DetailsItem.styles';
 
 export const DetailsItem: FC<DetailsItemProps> = ({
   label,
@@ -15,17 +15,17 @@ export const DetailsItem: FC<DetailsItemProps> = ({
   card,
   onPress,
   translateProp,
+  marginTop,
 }) => {
   const styles = useStyles();
   const blockedFundsSection = Array.isArray(value);
 
   return (
-    <View style={styles.detailsContainer}>
-      <View style={blockedFundsSection ? styles.blockedFundsContainer : styles.detailsWrapper}>
+    <View style={[styles.detailsContainer, marginTop ? { marginTop } : null]}>
+      <View style={styles.detailsWrapper}>
         <View>
           <Text children={label} color={Colors.textBlack500} />
           {card && <Text children={card} />}
-
           {blockedFundsSection ? (
             <View style={styles.blockedAmountsContainer}>
               {value.map(item => (
@@ -36,7 +36,7 @@ export const DetailsItem: FC<DetailsItemProps> = ({
               ))}
             </View>
           ) : (
-            <Text children={value} translateProp={translateProp} />
+            <Text children={value} translateProp={translateProp} style={{ fontWeight: 'bold' }} />
           )}
           {iban && <Text children={iban} />}
         </View>

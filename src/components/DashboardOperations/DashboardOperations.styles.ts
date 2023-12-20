@@ -14,8 +14,9 @@ export const useStyles = () => {
       paddingVertical: Spacing.xlg,
       backgroundColor: Colors.white,
     },
-    dashboardView: { paddingLeft: Spacing.xl },
-
+    dashboardView: {
+      paddingHorizontal: Spacing.xl,
+    },
     titleContainer: {
       ...Fonts.textBold,
       fontSize: FontSize.regularPlus,
@@ -25,10 +26,7 @@ export const useStyles = () => {
       ...Layout.col,
     },
     dashboardTemplatesWrapper: {
-      marginVertical: Spacing.ml,
-      ...Layout.row,
-      ...Layout.justifyContentBetween,
-      ...Layout.alignItemsCenter,
+      marginVertical: Spacing.xl,
     },
     dashboardTemplatesContent: {
       paddingVertical: Spacing.xl,

@@ -5,7 +5,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { openToast } from 'utils/toast';
 import { openModal } from 'utils/modal';
 import { Divider, Text } from 'components';
-import { DetailsItem } from './DetailsItem';
+import { DetailsItem } from '../../components/DetailsItem/DetailsItem';
 import { ChangeAccountNameModal } from 'components/modals';
 import { DetailsProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';

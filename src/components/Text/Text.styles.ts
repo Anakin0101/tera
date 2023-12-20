@@ -11,6 +11,12 @@ export const useStyleTheme = () => {
       lineHeight: FontSize.large,
       color: Colors.textBlack,
     },
+    withoutLineHeight: {
+      fontSize: moderateScale(FontSize.small),
+      fontFamily: FontFamily.Regular,
+
+      color: Colors.textBlack,
+    },
     uppercase: {
       ...Fonts.textUppercase,
     },

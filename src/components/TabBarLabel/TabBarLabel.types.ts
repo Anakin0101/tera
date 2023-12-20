@@ -7,4 +7,6 @@ export interface ITabBarLabelProps {
   translateX: SharedValue<number>;
   onTabPress: (index: number) => void;
   onLayout: (event: LayoutChangeEvent, index: number) => void;
+  tabBarLabelStyle?: boolean;
+  activeTab?: number | null;
 }

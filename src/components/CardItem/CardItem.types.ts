@@ -3,4 +3,6 @@ export interface CardItemProps {
   value: string | number;
   iconSource: string;
   isSecure?: boolean;
+  currency: string;
+  fromPension?: boolean;
 }

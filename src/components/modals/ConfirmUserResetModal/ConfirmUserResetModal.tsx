@@ -11,6 +11,7 @@ export const ConfirmUserResetModal: FC<ConfirmResetModalProps> = ({
   cancel = () => {},
 }) => {
   const styles = useStyles();
+
   return (
     <View style={styles.container}>
       <View style={[styles.iconContainer, { backgroundColor: Colors.error }]}>

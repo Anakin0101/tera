@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,6 +10,7 @@ import {
   ProfileNavigator,
 } from 'navigation/stacks';
 import {
+  ALL_TRANSACTIONS_SCREEN,
   HOME_STACK,
   INITIAL_STACK,
   MODAL_STACK,
@@ -18,6 +18,7 @@ import {
   PRODUCTS_STACK,
   PROFILE_STACK,
   TRANSACTIONS_STACK,
+  TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { hideHeader, tabOptions } from 'navigation/config';
 import { MainStackParamsList, TabParamList } from 'navigation/types';
@@ -25,18 +26,15 @@ import { ModalNavigator } from 'navigation/stacks/ModalStack';
 import { useMainNavigator } from 'hooks';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setShouldCloseCards } from 'store/slices/dashboard';
-
-const transactionsIcon = () => (
-  <View
-    style={{
-      width: 40,
-      height: 40,
-      marginTop: 20,
-      borderRadius: 20,
-      backgroundColor: '#f9f1f6',
-    }}
-  />
-);
+import {
+  HomeStackIcon,
+  PaymentsStackIcon,
+  ProductsStackIcon,
+  ProfileStackIcon,
+  TransactionsStackIcon,
+} from 'navigation/TabBarIcons';
+import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
+import { Colors, FontFamily } from 'theme/Variables';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const RootStack = createStackNavigator<MainStackParamsList>();
@@ -51,7 +49,10 @@ const TabNavigator = () => {
       <Screen
         name={HOME_STACK}
         component={DashboardStack}
-        options={{ title: t('common:navigation.home') }}
+        options={{
+          title: t('common:navigation.home'),
+          tabBarIcon: HomeStackIcon,
+        }}
         listeners={({ navigation }) => ({
           tabPress: () => {
             const { isFocused, state, goBack } = navigation;
@@ -72,38 +73,65 @@ const TabNavigator = () => {
       <Screen
         name={PRODUCTS_STACK}
         component={ProductsStack}
-        options={{ title: t('common:navigation.products') }}
+        options={{ title: t('common:navigation.products'), tabBarIcon: ProductsStackIcon }}
       />
       <Screen
         name={TRANSACTIONS_STACK}
         component={TransactionsStack}
         options={{
           title: '',
-          tabBarIcon: transactionsIcon,
+          tabBarIcon: TransactionsStackIcon,
         }}
       />
       <Screen
         name={PAYMENTS_STACK}
         component={PaymentsStack}
-        options={{ title: t('common:navigation.payments') }}
+        options={{ title: t('common:navigation.payments'), tabBarIcon: PaymentsStackIcon }}
       />
       <Screen
         name={PROFILE_STACK}
         component={ProfileNavigator}
-        options={{ title: t('common:navigation.more') }}
+        options={{ title: t('common:navigation.more'), tabBarIcon: ProfileStackIcon }}
       />
     </Navigator>
   );
 };
 
 export const MainNavigator = () => {
+  const { t } = useTranslation();
   const { Navigator, Screen } = RootStack;
   useMainNavigator();
 
   return (
-    <Navigator initialRouteName={INITIAL_STACK} screenOptions={hideHeader}>
+    <Navigator initialRouteName={INITIAL_STACK}>
       <Screen name={INITIAL_STACK} component={TabNavigator} options={hideHeader} />
       <Screen name={MODAL_STACK} component={ModalNavigator} />
+      <Screen
+        name={ALL_TRANSACTIONS_SCREEN}
+        component={AllTransactionsScreen}
+        options={{
+          title: t('transactions.title'),
+          headerStyle: {
+            backgroundColor: Colors.defaultBackground,
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerTitleStyle: { fontFamily: FontFamily.Regular },
+        }}
+      />
+      <Screen
+        name={TRANSACTION_DETAILS_SCREEN}
+        component={TransactionDetailsScreen}
+        options={{
+          title: t('transactions.details'),
+          headerStyle: {
+            backgroundColor: Colors.defaultBackground,
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerTitleStyle: { fontFamily: FontFamily.Regular },
+        }}
+      />
     </Navigator>
   );
 };

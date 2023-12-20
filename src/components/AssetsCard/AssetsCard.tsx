@@ -6,8 +6,8 @@ import { AssetsCardProps } from './AssetsCard.types';
 import { CardItem } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
-export const AssetsCard: React.FC<AssetsCardProps> = ({ assetsSum, totalSum }) => {
-  const securePension = useAppSelector(state => state.dashboard.maskText);
+export const AssetsCard: React.FC<AssetsCardProps> = ({ assetsSum, totalSum, currency }) => {
+  const securePension = useAppSelector(state => state.dashboard.maskDebit);
 
   const renderMaskedValue = (value: number) => {
     const stringValue = String(value);
@@ -20,14 +20,18 @@ export const AssetsCard: React.FC<AssetsCardProps> = ({ assetsSum, totalSum }) =
     <View style={styles.templateCardContainer}>
       <CardItem
         title="ანაბრები"
+        isSecure
         value={renderMaskedValue(assetsSum)}
         iconSource={Images().AssetsIcon}
+        currency={currency}
       />
       <View style={styles.underline} />
       <CardItem
+        isSecure
         title="სესხები"
         value={renderMaskedValue(totalSum)}
         iconSource={Images().LiabilitiesIcon}
+        currency={currency}
       />
     </View>
   );

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { Badge, Text } from 'components';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { formatDate, getDaysDifference, getFormattedDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 import { Alert, Copy, Note } from 'assets/SVGs';

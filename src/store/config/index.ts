@@ -18,6 +18,8 @@ export const userInfoPersistConfig = {
     'isPasscodeSet',
     'isBiometricSet',
     'passcodeTries',
+    'loginName',
+    'shouldSaveUsername',
   ],
 };
 export const dashboardPersistConfig = {

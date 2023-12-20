@@ -12,15 +12,27 @@ import {
 } from 'navigation/ScreenNames';
 import { CustomHeaderOptions } from 'components/CustomHeader/CustomHeader.types';
 import { VerifyEasyLoginScreen } from 'screens/VerifyEasyLoginScreen/VerifyEasyLoginScreen';
+import { Colors } from 'theme/Variables';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
 const ModalStackHeaderMap = {
+  [SETTINGS_SCREEN]: (props: CustomHeaderOptions) => {
+    return (
+      <CustomHeader
+        title={'navigation.settings'}
+        backElement={{ position: 'left', hasBorder: false }}
+        statusBarColor={Colors.dashboardBackground}
+        {...props}
+      />
+    );
+  },
   [AUTHORIZATION_METHODS_SCREEN]: (props: CustomHeaderOptions) => {
     return (
       <CustomHeader
         title={'settings.choose_authorization_method'}
-        backElement={{ position: 'left' }}
+        backElement={{ position: 'left', hasBorder: false }}
+        whiteBackground
         bottomBorder
         {...props}
       />
@@ -28,12 +40,13 @@ const ModalStackHeaderMap = {
   },
   [CREATE_PASSCODE_SCREEN]: (props: CustomHeaderOptions) => {
     return (
-      <CustomHeader title={'passcode.headerTitle'} backElement={{ position: 'left' }} {...props} />
-    );
-  },
-  [SETTINGS_SCREEN]: (props: CustomHeaderOptions) => {
-    return (
-      <CustomHeader title={'navigation.settings'} backElement={{ position: 'left' }} {...props} />
+      <CustomHeader
+        title={'passcode.headerTitle'}
+        backElement={{ position: 'left', hasBorder: false }}
+        whiteBackground
+        bottomBorder
+        {...props}
+      />
     );
   },
 };
@@ -48,7 +61,11 @@ export const ModalNavigator = () => {
         component={SettingsScreen}
         options={{ header: ModalStackHeaderMap[SETTINGS_SCREEN] }}
       />
-
+      <Screen
+        name={AUTHORIZATION_METHODS_SCREEN}
+        component={AuthorizationMethodsScreen}
+        options={{ header: ModalStackHeaderMap[AUTHORIZATION_METHODS_SCREEN] }}
+      />
       <Screen
         name={VERIFY_EASY_LOGIN_SCREEN}
         component={VerifyEasyLoginScreen}
@@ -58,11 +75,6 @@ export const ModalNavigator = () => {
         name={CREATE_PASSCODE_SCREEN}
         component={CreatePasscodeScreen}
         options={{ header: ModalStackHeaderMap[CREATE_PASSCODE_SCREEN] }}
-      />
-      <Screen
-        name={AUTHORIZATION_METHODS_SCREEN}
-        component={AuthorizationMethodsScreen}
-        options={{ header: ModalStackHeaderMap[AUTHORIZATION_METHODS_SCREEN] }}
       />
     </Navigator>
   );

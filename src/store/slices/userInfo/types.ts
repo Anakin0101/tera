@@ -1,4 +1,7 @@
-import { GetUserInfoAPIResponseType } from 'services/apis/authAPI/authAPI.types';
+import {
+  GetUserInfoAPIResponseType,
+  LogoutAPIResponseType,
+} from 'services/apis/authAPI/authAPI.types';
 
 export type UserInfoStateProps = {
   accessToken: string;
@@ -6,13 +9,15 @@ export type UserInfoStateProps = {
   deviceToken: string;
   ignoreEasyLogin: boolean;
   postponeEasyLogin: boolean;
-  userProfileInfo: GetUserInfoAPIResponseType | null;
-  isLoggingOut: boolean;
+  userProfileInfo: GetUserInfoAPIResponseType | undefined;
+  logoutStatus: LogoutAPIResponseType | undefined;
   otpCode?: string;
   isPasscodeSet: boolean | undefined;
   isBiometricSet: boolean | undefined;
   passcodeTries: number;
   isBiometricBeingSet: boolean | undefined;
+  loginName: string | undefined;
+  shouldSaveUsername: boolean | undefined;
 };
 
 export type SupportedAuthMethodsType = {

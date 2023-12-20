@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, SafeAreaView } from 'react-native';
+import { Alert, SafeAreaView, View } from 'react-native';
 import { PasscodeInput } from 'components/PasscodeInput/PasscodeInput';
 import { useStyleTheme } from './CreatePasscodeScreen.styles';
 import { useCreatePasscode } from './hooks/useCreatePasscode';
@@ -47,22 +47,24 @@ export const CreatePasscodeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {view === 'SetPasscode' && (
-        <PasscodeInput
-          title="passcode.setPasscodeTitle"
-          label="passcode.setPasscodeDescription"
-          onPasscodeChange={onPasscodePress}
-          valueLength={valueLength}
-        />
-      )}
-      {view === 'RepeatPasscode' && (
-        <PasscodeInput
-          title="passcode.repeatPasscodeTitle"
-          label="passcode.setPasscodeDescription"
-          onPasscodeChange={onRepeatPasscodePress}
-          valueLength={valueLength}
-        />
-      )}
+      <View style={styles.wrapper}>
+        {view === 'SetPasscode' && (
+          <PasscodeInput
+            title="passcode.setPasscodeTitle"
+            label="passcode.setPasscodeDescription"
+            onPasscodeChange={onPasscodePress}
+            valueLength={valueLength}
+          />
+        )}
+        {view === 'RepeatPasscode' && (
+          <PasscodeInput
+            title="passcode.repeatPasscodeTitle"
+            label="passcode.setPasscodeDescription"
+            onPasscodeChange={onRepeatPasscodePress}
+            valueLength={valueLength}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };

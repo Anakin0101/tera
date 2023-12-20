@@ -10,11 +10,14 @@ import {
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
   TRANSACTION_FINISHED_SCREEN,
+  OTHER_BANK_TANSACTION_SCREEN,
+  TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
 import { TransactionFinishedScreen } from 'screens/TransactionFinishedScreen/TransactionFinishedScreen';
-
+import { OtherBankTransactionScreen } from 'screens/OtherBanksTransactionScreen/OtherBankTransactionScreen';
+import { TransferToOtherBankAccountScreen } from 'screens/TransferToAccountScreen/TransferToOtherBankAccountScreen';
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
@@ -23,6 +26,8 @@ export type TransactionsStackParamList = {
   [PRIVATE_TRANSACTION_SCREEN]: undefined;
   [TRANSFER_DETAIL_SCREEN]: undefined;
   [TRANSACTION_FINISHED_SCREEN]: undefined;
+  [OTHER_BANK_TANSACTION_SCREEN]: undefined;
+  [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -77,7 +82,7 @@ export const TransactionsStack = () => {
         name={TRANSFER_DETAIL_SCREEN}
         component={TransferDetailScreen}
         options={{
-          title: '',
+          title: t('გადარიცხვის დეტალები'),
           headerStyle: {
             backgroundColor: '#F9F9F9',
           },
@@ -87,6 +92,28 @@ export const TransactionsStack = () => {
       <Screen
         name={TRANSACTION_FINISHED_SCREEN}
         component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: '#F9F9F9',
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+      <Screen
+        name={OTHER_BANK_TANSACTION_SCREEN}
+        component={OtherBankTransactionScreen}
+        options={{
+          title: 'სად',
+          headerStyle: {
+            backgroundColor: '#F9F9F9',
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN}
+        component={TransferToOtherBankAccountScreen}
         options={{
           title: '',
           headerStyle: {

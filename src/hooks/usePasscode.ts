@@ -1,11 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { clearUsername, getPasscode, setPasscode } from 'utils/keychain';
-import { resetUserCredentials, setPasscodeStatus, setPasscodeTries } from 'store/slices/userInfo';
+import { getPasscode, setPasscode } from 'utils/keychain';
+import {
+  resetUserCredentials,
+  setLoginName,
+  setPasscodeStatus,
+  setPasscodeTries,
+  setShouldSaveUsername,
+} from 'store/slices/userInfo';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useLogin } from './useLogin';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { openToast } from 'utils/toast';
-import { delayedNavigation } from 'utils/navigationUtils';
 import { useNavigation } from '@react-navigation/native';
 import { GuestStackScreenProps } from 'navigation/types';
 import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
@@ -57,8 +62,9 @@ export const usePasscode = () => {
 
   const handleWrongPasscode = useCallback(() => {
     dispatch(resetUserCredentials());
-    clearUsername();
-    delayedNavigation(() => navigate(PASSWORD_LOGIN_SCREEN), 2000);
+    dispatch(setLoginName(undefined));
+    dispatch(setShouldSaveUsername(undefined));
+    navigate(PASSWORD_LOGIN_SCREEN);
   }, [dispatch, navigate]);
 
   /** Depending on number of tries, we show user different error messages

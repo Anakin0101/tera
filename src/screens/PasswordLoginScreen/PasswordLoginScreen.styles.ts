@@ -7,7 +7,8 @@ const useStyles = () => {
 
   return StyleSheet.create({
     wrapper: {
-      marginTop: verticalScale(36),
+      marginTop: verticalScale(44),
+      paddingHorizontal: Spacing.xl - Spacing.xxs,
     },
     chechboxContainer: {
       ...Layout.rowHCenter,

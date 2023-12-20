@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useStyleTheme } from './NumericKey.styles';
 import { NUmericKeyProps } from './NumericKey.types';
 
@@ -10,10 +10,10 @@ export const NumericKey: FC<NUmericKeyProps> = ({ onPress, pinNumber }) => {
       style={styles.pinItem}
       onPress={() => onPress(pinNumber)}
       hitSlop={{
-        top: 5,
-        bottom: 5,
-        left: 25,
-        right: 25,
+        top: 10,
+        bottom: 10,
+        left: 30,
+        right: 30,
       }}
     >
       <Text style={styles.pinItemText}>{pinNumber.toString()}</Text>

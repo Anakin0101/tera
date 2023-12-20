@@ -37,8 +37,10 @@ export const useStyleTheme = () => {
     sectionList: {
       ...Layout.overflowHidden,
       width: config.mobileWidth,
-      borderTopLeftRadius: Spacing.ml,
-      borderTopRightRadius: Spacing.ml,
+      // borderTopLeftRadius: Spacing.ml,
+      // borderTopRightRadius: Spacing.ml,
+      borderTopLeftRadius: 18,
+      borderTopRightRadius: 18,
     },
     sectionListContent: {
       flexGrow: 1,
@@ -73,6 +75,23 @@ export const useStyleTheme = () => {
     contentContainer: {
       gap: Spacing.m,
       paddingRight: 5,
+    },
+    cardsContainer: {
+      ...Layout.absolute,
+      top: MetricsSizes.regular,
+      width: config.mobileWidth,
+    },
+    scrollViewWrapper: {
+      marginTop: MetricsSizes.regular,
+    },
+    content: {
+      gap: 10,
+      paddingLeft: 35,
+    },
+    backdrop: {
+      ...StyleSheet.absoluteFillObject,
+      display: 'none',
+      backgroundColor: Colors.overlay,
     },
   });
 };

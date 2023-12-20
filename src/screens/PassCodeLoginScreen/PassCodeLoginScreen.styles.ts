@@ -6,10 +6,17 @@ export const useStyleTheme = () => {
   const { Layout, Spacing } = useTheme();
   return StyleSheet.create({
     wrapper: {
-      ...Layout.justifyContentCenter,
-      ...Layout.alignItemsCenter,
-      marginTop: verticalScale(99),
+      flex: 1,
+      marginTop: verticalScale(86),
+      justifyContent: 'space-between',
     },
-    pinLine: { marginTop: Spacing.xl, marginBottom: Spacing.xlg },
+    innerTopContainer: {
+      ...Layout.alignItemsCenter,
+      paddingBottom: Spacing.xlg,
+    },
+    pinContainer: {
+      flexGrow: 1,
+    },
+    pinLine: { marginTop: Spacing.xl },
   });
 };

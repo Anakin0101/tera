@@ -1,24 +1,25 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Colors, FontSize, Spacing, Layout } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.center,
+      paddingHorizontal: Spacing.xl,
     },
     contentWrapper: {
-      paddingHorizontal: Spacing.xl,
       ...Layout.center,
     },
     toggleContainer: {
       ...Layout.row,
       ...Layout.center,
       paddingTop: Spacing.m,
-      paddingBottom: Spacing.xxl,
+      paddingBottom: verticalScale(Spacing.xxl),
     },
     icon: {
-      marginVertical: 40,
+      marginVertical: verticalScale(40),
     },
     text: {
       fontSize: FontSize.regular,
@@ -29,7 +30,7 @@ export const useStyleTheme = () => {
       fontSize: FontSize.small,
       textAlign: 'center',
       color: Colors.textBlack500,
-      paddingVertical: Spacing.lg,
+      paddingVertical: verticalScale(Spacing.lg),
     },
     buttonsContainer: {
       ...Layout.fullWidth,

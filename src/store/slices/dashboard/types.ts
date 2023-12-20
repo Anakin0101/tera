@@ -6,6 +6,8 @@ export type DashboardStateProps = {
     error?: FetchBaseQueryError;
   };
   maskText: boolean;
+  maskDebit: boolean;
   shouldCloseCards: boolean;
   scrollToTop: boolean;
+  // isCardOpen: boolean;
 };

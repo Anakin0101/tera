@@ -37,7 +37,7 @@ export const useStyles = () => {
       ...Layout.center,
     },
     actionButtonLabel: {
-      maxWidth: 85,
+      // maxWidth: 85,
       marginTop: Spacing.m,
     },
   });

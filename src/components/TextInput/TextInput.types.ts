@@ -1,5 +1,5 @@
 import { KeyboardTypeOptions, StyleProp, TextStyle } from 'react-native';
-import { FieldValues, UseControllerProps } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseControllerProps } from 'react-hook-form';
 
 export type TextInputProps = {
   value?: string;
@@ -16,7 +16,10 @@ export type TextInputProps = {
   containerStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<TextStyle>;
   autoFocus?: boolean;
+  invoice?: boolean;
+  invoiceClick?: () => void;
   onChangeText?: (value: string) => void;
+  errorMessage?: string;
 };
 
 type ControlledInputType = {
@@ -25,4 +28,6 @@ type ControlledInputType = {
 
 export type ControlledInputProps<T extends FieldValues> = TextInputProps &
   ControlledInputType &
-  UseControllerProps<T>;
+  UseControllerProps<T> & {
+    errors?: FieldErrors<T>;
+  };

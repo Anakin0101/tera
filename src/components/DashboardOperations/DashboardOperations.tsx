@@ -1,18 +1,39 @@
 import React, { FC } from 'react';
 import { FlatList, View } from 'react-native';
-import { Button, Divider, Text } from 'components';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'hooks';
+import { Button, Text } from 'components';
+import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
+import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedTransaction } from 'store/slices/products';
+import { MainStackScreenProps } from 'navigation/types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './DashboardOperations.styles';
-import useTheme from 'hooks/useTheme';
-import { OperationsCard } from 'components/OperationsCard/OperationsCard';
-import { Transactions } from 'services/apis/dashboardAPI/dashboardAPI.types';
-
-type DashboardOperationsProps = {
-  data?: Transactions[];
-};
 
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
+  const { navigate } = useNavigation<MainStackScreenProps<'AllTransactionsScreen'>>();
+  const dispatch = useAppDispatch();
+  const handlePress = () => {
+    navigate('AllTransactionsScreen');
+  };
+
+  const onOperationPress = (item: TransactionType) => {
+    dispatch(setSelectedTransaction(item));
+    navigate('TransactionDetailsScreen');
+  };
+
+  const renderItem: RenderItem = ({ item, index }) => {
+    return (
+      <LastTransactionItem
+        item={item}
+        onPress={() => onOperationPress(item)}
+        showUnderline={data && index < data.length - 1}
+      />
+    );
+  };
 
   return (
     <>
@@ -28,20 +49,16 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
             </View>
             <View style={styles.dashboardTemplatesWrapper}>
               <FlatList
-                showsHorizontalScrollIndicator={false}
                 data={data}
-                // TODO - check with Back end - opId or opUId do not come from back end
-                renderItem={({ item, index }) => (
-                  <OperationsCard {...item} showUnderline={data && index < data?.length - 1} />
-                )}
+                renderItem={renderItem}
                 keyExtractor={item => item.docDate}
+                showsHorizontalScrollIndicator={false}
               />
             </View>
           </View>
         </View>
-        <Button.Outline fixedWidth text="dashboard.all" />
+        <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
       </View>
-      <Divider />
     </>
   );
 };

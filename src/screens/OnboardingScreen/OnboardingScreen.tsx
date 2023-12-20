@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { withLoginScreen } from 'components/HOC';
 import { Carousel } from 'components/index';
 import Images from 'theme/Images';
-import { PASSWORD_LOGIN_SCREEN, PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { View } from 'react-native';
 import { useStyleTheme } from './OnboardingScreen.styles';
 
@@ -39,7 +39,5 @@ const OnboardingScreenBase: FC<OnboardingScreenBaseProps> = ({ handleNavigation 
 
 export const OnboardingScreen = withLoginScreen<
   OnboardingScreenBaseProps,
-  typeof PASSWORD_LOGIN_SCREEN | typeof PASSWORD_ONLY_LOGIN_SCREEN
->(OnboardingScreenBase, undefined, (dependency: string) =>
-  dependency ? PASSWORD_ONLY_LOGIN_SCREEN : PASSWORD_LOGIN_SCREEN,
-);
+  typeof PASSWORD_LOGIN_SCREEN
+>(OnboardingScreenBase, PASSWORD_LOGIN_SCREEN);

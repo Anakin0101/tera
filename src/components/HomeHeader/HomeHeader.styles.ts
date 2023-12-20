@@ -56,5 +56,10 @@ export const useStyles = () => {
       fontSize: FontSize.tiny,
       lineHeight: 17,
     },
+    backdrop: {
+      ...StyleSheet.absoluteFillObject,
+      display: 'none',
+      backgroundColor: Colors.overlay,
+    },
   });
 };

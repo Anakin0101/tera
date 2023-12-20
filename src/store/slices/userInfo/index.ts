@@ -9,12 +9,14 @@ const initialState: UserInfoStateProps = {
   otpCode: '',
   ignoreEasyLogin: false,
   postponeEasyLogin: false,
-  userProfileInfo: null,
-  isLoggingOut: false,
+  userProfileInfo: undefined,
+  logoutStatus: undefined,
   isPasscodeSet: undefined,
   isBiometricSet: undefined,
   passcodeTries: 0,
   isBiometricBeingSet: undefined,
+  loginName: undefined,
+  shouldSaveUsername: undefined,
 };
 
 const userInfoSlice = createSlice({
@@ -26,11 +28,14 @@ const userInfoSlice = createSlice({
       state.refreshToken = payload.refreshToken;
     },
     resetUserCredentials: state => {
-      state.accessToken = '';
-      state.refreshToken = '';
+      state.accessToken = initialState.accessToken;
+      state.refreshToken = initialState.refreshToken;
     },
     setAccessToken: (state, { payload }) => {
-      state.accessToken = payload.accessToken;
+      state.accessToken = payload;
+    },
+    setRefreshToken: (state, { payload }) => {
+      state.refreshToken = payload;
     },
     setIgnoreEasyLogin: (state, { payload }) => {
       state.ignoreEasyLogin = payload;
@@ -51,14 +56,17 @@ const userInfoSlice = createSlice({
     setBiometricStatus: (state, { payload }) => {
       state.isBiometricSet = payload;
     },
+    setLoginName: (state, { payload }) => {
+      state.loginName = payload;
+    },
     setPasscodeTries: (state, { payload }) => {
       state.passcodeTries = payload;
     },
     resetUserProfileInfo: state => {
-      state.userProfileInfo = null;
+      state.userProfileInfo = initialState.userProfileInfo;
     },
-    setIsLoggingOut: (state, { payload }) => {
-      state.isLoggingOut = payload;
+    setShouldSaveUsername: (state, { payload }) => {
+      state.shouldSaveUsername = payload;
     },
   },
   extraReducers: builder => {
@@ -68,19 +76,9 @@ const userInfoSlice = createSlice({
         state.userProfileInfo = payload;
       },
     );
-    builder
-      .addMatcher(authAPI.endpoints.logoutUser.matchPending, state => {
-        state.isLoggingOut = true;
-      })
-      .addMatcher(authAPI.endpoints.logoutUser.matchFulfilled, state => {
-        state.postponeEasyLogin = initialState.postponeEasyLogin;
-        state.isLoggingOut = false;
-        state.accessToken = initialState.accessToken;
-        state.userProfileInfo = initialState.userProfileInfo;
-      })
-      .addMatcher(authAPI.endpoints.logoutUser.matchRejected, state => {
-        state.isLoggingOut = false;
-      });
+    builder.addMatcher(authAPI.endpoints.logoutUser.matchFulfilled, (state, { payload }) => {
+      state.logoutStatus = payload;
+    });
   },
 });
 
@@ -96,6 +94,8 @@ export const {
   setIsBiometricBeingSet,
   setAccessToken,
   resetUserProfileInfo,
-  setIsLoggingOut,
+  setRefreshToken,
+  setLoginName,
+  setShouldSaveUsername,
 } = userInfoSlice.actions;
 export const userInfoReducer = userInfoSlice.reducer;

@@ -9,4 +9,7 @@ export interface ITemplate {
 export interface ITemplateProps {
   item: ITemplate;
   index: number;
+  fromOtherBanks?: boolean;
+  selectedData?: string | null;
+  setSelectedData: (iban: string) => void;
 }

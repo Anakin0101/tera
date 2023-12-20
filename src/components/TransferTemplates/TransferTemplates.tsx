@@ -6,11 +6,24 @@ import { Plus } from 'assets/SVGs';
 import { ITemplate } from './TransferTemplates.types';
 import { useStyles } from './TransferTemplates.styles';
 
-export const TransferTemplates = ({ templates }: any) => {
+export const TransferTemplates = ({
+  templates,
+  fromOtherBanks = false,
+  selectedData,
+  setSelectedData,
+}: any) => {
   const styles = useStyles();
 
   const renderItem: ListRenderItem<ITemplate> = ({ item, index }) => {
-    return <Template item={item} index={index} />;
+    return (
+      <Template
+        item={item}
+        index={index}
+        fromOtherBanks={fromOtherBanks}
+        selectedData={selectedData}
+        setSelectedData={setSelectedData}
+      />
+    );
   };
 
   const footer = () => {
@@ -23,20 +36,22 @@ export const TransferTemplates = ({ templates }: any) => {
 
   return (
     <>
-      <View style={styles.headerWrapper}>
-        <Text children="transfers.templates" />
-        <Pressable>
-          <View style={styles.addTemplateButton}>
-            <Plus />
-            <Text special children="transfers.add" size={14} />
-          </View>
-        </Pressable>
-      </View>
+      {!fromOtherBanks && (
+        <View style={styles.headerWrapper}>
+          <Text children="transfers.templates" />
+          <Pressable>
+            <View style={styles.addTemplateButton}>
+              <Plus />
+              <Text special children="transfers.add" size={14} />
+            </View>
+          </Pressable>
+        </View>
+      )}
       <FlatList
         data={templates}
         renderItem={renderItem}
         style={styles.list}
-        ListFooterComponent={footer}
+        ListFooterComponent={!fromOtherBanks ? footer : null}
         showsHorizontalScrollIndicator={false}
       />
       <Divider marginTop={35} />

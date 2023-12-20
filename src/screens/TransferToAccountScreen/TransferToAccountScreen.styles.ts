@@ -6,9 +6,8 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     container: {
       ...Layout.center,
-      paddingVertical: Spacing.xxl,
     },
-    buttonView: { width: '95%' },
+    buttonView: { width: '95%', marginTop: Spacing.ml },
     innerTopContainer: {
       marginTop: 40,
       display: 'flex',
@@ -40,6 +39,11 @@ export const useStyleTheme = () => {
       ...Layout.alignItemsCenter,
       paddingVertical: Spacing.xlm,
     },
+    inputWrapper: {
+      ...Layout.justifyContentCenter,
+      ...Layout.alignItemsCenter,
+      ...Layout.row,
+    },
     transferView: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
@@ -55,7 +59,6 @@ export const useStyleTheme = () => {
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
       width: '90%',
-      paddingVertical: Spacing.xlm,
     },
     buttonCard: {
       ...Layout.row,
@@ -78,7 +81,11 @@ export const useStyleTheme = () => {
       borderRadius: 4,
       backgroundColor: Colors.textBlack,
     },
-    text: { fontSize: FontSize.small },
+    text: { fontSize: FontSize.small, color: Colors.primary },
+    inputText: {
+      fontSize: FontSize.xxxl,
+    },
+    textLine: { fontSize: FontSize.small, maxWidth: 90, fontWeight: 'bold' },
     icon: { marginLeft: Spacing.md },
     button: {
       ...Layout.row,

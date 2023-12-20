@@ -11,10 +11,10 @@ export const DeleteKey: FC<DeleteKeyProps> = ({ onPress }) => {
       style={styles.pinItem}
       onPress={() => onPress(11)}
       hitSlop={{
-        top: 5,
-        bottom: 5,
-        left: 25,
-        right: 25,
+        top: 20,
+        bottom: 20,
+        left: 20,
+        right: 20,
       }}
     >
       <DeleteKeyIcon />

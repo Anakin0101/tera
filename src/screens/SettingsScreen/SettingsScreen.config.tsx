@@ -15,12 +15,16 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
     title: 'settings.personal_info',
     subContent: [
       {
-        title: 'settings.edit_user',
+        index: 0,
+        id: 'settings.edit_user',
+        text: 'settings.edit_user',
         icon: UserIcon,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
       {
-        title: 'settings.email',
+        index: 1,
+        id: 'settings.email',
+        text: 'settings.email',
         icon: Email,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
@@ -30,22 +34,30 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
     title: 'settings.security_settings',
     subContent: [
       {
-        title: 'settings.change_password',
+        index: 0,
+        id: 'settings.change_password',
+        text: 'settings.change_password',
         icon: Key,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
       {
-        title: 'settings.change_code_word',
+        index: 1,
+        id: 'settings.change_code_word',
+        text: 'settings.change_code_word',
         icon: Asterisks,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
       {
-        title: 'settings.security_level',
+        index: 2,
+        id: 'settings.security_level',
+        text: 'settings.security_level',
         icon: Shield,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
       {
-        title: 'settings.trusted_devices',
+        index: 3,
+        id: 'settings.trusted_devices',
+        text: 'settings.trusted_devices',
         icon: SmartPhoneChecked,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
@@ -55,7 +67,9 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
     title: 'settings.additional_settings',
     subContent: [
       {
-        title: 'settings.manage_notifications',
+        index: 0,
+        id: 'settings.manage_notifications',
+        text: 'settings.manage_notifications',
         icon: NotificationsManage,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },

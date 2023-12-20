@@ -12,12 +12,12 @@ import { ControlledInputProps, TextInputProps } from './TextInput.types';
 import { useStyleTheme } from './TextInput.styles';
 import { useTranslation } from 'react-i18next';
 import { Controller, FieldValues } from 'react-hook-form';
-import { Checkbox } from '../index';
-import { OpenEye, CloseEye } from 'assets/SVGs';
+import { Checkbox, Text } from '../index';
+import { OpenEye, CloseEye, Invoice } from 'assets/SVGs';
 
 const HIT_SLOP = { top: 15, bottom: 15 };
 
-export const TextInput = forwardRef<RNTextInput, TextInputProps>(
+export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?: boolean }>(
   (
     {
       value,
@@ -34,6 +34,9 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
       containerStyle,
       iconContainerStyle,
       autoFocus,
+      invoice,
+      invoiceClick,
+      showErrorUI,
     },
     ref,
   ) => {
@@ -70,7 +73,15 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
     }));
 
     return (
-      <View ref={ref} style={[styles.inputContainer, { marginTop }, containerStyle]}>
+      <View
+        ref={ref}
+        style={[
+          styles.inputContainer,
+          { marginTop },
+          containerStyle,
+          showErrorUI && styles.withErrorInputContainer,
+        ]}
+      >
         <Animated.Text
           children={t(label)}
           style={[styles.label, labelStyle, labelAnimatedStyles]}
@@ -97,11 +108,23 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
               {secureText ? <OpenEye /> : <CloseEye />}
             </Pressable>
           )}
+          {invoice && (
+            <Pressable onPress={invoiceClick} style={[styles.iconContainer, iconContainerStyle]}>
+              <Invoice />
+            </Pressable>
+          )}
         </View>
       </View>
     );
   },
 );
+
+export const ErrorMessage = ({ label, errorMessage }: TextInputProps) => {
+  const styles = useStyleTheme();
+  const { t } = useTranslation();
+  const message = `${t(label)} ${t(errorMessage)}`;
+  return <Text children={message} style={styles.errorMessage} />;
+};
 
 export const ControlledInput = <T extends FieldValues>({
   control,
@@ -112,31 +135,44 @@ export const ControlledInput = <T extends FieldValues>({
   type = 'text',
   handleChange,
   defaultValue,
+  errors,
   ...props
 }: ControlledInputProps<T> & {
   handleChange?: () => void;
 }) => {
+  const showErrorUI = !!errors?.[name];
   return (
-    <Controller
-      name={name}
-      control={control}
-      defaultValue={defaultValue}
-      rules={{ required, ...rules }}
-      render={({ field: { onChange, value } }) => {
-        if (type === 'checkbox') {
+    <>
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={defaultValue}
+        rules={{ required, ...rules }}
+        render={({ field: { onChange, value } }) => {
+          if (type === 'checkbox') {
+            return (
+              <Checkbox
+                isChecked={value}
+                onChange={e => {
+                  onChange(e);
+                  handleChange?.();
+                }}
+                label={label}
+              />
+            );
+          }
           return (
-            <Checkbox
-              isChecked={value}
-              onChange={e => {
-                onChange(e);
-                handleChange?.();
-              }}
+            <TextInput
+              value={value}
+              onChangeText={onChange}
               label={label}
+              showErrorUI={showErrorUI}
+              {...props}
             />
           );
-        }
-        return <TextInput value={value} onChangeText={onChange} label={label} {...props} />;
-      }}
-    />
+        }}
+      />
+      {showErrorUI && <ErrorMessage label={label} {...props} />}
+    </>
   );
 };

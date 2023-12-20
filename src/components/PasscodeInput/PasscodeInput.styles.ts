@@ -1,17 +1,20 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Spacing, Colors, FontSize, Layout } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.center,
-      paddingBottom: Spacing.xxl,
+      flex: 1,
+      marginHorizontal: Spacing.xs,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
     },
     innerTopContainer: {
-      marginTop: Spacing.xlg,
-      display: 'flex',
-      flexDirection: 'column',
+      marginTop: verticalScale(Spacing.xlg),
+      marginBottom: verticalScale(70),
       ...Layout.alignItemsCenter,
     },
     title: {
@@ -21,15 +24,12 @@ export const useStyleTheme = () => {
     },
     label: {
       fontSize: FontSize.small,
-      marginBottom: 56,
+      marginBottom: verticalScale(56),
       color: Colors.textBlack500,
     },
-
     pinWrapper: {
-      ...Layout.alignItemsCenter,
-      width: '80%',
-      justifyContent: 'flex-end',
-      marginTop: 70,
+      flex: 1,
+      flexDirection: 'row',
     },
   });
 };
