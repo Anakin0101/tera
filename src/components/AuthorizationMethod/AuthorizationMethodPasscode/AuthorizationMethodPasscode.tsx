@@ -9,6 +9,8 @@ import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useVerifyPasscode } from 'hooks/useVerifyPasscode';
 import { useBiometrics } from 'hooks/useBiometrics';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setLoginName } from 'store/slices/userInfo';
 
 type AuthorizationMethodPasscodeProps = {
   handleSetNewPasscode?: () => void;
@@ -22,6 +24,8 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
   const { clearBiometrics } = useBiometrics();
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
   const isBiometricSet = useAppSelector(state => state.userInfo.isBiometricSet);
+  const shouldSaveUsername = useAppSelector(state => state.userInfo.shouldSaveUsername);
+  const dispatch = useAppDispatch();
 
   const { control, setValue } = useForm<SupportedAuthMethodsType>({
     defaultValues: {
@@ -37,6 +41,11 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
 
   const handleSwitchToggle = (newValue: boolean) => {
     if (newValue === false) {
+      // TODO - ask Giorgi and Vaniko, if they want this behavior:
+      // when user does not have username "save" ticked and also cancelles all biometrics/passcode, we do not save the username anymore
+      if (!shouldSaveUsername) {
+        dispatch(setLoginName(undefined));
+      }
       // TODO - temporarily leaving verifyPasscode for testing purposes
       removePasscode();
       if (isBiometricSet) {

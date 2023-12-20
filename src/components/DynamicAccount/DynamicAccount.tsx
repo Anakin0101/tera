@@ -18,7 +18,7 @@ export const DynamicAccount: FC<IAccountProps> = ({ data, isSelected, onPress })
             <View>
               <Text children={data.iban ? data.iban : data.accountIban} size={14} />
               <Text size={16} style={styles.bold}>
-                {data.balance} {data.ccy}
+                {data.availableBalance} {data.ccy}
               </Text>
             </View>
             {isSelected && (

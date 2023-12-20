@@ -8,38 +8,61 @@ import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { clearAccountFromData, clearAccountToData } from 'store/slices/transfers/indext';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export type cardProps = {
   accountFromData: any;
   accountToData: any;
 };
-
+interface SelectedItem {
+  selectedIban: number | null;
+}
 const CardItem = ({
   title,
   balance,
   onPress,
+  reverse,
 }: {
   title: string | undefined;
   balance: number | undefined;
   onPress: () => void;
+  reverse?: boolean;
 }) => {
   const styles = useStyleTheme();
 
   return (
     <TouchableOpacity style={styles.buttonCard} onPress={onPress}>
-      <View style={styles.cardContainer}>
-        <View style={styles.card} />
-      </View>
-      <View style={styles.wrapCard}>
-        <Text children={title} style={styles.textAccount} numberOfLines={1} />
-        <Text children={balance} style={styles.text} />
-      </View>
+      {!reverse ? (
+        <>
+          <View style={styles.cardContainer}>
+            <View style={styles.card} />
+          </View>
+          <View style={styles.wrapCard}>
+            <Text children={title} style={styles.textAccount} numberOfLines={1} />
+            <Text children={balance} style={styles.textLine} numberOfLines={1} />
+          </View>
+        </>
+      ) : (
+        <>
+          <View style={styles.wrapCard}>
+            <Text children={title} style={styles.textAccount} numberOfLines={1} />
+            <Text children={balance} style={styles.textLine} numberOfLines={1} />
+          </View>
+          <View style={styles.cardContainer}>
+            <View style={styles.card} />
+          </View>
+        </>
+      )}
     </TouchableOpacity>
   );
 };
 
 export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: SelectedItem }) => state.transfers,
+  );
+  const { selectedIban } = selectedItemFromStore;
   const dispatch = useDispatch();
   const styles = useStyleTheme();
 
@@ -50,10 +73,10 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
         navigate('MyAccountsScreen');
       } else {
         dispatch(clearAccountToData());
-        navigate('ToAccountScreen', { selected: null });
+        navigate('ToAccountScreen', { selected: selectedIban });
       }
     },
-    [dispatch, navigate],
+    [dispatch, navigate, selectedIban],
   );
 
   return (
@@ -65,8 +88,9 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
       />
       <TinyChevron style={styles.chevronIcon} />
       <CardItem
-        title={accountToData?.accountName}
-        balance={accountToData?.balance}
+        reverse
+        title={accountToData?.accountName ? accountToData?.accountName : accountToData?.name}
+        balance={accountToData?.balance ? accountToData?.balance : accountToData?.iban}
         onPress={() => handlePress(2)}
       />
     </View>

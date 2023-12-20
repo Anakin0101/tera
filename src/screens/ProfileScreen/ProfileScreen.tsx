@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import { MODAL_STACK, SETTINGS_SCREEN } from 'navigation/ScreenNames';
 import { useLazyGetUserProfileInfoQuery } from 'services/apis';
 import { useStyleTheme } from './ProfileScreen.styles';
 import { Logout, UserInfoBlock } from 'components/index';
+import { ProfileCards, ProfileList } from 'components/Profile';
 
 export const ProfileScreen = () => {
   const styles = useStyleTheme();
 
-  const { navigate, setOptions } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const { setOptions } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const [GetUserProfileInfo] = useLazyGetUserProfileInfoQuery();
 
   useEffect(() => {
@@ -21,21 +21,13 @@ export const ProfileScreen = () => {
   }, [GetUserProfileInfo, setOptions]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.contentWrapper}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.contentWrapper} showsVerticalScrollIndicator={false}>
         <UserInfoBlock />
+        <ProfileCards />
+        <ProfileList />
         <Logout />
-
-        <TouchableOpacity
-          onPress={() =>
-            navigate(MODAL_STACK, {
-              screen: SETTINGS_SCREEN,
-            })
-          }
-        >
-          <Text>Navigate to settings</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };

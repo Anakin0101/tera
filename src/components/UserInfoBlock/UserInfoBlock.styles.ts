@@ -7,10 +7,11 @@ export const useStyleTheme = () => {
     userInfoBlockContainer: {
       ...Layout.row,
       ...Layout.justifyContentStart,
-      padding: Spacing.m,
-      marginBottom: 10,
-      paddingHorizontal: Spacing.xl,
+      padding: Spacing.xl,
+      marginBottom: Spacing.xxs,
       backgroundColor: Colors.white,
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
     },
     userIconContainer: {
       paddingRight: Spacing.s,

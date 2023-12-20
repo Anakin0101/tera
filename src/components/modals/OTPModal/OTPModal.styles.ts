@@ -7,7 +7,6 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     container: {
       ...Layout.alignItemsCenter,
-      height: verticalScale(200),
       paddingHorizontal: Spacing.xxl,
     },
     OTPNumberLabel: { fontSize: verticalScale(FontSize.large), textAlign: 'center' },
@@ -25,24 +24,9 @@ export const useStyleTheme = () => {
       textAlign: 'center',
       paddingVertical: Spacing.lg,
     },
-    underlineStyleBase: {
-      ...Layout.alignItemsCenter,
-      width: 45,
-      height: 35,
-      borderWidth: 0,
-      borderBottomWidth: 1,
-      borderColor: Colors.inputBlack50,
-    },
-    OTPView: {
-      width: '80%',
-      height: 50,
-      ...Layout.center,
-    },
-    underlineStyleHighLighted: {
-      borderColor: Colors.textBlack400,
-    },
     resendView: {
       ...Layout.rowHCenter,
+      ...Layout.justifyContentCenter,
     },
     resendText: {
       ...Fonts.textBold,

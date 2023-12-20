@@ -16,6 +16,8 @@ export type TextInputProps = {
   containerStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<TextStyle>;
   autoFocus?: boolean;
+  invoice?: boolean;
+  invoiceClick?: () => void;
   onChangeText?: (value: string) => void;
   errorMessage?: string;
 };

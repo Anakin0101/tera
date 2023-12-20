@@ -1,15 +1,14 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
-import { verticalScale, config, horizontalScale } from 'utils/config';
-
-const { mobileWidth } = config;
+import { verticalScale } from 'utils/config';
+import { SLIDE_WIDTH } from './Carousel.constants';
 
 const useStyles = () => {
   const { Colors, Layout, Spacing, FontSize, Fonts } = useTheme();
 
   return StyleSheet.create({
     itemContainer: {
-      width: horizontalScale(mobileWidth) - 2 * Spacing.xl,
+      width: SLIDE_WIDTH,
     },
     imageContainer: {
       height: verticalScale(300),
@@ -34,6 +33,7 @@ const useStyles = () => {
     textContainer: {
       ...Layout.alignItemsCenter,
       marginTop: verticalScale(32),
+      width: '100%',
     },
     title: {
       color: Colors.textBlack,
@@ -43,7 +43,9 @@ const useStyles = () => {
     desc: {
       ...Fonts.textCenter,
       marginTop: verticalScale(32),
+      paddingHorizontal: 20,
       color: Colors.inactiveTint,
+      width: '100%',
     },
     list: {},
     skipLabel: {

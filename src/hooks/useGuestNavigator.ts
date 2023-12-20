@@ -10,6 +10,7 @@ import {
   PASSWORD_ONLY_LOGIN_SCREEN,
 } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { resetKeychainValues } from 'utils/logKeychainValues';
 
 export const useGuestNavigator = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -20,7 +21,8 @@ export const useGuestNavigator = () => {
   const refreshToken = useAppSelector(state => state.userInfo.refreshToken);
   const passcodeTries = useAppSelector(state => state.userInfo.passcodeTries);
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
-  const isUsernameSet = useAppSelector(state => state.userInfo.isUsernameSet);
+  const loginName = useAppSelector(state => state.userInfo.loginName);
+  const shouldSaveUsername = useAppSelector(state => state.userInfo.shouldSaveUsername);
   const isLaunchedBefore = storageKeys().includes(APP_LAUNCHED);
 
   useEffect(() => {
@@ -30,7 +32,8 @@ export const useGuestNavigator = () => {
       }
 
       if (!isLaunchedBefore) {
-        await setValue(APP_LAUNCHED, true);
+        setValue(APP_LAUNCHED, true);
+        resetKeychainValues();
         setIsFirstLaunch(true);
         setInitialRoute(ONBOARDING_SCREEN);
       } else if (isPasscodeSet && refreshToken && passcodeTries < 3) {
@@ -39,22 +42,14 @@ export const useGuestNavigator = () => {
         //   handlePasscodeSignIn();
         // }, false);
         setInitialRoute(PASSCODE_LOGIN_SCREEN);
-      } else if (!isPasscodeSet && isUsernameSet) {
+      } else if (!isPasscodeSet && !!loginName && shouldSaveUsername) {
         setInitialRoute(PASSWORD_ONLY_LOGIN_SCREEN);
-      } else {
-        setInitialRoute(PASSWORD_LOGIN_SCREEN);
       }
     };
 
     fetchInitialData();
-  }, [
-    keyChainLoading,
-    passcodeTries,
-    refreshToken,
-    isPasscodeSet,
-    isUsernameSet,
-    isLaunchedBefore,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyChainLoading, passcodeTries, refreshToken, isPasscodeSet, loginName, shouldSaveUsername]);
 
   return {
     loading,

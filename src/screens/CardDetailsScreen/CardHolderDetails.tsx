@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { useStyles } from './CardDetailsScreen.styles';
 import { Text } from 'components/index';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import dayjs from 'dayjs';
 import { CardHolderDetailProps } from './CardHolderDetailsProps.types';
 import { CardEye } from 'assets/SVGs';

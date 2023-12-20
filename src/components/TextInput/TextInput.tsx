@@ -13,7 +13,7 @@ import { useStyleTheme } from './TextInput.styles';
 import { useTranslation } from 'react-i18next';
 import { Controller, FieldValues } from 'react-hook-form';
 import { Checkbox, Text } from '../index';
-import { OpenEye, CloseEye } from 'assets/SVGs';
+import { OpenEye, CloseEye, Invoice } from 'assets/SVGs';
 
 const HIT_SLOP = { top: 15, bottom: 15 };
 
@@ -34,6 +34,8 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
       containerStyle,
       iconContainerStyle,
       autoFocus,
+      invoice,
+      invoiceClick,
       showErrorUI,
     },
     ref,
@@ -104,6 +106,11 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
           {secureTextEntry && value && (
             <Pressable onPress={handlePress} style={[styles.iconContainer, iconContainerStyle]}>
               {secureText ? <OpenEye /> : <CloseEye />}
+            </Pressable>
+          )}
+          {invoice && (
+            <Pressable onPress={invoiceClick} style={[styles.iconContainer, iconContainerStyle]}>
+              <Invoice />
             </Pressable>
           )}
         </View>

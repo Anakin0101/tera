@@ -58,5 +58,7 @@ export const useStyleTheme = () => {
       fontSize: FontSize.small,
     },
     text: { fontSize: FontSize.regular, fontWeight: 'bold' },
+    textBuyAmount: { fontSize: FontSize.regular },
+    textYourCourse: { fontSize: FontSize.regular, fontWeight: 'bold', color: Colors.primary },
   });
 };

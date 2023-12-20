@@ -12,6 +12,8 @@ export const TabBarLabel: FC<ITabBarLabelProps> = ({
   onLayout,
   tab,
   translateX,
+  tabBarLabelStyle,
+  activeTab = -1,
 }) => {
   const styles = useStyles();
 
@@ -24,16 +26,41 @@ export const TabBarLabel: FC<ITabBarLabelProps> = ({
     color: interpolateColor(
       translateX.value,
       [0, config.mobileWidth],
-      [0, 1].map(i => (i === index ? Colors.primary : Colors.textBlack400)),
+      [0, 1].map(i => (i === index ? Colors.primary : Colors.textBlack500)),
     ),
   }));
 
+  const OtherBanksOpacity = useAnimatedStyle(() => {
+    const tabColor =
+      index === translateX.value / config.mobileWidth ? Colors.primary : Colors.textBlack500;
+
+    return {
+      opacity: 0.9,
+      color: tabColor,
+    };
+  });
+
+  const handlePress = () => {
+    onTabPress(index);
+  };
+
   return (
-    <Pressable onPress={() => onTabPress(index)} key={index}>
+    <Pressable
+      onPress={handlePress}
+      key={index}
+      style={[
+        tabBarLabelStyle ? styles.otherBanksStyle : null,
+        tabBarLabelStyle && activeTab === index
+          ? { backgroundColor: 'rgba(160, 34, 109, 0.1)', borderColor: '#A0226D' }
+          : null,
+      ]}
+    >
       <Animated.Text
         onLayout={e => onLayout(e, index)}
         children={tab}
-        style={[styles.sectionList, opacity]}
+        style={
+          tabBarLabelStyle ? [styles.sectionList, OtherBanksOpacity] : [styles.sectionList, opacity]
+        }
       />
     </Pressable>
   );

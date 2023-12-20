@@ -47,6 +47,7 @@ export const AccountDetailsScreen = () => {
             actions={actions}
             index={activeIndex}
             setActiveIndex={setActiveIndex}
+            actionButtonsContainer={styles.actionButtons}
           />
         );
       case 'overdrafts':

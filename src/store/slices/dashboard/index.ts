@@ -9,7 +9,7 @@ const initialState: DashboardStateProps = {
   shouldCloseCards: false,
   scrollToTop: false,
   maskText: false,
-  // isCardOpen: false,
+  maskDebit: false,
 };
 
 const dashboardSlice = createSlice({
@@ -25,16 +25,12 @@ const dashboardSlice = createSlice({
     setMaskText: (state, { payload }) => {
       state.maskText = payload;
     },
-    // setIsCardOpen: (state, { payload }) => {
-    //   state.isCardOpen = payload;
-    // },
+    setMaskDebit: (state, { payload }) => {
+      state.maskDebit = payload;
+    },
   },
 });
 
-export const {
-  setShouldCloseCards,
-  setScrollToTop,
-  setMaskText,
-  //  setIsCardOpen
-} = dashboardSlice.actions;
+export const { setShouldCloseCards, setScrollToTop, setMaskText, setMaskDebit } =
+  dashboardSlice.actions;
 export const dashboardReducer = dashboardSlice.reducer;

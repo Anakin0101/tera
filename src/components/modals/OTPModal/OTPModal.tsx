@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { SafeAreaView, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, TextInput, View } from 'react-native';
 import { Text } from 'components';
 import { ResendIcon } from 'assets/SVGs';
 import { useStyleTheme } from './OTPModal.styles';
@@ -40,57 +40,59 @@ export const OTPModal = ({ onFinished }: { onFinished?: (code: string) => void }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text children="resend.text" style={styles.OTPNumberLabel} />
-      <View>
-        <Text children="resend.label" style={styles.label} />
-      </View>
-      <View style={styles.OTPInputContainer}>
-        {[1, 2, 3, 4, 5, 6].map(num => (
-          <Controller
-            key={num}
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                ref={input => (inputRefs.current[num - 1] = input)}
-                style={styles.inputItem}
-                maxLength={1}
-                onBlur={onBlur}
-                onChangeText={text => {
-                  onChange(text);
-                  if (text && num === 6) {
-                    checkAndSubmit();
-                  }
-                  if (text && num < 6) {
-                    focusNextInput(num - 1);
-                  }
-                }}
-                onKeyPress={({ nativeEvent }) => {
-                  if (nativeEvent.key === 'Backspace' && !value) {
-                    if (num > 1) {
-                      const prevInput = inputRefs.current[num - 2];
-                      if (prevInput) {
-                        prevInput.focus();
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <Text children="resend.text" style={styles.OTPNumberLabel} />
+        <View>
+          <Text children="resend.label" style={styles.label} />
+        </View>
+        <View style={styles.OTPInputContainer}>
+          {[1, 2, 3, 4, 5, 6].map(num => (
+            <Controller
+              key={num}
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  ref={input => (inputRefs.current[num - 1] = input)}
+                  style={styles.inputItem}
+                  maxLength={1}
+                  onBlur={onBlur}
+                  onChangeText={text => {
+                    onChange(text);
+                    if (text && num === 6) {
+                      checkAndSubmit();
+                    }
+                    if (text && num < 6) {
+                      focusNextInput(num - 1);
+                    }
+                  }}
+                  onKeyPress={({ nativeEvent }) => {
+                    if (nativeEvent.key === 'Backspace' && !value) {
+                      if (num > 1) {
+                        const prevInput = inputRefs.current[num - 2];
+                        if (prevInput) {
+                          prevInput.focus();
+                        }
                       }
                     }
-                  }
-                }}
-                value={value}
-                keyboardType="numeric"
-                autoFocus={num === 1}
-                placeholder={num > 1 && inputRefs.current[num - 1] ? '*' : ''}
-              />
-            )}
-            name={`input${num}` as any}
-            rules={{ required: true }}
-            defaultValue=""
-          />
-        ))}
-      </View>
+                  }}
+                  value={value}
+                  keyboardType="numeric"
+                  autoFocus={num === 1}
+                  placeholder={num > 1 && inputRefs.current[num - 1] ? '*' : ''}
+                />
+              )}
+              name={`input${num}` as any}
+              rules={{ required: true }}
+              defaultValue=""
+            />
+          ))}
+        </View>
 
-      <TouchableOpacity style={styles.resendView}>
-        <ResendIcon />
-        <Text children="ხელახლა გაგზავნა" style={styles.resendText} />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.resendView}>
+          <ResendIcon />
+          <Text children="ხელახლა გაგზავნა" style={styles.resendText} />
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

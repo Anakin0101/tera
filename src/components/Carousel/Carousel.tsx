@@ -1,14 +1,10 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { View, Animated, FlatList, ListRenderItem, Image } from 'react-native';
 import { Dots } from './Dots';
-import { config } from 'utils/config';
-import { Spacing } from 'theme/Variables';
 import { Button, Text } from 'components/index';
 import { CarouselProps, IItem } from './Carousel.types';
 import useStyles from './Carousel.styles';
-
-const { mobileWidth } = config;
-const SLIDE_WIDTH = mobileWidth - 2 * Spacing.xl;
+import { SLIDE_WIDTH } from './Carousel.constants';
 
 export const Carousel: FC<CarouselProps> = ({
   gap,

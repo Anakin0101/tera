@@ -18,5 +18,6 @@ export interface transferProps {
   inputRef: any;
   openTransferScreen: () => void;
   selectedData: any;
-  selectedItem: any;
+  accountFromData: any;
+  fromOtherBanks?: boolean;
 }

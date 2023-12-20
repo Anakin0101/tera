@@ -4,7 +4,7 @@ import { Colors } from 'theme/Variables';
 import { formatDate } from 'utils/formatDate';
 import { Collapsible, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import {
   LoanDetailsProps,
   OverdueContentProps,

@@ -1,4 +1,3 @@
-import { TOptions } from 'i18next';
 import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { Account, CardType, Currency } from 'services/apis/productsAPI/productsAPI.types';
 
@@ -6,17 +5,6 @@ export interface CardItemProps {
   item: CardType;
   isLast: boolean;
   onPress?: () => void;
-}
-
-export interface DetailsItemProps {
-  label: string;
-  value?: string | BlockedAmount[];
-  icon?: React.ReactNode;
-  card?: string;
-  iban?: string;
-  onPress?: () => void;
-  translateProp?: TOptions;
-  marginTop?: number;
 }
 
 export interface CardsProps {

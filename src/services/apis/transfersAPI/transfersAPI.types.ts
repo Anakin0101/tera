@@ -10,11 +10,25 @@ export type convertAmountType = {
   currencyBuy: string;
   currencySell: string;
   specialItems: number;
-  specialRate: number;
+  specialRate?: number;
   specialRateUsed: boolean;
   specialReversed: boolean;
   standardItems: number;
   standardRate: number;
+  standardReversed: boolean;
+};
+export type convertAmountSellType = {
+  amountBuy: number;
+  amountSell: number;
+  conversionAvailableLimit: number;
+  currencyBuy: string;
+  currencySell: string;
+  specialItems: number;
+  specialRate: number | undefined;
+  specialRateUsed: boolean | undefined;
+  specialReversed: boolean;
+  standardItems: number;
+  standardRate: number | undefined;
   standardReversed: boolean;
 };
 
@@ -27,12 +41,14 @@ export type convertAmountBuyRequestType = {
   amountBuy?: number;
   currencyBuy?: string;
   currencySell?: string;
+  shouldCallApi?: any;
 };
 
 export type convertAmountSellRequestType = {
   amountSell?: number;
   currencyBuy: string;
   currencySell: string;
+  shouldCallApi?: boolean;
 };
 
 export type GetCustomerOperationsResponseTypes = {
@@ -129,6 +145,16 @@ export enum DepositTypeEnum {
   Increasing = 5,
   Universal = 10,
   Saving = 11,
+}
+
+export enum FinancialTransferTypeEnum {
+  ToOwnAccount = 1,
+  Exchange = 2,
+  ToSomeoneInsideBank = 3,
+  ToSomeoneInGeorgia = 4,
+  ToSomeoneOutOfGeorgia = 5,
+  ToTreasury = 6,
+  P2pTransfer = 7,
 }
 
 export type Asset = {

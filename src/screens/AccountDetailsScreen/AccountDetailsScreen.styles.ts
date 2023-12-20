@@ -30,7 +30,9 @@ export const useStyles = () => {
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
     },
-    CardListWrapperWithoutBorder: { backgroundColor: Colors.white },
+    CardListWrapperWithoutBorder: {
+      backgroundColor: Colors.white,
+    },
     smallCard: {
       width: 26,
       height: Spacing.l,
@@ -76,29 +78,6 @@ export const useStyles = () => {
     detailsSectionWrapper: {
       padding: Spacing.xl,
     },
-    detailsWrapper: {
-      ...Layout.row,
-      ...Layout.justifyContentBetween,
-    },
-    detailsContainer: {
-      marginTop: Spacing.m,
-    },
-    detailsIconContainer: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      borderColor: Colors.inputBlack50,
-      borderWidth: 1,
-      ...Layout.center,
-      marginTop: 15,
-    },
-    blockedFundsContainer: {
-      ...Layout.rowHCenter,
-      ...Layout.justifyContentBetween,
-    },
-    blockedFundsIcon: {
-      margin: 10,
-    },
     backgroundWhite: {
       backgroundColor: Colors.white,
     },
@@ -143,11 +122,6 @@ export const useStyles = () => {
       backgroundColor: Colors.success,
       borderRadius: 20,
     },
-    blockedAmountsContainer: {
-      ...Layout.row,
-      ...Layout.alignItemsCenter,
-      gap: Spacing.ml,
-    },
     card: {
       ...Layout.justifyContentBetween,
       padding: 26,
@@ -182,6 +156,9 @@ export const useStyles = () => {
       backgroundColor: Colors.currencyBackground,
       padding: Spacing.xs,
       borderRadius: 80,
+    },
+    actionButtons: {
+      ...Layout.justifyContentBetween,
     },
   });
 };

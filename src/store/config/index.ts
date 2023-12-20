@@ -17,8 +17,9 @@ export const userInfoPersistConfig = {
     'postponeEasyLogin',
     'isPasscodeSet',
     'isBiometricSet',
-    'isUsernameSet',
     'passcodeTries',
+    'loginName',
+    'shouldSaveUsername',
   ],
 };
 export const dashboardPersistConfig = {

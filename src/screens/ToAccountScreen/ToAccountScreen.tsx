@@ -36,7 +36,7 @@ export const ToAccountScreen = () => {
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
   useEffect(() => {
     if (selectedAccount !== null) {
-      navigate(TRANSFER_TO_ACCOUNT_SCREEN);
+      navigate(TRANSFER_TO_ACCOUNT_SCREEN, { fromOtherBank: false });
     }
   }, [navigate, selectedAccount]);
 
@@ -48,6 +48,7 @@ export const ToAccountScreen = () => {
       setFilteredSections(filtered);
     }
   }, [sections, value]);
+
   useEffect(() => {
     if (groupedAccountsByIban) {
       const filteredAccounts = groupedAccountsByIban.map(group => {

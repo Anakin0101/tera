@@ -38,6 +38,8 @@ import {
   PROFILE_STACK,
   ALL_TRANSACTIONS_SCREEN,
   TRANSACTION_DETAILS_SCREEN,
+  OTHER_BANK_TANSACTION_SCREEN,
+  TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -98,14 +100,26 @@ export type TransactionsStackParamsList = {
   [MY_ACCOUNTS_SCREEN]: undefined;
   [TO_ACCOUNT_SCREEN]: {
     selected?: any;
+    otherBanks?: any;
   };
-  [TRANSFER_TO_ACCOUNT_SCREEN]: undefined;
-  [PRIVATE_TRANSACTION_SCREEN]: undefined;
+  [OTHER_BANK_TANSACTION_SCREEN]: {
+    otherBanks?: any;
+  };
+  [TRANSFER_TO_ACCOUNT_SCREEN]: {
+    fromOtherBank?: any;
+  };
+  [PRIVATE_TRANSACTION_SCREEN]: {
+    from: any;
+  };
   [TRANSFER_DETAIL_SCREEN]: {
     convertion?: boolean;
+    fromOtherBank?: boolean;
   };
   [TRANSACTION_FINISHED_SCREEN]: {
-    convertion?: boolean;
+    convertion?: any;
+  };
+  [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
+    fromOtherBank?: boolean;
   };
 };
 

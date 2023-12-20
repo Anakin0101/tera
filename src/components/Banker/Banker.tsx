@@ -4,7 +4,6 @@ import { useStyles } from './Banker.styles';
 import { Divider, IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import useTheme from 'hooks/useTheme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const Banker = ({ data }: any) => {
   const styles = useStyles();
@@ -27,7 +26,7 @@ export const Banker = ({ data }: any) => {
             style={styles.titleContainer}
             color={Colors.textBlack}
           />
-          <TouchableOpacity style={styles.wrapper}>
+          <View style={styles.wrapper}>
             <View style={styles.iconView}>
               <IconComponent
                 imageId={imageId}
@@ -60,7 +59,7 @@ export const Banker = ({ data }: any) => {
                 customIconComponentStyles={styles.eyeIcon}
               />
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
       <Divider />

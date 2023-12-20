@@ -11,7 +11,7 @@ export const useStyleTheme = () => {
     input: {
       fontSize: FontSize.xxxl,
       borderWidth: 0,
-      padding: Spacing.md,
+      paddingRight: Spacing.md,
       color: Colors.textBlack,
     },
   });

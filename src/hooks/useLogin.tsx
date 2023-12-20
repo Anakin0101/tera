@@ -6,7 +6,7 @@ import React from 'react';
 import { useLoginByRefreshTokenMutation, useLoginUserMutation } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setPasscodeTries, setUserCredentials } from 'store/slices/userInfo';
+import { setLoginName, setPasscodeTries, setUserCredentials } from 'store/slices/userInfo';
 import { closeModal, openModal } from 'utils/modal';
 import { openToast } from 'utils/toast';
 
@@ -60,6 +60,7 @@ export const useLogin = () => {
         .then(res => {
           if (res.success) {
             dispatch(setPasscodeTries(0));
+            dispatch(setLoginName(loginName));
             res.accessToken
               ? dispatch(
                   setUserCredentials({
@@ -69,8 +70,14 @@ export const useLogin = () => {
                 )
               : openModal({
                   element: (
-                    <OTPModal onFinished={code => handleSignInWithOTP(code, loginName, password)} />
+                    <OTPModal
+                      onFinished={code => {
+                        handleSignInWithOTP(code, loginName, password);
+                      }}
+                    />
                   ),
+                  disableDynamicSizing: true,
+                  disablePanning: true,
                 });
           }
         })

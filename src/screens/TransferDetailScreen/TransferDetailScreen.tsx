@@ -1,23 +1,30 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text, Button, IconComponent } from 'components';
+import { Button } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { useNavigation } from '@react-navigation/native';
-import Images from 'theme/Images';
+
 import { TransferDetailsList } from './TransferDetailsList';
 import { verticalScale } from 'utils/config';
-import { ConvertionData } from './TransferDetailScreen.types';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
 import { useTransferDetails } from './container';
 import { TRANSACTION_FINISHED_SCREEN } from 'navigation/ScreenNames';
-import { getCurrencyIcon } from 'utils/currency';
+import { ConversionOrTranferDetails } from './ConversionOrTranferDetails';
+import { OtherBankList } from './OtherBankList';
+
+import { openModal, closeModal } from 'utils/modal';
+import { OTPModal } from 'components';
+import { ScrollView } from 'react-native-gesture-handler';
 interface SelectedItem {
   selectedPrice: any;
   convertionData: any;
   accountFromData: any;
   accountToData: any;
+  receiverInfo: any;
+  otpData: any;
+  selectedData: any;
 }
 
 export const TransferDetailScreen = () => {
@@ -25,13 +32,56 @@ export const TransferDetailScreen = () => {
     (state: { transfers: SelectedItem }) => state.transfers,
   );
 
-  const { handleExchangeAmount, handleTransferToOwnAccount } = useTransferDetails();
+  const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeoneMutation } =
+    useTransferDetails();
+
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
-  const { accountFromData, accountToData, convertionData, selectedPrice } = selectedItemFromStore;
+  const {
+    accountFromData,
+    accountToData,
+    convertionData,
+    selectedPrice,
+    receiverInfo,
+    otpData,
+    selectedData,
+  } = selectedItemFromStore;
+
+  const transferWithOTP = async (code: any) => {
+    const formData = new FormData();
+    formData.append('debitAccountId', accountFromData.accountId);
+    formData.append('receiverIban', accountToData.iban);
+    formData.append('amount', selectedPrice);
+    formData.append('receiverName', receiverInfo.customerName);
+    formData.append('purpose', selectedData);
+    formData.append('extraPurpose', '');
+    formData.append('otp', '');
+    formData.append('fastPayment', 'false');
+    formData.append('bankCode', receiverInfo.bicCode);
+    formData.append('bankName', receiverInfo.bankName);
+
+    const headers: { [key: string]: string } = {
+      'X-Bank-Isstrongauthrequest': 'true',
+      'Content-Type': 'multipart/form-data',
+    };
+
+    if (code !== false) {
+      headers['X-Bank-Otp'] = code;
+    }
+
+    const transferToSomeoneResult = await transferToSomeoneMutation({
+      headers: headers,
+      body: formData,
+    });
+
+    closeModal();
+    if (transferToSomeoneResult) {
+      navigate(TRANSACTION_FINISHED_SCREEN, {});
+    }
+  };
 
   const handleButtonPress = async () => {
-    if (params.convertion) {
+    if (params.convertion && !params.fromOtherBank) {
       try {
         await handleExchangeAmount({
           debitAmount: convertionData?.buyAmount.amountBuy,
@@ -44,6 +94,14 @@ export const TransferDetailScreen = () => {
         });
       } catch (error) {
         console.error('Exchange Amount Error:', error);
+      }
+    } else if (params.fromOtherBank) {
+      if (otpData.otpRequired) {
+        openModal({
+          element: <OTPModal onFinished={code => transferWithOTP(code)} />,
+        });
+      } else {
+        await transferWithOTP(false);
       }
     } else {
       try {
@@ -60,62 +118,31 @@ export const TransferDetailScreen = () => {
   };
   const styles = useStyleTheme();
 
-  if (!selectedItemFromStore?.convertionData) {
-    return null;
-  }
-
-  const { buyAmount } = selectedItemFromStore?.convertionData as ConvertionData;
-
-  const renderConversionDetails = () => {
-    return (
-      <View style={styles.card}>
-        <IconComponent
-          pngLocalIcon={Images().LiabilitiesIcon}
-          customIconComponentStyles={styles.customIconComponentStyles}
-        />
-        <View>
-          <Text children="transfers.account" style={styles.textLabel} />
-          {params.convertion && (
-            <View style={styles.buyWrapper}>
-              <Text
-                children={`${buyAmount.amountBuy} ${getCurrencyIcon(buyAmount.currencyBuy)} = `}
-                style={styles.text}
-              />
-              <Text
-                children={`${buyAmount.amountSell} ${getCurrencyIcon(buyAmount.currencySell)} `}
-                style={styles.text}
-              />
-            </View>
-          )}
-          {params.convertion ? (
-            <Text
-              children="transfers.yourCurrency"
-              style={styles.text}
-              translateProp={{
-                currency: `${getCurrencyIcon(buyAmount.currencySell)}`,
-                value: ` ${buyAmount?.specialRate} ${getCurrencyIcon(buyAmount.currencyBuy)}`,
-              }}
-            />
-          ) : (
-            <Text
-              children={`${selectedPrice} ${getCurrencyIcon(accountFromData.ccy)}`}
-              style={styles.text}
-            />
-          )}
-        </View>
-      </View>
-    );
-  };
+  const { buyAmount } = selectedItemFromStore?.convertionData || {};
 
   return (
-    <View style={styles.container}>
-      <View style={styles.containerWrapper}>{renderConversionDetails()}</View>
+    <ScrollView style={styles.container}>
+      <View style={styles.containerWrapper}>
+        <ConversionOrTranferDetails
+          buyAmount={buyAmount}
+          accountFromData={accountFromData}
+          params={params}
+          selectedPrice={selectedPrice}
+        />
+      </View>
       <View style={styles.details}>
         <View style={styles.wrapper}>
-          <TransferDetailsList
-            selectedItemFromStore={selectedItemFromStore}
-            convertion={params.convertion}
-          />
+          {params.fromOtherBank ? (
+            <OtherBankList
+              selectedItemFromStore={selectedItemFromStore}
+              convertion={params.convertion}
+            />
+          ) : (
+            <TransferDetailsList
+              selectedItemFromStore={selectedItemFromStore}
+              convertion={params.convertion}
+            />
+          )}
         </View>
       </View>
       <View style={{ marginTop: verticalScale(30) }}>
@@ -127,6 +154,6 @@ export const TransferDetailScreen = () => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };

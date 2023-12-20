@@ -6,12 +6,13 @@ import { PasswordOnlyLoginBaseProps } from './PasswordOnlyLoginScreen.types';
 import useStyles from './PasswordOnlyLoginScreen.styles';
 import { PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
-import { useUserReset, useLogin, useKeyChain } from 'hooks';
+import { useUserReset, useLogin } from 'hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   const styles = useStyles();
-  const { savedUserName } = useKeyChain();
+  const savedUserName = useAppSelector(state => state.userInfo.loginName);
   const { handleSignIn } = useLogin();
   const { t } = useTranslation();
   const { resetUser } = useUserReset();

@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { Divider, Text } from 'components';
 import { ActionButtons } from 'components/Slider/ActionButtons';
 import { Colors } from 'theme/Variables';
-import { DetailsItem } from 'screens/AccountDetailsScreen/DetailsItem';
+import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { formatMoney } from 'utils/formatMoney';
 import { formatDateFullMonth } from 'utils/formatDate';
 import { useStyles } from './TransactionDetailsScreen.styles';

@@ -19,6 +19,8 @@ export const Logout = () => {
           width: 48,
           height: 48,
           backgroundColor: Colors.error100,
+          padding: 0,
+          margin: 0,
         }}
         hasBorder={false}
         customIconSize={22}
