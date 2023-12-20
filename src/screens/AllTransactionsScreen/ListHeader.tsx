@@ -1,22 +1,44 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Pressable, ScrollView, TextInput, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text } from 'components';
 import { Totals } from './Totals';
-import { Clear, Search } from 'assets/SVGs';
-import { useTranslation } from 'react-i18next';
-import { useStyles } from './AllTransactionsScreen.styles';
-import { formatDate } from 'utils/formatDate';
 import { openModal } from 'utils/modal';
-import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsModal/FilterByAccount';
-
-import { HeaderProps } from './AllTransactionsScreen.types';
-import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
+import { Clear, Search } from 'assets/SVGs';
+import { formatDate } from 'utils/formatDate';
 import { FilterByDate } from 'components/modals/FilterTransactionsModal/FilterByDate';
+import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsModal/FilterByAccount';
+import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
+import { OpCategoryEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { HeaderProps } from './AllTransactionsScreen.types';
+import { useStyles } from './AllTransactionsScreen.styles';
 
-export const ListHeader: FC<HeaderProps> = ({ setFilters, filters }) => {
+export const getTransactionTypeNameByEnum = (id: OpCategoryEnum) => {
+  switch (id) {
+    case OpCategoryEnum.Income:
+      return 'filters.income';
+    case OpCategoryEnum.ToSomeone:
+      return 'filters.outcome';
+    case OpCategoryEnum.ToOwnAccount:
+      return 'filters.toOwnAccount';
+    case OpCategoryEnum.Exchange:
+      return 'filters.exchange';
+    case OpCategoryEnum.ToTreasure:
+      return 'filters.toTreasure';
+    case OpCategoryEnum.Payments:
+      return 'filters.payments';
+  }
+};
+
+export const ListHeader: FC<HeaderProps> = ({
+  setFilters,
+  filters,
+  search,
+  onChangeText,
+  iban,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const [value, onChangeText] = useState('');
 
   const onDatePress = () => {
     openModal({
@@ -52,17 +74,19 @@ export const ListHeader: FC<HeaderProps> = ({ setFilters, filters }) => {
       endDate: '',
     }));
   };
+
   const onClearAccount = () => {
     setFilters(prev => ({
       ...prev,
-      iban: '',
+      accountNumber: null,
       currency: null,
     }));
   };
+
   const onClearTransactionType = () => {
     setFilters(prev => ({
       ...prev,
-      type: '',
+      category: null,
     }));
   };
 
@@ -71,7 +95,7 @@ export const ListHeader: FC<HeaderProps> = ({ setFilters, filters }) => {
       <View style={styles.inputContaner}>
         <Search />
         <TextInput
-          value={value}
+          value={search}
           onChangeText={onChangeText}
           style={styles.input}
           placeholder={t('transactions.searchTransaction')}
@@ -110,12 +134,18 @@ export const ListHeader: FC<HeaderProps> = ({ setFilters, filters }) => {
         <View
           style={[
             styles.filterItem,
-            filters.iban && filters.currency ? styles.selectedFilterWrapper : {},
+            filters.accountNumber && filters.currency ? styles.selectedFilterWrapper : {},
           ]}
         >
-          {filters.iban && filters.currency ? (
+          {filters.accountNumber && filters.currency ? (
             <View style={styles.selectedFilterContainer}>
-              <Text special numberOfLines={1} style={styles.text} children={filters.iban} />
+              <Text
+                special
+                numberOfLines={1}
+                style={styles.text}
+                children={iban}
+                ellipsizeMode="head"
+              />
               <Pressable onPress={onClearAccount}>
                 <Clear />
               </Pressable>
@@ -126,14 +156,14 @@ export const ListHeader: FC<HeaderProps> = ({ setFilters, filters }) => {
             </Pressable>
           )}
         </View>
-        <View style={[styles.filterItem, filters.type ? styles.selectedFilterWrapper : {}]}>
-          {filters.type ? (
+        <View style={[styles.filterItem, filters.category ? styles.selectedFilterWrapper : {}]}>
+          {filters.category ? (
             <View style={styles.selectedFilterContainer}>
               <Text
                 special
                 numberOfLines={1}
                 style={styles.transactionTypeLabel}
-                children={filters.type}
+                children={getTransactionTypeNameByEnum(filters.category)}
               />
               <Pressable onPress={onClearTransactionType}>
                 <Clear />

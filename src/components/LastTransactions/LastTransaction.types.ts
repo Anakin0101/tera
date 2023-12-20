@@ -21,4 +21,5 @@ export interface LastTransactionsProps {
   headerContaienrStyle?: StyleProp<ViewStyle>;
   headerLabelStyle?: StyleProp<TextStyle>;
   showFooter?: boolean;
+  accountNumber?: number;
 }

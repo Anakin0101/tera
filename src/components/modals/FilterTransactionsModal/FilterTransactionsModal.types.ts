@@ -13,7 +13,7 @@ export interface ButtonsProps {
 }
 
 export interface SelectCurrencyProps {
-  iban: string;
+  accountNumber: number | null;
   groupedAccountsByIban: IGroupedAccountsByIban[];
   setCurrency: Dispatch<SetStateAction<Currency | null>>;
   currency: Currency | null;

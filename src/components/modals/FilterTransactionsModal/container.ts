@@ -3,18 +3,18 @@ import { useState } from 'react';
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useFilterTransactionsByAcc = () => {
-  const [iban, setIban] = useState('');
+  const [accountNumber, setAccountNumber] = useState<number | null>(null);
   const [currency, setCurrency] = useState<Currency | null>(null);
   const [modalTitle, setModalTitle] = useState('transactions.account');
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const [accountSelected, setAccountSelected] = useState(false);
 
   const onClearPress = () => {
-    accountSelected ? setCurrency(null) : setIban('');
+    accountSelected ? setCurrency(null) : setAccountNumber(null);
   };
 
   const onSelectAccountPress = () => {
-    if (!iban) {
+    if (!accountNumber) {
       return;
     }
     setModalTitle('common.currency');
@@ -24,13 +24,13 @@ export const useFilterTransactionsByAcc = () => {
   return {
     isLoadingAccounts,
     groupedAccountsByIban,
-    iban,
+    accountNumber,
     currency,
     setCurrency,
     accountSelected,
     onSelectAccountPress,
     modalTitle,
-    setIban,
+    setAccountNumber,
     onClearPress,
   };
 };

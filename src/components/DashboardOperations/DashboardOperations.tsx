@@ -5,19 +5,23 @@ import { useTheme } from 'hooks';
 import { Button, Text } from 'components';
 import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
 import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedTransaction } from 'store/slices/products';
 import { MainStackScreenProps } from 'navigation/types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './DashboardOperations.styles';
 
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
   const { navigate } = useNavigation<MainStackScreenProps<'AllTransactionsScreen'>>();
-
+  const dispatch = useAppDispatch();
   const handlePress = () => {
     navigate('AllTransactionsScreen');
   };
 
-  const onOperationPress = () => {
+  const onOperationPress = (item: TransactionType) => {
+    dispatch(setSelectedTransaction(item));
     navigate('TransactionDetailsScreen');
   };
 
@@ -25,7 +29,7 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
     return (
       <LastTransactionItem
         item={item}
-        onPress={onOperationPress}
+        onPress={() => onOperationPress(item)}
         showUnderline={data && index < data.length - 1}
       />
     );

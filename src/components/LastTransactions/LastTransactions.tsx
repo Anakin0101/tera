@@ -7,6 +7,8 @@ import { LastTransactionsProps } from './LastTransaction.types';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedTransaction } from 'store/slices/products';
 
 export const LastTransactions: FC<LastTransactionsProps> = ({
   data,
@@ -14,21 +16,26 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
   headerContaienrStyle,
   headerLabelStyle,
   showFooter = true,
+  accountNumber,
   style,
 }) => {
+  const dispatch = useAppDispatch();
   const styles = useStyles();
   const { navigate } = useNavigation<MainStackScreenProps<'AllTransactionsScreen'>>();
 
   const pressHandler = () => {
-    navigate('AllTransactionsScreen');
+    navigate('AllTransactionsScreen', {
+      accountNumber,
+    });
   };
 
-  const onTransactionPress = () => {
+  const onTransactionPress = (item: TransactionType) => {
+    dispatch(setSelectedTransaction(item));
     navigate('TransactionDetailsScreen');
   };
 
   const renderItem: ListRenderItem<TransactionType> = ({ item }) => {
-    return <LastTransactionItem item={item} onPress={onTransactionPress} />;
+    return <LastTransactionItem item={item} onPress={() => onTransactionPress(item)} />;
   };
 
   const footer = () => {

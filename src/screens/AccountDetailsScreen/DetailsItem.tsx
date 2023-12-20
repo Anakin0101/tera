@@ -15,12 +15,13 @@ export const DetailsItem: FC<DetailsItemProps> = ({
   card,
   onPress,
   translateProp,
+  marginTop,
 }) => {
   const styles = useStyles();
   const blockedFundsSection = Array.isArray(value);
 
   return (
-    <View style={styles.detailsContainer}>
+    <View style={[styles.detailsContainer, marginTop ? { marginTop } : null]}>
       <View style={blockedFundsSection ? styles.blockedFundsContainer : styles.detailsWrapper}>
         <View>
           <Text children={label} color={Colors.textBlack500} />

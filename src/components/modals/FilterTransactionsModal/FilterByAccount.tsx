@@ -13,8 +13,8 @@ import { useStyles } from './FilterTransactionsModal.styles';
 export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ setFilters }) => {
   const styles = useStyles();
   const {
-    iban,
-    setIban,
+    accountNumber,
+    setAccountNumber,
     currency,
     setCurrency,
     modalTitle,
@@ -32,7 +32,7 @@ export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ s
     setFilters(prev => {
       return {
         ...prev,
-        iban,
+        accountNumber,
         currency,
       };
     });
@@ -54,7 +54,7 @@ export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ s
         <>
           {accountSelected ? (
             <SelectCurrency
-              iban={iban}
+              accountNumber={accountNumber}
               setCurrency={setCurrency}
               currency={currency}
               groupedAccountsByIban={groupedAccountsByIban}
@@ -62,14 +62,19 @@ export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ s
           ) : (
             <View>
               {groupedAccountsByIban?.map(acc => (
-                <Pressable key={acc.iban} onPress={() => setIban(acc.iban)}>
+                <Pressable key={acc.iban} onPress={() => setAccountNumber(acc.accountNumber)}>
                   <View style={styles.account}>
                     <View>
                       <Text children={acc.accountName} color={Colors.textBlack500} />
                       <Text children={acc.iban} />
                     </View>
-                    <View style={[styles.outline, iban === acc.iban && styles.selected]}>
-                      {iban === acc.iban && <View style={styles.inner} />}
+                    <View
+                      style={[
+                        styles.outline,
+                        accountNumber === acc.accountNumber && styles.selected,
+                      ]}
+                    >
+                      {accountNumber === acc.accountNumber && <View style={styles.inner} />}
                     </View>
                   </View>
                   <Divider height={1} marginTop={18} marginBottom={18} />

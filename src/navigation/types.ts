@@ -44,7 +44,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type MainStackParamsList = {
   [INITIAL_STACK]: undefined;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
-  [ALL_TRANSACTIONS_SCREEN]: { iban?: string } | undefined;
+  [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
 };
 

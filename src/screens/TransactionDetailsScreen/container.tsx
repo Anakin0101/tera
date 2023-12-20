@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { Bookmark, Calendar, Download, Repeat } from 'assets/SVGs';
 import { useMemo } from 'react';
-import { useGetTransactionDetailsMutation } from 'services/apis/productsAPI/productsAPI';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedTransaction } from 'store/slices/products';
 
 export const useTransactionDetails = () => {
-  const [getTransactionDetails] = useGetTransactionDetailsMutation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getTransactionDetails(604933834);
-  }, [getTransactionDetails]);
+    return () => {
+      dispatch(setSelectedTransaction(null));
+    };
+  }, [dispatch]);
 
   const actions = useMemo(() => {
     return [

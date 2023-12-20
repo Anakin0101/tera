@@ -78,6 +78,7 @@ export const AccountDetailsScreen = () => {
             style={styles.transactionsContainer}
             headerLabelStyle={styles.headerLabelStyle}
             headerContaienrStyle={styles.backgroundWhite}
+            accountNumber={account.accountNumber}
           />
         );
       default:

@@ -23,6 +23,9 @@ export const useStyles = () => {
       ...Layout.row,
       gap: 14,
     },
+    headerDesc: {
+      ...Layout.fill,
+    },
     iconContainer: {
       ...Layout.center,
       width: 48,

@@ -1,3 +1,4 @@
+import { OpCategoryEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { Currency, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface TotalsProps {
@@ -8,13 +9,16 @@ export interface TotalsProps {
 export type TransactionFilters = {
   startDate: string;
   endDate: string;
-  iban: string;
+  accountNumber: number | null;
   currency: Currency | null;
-  type: string;
+  category: OpCategoryEnum | null;
 };
 export interface HeaderProps {
   setFilters: React.Dispatch<React.SetStateAction<TransactionFilters>>;
   filters: TransactionFilters;
+  search: string;
+  onChangeText: React.Dispatch<React.SetStateAction<string>>;
+  iban?: string;
 }
 
 export interface ISections {

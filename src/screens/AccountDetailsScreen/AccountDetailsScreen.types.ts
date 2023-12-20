@@ -16,6 +16,7 @@ export interface DetailsItemProps {
   iban?: string;
   onPress?: () => void;
   translateProp?: TOptions;
+  marginTop?: number;
 }
 
 export interface CardsProps {

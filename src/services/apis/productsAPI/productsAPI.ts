@@ -17,7 +17,7 @@ import {
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Auth'],
+  tagTypes: ['Products', 'Transaction'],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
       query: () => ({
@@ -94,17 +94,6 @@ export const productsAPI = createApi({
         },
       }),
     }),
-    getTransactionDetails: builder.mutation<any, number>({
-      query: opId => ({
-        url: URLS.getTransactionDetails,
-        method: METHOD_NAMES.POST,
-        body: {
-          opId,
-          count: 1,
-          currency: 'USD',
-        },
-      }),
-    }),
   }),
 });
 
@@ -117,5 +106,4 @@ export const {
   useGetLoanHistoryQuery,
   useBlockCardMutation,
   useUnblockCardMutation,
-  useGetTransactionDetailsMutation,
 } = productsAPI;

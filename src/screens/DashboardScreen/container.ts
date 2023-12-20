@@ -30,8 +30,6 @@ export const useDashboardScreen = () => {
   useEffect(() => {
     getCustomerOperations({
       count: 4,
-      culture: 'ka',
-      currency: 'gel',
       endDate: getCurrentDateISO(),
       startDate: getDateThreeMonthAgeISO(),
       accountNumber: null,

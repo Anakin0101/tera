@@ -94,3 +94,7 @@ export const getCurrentDateISO = () => {
 export const getDateThreeMonthAgeISO = () => {
   return dayjs().subtract(3, 'month').toISOString();
 };
+
+export const getISOString = (dateString: string, template = 'YYYY-MM-DD') => {
+  return dayjs(dateString, template).toISOString();
+};

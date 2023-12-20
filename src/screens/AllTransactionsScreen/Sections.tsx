@@ -3,6 +3,8 @@ import { View, SectionList, ActivityIndicator, SectionListRenderItem } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'components';
 import { formatDate } from 'utils/formatDate';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedTransaction } from 'store/slices/products';
 import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
 import {
   ISections,
@@ -17,15 +19,17 @@ import { useStyles } from './AllTransactionsScreen.styles';
 export const Sections: FC<FooterProps> = ({ sections }) => {
   const styles = useStyles();
   const { navigate } = useNavigation<MainStackScreenProps<'TransactionDetailsScreen'>>();
+  const dispatch = useAppDispatch();
 
-  const onTransactionPress = () => {
+  const onTransactionPress = (item: TransactionType) => {
+    dispatch(setSelectedTransaction(item));
     navigate('TransactionDetailsScreen');
   };
 
   const renderItem: SectionListRenderItem<TransactionType, ISections> = ({ item }) => {
     return (
       <View style={styles.itemWrapper}>
-        <LastTransactionItem item={item} onPress={onTransactionPress} />
+        <LastTransactionItem item={item} onPress={() => onTransactionPress(item)} />
       </View>
     );
   };

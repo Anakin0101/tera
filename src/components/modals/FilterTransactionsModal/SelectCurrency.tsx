@@ -5,7 +5,7 @@ import { useStyles } from './FilterTransactionsModal.styles';
 import { SelectCurrencyProps } from './FilterTransactionsModal.types';
 
 export const SelectCurrency: FC<SelectCurrencyProps> = ({
-  iban,
+  accountNumber,
   groupedAccountsByIban,
   setCurrency,
   currency,
@@ -16,7 +16,7 @@ export const SelectCurrency: FC<SelectCurrencyProps> = ({
     <View style={styles.currencyModal}>
       <View style={styles.currencyContainer}>
         {groupedAccountsByIban
-          .find(acc => acc.iban === iban)
+          .find(acc => acc.accountNumber === accountNumber)
           ?.accounts.map(account => (
             <Pressable
               key={account.ccy}

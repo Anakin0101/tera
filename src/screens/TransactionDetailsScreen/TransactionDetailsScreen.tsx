@@ -8,11 +8,18 @@ import { formatMoney } from 'utils/formatMoney';
 import { formatDateFullMonth } from 'utils/formatDate';
 import { useStyles } from './TransactionDetailsScreen.styles';
 import { useTransactionDetails } from './container';
-import { Income } from 'assets/SVGs';
+import { Income, Outcome } from 'assets/SVGs';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { getTransactionTypeNameByEnum } from 'screens/AllTransactionsScreen/ListHeader';
 
 export const TransactionDetailsScreen = () => {
   const styles = useStyles();
   const { actions } = useTransactionDetails();
+  const { selectedTransaction: op } = useAppSelector(state => state.products);
+
+  if (!op) {
+    return <></>;
+  }
 
   return (
     <View style={styles.container}>
@@ -20,28 +27,22 @@ export const TransactionDetailsScreen = () => {
         <View style={styles.header}>
           <View style={styles.headerSection}>
             <View style={[styles.iconContainer, styles.marginTop]} />
-            <View>
-              <Text children="გივი დაუთაშვილი" color={Colors.inactiveTint} />
+            <View style={styles.headerDesc}>
+              <Text children={op.receiverName} color={Colors.inactiveTint} />
               <Text
                 medium
                 size={30}
                 lineHeight={34}
-                color={Colors.success}
-                children={formatMoney(1000, 'GEL')}
+                color={op.isIncome ? Colors.success : Colors.error}
+                children={formatMoney(op.amount, op.currency)}
               />
-              <Text
-                label
-                children={formatDateFullMonth('11-02-2022', 'DD-MM-YYYY')}
-                color={Colors.textBlack500}
-              />
+              <Text label children={formatDateFullMonth(op.docDate)} color={Colors.textBlack500} />
             </View>
           </View>
           <Divider height={1} width="100%" marginTop={16} marginBottom={16} />
           <View style={styles.headerSection}>
-            <View style={styles.iconContainer}>
-              <Income />
-            </View>
-            <View>
+            <View style={styles.iconContainer}>{op.isIncome ? <Income /> : <Outcome />}</View>
+            <View style={styles.headerDesc}>
               <Text children="შემოსავლები" color={Colors.inactiveTint} />
               <Text children="ჩარიცხვა" medium size={16} />
             </View>
@@ -51,28 +52,49 @@ export const TransactionDetailsScreen = () => {
         <View style={styles.main}>
           <View style={styles.section}>
             <Text children="common.from" medium size={18} />
-            <DetailsItem label="transactionDetails.sender" value={'ზურა'} />
-            <DetailsItem label="transactions.account" value={'GB468934587345340900'} />
-            <DetailsItem label="transactionDetails.bank" value={'ტერაბანკი'} />
+            <DetailsItem label="transactionDetails.sender" value={op.senderName} marginTop={20} />
+            <DetailsItem label="transactions.account" value={op.senderIban} marginTop={20} />
+            <DetailsItem label="transactionDetails.bank" value={op.senderBankName} marginTop={20} />
           </View>
           <Divider />
           <View style={styles.section}>
             <Text children="transactionDetails.to" medium size={18} />
-            <DetailsItem label="transactionDetails.receiver" value={'ზურა'} />
-            <DetailsItem label="transactions.account" value={'GB468934587345340900'} />
-            <DetailsItem label="transactionDetails.bank" value={'ტერაბანკი'} />
+            <DetailsItem
+              label="transactionDetails.receiver"
+              value={op.receiverName}
+              marginTop={20}
+            />
+            <DetailsItem label="transactions.account" value={op.receiverIban} marginTop={20} />
+            <DetailsItem
+              label="transactionDetails.bank"
+              value={op.receiverBankName}
+              marginTop={20}
+            />
           </View>
           <Divider />
           <View style={styles.section}>
             <Text children="products.details" medium size={18} />
-            <DetailsItem label="transactionDetails.paymentType" value={'ჩარიცხვა'} />
-            <DetailsItem label="transactionDetails.amount" value={formatMoney(1000, 'GEL')} />
-            <DetailsItem label="transactionDetails.desc" value={'პირადი გადარიცხვა'} />
+            <DetailsItem
+              label="transactionDetails.paymentType"
+              value={getTransactionTypeNameByEnum(op.opType)}
+              marginTop={20}
+            />
+            <DetailsItem
+              label="transactionDetails.amount"
+              value={formatMoney(op.amount, op.currency)}
+              marginTop={20}
+            />
+            <DetailsItem label="transactionDetails.desc" value={op.description} marginTop={20} />
             <DetailsItem
               label="transactions.date"
-              value={formatDateFullMonth('11-02-2022', 'DD-MM-YYYY')}
+              value={formatDateFullMonth(op.docDate)}
+              marginTop={20}
             />
-            <DetailsItem label="transactionDetails.docNumber" value={'123456789'} />
+            <DetailsItem
+              label="transactionDetails.docNumber"
+              value={String(op.docNumber)}
+              marginTop={20}
+            />
           </View>
         </View>
       </ScrollView>

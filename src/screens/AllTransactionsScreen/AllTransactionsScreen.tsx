@@ -7,7 +7,7 @@ import { Sections } from './Sections';
 
 export const AllTransactionsScreen = () => {
   const styles = useStyles();
-  const { setFilters, sections, filters } = useAllTransactions();
+  const { setFilters, sections, filters, search, onChangeText, iban } = useAllTransactions();
 
   return (
     <View style={styles.listWrapper}>
@@ -16,7 +16,15 @@ export const AllTransactionsScreen = () => {
         nestedScrollEnabled
         showsVerticalScrollIndicator={false}
         renderItem={() => <Sections sections={sections} />}
-        ListHeaderComponent={<ListHeader setFilters={setFilters} filters={filters} />}
+        ListHeaderComponent={
+          <ListHeader
+            iban={iban}
+            search={search}
+            filters={filters}
+            setFilters={setFilters}
+            onChangeText={onChangeText}
+          />
+        }
       />
     </View>
   );

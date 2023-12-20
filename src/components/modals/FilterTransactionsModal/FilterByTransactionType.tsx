@@ -5,19 +5,38 @@ import { useStyles } from './FilterTransactionsModal.styles';
 import { Text } from 'components';
 import { Buttons } from './Buttons';
 import { closeModal } from 'utils/modal';
+import { OpCategoryEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
-const transactionTypes = [
-  'საკუთარ ანგარიშებს შორის გადარიცხვა',
-  'კონვერტაცია',
-  'შემოსავლები',
-  'გადარიცხვა და თანხის გატანა',
-  'კომუნალური და მობილური',
-  'სხვა ხარჯები',
+const types = [
+  {
+    id: OpCategoryEnum.Income,
+    title: 'filters.income',
+  },
+  {
+    id: OpCategoryEnum.ToSomeone,
+    title: 'filters.outcome',
+  },
+  {
+    id: OpCategoryEnum.ToOwnAccount,
+    title: 'filters.toOwnAccount',
+  },
+  {
+    id: OpCategoryEnum.Exchange,
+    title: 'filters.exchange',
+  },
+  {
+    id: OpCategoryEnum.ToTreasure,
+    title: 'filters.toTreasure',
+  },
+  {
+    id: OpCategoryEnum.Payments,
+    title: 'filters.payments',
+  },
 ];
 
 export const FilterByTransactionType: FC<TransactionByAccModalProps> = ({ setFilters }) => {
   const styles = useStyles();
-  const [type, setType] = useState('');
+  const [type, setType] = useState<OpCategoryEnum | null>(null);
 
   const handleSelect = () => {
     if (!type) {
@@ -25,7 +44,7 @@ export const FilterByTransactionType: FC<TransactionByAccModalProps> = ({ setFil
     }
     setFilters(prev => ({
       ...prev,
-      type,
+      category: type,
     }));
     closeModal();
   };
@@ -33,16 +52,16 @@ export const FilterByTransactionType: FC<TransactionByAccModalProps> = ({ setFil
   return (
     <>
       <View style={styles.transactionTypeModal}>
-        {transactionTypes.map(transactionType => (
+        {types.map(item => (
           <Pressable
-            style={[styles.type, type === transactionType && styles.selectedItem]}
-            onPress={() => setType(transactionType)}
+            style={[styles.type, type === item.id && styles.selectedItem]}
+            onPress={() => setType(item.id)}
           >
-            <Text children={transactionType} special={type === transactionType} />
+            <Text children={item.title} special={type === item.id} />
           </Pressable>
         ))}
       </View>
-      <Buttons onClearPress={() => setType('')} onSelectPress={handleSelect} />
+      <Buttons onClearPress={() => setType(null)} onSelectPress={handleSelect} />
     </>
   );
 };
