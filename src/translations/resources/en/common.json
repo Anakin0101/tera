@@ -347,5 +347,8 @@
     "exchange": "Exchange",
     "toTreasure": "To Treasure",
     "payments": "Payments"
+  },
+  "newDeposit": {
+    "newProduct": "New Product"
   }
 }

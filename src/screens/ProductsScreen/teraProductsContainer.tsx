@@ -1,9 +1,12 @@
+import React from 'react';
 import { useEffect, useMemo } from 'react';
 import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setTotalDebt, setTotalDeposits } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
+import { openModal } from 'utils/modal';
+import { NewProducts } from 'components/modals/NewProducts/NewProducts';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +42,14 @@ export const useTeraProducts = () => {
     dispatch(setTotalDebt(totalLoans));
   }, [dispatch, totalDeposits, totalLoans]);
 
+  const onNewProductsPress = () => {
+    openModal({
+      element: <NewProducts />,
+      title: 'newDeposit.newProduct',
+      disablePanning: true,
+    });
+  };
+
   return {
     groupedAccountsByIban,
     totalAvailableBalanceGEL,
@@ -47,5 +58,6 @@ export const useTeraProducts = () => {
     loans,
     totalLoans,
     allLoans,
+    onNewProductsPress,
   };
 };

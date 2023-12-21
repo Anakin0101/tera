@@ -10,6 +10,7 @@ export const Divider: FC<IDividerProps> = ({
   style,
   marginTop,
   marginBottom,
+  marginLeft,
 }) => {
   const styles = useStyles();
   return (
@@ -21,6 +22,7 @@ export const Divider: FC<IDividerProps> = ({
         color ? { backgroundColor: color } : null,
         marginTop ? { marginTop } : null,
         marginBottom ? { marginBottom } : null,
+        marginLeft ? { marginLeft } : null,
         style,
       ]}
     />

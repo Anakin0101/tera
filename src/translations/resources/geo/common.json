@@ -346,5 +346,13 @@
     "exchange": "კონვერტაცია",
     "toTreasure": "სახაზინო გადარიცხვა",
     "payments": "გადახდები"
+  },
+  "newDeposit": {
+    "newProduct": "ახალი პროდუქტი",
+    "tariffPackage": "სატარიფო პაკეტი",
+    "card": "ბარათი",
+    "deposit": "ანაბარი",
+    "teraWallet": "ტერასაფულე",
+    "loan": "სესხი"
   }
 }
