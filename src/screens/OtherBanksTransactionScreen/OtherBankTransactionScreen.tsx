@@ -6,6 +6,7 @@ import { config } from 'utils/config';
 // import { Pressable } from 'react-native';
 import OtherBanks from 'screens/DashboardScreen/OtherBanks';
 import IbanTransaction from 'components/IbanTransaction/IbanTransaction';
+import PersonalNumberTransaction from 'components/PersonalNumberTransaction/PersonalNumberTransaction';
 
 export const OtherBankTransactionScreen = () => {
   const flatlistRef = useRef<FlatList>(null);
@@ -17,7 +18,7 @@ export const OtherBankTransactionScreen = () => {
   const renderItem: ListRenderItem<string> = ({ item }) => {
     switch (item) {
       case 'პირადობით':
-        return <OtherBanks />;
+        return <PersonalNumberTransaction />;
       case 'ანგარიშით':
         return <IbanTransaction />;
       case 'მობილურით':
