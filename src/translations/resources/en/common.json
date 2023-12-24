@@ -349,6 +349,21 @@
     "payments": "Payments"
   },
   "newDeposit": {
-    "newProduct": "New Product"
+    "newProduct": "New Product",
+    "tariffPackage": "Tariff Package",
+    "card": "Card",
+    "deposit": "Deposit",
+    "teraWallet": "Tera Wallet",
+    "loan": "Loan",
+    "activateDeposit": "Activate Deposit",
+    "saveMoney": "Save and accumulate money easily",
+    "openDepositOffer": "When you open a deposit with Mobilebank, you will receive increased benefits",
+    "initial": "Initial amount {{value}} units",
+    "termDeposit": "Term Deposit",
+    "savingDeposit": "Saving Deposit",
+    "universalDeposit": "Universal Deposit",
+    "growingDeposit": "Growing Deposit",
+    "flexDeposit": "Flex Deposit",
+    "certificateOfDeposit": "Certificate of Deposit"
   }
 }

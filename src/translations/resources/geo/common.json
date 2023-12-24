@@ -353,6 +353,16 @@
     "card": "ბარათი",
     "deposit": "ანაბარი",
     "teraWallet": "ტერასაფულე",
-    "loan": "სესხი"
+    "loan": "სესხი",
+    "activateDeposit": "ანაბრის გახსნა",
+    "saveMoney": "შეინახე და დააგროვე თანხა მარტივად",
+    "openDepositOffer": "ანაბრის მობაილბანკით გახსნისას\nმიიღებ გაზრდილ სარგებელს",
+    "initial": "საწყისი თანხა {{value}} ერთეული",
+    "termDeposit": "ვადიანი ანაბარი",
+    "savingDeposit": "შემნახველი ანაბარი",
+    "universalDeposit": "უნივერსალური ანაბარი",
+    "growingDeposit": "ზრდადი ანაბარი",
+    "flexDeposit": "Flex ანაბარი",
+    "certificateOfDeposit": "სადეპოზიტო სერთიფიკატი"
   }
 }

@@ -52,3 +52,4 @@ export const DEPOSITS_SCREEN = 'DepositsScreen';
 export const DEPOSIT_DETAILS_SCREEN = 'DepositDetailsScreen';
 export const LOANS_SCREEN = 'LoansScreen';
 export const LOAN_DETAILS_SCREEN = 'LoanDetailsScreen';
+export const ACTIVATE_DEPOSIT_SCREEN = 'ActivateDepositScreen';

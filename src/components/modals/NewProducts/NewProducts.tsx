@@ -1,26 +1,25 @@
-import React, { Fragment } from 'react';
-import { View } from 'react-native';
-import { Divider, Text } from 'components';
+import React, { FC, useCallback } from 'react';
+import { FlatList, ListRenderItem } from 'react-native';
+import { Item, NewProductsProps } from './NewProducts.types';
 import { useStyles } from './NewProducts.styles';
-import { useNewProducts } from './container';
+import { NewProductItem } from './Item';
 
-export const NewProducts = () => {
+export const NewProducts: FC<NewProductsProps> = ({ products }) => {
   const styles = useStyles();
-  const { newProducts } = useNewProducts();
+
+  const renderItem: ListRenderItem<Item> = useCallback(
+    ({ item, index }) => {
+      return <NewProductItem item={item} showUnderline={index !== products.length - 1} />;
+    },
+    [products.length],
+  );
 
   return (
-    <View style={styles.wrapper}>
-      {newProducts.map((item, index) => (
-        <Fragment key={item.title}>
-          <View style={styles.container}>
-            <View style={styles.iconContainer} />
-            <Text children={item.title} />
-          </View>
-          {index !== newProducts.length - 1 && (
-            <Divider height={1} marginTop={16} marginBottom={16} marginLeft={60} />
-          )}
-        </Fragment>
-      ))}
-    </View>
+    <FlatList
+      data={products}
+      renderItem={renderItem}
+      keyExtractor={item => item.title}
+      style={styles.wrapper}
+    />
   );
 };

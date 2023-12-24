@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useEffect, useRef } from 'react';
+import React, { FC, RefObject, useCallback, useEffect, useRef } from 'react';
 import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
@@ -163,33 +163,36 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     };
   });
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
-    switch (section.title) {
-      case 'templates':
-        return <DashboardTemplates data={templates} />;
-      case 'payments':
-        return <DashboardUpcomingOps data={tempData.payments} />;
-      case 'assets':
-        return (
-          <DashboardAssets
-            creditCards={creditCards}
-            overDraft={overDraft}
-            getLoanCustomerId={getLoanCustomerId}
-            assets={assets}
-          />
-        );
-      case 'offers':
-        return <Offers data={tempData.offers} />;
-      case 'pension':
-        return <DashboardPensionFund data={tempData.pensions} />;
-      case 'banker':
-        return <Banker data={banker} />;
-      case 'transactions':
-        return <DashboardOperations data={customerOperations} />;
-      default:
-        return null;
-    }
-  };
+  const renderItem: SectionListRenderItem<any, any> = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'templates':
+          return <DashboardTemplates data={templates} />;
+        case 'payments':
+          return <DashboardUpcomingOps data={tempData.payments} />;
+        case 'assets':
+          return (
+            <DashboardAssets
+              creditCards={creditCards}
+              overDraft={overDraft}
+              getLoanCustomerId={getLoanCustomerId}
+              assets={assets}
+            />
+          );
+        case 'offers':
+          return <Offers data={tempData.offers} />;
+        case 'pension':
+          return <DashboardPensionFund data={tempData.pensions} />;
+        case 'banker':
+          return <Banker data={banker} />;
+        case 'transactions':
+          return <DashboardOperations data={customerOperations} />;
+        default:
+          return null;
+      }
+    },
+    [assets, banker, creditCards, customerOperations, getLoanCustomerId, overDraft, templates],
+  );
 
   const openCards = (index: number) => {
     if (!index) {
@@ -260,63 +263,61 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   }
 
   return (
-    <>
-      <View style={styles.wrapper}>
-        <Animated.View style={[styles.cardsContainer, cardContainerStyle]}>
-          <Pressable style={[styles.scrollViewWrapper]} onPress={closeCards}>
-            <Animated.ScrollView
-              ref={scrollViewRef}
-              horizontal
-              bounces={false}
-              pagingEnabled
-              decelerationRate="fast"
-              onScroll={handleScroll}
-              scrollEventThrottle={16}
-              snapToInterval={OPEN_CARD_WIDTH + 10}
-              disableIntervalMomentum={true}
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={[
-                styles.content,
-                {
-                  width: data.length * CARD_WIDTH_WITHOUT_PADDING + additionalPadding,
-                },
-              ]}
-            >
-              {data.map((card, index) => (
-                <Card
-                  key={index}
-                  item={card}
-                  index={index}
-                  progress={cardsOffset}
-                  translateX={translateX}
-                  onCardPress={() => openCards(index)}
-                />
-              ))}
-            </Animated.ScrollView>
-          </Pressable>
-          <ActionButtons progress={cardsOffset} onSpacePress={closeCards}>
-            <Indicator data={data} translateX={translateX} />
-          </ActionButtons>
-          <AvailableBalance progress={cardsOffset} />
-        </Animated.View>
-        <Animated.View style={[styles.backdrop, backDropAnimation]} />
-        <Animated.View style={[styles.sectionList, borderColor]}>
-          <AnimatedSectionList
-            ref={sectionListRef}
-            sections={sections}
-            renderItem={renderItem}
+    <View style={styles.wrapper}>
+      <Animated.View style={[styles.cardsContainer, cardContainerStyle]}>
+        <Pressable style={[styles.scrollViewWrapper]} onPress={closeCards}>
+          <Animated.ScrollView
+            ref={scrollViewRef}
+            horizontal
             bounces={false}
-            nestedScrollEnabled
-            style={animPaddingTop}
-            onScroll={scrollHandler}
+            pagingEnabled
+            decelerationRate="fast"
+            onScroll={handleScroll}
             scrollEventThrottle={16}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(_, index) => index.toString()}
-            contentContainerStyle={styles.sectionListContent}
-          />
-        </Animated.View>
-      </View>
-    </>
+            snapToInterval={OPEN_CARD_WIDTH + 10}
+            disableIntervalMomentum={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={[
+              styles.content,
+              {
+                width: data.length * CARD_WIDTH_WITHOUT_PADDING + additionalPadding,
+              },
+            ]}
+          >
+            {data.map((card, index) => (
+              <Card
+                key={index}
+                item={card}
+                index={index}
+                progress={cardsOffset}
+                translateX={translateX}
+                onCardPress={() => openCards(index)}
+              />
+            ))}
+          </Animated.ScrollView>
+        </Pressable>
+        <ActionButtons progress={cardsOffset} onSpacePress={closeCards}>
+          <Indicator data={data} translateX={translateX} />
+        </ActionButtons>
+        <AvailableBalance progress={cardsOffset} />
+      </Animated.View>
+      <Animated.View style={[styles.backdrop, backDropAnimation]} />
+      <Animated.View style={[styles.sectionList, borderColor]}>
+        <AnimatedSectionList
+          ref={sectionListRef}
+          sections={sections}
+          renderItem={renderItem}
+          bounces={false}
+          nestedScrollEnabled
+          style={animPaddingTop}
+          onScroll={scrollHandler}
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(_, index) => index.toString()}
+          contentContainerStyle={styles.sectionListContent}
+        />
+      </Animated.View>
+    </View>
   );
 };
 

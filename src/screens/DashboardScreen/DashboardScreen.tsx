@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Alert, FlatList, ListRenderItem, Text } from 'react-native';
+import { Alert, FlatList, ListRenderItem, Text, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { DashboardTabBar, HomeHeader } from 'components';
 import TeraBank from './TeraBank';
@@ -68,7 +68,7 @@ export const DashboardScreen = () => {
   };
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <HomeHeader translateY={scroll} />
       <DashboardTabBar onTabPress={onTabPress} translateX={translateX} translateY={scroll} />
       <FlatList
@@ -84,6 +84,6 @@ export const DashboardScreen = () => {
       <Pressable onPress={handleClearAllFromStorage}>
         <Text style={[Fonts.semiLarge]} children="Clear all from storage" />
       </Pressable>
-    </>
+    </View>
   );
 };
