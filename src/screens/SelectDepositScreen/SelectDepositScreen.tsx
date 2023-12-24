@@ -3,9 +3,9 @@ import { FlatList, ListRenderItem, View } from 'react-native';
 import { Item } from './Item';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
-import { useActivateDeposit } from './container';
-import { ListItem } from './ActivateDepositScreen.types';
-import { useStyles } from './ActivateDepositScreen.styles';
+import { useSelectDeposit } from './container';
+import { ListItem } from './SelectDepositScreen.types';
+import { useStyles } from './SelectDepositScreen.styles';
 
 const ListHeader = () => {
   const styles = useStyles();
@@ -23,9 +23,9 @@ const ListHeader = () => {
   );
 };
 
-export const ActivateDepositScreen = () => {
+export const SelectDepositScreen = () => {
   const styles = useStyles();
-  const { depositTypes } = useActivateDeposit();
+  const { depositTypes } = useSelectDeposit();
 
   const renderItem: ListRenderItem<ListItem> = useCallback(({ item }) => {
     return <Item item={item} />;

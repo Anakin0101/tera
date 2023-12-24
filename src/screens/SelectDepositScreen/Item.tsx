@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
-import { useStyles } from './ActivateDepositScreen.styles';
+import { useStyles } from './SelectDepositScreen.styles';
 import { ChevronRight } from 'assets/SVGs';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
-import { ItemProps } from './ActivateDepositScreen.types';
+import { ItemProps } from './SelectDepositScreen.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 

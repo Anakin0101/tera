@@ -1,4 +1,4 @@
-export const useActivateDeposit = () => {
+export const useSelectDeposit = () => {
   const depositTypes = [
     {
       title: 'newDeposit.termDeposit',

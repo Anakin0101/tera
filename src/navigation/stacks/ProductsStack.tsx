@@ -15,7 +15,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import {
   ACCOUNT_DETAILS_SCREEN,
-  ACTIVATE_DEPOSIT_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
@@ -27,6 +26,7 @@ import {
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
   PRODUCTS_SCREEN,
+  SELECT_DEPOSIT_SCREEN,
 } from 'navigation/ScreenNames';
 import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
@@ -34,7 +34,7 @@ import { CustomHeader } from 'components/CustomHeader';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
 import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 import { Colors } from 'theme/Variables';
-import { ActivateDepositScreen } from 'screens/ActivateDepositScreen/ActivateDepositScreen';
+import { SelectDepositScreen } from 'screens/SelectDepositScreen/SelectDepositScreen';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -224,8 +224,8 @@ export const ProductsStack = () => {
         }}
       />
       <Screen
-        name={ACTIVATE_DEPOSIT_SCREEN}
-        component={ActivateDepositScreen}
+        name={SELECT_DEPOSIT_SCREEN}
+        component={SelectDepositScreen}
         options={{
           title: t('newDeposit.activateDeposit'),
           headerStyle: {

@@ -44,11 +44,11 @@ export const useTeraProducts = () => {
     dispatch(setTotalDebt(totalLoans));
   }, [dispatch, totalDeposits, totalLoans]);
 
-  const { navigate } = useNavigation<ProductsStackScreenProps<'ActivateDepositScreen'>>();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'SelectDepositScreen'>>();
 
   const onDepositPress = useCallback(() => {
     closeModal();
-    navigate('ActivateDepositScreen');
+    navigate('SelectDepositScreen');
   }, [navigate]);
 
   const products = useMemo(() => {

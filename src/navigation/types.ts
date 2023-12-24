@@ -40,8 +40,8 @@ import {
   TRANSACTION_DETAILS_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
-  ACTIVATE_DEPOSIT_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
+  SELECT_DEPOSIT_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -95,7 +95,7 @@ export type ProductsStackParamsList = {
   [LOAN_DETAILS_SCREEN]: {
     index: number;
   };
-  [ACTIVATE_DEPOSIT_SCREEN]: undefined;
+  [SELECT_DEPOSIT_SCREEN]: undefined;
   [NEW_DEPOSIT_DETAILS_SCREEN]: undefined;
 };
 
