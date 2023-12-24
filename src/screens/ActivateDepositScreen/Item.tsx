@@ -5,11 +5,19 @@ import { ChevronRight } from 'assets/SVGs';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { ItemProps } from './ActivateDepositScreen.types';
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
 
 export const Item: FC<ItemProps> = ({ item }) => {
   const styles = useStyles();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositDetailsScreen'>>();
+
+  const onPress = () => {
+    navigate('NewDepositDetailsScreen');
+  };
+
   return (
-    <Pressable style={styles.item}>
+    <Pressable onPress={onPress} style={styles.item}>
       <View style={styles.icon} />
       <View style={styles.content}>
         <View style={{ flex: 1 }}>

@@ -309,7 +309,8 @@
     "clear": "Clear",
     "currency": "Currency",
     "from": "From",
-    "to": "To"
+    "to": "To",
+    "next": "Next"
   },
   "form": {
     "is_required": "is required"
