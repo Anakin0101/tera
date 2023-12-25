@@ -27,3 +27,4 @@ export { TransferToAccountScreen } from './TransferToAccountScreen/TransferToAcc
 export { AllTransactionsScreen } from './AllTransactionsScreen/AllTransactionsScreen';
 export { TransactionDetailsScreen } from './TransactionDetailsScreen/TransactionDetailsScreen';
 export { NewDepositDetailsScreen } from './NewDepositDetailsScreen/NewDepositDetailsScreen';
+export { OpenDepositScreen } from './OpenDepositScreen/OpenDepositScreen';

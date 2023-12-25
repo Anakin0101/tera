@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { useNewDepositDetails } from './container';
 import { Button, Divider, Text } from 'components';
 import { useStyles } from './NewDepositDetailsScreen.styles';
 
@@ -10,6 +11,8 @@ const benefits = [
 
 export const NewDepositDetailsScreen = () => {
   const styles = useStyles();
+  const { handlePress } = useNewDepositDetails();
+
   return (
     <ScrollView
       style={styles.container}
@@ -43,7 +46,12 @@ export const NewDepositDetailsScreen = () => {
           ))}
         </View>
       </View>
-      <Button.Primary text="common.next" fullWidth customWrapperStyle={styles.button} />
+      <Button.Primary
+        fullWidth
+        text="common.next"
+        onPress={handlePress}
+        customWrapperStyle={styles.button}
+      />
     </ScrollView>
   );
 };

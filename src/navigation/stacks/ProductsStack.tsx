@@ -11,6 +11,7 @@ import {
   DepositDetailsScreen,
   LoanDetailsScreen,
   NewDepositDetailsScreen,
+  OpenDepositScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -25,6 +26,7 @@ import {
   LOAN_DETAILS_SCREEN,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
+  OPEN_DEPOSIT_SCREEN,
   PRODUCTS_SCREEN,
   SELECT_DEPOSIT_SCREEN,
 } from 'navigation/ScreenNames';
@@ -241,6 +243,21 @@ export const ProductsStack = () => {
       <Screen
         name={NEW_DEPOSIT_DETAILS_SCREEN}
         component={NewDepositDetailsScreen}
+        options={{
+          title: t('newDeposit.activateDeposit'),
+          headerStyle: {
+            backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={OPEN_DEPOSIT_SCREEN}
+        component={OpenDepositScreen}
         options={{
           title: t('newDeposit.activateDeposit'),
           headerStyle: {

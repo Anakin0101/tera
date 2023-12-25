@@ -365,6 +365,10 @@
     "universalDeposit": "Universal Deposit",
     "growingDeposit": "Growing Deposit",
     "flexDeposit": "Flex Deposit",
-    "certificateOfDeposit": "Certificate of Deposit"
+    "certificateOfDeposit": "Certificate of Deposit",
+    "minimumDeposit": "Minimum contribution: {{value}} units",
+    "selectAcc": "Select Account",
+    "from": "From",
+    "to": "To"
   }
 }

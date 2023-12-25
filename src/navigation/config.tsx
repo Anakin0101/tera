@@ -13,7 +13,7 @@ export const TAB_BAR_HEIGHT = 60;
 
 export const tabOptions: BottomTabNavigationOptions = {
   headerShown: false,
-  tabBarHideOnKeyboard: true,
+  // tabBarHideOnKeyboard: true,
   tabBarActiveTintColor: Colors.primary,
   tabBarInactiveTintColor: Colors.inactiveTint,
   tabBarStyle: {

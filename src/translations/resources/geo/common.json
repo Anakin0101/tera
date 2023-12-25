@@ -364,6 +364,10 @@
     "universalDeposit": "უნივერსალური ანაბარი",
     "growingDeposit": "ზრდადი ანაბარი",
     "flexDeposit": "Flex ანაბარი",
-    "certificateOfDeposit": "სადეპოზიტო სერთიფიკატი"
+    "certificateOfDeposit": "სადეპოზიტო სერთიფიკატი",
+    "minimumDeposit": "მინიმალური  შენატანი: {{value}} ერთეული",
+    "selectAcc": "აირჩიე ანგარიში",
+    "from": "საიდან რიცხავ",
+    "to": "სად რიცხავ"
   }
 }
