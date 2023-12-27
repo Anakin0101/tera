@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 
 export const useNewDepositDetails = () => {
-  const { navigate } = useNavigation<ProductsStackScreenProps<'OpenDepositScreen'>>();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositInitialAmountScreen'>>();
 
   const handlePress = () => {
-    navigate('OpenDepositScreen');
+    navigate('NewDepositInitialAmountScreen');
   };
 
   return {

@@ -25,7 +25,7 @@ export const useStyles = () => {
       fontSize: 40,
       height: 65,
       fontFamily: FontFamily.medium,
-      marginLeft: Spacing.xxs,
+      marginRight: Spacing.xxs,
     },
     selected: {
       borderColor: Colors.primary,
@@ -79,6 +79,9 @@ export const useStyles = () => {
     },
     alignEnd: {
       ...Layout.alignItemsEnd,
+    },
+    disabled: {
+      opacity: 0.5,
     },
   });
 };

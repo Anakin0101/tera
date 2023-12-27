@@ -27,4 +27,8 @@ export { TransferToAccountScreen } from './TransferToAccountScreen/TransferToAcc
 export { AllTransactionsScreen } from './AllTransactionsScreen/AllTransactionsScreen';
 export { TransactionDetailsScreen } from './TransactionDetailsScreen/TransactionDetailsScreen';
 export { NewDepositDetailsScreen } from './NewDepositDetailsScreen/NewDepositDetailsScreen';
-export { OpenDepositScreen } from './OpenDepositScreen/OpenDepositScreen';
+export { DepositSuccessScreen } from './DepositSuccessScreen/DepositSuccessScreen';
+export { NewDepositInitialAmountScreen } from './NewDepositInitalAmountScreen/NewDepositInitialAmountScreen';
+export { NewDepositAdditionalInfoScreen } from './NewDepositAdditionalInfoScreen/NewDepositAdditionalInfoScreen';
+export { NewDepositSummaryScreen } from './NewDepositSummaryScreen/NewDepositSummaryScreen';
+export { TeraWalletScreen } from './TeraWalletScreen/TeraWalletScreen';

@@ -11,7 +11,11 @@ import {
   DepositDetailsScreen,
   LoanDetailsScreen,
   NewDepositDetailsScreen,
-  OpenDepositScreen,
+  DepositSuccessScreen,
+  NewDepositInitialAmountScreen,
+  NewDepositAdditionalInfoScreen,
+  NewDepositSummaryScreen,
+  TeraWalletScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -25,10 +29,14 @@ import {
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
   MY_ACCOUNT_SCROLLABLE_SCREEN,
+  NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
-  OPEN_DEPOSIT_SCREEN,
+  NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN,
+  NEW_DEPOSIT_SUMMARY_SCREEN,
+  DEPOSIT_SUCCESS_SCREEN,
   PRODUCTS_SCREEN,
   SELECT_DEPOSIT_SCREEN,
+  TERA_WALLET_SCREEN,
 } from 'navigation/ScreenNames';
 import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
@@ -37,6 +45,7 @@ import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceSc
 import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 import { Colors } from 'theme/Variables';
 import { SelectDepositScreen } from 'screens/SelectDepositScreen/SelectDepositScreen';
+import { guestNavOptions } from 'navigation/config';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -255,11 +264,66 @@ export const ProductsStack = () => {
           },
         }}
       />
+
       <Screen
-        name={OPEN_DEPOSIT_SCREEN}
-        component={OpenDepositScreen}
+        name={NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN}
+        component={NewDepositInitialAmountScreen}
         options={{
-          title: t('newDeposit.activateDeposit'),
+          // title: t('newDeposit.activateDeposit'),
+          title: 'საწყისი თანხა',
+          headerStyle: {
+            backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN}
+        component={NewDepositAdditionalInfoScreen}
+        options={{
+          // title: t('newDeposit.activateDeposit'),
+          title: 'დამატებითი ინფორმაცია',
+          headerStyle: {
+            backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={NEW_DEPOSIT_SUMMARY_SCREEN}
+        component={NewDepositSummaryScreen}
+        options={{
+          // title: t('newDeposit.activateDeposit'),
+          title: 'ანაბრის დეტალები',
+          headerStyle: {
+            backgroundColor: Colors.white,
+            shadowColor: 'transparent',
+          },
+          headerBackTitle: ' ',
+          headerTitleStyle: {
+            fontFamily: FontFamily.Regular,
+          },
+        }}
+      />
+      <Screen
+        name={DEPOSIT_SUCCESS_SCREEN}
+        component={DepositSuccessScreen}
+        options={guestNavOptions}
+      />
+      <Screen
+        name={TERA_WALLET_SCREEN}
+        component={TeraWalletScreen}
+        options={{
+          // title: t('newDeposit.activateDeposit'),
+          title: 'ტერასაფულე',
           headerStyle: {
             backgroundColor: Colors.white,
             shadowColor: 'transparent',

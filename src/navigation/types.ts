@@ -42,7 +42,11 @@ import {
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
   SELECT_DEPOSIT_SCREEN,
-  OPEN_DEPOSIT_SCREEN,
+  NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN,
+  NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN,
+  NEW_DEPOSIT_SUMMARY_SCREEN,
+  DEPOSIT_SUCCESS_SCREEN,
+  TERA_WALLET_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -98,7 +102,11 @@ export type ProductsStackParamsList = {
   };
   [SELECT_DEPOSIT_SCREEN]: undefined;
   [NEW_DEPOSIT_DETAILS_SCREEN]: undefined;
-  [OPEN_DEPOSIT_SCREEN]: undefined;
+  [NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN]: undefined;
+  [NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN]: undefined;
+  [NEW_DEPOSIT_SUMMARY_SCREEN]: undefined;
+  [DEPOSIT_SUCCESS_SCREEN]: undefined;
+  [TERA_WALLET_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

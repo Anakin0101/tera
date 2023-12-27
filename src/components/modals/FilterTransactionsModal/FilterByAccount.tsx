@@ -3,12 +3,13 @@ import { ActivityIndicator, Pressable, View } from 'react-native';
 import { Divider, Text } from 'components';
 import { Buttons } from './Buttons';
 import { Close } from 'assets/SVGs';
-import { Colors } from 'theme/Variables';
+// import { Colors } from 'theme/Variables';
 import { closeModal } from 'utils/modal';
 import { SelectCurrency } from './SelectCurrency';
 import { useFilterTransactionsByAcc } from './container';
 import { TransactionByAccModalProps } from './FilterTransactionsModal.types';
 import { useStyles } from './FilterTransactionsModal.styles';
+import { Account } from './Account';
 
 export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ setFilters }) => {
   const styles = useStyles();
@@ -62,23 +63,29 @@ export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ s
           ) : (
             <View>
               {groupedAccountsByIban?.map(acc => (
-                <Pressable key={acc.iban} onPress={() => setAccountNumber(acc.accountNumber)}>
-                  <View style={styles.account}>
-                    <View>
-                      <Text children={acc.accountName} color={Colors.textBlack500} />
-                      <Text children={acc.iban} />
-                    </View>
-                    <View
-                      style={[
-                        styles.outline,
-                        accountNumber === acc.accountNumber && styles.selected,
-                      ]}
-                    >
-                      {accountNumber === acc.accountNumber && <View style={styles.inner} />}
-                    </View>
-                  </View>
-                  <Divider height={1} marginTop={18} marginBottom={18} />
-                </Pressable>
+                // <Pressable key={acc.iban} onPress={() => setAccountNumber(acc.accountNumber)}>
+                //   <View style={styles.account}>
+                //     <View>
+                //       <Text children={acc.accountName} color={Colors.textBlack500} />
+                //       <Text children={acc.iban} />
+                //     </View>
+                //     <View
+                //       style={[
+                //         styles.outline,
+                //         accountNumber === acc.accountNumber && styles.selected,
+                //       ]}
+                //     >
+                //       {accountNumber === acc.accountNumber && <View style={styles.inner} />}
+                //     </View>
+                //   </View>
+                //   <Divider height={1} marginTop={18} marginBottom={18} />
+                // </Pressable>
+                <Account
+                  account={acc}
+                  key={acc.iban}
+                  onPress={() => setAccountNumber(acc.accountNumber)}
+                  isSelected={accountNumber === acc.accountNumber}
+                />
               ))}
             </View>
           )}

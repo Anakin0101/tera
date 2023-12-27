@@ -8,7 +8,7 @@ export type BlockedAmount = {
 
 export interface DetailsItemProps {
   label: string;
-  value?: string | BlockedAmount[];
+  value?: string | BlockedAmount[] | React.ReactNode;
   icon?: React.ReactNode;
   card?: string;
   iban?: string;
