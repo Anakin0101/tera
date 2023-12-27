@@ -29,6 +29,7 @@ import { productsAPI } from 'services/apis/productsAPI/productsAPI';
 import { productsReducer } from './slices/products';
 import { transfersReducer } from './slices/transfers/indext';
 import { transfersAPI } from 'services/apis/transfersAPI/transfersAPI';
+import { depositReducer } from './slices/deposit';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -46,6 +47,7 @@ const reducers = combineReducers({
   profile: persistedProfile,
   products: productsReducer,
   transfers: transfersReducer,
+  deposit: depositReducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,

@@ -28,6 +28,11 @@ export const NewDepositAdditionalInfoScreen = () => {
     debouncedValue,
     handleItemPress,
     handleNextPress,
+    onChangeText,
+    onBlur,
+    depositType,
+    initialAmount,
+    currency,
   } = useNewDepositAdditionalInfo(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
@@ -47,8 +52,8 @@ export const NewDepositAdditionalInfoScreen = () => {
       <View style={styles.header}>
         <View style={styles.iconContainer} />
         <View>
-          <Text children="შემნახველი ანაბარი" medium size={16} />
-          <Text children={formatMoney(1000, 'GEL')} size={18} />
+          <Text children={depositType} medium size={16} />
+          <Text children={formatMoney(initialAmount, currency)} size={18} />
         </View>
       </View>
       <View style={styles.main}>
@@ -72,15 +77,16 @@ export const NewDepositAdditionalInfoScreen = () => {
             <View style={styles.inputContainer}>
               <TextInput
                 value={duration}
-                onChangeText={setDuration}
+                onChangeText={onChangeText}
                 maxLength={2}
                 textAlign="center"
-                keyboardType="numeric"
+                keyboardType="number-pad"
                 style={styles.input}
+                onBlur={onBlur}
               />
             </View>
             <Text children="newDeposit.completionDate" secondary center marginTop={24} />
-            {debouncedValue && (
+            {debouncedValue && Number(debouncedValue) > 2 && Number(debouncedValue) < 25 && (
               <Text
                 children={formatDateFullMonth(
                   getDateMonthsLater(Number(debouncedValue)),
@@ -131,7 +137,7 @@ export const NewDepositAdditionalInfoScreen = () => {
             fullWidth
             text="common.next"
             onPress={handleNextPress}
-            customWrapperStyle={styles.button}
+            customWrapperStyle={[styles.button, !withdraw && styles.disabled]}
           />
         </View>
       </View>

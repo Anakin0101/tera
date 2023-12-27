@@ -7,12 +7,16 @@ import { Colors } from 'theme/Variables';
 import { ItemProps } from './SelectDepositScreen.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setDepositType } from 'store/slices/deposit';
 
 export const Item: FC<ItemProps> = ({ item }) => {
   const styles = useStyles();
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositDetailsScreen'>>();
+  const dispatch = useAppDispatch();
 
   const onPress = () => {
+    dispatch(setDepositType(item.title));
     navigate('NewDepositDetailsScreen');
   };
 

@@ -119,5 +119,16 @@ export const useStyles = () => {
       fontSize: Spacing.ml,
       fontFamily: FontFamily.Regular,
     },
+    disabled: {
+      opacity: 0.5,
+    },
+    unfocused: {
+      borderColor: Colors.secondary,
+      borderWidth: 1,
+      backgroundColor: Colors.white,
+    },
+    unfocusedText: {
+      color: Colors.black700,
+    },
   });
 };

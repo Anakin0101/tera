@@ -8,8 +8,11 @@ import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAcco
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setInitialAmount } from 'store/slices/deposit';
 
 export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
+  const dispatch = useAppDispatch();
   const headerHeight = useHeaderHeight();
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositAdditionalInfoScreen'>>();
   const [amount, setAmount] = useState('');
@@ -58,6 +61,16 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   }, [toAccount, selectedCurrency]);
 
   const handlePress = () => {
+    dispatch(
+      setInitialAmount({
+        initialAmount: Number(amount),
+        currency: selectedCurrency,
+        initAccount: fromAccount?.iban || '',
+        finalAccount: toAccount?.iban || '',
+        initAccountAvailableBalance: total || 0,
+        finalAccountAvailableBalance: totalDestAccount || 0,
+      }),
+    );
     navigate('NewDepositAdditionalInfoScreen');
   };
 

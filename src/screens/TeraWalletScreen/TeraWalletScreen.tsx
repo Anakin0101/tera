@@ -8,7 +8,7 @@ import Animated, {
   interpolateColor,
   useAnimatedStyle,
   SharedValue,
-  //   runOnJS,
+  runOnJS,
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
@@ -107,11 +107,20 @@ export const TeraWalletScreen = () => {
   const styles = useStyles();
   const scrollX = useSharedValue(0);
   const ref = useRef<FlatList>(null);
-  const { handleItemPress, duration, setDuration, handleSelectDepositPress } = useTeraWallet(ref);
+  const {
+    handleItemPress,
+    duration,
+    // setDuration,
+    handleSelectDepositPress,
+    setActiveIndex,
+    onChangeText,
+    onBlur,
+  } = useTeraWallet(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     scrollX.value = event.contentOffset.x;
     // runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + 3));
+    runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
   });
 
   const renderItem: ListRenderItem<number> = useCallback(
@@ -146,16 +155,17 @@ export const TeraWalletScreen = () => {
         <View style={styles.inputContainer}>
           <TextInput
             value={duration}
-            onChangeText={setDuration}
-            maxLength={2}
+            onChangeText={onChangeText}
+            maxLength={4}
             textAlign="center"
-            keyboardType="numeric"
+            keyboardType="decimal-pad"
             style={styles.input}
+            onBlur={onBlur}
           />
         </View>
       </View>
       <Text children="teraWallet.selectDeposit" secondary center marginTop={60} />
-      <Divider height={1} marginTop={22} />
+      <Divider height={1} marginTop={16} />
       <View style={styles.selectDeposit}>
         <View style={styles.footerIconContainer} />
         <Pressable style={styles.selectDepositInner} onPress={handleSelectDepositPress}>

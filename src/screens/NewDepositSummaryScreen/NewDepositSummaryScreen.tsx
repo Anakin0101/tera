@@ -3,12 +3,13 @@ import { Pressable, ScrollView, View } from 'react-native';
 import { Button, Checkbox, DetailsItem, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { useNewDepositSummary } from './container';
+import { getDateMonthsLater } from 'utils/formatDate';
 import { useStyles } from './NewDepositSummaryScreen.styles';
 
 export const NewDepositSummaryScreen = () => {
   const styles = useStyles();
 
-  const { handlePress, isAgree, setIsAgree } = useNewDepositSummary();
+  const { handlePress, isAgree, setIsAgree, newDeposit } = useNewDepositSummary();
 
   return (
     <ScrollView style={styles.scrollView} bounces={false} showsVerticalScrollIndicator={false}>
@@ -16,8 +17,8 @@ export const NewDepositSummaryScreen = () => {
         <View style={styles.headerItem}>
           <View style={styles.iconContainer} />
           <View>
-            <Text children="შემნახველი ანაბარი" medium size={16} />
-            <Text children={formatMoney(1000, 'GEL')} size={18} />
+            <Text children={newDeposit.depositType} medium size={16} />
+            <Text children={formatMoney(newDeposit.initialAmount, newDeposit.currency)} size={18} />
           </View>
         </View>
         <View style={styles.headerItemRow}>
@@ -25,14 +26,22 @@ export const NewDepositSummaryScreen = () => {
             <View style={styles.iconContainer} />
             <View>
               <Text children="deposits.period" secondary label />
-              <Text children="newDeposit.months" translateProp={{ value: 12 }} size={16} />
+              <Text
+                children="newDeposit.months"
+                translateProp={{ value: newDeposit.duration }}
+                size={16}
+              />
             </View>
           </View>
           <View style={styles.headerItem}>
             <View style={styles.iconContainer} />
             <View>
               <Text children="newDeposit.benefit" secondary label />
-              <Text children={formatMoney(100, 'GEL')} size={16} special />
+              <Text
+                children={formatMoney(newDeposit.benefit, newDeposit.currency)}
+                size={16}
+                special
+              />
             </View>
           </View>
         </View>
@@ -40,7 +49,7 @@ export const NewDepositSummaryScreen = () => {
           <View style={styles.iconContainer} />
           <View>
             <Text children="deposits.interestRate" secondary label />
-            <Text children="12.01%" size={16} />
+            <Text children={`${newDeposit.interestRate}%`} size={16} />
           </View>
         </View>
       </View>
@@ -50,8 +59,14 @@ export const NewDepositSummaryScreen = () => {
             label="newDeposit.fromAccount"
             value={
               <View style={styles.detailsItem}>
-                <Text children="GB468934587345340900" size={15} />
-                <Text children={formatMoney(1000, 'GEL')} size={15} />
+                <Text children={newDeposit.initAccount} size={15} />
+                <Text
+                  children={formatMoney(
+                    newDeposit.initAccountAvailableBalance,
+                    newDeposit.currency,
+                  )}
+                  size={15}
+                />
               </View>
             }
           />
@@ -59,17 +74,38 @@ export const NewDepositSummaryScreen = () => {
             label="newDeposit.toAccount"
             value={
               <View style={styles.detailsItem}>
-                <Text children="GB468934587345340900" size={15} />
-                <Text children={formatMoney(1000, 'GEL')} size={15} />
+                <Text children={newDeposit.finalAccount} size={15} />
+                <Text
+                  children={formatMoney(
+                    newDeposit.finalAccountAvailableBalance,
+                    newDeposit.currency,
+                  )}
+                  size={15}
+                />
               </View>
             }
           />
-          <DetailsItem label="newDeposit.completionDate" value="25/01/2023" />
-          <DetailsItem label="newDeposit.timeOfBenefitTransfer" value="ვადის ბოლოს" />
-          <DetailsItem label="deposits.interestRate" value="11.5%" />
-          <DetailsItem label="newDeposit.specialInterestRate" value="12.00%" />
-          <DetailsItem label="newDeposit.effectiveInterestRate" value="12.01%" />
-          <DetailsItem label="newDeposit.benefit" value="100.00 ₾" />
+          <DetailsItem
+            label="newDeposit.completionDate"
+            value={getDateMonthsLater(newDeposit.duration, 'DD/MM/YYYY')}
+          />
+          <DetailsItem
+            label="newDeposit.timeOfBenefitTransfer"
+            value={newDeposit.withdrawalPeriod}
+          />
+          <DetailsItem label="deposits.interestRate" value={`${newDeposit.interestRate}%`} />
+          <DetailsItem
+            label="newDeposit.specialInterestRate"
+            value={`${newDeposit.specialInterestRate}%`}
+          />
+          <DetailsItem
+            label="newDeposit.effectiveInterestRate"
+            value={`${newDeposit.effectiveInterestRate}%`}
+          />
+          <DetailsItem
+            label="newDeposit.benefit"
+            value={formatMoney(newDeposit.benefit, newDeposit.currency)}
+          />
         </View>
         <View style={styles.footer}>
           <Checkbox
@@ -88,7 +124,7 @@ export const NewDepositSummaryScreen = () => {
             fullWidth
             text="common.next"
             onPress={handlePress}
-            customWrapperStyle={styles.button}
+            customWrapperStyle={[styles.button, !isAgree && styles.disabled]}
           />
         </View>
       </View>

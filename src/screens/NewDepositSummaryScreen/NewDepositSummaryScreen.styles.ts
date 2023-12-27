@@ -62,5 +62,8 @@ export const useStyles = () => {
       marginTop: 26,
       paddingVertical: 14,
     },
+    disabled: {
+      opacity: 0.5,
+    },
   });
 };
