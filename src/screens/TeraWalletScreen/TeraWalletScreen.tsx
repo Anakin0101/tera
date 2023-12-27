@@ -106,20 +106,20 @@ export const Item: FC<ItemProps> = ({ item, index, scrollX, onPress }) => {
 export const TeraWalletScreen = () => {
   const styles = useStyles();
   const scrollX = useSharedValue(0);
-  const ref = useRef<FlatList>(null);
+  const flatListRef = useRef<FlatList>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
   const {
     handleItemPress,
     duration,
-    // setDuration,
     handleSelectDepositPress,
     setActiveIndex,
     onChangeText,
     onBlur,
-  } = useTeraWallet(ref);
+    onFocus,
+  } = useTeraWallet(flatListRef, scrollViewRef);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     scrollX.value = event.contentOffset.x;
-    // runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + 3));
     runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
   });
 
@@ -131,7 +131,7 @@ export const TeraWalletScreen = () => {
   );
 
   return (
-    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <ScrollView ref={scrollViewRef} style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={{ marginHorizontal: 24 }}>
         <View style={styles.iconContainer} />
         <Text children="teraWallet.collectMoney" center medium size={18} marginTop={24} />
@@ -141,7 +141,7 @@ export const TeraWalletScreen = () => {
       </View>
       <View style={styles.selectAmount}>
         <Animated.FlatList
-          ref={ref}
+          ref={flatListRef}
           horizontal
           bounces={false}
           data={data}
@@ -161,6 +161,7 @@ export const TeraWalletScreen = () => {
             keyboardType="decimal-pad"
             style={styles.input}
             onBlur={onBlur}
+            onFocus={onFocus}
           />
         </View>
       </View>

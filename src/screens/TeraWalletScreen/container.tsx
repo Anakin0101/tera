@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { openModal } from 'utils/modal';
 
 const ITEM_SIZE = 86;
@@ -13,7 +13,10 @@ const arrayRange = (start: number, stop: number, step: number) => {
 
 const data = [...arr, ...arrayRange(5, 100, 5)];
 
-export const useTeraWallet = (ref: React.RefObject<FlatList>) => {
+export const useTeraWallet = (
+  ref: React.RefObject<FlatList>,
+  scrollViewRef: React.RefObject<ScrollView>,
+) => {
   const [duration, setDuration] = useState('0.25');
   const [debouncedValue, setDebouncedValue] = useState('0.25');
   const [activeIndex, setActiveIndex] = useState(0);
@@ -47,6 +50,10 @@ export const useTeraWallet = (ref: React.RefObject<FlatList>) => {
     setDuration(value);
   };
 
+  const onFocus = () => {
+    scrollViewRef.current?.scrollToEnd();
+  };
+
   const onBlur = () => {
     if (!duration) {
       setDuration(String(data[activeIndex]));
@@ -78,5 +85,6 @@ export const useTeraWallet = (ref: React.RefObject<FlatList>) => {
     setActiveIndex,
     onChangeText,
     onBlur,
+    onFocus,
   };
 };
