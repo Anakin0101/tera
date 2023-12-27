@@ -55,7 +55,7 @@ export const NewDepositAdditionalInfoScreen = () => {
         <View>
           {/* <Text children="დასრულების თარიღი" secondary center />
           <Text children="უვადო" special center /> */}
-          <Text children="რამდენი თვით ხსნი ანაბარს?" secondary center />
+          <Text children="newDeposit.depositDuration" secondary center />
           <View style={styles.duration}>
             <Animated.FlatList
               ref={ref}
@@ -79,7 +79,7 @@ export const NewDepositAdditionalInfoScreen = () => {
                 style={styles.input}
               />
             </View>
-            <Text children="დასრულების თარიღი" secondary center marginTop={24} />
+            <Text children="newDeposit.completionDate" secondary center marginTop={24} />
             {debouncedValue && (
               <Text
                 children={formatDateFullMonth(
@@ -92,7 +92,7 @@ export const NewDepositAdditionalInfoScreen = () => {
             )}
           </View>
         </View>
-        <Text children="როდის გსურთ სარგებლის გატანა?" secondary marginTop={35} center />
+        <Text children="newDeposit.withdrawBenefits" secondary marginTop={35} center />
         <ScrollView
           horizontal
           style={styles.scrollView}
@@ -111,18 +111,18 @@ export const NewDepositAdditionalInfoScreen = () => {
         </ScrollView>
         <View style={styles.table}>
           <View style={styles.tableItem}>
-            <Text children="საპროცენტო განაკვეთი" secondary />
+            <Text children="deposits.interestRate" secondary />
             <Text children="11.00%" style={styles.regularRate} label secondary />
             <Text children="12.01%" style={styles.specialRate} />
           </View>
           <Divider height={1} marginTop={18} marginBottom={18} />
           <View style={styles.tableItem}>
-            <Text children="ეფექტური საპროცენტო განაკვეთი" secondary />
+            <Text children="newDeposit.effectiveInterestRate" secondary />
             <Text children="12.01%" />
           </View>
           <Divider height={1} marginTop={18} marginBottom={18} />
           <View style={styles.tableItem}>
-            <Text children="ბენეფიტი" secondary />
+            <Text children="newDeposit.benefit" secondary />
             <Text children={formatMoney(100, 'GEL')} special />
           </View>
         </View>

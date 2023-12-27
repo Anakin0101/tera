@@ -269,8 +269,7 @@ export const ProductsStack = () => {
         name={NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN}
         component={NewDepositInitialAmountScreen}
         options={{
-          // title: t('newDeposit.activateDeposit'),
-          title: 'საწყისი თანხა',
+          title: t('newDeposit.initialAmount'),
           headerStyle: {
             backgroundColor: Colors.white,
             shadowColor: 'transparent',
@@ -285,10 +284,9 @@ export const ProductsStack = () => {
         name={NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN}
         component={NewDepositAdditionalInfoScreen}
         options={{
-          // title: t('newDeposit.activateDeposit'),
-          title: 'დამატებითი ინფორმაცია',
+          title: t('newDeposit.additionalInfo'),
           headerStyle: {
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.defaultBackground,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',
@@ -301,10 +299,9 @@ export const ProductsStack = () => {
         name={NEW_DEPOSIT_SUMMARY_SCREEN}
         component={NewDepositSummaryScreen}
         options={{
-          // title: t('newDeposit.activateDeposit'),
-          title: 'ანაბრის დეტალები',
+          title: t('newDeposit.details'),
           headerStyle: {
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.defaultBackground,
             shadowColor: 'transparent',
           },
           headerBackTitle: ' ',
@@ -322,8 +319,7 @@ export const ProductsStack = () => {
         name={TERA_WALLET_SCREEN}
         component={TeraWalletScreen}
         options={{
-          // title: t('newDeposit.activateDeposit'),
-          title: 'ტერასაფულე',
+          title: t('newDeposit.teraWallet'),
           headerStyle: {
             backgroundColor: Colors.white,
             shadowColor: 'transparent',

@@ -24,14 +24,14 @@ export const NewDepositSummaryScreen = () => {
           <View style={styles.headerItem}>
             <View style={styles.iconContainer} />
             <View>
-              <Text children="ხანგრძლივობა" secondary label />
-              <Text children="12 თვე" size={16} />
+              <Text children="deposits.period" secondary label />
+              <Text children="newDeposit.months" translateProp={{ value: 12 }} size={16} />
             </View>
           </View>
           <View style={styles.headerItem}>
             <View style={styles.iconContainer} />
             <View>
-              <Text children="ბენეფიტი" secondary label />
+              <Text children="newDeposit.benefit" secondary label />
               <Text children={formatMoney(100, 'GEL')} size={16} special />
             </View>
           </View>
@@ -39,7 +39,7 @@ export const NewDepositSummaryScreen = () => {
         <View style={styles.headerItem}>
           <View style={styles.iconContainer} />
           <View>
-            <Text children="საპროცენტო განაკვეთი" secondary label />
+            <Text children="deposits.interestRate" secondary label />
             <Text children="12.01%" size={16} />
           </View>
         </View>
@@ -47,7 +47,7 @@ export const NewDepositSummaryScreen = () => {
       <View style={styles.main}>
         <View style={styles.inner}>
           <DetailsItem
-            label="ანგარიში საიდანაც გსურთ გადმორიცხვა"
+            label="newDeposit.fromAccount"
             value={
               <View style={styles.detailsItem}>
                 <Text children="GB468934587345340900" size={15} />
@@ -56,7 +56,7 @@ export const NewDepositSummaryScreen = () => {
             }
           />
           <DetailsItem
-            label="ანგარიში სადაც გსურთ სარგებლის ჩარიცხვა"
+            label="newDeposit.toAccount"
             value={
               <View style={styles.detailsItem}>
                 <Text children="GB468934587345340900" size={15} />
@@ -64,12 +64,12 @@ export const NewDepositSummaryScreen = () => {
               </View>
             }
           />
-          <DetailsItem label="დასრულების თარიღი" value="25/01/2023" />
-          <DetailsItem label="სარგებლის ჩარიცხვის დრო" value="ვადის ბოლოს" />
-          <DetailsItem label="საპროცენტო განაკვეთი" value="11.5%" />
-          <DetailsItem label="საპროცენტო განაკვეთი შენთვის" value="12.00%" />
-          <DetailsItem label="ეფექტური საპროცენტო განაკვეთი" value="12.01%" />
-          <DetailsItem label="ბენეფიტი" value="100.00 ₾" />
+          <DetailsItem label="newDeposit.completionDate" value="25/01/2023" />
+          <DetailsItem label="newDeposit.timeOfBenefitTransfer" value="ვადის ბოლოს" />
+          <DetailsItem label="deposits.interestRate" value="11.5%" />
+          <DetailsItem label="newDeposit.specialInterestRate" value="12.00%" />
+          <DetailsItem label="newDeposit.effectiveInterestRate" value="12.01%" />
+          <DetailsItem label="newDeposit.benefit" value="100.00 ₾" />
         </View>
         <View style={styles.footer}>
           <Checkbox
@@ -77,9 +77,9 @@ export const NewDepositSummaryScreen = () => {
             onChange={setIsAgree}
             label={
               <View style={styles.checkbox}>
-                <Text children="ვეთანხმები" label />
+                <Text children="products.agree" label />
                 <Pressable>
-                  <Text children=" არსებული ხელშეკრულების პირობებს" label special />
+                  <Text children="newDeposit.termsOfContract" label special />
                 </Pressable>
               </View>
             }

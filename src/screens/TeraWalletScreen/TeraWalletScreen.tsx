@@ -25,7 +25,7 @@ const arrayRange = (start: number, stop: number, step: number) => {
   return Array.from({ length: (stop - start) / step + 1 }, (_, index) => start + index * step);
 };
 
-const data = [...arr, ...arrayRange(5, 250, 5)];
+const data = [...arr, ...arrayRange(5, 100, 5)];
 
 export interface ItemProps {
   item: number;
@@ -125,17 +125,10 @@ export const TeraWalletScreen = () => {
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={{ marginHorizontal: 24 }}>
         <View style={styles.iconContainer} />
-        <Text children="დააგროვე თანხა მარტივად" center medium size={18} marginTop={24} />
-        <Text
-          children={
-            'ტერასაფულის გააქტიურების შემდეგ\nყოველი ტრანზაქციიდან ანაბარზე დაირიცხება\nთქვენს მიერ არჩეული თანხა'
-          }
-          center
-          secondary
-          marginTop={16}
-        />
+        <Text children="teraWallet.collectMoney" center medium size={18} marginTop={24} />
+        <Text children="teraWallet.desc" center secondary marginTop={16} />
         <Divider height={1} marginTop={32} marginBottom={32} />
-        <Text children="თანხა რომლის გადატანაც გსურთ ანაბარზე" secondary center />
+        <Text children="teraWallet.selectAmount" secondary center />
       </View>
       <View style={styles.selectAmount}>
         <Animated.FlatList
@@ -161,7 +154,7 @@ export const TeraWalletScreen = () => {
           />
         </View>
       </View>
-      <Text children="ანაბარი სადაც ჩაირიცხება თანხა" secondary center marginTop={60} />
+      <Text children="teraWallet.selectDeposit" secondary center marginTop={60} />
       <Divider height={1} marginTop={22} />
       <View style={styles.selectDeposit}>
         <View style={styles.footerIconContainer} />

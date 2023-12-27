@@ -44,7 +44,7 @@ export const useTeraWallet = (ref: React.RefObject<FlatList>) => {
   const handleSelectDepositPress = () => {
     openModal({
       element: <View />,
-      title: 'აირჩიეთ ანაბარი',
+      title: 'teraWallet.chooseDeposit',
     });
   };
 

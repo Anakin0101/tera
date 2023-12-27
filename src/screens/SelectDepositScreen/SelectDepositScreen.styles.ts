@@ -48,5 +48,8 @@ export const useStyles = () => {
       ...Layout.justifyContentBetween,
       marginLeft: Spacing.m,
     },
+    fill: {
+      ...Layout.fill,
+    },
   });
 };

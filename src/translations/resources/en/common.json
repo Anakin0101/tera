@@ -310,7 +310,8 @@
     "currency": "Currency",
     "from": "From",
     "to": "To",
-    "next": "Next"
+    "next": "Next",
+    "returnToMain": "Return to Main"
   },
   "form": {
     "is_required": "is required"
@@ -369,6 +370,31 @@
     "minimumDeposit": "Minimum contribution: {{value}} units",
     "selectAcc": "Select Account",
     "from": "From",
-    "to": "To"
+    "to": "To",
+    "depositDuration": "How many months do you open the deposit?",
+    "completionDate": "Completion Date",
+    "withdrawBenefits": "When do you want to withdraw your benefits?",
+    "effectiveInterestRate": "Effective Interest Rate",
+    "benefit": "Benefit",
+    "fromAccount": "Account from which you want to transfer",
+    "toAccount": "Account where you want to deposit benefits",
+    "timeOfBenefitTransfer": "Time of Enrollment of Benefits",
+    "specialInterestRate": "Interest Rate for You",
+    "termsOfContract": "the terms of the existing contract",
+    "months": "{{value}} Months",
+    "success": "The deposit has been\nsuccessfully opened",
+    "seeContract": "See the contract on the\n'My Documents' page",
+    "activateTeraWallet": "Activate TeraWallet",
+    "activateAutomaticPayments": "Activate Automatic Payments",
+    "initialAmount": "Initial Amount",
+    "additionalInfo": "Additional Information",
+    "details": "Deposit Details"
+  },
+  "teraWallet": {
+    "collectMoney": "Collect money easily",
+    "desc": "After activating TeraWallet from each transaction, the amount of your choice will be credited to the account",
+    "selectAmount": "The amount you want to transfer to the deposit",
+    "selectDeposit": "Deposit where the money will be deposited",
+    "chooseDeposit": "Select Deposit"
   }
 }

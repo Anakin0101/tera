@@ -20,7 +20,7 @@ export const Item: FC<ItemProps> = ({ item }) => {
     <Pressable onPress={onPress} style={styles.item}>
       <View style={styles.icon} />
       <View style={styles.content}>
-        <View style={{ flex: 1 }}>
+        <View style={styles.fill}>
           <Text children={item.title} size={16} />
           <Text
             color={Colors.textBlack500}

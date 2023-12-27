@@ -25,28 +25,23 @@ export const DepositSuccessScreen = () => {
           size={24}
           marginTop={32}
           lineHeight={34}
-          children={'ანაბარი წარმატებით\nგაიხსნა'}
+          children="newDeposit.success"
         />
-        <Text
-          center
-          secondary
-          marginTop={20}
-          children={'ხელშეკრულება იხილეთ “ჩემი\nდოკუმენტების” გვერდზე'}
-        />
+        <Text center secondary marginTop={20} children="newDeposit.seeContract" />
         <Button.Secondary
           fullWidth
-          text="ტერა საფულეს გააქტიურება"
+          text="newDeposit.activateTeraWallet"
           onPress={handleTeraWalletPress}
           customWrapperStyle={styles.wallet}
         />
         <Button.Secondary
           fullWidth
-          text="ავტომატური გადახდების გააქტიურება"
+          text="newDeposit.activateAutomaticPayments"
           customWrapperStyle={styles.autoPayment}
         />
         <Button.Primary
           fullWidth
-          text="მთავარზე დაბრუნება"
+          text="common.returnToMain"
           onPress={handleHomePress}
           customWrapperStyle={styles.goBack}
         />
