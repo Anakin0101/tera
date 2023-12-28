@@ -10,12 +10,14 @@ import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setInitialAmount } from 'store/slices/deposit';
+import { openToast } from 'utils/toast';
 
 export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const dispatch = useAppDispatch();
   const headerHeight = useHeaderHeight();
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositAdditionalInfoScreen'>>();
   const [amount, setAmount] = useState('');
+  const [debouncedAmount, setDebouncedAmount] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>('GEL');
   const [fromAccount, setFromAccount] = useState<IGroupedAccountsByIban | null>(null);
   const [toAccount, setToAccount] = useState<IGroupedAccountsByIban | null>(null);
@@ -26,6 +28,19 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
       setAdjustResize();
     };
   }, []);
+
+  useEffect(() => {
+    const id = setTimeout(() => setDebouncedAmount(amount), 1500);
+
+    return () => clearTimeout(id);
+  }, [amount]);
+
+  useEffect(() => {
+    if (debouncedAmount && Number(debouncedAmount) < 10) {
+      openToast('newDeposit.warning', 'error');
+      setAmount('');
+    }
+  }, [debouncedAmount]);
 
   const handleSelectAccountPress = (type: string) => {
     ref.current?.blur();

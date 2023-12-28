@@ -388,7 +388,8 @@
     "activateAutomaticPayments": "Activate Automatic Payments",
     "initialAmount": "Initial Amount",
     "additionalInfo": "Additional Information",
-    "details": "Deposit Details"
+    "details": "Deposit Details",
+    "warning": "The amount must exceed the minimum contribution amount."
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
