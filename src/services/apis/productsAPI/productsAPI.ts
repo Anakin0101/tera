@@ -25,13 +25,9 @@ export const productsAPI = createApi({
         method: METHOD_NAMES.GET,
       }),
     }),
-    getOffers: builder.query<OfferType[], number>({
-      query: CustomerId => ({
+    getOffers: builder.query<OfferType[], void>({
+      query: () => ({
         url: URLS.getOffers,
-        method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
       }),
       transformResponse: (response: OffersAPIResponseType) => response.offers,
     }),

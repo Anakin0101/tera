@@ -173,3 +173,13 @@ export type LoanHistory = {
   fee: number;
   total: number;
 };
+
+export enum OfferTypeEnum {
+  Deposit = 1,
+  Loan = 2,
+  CardInsurance = 3,
+  CreditDisbursement = 4,
+  Card = 5,
+  Package = 6,
+  OpenBanking = 7,
+}

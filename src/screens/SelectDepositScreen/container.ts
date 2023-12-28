@@ -1,4 +1,8 @@
+import { useGetOffersQuery } from 'services/apis/productsAPI/productsAPI';
+
 export const useSelectDeposit = () => {
+  const { data: offers } = useGetOffersQuery();
+
   const depositTypes = [
     {
       title: 'newDeposit.termDeposit',
@@ -28,5 +32,6 @@ export const useSelectDeposit = () => {
 
   return {
     depositTypes,
+    offers,
   };
 };
