@@ -76,6 +76,9 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   }, [toAccount, selectedCurrency]);
 
   const handlePress = () => {
+    // if (!(amount && fromAccount && toAccount)) {
+    //   return;
+    // }
     dispatch(
       setInitialAmount({
         initialAmount: Number(amount),

@@ -7,6 +7,7 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setDepositDuration } from 'store/slices/deposit';
 
 const ITEM_SIZE = 86;
+const months = Array.from({ length: 22 }, (_, index) => index + 3);
 
 export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const dispatch = useAppDispatch();
@@ -18,21 +19,19 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const { depositType, initialAmount, currency } = useAppSelector(state => state.deposit);
 
   useEffect(() => {
-    if (duration && Number(duration) > 3 && Number(duration) < 25) {
+    if (duration && months.includes(Number(duration))) {
       lastValue.current = duration;
     }
-
     const timeout = setTimeout(() => setDebouncedValue(duration), 600);
 
     return () => clearTimeout(timeout);
   }, [duration]);
 
   useEffect(() => {
-    if (debouncedValue && (Number(debouncedValue) < 3 || Number(debouncedValue) > 24)) {
+    if (debouncedValue && !months.includes(Number(debouncedValue))) {
       setDuration('');
     }
-
-    if (debouncedValue && Number(debouncedValue) > 2 && Number(debouncedValue) < 25) {
+    if (debouncedValue && months.includes(Number(debouncedValue))) {
       ref.current?.scrollToOffset({
         offset: (Number(debouncedValue) - 3) * ITEM_SIZE,
         animated: false,
@@ -90,5 +89,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     depositType,
     initialAmount,
     currency,
+    months,
+    ITEM_SIZE,
   };
 };

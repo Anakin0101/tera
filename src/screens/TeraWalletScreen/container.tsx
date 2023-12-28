@@ -1,17 +1,12 @@
 import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
+import { arrayRange } from 'utils/arrayRange';
 import { openModal } from 'utils/modal';
 
 const ITEM_SIZE = 86;
-
 const arr = [0.25, 0.5, 1, 2, 3, 4];
-
-const arrayRange = (start: number, stop: number, step: number) => {
-  return Array.from({ length: (stop - start) / step + 1 }, (_, index) => start + index * step);
-};
-
-const data = [...arr, ...arrayRange(5, 100, 5)];
+const amounts = [...arr, ...arrayRange(5, 100, 5)];
 
 export const useTeraWallet = (
   ref: React.RefObject<FlatList>,
@@ -22,7 +17,7 @@ export const useTeraWallet = (
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setDuration(String(data[activeIndex])), 600);
+    const timeout = setTimeout(() => setDuration(String(amounts[activeIndex])), 300);
     return () => clearTimeout(timeout);
   }, [activeIndex]);
 
@@ -32,12 +27,12 @@ export const useTeraWallet = (
   }, [duration]);
 
   useEffect(() => {
-    if (debouncedValue && !data.includes(Number(debouncedValue))) {
+    if (debouncedValue && !amounts.includes(Number(debouncedValue))) {
       setDuration('');
       return;
     }
 
-    const index = data.findIndex(num => num === Number(debouncedValue));
+    const index = amounts.findIndex(amount => amount === Number(debouncedValue));
     if (index > -1) {
       ref.current?.scrollToOffset({
         offset: index * ITEM_SIZE,
@@ -56,7 +51,7 @@ export const useTeraWallet = (
 
   const onBlur = () => {
     if (!duration) {
-      setDuration(String(data[activeIndex]));
+      setDuration(String(amounts[activeIndex]));
     }
   };
 
@@ -86,5 +81,7 @@ export const useTeraWallet = (
     onChangeText,
     onBlur,
     onFocus,
+    amounts,
+    ITEM_SIZE,
   };
 };

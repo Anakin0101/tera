@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Pressable } from 'react-native';
 import Animated, {
   interpolate,
@@ -7,12 +7,13 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import { Colors } from 'theme/Variables';
+import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { ItemProps } from './NewDepositAdditionalInfoScreen.types';
 import { useStyles } from './NewDepositAdditionalInfoScreen.styles';
 
 const ITEM_SIZE = 86;
 
-export const Item: FC<ItemProps> = ({ item, index, scrollX, onPress }) => {
+export const Item: FC<ItemProps> = memo(({ item, index, scrollX, onPress, currency }) => {
   const styles = useStyles();
 
   const animStyle = useAnimatedStyle(() => {
@@ -74,9 +75,11 @@ export const Item: FC<ItemProps> = ({ item, index, scrollX, onPress }) => {
     <Pressable onPress={() => onPress(index)}>
       <Animated.View style={styles.itemWrapper}>
         <Animated.View style={[styles.itemContainer, animStyle]}>
-          <Animated.Text style={[styles.itemText, textAnimStyle]}>{item}</Animated.Text>
+          <Animated.Text style={[styles.itemText, textAnimStyle]}>
+            {currency ? `${item} ${CurrencySignMap[currency]}` : item}
+          </Animated.Text>
         </Animated.View>
       </Animated.View>
     </Pressable>
   );
-};
+});

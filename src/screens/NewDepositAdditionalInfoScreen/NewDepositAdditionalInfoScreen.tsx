@@ -12,8 +12,6 @@ import { useNewDepositAdditionalInfo } from './container';
 import { formatDateFullMonth, getDateMonthsLater } from 'utils/formatDate';
 import { useStyles } from './NewDepositAdditionalInfoScreen.styles';
 
-const ITEM_SIZE = 86;
-const numbersArray = Array.from({ length: 22 }, (_, index) => index + 3);
 const withdrawPeriod = ['ვადის ბოლოს', 'წინასწარ', 'ყოველთვე'];
 
 export const NewDepositAdditionalInfoScreen = () => {
@@ -33,6 +31,8 @@ export const NewDepositAdditionalInfoScreen = () => {
     depositType,
     initialAmount,
     currency,
+    months,
+    ITEM_SIZE,
   } = useNewDepositAdditionalInfo(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
@@ -66,13 +66,18 @@ export const NewDepositAdditionalInfoScreen = () => {
               ref={ref}
               horizontal
               bounces={false}
-              data={numbersArray}
+              data={months}
               onScroll={handleScroll}
               renderItem={renderItem}
               decelerationRate="fast"
               snapToInterval={ITEM_SIZE}
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.durationContentContainer}
+              getItemLayout={(_, index) => ({
+                length: ITEM_SIZE,
+                offset: ITEM_SIZE * index,
+                index,
+              })}
             />
             <View style={styles.inputContainer}>
               <TextInput
@@ -137,7 +142,7 @@ export const NewDepositAdditionalInfoScreen = () => {
             fullWidth
             text="common.next"
             onPress={handleNextPress}
-            customWrapperStyle={[styles.button, !withdraw && styles.disabled]}
+            customWrapperStyle={[styles.button, !(withdraw && duration) && styles.disabled]}
           />
         </View>
       </View>

@@ -12,6 +12,9 @@ export const useStyles = () => {
     scrollView: {
       backgroundColor: Colors.white,
     },
+    container: {
+      marginHorizontal: Spacing.xl,
+    },
     iconContainer: {
       ...Layout.center,
       ...Layout.selfCenter,
