@@ -9,7 +9,6 @@ import {
   LoanHistory,
   LoanSchedule,
   OfferType,
-  OffersAPIResponseType,
   TransactionType,
   UpdateAccountNameReq,
 } from './productsAPI.types';
@@ -29,7 +28,6 @@ export const productsAPI = createApi({
       query: () => ({
         url: URLS.getOffers,
       }),
-      transformResponse: (response: OffersAPIResponseType) => response.offers,
     }),
     getLastTransactionsByAccNumber: builder.mutation<TransactionType[], LastTransactionReq>({
       query: ({ accountNumber, count, startDate, endDate }) => ({
@@ -90,6 +88,13 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getOfferById: builder.query<any, number>({
+      query: OfferId => ({
+        url: URLS.getOfferById,
+        method: METHOD_NAMES.GET,
+        params: { OfferId },
+      }),
+    }),
   }),
 });
 
@@ -102,4 +107,5 @@ export const {
   useGetLoanHistoryQuery,
   useBlockCardMutation,
   useUnblockCardMutation,
+  useGetOfferByIdQuery,
 } = productsAPI;

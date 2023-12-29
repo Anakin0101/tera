@@ -34,13 +34,18 @@ export const useStyles = () => {
       borderWidth: 1,
       marginTop: 14,
     },
-    icon: {
+    imageContainer: {
       ...Layout.center,
       width: Spacing.xxxl,
       height: Spacing.xxxl,
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
       borderWidth: 1,
+    },
+    image: {
+      ...Layout.fullHeight,
+      ...Layout.fullWidth,
+      borderRadius: Spacing.xl,
     },
     content: {
       ...Layout.fill,
@@ -50,6 +55,11 @@ export const useStyles = () => {
     },
     fill: {
       ...Layout.fill,
+    },
+    loader: {
+      ...Layout.fill,
+      ...Layout.center,
+      backgroundColor: Colors.white,
     },
   });
 };

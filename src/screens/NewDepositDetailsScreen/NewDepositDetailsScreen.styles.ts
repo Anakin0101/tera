@@ -26,6 +26,11 @@ export const useStyles = () => {
       borderWidth: 1,
       borderColor: Colors.inputBlack50,
     },
+    image: {
+      ...Layout.fullHeight,
+      ...Layout.fullWidth,
+      borderRadius: 50,
+    },
     description: {
       ...Layout.growfull,
     },

@@ -44,16 +44,20 @@ export type Account = {
   cards: CardType[];
 };
 
-type ImageType = {
+type OfferImageType = {
   url: string;
   type: number;
 };
 
 export type OfferType = {
   id: number;
+  type: OfferTypeEnum;
+  lmsApplicationId: number;
+  creditDisbursementId: number;
+  hasClientOffer: boolean;
   title: string;
   description: string;
-  images: ImageType[];
+  images: OfferImageType[];
 };
 
 export type OffersAPIResponseType = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { useNewDepositDetails } from './container';
 import { Button, Divider, Text } from 'components';
 import { useStyles } from './NewDepositDetailsScreen.styles';
@@ -11,7 +11,7 @@ const benefits = [
 
 export const NewDepositDetailsScreen = () => {
   const styles = useStyles();
-  const { handlePress } = useNewDepositDetails();
+  const { handlePress, image } = useNewDepositDetails();
 
   return (
     <ScrollView
@@ -20,7 +20,9 @@ export const NewDepositDetailsScreen = () => {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.header}>
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <Image source={{ uri: image }} style={styles.image} />
+        </View>
         <Text children="ვადიანი ანაბარი" medium size={18} marginTop={24} />
         <Text children="საწყისი თანხა 500 ერთეული" secondary />
       </View>

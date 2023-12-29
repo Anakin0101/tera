@@ -27,4 +27,5 @@ export const URLS = {
   checkIban: 'Transfers/GetReceiverInfo',
   transferToSomeone: 'Transfers/TransferToSomeone',
   getTransferInfo: 'Transfers/GetTransferInfo',
+  getOfferById: 'Offers/GetOfferById',
 };

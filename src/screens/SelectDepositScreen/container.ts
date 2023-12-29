@@ -1,37 +1,14 @@
 import { useGetOffersQuery } from 'services/apis/productsAPI/productsAPI';
+import { OfferType, OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useSelectDeposit = () => {
-  const { data: offers } = useGetOffersQuery();
-
-  const depositTypes = [
-    {
-      title: 'newDeposit.termDeposit',
-      initialAmount: 500,
-    },
-    {
-      title: 'newDeposit.savingDeposit',
-      initialAmount: 500,
-    },
-    {
-      title: 'newDeposit.universalDeposit',
-      initialAmount: 500,
-    },
-    {
-      title: 'newDeposit.growingDeposit',
-      initialAmount: 500,
-    },
-    {
-      title: 'newDeposit.flexDeposit',
-      initialAmount: 500,
-    },
-    {
-      title: 'newDeposit.certificateOfDeposit',
-      initialAmount: 500,
-    },
-  ];
+  const { data: offers } = useGetOffersQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      data: data?.filter((offer: OfferType) => offer.type === OfferTypeEnum.Deposit),
+    }),
+  });
 
   return {
-    depositTypes,
     offers,
   };
 };

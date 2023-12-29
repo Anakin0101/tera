@@ -1,8 +1,5 @@
-export type ListItem = {
-  title: string;
-  initialAmount: number;
-};
+import { OfferType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface ItemProps {
-  item: ListItem;
+  item: OfferType;
 }

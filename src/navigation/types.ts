@@ -101,7 +101,10 @@ export type ProductsStackParamsList = {
     index: number;
   };
   [SELECT_DEPOSIT_SCREEN]: undefined;
-  [NEW_DEPOSIT_DETAILS_SCREEN]: undefined;
+  [NEW_DEPOSIT_DETAILS_SCREEN]: {
+    id: number;
+    url: string;
+  };
   [NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN]: undefined;
   [NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN]: undefined;
   [NEW_DEPOSIT_SUMMARY_SCREEN]: undefined;

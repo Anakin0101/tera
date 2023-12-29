@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
+import { ActivityIndicator, FlatList, ListRenderItem, View } from 'react-native';
 import { Item } from './Item';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { useSelectDeposit } from './container';
-import { ListItem } from './SelectDepositScreen.types';
+import { OfferType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './SelectDepositScreen.styles';
 
 const ListHeader = () => {
@@ -25,15 +25,23 @@ const ListHeader = () => {
 
 export const SelectDepositScreen = () => {
   const styles = useStyles();
-  const { depositTypes } = useSelectDeposit();
+  const { offers } = useSelectDeposit();
 
-  const renderItem: ListRenderItem<ListItem> = useCallback(({ item }) => {
+  const renderItem: ListRenderItem<OfferType> = useCallback(({ item }) => {
     return <Item item={item} />;
   }, []);
 
+  if (!offers) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <FlatList
-      data={depositTypes}
+      data={offers}
       renderItem={renderItem}
       ListHeaderComponent={ListHeader}
       showsVerticalScrollIndicator={false}
