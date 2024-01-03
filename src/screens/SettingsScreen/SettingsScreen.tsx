@@ -19,7 +19,7 @@ export const SettingsScreen = () => {
             <Text style={styles.titleStyle}>{t(title)}</Text>
             {subContent.map((content: ProfileItemType) => {
               const isLast = subContent.length - 1 === content.index;
-              return <ProfileListItem key={content.text} isLast={isLast} {...content} />;
+              return <ProfileListItem key={content.id} isLast={isLast} {...content} />;
             })}
           </View>
         ))}

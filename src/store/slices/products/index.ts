@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductsStateProps } from './types';
-import { dashboardAPI } from 'services/apis/dashboardAPI/dashboardAPI';
+import { dashboardAPI } from 'services/apis';
 
 const initialState: ProductsStateProps = {
   groupedAccountsByIban: [],

@@ -27,5 +27,8 @@ export const useStyles = () => {
       width: 74,
       height: 60,
     },
+    text: {
+      paddingLeft: Spacing.xs,
+    },
   });
 };

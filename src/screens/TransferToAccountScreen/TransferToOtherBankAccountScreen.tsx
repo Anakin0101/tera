@@ -5,7 +5,7 @@ import { Transfer } from './Transfer';
 import { CardSwap } from './CardSwap';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button } from 'components';
-import { setSelectedPrice, setOtpData } from 'store/slices/transfers/indext';
+import { setSelectedPrice, setOtpData } from 'store/slices/transfers';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';

@@ -11,11 +11,17 @@ export const useProfileList = () => {
   const { t } = useTranslation();
   const { savedLanguage, handleLanguageChange } = useLanguageSwitcher();
 
-  const newLanguage = useMemo(() => {
-    return savedLanguage === LanguageKeys.geo ? t('common.in_english') : t('common.in_georgian');
+  const nextLanguage = useMemo(() => {
+    const isCurrentLanguageGeo = savedLanguage === LanguageKeys.geo;
+    const lng = isCurrentLanguageGeo ? { lng: 'en' } : { lng: 'geo' };
+    const region = isCurrentLanguageGeo
+      ? t('common.in_english', lng)
+      : t('common.in_georgian', lng);
+
+    return region;
   }, [savedLanguage, t]);
 
-  const languageIcon = savedLanguage === LanguageKeys.geo ? GeoFlag : EngFlag;
+  const languageIcon = savedLanguage === LanguageKeys.geo ? EngFlag : GeoFlag;
 
   const profileListConfig: ProfileItemType[] = [
     {
@@ -43,7 +49,8 @@ export const useProfileList = () => {
       id: 'switch_to_language',
       icon: languageIcon,
       text: t('profile.switch_to_language', {
-        language: newLanguage,
+        language: nextLanguage,
+        lng: savedLanguage === LanguageKeys.geo ? 'en' : 'geo',
       }),
       handlePress: () =>
         handleLanguageChange(

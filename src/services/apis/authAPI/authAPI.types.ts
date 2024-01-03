@@ -52,9 +52,17 @@ export type AddTrustedDeviceAPIResponseType = {
 };
 
 export type AddTrustedDeviceAPIRequestType = {
-  otp?: string;
+  body?: Record<string, any>;
   headers?: Record<string, any>;
 };
+
+export type DeleteTrustedDeviceAPIResponseType = {
+  success: boolean;
+  error: unknown;
+  pending: boolean;
+  channelData: unknown;
+};
+export type DeleteTrustedDeviceAPIRequestType = {};
 
 // logout
 export type LogoutAPIResponseType = {
@@ -86,34 +94,6 @@ export type GetTrustedDevicesAPIResponseType = {
 
 export type GetTrustedDevicesAPIRequestType = {
   headers?: Record<string, any>;
-};
-
-export type GetUserInfoAPIResponseType = {
-  loginName: string | null;
-  customerId: number;
-  personalId: string | null;
-  firstName: string;
-  firstNameEng: string;
-  lastName: string;
-  lastNameEng: string;
-  mobile: string | null;
-  email: string | null;
-  address: string;
-  addressEng: string;
-  addressJuridical: string;
-  addressJuridicalEng: string;
-  imageId: string;
-  authType: number;
-  packageType: number;
-  showZeroAccounts: boolean;
-  hasDigipass: boolean;
-  isPensionGranted: boolean;
-  isAdult: boolean;
-  showPension: boolean;
-  mustChangePassword: boolean;
-  passwordExpired: boolean;
-  createdAutomatically: boolean;
-  secretWord: string;
 };
 
 export type RefreshTokenAPIResponse = {

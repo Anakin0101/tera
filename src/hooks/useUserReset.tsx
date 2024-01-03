@@ -4,15 +4,10 @@ import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { GuestStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { Alert, Keyboard } from 'react-native';
+import { resetStateAction } from 'store/actions/reset';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import {
-  resetUserCredentials,
-  setBiometricStatus,
-  setIgnoreEasyLogin,
-  setLoginName,
-  setPasscodeStatus,
-  setShouldSaveUsername,
-} from 'store/slices/userInfo';
+
+import { clearLoginName } from 'utils/keychain';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { closeModal, openModal } from 'utils/modal';
 
@@ -23,14 +18,10 @@ export const useUserReset = () => {
   const confirmUserReset = async () => {
     const result = await resetKeychainValues();
     if (result) {
-      dispatch(setBiometricStatus(null));
-      dispatch(setPasscodeStatus(null));
-      dispatch(setLoginName(null));
-      dispatch(setShouldSaveUsername(undefined));
-      dispatch(resetUserCredentials());
-      dispatch(setIgnoreEasyLogin(false));
+      await clearLoginName();
       closeModal();
       navigate(PASSWORD_LOGIN_SCREEN);
+      dispatch(resetStateAction());
     } else {
       Alert.alert('Could not change user');
     }

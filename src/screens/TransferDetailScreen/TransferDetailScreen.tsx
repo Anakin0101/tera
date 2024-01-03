@@ -6,7 +6,6 @@ import { useStyleTheme } from './TransferDetailScreen.styles';
 import { useNavigation } from '@react-navigation/native';
 
 import { TransferDetailsList } from './TransferDetailsList';
-import { verticalScale } from 'utils/config';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
 import { useTransferDetails } from './container';
@@ -99,6 +98,7 @@ export const TransferDetailScreen = () => {
       if (otpData.otpRequired) {
         openModal({
           element: <OTPModal onFinished={code => transferWithOTP(code)} />,
+          withKeyboard: true,
         });
       } else {
         await transferWithOTP(false);
@@ -145,7 +145,7 @@ export const TransferDetailScreen = () => {
           )}
         </View>
       </View>
-      <View style={{ marginTop: verticalScale(30) }}>
+      <View style={styles.buttonContainer}>
         <Button.Primary
           text="გადარიცხვა"
           fixedWidth

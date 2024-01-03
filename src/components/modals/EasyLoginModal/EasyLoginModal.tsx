@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { useStyleTheme } from './EasyLoginModal.styles';
 import { Button, SwitchComponent, Text } from 'components';
-import { useTranslation } from 'react-i18next';
 import { EasyLoginModalProps } from './types/EasyLoginModal.types';
 import { FaceIdColoredSvg } from 'assets/SVGs';
 import { debounce } from 'utils/debounce';
@@ -10,9 +9,14 @@ import { setPostponeEasyLogin, setIgnoreEasyLogin } from 'store/slices/userInfo'
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { closeModal } from 'utils/modal';
 
-export const EasyLoginModal: FC<EasyLoginModalProps> = ({ openAuthorizationMethodsScreen }) => {
+export const EasyLoginModal: FC<EasyLoginModalProps> = ({
+  handlePress,
+  title = 'easyLogin.title',
+  description = 'easyLogin.description',
+  primaryButtonText = 'easyLogin.activate',
+  secondaryButtonText = 'easyLogin.next_time',
+}) => {
   const [ignoreEasyLoginValue, setIgnoreEasyLoginValue] = useState<boolean>(false);
-  const { t } = useTranslation();
   const styles = useStyleTheme();
   const dispatch = useAppDispatch();
 
@@ -35,8 +39,8 @@ export const EasyLoginModal: FC<EasyLoginModalProps> = ({ openAuthorizationMetho
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
         <FaceIdColoredSvg style={styles.icon} />
-        <Text style={styles.text}>{t('easyLogin.title')}</Text>
-        <Text children="easyLogin.description" style={styles.label} />
+        <Text style={styles.text} children={title} />
+        <Text children={description} style={styles.label} />
       </View>
       <View style={styles.toggleContainer}>
         <Text children="easyLogin.do_not_ask_again" style={styles.label} />
@@ -46,12 +50,8 @@ export const EasyLoginModal: FC<EasyLoginModalProps> = ({ openAuthorizationMetho
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <Button.Text text="easyLogin.next_time" size="large" onPress={handlePostponeEasyLogin} />
-        <Button.Primary
-          text="easyLogin.activate"
-          size="large"
-          onPress={openAuthorizationMethodsScreen}
-        />
+        <Button.Text text={secondaryButtonText} size="large" onPress={handlePostponeEasyLogin} />
+        <Button.Primary text={primaryButtonText} size="large" onPress={handlePress} />
       </View>
     </View>
   );

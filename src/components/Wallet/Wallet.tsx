@@ -20,7 +20,7 @@ export const Wallet: FC<WalletProps> = () => {
             children="Add to Apple Wallet"
             size={18}
             color={Colors.white}
-            style={{ paddingLeft: 5 }}
+            style={styles.text}
           />
         </Pressable>
       </View>

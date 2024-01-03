@@ -5,6 +5,7 @@ import Images from 'theme/Images';
 import { getCurrencyIcon } from 'utils/currency';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
+
 export const ConversionOrTranferDetails = ({
   buyAmount,
   params,

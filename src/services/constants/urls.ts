@@ -4,6 +4,7 @@ export const URLS = {
   logout: 'Auth/Logout',
   addTrustedDevice: 'Auth/AddTrustedDevice',
   getTrustedDevices: 'Auth/GetTrustedDevices',
+  deleteTrustedDevices: 'Auth/DeleteTrustedDevices',
   getTemplates: 'Templates/GetTemplates',
   getUserProfile: 'Customers/GetUserProfile',
   loginByRefreshToken: 'Auth/LoginByRefreshToken',
@@ -27,4 +28,9 @@ export const URLS = {
   checkIban: 'Transfers/GetReceiverInfo',
   transferToSomeone: 'Transfers/TransferToSomeone',
   getTransferInfo: 'Transfers/GetTransferInfo',
+  getFileByID: 'Files/GetFileById',
+  getSecuredFileById: 'Files/GetSecuredFileById',
+  getTotalSaving: 'Pensions/GetTotalSaving',
+  getUnreadMessagesCount: 'Conversations/GetUnreadMessagesCount',
+  getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
 };

@@ -1,0 +1,22 @@
+import { Text } from 'components/Text/Text';
+import React from 'react';
+import { formatMoney } from 'utils/formatMoney';
+import { useStyleTheme } from './PensionFund.styles';
+
+export const PensionFund = ({
+  totalSaving,
+  showPensionFund,
+}: {
+  totalSaving: number;
+  showPensionFund: boolean;
+}) => {
+  const styles = useStyleTheme();
+  return showPensionFund ? (
+    <Text
+      children={`${formatMoney(Number(totalSaving), 'GEL')}`}
+      style={styles.pensionFund}
+      ellipsizeMode="tail"
+      numberOfLines={1}
+    />
+  ) : null;
+};

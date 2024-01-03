@@ -10,7 +10,7 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setAccountToData, setReceiverInfo } from 'store/slices/transfers/indext';
+import { setAccountToData, setReceiverInfo } from 'store/slices/transfers';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useStyles } from './IbanTransaction.styles';
 

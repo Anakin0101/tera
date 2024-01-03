@@ -86,7 +86,8 @@
     "description": "For easy access, use biometric data or passcode.",
     "activate": "Activate",
     "next_time": "Other time",
-    "do_not_ask_again": "Do not ask again"
+    "do_not_ask_again": "Do not ask again",
+    "enable_from_settings": "For biometric authentication, you need to activate Face ID / Touch ID in the mobile settings “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "dashboard": {
     "templates": "Templates",

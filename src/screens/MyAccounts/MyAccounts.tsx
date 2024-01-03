@@ -9,10 +9,10 @@ import { DynamicAccount } from 'components';
 import { useTeraTransfers } from './container';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
-import { setAccountFromData } from 'store/slices/transfers/indext';
+import { setAccountFromData } from 'store/slices/transfers';
 import { TO_ACCOUNT_SCREEN, OTHER_BANK_TANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
-import { setSelectedIban } from 'store/slices/transfers/indext';
+import { setSelectedIban } from 'store/slices/transfers';
 interface Section {
   title: string;
   data: AccountData[];

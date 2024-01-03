@@ -51,6 +51,10 @@ type ImageType = {
 
 export type OfferType = {
   id: number;
+  type: number;
+  lmsApplicationId: unknown;
+  creditDisbursementId: unknown;
+  hasClientOffer: boolean;
   title: string;
   description: string;
   images: ImageType[];

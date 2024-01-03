@@ -7,15 +7,14 @@ const initialState: UserInfoStateProps = {
   refreshToken: '',
   deviceToken: '',
   otpCode: '',
+  otpCodeErrorTimes: 0,
   ignoreEasyLogin: false,
   postponeEasyLogin: false,
-  userProfileInfo: undefined,
   logoutStatus: undefined,
   isPasscodeSet: undefined,
   isBiometricSet: undefined,
   passcodeTries: 0,
   isBiometricBeingSet: undefined,
-  loginName: undefined,
   shouldSaveUsername: undefined,
 };
 
@@ -46,6 +45,9 @@ const userInfoSlice = createSlice({
     setOTPCode: (state, { payload }) => {
       state.otpCode = payload;
     },
+    setOTPCodeErrorTimes: state => {
+      state.otpCodeErrorTimes = state.otpCodeErrorTimes + 1;
+    },
     setPasscodeStatus: (state, { payload }) => {
       state.isPasscodeSet = payload;
     },
@@ -56,26 +58,15 @@ const userInfoSlice = createSlice({
     setBiometricStatus: (state, { payload }) => {
       state.isBiometricSet = payload;
     },
-    setLoginName: (state, { payload }) => {
-      state.loginName = payload;
-    },
+
     setPasscodeTries: (state, { payload }) => {
       state.passcodeTries = payload;
-    },
-    resetUserProfileInfo: state => {
-      state.userProfileInfo = initialState.userProfileInfo;
     },
     setShouldSaveUsername: (state, { payload }) => {
       state.shouldSaveUsername = payload;
     },
   },
   extraReducers: builder => {
-    builder.addMatcher(
-      authAPI.endpoints.getUserProfileInfo.matchFulfilled,
-      (state, { payload }) => {
-        state.userProfileInfo = payload;
-      },
-    );
     builder.addMatcher(authAPI.endpoints.logoutUser.matchFulfilled, (state, { payload }) => {
       state.logoutStatus = payload;
     });
@@ -88,14 +79,13 @@ export const {
   setIgnoreEasyLogin,
   setPostponeEasyLogin,
   setOTPCode,
+  setOTPCodeErrorTimes,
   setPasscodeStatus,
   setBiometricStatus,
   setPasscodeTries,
   setIsBiometricBeingSet,
   setAccessToken,
-  resetUserProfileInfo,
   setRefreshToken,
-  setLoginName,
   setShouldSaveUsername,
 } = userInfoSlice.actions;
 export const userInfoReducer = userInfoSlice.reducer;

@@ -1,7 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
-import { URLS } from 'services/constants/urls';
-import { METHOD_NAMES } from 'services/constants';
+import { METHOD_NAMES, URLS } from 'services/constants';
 import {
   Account,
   LastTransactionReq,

@@ -30,7 +30,7 @@ export const ConfirmUserResetModal: FC<ConfirmResetModalProps> = ({
         label
         marginTop={36}
         color={Colors.textBlack400}
-        style={{ textAlign: 'center' }}
+        style={styles.userResetDesc}
       />
       <View style={styles.buttonsContainer}>
         <Button.Secondary

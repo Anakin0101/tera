@@ -1,3 +1,7 @@
 export type EasyLoginModalProps = {
-  openAuthorizationMethodsScreen?: () => void;
+  handlePress?: () => void;
+  title?: string;
+  description?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
 };

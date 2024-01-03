@@ -19,7 +19,7 @@ import { setShouldCloseCards } from 'store/slices/dashboard';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { ICardsAndBalanceProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
-import { OPEN_CARD_WIDTH } from 'constants/Dashboard';
+import { OPEN_CARD_WIDTH } from 'constants/index';
 import { config } from 'utils/config';
 
 const CARD_WIDTH_WITHOUT_PADDING = OPEN_CARD_WIDTH + 24;

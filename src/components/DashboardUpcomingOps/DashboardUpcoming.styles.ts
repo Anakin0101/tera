@@ -2,9 +2,14 @@ import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
 
 export const useStyles = () => {
-  const { Layout, Fonts, Spacing, FontSize } = useTheme();
+  const { Layout, Fonts, Spacing, FontSize, Colors } = useTheme();
 
   return StyleSheet.create({
+    dashboardUpcomingOpsContainer: {
+      paddingLeft: Spacing.xl,
+      paddingVertical: Spacing.xlg,
+      backgroundColor: Colors.white,
+    },
     headerContainer: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
@@ -15,9 +20,6 @@ export const useStyles = () => {
       ...Fonts.textBold,
       fontSize: FontSize.regular,
       fontWeight: '400',
-    },
-    dashboardTemplatesContainer: {
-      ...Layout.col,
     },
     dashboardTemplatesWrapper: {
       ...Layout.row,

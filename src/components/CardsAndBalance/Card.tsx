@@ -7,7 +7,7 @@ import {
   CLOSE_CARD_WIDTH,
   OPEN_CARD_HEIGHT,
   OPEN_CARD_WIDTH,
-} from 'constants/Dashboard';
+} from 'constants/index';
 import { TeraLogo } from 'assets/SVGs';
 import { formatMoney } from 'utils/formatMoney';
 import { CardProps } from './CardsAndBalance.types';

@@ -13,6 +13,7 @@ const initialState: DeviceInfoStateProps = {
     error: null,
   },
   deviceSupportsBiometricAuth: null,
+  isBiometricAuthIsEnabled: null,
 };
 
 const deviceInfoSlice = createSlice({
@@ -34,9 +35,17 @@ const deviceInfoSlice = createSlice({
     setDeviceSupportsBiometricAuth: (state, action) => {
       state.deviceSupportsBiometricAuth = action.payload;
     },
+    setIsBiometricAuthIsEnabled: (state, action) => {
+      state.isBiometricAuthIsEnabled = action.payload;
+    },
   },
 });
 
-export const { setDeviceInfo, setIsDeviceTrusted, setDeviceToken, setDeviceSupportsBiometricAuth } =
-  deviceInfoSlice.actions;
+export const {
+  setDeviceInfo,
+  setIsDeviceTrusted,
+  setDeviceToken,
+  setDeviceSupportsBiometricAuth,
+  setIsBiometricAuthIsEnabled,
+} = deviceInfoSlice.actions;
 export const deviceInfoReducer = deviceInfoSlice.reducer;

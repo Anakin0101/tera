@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getBiometricsAuthStatus, getPasscode } from 'utils/keychain';
+import { getBiometricsAuthStatus, getLoginName, getPasscode } from 'utils/keychain';
 
 type State = {
   loading: boolean | null;
   savedPasscode: string | null;
   savedBiometricStatus: boolean | null;
+  savedLoginName: string | null;
 };
 
 export const useKeyChain = () => {
@@ -12,17 +13,20 @@ export const useKeyChain = () => {
     loading: true,
     savedPasscode: null,
     savedBiometricStatus: null,
+    savedLoginName: null,
   });
 
   useEffect(() => {
     const fetchKeyChainData = async () => {
       const passcode = await getPasscode();
       const biometricAuth = await getBiometricsAuthStatus();
+      const loginName = await getLoginName();
 
       setKeyChainData({
         loading: false,
         savedPasscode: passcode,
         savedBiometricStatus: biometricAuth,
+        savedLoginName: loginName,
       });
     };
 

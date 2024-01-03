@@ -1,8 +1,42 @@
 import KeyChain, { Result } from 'react-native-keychain';
 
+const LOGIN_NAME_SERVICE = 'loginNameService';
 const PASSCODE_SERVICE = 'passcodeService';
 const PASSWORD_SERVICE = 'passwordService';
 const BIOMETRIC_AUTH_SERVICE = 'biometricAuthService';
+
+export const setLoginName = async (loginName: string): Promise<boolean | Result> => {
+  try {
+    return await KeyChain.setGenericPassword('loginName', loginName, {
+      service: LOGIN_NAME_SERVICE,
+    });
+  } catch (error) {
+    console.error('Error setting login name:', error);
+    return false;
+  }
+};
+
+export const getLoginName = async (): Promise<string | null> => {
+  try {
+    const credentials = await KeyChain.getGenericPassword({ service: LOGIN_NAME_SERVICE });
+    if (credentials && credentials.username === 'loginName') {
+      return credentials.password;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching login name:', error);
+    return null;
+  }
+};
+
+export const clearLoginName = async (): Promise<boolean | Result> => {
+  try {
+    return await KeyChain.resetGenericPassword({ service: LOGIN_NAME_SERVICE });
+  } catch (error) {
+    console.error('Error clearing login name:', error);
+    return false;
+  }
+};
 
 export const setPassword = async (password: string): Promise<boolean | Result> => {
   try {

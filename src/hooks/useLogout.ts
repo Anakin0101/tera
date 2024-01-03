@@ -1,13 +1,17 @@
+import { Alert } from 'react-native';
 import { useLogoutUserMutation } from 'services/apis';
-import { resetStateAction } from 'store/actions/reset';
+import { USER_LOGGED_OUT } from 'storage/constants';
+import { setValue, storageKeys } from 'storage/index';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { resetUserProfileInfo, setAccessToken, setPostponeEasyLogin } from 'store/slices/userInfo';
+import { resetUserProfileInfo } from 'store/slices/profile';
+import { setAccessToken, setPostponeEasyLogin } from 'store/slices/userInfo';
 
 export const useLogout = () => {
   const [logoutUser] = useLogoutUserMutation();
   const { userIp, deviceToken } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
+  const userHasLoggedOut = storageKeys().includes(USER_LOGGED_OUT);
 
   const handleLogout = async () => {
     try {
@@ -19,12 +23,17 @@ export const useLogout = () => {
       });
 
       if ('data' in response && response.data) {
+        if (!userHasLoggedOut) {
+          setValue(USER_LOGGED_OUT, true);
+        }
         dispatch(setPostponeEasyLogin(false));
         dispatch(setAccessToken(''));
         dispatch(resetUserProfileInfo());
-        dispatch(resetStateAction());
+      } else {
+        Alert.alert('Error happened during logout: ', JSON.stringify(response));
       }
     } catch (error) {
+      Alert.alert('Error happened during logout: ', JSON.stringify(error));
       console.error('Error during logout:', error);
     }
   };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useGetTemplatesQuery } from 'services/apis/transfersAPI/transfersAPI';
 import DocumentPicker from 'react-native-document-picker';
-import { setInvoiceData } from 'store/slices/transfers/indext';
+import { useGetTemplatesQuery } from 'services/apis';
+import { setInvoiceData } from 'store/slices/transfers';
 export const useTransactionsScreen = () => {
   const INPUT_LENGTH = 22;
   const [selectedData, setSelectedData] = useState(null);

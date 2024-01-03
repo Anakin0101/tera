@@ -1,8 +1,5 @@
 import { Currency } from '../productsAPI/productsAPI.types';
 
-export type GetTemplatesResponseType = {
-  templates: Template[];
-};
 export type convertAmountType = {
   amountBuy: number;
   amountSell: number;
@@ -32,16 +29,11 @@ export type convertAmountSellType = {
   standardReversed: boolean;
 };
 
-export type GetTemplatesRequestType = {
-  //   headers?: Record<string, any>; TODO - update!!
-  headers?: any;
-};
-
 export type convertAmountBuyRequestType = {
   amountBuy?: number;
   currencyBuy?: string;
   currencySell?: string;
-  shouldCallApi?: any;
+  shouldCallApi?: unknown;
 };
 
 export type convertAmountSellRequestType = {
@@ -100,7 +92,7 @@ export type Transactions = {
   balance: number;
   balanceStart: number;
   description: string;
-  docDate: any;
+  docDate: unknown;
   isIncome: boolean;
 };
 

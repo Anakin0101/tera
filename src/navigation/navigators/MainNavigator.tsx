@@ -105,7 +105,7 @@ export const MainNavigator = () => {
   return (
     <Navigator initialRouteName={INITIAL_STACK}>
       <Screen name={INITIAL_STACK} component={TabNavigator} options={hideHeader} />
-      <Screen name={MODAL_STACK} component={ModalNavigator} />
+      <Screen name={MODAL_STACK} component={ModalNavigator} options={hideHeader} />
       <Screen
         name={ALL_TRANSACTIONS_SCREEN}
         component={AllTransactionsScreen}

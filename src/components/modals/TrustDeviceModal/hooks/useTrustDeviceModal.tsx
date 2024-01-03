@@ -81,6 +81,7 @@ export const useTrustDeviceModal = () => {
           element: <OTPModal onFinished={handlePasscodeSet} />,
           disableDynamicSizing: true,
           disablePanning: true,
+          withKeyboard: true,
         });
       }
     } catch (error) {

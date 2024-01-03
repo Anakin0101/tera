@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { getPasscode, setPasscode } from 'utils/keychain';
+import { clearLoginName, getPasscode, setPasscode } from 'utils/keychain';
 import {
   resetUserCredentials,
-  setLoginName,
   setPasscodeStatus,
   setPasscodeTries,
   setShouldSaveUsername,
@@ -60,9 +59,9 @@ export const usePasscode = () => {
 
   const passcodeLength = useMemo(() => pinNumber.length, [pinNumber]);
 
-  const handleWrongPasscode = useCallback(() => {
+  const handleWrongPasscode = useCallback(async () => {
     dispatch(resetUserCredentials());
-    dispatch(setLoginName(undefined));
+    await clearLoginName();
     dispatch(setShouldSaveUsername(undefined));
     navigate(PASSWORD_LOGIN_SCREEN);
   }, [dispatch, navigate]);

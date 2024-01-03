@@ -36,7 +36,7 @@ export const DetailsItem: FC<DetailsItemProps> = ({
               ))}
             </View>
           ) : (
-            <Text children={value} translateProp={translateProp} style={{ fontWeight: 'bold' }} />
+            <Text children={value} translateProp={translateProp} bold />
           )}
           {iban && <Text children={iban} />}
         </View>

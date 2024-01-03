@@ -29,11 +29,7 @@ export const DashboardScreen = () => {
   //  TODO -  temporary solution
   const debouncedOpenModal = debounce(() => {
     openModal({
-      element: (
-        <EasyLoginModal
-          openAuthorizationMethodsScreen={handleNavigateToAuthorizationMethodsScreeen}
-        />
-      ),
+      element: <EasyLoginModal handlePress={handleNavigateToAuthorizationMethodsScreeen} />,
     });
   }, 1000);
 

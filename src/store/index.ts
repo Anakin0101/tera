@@ -11,7 +11,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { themeReducer } from './slices/theme';
-import { authAPI } from '../services/apis';
 import { RESET_STATE_ACTION_TYPE } from './actions/reset';
 import { userInfoReducer } from './slices/userInfo';
 import {
@@ -21,14 +20,19 @@ import {
   themePersistConfig,
   userInfoPersistConfig,
 } from './config';
-import { dashboardAPI } from 'services/apis/dashboardAPI/dashboardAPI';
 import { dashboardReducer } from './slices/dashboard';
 import { deviceInfoReducer } from './slices/deviceInfo';
 import { profileReducer } from './slices/profile';
-import { productsAPI } from 'services/apis/productsAPI/productsAPI';
+import {
+  productsAPI,
+  authAPI,
+  dashboardAPI,
+  filesAPI,
+  profileAPI,
+  transfersAPI,
+} from 'services/apis';
 import { productsReducer } from './slices/products';
-import { transfersReducer } from './slices/transfers/indext';
-import { transfersAPI } from 'services/apis/transfersAPI/transfersAPI';
+import { transfersReducer } from './slices/transfers';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -50,6 +54,8 @@ const reducers = combineReducers({
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,
   [transfersAPI.reducerPath]: transfersAPI.reducer,
+  [filesAPI.reducerPath]: filesAPI.reducer,
+  [profileAPI.reducerPath]: profileAPI.reducer,
 });
 
 const rootReducer: Reducer<RootState> = (state, action) => {
@@ -64,6 +70,8 @@ const middlewares = [
   dashboardAPI.middleware,
   productsAPI.middleware,
   transfersAPI.middleware,
+  filesAPI.middleware,
+  profileAPI.middleware,
 ];
 
 if (__DEV__) {

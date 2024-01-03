@@ -1,3 +1,5 @@
+import { GetUserInfoAPIResponseType } from 'services/apis/profileAPI/profileAPI.types';
+
 export type ProfileStateProps = {
-  customerId: number | null;
+  userProfileInfo: GetUserInfoAPIResponseType | undefined;
 };

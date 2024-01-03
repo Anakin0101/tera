@@ -15,13 +15,12 @@ import { resetKeychainValues } from 'utils/logKeychainValues';
 export const useGuestNavigator = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [, setIsFirstLaunch] = useState(false);
-  const { loading: keyChainLoading } = useKeyChain();
+  const { loading: keyChainLoading, savedLoginName } = useKeyChain();
   const [initialRoute, setInitialRoute] =
     useState<keyof GuestStackParamList>(PASSWORD_LOGIN_SCREEN);
   const refreshToken = useAppSelector(state => state.userInfo.refreshToken);
   const passcodeTries = useAppSelector(state => state.userInfo.passcodeTries);
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
-  const loginName = useAppSelector(state => state.userInfo.loginName);
   const shouldSaveUsername = useAppSelector(state => state.userInfo.shouldSaveUsername);
   const isLaunchedBefore = storageKeys().includes(APP_LAUNCHED);
 
@@ -42,14 +41,21 @@ export const useGuestNavigator = () => {
         //   handlePasscodeSignIn();
         // }, false);
         setInitialRoute(PASSCODE_LOGIN_SCREEN);
-      } else if (!isPasscodeSet && !!loginName && shouldSaveUsername) {
+      } else if (!isPasscodeSet && !!savedLoginName && shouldSaveUsername) {
         setInitialRoute(PASSWORD_ONLY_LOGIN_SCREEN);
       }
     };
 
     fetchInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyChainLoading, passcodeTries, refreshToken, isPasscodeSet, loginName, shouldSaveUsername]);
+  }, [
+    keyChainLoading,
+    passcodeTries,
+    refreshToken,
+    isPasscodeSet,
+    savedLoginName,
+    shouldSaveUsername,
+  ]);
 
   return {
     loading,

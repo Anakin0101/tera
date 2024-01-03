@@ -32,7 +32,7 @@ import { Offers } from 'components';
 import { DashboardPensionFund } from 'components/DashboardPensionFund/DashboardPensionFund';
 import { config } from 'utils/config';
 import AvailableBalance from 'components/CardsAndBalance/AvailableBalance';
-import { OPEN_CARD_WIDTH } from 'constants/Dashboard';
+import { OPEN_CARD_WIDTH } from 'constants/index';
 import { Card } from 'components/CardsAndBalance/Card';
 import { ActionButtons } from 'components/CardsAndBalance/ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
@@ -183,7 +183,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       case 'pension':
         return <DashboardPensionFund data={tempData.pensions} />;
       case 'banker':
-        return <Banker data={banker} />;
+        return <Banker {...banker} />;
       case 'transactions':
         return <DashboardOperations data={customerOperations} />;
       default:

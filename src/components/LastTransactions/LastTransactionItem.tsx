@@ -17,7 +17,7 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item, onPress, showUnde
       <View style={styles.imageContainer} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
-          <Text size={14} numberOfLines={1} style={{ flex: 1 }}>
+          <Text size={14} numberOfLines={1} style={styles.description}>
             {item.description}
           </Text>
           <Text size={14} medium color={item.isIncome ? Colors.success : Colors.black700}>

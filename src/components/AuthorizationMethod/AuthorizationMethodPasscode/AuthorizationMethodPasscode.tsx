@@ -9,8 +9,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useVerifyPasscode } from 'hooks/useVerifyPasscode';
 import { useBiometrics } from 'hooks/useBiometrics';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setLoginName } from 'store/slices/userInfo';
+import { clearLoginName } from 'utils/keychain';
 
 type AuthorizationMethodPasscodeProps = {
   handleSetNewPasscode?: () => void;
@@ -25,7 +24,6 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
   const isBiometricSet = useAppSelector(state => state.userInfo.isBiometricSet);
   const shouldSaveUsername = useAppSelector(state => state.userInfo.shouldSaveUsername);
-  const dispatch = useAppDispatch();
 
   const { control, setValue } = useForm<SupportedAuthMethodsType>({
     defaultValues: {
@@ -33,31 +31,25 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
     },
   });
 
+  const handleRemovePasscodeLoginOption = async () => {
+    if (!shouldSaveUsername) {
+      await clearLoginName();
+    }
+    if (isBiometricSet) {
+      clearBiometrics();
+    }
+    removePasscode();
+  };
+
   useEffect(() => {
     if (isFocused) {
       setValue('passcode', isPasscodeSet);
     }
   }, [isFocused, isPasscodeSet, setValue]);
 
-  const handleSwitchToggle = (newValue: boolean) => {
+  const handleSwitchToggle = async (newValue: boolean) => {
     if (newValue === false) {
-      // TODO - ask Giorgi and Vaniko, if they want this behavior:
-      // when user does not have username "save" ticked and also cancelles all biometrics/passcode, we do not save the username anymore
-      if (!shouldSaveUsername) {
-        dispatch(setLoginName(undefined));
-      }
-      // TODO - temporarily leaving verifyPasscode for testing purposes
-      removePasscode();
-      if (isBiometricSet) {
-        clearBiometrics();
-      }
-      //   TODO - verification will be needed
-      //   verifyPasscode(() => {
-      //     removePasscode();
-      //     if (isBiometricSet) {
-      //       clearBiometrics();
-      //     }
-      //   }, true);
+      handleRemovePasscodeLoginOption();
     } else if (newValue === true) {
       handleSetNewPasscode?.();
     }

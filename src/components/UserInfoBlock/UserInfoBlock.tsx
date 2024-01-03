@@ -2,21 +2,29 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './UserInfoBlock.styles';
-import { Text } from 'components';
+import { IconComponent, Text } from 'components';
+import { UserIcon } from 'assets/SVGs';
+import { Colors } from 'theme/Variables';
 
 export const UserInfoBlock = () => {
   const styles = useStyleTheme();
-  const userProfileInfo = useAppSelector(state => state.userInfo.userProfileInfo);
+  const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
+  const { firstName = '', lastName = '', imageId } = userProfileInfo || {};
+  const fullName = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName]);
 
-  const fullName = useMemo(() => {
-    const { firstName = '', lastName = '' } = userProfileInfo || {};
-
-    return `${firstName} ${lastName}`;
-  }, [userProfileInfo]);
   return (
     <View style={styles.userInfoBlockContainer}>
       <View style={styles.userIconContainer}>
-        <View style={styles.temporaryImage} />
+        {imageId ? (
+          <IconComponent imageId={imageId} />
+        ) : (
+          <IconComponent
+            IconJSX={UserIcon}
+            customIconComponentStyles={styles.userIconStyles}
+            customIconSize={30}
+            fillColor={Colors.black200}
+          />
+        )}
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.fullNameText} children={fullName} />

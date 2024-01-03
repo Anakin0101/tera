@@ -1,20 +1,10 @@
 import React from 'react';
-import { ImageStyle, Pressable, StyleProp, ViewStyle } from 'react-native';
+import { Platform, Pressable } from 'react-native';
 import { useStyleTheme } from './IconComponent.styles';
-import { SvgProps } from 'react-native-svg';
 import { Image } from 'react-native';
-
-export type IconComponentProps = {
-  handler?: () => void;
-  IconJSX?: (props: SvgProps) => React.JSX.Element;
-  native?: boolean;
-  pngLocalIcon?: any;
-  pngLocalIconCustomStyle?: StyleProp<ImageStyle>;
-  customIconComponentStyles?: StyleProp<ViewStyle>;
-  hasBorder?: boolean;
-  customIconSize?: number;
-  imageId?: string; // New prop for the image source URL
-};
+import { PUBLIC_IMAGE_URL } from 'services/api';
+import { IconComponentProps } from './IconComponent.types';
+import FastImage from 'react-native-fast-image';
 
 export const IconComponent = ({
   handler,
@@ -25,12 +15,15 @@ export const IconComponent = ({
   customIconComponentStyles,
   hasBorder = true,
   customIconSize,
-  imageId, // New prop for the image source URL
+  imageId,
+  customImageIDStyle,
+  fillColor,
 }: IconComponentProps) => {
   const styles = useStyleTheme();
+  const imageURL = `${PUBLIC_IMAGE_URL}${imageId}`;
 
   // TODO - still need to handle Back-end received imgUrl (https://some_image_url)
-  return (
+  return !imageId ? (
     <Pressable
       hitSlop={{
         top: 30,
@@ -46,11 +39,22 @@ export const IconComponent = ({
         customIconComponentStyles,
       ]}
     >
-      {IconJSX && <IconJSX width={customIconSize || 16} height={customIconSize || 16} />}
-      {pngLocalIcon && (
-        <Image source={pngLocalIcon} style={[{ width: 20, height: 20 }, pngLocalIconCustomStyle]} />
+      {IconJSX && (
+        <IconJSX width={customIconSize || 16} height={customIconSize || 16} fill={fillColor} />
       )}
-      {imageId && <Image source={{ uri: imageId }} style={{ width: 20, height: 20 }} />}
+      {pngLocalIcon && (
+        <Image source={pngLocalIcon} style={[styles.pngLocalIconStyles, pngLocalIconCustomStyle]} />
+      )}
     </Pressable>
+  ) : (
+    <FastImage
+      style={[styles.imageIdStyles, styles.iconRoundedStyles, customImageIDStyle]}
+      source={{
+        uri: imageURL,
+        priority: FastImage.priority.normal,
+      }}
+      fallback={Platform.OS === 'android'}
+      resizeMode={FastImage.resizeMode.contain}
+    />
   );
 };

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Spacing, Layout } = useTheme();
+  const { Spacing, Layout, Fonts } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.alignItemsCenter,
@@ -27,6 +27,9 @@ export const useStyles = () => {
     },
     buttonText: {
       fontFamily: FontFamily.medium,
+    },
+    userResetDesc: {
+      ...Fonts.textCenter,
     },
   });
 };

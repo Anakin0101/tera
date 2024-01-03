@@ -8,13 +8,10 @@ import {
   useGetLoanCustomerIdQuery,
   useGetAssetsQuery,
   useGetBankerQuery,
-} from 'services/apis/dashboardAPI/dashboardAPI';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setCustomerId } from 'store/slices/profile';
+} from 'services/apis';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
 export const useDashboardScreen = () => {
-  const dispatch = useAppDispatch();
   const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery();
   const [
     getCustomerOperations,
@@ -35,12 +32,6 @@ export const useDashboardScreen = () => {
       accountNumber: null,
     });
   }, [getCustomerOperations]);
-
-  useEffect(() => {
-    if (profile) {
-      dispatch(setCustomerId(profile.customerId));
-    }
-  }, [dispatch, profile]);
 
   const isDashboardMounted = useMemo(() => {
     const mounted = !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName;

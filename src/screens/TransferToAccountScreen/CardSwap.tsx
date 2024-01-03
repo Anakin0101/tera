@@ -7,7 +7,7 @@ import { TinyChevron } from 'assets/SVGs';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
-import { clearAccountFromData, clearAccountToData } from 'store/slices/transfers/indext';
+import { clearAccountFromData, clearAccountToData } from 'store/slices/transfers';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export type cardProps = {

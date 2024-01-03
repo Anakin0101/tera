@@ -6,9 +6,15 @@ import React from 'react';
 import { useLoginByRefreshTokenMutation, useLoginUserMutation } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setLoginName, setPasscodeTries, setUserCredentials } from 'store/slices/userInfo';
+import { setOTPCodeErrorTimes, setPasscodeTries, setUserCredentials } from 'store/slices/userInfo';
+import { setLoginName } from 'utils/keychain';
 import { closeModal, openModal } from 'utils/modal';
 import { openToast } from 'utils/toast';
+import { useKeyChain } from './useKeychain';
+import { resetKeychainValues } from 'utils/logKeychainValues';
+import { resetStateAction } from 'store/actions/reset';
+import { setValue } from 'storage/index';
+import { USER_LOGGED_OUT } from 'storage/constants';
 
 export const useLogin = () => {
   const [loginUser] = useLoginUserMutation();
@@ -17,6 +23,7 @@ export const useLogin = () => {
   const { refreshToken } = useAppSelector(state => state.userInfo);
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
+  const { savedLoginName } = useKeyChain();
 
   const handleSignInWithOTP = (OTPCode: string, loginName: string, password: string) => {
     loginUser({
@@ -42,8 +49,9 @@ export const useLogin = () => {
       })
       .catch(err => {
         const errorTitle = (err as { [key: string]: any })?.data?.title;
+        dispatch(setOTPCodeErrorTimes());
         openToast(errorTitle, 'error');
-        console.error(err);
+        console.error('Error in loginUser with OTP: ', err);
       });
   };
 
@@ -57,10 +65,15 @@ export const useLogin = () => {
         },
       })
         .unwrap()
-        .then(res => {
+        .then(async res => {
           if (res.success) {
             dispatch(setPasscodeTries(0));
-            dispatch(setLoginName(loginName));
+            setValue(USER_LOGGED_OUT, false);
+            if (savedLoginName && savedLoginName !== loginName) {
+              await resetKeychainValues();
+              dispatch(resetStateAction());
+            }
+            setLoginName(loginName);
             res.accessToken
               ? dispatch(
                   setUserCredentials({
@@ -78,6 +91,7 @@ export const useLogin = () => {
                   ),
                   disableDynamicSizing: true,
                   disablePanning: true,
+                  withKeyboard: true,
                 });
           }
         })

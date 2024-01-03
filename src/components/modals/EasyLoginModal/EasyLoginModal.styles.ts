@@ -33,7 +33,6 @@ export const useStyleTheme = () => {
       paddingVertical: verticalScale(Spacing.lg),
     },
     buttonsContainer: {
-      ...Layout.fullWidth,
       ...Layout.row,
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,

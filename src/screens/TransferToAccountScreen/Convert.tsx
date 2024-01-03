@@ -4,7 +4,7 @@ import { Text } from 'components';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { useConvertAmount } from './useConvertAmountBuy';
 import { EditSvg } from 'assets/SVGs';
-import { setConvertionData } from 'store/slices/transfers/indext';
+import { setConvertionData } from 'store/slices/transfers';
 import { useDispatch } from 'react-redux';
 import { getCurrencyIcon } from 'utils/currency';
 export const Convert = ({

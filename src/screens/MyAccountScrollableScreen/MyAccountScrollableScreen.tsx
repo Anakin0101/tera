@@ -52,7 +52,7 @@ export const MyAccountsScrollableScreen = () => {
         );
       case 'transactions':
         return (
-          <View style={{}}>
+          <View>
             <LastTransactions
               data={lastTransactions}
               sectionTitle="products.lastTransactions"

@@ -19,7 +19,8 @@
     "reinstall": "rm -rf node_modules && yarn install && yarn reinstall:pods",
     "reinstall:pods": "cd ios && rm -rf Pods && pod install",
     "verify": "yarn type-check && yarn prettier && yarn lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn verify"
@@ -42,6 +43,8 @@
     "events": "^3.3.0",
     "i18next": "^23.2.3",
     "mitt": "^3.0.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
     "react-hook-form": "7.47.0",
     "react-i18next": "^13.0.1",
@@ -50,6 +53,7 @@
     "react-native-calendars": "1.1302.0",
     "react-native-device-info": "^10.11.0",
     "react-native-document-picker": "^9.1.0",
+    "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.12.0",
     "react-native-keychain": "^8.1.2",
     "react-native-linear-gradient": "^2.8.3",

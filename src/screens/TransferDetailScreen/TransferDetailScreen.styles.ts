@@ -1,6 +1,7 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 import { FontSize } from 'theme/Variables';
+import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Spacing, Layout, Colors } = useTheme();
@@ -60,5 +61,8 @@ export const useStyleTheme = () => {
     text: { fontSize: FontSize.regular, fontWeight: 'bold' },
     textBuyAmount: { fontSize: FontSize.regular },
     textYourCourse: { fontSize: FontSize.regular, fontWeight: 'bold', color: Colors.primary },
+    buttonContainer: {
+      marginTop: verticalScale(30),
+    },
   });
 };

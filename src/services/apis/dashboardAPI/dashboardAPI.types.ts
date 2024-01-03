@@ -4,11 +4,6 @@ export type GetTemplatesResponseType = {
   templates: Template[];
 };
 
-export type GetTemplatesRequestType = {
-  //   headers?: Record<string, any>; TODO - update!!
-  headers?: any;
-};
-
 export type GetCustomerOperationsResponseTypes = {
   ops: TransactionType[];
 };
@@ -228,3 +223,13 @@ export enum OpCategoryEnum {
   ToTreasure = 5,
   Payments = 6,
 }
+
+export type GetBankerAPIResponseType = {
+  firstName?: string;
+  lastName?: string;
+  branchName?: string;
+  phone?: string;
+  branchPhone?: string;
+  email?: string;
+  imageId?: string;
+};

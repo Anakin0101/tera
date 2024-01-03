@@ -3,12 +3,10 @@ import { View } from 'react-native';
 import { Button, TextInput } from 'components';
 import { ModalProps } from './ChangeAccountNameModal.types';
 import { useStyles } from './ChangeAccountNameModal.styles';
-// import { useUpdateAccountNameMutation } from 'services/apis/productsAPI/productsAPI';
 
 export const ChangeAccountNameModal: FC<ModalProps> = ({ name }) => {
   const styles = useStyles();
   const [accountName, setAccountName] = useState(name);
-  // const [updateAccountName] = useUpdateAccountNameMutation();
 
   const handleChange = (value: string) => {
     setAccountName(value);

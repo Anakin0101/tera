@@ -10,4 +10,5 @@ export type DeviceInfoStateProps = {
     error: boolean | null;
   };
   deviceSupportsBiometricAuth: boolean | null;
+  isBiometricAuthIsEnabled: boolean | null;
 };

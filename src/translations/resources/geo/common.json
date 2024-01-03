@@ -87,7 +87,8 @@
     "description": "მარტივი შესვლისთვის გამოიყენე ბიომეტრიული მონაცემები ან პასკოდი",
     "activate": "გააქტიურება",
     "next_time": "სხვა დროს",
-    "do_not_ask_again": "აღარ შემომთავაზო"
+    "do_not_ask_again": "აღარ შემომთავაზო",
+    "enable_from_settings": "ბიომეტრიული ავტორიზაციისთვის საჭიროა მობილურის პარამეტრებში Face ID / Touch ID-ის გააქტიურება “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "resend": {
     "text": "დაადასტურეთ ტელეფონის ნომერი",

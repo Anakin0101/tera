@@ -1,9 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
-import { URLS } from 'services/constants/urls';
-import { METHOD_NAMES } from 'services/constants';
+import { METHOD_NAMES, URLS } from 'services/constants';
 import {
-  GetTemplatesResponseType,
   convertAmountBuyRequestType,
   convertAmountSellType,
   convertAmountSellRequestType,
@@ -19,14 +17,6 @@ export const transfersAPI = createApi({
   baseQuery: baseQueryWithInterceptor,
   tagTypes: ['Transfers'],
   endpoints: builder => ({
-    getTemplates: builder.query<GetTemplatesResponseType, void>({
-      query: () => ({
-        url: URLS.getTemplates,
-        method: METHOD_NAMES.GET,
-        headers: commonHeaders,
-      }),
-    }),
-
     convertAmountBuy: builder.query<any, convertAmountBuyRequestType>({
       query: ({ amountBuy, currencyBuy, currencySell }) => ({
         url: `${URLS.getAmount}?amountBuy=${amountBuy}&currencyBuy=${currencyBuy}&currencySell=${currencySell}`,
@@ -99,7 +89,6 @@ export const transfersAPI = createApi({
 });
 
 export const {
-  useGetTemplatesQuery,
   useConvertAmountBuyQuery,
   useConvertAmountSellQuery,
   useTransferToOwnAccountMutation,

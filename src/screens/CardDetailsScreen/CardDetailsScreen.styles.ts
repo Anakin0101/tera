@@ -233,6 +233,9 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.ml,
       paddingVertical: Spacing.s,
     },
+    text: {
+      marginLeft: Spacing.xs,
+    },
     cardView: {
       ...Layout.row,
       width: '80%',

@@ -18,5 +18,6 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.ml,
       backgroundColor: Colors.white,
     },
+    sectionListStyle: { paddingTop: 30 },
   });
 };

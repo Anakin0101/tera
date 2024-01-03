@@ -4,7 +4,7 @@ import { Button } from 'components';
 import { useStyles } from './PrivateTransactionScreen.styles';
 import { TextInput } from 'components';
 import { useDispatch } from 'react-redux';
-import { setSelectedData } from 'store/slices/transfers/indext';
+import { setSelectedData } from 'store/slices/transfers';
 import { useNavigation } from '@react-navigation/native';
 // import { useRoute } from '@react-navigation/native';
 // import { TransactionsStackRouteProps } from 'navigation/types';
@@ -26,15 +26,14 @@ export const PrivateTransactionScreen = () => {
   return (
     <View>
       <View style={styles.header}>
-        <View style={{ marginLeft: 20, width: '90%' }}>
+        <View style={styles.textInputWrapperStyle}>
           <TextInput
             label="დანიშნულება"
             marginTop={32}
             autoFocus
-            inputStyle={{}}
             onChangeText={text => setTextInputValue(text)}
           />
-          <View style={{ marginTop: 20 }}>
+          <View style={styles.buttonWrapperStyle}>
             <Button.Primary fixedWidth text="შენახვა" onPress={handleSaveOtherValue} />
           </View>
         </View>

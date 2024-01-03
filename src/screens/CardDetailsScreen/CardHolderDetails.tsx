@@ -29,7 +29,7 @@ export const CardHolderDetails: FC<CardHolderDetailProps> = ({ accountNumber, en
           <Text children="products.details" size={18} demiBold />
           <Pressable onPress={toggleVisibility} style={styles.pressable}>
             <CardEye />
-            <Text children="გამოჩენა" size={14} medium style={{ marginLeft: 5 }} />
+            <Text children="გამოჩენა" size={14} medium style={styles.text} />
           </Pressable>
         </View>
         <View style={styles.cardView}>
