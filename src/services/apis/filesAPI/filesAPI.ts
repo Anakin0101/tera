@@ -10,12 +10,12 @@ export const filesAPI = createApi({
   tagTypes: ['Files'],
   endpoints: builder => ({
     getSecuredFileById: builder.query<any, getSecuredFileByIdRequestType>({
-      query: ({ fileId, userIp }) => ({
-        url: URLS.getFileByID,
+      query: ({ headers, fileId }) => ({
+        url: URLS.getSecuredFileById,
         method: METHOD_NAMES.GET,
+        headers: headers,
         params: {
           FileId: fileId,
-          'X-Bank-UserIp': userIp,
         },
       }),
     }),

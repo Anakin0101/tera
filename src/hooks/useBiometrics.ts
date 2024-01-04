@@ -34,11 +34,14 @@ export const useBiometrics = () => {
     const checkBiometrics = async () => {
       const value = await getBiometricsAuthStatus();
       dispatch(setBiometricStatus(value));
-      isBiometricSupportedByHardware();
-      isBiometricEnabledOnSmartphone();
     };
 
     checkBiometrics();
+  }, [dispatch]);
+
+  useEffect(() => {
+    isBiometricSupportedByHardware();
+    isBiometricEnabledOnSmartphone();
 
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'active' && Platform.OS === 'android') {
@@ -49,7 +52,7 @@ export const useBiometrics = () => {
     });
 
     return () => subscription.remove();
-  }, [dispatch, isBiometricEnabledOnSmartphone, isBiometricSupportedByHardware]);
+  }, [isBiometricEnabledOnSmartphone, isBiometricSupportedByHardware]);
 
   const checkBiometricSensor = async () => {
     const { available, biometryType, error } = await Biometrics.isSensorAvailable();

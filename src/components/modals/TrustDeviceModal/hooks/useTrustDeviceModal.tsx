@@ -29,6 +29,7 @@ export const useTrustDeviceModal = () => {
           'X-Bank-Isstrongauthrequest': 'false',
           'X-Bank-DeviceToken': savedDeviceToken,
         },
+        body: {},
       });
 
       if ('data' in res) {
@@ -52,6 +53,7 @@ export const useTrustDeviceModal = () => {
   };
 
   const handlePasscodeSet = (enteredOTP: string) => {
+    // TODO - need to fix OTP check here - DEA
     closeModal();
     dispatch(setOTPCode(enteredOTP));
     navigate(CREATE_PASSCODE_SCREEN);
@@ -66,6 +68,7 @@ export const useTrustDeviceModal = () => {
           'X-Bank-Sendotp': 'true',
           'X-Bank-Isstrongauthrequest': 'true',
         },
+        body: {},
       });
 
       if ('data' in res) {

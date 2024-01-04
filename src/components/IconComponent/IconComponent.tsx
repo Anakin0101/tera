@@ -18,12 +18,15 @@ export const IconComponent = ({
   imageId,
   customImageIDStyle,
   fillColor,
+  isSecure,
+  base64Image,
 }: IconComponentProps) => {
   const styles = useStyleTheme();
-  const imageURL = `${PUBLIC_IMAGE_URL}${imageId}`;
 
-  // TODO - still need to handle Back-end received imgUrl (https://some_image_url)
-  return !imageId ? (
+  const publicImageURI = `${PUBLIC_IMAGE_URL}${imageId}`;
+  const imageURI = isSecure ? `data:image/png;base64, ${base64Image}` : publicImageURI;
+
+  return !base64Image || !imageId ? (
     <Pressable
       hitSlop={{
         top: 30,
@@ -50,11 +53,11 @@ export const IconComponent = ({
     <FastImage
       style={[styles.imageIdStyles, styles.iconRoundedStyles, customImageIDStyle]}
       source={{
-        uri: imageURL,
+        uri: imageURI,
         priority: FastImage.priority.normal,
       }}
       fallback={Platform.OS === 'android'}
-      resizeMode={FastImage.resizeMode.contain}
+      resizeMode={FastImage.resizeMode.cover}
     />
   );
 };

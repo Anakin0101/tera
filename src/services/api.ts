@@ -22,6 +22,8 @@ import { resetUserProfileInfo } from 'store/slices/profile';
 // ---- API URL ----
 // const BASE_URL = 'http://10.213.0.136:4040/api/';
 export const BASE_URL = 'https://middleware-tst.terabank.ge/api/v1/';
+
+// Everything other than: Banker / Conversations / Documents require /api/v1/Files/GetSecuredFileById
 export const PUBLIC_IMAGE_URL = `${BASE_URL}${URLS.getFileByID}?FileId=`;
 
 const mutex = new Mutex();
@@ -45,7 +47,6 @@ const defaultHeaders = (
     headers.set('Authorization', `Bearer ${accessToken}`);
   }
 
-  headers.set('Content-Type', 'application/json;odata=verbose');
   headers.set('X-Bank-ChannelId', '1000011');
   headers.set('X-Bank-Ostype', Platform.OS);
   headers.set('X-Bank-Devicedescription', 'Mobile-bank-terra');

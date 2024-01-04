@@ -35,4 +35,6 @@ export type IconComponentProps = {
   imageId?: string;
   customImageIDStyle?: StyleProp<FastImageStyle>;
   fillColor?: string;
+  isSecure?: boolean;
+  base64Image?: string;
 };

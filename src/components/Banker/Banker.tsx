@@ -6,6 +6,8 @@ import Images from 'theme/Images';
 import useTheme from 'hooks/useTheme';
 import { GetBankerAPIResponseType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { openURL } from 'utils/openURL';
+import { useGetSecuredFileByIdQuery } from 'services/apis';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const Banker = ({
   firstName,
@@ -17,14 +19,22 @@ export const Banker = ({
 }: GetBankerAPIResponseType) => {
   const styles = useStyles();
   const { Colors } = useTheme();
+  const { userIp } = useAppSelector(state => state.deviceInfo);
 
-  if (!firstName || !lastName) {
-    return null;
-  }
+  const { data } = useGetSecuredFileByIdQuery({
+    headers: {
+      'X-Bank-UserIp': userIp || '',
+    },
+    fileId: imageId || '',
+  });
 
   const fullName = `${firstName} ${lastName}`;
   const handleOpenPhone = () => openURL(`tel:${phone}`);
   const handleOpenEmail = () => openURL(`mailto:${email}`);
+
+  if (!firstName || !lastName) {
+    return null;
+  }
 
   return (
     <>
@@ -37,10 +47,15 @@ export const Banker = ({
           />
           <View style={styles.wrapper}>
             <View style={styles.iconView}>
-              <IconComponent
-                imageId={imageId}
-                customIconComponentStyles={styles.customIconComponentStyles}
-              />
+              {data && (
+                <IconComponent
+                  isSecure={true}
+                  imageId={imageId}
+                  base64Image={data.content}
+                  customIconComponentStyles={styles.customIconComponentStyles}
+                />
+              )}
+
               <View style={styles.templateCardContentContainer}>
                 <Text
                   children={fullName}
