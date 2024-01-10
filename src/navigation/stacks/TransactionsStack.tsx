@@ -51,6 +51,7 @@ export const TransactionsStack = () => {
         options={{
           title: t('საიდან'),
           headerBackTitle: ' ',
+          headerTitleAlign: 'center',
         }}
       />
 
@@ -60,6 +61,7 @@ export const TransactionsStack = () => {
         options={{
           title: t('სად'),
           headerBackTitle: ' ',
+          headerTitleAlign: 'center',
         }}
       />
       <Screen
@@ -68,6 +70,7 @@ export const TransactionsStack = () => {
         options={{
           title: t('საკუთარ ანგარიშზე გადარიცხვა'),
           headerBackTitle: ' ',
+          headerTitleAlign: 'center',
         }}
       />
       <Screen
