@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -9,11 +10,13 @@ import {
 import { Mutex } from 'async-mutex';
 
 import { RootState } from 'store/index';
-import { Platform } from 'react-native';
 import { METHOD_NAMES, URLS } from './constants';
 import { setAccessToken, setPostponeEasyLogin, setRefreshToken } from 'store/slices/userInfo';
 import { RefreshTokenAPIResponse } from './apis/authAPI/authAPI.types';
 import { resetUserProfileInfo } from 'store/slices/profile';
+import { NavigationRef } from 'navigation/index';
+import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
+import { StackActions } from '@react-navigation/native';
 
 // ---- SWAGGER DOCUMENTATION ----
 // http://10.213.0.136:4040/swagger/index.html
@@ -125,9 +128,11 @@ export const baseQueryWithInterceptor: BaseQueryFn<
           refreshResult.data &&
           typeof refreshResult.data === 'object' &&
           'accessToken' in refreshResult.data &&
-          refreshResult.data.accessToken !== '' &&
+          !!refreshResult.data.accessToken &&
           'refreshToken' in refreshResult.data &&
-          refreshResult.data.refreshToken !== ''
+          !!refreshResult.data.refreshToken &&
+          'success' in refreshResult.data &&
+          !!refreshResult.data.success
         ) {
           const data = refreshResult.data as RefreshTokenAPIResponse;
           api.dispatch(setRefreshToken(data.refreshToken));
@@ -142,7 +147,7 @@ export const baseQueryWithInterceptor: BaseQueryFn<
           result = await baseQuery(updatedArgs, api, extraOptions);
         } else {
           try {
-            const res = await baseQuery(
+            baseQuery(
               {
                 url: URLS.logout,
                 method: METHOD_NAMES.POST,
@@ -154,13 +159,15 @@ export const baseQueryWithInterceptor: BaseQueryFn<
               api,
               {},
             );
-            if (res && res.data) {
-              api.dispatch(setPostponeEasyLogin(false));
-              api.dispatch(setAccessToken(''));
-              api.dispatch(resetUserProfileInfo());
-            }
           } catch (error) {
             console.warn('Error during logout:', error);
+          } finally {
+            api.dispatch(setPostponeEasyLogin(false));
+            api.dispatch(setAccessToken(''));
+            api.dispatch(resetUserProfileInfo());
+            if (NavigationRef.current) {
+              NavigationRef.current.dispatch(StackActions.replace(GUEST_NAVIGATOR));
+            }
           }
         }
       } finally {

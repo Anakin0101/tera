@@ -37,8 +37,12 @@ export const DashboardScreen = () => {
     if (showEasyLoginPrompt) {
       debouncedOpenModal();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showEasyLoginPrompt]);
+    return () => {
+      if (showEasyLoginPrompt) {
+        debouncedOpenModal.cancel();
+      }
+    };
+  }, [debouncedOpenModal, showEasyLoginPrompt]);
 
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);

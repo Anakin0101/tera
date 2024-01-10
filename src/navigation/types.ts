@@ -41,8 +41,21 @@ import {
   TRANSACTION_DETAILS_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+  AUTH_LOADING_SCREEN,
+  GUEST_NAVIGATOR,
+  MAIN_NAVIGATOR,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
+
+export type RoutesList = {
+  [AUTH_LOADING_SCREEN]: undefined;
+  [GUEST_NAVIGATOR]: {
+    screen: keyof GuestStackParamList;
+  };
+  [MAIN_NAVIGATOR]: {
+    screen: keyof MainStackParamsList;
+  };
+};
 
 export type MainStackParamsList = {
   [INITIAL_STACK]: undefined;
@@ -239,3 +252,8 @@ export type MainStackScreenProps<T extends keyof MainParamsList> = StackNavigati
 >;
 
 export type MainStackRouteProps<T extends keyof MainParamsList> = RouteProp<MainParamsList, T>;
+
+export type RoutesGenericProp<T extends keyof RoutesList & string> = StackNavigationProp<
+  RoutesList,
+  T
+>;

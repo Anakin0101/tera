@@ -6,6 +6,13 @@ export const PAYMENTS_STACK = 'PaymentsStack';
 export const TRANSACTIONS_STACK = 'TransactionsStack';
 export const PRODUCTS_STACK = 'ProductsStack';
 export const PROFILE_STACK = 'ProfileStack';
+
+export const GUEST_NAVIGATOR = 'guestNavigator';
+export const MAIN_NAVIGATOR = 'mainNavigator';
+
+// Default Loading Screen
+export const AUTH_LOADING_SCREEN = 'AuthLoadingScreen';
+
 // Screens
 export const PAYMENTS_SCREEN = 'PaymentsScreen';
 export const TRANSACTIONS_SCREEN = 'TransactionsScreen';

@@ -1,7 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { OTPModal } from 'components/modals';
-import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { GuestStackScreenProps } from 'navigation/types';
+import {
+  GUEST_NAVIGATOR,
+  INITIAL_STACK,
+  MAIN_NAVIGATOR,
+  PASSWORD_LOGIN_SCREEN,
+} from 'navigation/ScreenNames';
+import { RoutesGenericProp } from 'navigation/types';
 import React from 'react';
 import { useLoginByRefreshTokenMutation, useLoginUserMutation } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -22,7 +27,8 @@ export const useLogin = () => {
   const dispatch = useAppDispatch();
   const { refreshToken } = useAppSelector(state => state.userInfo);
   const { userIp } = useAppSelector(state => state.deviceInfo);
-  const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
+  const { navigate, replace } =
+    useNavigation<RoutesGenericProp<'guestNavigator' | 'mainNavigator'>>();
   const { savedLoginName } = useKeyChain();
 
   const handleSignInWithOTP = (OTPCode: string, loginName: string, password: string) => {
@@ -45,6 +51,7 @@ export const useLogin = () => {
           );
           closeModal();
           dispatch(setPasscodeTries(0));
+          replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
         }
       })
       .catch(err => {
@@ -123,7 +130,7 @@ export const useLogin = () => {
         }
         if (error) {
           openToast(error, 'error');
-          navigate(PASSWORD_LOGIN_SCREEN);
+          navigate(GUEST_NAVIGATOR, { screen: PASSWORD_LOGIN_SCREEN });
           console.warn('error in loginByRefreshToken service: ', error);
         }
       }
