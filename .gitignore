@@ -68,3 +68,7 @@ Podfile.lock
 .metro-health-check*
 
 Gemfile.lock
+
+# Android APKs
+*.apk
+/android/app/release/*.apk

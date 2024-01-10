@@ -4,6 +4,7 @@ import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { theme, useStyles } from './Calendar.styles';
 import { CalendarProps } from './Calendar.types';
+import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 
 LocaleConfig.locales.geo = {
   monthNames: [
@@ -71,7 +72,7 @@ LocaleConfig.locales.en = {
   dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 };
 
-LocaleConfig.defaultLocale = getValue(SELECTED_LANGUAGE) || 'geo';
+LocaleConfig.defaultLocale = getValue(SELECTED_LANGUAGE) || LanguageKeys.geo;
 
 export const Calendar: FC<CalendarProps> = memo(({ minDate, maxDate, onDayPress }) => {
   const styles = useStyles();

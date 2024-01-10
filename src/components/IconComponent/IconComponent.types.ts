@@ -37,4 +37,5 @@ export type IconComponentProps = {
   fillColor?: string;
   isSecure?: boolean;
   base64Image?: string;
+  pressable?: boolean;
 };

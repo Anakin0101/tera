@@ -1,4 +1,3 @@
-import { useLanguageSwitcher } from 'components/LanguageSwitcher/useLanguageSwitcher';
 import { useEffect } from 'react';
 import { useGetTotalSavingMutation, useGetUnreadNotificationsCountMutation } from 'services/apis';
 import { ProfileCardType } from './ProfileCards.types';
@@ -14,20 +13,19 @@ export const useProfileCards = () => {
 
   const [getUnreadNotifications, { data: unreadNotifications }] =
     useGetUnreadNotificationsCountMutation();
-  const { savedLanguage } = useLanguageSwitcher();
+
   //   TODO - temporarily ---- will be fixed when we implement toggle for "show pension fund"
   const showPensionFund = true;
 
   useEffect(() => {
-    const culture = savedLanguage === 'Eng' ? 'en' : 'ka';
     getTotalSaving({
-      culture: culture,
+      culture: 'en',
     });
     getUnreadNotifications({
-      culture: culture,
+      culture: 'en',
       personalId: userProfileInfo?.personalId || '',
     });
-  }, [savedLanguage, getTotalSaving, getUnreadNotifications, userProfileInfo?.personalId]);
+  }, [getTotalSaving, getUnreadNotifications, userProfileInfo?.personalId]);
 
   const profileCardsConfig: ProfileCardType[] = [
     {

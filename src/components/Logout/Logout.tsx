@@ -17,6 +17,7 @@ export const Logout = () => {
         customIconComponentStyles={styles.iconComponentCustomStyles}
         hasBorder={false}
         customIconSize={22}
+        pressable={false}
       />
       <Text children={t('profile.logout')} style={styles.textStyles} />
     </Pressable>
