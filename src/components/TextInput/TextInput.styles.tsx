@@ -31,8 +31,10 @@ export const useStyleTheme = () => {
       marginBottom: Spacing.ml - Spacing.xxxs,
     },
     errorMessage: {
-      color: Colors.error,
       fontSize: FontSize.tiny,
+    },
+    errorMessageColor: {
+      color: Colors.error,
     },
   });
 };

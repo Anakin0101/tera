@@ -7,13 +7,13 @@ const useStyles = () => {
 
   return StyleSheet.create({
     wrapper: {
-      marginTop: verticalScale(44),
+      marginTop: verticalScale(38),
       paddingHorizontal: Spacing.xl - Spacing.xxs,
     },
     chechboxContainer: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
-      marginTop: Spacing.xl,
+      marginTop: Spacing.lg,
     },
     buttonCont: {
       marginTop: Spacing.xxl,
