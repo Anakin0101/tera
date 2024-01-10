@@ -10,6 +10,13 @@ const initialState = {
   otpData: null,
   selectedIban: null,
   invoiceData: null,
+  savedTemplateForIban: null,
+  accountIban: null,
+  selectedTransactionType: {
+    name: 'სტანდარტული გადარიცხვა',
+    isFast: false,
+    selected: 1,
+  },
 };
 
 const transfersSlice = createSlice({
@@ -21,6 +28,9 @@ const transfersSlice = createSlice({
     },
     setAccountToData: (state, { payload }) => {
       state.accountToData = payload;
+    },
+    setAccountIban: (state, { payload }) => {
+      state.accountIban = payload;
     },
     clearAccountFromData: state => {
       state.accountFromData = null;
@@ -54,6 +64,15 @@ const transfersSlice = createSlice({
     clearSelectedData: state => {
       state.selectedData = '';
     },
+    setTemplateForIban: (state, action) => {
+      state.savedTemplateForIban = action.payload;
+    },
+    clearTemplate: state => {
+      state.savedTemplateForIban = null;
+    },
+    setSelectedTransactionType: (state, action) => {
+      state.selectedTransactionType = action.payload;
+    },
   },
 });
 
@@ -70,5 +89,9 @@ export const {
   setSelectedData,
   setInvoiceData,
   clearSelectedData,
+  setTemplateForIban,
+  clearTemplate,
+  setAccountIban,
+  setSelectedTransactionType,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

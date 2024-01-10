@@ -32,6 +32,7 @@ import {
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
   TRANSACTION_FINISHED_SCREEN,
+  TRANSACTION_FAILED_SCREEN,
   SETTINGS_SCREEN,
   CREATE_PASSCODE_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
@@ -98,6 +99,7 @@ export type ProductsStackParamsList = {
 export type TransactionsStackParamsList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
+  [TRANSACTION_FAILED_SCREEN]: undefined;
   [TO_ACCOUNT_SCREEN]: {
     selected?: any;
     otherBanks?: any;
@@ -107,6 +109,7 @@ export type TransactionsStackParamsList = {
   };
   [TRANSFER_TO_ACCOUNT_SCREEN]: {
     fromOtherBank?: any;
+    fromMobile?: boolean;
   };
   [PRIVATE_TRANSACTION_SCREEN]: {
     from: any;
@@ -114,12 +117,15 @@ export type TransactionsStackParamsList = {
   [TRANSFER_DETAIL_SCREEN]: {
     convertion?: boolean;
     fromOtherBank?: boolean;
+    mobileTransaction?: boolean;
   };
   [TRANSACTION_FINISHED_SCREEN]: {
     convertion?: any;
   };
+
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
+    fromMobile?: boolean;
   };
 };
 

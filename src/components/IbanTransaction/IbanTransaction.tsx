@@ -1,9 +1,8 @@
-import { View } from 'react-native';
-import React, { useEffect, useCallback } from 'react';
+import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import { Text } from 'components';
 import { Button, TextInput, TransferTemplates } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
-import { debounce } from 'utils/debounce';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
@@ -11,14 +10,27 @@ import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setAccountToData, setReceiverInfo } from 'store/slices/transfers';
-import { ScrollView } from 'react-native-gesture-handler';
 import { useStyles } from './IbanTransaction.styles';
+import { TransactionModal } from 'components/modals';
+import { openModal } from 'utils/modal';
+import { SelectedItem } from 'components/OtherBanksTransactionTabBar/OtherBanksTransactionTabBar.types';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { ChevronDown } from 'assets/SVGs';
+import { Colors } from 'theme/Variables';
+import useBankIcons from './useIban';
+import { Error } from 'assets/SVGs';
+import { IBAN } from 'constants/transactionConstants';
+import { ibanRegex } from 'constants/transactionConstants';
 
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: SelectedItem }) => state.transfers,
+  );
+  const { selectedTransactionType } = selectedItemFromStore;
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
-  const { handleCheckIban, isSuccess, data } = useOtherBanksContainer();
+  const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
   const {
     templates,
     temlpatesLoading,
@@ -30,19 +42,28 @@ const IbanTransaction = () => {
     setDebouncedAccountName,
     previousAccountName,
     setPreviousAccountName,
-    invoiceFile,
-    handleFilePick,
     apiCallInitiated,
     setApiCallInitiated,
     INPUT_LENGTH,
   } = useTransactionsScreen();
 
-  const debouncedHandleChange = debounce((value: string) => {
-    if (value.length <= INPUT_LENGTH) {
-      setDebouncedAccountName(value.toUpperCase());
-      dispatch(setAccountToData({ iban: value.toUpperCase() }));
-    }
-  }, 300);
+  const { bankIcon, debouncedHandleChange } = useBankIcons(
+    data?.bicCode,
+    setDebouncedAccountName,
+    dispatch,
+    INPUT_LENGTH,
+  );
+
+  const selectTemplate = useCallback(
+    (iban: any) => {
+      setSelectedData(iban);
+      setTypedAccountName(iban);
+      handleCheckIban(iban);
+      setApiCallInitiated(true);
+      dispatch(setAccountToData({ iban: iban.toUpperCase() }));
+    },
+    [setSelectedData, setTypedAccountName, handleCheckIban, setApiCallInitiated, dispatch],
+  );
 
   useEffect(() => {
     dispatch(
@@ -60,8 +81,6 @@ const IbanTransaction = () => {
   };
 
   useEffect(() => {
-    const ibanRegex = /^[A-Z]{2}\d{2}[A-Z\d]+$/;
-
     if (
       debouncedAccountName.length === INPUT_LENGTH &&
       ibanRegex.test(debouncedAccountName) &&
@@ -86,41 +105,57 @@ const IbanTransaction = () => {
     }
   };
 
-  const selectTemplate = useCallback(
-    (iban: any) => {
-      setSelectedData(iban);
-      setTypedAccountName(iban);
-      handleCheckIban(iban);
-      setApiCallInitiated(true);
-      dispatch(setAccountToData({ iban: iban.toUpperCase() }));
-    },
-    [setSelectedData, setTypedAccountName, handleCheckIban, setApiCallInitiated, dispatch],
-  );
+  const filteredTemplates = useMemo(() => {
+    if (!templates?.templates) {
+      return [];
+    }
+
+    return templates.templates.filter(item => item.type === 4).slice(0, 4);
+  }, [templates?.templates]);
 
   return (
     <ScrollView style={styles.scroll}>
+      <Text children="personalNumber.Recepient" size={18} demiBold />
       {apiCallInitiated && data ? (
         <View>
-          <Text children="მიმღების დეტალები" size={18} demiBold />
-          <DetailsItem label="მიმღების ანგარიში" value={typedAccountName} />
-          <DetailsItem label="მიმღების ანგარიში" value={data.customerName} />
-          <View style={styles.inputView}>
-            <TextInput
-              inputStyle={styles.inputStyle}
-              label={invoiceFile ? '' : 'ატვირთე ინვოისი'}
-              value={invoiceFile || ''}
-              editable={false}
-              marginTop={32}
-              invoice
-              invoiceClick={handleFilePick}
-            />
+          <View style={styles.wrapper}>
+            <DetailsItem label="personalNumber.Receiver" value={typedAccountName} />
+            {bankIcon && <Image source={bankIcon} style={styles.image} />}
           </View>
+          <DetailsItem label="transactionDetails.Receiver" value={data?.bankName} />
+          <TouchableOpacity
+            onPress={() =>
+              openModal({
+                element: <TransactionModal />,
+                title: 'transactions.details',
+                titlePosition: 'center',
+                disablePanning: true,
+              })
+            }
+          >
+            <View style={styles.chevron}>
+              <Text children="transactionDetails.type" size={12} demiBold />
+              <ChevronDown color={Colors.black700} />
+            </View>
+            <Text children={selectedTransactionType.name} size={12} />
+          </TouchableOpacity>
+          {selectedTransactionType.name === 'transactions.standard' ? (
+            <View style={styles.fastPayment}>
+              <Error />
+              <Text children="transactions.standardText" size={12} color={Colors.textBlack} />
+            </View>
+          ) : (
+            <View style={styles.fastPayment}>
+              <Error />
+              <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
+            </View>
+          )}
         </View>
       ) : (
         <>
           <TextInput
             inputStyle={styles.inputStyle}
-            label="მიმღების ანგარიში"
+            label="personalNumber.Receiver"
             value={typedAccountName}
             maxLength={22}
             onChangeText={value => handleChange(value)}
@@ -133,14 +168,15 @@ const IbanTransaction = () => {
               setTypedAccountName={setTypedAccountName}
               selectedData={selectedData}
               setSelectedData={selectTemplate}
-              templates={templates?.templates.slice(0, 4)}
+              templates={filteredTemplates}
               temlpatesLoading={temlpatesLoading}
             />
           </View>
         </>
       )}
-      <View>
-        <Button.Primary text="შემდეგი" onPress={navigateToTransferScreen} />
+
+      <View style={styles.btn}>
+        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fixedWidth />
       </View>
     </ScrollView>
   );

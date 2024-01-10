@@ -11,18 +11,32 @@ export const TransferTemplates = ({
   fromOtherBanks = false,
   selectedData,
   setSelectedData,
+  fromPin,
 }: any) => {
   const styles = useStyles();
 
   const renderItem: ListRenderItem<ITemplate> = ({ item, index }) => {
     return (
-      <Template
-        item={item}
-        index={index}
-        fromOtherBanks={fromOtherBanks}
-        selectedData={selectedData}
-        setSelectedData={setSelectedData}
-      />
+      <>
+        {fromPin ? (
+          <Template
+            item={item}
+            fromPin={fromPin}
+            index={index}
+            fromOtherBanks={fromOtherBanks}
+            selectedData={selectedData}
+            setSelectedData={setSelectedData}
+          />
+        ) : (
+          <Template
+            item={item}
+            index={index}
+            fromOtherBanks={fromOtherBanks}
+            selectedData={selectedData}
+            setSelectedData={setSelectedData}
+          />
+        )}
+      </>
     );
   };
 

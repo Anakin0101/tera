@@ -22,14 +22,14 @@ export const OtherBankList = ({ selectedItemFromStore }: any) => {
       <View style={styles.backgroundWhite}>
         <View style={styles.detailsSectionWrapper}>
           {renderDetailsItem(
-            'საიდან',
+            'transfers.fromWhere',
             `${accountFromData.accountName} - `,
             accountFromData.accountIban,
           )}
-          {renderDetailsItem('სად', `${accountToData.name} `)}
-          {renderDetailsItem('მიმღების ანგარიში', `${accountToData.iban}`)}
-          {renderDetailsItem('თანხა', `${selectedPrice} ₾`)}
-          {renderDetailsItem('დანიშნულება', selectedData)}
+          {renderDetailsItem('transfers.where', `${accountToData.name} `)}
+          {renderDetailsItem('personalNumber.Receiver', `${accountToData.iban}`)}
+          {renderDetailsItem('transactionDetails.amount', `${selectedPrice} ₾`)}
+          {renderDetailsItem('transfers.destination', selectedData)}
         </View>
       </View>
     );

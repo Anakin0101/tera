@@ -106,3 +106,4 @@ export { Clear } from './Clear';
 export { Statements } from './Statements';
 export { Passcode } from './Passcode';
 export { Confidentiality } from './Confidentiality';
+export { FailedSvg } from './Failed';

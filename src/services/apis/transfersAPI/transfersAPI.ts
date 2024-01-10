@@ -5,6 +5,8 @@ import {
   convertAmountBuyRequestType,
   convertAmountSellType,
   convertAmountSellRequestType,
+  TransferToOwnAccountResponseType,
+  TransferToOwnAccountRequestType,
 } from './transfersAPI.types';
 
 const commonHeaders = {
@@ -41,7 +43,10 @@ export const transfersAPI = createApi({
         };
       },
     }),
-    transferToOwnAccount: builder.mutation<any, any>({
+    transferToOwnAccount: builder.mutation<
+      TransferToOwnAccountResponseType,
+      TransferToOwnAccountRequestType
+    >({
       query: operations => ({
         url: URLS.transferToOwnAccount,
         method: METHOD_NAMES.POST,
@@ -62,6 +67,20 @@ export const transfersAPI = createApi({
         headers: commonHeaders,
       }),
     }),
+    checkPin: builder.query<any, any>({
+      query: pin => ({
+        url: `${URLS.checkIban}?pin=${pin}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
+    checkMobile: builder.query<any, any>({
+      query: mobile => ({
+        url: `${URLS.checkIban}?mobile=${mobile}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
     transferToSomeone: builder.mutation<any, any>({
       query: operations => ({
         url: URLS.transferToSomeone,
@@ -71,6 +90,16 @@ export const transfersAPI = createApi({
         formData: true,
       }),
     }),
+    p2ptransferToSomeone: builder.mutation<any, any>({
+      query: operations => ({
+        url: URLS.P2pTransferToSomeone,
+        method: METHOD_NAMES.POST,
+        body: operations.body,
+        headers: operations.headers,
+        formData: true,
+      }),
+    }),
+
     getTransferInfo: builder.query<any, any>({
       query: ({
         transferType,
@@ -85,6 +114,13 @@ export const transfersAPI = createApi({
         headers: commonHeaders,
       }),
     }),
+    checkPersonalNumber: builder.query<any, any>({
+      query: pin => ({
+        url: `${URLS.checkIban}?pin=${pin}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
   }),
 });
 
@@ -93,7 +129,11 @@ export const {
   useConvertAmountSellQuery,
   useTransferToOwnAccountMutation,
   useTransferToSomeoneMutation,
+  useP2ptransferToSomeoneMutation,
   useExchangeAmountMutation,
   useLazyCheckIbanQuery,
+  useLazyCheckPinQuery,
+  useLazyCheckMobileQuery,
   useLazyGetTransferInfoQuery,
+  useLazyCheckPersonalNumberQuery,
 } = transfersAPI;

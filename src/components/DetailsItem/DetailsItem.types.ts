@@ -15,4 +15,5 @@ export interface DetailsItemProps {
   onPress?: () => void;
   translateProp?: TOptions;
   marginTop?: number;
+  underline?: boolean;
 }

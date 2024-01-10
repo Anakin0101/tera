@@ -12,12 +12,14 @@ import {
   TRANSACTION_FINISHED_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+  TRANSACTION_FAILED_SCREEN,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
 import { TransactionFinishedScreen } from 'screens/TransactionFinishedScreen/TransactionFinishedScreen';
 import { OtherBankTransactionScreen } from 'screens/OtherBanksTransactionScreen/OtherBankTransactionScreen';
 import { TransferToOtherBankAccountScreen } from 'screens/TransferToAccountScreen/TransferToOtherBankAccountScreen';
+import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
@@ -28,6 +30,7 @@ export type TransactionsStackParamList = {
   [TRANSACTION_FINISHED_SCREEN]: undefined;
   [OTHER_BANK_TANSACTION_SCREEN]: undefined;
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: undefined;
+  [TRANSACTION_FAILED_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -95,6 +98,17 @@ export const TransactionsStack = () => {
       <Screen
         name={TRANSACTION_FINISHED_SCREEN}
         component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: '#F9F9F9',
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FAILED_SCREEN}
+        component={TransactionFailedScreen}
         options={{
           title: '',
           headerStyle: {

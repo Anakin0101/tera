@@ -27,6 +27,7 @@ export const URLS = {
   exchange: 'Transfers/Exchange',
   checkIban: 'Transfers/GetReceiverInfo',
   transferToSomeone: 'Transfers/TransferToSomeone',
+  P2pTransferToSomeone: 'Transfers/P2pTransferToSomeone',
   getTransferInfo: 'Transfers/GetTransferInfo',
   getFileByID: 'Files/GetFileById',
   getSecuredFileById: 'Files/GetSecuredFileById',

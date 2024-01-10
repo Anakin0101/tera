@@ -20,7 +20,7 @@ import { resetUserProfileInfo } from 'store/slices/profile';
 // https://middleware-tst.terabank.ge/swagger/index.html
 
 // ---- API URL ----
-// const BASE_URL = 'http://10.213.0.136:4040/api/';
+// const BASE_URL = 'http://10.213.0.136:4040/api/v1/';
 export const BASE_URL = 'https://middleware-tst.terabank.ge/api/v1/';
 
 // Everything other than: Banker / Conversations / Documents require /api/v1/Files/GetSecuredFileById

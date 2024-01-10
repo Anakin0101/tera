@@ -29,7 +29,6 @@ export const SETTINGS_SCREEN = 'SettingsScreen';
 export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
 export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
-
 //transactions
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
 export const TO_ACCOUNT_SCREEN = 'ToAccountScreen';
@@ -37,6 +36,7 @@ export const TRANSFER_TO_ACCOUNT_SCREEN = 'TransferToAccountScreen';
 export const PRIVATE_TRANSACTION_SCREEN = 'PrivateTransactionScreen';
 export const TRANSFER_DETAIL_SCREEN = 'TransferDetailScreen';
 export const TRANSACTION_FINISHED_SCREEN = 'TransactionFinishedScreen';
+export const TRANSACTION_FAILED_SCREEN = 'TransactionFailedScreen';
 export const ALL_TRANSACTIONS_SCREEN = 'AllTransactionsScreen';
 export const TRANSACTION_DETAILS_SCREEN = 'TransactionDetailsScreen';
 export const OTHER_BANK_TANSACTION_SCREEN = 'OtherBankTransactionScreen';

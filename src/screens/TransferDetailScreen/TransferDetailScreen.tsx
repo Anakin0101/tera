@@ -1,40 +1,34 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Button } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { useNavigation } from '@react-navigation/native';
-
+import { CustomTransferResultError, SelectedItemProp } from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
 import { useTransferDetails } from './container';
-import { TRANSACTION_FINISHED_SCREEN } from 'navigation/ScreenNames';
+import { TRANSACTION_FINISHED_SCREEN, TRANSACTION_FAILED_SCREEN } from 'navigation/ScreenNames';
 import { ConversionOrTranferDetails } from './ConversionOrTranferDetails';
 import { OtherBankList } from './OtherBankList';
-
 import { openModal, closeModal } from 'utils/modal';
 import { OTPModal } from 'components';
-import { ScrollView } from 'react-native-gesture-handler';
-interface SelectedItem {
-  selectedPrice: any;
-  convertionData: any;
-  accountFromData: any;
-  accountToData: any;
-  receiverInfo: any;
-  otpData: any;
-  selectedData: any;
-}
+import { TransferToOwnAccountResponseType } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const TransferDetailScreen = () => {
   const selectedItemFromStore = useAppSelector(
-    (state: { transfers: SelectedItem }) => state.transfers,
+    (state: { transfers: SelectedItemProp }) => state.transfers,
   );
 
-  const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeoneMutation } =
-    useTransferDetails();
-
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+  const {
+    handleExchangeAmount,
+    handleTransferToOwnAccount,
+    transferToSomeone,
+    PERSONAL_TRANSACTION,
+  } = useTransferDetails(params?.mobileTransaction ? true : false);
+
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const {
     accountFromData,
@@ -44,73 +38,124 @@ export const TransferDetailScreen = () => {
     receiverInfo,
     otpData,
     selectedData,
+    accountIban,
+    selectedTransactionType,
   } = selectedItemFromStore;
 
-  const transferWithOTP = async (code: any) => {
-    const formData = new FormData();
-    formData.append('debitAccountId', accountFromData.accountId);
-    formData.append('receiverIban', accountToData.iban);
-    formData.append('amount', selectedPrice);
-    formData.append('receiverName', receiverInfo.customerName);
-    formData.append('purpose', selectedData);
-    formData.append('extraPurpose', '');
-    formData.append('otp', '');
-    formData.append('fastPayment', 'false');
-    formData.append('bankCode', receiverInfo.bicCode);
-    formData.append('bankName', receiverInfo.bankName);
-
-    const headers: { [key: string]: string } = {
+  const transferWithOTP = async (code: any, params: any) => {
+    let headers: { [key: string]: string } = {
       'X-Bank-Isstrongauthrequest': 'true',
       'Content-Type': 'multipart/form-data',
     };
 
-    if (code !== false) {
-      headers['X-Bank-Otp'] = code;
-    }
+    if (!params?.mobileTransaction) {
+      const formData = new FormData();
+      formData.append('debitAccountId', accountFromData.accountId);
+      formData.append(
+        'receiverIban',
+        accountIban?.accountIbanId?.accountIban || accountToData?.iban,
+      );
+      formData.append('amount', selectedPrice);
+      formData.append('receiverName', receiverInfo.customerName);
+      formData.append('purpose', selectedData ? selectedData : PERSONAL_TRANSACTION);
+      formData.append('extraPurpose', '');
+      formData.append('otp', '');
+      formData.append('fastPayment', 'false');
+      formData.append('bankCode', receiverInfo.bicCode);
+      formData.append('bankName', receiverInfo.bankName);
+      if (code !== false) {
+        headers['X-Bank-Otp'] = code;
+      }
 
-    const transferToSomeoneResult = await transferToSomeoneMutation({
-      headers: headers,
-      body: formData,
-    });
+      const transferToSomeoneResult = await transferToSomeone({
+        headers: headers,
+        body: formData,
+      });
 
-    closeModal();
-    if (transferToSomeoneResult) {
-      navigate(TRANSACTION_FINISHED_SCREEN, {});
+      closeModal();
+
+      if (transferToSomeoneResult) {
+        navigate(TRANSACTION_FINISHED_SCREEN, {});
+      }
+    } else {
+      headers['Content-Type'] = 'application/json';
+      const requestBody = {
+        debitAccountId: accountFromData.accountId,
+        mobile: accountToData.iban,
+        amount: selectedPrice,
+        receiverName: receiverInfo?.customerName,
+        purpose: selectedData ? selectedData : PERSONAL_TRANSACTION,
+        extraPurpose: '',
+        otp: '',
+        fastPayment: selectedTransactionType.isSelected,
+        bankCode: receiverInfo.bicCode,
+        bankName: receiverInfo.bankName,
+      };
+
+      if (code !== false) {
+        requestBody.otp = code;
+      }
+
+      const transferToSomeoneResult = await transferToSomeone({
+        headers: headers,
+        body: JSON.stringify(requestBody),
+      });
+
+      closeModal();
+      if (transferToSomeoneResult) {
+        navigate(TRANSACTION_FINISHED_SCREEN, {});
+      }
     }
   };
-
+  const handleTransferError = (error: any) => {
+    if ('data' in error) {
+      const { data } = error as CustomTransferResultError;
+      if (data?.status === 400) {
+        navigate(TRANSACTION_FAILED_SCREEN);
+      } else {
+        console.warn('Transfer Error:', error);
+      }
+    }
+  };
   const handleButtonPress = async () => {
     if (params.convertion && !params.fromOtherBank) {
       try {
-        await handleExchangeAmount({
+        const transferConvertion: TransferToOwnAccountResponseType = await handleExchangeAmount({
           debitAmount: convertionData?.buyAmount.amountBuy,
           creditAmount: convertionData?.buyAmount.amountSell,
           creditAccountId: accountToData?.accountId,
           debitAccountId: accountFromData?.accountId,
         });
-        navigate(TRANSACTION_FINISHED_SCREEN, {
-          convertion: true,
-        });
+        if (transferConvertion?.error) {
+          handleTransferError(transferConvertion.error);
+        } else {
+          navigate(TRANSACTION_FINISHED_SCREEN, { convertion: true });
+        }
       } catch (error) {
         console.warn('Exchange Amount Error:', error);
       }
     } else if (params.fromOtherBank) {
       if (otpData.otpRequired) {
         openModal({
-          element: <OTPModal onFinished={code => transferWithOTP(code)} />,
+          element: <OTPModal onFinished={code => transferWithOTP(code, params)} />,
           withKeyboard: true,
         });
       } else {
-        await transferWithOTP(false);
+        await transferWithOTP(false, params);
       }
     } else {
       try {
-        await handleTransferToOwnAccount({
+        const transferResult: TransferToOwnAccountResponseType = await handleTransferToOwnAccount({
           amount: selectedItemFromStore.selectedPrice,
           creditAccountId: accountToData?.accountId,
           debitAccountId: accountFromData?.accountId,
         });
-        navigate(TRANSACTION_FINISHED_SCREEN, {});
+
+        if (transferResult?.error) {
+          handleTransferError(transferResult.error);
+        } else {
+          navigate(TRANSACTION_FINISHED_SCREEN, {});
+        }
       } catch (error) {
         console.warn('Transfer to Own Account Error:', error);
       }

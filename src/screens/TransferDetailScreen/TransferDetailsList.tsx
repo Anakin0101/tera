@@ -4,12 +4,13 @@ import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
 import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
-
+import { getCurrencyIcon } from 'utils/currency';
+import { useTranslation } from 'react-i18next';
 export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) => {
+  const { t } = useTranslation();
   const { accountFromData, accountToData, selectedData, selectedPrice, convertionData } =
     selectedItemFromStore;
   const { specialRate, specialRateUsed, standardRate } = convertionData?.buyAmount || {};
-
   const styles = useStyleTheme();
 
   const renderDetailsItem = (
@@ -21,32 +22,57 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
   };
 
   const renderTransferDetails = () => {
+    const renderSelectedData = () => {
+      if (selectedData !== '') {
+        return renderDetailsItem('transfers.destination', selectedData);
+      } else if (convertion) {
+        return renderDetailsItem('transfers.destination', 'transfers.convertion');
+      } else {
+        return renderDetailsItem('transfers.destination', 'transfers.balanceTansfer');
+      }
+    };
+
     return (
       <View style={styles.backgroundWhite}>
         <View style={styles.detailsSectionWrapper}>
           {renderDetailsItem(
-            'საიდან',
+            'transfers.fromWhere',
             `${accountFromData.accountName} - `,
             accountFromData.accountIban,
           )}
-          {renderDetailsItem('სად', `${accountToData.accountName} -`, accountToData.accountIban)}
+          {renderDetailsItem(
+            'transfers.where',
+            `${accountToData.accountName} -`,
+            accountToData.accountIban,
+          )}
           {convertion
             ? renderDetailsItem(
-                'თანხა',
-                `${formatToTwoDecimalPlaces(convertionData.buyAmount.amountBuy)} ₾`,
+                'transactionDetails.amount',
+                `${formatToTwoDecimalPlaces(convertionData.buyAmount.amountBuy)} ${getCurrencyIcon(
+                  accountFromData.ccy,
+                )}`,
               )
-            : renderDetailsItem('თანხა', `${formatToTwoDecimalPlaces(selectedPrice)} ₾`)}
+            : renderDetailsItem(
+                'transactionDetails.amount',
+                `${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(
+                  accountFromData.ccy,
+                )}`,
+              )}
           {convertion &&
             renderDetailsItem(
-              'მისაღები',
-              `${formatToTwoDecimalPlaces(convertionData.buyAmount.amountSell)} ₾`,
+              'transfers.acceptable',
+              `${formatToTwoDecimalPlaces(convertionData.buyAmount.amountSell)}  ${getCurrencyIcon(
+                accountToData.ccy,
+              )}`,
             )}
           {convertion &&
             renderDetailsItem(
-              'კურსი',
-              `შენი კურსი 1$= ${specialRateUsed ? specialRate : standardRate} ₾`,
+              'transfers.course',
+              `${t('transfers.yourCourse')}${getCurrencyIcon(accountToData.ccy)} = ${
+                specialRateUsed ? specialRate : standardRate
+              }${getCurrencyIcon(accountFromData.ccy)}`,
             )}
-          {renderDetailsItem('დანიშნულება', selectedData)}
+          {renderSelectedData()}
         </View>
       </View>
     );

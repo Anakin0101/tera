@@ -17,7 +17,7 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       height: '100%',
     },
-    inputView: { paddingVertical: 20 },
+    inputView: { paddingVertical: 120 },
     inputStyle: { width: horizontalScale(250) },
     sectionListContent: {
       ...Layout.overflowHidden,
@@ -37,7 +37,5 @@ export const useStyles = () => {
       paddingVertical: 5,
       borderBottomColor: Colors.inputBlack50,
     },
-    accountsCard: { marginTop: Spacing.md },
-    receiver: { paddingVertical: Spacing.md },
   });
 };

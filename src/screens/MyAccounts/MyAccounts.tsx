@@ -40,9 +40,10 @@ export const MyAccounts = () => {
   useEffect(() => {
     if (groupedAccountsByIban) {
       const formattedSections = groupedAccountsByIban.map(group => {
+        const filteredAccounts = group.accounts.filter(account => account.isDebit === true);
         return {
           title: group.accountName,
-          data: group.accounts,
+          data: filteredAccounts,
         };
       });
 

@@ -1,23 +1,20 @@
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import React, { useCallback, useEffect } from 'react';
 import { TextInput, Text, Button, TransferTemplates } from 'components';
-import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useStyles } from './PersonalNumberTransaction.styles';
+import { useStyles } from './MobileTransaction.styles';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
-import { Colors } from 'theme/Variables';
 import { setAccountToData, setReceiverInfo, setTemplateForIban } from 'store/slices/transfers';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
-import { PersonalNumberAccount } from './PersonalNumberTransaction.types';
-import { PERSONAL, personalNumberRegex } from 'constants/transactionConstants';
+import { MOBILE, mobileNumberRegex } from 'constants/transactionConstants';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import useBankIcons from 'components/IbanTransaction/useIban';
 
-const PersonalNumberTransaction = () => {
+const MobileTransaction = () => {
   const { navigate } =
     useNavigation<TransactionsStackScreenProps<'TransferToOtherBankAccountScreen'>>();
   const dispatch = useAppDispatch();
@@ -35,24 +32,18 @@ const PersonalNumberTransaction = () => {
     setDebouncedAccountName,
     previousAccountName,
     setPreviousAccountName,
-    invoiceFile,
-    handleFilePick,
     apiCallInitiated,
     setApiCallInitiated,
-    PERSONAL_NUMBER_LENGTH,
-    toggleCheckIcon,
-    chosenAccount,
+    MOBILE_NUMBER_LENGTH,
   } = useTransactionsScreen();
 
+  const { handlePersonalNumber, data, isSuccess, isError } = useOtherBanksContainer(MOBILE);
   const { debouncedHandleChange } = useBankIcons(
     null,
     setDebouncedAccountName,
     dispatch,
-    PERSONAL_NUMBER_LENGTH,
+    MOBILE_NUMBER_LENGTH,
   );
-
-  const { handlePersonalNumber, data, isSuccess, isError } = useOtherBanksContainer(PERSONAL);
-
   const selectTemplate = useCallback(
     (pin: any) => {
       setSelectedData(pin);
@@ -77,7 +68,7 @@ const PersonalNumberTransaction = () => {
 
   const handleChange = (value: string) => {
     const uppercaseValue = value.toUpperCase();
-    if (value.length <= PERSONAL_NUMBER_LENGTH) {
+    if (value.length <= MOBILE_NUMBER_LENGTH) {
       setTypedAccountName(uppercaseValue);
       debouncedHandleChange(uppercaseValue);
     }
@@ -85,8 +76,8 @@ const PersonalNumberTransaction = () => {
 
   useEffect(() => {
     if (
-      debouncedAccountName.length === PERSONAL_NUMBER_LENGTH &&
-      personalNumberRegex.test(debouncedAccountName) &&
+      debouncedAccountName.length === MOBILE_NUMBER_LENGTH &&
+      mobileNumberRegex.test(debouncedAccountName) &&
       debouncedAccountName !== previousAccountName
     ) {
       setApiCallInitiated(true);
@@ -101,14 +92,12 @@ const PersonalNumberTransaction = () => {
       item.type === FinancialTransferTypeEnum.ToSomeoneInsideBank &&
       item.bankInternal?.personalId !== null,
   );
-
   const navigateToTransferScreen = () => {
     if (isSuccess) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
+        fromMobile: true,
       });
-    } else {
-      // toast of error
     }
   };
 
@@ -117,42 +106,8 @@ const PersonalNumberTransaction = () => {
       <Text children="personalNumber.Recepient" size={18} demiBold />
       {apiCallInitiated && data ? (
         <View>
-          <DetailsItem label="personalNumber.RecepientNumber" value={typedAccountName} underline />
+          <DetailsItem label="personalNumber.mobile" value={typedAccountName} underline />
           <DetailsItem label="personalNumber.Address" value={data.customerName} underline />
-          <View style={styles.accountsCard}>
-            <Text children="personalNumber.Receiver" size={18} demiBold style={styles.receiver} />
-            {data.accounts.map((item: PersonalNumberAccount, index: number) => (
-              <TouchableWithoutFeedback
-                style={styles.accountIban}
-                onPress={() => {
-                  toggleCheckIcon(item);
-                }}
-              >
-                <Text
-                  key={index}
-                  style={{
-                    color:
-                      chosenAccount && chosenAccount.accountId === item.accountId
-                        ? Colors.success
-                        : Colors.black700,
-                  }}
-                >
-                  {item.accountIban}
-                </Text>
-              </TouchableWithoutFeedback>
-            ))}
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              inputStyle={styles.inputStyle}
-              label={invoiceFile ? '' : 'personalNumber.Invoice'}
-              value={invoiceFile || ''}
-              editable={false}
-              marginTop={32}
-              invoice
-              invoiceClick={handleFilePick}
-            />
-          </View>
         </View>
       ) : (
         <>
@@ -186,4 +141,4 @@ const PersonalNumberTransaction = () => {
   );
 };
 
-export default PersonalNumberTransaction;
+export default MobileTransaction;
