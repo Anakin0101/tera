@@ -5,5 +5,5 @@ export const openURL = (url: string) => {
     .then(() => {
       Linking.openURL(url);
     })
-    .catch(err => console.error('An error occurred', err, url));
+    .catch(err => console.warn('An error occurred', err, url));
 };

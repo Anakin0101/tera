@@ -48,7 +48,7 @@ export const useTrustDeviceModal = () => {
       }
       closeModal();
     } catch (error) {
-      console.error('Error in handleOTPVerification:', error);
+      console.warn('Error in handleOTPVerification:', error);
     }
   };
 
@@ -88,7 +88,7 @@ export const useTrustDeviceModal = () => {
         });
       }
     } catch (error) {
-      console.error('Error in openOTPModal:', error);
+      console.warn('Error in openOTPModal:', error);
     }
   };
 

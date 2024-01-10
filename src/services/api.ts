@@ -160,7 +160,7 @@ export const baseQueryWithInterceptor: BaseQueryFn<
               api.dispatch(resetUserProfileInfo());
             }
           } catch (error) {
-            console.error('Error during logout:', error);
+            console.warn('Error during logout:', error);
           }
         }
       } finally {

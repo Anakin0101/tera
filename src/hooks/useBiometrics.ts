@@ -58,7 +58,7 @@ export const useBiometrics = () => {
     const { available, biometryType, error } = await Biometrics.isSensorAvailable();
 
     if (error) {
-      console.error('Biometric auth may not be supported:', error);
+      console.warn('Biometric auth may not be supported:', error);
       return false;
     }
 
@@ -100,7 +100,7 @@ export const useBiometrics = () => {
         onSuccess?.();
       }
     } catch (e) {
-      console.error('Biometric prompt error:', e);
+      console.warn('Biometric prompt error:', e);
       onError?.(String(e));
     }
   };

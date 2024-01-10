@@ -20,7 +20,7 @@ export const logAllKeychainValues = async () => {
 
     // Any other keychain values you've stored can be added similarly...
   } catch (error) {
-    console.error('Error logging keychain values:', error);
+    console.warn('Error logging keychain values:', error);
   }
 };
 
@@ -30,7 +30,7 @@ export const resetKeychainValues = async () => {
     const val = await clearCredentials();
     return val;
   } catch (error) {
-    console.error('Error logging keychain values:', error);
+    console.warn('Error logging keychain values:', error);
     return false;
   }
 };

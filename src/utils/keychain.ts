@@ -11,7 +11,7 @@ export const setLoginName = async (loginName: string): Promise<boolean | Result>
       service: LOGIN_NAME_SERVICE,
     });
   } catch (error) {
-    console.error('Error setting login name:', error);
+    console.warn('Error setting login name:', error);
     return false;
   }
 };
@@ -24,7 +24,7 @@ export const getLoginName = async (): Promise<string | null> => {
     }
     return null;
   } catch (error) {
-    console.error('Error fetching login name:', error);
+    console.warn('Error fetching login name:', error);
     return null;
   }
 };
@@ -33,7 +33,7 @@ export const clearLoginName = async (): Promise<boolean | Result> => {
   try {
     return await KeyChain.resetGenericPassword({ service: LOGIN_NAME_SERVICE });
   } catch (error) {
-    console.error('Error clearing login name:', error);
+    console.warn('Error clearing login name:', error);
     return false;
   }
 };
@@ -44,7 +44,7 @@ export const setPassword = async (password: string): Promise<boolean | Result> =
       service: PASSWORD_SERVICE,
     });
   } catch (error) {
-    console.error('Error setting password:', error);
+    console.warn('Error setting password:', error);
     return false;
   }
 };
@@ -57,7 +57,7 @@ export const getPassword = async (): Promise<string | null> => {
     }
     return null;
   } catch (error) {
-    console.error('Error fetching password:', error);
+    console.warn('Error fetching password:', error);
     return null;
   }
 };
@@ -68,7 +68,7 @@ export const setPasscode = async (passcode: string): Promise<boolean | Result> =
       service: PASSCODE_SERVICE,
     });
   } catch (error) {
-    console.error('Error setting passcode:', error);
+    console.warn('Error setting passcode:', error);
     return false;
   }
 };
@@ -77,7 +77,7 @@ export const clearPasscode = async (): Promise<boolean | Result> => {
   try {
     return await KeyChain.resetGenericPassword({ service: PASSCODE_SERVICE });
   } catch (error) {
-    console.error('Error setting passcode:', error);
+    console.warn('Error setting passcode:', error);
     return false;
   }
 };
@@ -90,7 +90,7 @@ export const getPasscode = async (): Promise<string | null> => {
     }
     return null;
   } catch (error) {
-    console.error('Error fetching passcode:', error);
+    console.warn('Error fetching passcode:', error);
     return null;
   }
 };
@@ -101,7 +101,7 @@ export const setBiometricsAuth = async (value: boolean): Promise<boolean | Resul
       service: BIOMETRIC_AUTH_SERVICE,
     });
   } catch (error) {
-    console.error('Error activating biometric authentication:', error);
+    console.warn('Error activating biometric authentication:', error);
     return false;
   }
 };
@@ -110,7 +110,7 @@ export const clearBiometricsAuth = async (): Promise<boolean | Result> => {
   try {
     return await KeyChain.resetGenericPassword({ service: BIOMETRIC_AUTH_SERVICE });
   } catch (error) {
-    console.error('Error activating biometric authentication:', error);
+    console.warn('Error activating biometric authentication:', error);
     return false;
   }
 };
@@ -124,7 +124,7 @@ export const getBiometricsAuthStatus = async (): Promise<boolean | null> => {
       return null;
     }
   } catch (error) {
-    console.error('Error retrieving biometric authentication status:', error);
+    console.warn('Error retrieving biometric authentication status:', error);
     return null;
   }
 };
@@ -137,7 +137,7 @@ export const clearCredentials = async (): Promise<boolean> => {
     await KeyChain.resetGenericPassword({ service: BIOMETRIC_AUTH_SERVICE });
     return true;
   } catch (error) {
-    console.error('Error clearing credentials:', error);
+    console.warn('Error clearing credentials:', error);
     return false;
   }
 };

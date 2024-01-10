@@ -34,7 +34,7 @@ export const useLogout = () => {
       }
     } catch (error) {
       Alert.alert('Error happened during logout: ', JSON.stringify(error));
-      console.error('Error during logout:', error);
+      console.warn('Error during logout:', error);
     }
   };
 

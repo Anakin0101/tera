@@ -33,7 +33,7 @@ export const withLoginScreen = <P extends object, T extends keyof GuestStackPara
           navigate(screenName as keyof GuestStackParamList);
         }
       } catch (error) {
-        console.error('Login failed', error);
+        console.warn('Login failed', error);
       }
     };
 

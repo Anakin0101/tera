@@ -51,7 +51,7 @@ export const useLogin = () => {
         const errorTitle = (err as { [key: string]: any })?.data?.title;
         dispatch(setOTPCodeErrorTimes());
         openToast(errorTitle, 'error');
-        console.error('Error in loginUser with OTP: ', err);
+        console.warn('Error in loginUser with OTP: ', err);
       });
   };
 
@@ -98,7 +98,7 @@ export const useLogin = () => {
         .catch(err => {
           const errorTitle = (err as { [key: string]: any })?.data?.title;
           openToast(errorTitle, 'error');
-          console.error(err);
+          console.warn(err);
         });
     }
   };
@@ -124,11 +124,11 @@ export const useLogin = () => {
         if (error) {
           openToast(error, 'error');
           navigate(PASSWORD_LOGIN_SCREEN);
-          console.error('error in loginByRefreshToken service: ', error);
+          console.warn('error in loginByRefreshToken service: ', error);
         }
       }
     } catch (error) {
-      console.error('Error in handlePasscodeSignIn:', error);
+      console.warn('Error in handlePasscodeSignIn:', error);
     }
   };
 

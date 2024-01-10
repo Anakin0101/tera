@@ -19,7 +19,7 @@ export const useDeleteTrustedDevices = () => {
         //    do something
       }
     } catch (error) {
-      console.error('Error in deleteTrustedDevices:', error);
+      console.warn('Error in deleteTrustedDevices:', error);
     }
   };
 

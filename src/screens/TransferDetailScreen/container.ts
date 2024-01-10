@@ -15,7 +15,7 @@ export const useTransferDetails = () => {
       const response = await exchangeAmountMutation(params);
       return response;
     } catch (error) {
-      console.error('Exchange Amount Error:', error);
+      console.warn('Exchange Amount Error:', error);
       throw error;
     }
   };
@@ -26,7 +26,7 @@ export const useTransferDetails = () => {
 
       return response;
     } catch (error) {
-      console.error('Transfer to Own Account Error:', error);
+      console.warn('Transfer to Own Account Error:', error);
       throw error;
     }
   };
@@ -36,7 +36,7 @@ export const useTransferDetails = () => {
       const response = await getTransferInfo(info);
       return response;
     } catch (error) {
-      console.error('Transfer to Someone Account Error:', error);
+      console.warn('Transfer to Someone Account Error:', error);
       throw error;
     }
   };

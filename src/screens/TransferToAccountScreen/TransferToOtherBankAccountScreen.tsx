@@ -100,7 +100,7 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
         } else {
         }
       } catch (error) {
-        console.error('Error during API call:', error);
+        console.warn('Error during API call:', error);
       }
     }
   };

@@ -92,7 +92,7 @@ export const TransferDetailScreen = () => {
           convertion: true,
         });
       } catch (error) {
-        console.error('Exchange Amount Error:', error);
+        console.warn('Exchange Amount Error:', error);
       }
     } else if (params.fromOtherBank) {
       if (otpData.otpRequired) {
@@ -112,7 +112,7 @@ export const TransferDetailScreen = () => {
         });
         navigate(TRANSACTION_FINISHED_SCREEN, {});
       } catch (error) {
-        console.error('Transfer to Own Account Error:', error);
+        console.warn('Transfer to Own Account Error:', error);
       }
     }
   };

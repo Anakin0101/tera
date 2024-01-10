@@ -25,7 +25,7 @@ export const useTransactionsScreen = () => {
         setInvoiceFile(selectedFileName.name);
       }
     } catch (err) {
-      console.error(err);
+      console.warn(err);
     }
   };
 

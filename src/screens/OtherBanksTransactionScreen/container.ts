@@ -8,7 +8,7 @@ export const useOtherBanksContainer = () => {
       const response = await checkIbanMutation(iban);
       return response;
     } catch (error) {
-      console.error('Exchange Amount Error:', error);
+      console.warn('Exchange Amount Error:', error);
       throw error;
     }
   };
