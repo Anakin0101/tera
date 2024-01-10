@@ -19,7 +19,9 @@ import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetai
 import { TransactionFinishedScreen } from 'screens/TransactionFinishedScreen/TransactionFinishedScreen';
 import { OtherBankTransactionScreen } from 'screens/OtherBanksTransactionScreen/OtherBankTransactionScreen';
 import { TransferToOtherBankAccountScreen } from 'screens/TransferToAccountScreen/TransferToOtherBankAccountScreen';
+import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
+
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
@@ -55,6 +57,7 @@ export const TransactionsStack = () => {
           title: t('საიდან'),
           headerBackTitle: ' ',
           headerTitleAlign: 'center',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
 
@@ -65,6 +68,7 @@ export const TransactionsStack = () => {
           title: t('სად'),
           headerBackTitle: ' ',
           headerTitleAlign: 'center',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -74,6 +78,7 @@ export const TransactionsStack = () => {
           title: t('საკუთარ ანგარიშზე გადარიცხვა'),
           headerBackTitle: ' ',
           headerTitleAlign: 'center',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -82,6 +87,7 @@ export const TransactionsStack = () => {
         options={{
           title: t('საკუთარ ანგარიშზე გადარიცხვა'),
           headerBackTitle: ' ',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -93,6 +99,7 @@ export const TransactionsStack = () => {
             backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -104,6 +111,7 @@ export const TransactionsStack = () => {
             backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
+          headerLeft: () => null,
         }}
       />
       <Screen
@@ -126,6 +134,7 @@ export const TransactionsStack = () => {
             backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen

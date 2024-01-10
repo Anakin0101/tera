@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { BackHandler, View } from 'react-native';
 import { Button, Text } from 'components/index';
 import { useStyleTheme } from './TransactionFinishedScreen.styles';
 import { Calendar, Plus, Share, SuccessTransaction } from 'assets/SVGs';
@@ -32,6 +32,15 @@ export const TransactionFinishedScreen = () => {
   const navigateToMain = () => {
     navigate(TRANSACTIONS_SCREEN);
   };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
+
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(setSelectedData(''));
@@ -43,7 +52,7 @@ export const TransactionFinishedScreen = () => {
       icon: <Plus />,
     },
     {
-      name: 'transfers.automaticPay',
+      name: 'transfers.automatic',
       icon: <Calendar />,
     },
     {
