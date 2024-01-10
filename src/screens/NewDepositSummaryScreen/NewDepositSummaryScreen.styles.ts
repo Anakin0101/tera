@@ -26,11 +26,17 @@ export const useStyles = () => {
       marginVertical: Spacing.xl,
     },
     iconContainer: {
+      ...Layout.center,
       width: Spacing.xxxl,
       height: Spacing.xxxl,
       borderRadius: Spacing.xl,
       borderWidth: 1,
       borderColor: Colors.inputBlack50,
+    },
+    image: {
+      ...Layout.fullHeight,
+      ...Layout.fullWidth,
+      borderRadius: Spacing.xl,
     },
     main: {
       backgroundColor: Colors.white,
@@ -64,6 +70,14 @@ export const useStyles = () => {
     },
     disabled: {
       opacity: 0.5,
+    },
+    loader: {
+      ...Layout.center,
+      ...Layout.absolute,
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
     },
   });
 };

@@ -28,6 +28,11 @@ export const useStyles = () => {
       borderWidth: 1,
       borderColor: Colors.inputBlack50,
     },
+    image: {
+      ...Layout.fullHeight,
+      ...Layout.fullWidth,
+      borderRadius: Spacing.xl,
+    },
     main: {
       backgroundColor: Colors.white,
       borderTopLeftRadius: Spacing.xl,
@@ -129,6 +134,12 @@ export const useStyles = () => {
     },
     unfocusedText: {
       color: Colors.black700,
+    },
+    fullHeight: {
+      ...Layout.fullHeight,
+    },
+    buttonMargin: {
+      marginTop: 100,
     },
   });
 };

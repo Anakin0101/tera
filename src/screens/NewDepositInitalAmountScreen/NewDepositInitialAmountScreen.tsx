@@ -6,10 +6,7 @@ import { Colors, Spacing } from 'theme/Variables';
 import { SmallCC, TinyChevron } from 'assets/SVGs';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { useNewDepositInitialAmount } from './container';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './NewDepositInitialAmountScreen.styles';
-
-const currencies: Currency[] = ['GEL', 'USD', 'EUR'];
 
 export const NewDepositInitialAmountScreen = () => {
   const styles = useStyles();
@@ -18,15 +15,14 @@ export const NewDepositInitialAmountScreen = () => {
   const {
     headerHeight,
     handleSelectAccountPress,
-    total,
-    totalDestAccount,
-    fromAccount,
-    toAccount,
+    creditAccount,
+    debitAccount,
     selectedCurrency,
     setSelectedCurrency,
     amount,
     setAmount,
     handlePress,
+    offer,
   } = useNewDepositInitialAmount(ref);
 
   return (
@@ -56,16 +52,19 @@ export const NewDepositInitialAmountScreen = () => {
           />
         </View>
         <View style={styles.currencies}>
-          {currencies.map(item => (
+          {offer?.depositProducts[0].currencies.map(item => (
             <Pressable
-              key={item}
-              onPress={() => setSelectedCurrency(item)}
-              style={[styles.currencyContainer, selectedCurrency === item && styles.selected]}
+              key={item.currency}
+              onPress={() => setSelectedCurrency(item.currency)}
+              style={[
+                styles.currencyContainer,
+                selectedCurrency === item.currency && styles.selected,
+              ]}
             >
               <Text
                 secondary
-                children={CurrencySignMap[item]}
-                special={selectedCurrency === item}
+                children={CurrencySignMap[item.currency]}
+                special={selectedCurrency === item.currency}
               />
             </Pressable>
           ))}
@@ -74,7 +73,7 @@ export const NewDepositInitialAmountScreen = () => {
           <Text
             label
             secondary
-            translateProp={{ value: 10 }}
+            translateProp={{ value: offer?.depositProducts[0].currencies[0].minAmount }}
             children="newDeposit.minimumDeposit"
           />
         </View>
@@ -94,7 +93,11 @@ export const NewDepositInitialAmountScreen = () => {
             <Pressable onPress={() => handleSelectAccountPress('from')}>
               <Text label secondary numberOfLines={1} children={'newDeposit.selectAcc'} />
               <Text
-                children={total ? formatMoney(total, selectedCurrency) : 'newDeposit.from'}
+                children={
+                  typeof creditAccount?.balance === 'number'
+                    ? formatMoney(creditAccount?.balance, selectedCurrency)
+                    : 'newDeposit.from'
+                }
                 medium
               />
             </Pressable>
@@ -106,8 +109,8 @@ export const NewDepositInitialAmountScreen = () => {
                 <Text label secondary numberOfLines={1} children={'newDeposit.selectAcc'} />
                 <Text
                   children={
-                    totalDestAccount
-                      ? formatMoney(totalDestAccount, selectedCurrency)
+                    typeof debitAccount?.balance === 'number'
+                      ? formatMoney(debitAccount.balance, selectedCurrency)
                       : 'newDeposit.to'
                   }
                   medium
@@ -126,7 +129,7 @@ export const NewDepositInitialAmountScreen = () => {
             onPress={handlePress}
             customWrapperStyle={[
               styles.button,
-              !(fromAccount && toAccount && amount) && styles.disabled,
+              !(creditAccount && debitAccount && amount) && styles.disabled,
             ]}
           />
         </View>

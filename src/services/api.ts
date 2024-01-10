@@ -25,8 +25,8 @@ import { RefreshTokenAPIResponse } from './apis/authAPI/authAPI.types';
 // https://middleware-tst.terabank.ge/swagger/index.html
 
 // ---- API URL ----
-// const BASE_URL = 'http://10.213.0.136:4040/api/v1/';
-const BASE_URL = 'https://middleware-tst.terabank.ge/api/v1/';
+// export const BASE_URL = 'http://10.213.0.136:4040/api/';
+export const BASE_URL = 'https://middleware-tst.terabank.ge/api/v1/';
 
 const mutex = new Mutex();
 

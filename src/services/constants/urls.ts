@@ -28,4 +28,12 @@ export const URLS = {
   transferToSomeone: 'Transfers/TransferToSomeone',
   getTransferInfo: 'Transfers/GetTransferInfo',
   getOfferById: 'Offers/GetOfferById',
+  getInterestRates: 'Deposit/GeInterestRates',
+  calculateDeposit: 'Deposit/CalculateDeposit',
+  registerDeposit: 'Deposit/RegisterDeposit',
+  activateDeposit: 'Deposit/ActivateDeposit',
+  getTeraWalletInfo: 'Deposit/GetTeraWalletInfo',
+  generateTeraWalletPdf: 'Deposit/GenerateTeraWalletPdf',
+  addOrUpdateTeraWallet: 'Deposit/AddOrUpdateTeraWallet',
+  getFileById: 'Files/GetFileById',
 };

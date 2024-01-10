@@ -16,6 +16,8 @@ import {
   NewDepositAdditionalInfoScreen,
   NewDepositSummaryScreen,
   TeraWalletScreen,
+  TeraWalletPDFScreen,
+  TeraWalletSuccess,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -37,6 +39,8 @@ import {
   PRODUCTS_SCREEN,
   SELECT_DEPOSIT_SCREEN,
   TERA_WALLET_SCREEN,
+  TERA_WALLET_PDF_SCREEN,
+  TERA_WALLET_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
@@ -329,6 +333,16 @@ export const ProductsStack = () => {
             fontFamily: FontFamily.Regular,
           },
         }}
+      />
+      <Screen
+        name={TERA_WALLET_PDF_SCREEN}
+        component={TeraWalletPDFScreen}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name={TERA_WALLET_SUCCESS_SCREEN}
+        component={TeraWalletSuccess}
+        options={{ headerShown: false }}
       />
     </Navigator>
   );

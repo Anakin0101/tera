@@ -389,13 +389,15 @@
     "initialAmount": "Initial Amount",
     "additionalInfo": "Additional Information",
     "details": "Deposit Details",
-    "warning": "The amount must exceed the minimum contribution amount."
+    "warning": "The amount must exceed the minimum contribution amount.",
+    "balanceWarning": "There is not enough balance on the selected account. Please choose another account or change the initial amount."
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
     "desc": "After activating TeraWallet from each transaction, the amount of your choice will be credited to the account",
     "selectAmount": "The amount you want to transfer to the deposit",
     "selectDeposit": "Deposit where the money will be deposited",
-    "chooseDeposit": "Select Deposit"
+    "chooseDeposit": "Select Deposit",
+    "success": "Terrawallet has been\nsuccessfully activated"
   }
 }

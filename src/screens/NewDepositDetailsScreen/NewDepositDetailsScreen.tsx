@@ -3,6 +3,7 @@ import { Image, ScrollView, View } from 'react-native';
 import { useNewDepositDetails } from './container';
 import { Button, Divider, Text } from 'components';
 import { useStyles } from './NewDepositDetailsScreen.styles';
+import { Loader } from 'components/Loader/Loader';
 
 const benefits = [
   'შეინახე თავისუფალი თანხა და მიიღე მაღალი საპროცენტო სარგებელი.',
@@ -11,7 +12,11 @@ const benefits = [
 
 export const NewDepositDetailsScreen = () => {
   const styles = useStyles();
-  const { handlePress, image } = useNewDepositDetails();
+  const { handlePress, imageUrl, offer } = useNewDepositDetails();
+
+  if (!offer) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView
@@ -21,21 +26,17 @@ export const NewDepositDetailsScreen = () => {
     >
       <View style={styles.header}>
         <View style={styles.iconContainer}>
-          <Image source={{ uri: image }} style={styles.image} />
+          <Image source={{ uri: imageUrl }} style={styles.image} />
         </View>
-        <Text children="ვადიანი ანაბარი" medium size={18} marginTop={24} />
-        <Text children="საწყისი თანხა 500 ერთეული" secondary />
+        <Text children={offer?.title} medium size={18} marginTop={24} />
+        {/* <Text children="საწყისი თანხა 500 ერთეული" secondary /> */}
       </View>
       <Divider height={1} marginTop={32} marginBottom={32} />
       <View style={styles.description}>
         <Text children="products.details" medium size={16} />
+        <Text children={offer?.description} secondary marginTop={16} />
         <Text
-          children="ვადიანი ანაბარი საშუალებას მოგცემს, წინასწარ განსაზღვრული ვადით განათავსო თანხა ანაბარზე და მიიღო მაღალი საპროცენტო  სარგებელი"
-          secondary
-          marginTop={16}
-        />
-        <Text
-          children="სპეციალურად შენთვის - გახსენი დეპოზიტი და მიიღე სტანდარტულზე მაღალი საპროცენტო განაკვეთი"
+          children="სპეციალურად შენთვის - გახსენი დეპოზიტი და მიიღე სტანდარტულზე მაღალი საპროცენტო განაკვეთი."
           secondary
           marginTop={16}
         />

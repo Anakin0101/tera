@@ -15,10 +15,15 @@ export const Item: FC<ItemProps> = ({ item }) => {
   const dispatch = useAppDispatch();
 
   const onPress = () => {
-    dispatch(setDepositType(item.title));
+    dispatch(
+      setDepositType({
+        depositType: item.title,
+        imageUrl: item.images[0].url,
+      }),
+    );
+
     navigate('NewDepositDetailsScreen', {
       id: item.id,
-      url: item.images[0].url,
     });
   };
 

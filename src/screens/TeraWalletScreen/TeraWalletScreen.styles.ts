@@ -88,5 +88,35 @@ export const useStyles = () => {
     button: {
       paddingVertical: 14,
     },
+    disbaled: {
+      opacity: 0.5,
+    },
+    pdfContainer: {
+      ...Layout.fill,
+      backgroundColor: Colors.white,
+    },
+    pdf: {
+      ...Layout.fill,
+      backgroundColor: Colors.white,
+      // marginHorizontal: Spacing.xl,
+    },
+    successContainer: {
+      ...Layout.fill,
+      backgroundColor: Colors.white,
+    },
+    successIcon: {
+      ...Layout.center,
+      ...Layout.selfCenter,
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+      backgroundColor: Colors.success,
+      marginTop: 150,
+    },
+    successButton: {
+      paddingVertical: 14,
+      paddingHorizontal: 24,
+      marginTop: 50,
+    },
   });
 };

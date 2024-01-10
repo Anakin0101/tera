@@ -47,6 +47,8 @@ import {
   NEW_DEPOSIT_SUMMARY_SCREEN,
   DEPOSIT_SUCCESS_SCREEN,
   TERA_WALLET_SCREEN,
+  TERA_WALLET_PDF_SCREEN,
+  TERA_WALLET_SUCCESS_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -103,13 +105,14 @@ export type ProductsStackParamsList = {
   [SELECT_DEPOSIT_SCREEN]: undefined;
   [NEW_DEPOSIT_DETAILS_SCREEN]: {
     id: number;
-    url: string;
   };
   [NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN]: undefined;
   [NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN]: undefined;
   [NEW_DEPOSIT_SUMMARY_SCREEN]: undefined;
   [DEPOSIT_SUCCESS_SCREEN]: undefined;
   [TERA_WALLET_SCREEN]: undefined;
+  [TERA_WALLET_PDF_SCREEN]: undefined;
+  [TERA_WALLET_SUCCESS_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

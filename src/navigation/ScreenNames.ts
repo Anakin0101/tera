@@ -59,3 +59,5 @@ export const NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN = 'NewDepositAdditionalInfoScree
 export const NEW_DEPOSIT_SUMMARY_SCREEN = 'NewDepositSummaryScreen';
 export const DEPOSIT_SUCCESS_SCREEN = 'DepositSuccessScreen';
 export const TERA_WALLET_SCREEN = 'TeraWalletScreen';
+export const TERA_WALLET_PDF_SCREEN = 'TeraWalletPDFScreen';
+export const TERA_WALLET_SUCCESS_SCREEN = 'TeraWalletSuccessScreen';

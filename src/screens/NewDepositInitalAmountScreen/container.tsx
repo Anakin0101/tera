@@ -1,26 +1,29 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 import { openModal } from 'utils/modal';
 import { SelectAccountModal } from 'components/modals';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { setAdjustResize, setAdjustPan } from 'rn-android-keyboard-adjust';
-import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, Currency } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setInitialAmount } from 'store/slices/deposit';
 import { openToast } from 'utils/toast';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const dispatch = useAppDispatch();
   const headerHeight = useHeaderHeight();
+  const { offer } = useAppSelector(state => state.deposit);
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositAdditionalInfoScreen'>>();
   const [amount, setAmount] = useState('');
   const [debouncedAmount, setDebouncedAmount] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>('GEL');
-  const [fromAccount, setFromAccount] = useState<IGroupedAccountsByIban | null>(null);
-  const [toAccount, setToAccount] = useState<IGroupedAccountsByIban | null>(null);
+  const [creditAccount, setCreditAccount] = useState<Account | null>(null);
+  const [debitAccount, setDebitAccount] = useState<Account | null>(null);
+  const [isModalOpened, setIsModalOpened] = useState(false);
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
     setAdjustPan();
@@ -30,25 +33,48 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   }, []);
 
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      setCreditAccount(null);
+      setDebitAccount(null);
+    }
+  }, [selectedCurrency]);
+
+  useEffect(() => {
     const id = setTimeout(() => setDebouncedAmount(amount), 1500);
 
     return () => clearTimeout(id);
   }, [amount]);
 
   useEffect(() => {
-    if (debouncedAmount && Number(debouncedAmount) < 10) {
+    if (
+      offer &&
+      debouncedAmount &&
+      Number(debouncedAmount) < offer?.depositProducts[0].currencies[0].minAmount
+    ) {
       openToast('newDeposit.warning', 'error');
       setAmount('');
     }
-  }, [debouncedAmount]);
+  }, [debouncedAmount, offer]);
+
+  useEffect(() => {
+    if (creditAccount && amount && creditAccount.balance < parseFloat(amount) && !isModalOpened) {
+      openToast('newDeposit.balanceWarning', 'error');
+      setCreditAccount(null);
+    }
+  }, [amount, creditAccount, isModalOpened]);
 
   const handleSelectAccountPress = (type: string) => {
     ref.current?.blur();
+    setIsModalOpened(true);
     openModal({
       element: (
         <SelectAccountModal
-          selectedAccount={type === 'from' ? fromAccount : toAccount}
-          onPress={type === 'from' ? setFromAccount : setToAccount}
+          selectedAccount={type === 'from' ? creditAccount : debitAccount}
+          onPress={type === 'from' ? setCreditAccount : setDebitAccount}
+          selectedCurrency={selectedCurrency}
+          setIsModalOpened={setIsModalOpened}
         />
       ),
       title: 'newDeposit.selectAcc',
@@ -57,36 +83,24 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
     });
   };
 
-  const total = useMemo(() => {
-    if (fromAccount) {
-      const balanceInSelectedCurrency = fromAccount.accounts.find(
-        acc => acc.ccy === selectedCurrency,
-      );
-      return balanceInSelectedCurrency?.balance || 0;
-    }
-  }, [fromAccount, selectedCurrency]);
-
-  const totalDestAccount = useMemo(() => {
-    if (toAccount) {
-      const balanceInSelectedCurrency = toAccount.accounts.find(
-        acc => acc.ccy === selectedCurrency,
-      );
-      return balanceInSelectedCurrency?.balance || 0;
-    }
-  }, [toAccount, selectedCurrency]);
-
   const handlePress = () => {
-    // if (!(amount && fromAccount && toAccount)) {
-    //   return;
-    // }
+    if (!(amount && creditAccount && debitAccount)) {
+      return;
+    }
     dispatch(
       setInitialAmount({
-        initialAmount: Number(amount),
+        initialAmount: parseFloat(amount),
         currency: selectedCurrency,
-        initAccount: fromAccount?.iban || '',
-        finalAccount: toAccount?.iban || '',
-        initAccountAvailableBalance: total || 0,
-        finalAccountAvailableBalance: totalDestAccount || 0,
+        creditAccount: {
+          id: creditAccount?.accountId,
+          iban: creditAccount.accountIban,
+          balance: creditAccount?.balance,
+        },
+        debitAccount: {
+          id: debitAccount?.accountId,
+          iban: debitAccount.accountIban,
+          balance: debitAccount?.balance,
+        },
       }),
     );
     navigate('NewDepositAdditionalInfoScreen');
@@ -95,14 +109,13 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   return {
     headerHeight,
     handleSelectAccountPress,
-    total,
-    totalDestAccount,
     amount,
     setAmount,
     selectedCurrency,
     setSelectedCurrency,
-    fromAccount,
-    toAccount,
+    creditAccount,
+    debitAccount,
     handlePress,
+    offer,
   };
 };

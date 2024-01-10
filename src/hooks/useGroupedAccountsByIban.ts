@@ -6,6 +6,7 @@ import { setAccounts, setTotalAvailableBalance } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useGroupedAccountsByIban = () => {
   const dispatch = useAppDispatch();
@@ -17,11 +18,10 @@ export const useGroupedAccountsByIban = () => {
 
   useEffect(() => {
     if (accounts) {
-      const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(
-        accounts,
-        'accountIban',
-      );
-      const balanceGEL = accounts.filter(acc => acc.ccy === 'GEL');
+      const accs = accounts.filter(item => item.accountType !== AccountTypeEnum.Deposit);
+
+      const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(accs, 'accountIban');
+      const balanceGEL = accs.filter(acc => acc.ccy === 'GEL');
       const totalAvailableGEL = calculateSum(balanceGEL, 'balance');
 
       dispatch(setAccounts(groupedAccounts));

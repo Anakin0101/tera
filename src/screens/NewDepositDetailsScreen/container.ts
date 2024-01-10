@@ -1,20 +1,28 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/types';
 import { useGetOfferByIdQuery } from 'services/apis/productsAPI/productsAPI';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { setOfferDetails } from 'store/slices/deposit';
 
 export const useNewDepositDetails = () => {
+  const dispatch = useAppDispatch();
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositInitialAmountScreen'>>();
   const { params } = useRoute<ProductsStackRouteProps<'NewDepositDetailsScreen'>>();
   const { data: offer } = useGetOfferByIdQuery(params.id);
-  const image = params.url;
+  const { imageUrl } = useAppSelector(state => state.deposit);
 
   const handlePress = () => {
+    if (!offer) {
+      return;
+    }
+    dispatch(setOfferDetails(offer));
     navigate('NewDepositInitialAmountScreen');
   };
 
   return {
     handlePress,
-    image,
+    imageUrl,
     offer,
   };
 };

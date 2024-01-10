@@ -1,33 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { OTPModal } from 'components';
 import { closeModal, openModal } from 'utils/modal';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import {
+  useActivateDepositMutation,
+  useRegisterDepositMutation,
+} from 'services/apis/productsAPI/productsAPI';
+import { RegisterDepositReq } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useNewDepositSummary = () => {
   const [isAgree, setIsAgree] = useState(false);
   const { navigate } = useNavigation<ProductsStackScreenProps<'DepositSuccessScreen'>>();
   const newDeposit = useAppSelector(state => state.deposit);
+  const [registerDeposit, { data: result, isLoading: isLoadingRegistration }] =
+    useRegisterDepositMutation();
+  const { productId, duration, initialAmount, creditAccount, debitAccount, imageUrl, offer } =
+    useAppSelector(state => state.deposit);
+  const [activateDeposit] = useActivateDepositMutation();
+
+  const isSingleOption = offer?.depositProducts.length === 1;
+
+  useEffect(() => {
+    if (result) {
+      activateDeposit({
+        sendOtp: true,
+      });
+
+      openModal({
+        element: (
+          <OTPModal
+            onFinished={code => {
+              if (code === '000000') {
+                activateDeposit({
+                  sendOtp: false,
+                  otp: code,
+                  depositId: result.depositId,
+                  fileId: result.agreementId,
+                  cdFileId: result.cdRegistryId,
+                  bpId: result.bpId,
+                  productType: 'deposit', // temp
+                })
+                  .unwrap()
+                  .then(() => {
+                    closeModal();
+                    navigate('DepositSuccessScreen');
+                  });
+              }
+            }}
+          />
+        ),
+        disableDynamicSizing: true,
+        disablePanning: true,
+      });
+    }
+  }, [activateDeposit, navigate, result]);
 
   const handlePress = () => {
     if (!isAgree) {
       return;
     }
-    openModal({
-      element: (
-        <OTPModal
-          onFinished={code => {
-            if (code === '000000') {
-              closeModal();
-              navigate('DepositSuccessScreen');
-            }
-          }}
-        />
-      ),
-      disableDynamicSizing: true,
-      disablePanning: true,
-    });
+
+    const depositParams: RegisterDepositReq = {
+      productId,
+      amount: initialAmount,
+      creditAccountId: creditAccount.id,
+      debitAccountId: debitAccount.id,
+    };
+
+    if (!isSingleOption) {
+      depositParams.periodInMonths = Number(duration);
+    }
+
+    registerDeposit(depositParams);
   };
 
   return {
@@ -35,5 +81,8 @@ export const useNewDepositSummary = () => {
     isAgree,
     setIsAgree,
     newDeposit,
+    isLoadingRegistration,
+    imageUrl,
+    isSingleOption,
   };
 };

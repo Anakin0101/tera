@@ -1,43 +1,125 @@
-import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {
+  useGetInterestRatesQuery,
+  useCalculateDepositMutation,
+} from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setDepositDuration } from 'store/slices/deposit';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { CalculateDeposit } from 'services/apis/productsAPI/productsAPI.types';
 
 const ITEM_SIZE = 86;
-const months = Array.from({ length: 22 }, (_, index) => index + 3);
 
 export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const dispatch = useAppDispatch();
-  const [withdraw, setWithdraw] = useState('');
-  const [duration, setDuration] = useState('3');
-  const [debouncedValue, setDebouncedValue] = useState('3');
-  const lastValue = useRef('3');
+  const [productName, setProductName] = useState({
+    ka: '',
+    en: '',
+  });
+  const [productId, setProductId] = useState<number | null>(null);
+  const [duration, setDuration] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState('');
+  const lastValue = useRef('');
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositSummaryScreen'>>();
-  const { depositType, initialAmount, currency } = useAppSelector(state => state.deposit);
+  const { depositType, initialAmount, currency, offer, creditAccount, debitAccount, imageUrl } =
+    useAppSelector(state => state.deposit);
+  const [calculateDeposit, { data: benefit, isLoading: isLoadingBenefit }] =
+    useCalculateDepositMutation();
+  const { data: interestRates, isLoading: isLoadingRates } = useGetInterestRatesQuery(
+    {
+      productId,
+      amount: initialAmount,
+      creditAccountId: creditAccount.id,
+      debitAccountId: debitAccount.id,
+      currency,
+    },
+    { skip: !productId },
+  );
+
+  const interestRate = useMemo(() => {
+    if (interestRates && offer && offer.depositProducts.length === 1) {
+      return interestRates[0];
+    }
+    return interestRates?.find(item => item.periodInMonths === Number(debouncedValue));
+  }, [debouncedValue, interestRates, offer]);
 
   useEffect(() => {
-    if (duration && months.includes(Number(duration))) {
+    const min = offer?.depositProducts[0].minPeriod;
+
+    if (offer && typeof min === 'number') {
+      setDuration(min.toString());
+      setDebouncedValue(min.toString());
+      lastValue.current = min.toString();
+    }
+  }, [offer]);
+
+  useEffect(() => {
+    if (offer && offer.depositProducts.length === 1) {
+      setProductId(offer.depositProducts[0].productId);
+      setProductName(offer.depositProducts[0].name);
+    }
+  }, [offer]);
+
+  useEffect(() => {
+    if (productId) {
+      const depositParams: CalculateDeposit = {
+        productId,
+        currency,
+        amount: initialAmount,
+        creditAccountId: creditAccount.id,
+        debitAccountId: debitAccount.id,
+      };
+
+      if (offer?.depositProducts.length !== 1) {
+        depositParams.periodInMonths = Number(duration);
+      }
+
+      calculateDeposit(depositParams);
+    }
+  }, [
+    calculateDeposit,
+    currency,
+    debouncedValue,
+    creditAccount.id,
+    debitAccount.id,
+    initialAmount,
+    productId,
+    duration,
+    offer?.depositProducts.length,
+  ]);
+
+  const depositPeriod = useMemo(() => {
+    const min = offer?.depositProducts[0].minPeriod;
+    const max = offer?.depositProducts[0].maxPeriod;
+
+    if (min && max) {
+      return Array.from({ length: max - min + 1 }, (_, index) => index + min);
+    }
+  }, [offer]);
+
+  useEffect(() => {
+    if (duration && depositPeriod && depositPeriod.includes(Number(duration))) {
       lastValue.current = duration;
     }
     const timeout = setTimeout(() => setDebouncedValue(duration), 600);
 
     return () => clearTimeout(timeout);
-  }, [duration]);
+  }, [depositPeriod, duration]);
 
   useEffect(() => {
-    if (debouncedValue && !months.includes(Number(debouncedValue))) {
+    if (debouncedValue && depositPeriod && !depositPeriod.includes(Number(debouncedValue))) {
       setDuration('');
     }
-    if (debouncedValue && months.includes(Number(debouncedValue))) {
+    if (debouncedValue && depositPeriod && depositPeriod.includes(Number(debouncedValue))) {
       ref.current?.scrollToOffset({
         offset: (Number(debouncedValue) - 3) * ITEM_SIZE,
         animated: false,
       });
     }
-  }, [debouncedValue, ref]);
+  }, [debouncedValue, depositPeriod, ref]);
 
   const handleItemPress = useCallback(
     (index: number) => {
@@ -49,17 +131,18 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   );
 
   const handleNextPress = () => {
-    if (!(withdraw && duration)) {
+    if (!(productId && interestRate && benefit)) {
       return;
     }
     dispatch(
       setDepositDuration({
-        duration: Number(duration),
-        withdrawalPeriod: withdraw,
-        interestRate: 11,
-        specialInterestRate: 12.01,
-        effectiveInterestRate: 12.01,
-        benefit: 100,
+        benefit,
+        productId,
+        specialInterestRate: 0.0,
+        duration: offer?.depositProducts.length === 1 ? 0 : Number(duration),
+        interestRate: interestRate?.percent,
+        effectiveInterestRate: interestRate?.effectivePercent,
+        productName: productName,
       }),
     );
     navigate('NewDepositSummaryScreen');
@@ -76,9 +159,9 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     }
   };
 
+  const minPeriod = offer?.depositProducts[0].minPeriod ?? 0;
+
   return {
-    withdraw,
-    setWithdraw,
     duration,
     setDuration,
     debouncedValue,
@@ -89,7 +172,17 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     depositType,
     initialAmount,
     currency,
-    months,
     ITEM_SIZE,
+    offer,
+    setProductId,
+    productId,
+    depositPeriod,
+    interestRate,
+    benefit,
+    isLoadingBenefit,
+    isLoadingRates,
+    imageUrl,
+    setProductName,
+    minPeriod,
   };
 };

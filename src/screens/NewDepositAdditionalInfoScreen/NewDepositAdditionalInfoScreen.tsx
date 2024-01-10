@@ -1,5 +1,14 @@
 import React, { useCallback, useRef } from 'react';
-import { FlatList, ListRenderItem, Pressable, ScrollView, TextInput, View } from 'react-native';
+import {
+  View,
+  Image,
+  FlatList,
+  Pressable,
+  TextInput,
+  ScrollView,
+  ListRenderItem,
+  ActivityIndicator,
+} from 'react-native';
 import Animated, {
   runOnJS,
   useSharedValue,
@@ -12,15 +21,11 @@ import { useNewDepositAdditionalInfo } from './container';
 import { formatDateFullMonth, getDateMonthsLater } from 'utils/formatDate';
 import { useStyles } from './NewDepositAdditionalInfoScreen.styles';
 
-const withdrawPeriod = ['ვადის ბოლოს', 'წინასწარ', 'ყოველთვე'];
-
 export const NewDepositAdditionalInfoScreen = () => {
   const ref = useRef<FlatList>(null);
   const styles = useStyles();
   const scrollX = useSharedValue(0);
   const {
-    withdraw,
-    setWithdraw,
     duration,
     setDuration,
     debouncedValue,
@@ -31,118 +36,159 @@ export const NewDepositAdditionalInfoScreen = () => {
     depositType,
     initialAmount,
     currency,
-    months,
     ITEM_SIZE,
+    offer,
+    setProductId,
+    productId,
+    depositPeriod,
+    interestRate,
+    benefit,
+    isLoadingBenefit,
+    isLoadingRates,
+    imageUrl,
+    setProductName,
+    minPeriod,
   } = useNewDepositAdditionalInfo(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     scrollX.value = event.contentOffset.x;
-    runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + 3));
+    runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + minPeriod));
   });
 
-  const renderItem: ListRenderItem<number> = useCallback(
+  const renderItem: ListRenderItem<string> = useCallback(
     ({ item, index }) => {
       return <Item item={item} index={index} scrollX={scrollX} onPress={handleItemPress} />;
     },
     [handleItemPress, scrollX],
   );
 
+  const isSingleOption = offer?.depositProducts.length === 1;
+
   return (
     <ScrollView bounces={false} style={styles.wrapper} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <Image source={{ uri: imageUrl }} style={styles.image} />
+        </View>
         <View>
           <Text children={depositType} medium size={16} />
           <Text children={formatMoney(initialAmount, currency)} size={18} />
         </View>
       </View>
-      <View style={styles.main}>
-        <View>
-          {/* <Text children="დასრულების თარიღი" secondary center />
-          <Text children="უვადო" special center /> */}
-          <Text children="newDeposit.depositDuration" secondary center />
-          <View style={styles.duration}>
-            <Animated.FlatList
-              ref={ref}
-              horizontal
-              bounces={false}
-              data={months}
-              onScroll={handleScroll}
-              renderItem={renderItem}
-              decelerationRate="fast"
-              snapToInterval={ITEM_SIZE}
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.durationContentContainer}
-              getItemLayout={(_, index) => ({
-                length: ITEM_SIZE,
-                offset: ITEM_SIZE * index,
-                index,
-              })}
-            />
-            <View style={styles.inputContainer}>
-              <TextInput
-                value={duration}
-                onChangeText={onChangeText}
-                maxLength={2}
-                textAlign="center"
-                keyboardType="number-pad"
-                style={styles.input}
-                onBlur={onBlur}
-              />
-            </View>
-            <Text children="newDeposit.completionDate" secondary center marginTop={24} />
-            {debouncedValue && Number(debouncedValue) > 2 && Number(debouncedValue) < 25 && (
-              <Text
-                children={formatDateFullMonth(
-                  getDateMonthsLater(Number(debouncedValue)),
-                  'DD-MM-YYYY',
+      <View style={[styles.main, isSingleOption && styles.fullHeight]}>
+        {isSingleOption ? (
+          <>
+            <Text children="დასრულების თარიღი" secondary center />
+            <Text children="უვადო" special center />
+          </>
+        ) : (
+          <>
+            <View>
+              <Text children="newDeposit.depositDuration" secondary center />
+              <View style={styles.duration}>
+                <Animated.FlatList
+                  ref={ref}
+                  horizontal
+                  bounces={false}
+                  data={depositPeriod}
+                  onScroll={handleScroll}
+                  renderItem={renderItem}
+                  decelerationRate="fast"
+                  snapToInterval={ITEM_SIZE}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.durationContentContainer}
+                  getItemLayout={(_, index) => ({
+                    length: ITEM_SIZE,
+                    offset: ITEM_SIZE * index,
+                    index,
+                  })}
+                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    value={duration}
+                    onChangeText={onChangeText}
+                    maxLength={2}
+                    textAlign="center"
+                    keyboardType="number-pad"
+                    style={styles.input}
+                    onBlur={onBlur}
+                  />
+                </View>
+                <Text children="newDeposit.completionDate" secondary center marginTop={24} />
+                {debouncedValue && Number(debouncedValue) > 2 && Number(debouncedValue) < 25 && (
+                  <Text
+                    children={formatDateFullMonth(
+                      getDateMonthsLater(Number(debouncedValue)),
+                      'DD-MM-YYYY',
+                    )}
+                    secondary
+                    center
+                  />
                 )}
-                secondary
-                center
-              />
-            )}
-          </View>
-        </View>
-        <Text children="newDeposit.withdrawBenefits" secondary marginTop={35} center />
-        <ScrollView
-          horizontal
-          style={styles.scrollView}
-          contentContainerStyle={styles.contentContainer}
-          showsHorizontalScrollIndicator={false}
-        >
-          {withdrawPeriod.map(period => (
-            <Pressable
-              key={period}
-              onPress={() => setWithdraw(period)}
-              style={[styles.period, withdraw === period && styles.selected]}
+              </View>
+            </View>
+            <Text children="newDeposit.withdrawBenefits" secondary marginTop={35} center />
+            <ScrollView
+              horizontal
+              style={styles.scrollView}
+              contentContainerStyle={styles.contentContainer}
+              showsHorizontalScrollIndicator={false}
             >
-              <Text children={period} special={withdraw === period} />
-            </Pressable>
-          ))}
-        </ScrollView>
+              {offer?.depositProducts.map(product => (
+                <Pressable
+                  key={product.productId}
+                  onPress={() => {
+                    setProductId(product.productId);
+                    setProductName(product.name);
+                  }}
+                  style={[styles.period, productId === product.productId && styles.selected]}
+                >
+                  <Text children={product.name.ka} special={productId === product.productId} />
+                </Pressable>
+              ))}
+            </ScrollView>
+          </>
+        )}
         <View style={styles.table}>
           <View style={styles.tableItem}>
             <Text children="deposits.interestRate" secondary />
-            <Text children="11.00%" style={styles.regularRate} label secondary />
-            <Text children="12.01%" style={styles.specialRate} />
+            {isLoadingRates ? (
+              <ActivityIndicator />
+            ) : (
+              <>
+                <Text children="0.00%" style={styles.regularRate} label secondary />
+                <Text
+                  children={interestRate ? `${interestRate.effectivePercent}%` : '0.00%'}
+                  style={styles.specialRate}
+                />
+              </>
+            )}
           </View>
           <Divider height={1} marginTop={18} marginBottom={18} />
           <View style={styles.tableItem}>
             <Text children="newDeposit.effectiveInterestRate" secondary />
-            <Text children="12.01%" />
+            {isLoadingRates ? (
+              <ActivityIndicator />
+            ) : (
+              <Text children={interestRate ? `${interestRate.percent}%` : '0.00%'} />
+            )}
           </View>
           <Divider height={1} marginTop={18} marginBottom={18} />
           <View style={styles.tableItem}>
             <Text children="newDeposit.benefit" secondary />
-            <Text children={formatMoney(100, 'GEL')} special />
+            {isLoadingBenefit ? (
+              <ActivityIndicator />
+            ) : (
+              <Text children={benefit ? formatMoney(benefit, currency) : '0.00'} special />
+            )}
           </View>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer, isSingleOption && styles.buttonMargin]}>
           <Button.Primary
             fullWidth
             text="common.next"
             onPress={handleNextPress}
-            customWrapperStyle={[styles.button, !(withdraw && duration) && styles.disabled]}
+            customWrapperStyle={[styles.button, !productId && styles.disabled]}
           />
         </View>
       </View>

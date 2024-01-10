@@ -1,48 +1,83 @@
-import React from 'react';
-import { useCallback, useEffect, useState } from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
-import { arrayRange } from 'utils/arrayRange';
+import React, { useMemo, useCallback, useEffect, useState } from 'react';
+import { FlatList, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { openModal } from 'utils/modal';
+import {
+  useGetAccountsByCustomerIdQuery,
+  useGetTeraWalletInfoQuery,
+} from 'services/apis/productsAPI/productsAPI';
+import { SelectDepositModal } from 'components/modals/SelectDepositModal/SelectDepositModal';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { Currency, WalletAccount } from 'services/apis/productsAPI/productsAPI.types';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setWalletData } from 'store/slices/teraWallet';
 
 const ITEM_SIZE = 86;
-const arr = [0.25, 0.5, 1, 2, 3, 4];
-const amounts = [...arr, ...arrayRange(5, 100, 5)];
 
 export const useTeraWallet = (
   ref: React.RefObject<FlatList>,
   scrollViewRef: React.RefObject<ScrollView>,
 ) => {
-  const [duration, setDuration] = useState('0.25');
-  const [debouncedValue, setDebouncedValue] = useState('0.25');
+  const dispatch = useAppDispatch();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'TeraWalletPDFScreen'>>();
+  const [amount, setAmount] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: teraWalletInfo } = useGetTeraWalletInfoQuery();
+  const [selectedDeposit, setSelectedDeposit] = useState<WalletAccount | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('GEL');
+  const { data: accounts } = useGetAccountsByCustomerIdQuery();
+
+  const amounts = useMemo(() => {
+    return teraWalletInfo?.amount.map(item => ({
+      ...item,
+      value: parseFloat(item.value).toString(),
+    }));
+  }, [teraWalletInfo?.amount]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setDuration(String(amounts[activeIndex])), 300);
+    if (amounts) {
+      setAmount(amounts[0].value);
+      setDebouncedValue(amounts[0].value);
+    }
+  }, [amounts]);
+
+  useEffect(() => {
+    if (!amounts) {
+      return;
+    }
+    const timeout = setTimeout(() => setAmount(amounts[activeIndex].value), 300);
+
     return () => clearTimeout(timeout);
-  }, [activeIndex]);
+  }, [activeIndex, amounts]);
 
   useEffect(() => {
-    const id = setTimeout(() => setDebouncedValue(duration), 600);
+    const id = setTimeout(() => setDebouncedValue(amount), 600);
     return () => clearTimeout(id);
-  }, [duration]);
+  }, [amount]);
 
   useEffect(() => {
-    if (debouncedValue && !amounts.includes(Number(debouncedValue))) {
-      setDuration('');
+    if (!amounts) {
       return;
     }
 
-    const index = amounts.findIndex(amount => amount === Number(debouncedValue));
-    if (index > -1) {
+    if (debouncedValue && !amounts.some(item => item.value === debouncedValue)) {
+      setAmount('');
+      return;
+    }
+
+    const index = amounts.findIndex(item => item.value === debouncedValue);
+
+    if (typeof index === 'number' && index > -1) {
       ref.current?.scrollToOffset({
         offset: index * ITEM_SIZE,
         animated: false,
       });
     }
-  }, [debouncedValue, ref]);
+  }, [amounts, debouncedValue, ref]);
 
   const onChangeText = (value: string) => {
-    setDuration(value);
+    setAmount(value);
   };
 
   const onFocus = () => {
@@ -50,8 +85,8 @@ export const useTeraWallet = (
   };
 
   const onBlur = () => {
-    if (!duration) {
-      setDuration(String(amounts[activeIndex]));
+    if (amounts && !amount) {
+      setAmount(amounts[activeIndex].value);
     }
   };
 
@@ -66,15 +101,47 @@ export const useTeraWallet = (
 
   const handleSelectDepositPress = () => {
     openModal({
-      element: <View />,
+      element: (
+        <SelectDepositModal
+          deposits={teraWalletInfo?.account || []}
+          selectedDeposit={selectedDeposit}
+          onPress={setSelectedDeposit}
+          setSelectedCurrency={setSelectedCurrency}
+        />
+      ),
       title: 'teraWallet.chooseDeposit',
+      disablePanning: true,
+      snapPoints: ['90%'],
     });
   };
 
+  const handleNextPress = () => {
+    const selectedAmountItem = amounts?.find(item => item.value === amount);
+
+    if (!(selectedDeposit && selectedAmountItem)) {
+      return;
+    }
+
+    dispatch(
+      setWalletData({
+        accountId: selectedDeposit.accountId,
+        amountId: selectedAmountItem?.key,
+        currency: selectedCurrency,
+      }),
+    );
+
+    navigate('TeraWalletPDFScreen');
+  };
+
+  const selectedDepositInfo = useMemo(() => {
+    if (accounts && selectedDeposit) {
+      return accounts?.find(item => item.accountId === selectedDeposit?.accountId);
+    }
+  }, [accounts, selectedDeposit]);
+
   return {
     handleItemPress,
-    duration,
-    setDuration,
+    amount,
     handleSelectDepositPress,
     activeIndex,
     setActiveIndex,
@@ -83,5 +150,10 @@ export const useTeraWallet = (
     onFocus,
     amounts,
     ITEM_SIZE,
+    selectedDeposit,
+    selectedCurrency,
+    teraWalletInfo,
+    handleNextPress,
+    selectedDepositInfo,
   };
 };

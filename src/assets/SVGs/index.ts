@@ -108,3 +108,5 @@ export { Passcode } from './Passcode';
 export { Confidentiality } from './Confidentiality';
 export { SmallCC } from './SmallCC';
 export { CheckLarge } from './CheckLarge';
+export { Timer } from './Timer';
+export { Percent } from './Percent';

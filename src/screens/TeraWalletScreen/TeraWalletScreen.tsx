@@ -12,6 +12,8 @@ import { useTeraWallet } from './container';
 import { formatMoney } from 'utils/formatMoney';
 import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { useStyles } from './TeraWalletScreen.styles';
+import { WalletAmount } from 'services/apis/productsAPI/productsAPI.types';
+import { Loader } from 'components/Loader/Loader';
 
 export const TeraWalletScreen = () => {
   const styles = useStyles();
@@ -20,7 +22,7 @@ export const TeraWalletScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null);
   const {
     handleItemPress,
-    duration,
+    amount,
     handleSelectDepositPress,
     setActiveIndex,
     onChangeText,
@@ -28,6 +30,11 @@ export const TeraWalletScreen = () => {
     onFocus,
     amounts,
     ITEM_SIZE,
+    selectedDeposit,
+    selectedCurrency,
+    teraWalletInfo,
+    handleNextPress,
+    selectedDepositInfo,
   } = useTeraWallet(flatListRef, scrollViewRef);
 
   const handleScroll = useAnimatedScrollHandler(event => {
@@ -35,20 +42,24 @@ export const TeraWalletScreen = () => {
     runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
   });
 
-  const renderItem: ListRenderItem<number> = useCallback(
+  const renderItem: ListRenderItem<WalletAmount> = useCallback(
     ({ item, index }) => {
       return (
         <Item
-          item={item}
+          item={item.value}
           index={index}
           scrollX={scrollX}
           onPress={handleItemPress}
-          currency="GEL"
+          currency={selectedCurrency}
         />
       );
     },
-    [handleItemPress, scrollX],
+    [handleItemPress, scrollX, selectedCurrency],
   );
+
+  if (!teraWalletInfo) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView ref={scrollViewRef} style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -75,7 +86,7 @@ export const TeraWalletScreen = () => {
         />
         <View style={styles.inputContainer}>
           <TextInput
-            value={duration}
+            value={amount}
             onChangeText={onChangeText}
             maxLength={4}
             textAlign="center"
@@ -92,14 +103,23 @@ export const TeraWalletScreen = () => {
         <View style={styles.footerIconContainer} />
         <Pressable style={styles.selectDepositInner} onPress={handleSelectDepositPress}>
           <View>
-            <Text children="შემნახველი ანაბარი" label secondary />
-            <Text children={formatMoney(48200, 'GEL')} />
+            <Text
+              children={selectedDeposit ? selectedDeposit.nameGeo : 'teraWallet.chooseDeposit'}
+              label
+              secondary
+            />
+            <Text children={formatMoney(selectedDepositInfo?.balance ?? 0, selectedCurrency)} />
           </View>
           <ChevronDown color={Colors.black700} />
         </Pressable>
       </View>
       <View style={styles.buttonContainer}>
-        <Button.Primary text="common.next" fullWidth customWrapperStyle={styles.button} />
+        <Button.Primary
+          fullWidth
+          text="common.next"
+          onPress={handleNextPress}
+          customWrapperStyle={[styles.button, !selectedDeposit && styles.disbaled]}
+        />
       </View>
     </ScrollView>
   );

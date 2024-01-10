@@ -1,28 +1,39 @@
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { Currency, OfferDetails } from 'services/apis/productsAPI/productsAPI.types';
+
+interface SelectedAccount {
+  id: number;
+  balance: number;
+  iban: string;
+}
+
+interface ProductName {
+  ka: string;
+  en: string;
+}
 
 export type NewDepositStateProps = {
   depositType: string;
   initialAmount: number;
   currency: Currency;
-  initAccount: string;
-  initAccountAvailableBalance: number;
-  finalAccount: string;
-  finalAccountAvailableBalance: number;
   duration: number;
-  withdrawalPeriod: string;
   interestRate: number;
   specialInterestRate: number;
   effectiveInterestRate: number;
   benefit: number;
+  offer: OfferDetails | null;
+  productId: number;
+  registrationId: string;
+  imageUrl: string;
+  creditAccount: SelectedAccount;
+  debitAccount: SelectedAccount;
+  productName: ProductName;
 };
 
 interface InitialAmount {
   initialAmount: number;
   currency: Currency;
-  initAccount: string;
-  finalAccount: string;
-  initAccountAvailableBalance: number;
-  finalAccountAvailableBalance: number;
+  creditAccount: SelectedAccount;
+  debitAccount: SelectedAccount;
 }
 
 export interface InitialAmountPayload {
@@ -31,13 +42,27 @@ export interface InitialAmountPayload {
 
 interface DepositDuration {
   duration: number;
-  withdrawalPeriod: string;
   interestRate: number;
   specialInterestRate: number;
   effectiveInterestRate: number;
   benefit: number;
+  productId: number;
+  productName: ProductName;
 }
 
 export interface DepositDurationPayload {
   payload: DepositDuration;
+}
+
+export interface OfferDetailsPayload {
+  payload: OfferDetails;
+}
+
+export interface ActivateDepositReq {}
+
+export interface DepositTypePayload {
+  payload: {
+    depositType: string;
+    imageUrl: string;
+  };
 }
