@@ -6,8 +6,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TinyChevron } from 'assets/SVGs';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
-import { useDispatch } from 'react-redux';
-import { clearAccountFromData, clearAccountToData } from 'store/slices/transfers';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrencyIcon } from 'utils/currency';
 
@@ -75,20 +73,17 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
   );
 
   const { selectedIban } = selectedItemFromStore;
-  const dispatch = useDispatch();
   const styles = useStyleTheme();
 
   const handlePress = useCallback(
     (arg: number) => {
       if (arg === 1) {
-        dispatch(clearAccountFromData());
         navigate('MyAccountsScreen');
       } else {
-        dispatch(clearAccountToData());
         navigate('ToAccountScreen', { selected: selectedIban });
       }
     },
-    [dispatch, navigate, selectedIban],
+    [navigate, selectedIban],
   );
 
   return (
