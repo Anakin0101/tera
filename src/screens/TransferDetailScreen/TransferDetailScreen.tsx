@@ -15,8 +15,10 @@ import { OtherBankList } from './OtherBankList';
 import { openModal, closeModal } from 'utils/modal';
 import { OTPModal } from 'components';
 import { TransferToOwnAccountResponseType } from 'services/apis/transfersAPI/transfersAPI.types';
+import { useTranslation } from 'react-i18next';
 
 export const TransferDetailScreen = () => {
+  const { t } = useTranslation();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
   );
@@ -57,7 +59,13 @@ export const TransferDetailScreen = () => {
       );
       formData.append('amount', selectedPrice);
       formData.append('receiverName', receiverInfo.customerName);
-      formData.append('purpose', selectedData ? selectedData : PERSONAL_TRANSACTION);
+      formData.append(
+        'purpose',
+        params.fromOtherBank && !selectedData
+          ? t('transfers.personalTransfer')
+          : selectedData || t('transfers.bankingTransferOfBalance'),
+      );
+
       formData.append('extraPurpose', '');
       formData.append('otp', '');
       formData.append('fastPayment', 'false');

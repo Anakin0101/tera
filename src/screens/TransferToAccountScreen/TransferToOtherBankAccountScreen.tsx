@@ -38,7 +38,6 @@ interface TransferToAccountScreenProps {}
 
 export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
-
   const { fromOtherBank, fromMobile } = params;
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();

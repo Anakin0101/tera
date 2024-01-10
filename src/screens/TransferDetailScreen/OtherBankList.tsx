@@ -3,11 +3,13 @@ import { View } from 'react-native';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
+import { useTranslation } from 'react-i18next';
 
 export const OtherBankList = ({ selectedItemFromStore }: any) => {
   const { accountFromData, accountToData, selectedData, selectedPrice } = selectedItemFromStore;
 
   const styles = useStyleTheme();
+  const { t } = useTranslation();
 
   const renderDetailsItem = (
     label: string,
@@ -29,7 +31,10 @@ export const OtherBankList = ({ selectedItemFromStore }: any) => {
           {renderDetailsItem('transfers.where', `${accountToData.name} `)}
           {renderDetailsItem('personalNumber.Receiver', `${accountToData.iban}`)}
           {renderDetailsItem('transactionDetails.amount', `${selectedPrice} ₾`)}
-          {renderDetailsItem('transfers.destination', selectedData)}
+          {renderDetailsItem(
+            'transfers.destination',
+            selectedData ? selectedData : t('transfers.personalTransfer'),
+          )}
         </View>
       </View>
     );
