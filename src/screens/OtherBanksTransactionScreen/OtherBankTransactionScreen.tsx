@@ -9,6 +9,7 @@ import PersonalNumberTransaction from 'components/PersonalNumberTransaction/Pers
 import MobileTransaction from 'components/MobileTransaction/MobileTransaction';
 import { useStyleTheme } from './OtherBankTransactionScreen.styles';
 import { transactionTabs } from 'constants/transactionConstants';
+import { useTranslation } from 'react-i18next';
 
 export const OtherBankTransactionScreen = () => {
   const styles = useStyleTheme();
@@ -16,7 +17,7 @@ export const OtherBankTransactionScreen = () => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const zIndex = useSharedValue(1);
-
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<number | null>(0);
 
   const onTabPress = (index: number) => {
@@ -25,19 +26,23 @@ export const OtherBankTransactionScreen = () => {
     } else {
       setActiveTab(index);
     }
+
     translateX.value = withTiming(index * config.mobileWidth);
+
     flatlistRef.current?.scrollToOffset({
       animated: true,
+
       offset: index * config.mobileWidth,
     });
   };
+
   const renderItem: ListRenderItem<string> = ({ item }) => {
     switch (item) {
-      case 'transactionDetails.personal':
+      case t('transactionDetails.personal'):
         return <PersonalNumberTransaction />;
-      case 'transactionDetails.iban':
+      case t('transactionDetails.iban'):
         return <IbanTransaction />;
-      case 'transactionDetails.mobile':
+      case t('transactionDetails.mobile'):
         return <MobileTransaction />;
       default:
         return null;

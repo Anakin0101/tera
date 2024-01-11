@@ -22,15 +22,18 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
   const [, setFirstTabWidth] = useState(0);
   const [, setSecondTabWidth] = useState(0);
   const [, setThirdTabWidth] = useState(0);
+
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );
+
   const { accountFromData } = selectedItemFromStore;
 
   const currencies = ['USD', 'EUR'];
 
   const onLayout = (event: LayoutChangeEvent, idx: number) => {
     const { width } = event.nativeEvent.layout;
+
     idx === 0
       ? setFirstTabWidth(width)
       : idx === 1
@@ -50,7 +53,9 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
     return {
       backgroundColor: interpolateColor(
         translateY.value,
+
         [0, 20],
+
         [Colors.dashboardBackground, Colors.overlay],
       ),
     };
@@ -84,7 +89,7 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
             tabBarLabelStyle
             activeTab={activeTab}
             index={2}
-            tab={'transactionDetails.mobile'}
+            tab={t('transactionDetails.mobile')}
             onLayout={onLayout}
             onTabPress={onTabPress}
             translateX={translateX}
