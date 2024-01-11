@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import {
   AccountDetailsScreen,
   AllAcountsAndCardsScreen,
@@ -25,12 +25,13 @@ import {
   MY_ACCOUNT_SCROLLABLE_SCREEN,
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
-import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CustomHeader } from 'components/CustomHeader';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
 import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 import { Colors } from 'theme/Variables';
+import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { useStyleTheme } from 'navigation/Navigation.styles';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -52,22 +53,28 @@ const ProductsStackHeaderMap = {
 export const ProductsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
-  const { FontFamily } = useTheme();
+  const st = useStyleTheme();
   return (
-    <Navigator initialRouteName={PRODUCTS_SCREEN}>
+    <Navigator
+      initialRouteName={PRODUCTS_SCREEN}
+      screenOptions={{
+        headerLeft: HeaderBackArrow,
+        headerTitleStyle: st.headerTitleStyle,
+        headerStyle: {
+          backgroundColor: Colors.defaultBackground,
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
       <Screen
         name={PRODUCTS_SCREEN}
         component={ProductsScreen}
         options={{
           title: t('common:navigation.products'),
           headerTitleAlign: 'left',
-          headerStyle: {
-            backgroundColor: Colors.headerBackground,
-            shadowColor: 'transparent',
-          },
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
+          headerLeft: () => null,
         }}
       />
       <Screen
@@ -75,14 +82,6 @@ export const ProductsStack = () => {
         component={AllAcountsAndCardsScreen}
         options={{
           title: t('products.allAccounts'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -90,14 +89,6 @@ export const ProductsStack = () => {
         component={AccountDetailsScreen}
         options={{
           title: t('products.accountDetails'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -105,13 +96,6 @@ export const ProductsStack = () => {
         component={MyAccountsScrollableScreen}
         options={{
           header: ProductsStackHeaderMap[MY_ACCOUNT_SCROLLABLE_SCREEN],
-          headerStyle: {
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -119,14 +103,6 @@ export const ProductsStack = () => {
         component={CardDetailsScreen}
         options={{
           title: t('products.cardDetails'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -134,14 +110,6 @@ export const ProductsStack = () => {
         component={CardInsuranceScreen}
         options={{
           title: t('products.cardInsurance'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -149,14 +117,6 @@ export const ProductsStack = () => {
         component={InsurancePackageDetails}
         options={{
           title: t('products.insurancePackageDetails'),
-          headerStyle: {
-            backgroundColor: Colors.lightGray,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -164,14 +124,6 @@ export const ProductsStack = () => {
         component={DepositsScreen}
         options={{
           title: t('products.allDeposits'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -181,11 +133,6 @@ export const ProductsStack = () => {
           title: t('products.depositDetails'),
           headerStyle: {
             backgroundColor: Colors.lightGray,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
           },
         }}
       />
@@ -194,14 +141,6 @@ export const ProductsStack = () => {
         component={LoansScreen}
         options={{
           title: t('loans.title'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
         }}
       />
       <Screen
@@ -211,11 +150,6 @@ export const ProductsStack = () => {
           title: t('loans.details'),
           headerStyle: {
             backgroundColor: Colors.lightGray,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
           },
         }}
       />

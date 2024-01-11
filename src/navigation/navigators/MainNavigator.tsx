@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import {
   ALL_TRANSACTIONS_SCREEN,
   INITIAL_STACK,
@@ -13,8 +13,10 @@ import { ModalNavigator } from 'navigation/stacks/ModalStack';
 import { useMainNavigator } from 'hooks';
 
 import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
-import { Colors, FontFamily } from 'theme/Variables';
+import { Colors } from 'theme/Variables';
 import { TabNavigator } from './TabNavigator';
+import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { useStyleTheme } from 'navigation/Navigation.styles';
 
 const RootStack = createStackNavigator<MainStackParamsList>();
 
@@ -22,9 +24,22 @@ export const MainNavigator = () => {
   const { t } = useTranslation();
   const { Navigator, Screen } = RootStack;
   useMainNavigator();
+  const st = useStyleTheme();
 
   return (
-    <Navigator initialRouteName={INITIAL_STACK}>
+    <Navigator
+      initialRouteName={INITIAL_STACK}
+      screenOptions={{
+        headerLeft: HeaderBackArrow,
+        headerTitleStyle: st.headerTitleStyle,
+        headerStyle: {
+          backgroundColor: Colors.defaultBackground,
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
       <Screen name={INITIAL_STACK} component={TabNavigator} options={hideHeader} />
       <Screen name={MODAL_STACK} component={ModalNavigator} options={hideHeader} />
       <Screen
@@ -32,12 +47,6 @@ export const MainNavigator = () => {
         component={AllTransactionsScreen}
         options={{
           title: t('transactions.title'),
-          headerStyle: {
-            backgroundColor: Colors.defaultBackground,
-            shadowColor: 'transparent',
-          },
-          headerBackTitleVisible: false,
-          headerTitleStyle: { fontFamily: FontFamily.Regular },
         }}
       />
       <Screen
@@ -45,12 +54,6 @@ export const MainNavigator = () => {
         component={TransactionDetailsScreen}
         options={{
           title: t('transactions.details'),
-          headerStyle: {
-            backgroundColor: Colors.defaultBackground,
-            shadowColor: 'transparent',
-          },
-          headerBackTitleVisible: false,
-          headerTitleStyle: { fontFamily: FontFamily.Regular },
         }}
       />
     </Navigator>

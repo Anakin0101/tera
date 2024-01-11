@@ -10,10 +10,10 @@ export const useStyleTheme = () => {
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
       backgroundColor: Colors.dashboardBackground,
-      height: verticalScale(68),
+      height: verticalScale(50),
     },
     initialContainer: {
-      height: verticalScale(104),
+      // height: verticalScale(104),
     },
     whiteBackground: {
       backgroundColor: Colors.white,
@@ -51,7 +51,7 @@ export const useStyleTheme = () => {
     accountText: { color: Colors.accountText500, ...Fonts.textCenter, fontSize: FontSize.tiny },
     isInitialScreenText: {
       ...Fonts.textBold,
-      fontSize: FontSize.regularPlus,
+      fontSize: FontSize.regular,
     },
     iconCommonStyles: {
       width: 32,
