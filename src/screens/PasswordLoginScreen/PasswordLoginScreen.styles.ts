@@ -31,6 +31,9 @@ const useStyles = () => {
     text: {
       marginHorizontal: Spacing.ml,
     },
+    mainContainer: {
+      ...Layout.flexOne,
+    },
   });
 };
 

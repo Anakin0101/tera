@@ -102,7 +102,7 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
         <View
           style={[
             styles.container,
-            isInitialScreen && styles.initialContainer,
+            // isInitialScreen && styles.initialContainer,
             whiteBackground && styles.whiteBackground,
             customHeaderContainerStyle,
             bottomBorder && styles.borderBottom,

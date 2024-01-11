@@ -151,5 +151,8 @@ export default function ({}: ThemeVariables) {
     flexWrap: {
       flexWrap: 'wrap',
     },
+    flexOne: {
+      flex: 1,
+    },
   });
 }

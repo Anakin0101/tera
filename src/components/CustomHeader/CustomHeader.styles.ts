@@ -13,7 +13,7 @@ export const useStyleTheme = () => {
       height: verticalScale(50),
     },
     initialContainer: {
-      // height: verticalScale(104),
+      height: verticalScale(104),
     },
     whiteBackground: {
       backgroundColor: Colors.white,
