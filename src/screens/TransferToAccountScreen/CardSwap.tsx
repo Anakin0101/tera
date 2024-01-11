@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrencyIcon } from 'utils/currency';
+import { formatMoney } from 'utils/formatMoney';
 
 export type cardProps = {
   accountFromData: any;
@@ -24,7 +25,7 @@ const CardItem = ({
   ccy,
 }: {
   title: string | undefined;
-  balance: number | undefined;
+  balance: number | string | undefined;
   onPress: () => void;
   reverse?: boolean;
   ccy: string;
@@ -90,7 +91,7 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
     <View style={styles.cardWrapper}>
       <CardItem
         title={accountFromData?.accountName}
-        balance={accountFromData?.availableBalance}
+        balance={formatMoney(accountFromData?.availableBalance)}
         ccy={accountFromData?.ccy}
         onPress={() => handlePress(1)}
       />
@@ -99,8 +100,8 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
         reverse
         title={accountToData?.accountName ? accountToData?.accountName : accountToData?.name}
         balance={
-          accountToData?.availableBalance
-            ? accountToData?.availableBalance
+          accountToData?.availableBalance || accountToData?.availableBalance === 0
+            ? formatMoney(accountToData?.availableBalance)
             : accountToData?.iban
             ? accountToData?.iban
             : accountToData?.accountIban

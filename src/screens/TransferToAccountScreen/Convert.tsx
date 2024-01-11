@@ -153,7 +153,7 @@ export const Convert = ({
           style={styles.courseText}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
+      <TouchableOpacity hitSlop={30} style={styles.button} onPress={openTransferScreen}>
         <Text children={selectedData ? selectedData : 'transfers.convertion'} style={styles.text} />
         <EditSvg style={styles.icon} />
       </TouchableOpacity>

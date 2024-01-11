@@ -5,6 +5,7 @@ import { useStyles } from './DynamicAccount.styles';
 import { CheckCircle } from 'assets/SVGs';
 import { Divider, Text } from 'components';
 import { getCurrencyIcon } from 'utils/currency';
+import { formatMoney } from 'utils/formatMoney';
 
 export const DynamicAccount: FC<IAccountProps> = ({ data, isSelected, onPress }) => {
   const styles = useStyles();
@@ -19,7 +20,7 @@ export const DynamicAccount: FC<IAccountProps> = ({ data, isSelected, onPress })
             <View>
               <Text children={data.iban ? data.iban : data.accountIban} size={14} />
               <Text size={16} style={styles.bold}>
-                {data.availableBalance} {getCurrencyIcon(data.ccy)}
+                {formatMoney(data.availableBalance)} {getCurrencyIcon(data.ccy)}
               </Text>
             </View>
             {isSelected && (
