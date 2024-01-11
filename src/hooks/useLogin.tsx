@@ -22,8 +22,9 @@ import { setValue } from 'storage/index';
 import { USER_LOGGED_OUT } from 'storage/constants';
 
 export const useLogin = () => {
-  const [loginUser] = useLoginUserMutation();
-  const [loginByRefreshToken] = useLoginByRefreshTokenMutation();
+  const [loginUser, { isLoading: loginUserLoading }] = useLoginUserMutation();
+  const [loginByRefreshToken, { isLoading: loginByRefreshTokenLoading }] =
+    useLoginByRefreshTokenMutation();
   const dispatch = useAppDispatch();
   const { refreshToken } = useAppSelector(state => state.userInfo);
   const { userIp } = useAppSelector(state => state.deviceInfo);
@@ -142,5 +143,7 @@ export const useLogin = () => {
   return {
     handleSignIn,
     handlePasscodeSignIn,
+    loginUserLoading,
+    loginByRefreshTokenLoading,
   };
 };

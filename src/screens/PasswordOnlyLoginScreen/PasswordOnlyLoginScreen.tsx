@@ -13,7 +13,7 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   const styles = useStyles();
   const { savedLoginName } = useKeyChain();
 
-  const { handleSignIn } = useLogin();
+  const { handleSignIn, loginUserLoading } = useLogin();
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
 
@@ -50,7 +50,12 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
         <Text children="common:passAuth.forgot" label special />
       </View>
       <View style={styles.buttonCont}>
-        <Button.Primary text="common:passAuth.signin" onPress={handleSubmit(onSubmit)} fullWidth />
+        <Button.Primary
+          text="common:passAuth.signin"
+          onPress={handleSubmit(onSubmit)}
+          fullWidth
+          isLoading={loginUserLoading}
+        />
       </View>
     </View>
   );

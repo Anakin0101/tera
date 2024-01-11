@@ -20,7 +20,7 @@ type FormData = {
 
 const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
   const styles = useStyles();
-  const { handleSignIn } = useLogin();
+  const { handleSignIn, loginUserLoading } = useLogin();
   const dispatch = useAppDispatch();
   const { isKeyboardOpened } = useKeyboard();
 
@@ -80,6 +80,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
             text="common:passAuth.signin"
             onPress={handleSubmit(onSubmit)}
             fullWidth
+            isLoading={loginUserLoading}
           />
           <View style={styles.dividerContainer}>
             <View style={styles.divider} />

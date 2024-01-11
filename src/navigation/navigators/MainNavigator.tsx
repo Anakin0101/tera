@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   ALL_TRANSACTIONS_SCREEN,
   INITIAL_STACK,
+  LOADING_SCREEN,
   MODAL_STACK,
   TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -11,8 +12,7 @@ import { hideHeader } from 'navigation/config';
 import { MainStackParamsList } from 'navigation/types';
 import { ModalNavigator } from 'navigation/stacks/ModalStack';
 import { useMainNavigator } from 'hooks';
-
-import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
+import { AllTransactionsScreen, LoadingScreen, TransactionDetailsScreen } from 'screens';
 import { Colors, FontFamily } from 'theme/Variables';
 import { TabNavigator } from './TabNavigator';
 
@@ -53,6 +53,7 @@ export const MainNavigator = () => {
           headerTitleStyle: { fontFamily: FontFamily.Regular },
         }}
       />
+      <Screen name={LOADING_SCREEN} component={LoadingScreen} options={hideHeader} />
     </Navigator>
   );
 };
