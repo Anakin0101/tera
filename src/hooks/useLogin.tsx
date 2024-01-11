@@ -81,25 +81,28 @@ export const useLogin = () => {
               dispatch(resetStateAction());
             }
             setLoginName(loginName);
-            res.accessToken
-              ? dispatch(
-                  setUserCredentials({
-                    accessToken: res.accessToken,
-                    refreshToken: res.refreshToken,
-                  }),
-                )
-              : openModal({
-                  element: (
-                    <OTPModal
-                      onFinished={code => {
-                        handleSignInWithOTP(code, loginName, password);
-                      }}
-                    />
-                  ),
-                  disableDynamicSizing: true,
-                  disablePanning: true,
-                  withKeyboard: true,
-                });
+            if (res.accessToken) {
+              dispatch(
+                setUserCredentials({
+                  accessToken: res.accessToken,
+                  refreshToken: res.refreshToken,
+                }),
+              );
+              replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
+            } else {
+              openModal({
+                element: (
+                  <OTPModal
+                    onFinished={code => {
+                      handleSignInWithOTP(code, loginName, password);
+                    }}
+                  />
+                ),
+                disableDynamicSizing: true,
+                disablePanning: true,
+                withKeyboard: true,
+              });
+            }
           }
         })
         .catch(err => {
@@ -127,6 +130,7 @@ export const useLogin = () => {
               refreshToken: newRefreshToken,
             }),
           );
+          replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
         }
         if (error) {
           openToast(error, 'error');
