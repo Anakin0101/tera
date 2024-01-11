@@ -16,4 +16,5 @@ export type ButtonProps = PressableProps & {
   size?: 'medium' | 'large';
   hasBorder?: boolean;
   disabled?: boolean;
+  isLoading?: boolean;
 };
