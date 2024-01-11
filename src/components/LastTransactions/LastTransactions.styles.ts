@@ -23,6 +23,7 @@ export const useStyles = () => {
       ...Layout.justifyContentBetween,
       gap: Spacing.lg,
     },
+    description: { flex: 1 },
     imageContainer: {
       width: 48,
       height: 48,

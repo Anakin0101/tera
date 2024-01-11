@@ -24,7 +24,7 @@ export const DashboardPensionFund = ({ data }: any) => {
       <View style={styles.pensionView}>
         <View style={styles.dashboardTemplatesContainer}>
           <View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+            <View style={styles.dashboardPensionfundWrapper}>
               <Text
                 children={'dashboard.pension'}
                 style={styles.titleContainer}

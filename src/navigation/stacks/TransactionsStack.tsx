@@ -12,12 +12,16 @@ import {
   TRANSACTION_FINISHED_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+  TRANSACTION_FAILED_SCREEN,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
 import { TransactionFinishedScreen } from 'screens/TransactionFinishedScreen/TransactionFinishedScreen';
 import { OtherBankTransactionScreen } from 'screens/OtherBanksTransactionScreen/OtherBankTransactionScreen';
 import { TransferToOtherBankAccountScreen } from 'screens/TransferToAccountScreen/TransferToOtherBankAccountScreen';
+import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
+
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
@@ -28,6 +32,7 @@ export type TransactionsStackParamList = {
   [TRANSACTION_FINISHED_SCREEN]: undefined;
   [OTHER_BANK_TANSACTION_SCREEN]: undefined;
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: undefined;
+  [TRANSACTION_FAILED_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -51,6 +56,8 @@ export const TransactionsStack = () => {
         options={{
           title: t('საიდან'),
           headerBackTitle: ' ',
+          headerTitleAlign: 'center',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
 
@@ -60,6 +67,8 @@ export const TransactionsStack = () => {
         options={{
           title: t('სად'),
           headerBackTitle: ' ',
+          headerTitleAlign: 'center',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -68,6 +77,8 @@ export const TransactionsStack = () => {
         options={{
           title: t('საკუთარ ანგარიშზე გადარიცხვა'),
           headerBackTitle: ' ',
+          headerTitleAlign: 'center',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -76,6 +87,7 @@ export const TransactionsStack = () => {
         options={{
           title: t('საკუთარ ანგარიშზე გადარიცხვა'),
           headerBackTitle: ' ',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
@@ -87,11 +99,24 @@ export const TransactionsStack = () => {
             backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen
         name={TRANSACTION_FINISHED_SCREEN}
         component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: '#F9F9F9',
+          },
+          headerBackTitle: ' ',
+          headerLeft: () => null,
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FAILED_SCREEN}
+        component={TransactionFailedScreen}
         options={{
           title: '',
           headerStyle: {
@@ -109,6 +134,7 @@ export const TransactionsStack = () => {
             backgroundColor: '#F9F9F9',
           },
           headerBackTitle: ' ',
+          headerLeft: () => <HeaderBackArrow />,
         }}
       />
       <Screen

@@ -12,13 +12,11 @@ export const userInfoPersistConfig = {
   whitelist: [
     'accessToken',
     'refreshToken',
-    'authorizationMethods',
     'ignoreEasyLogin',
     'postponeEasyLogin',
     'isPasscodeSet',
     'isBiometricSet',
     'passcodeTries',
-    'loginName',
     'shouldSaveUsername',
   ],
 };
@@ -37,5 +35,4 @@ export const deviceInfoPersistConfig = {
 export const profilePersistConfig = {
   key: 'profile',
   storage: reduxStorage,
-  whitelist: ['customerId'],
 };

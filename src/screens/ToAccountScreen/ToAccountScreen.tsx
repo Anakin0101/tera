@@ -11,7 +11,7 @@ import { TransactionsStackRouteProps } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
-import { setAccountToData } from 'store/slices/transfers/indext';
+import { setAccountToData } from 'store/slices/transfers';
 import { TRANSFER_TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 interface Section {
   title: string;

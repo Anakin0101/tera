@@ -1,20 +1,11 @@
 import React from 'react';
-import { ImageStyle, Pressable, StyleProp, ViewStyle } from 'react-native';
+import { Platform, Pressable } from 'react-native';
 import { useStyleTheme } from './IconComponent.styles';
-import { SvgProps } from 'react-native-svg';
 import { Image } from 'react-native';
-
-export type IconComponentProps = {
-  handler?: () => void;
-  IconJSX?: (props: SvgProps) => React.JSX.Element;
-  native?: boolean;
-  pngLocalIcon?: any;
-  pngLocalIconCustomStyle?: StyleProp<ImageStyle>;
-  customIconComponentStyles?: StyleProp<ViewStyle>;
-  hasBorder?: boolean;
-  customIconSize?: number;
-  imageId?: string; // New prop for the image source URL
-};
+import { PUBLIC_IMAGE_URL } from 'services/api';
+import { IconComponentProps } from './IconComponent.types';
+import FastImage from 'react-native-fast-image';
+import { ICON_JSX_SIZE, PRESSABLE_ELEMENT_HITSLOP } from './IconComponent.constants';
 
 export const IconComponent = ({
   handler,
@@ -25,18 +16,39 @@ export const IconComponent = ({
   customIconComponentStyles,
   hasBorder = true,
   customIconSize,
-  imageId, // New prop for the image source URL
+  imageId,
+  customImageIDStyle,
+  fillColor,
+  isSecure = false,
+  base64Image,
+  pressable = true,
 }: IconComponentProps) => {
   const styles = useStyleTheme();
 
-  // TODO - still need to handle Back-end received imgUrl (https://some_image_url)
+  if (base64Image || imageId) {
+    const publicImageURI = `${PUBLIC_IMAGE_URL}${imageId}`;
+    const imageURI = isSecure ? `data:image/png;base64, ${base64Image}` : publicImageURI;
+
+    return (
+      <FastImage
+        style={[styles.imageIdStyles, styles.iconRoundedStyles, customImageIDStyle]}
+        source={{
+          uri: imageURI,
+          priority: FastImage.priority.normal,
+        }}
+        fallback={Platform.OS === 'android'}
+        resizeMode={FastImage.resizeMode.cover}
+      />
+    );
+  }
+
   return (
     <Pressable
       hitSlop={{
-        top: 30,
-        bottom: 30,
-        left: 30,
-        right: 30,
+        top: PRESSABLE_ELEMENT_HITSLOP,
+        bottom: PRESSABLE_ELEMENT_HITSLOP,
+        left: PRESSABLE_ELEMENT_HITSLOP,
+        right: PRESSABLE_ELEMENT_HITSLOP,
       }}
       onPress={handler}
       style={[
@@ -45,12 +57,18 @@ export const IconComponent = ({
         hasBorder && styles.iconBorderedStyles,
         customIconComponentStyles,
       ]}
+      disabled={!pressable}
     >
-      {IconJSX && <IconJSX width={customIconSize || 16} height={customIconSize || 16} />}
-      {pngLocalIcon && (
-        <Image source={pngLocalIcon} style={[{ width: 20, height: 20 }, pngLocalIconCustomStyle]} />
+      {IconJSX && (
+        <IconJSX
+          width={customIconSize || ICON_JSX_SIZE}
+          height={customIconSize || ICON_JSX_SIZE}
+          fill={fillColor}
+        />
       )}
-      {imageId && <Image source={{ uri: imageId }} style={{ width: 20, height: 20 }} />}
+      {pngLocalIcon && (
+        <Image source={pngLocalIcon} style={[styles.pngLocalIconStyles, pngLocalIconCustomStyle]} />
+      )}
     </Pressable>
   );
 };

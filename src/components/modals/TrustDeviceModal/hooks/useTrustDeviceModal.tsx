@@ -29,6 +29,7 @@ export const useTrustDeviceModal = () => {
           'X-Bank-Isstrongauthrequest': 'false',
           'X-Bank-DeviceToken': savedDeviceToken,
         },
+        body: {},
       });
 
       if ('data' in res) {
@@ -47,11 +48,12 @@ export const useTrustDeviceModal = () => {
       }
       closeModal();
     } catch (error) {
-      console.error('Error in handleOTPVerification:', error);
+      console.warn('Error in handleOTPVerification:', error);
     }
   };
 
   const handlePasscodeSet = (enteredOTP: string) => {
+    // TODO - need to fix OTP check here - DEA
     closeModal();
     dispatch(setOTPCode(enteredOTP));
     navigate(CREATE_PASSCODE_SCREEN);
@@ -66,6 +68,7 @@ export const useTrustDeviceModal = () => {
           'X-Bank-Sendotp': 'true',
           'X-Bank-Isstrongauthrequest': 'true',
         },
+        body: {},
       });
 
       if ('data' in res) {
@@ -81,10 +84,11 @@ export const useTrustDeviceModal = () => {
           element: <OTPModal onFinished={handlePasscodeSet} />,
           disableDynamicSizing: true,
           disablePanning: true,
+          withKeyboard: true,
         });
       }
     } catch (error) {
-      console.error('Error in openOTPModal:', error);
+      console.warn('Error in openOTPModal:', error);
     }
   };
 

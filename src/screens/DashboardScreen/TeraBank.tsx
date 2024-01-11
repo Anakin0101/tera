@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useCallback, useEffect, useRef } from 'react';
+import React, { FC, RefObject, useEffect, useRef } from 'react';
 import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
@@ -32,7 +32,7 @@ import { Offers } from 'components';
 import { DashboardPensionFund } from 'components/DashboardPensionFund/DashboardPensionFund';
 import { config } from 'utils/config';
 import AvailableBalance from 'components/CardsAndBalance/AvailableBalance';
-import { OPEN_CARD_WIDTH } from 'constants/Dashboard';
+import { OPEN_CARD_WIDTH } from 'constants/index';
 import { Card } from 'components/CardsAndBalance/Card';
 import { ActionButtons } from 'components/CardsAndBalance/ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
@@ -163,36 +163,33 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     };
   });
 
-  const renderItem: SectionListRenderItem<any, any> = useCallback(
-    ({ section }) => {
-      switch (section.title) {
-        case 'templates':
-          return <DashboardTemplates data={templates} />;
-        case 'payments':
-          return <DashboardUpcomingOps data={tempData.payments} />;
-        case 'assets':
-          return (
-            <DashboardAssets
-              creditCards={creditCards}
-              overDraft={overDraft}
-              getLoanCustomerId={getLoanCustomerId}
-              assets={assets}
-            />
-          );
-        case 'offers':
-          return <Offers data={tempData.offers} />;
-        case 'pension':
-          return <DashboardPensionFund data={tempData.pensions} />;
-        case 'banker':
-          return <Banker data={banker} />;
-        case 'transactions':
-          return <DashboardOperations data={customerOperations} />;
-        default:
-          return null;
-      }
-    },
-    [assets, banker, creditCards, customerOperations, getLoanCustomerId, overDraft, templates],
-  );
+  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+    switch (section.title) {
+      case 'templates':
+        return <DashboardTemplates data={templates} />;
+      case 'payments':
+        return <DashboardUpcomingOps data={tempData.payments} />;
+      case 'assets':
+        return (
+          <DashboardAssets
+            creditCards={creditCards}
+            overDraft={overDraft}
+            getLoanCustomerId={getLoanCustomerId}
+            assets={assets}
+          />
+        );
+      case 'offers':
+        return <Offers data={tempData.offers} />;
+      case 'pension':
+        return <DashboardPensionFund data={tempData.pensions} />;
+      case 'banker':
+        return <Banker {...banker} />;
+      case 'transactions':
+        return <DashboardOperations data={customerOperations} />;
+      default:
+        return null;
+    }
+  };
 
   const openCards = (index: number) => {
     if (!index) {

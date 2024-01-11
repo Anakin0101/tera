@@ -4,9 +4,11 @@ import { Text } from 'components';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { useConvertAmount } from './useConvertAmountBuy';
 import { EditSvg } from 'assets/SVGs';
-import { setConvertionData } from 'store/slices/transfers/indext';
+import { setConvertionData } from 'store/slices/transfers';
 import { useDispatch } from 'react-redux';
 import { getCurrencyIcon } from 'utils/currency';
+import { amountBuyOrSell } from 'services/apis/transfersAPI/transfersAPI.types';
+import { useTranslation } from 'react-i18next';
 export const Convert = ({
   accountFromData,
   accountToData,
@@ -16,9 +18,12 @@ export const Convert = ({
 }: any) => {
   const styles = useStyleTheme();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [inputValueBuy, setInputValueBuy] = useState('');
   const [inputValueSell, setInputValueSell] = useState('');
-  const [sourceInput, setSourceInput] = useState<'buy' | 'sell' | null>(null);
+  const [sourceInput, setSourceInput] = useState<amountBuyOrSell.buy | amountBuyOrSell.sell | null>(
+    null,
+  );
 
   const { buyAmount, buyLoading, sellAmount, sellLoading } = useConvertAmount(
     {
@@ -32,39 +37,47 @@ export const Convert = ({
       currencySell: accountToData?.ccy,
     },
   );
-  const { specialRate, specialRateUsed, standardRate } = buyAmount || {};
+  const { specialRate, specialRateUsed, standardRate, conversionAvailableLimit } = buyAmount || {};
 
   const calculateWithRate = useCallback(
     (value: number) => {
-      if (specialRateUsed) {
+      if (specialRateUsed && conversionAvailableLimit > 0) {
         return value * specialRate;
       } else {
         return value * standardRate;
       }
     },
-    [specialRateUsed, specialRate, standardRate],
+    [specialRateUsed, specialRate, standardRate, conversionAvailableLimit],
   );
 
   useEffect(() => {
-    if (buyAmount && sourceInput === 'buy' && !sellLoading) {
-      const updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
-      const roundedValue = updatedValue.toFixed(2);
-      setInputValueSell(roundedValue);
+    try {
+      if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
+        const updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
+        const roundedValue = updatedValue.toFixed(2);
+        setInputValueSell(roundedValue);
+      }
+    } catch (error) {
+      console.warn('Error in calculation:', error);
     }
   }, [buyAmount, inputValueBuy, sellLoading, sourceInput, calculateWithRate]);
 
   useEffect(() => {
-    if (sellAmount && sourceInput === 'sell' && !buyLoading) {
-      const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
-      const roundedValue = updatedValue.toFixed(2);
-      setInputValueBuy(roundedValue);
+    try {
+      if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
+        const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
+        const roundedValue = updatedValue.toFixed(2);
+        setInputValueBuy(roundedValue);
+      }
+    } catch (error) {
+      console.warn('Error in calculation:', error);
     }
   }, [sellAmount, inputValueSell, buyLoading, sourceInput, calculateWithRate]);
 
   useEffect(() => {
-    if (sourceInput === 'buy' && inputValueBuy === '') {
+    if (sourceInput === amountBuyOrSell.buy && inputValueBuy === '') {
       setInputValueSell('');
-    } else if (sourceInput === 'sell' && inputValueSell === '') {
+    } else if (sourceInput === amountBuyOrSell.sell && inputValueSell === '') {
       setInputValueBuy('');
     }
   }, [inputValueBuy, inputValueSell, sourceInput]);
@@ -72,13 +85,13 @@ export const Convert = ({
   const handleBuyInputChange = (text: string) => {
     setInputValueBuy(text);
     setIsButtonDisabled(!text || text.trim() === '');
-    setSourceInput('buy');
+    setSourceInput(amountBuyOrSell.buy);
   };
 
   const handleSellInputChange = (text: string) => {
     setInputValueSell(text);
     setIsButtonDisabled(!text || text.trim() === '');
-    setSourceInput('sell');
+    setSourceInput(amountBuyOrSell.sell);
   };
   useEffect(() => {
     if (buyAmount && sellAmount) {
@@ -88,7 +101,7 @@ export const Convert = ({
 
   const renderIcon = (currency: string | undefined) => {
     return (
-      <TouchableOpacity style={{ padding: 5 }}>
+      <TouchableOpacity style={styles.paddedView}>
         <Text children={getCurrencyIcon(currency || '')} />
       </TouchableOpacity>
     );
@@ -97,9 +110,9 @@ export const Convert = ({
   return (
     <View style={styles.transferWrapper}>
       <View style={styles.transferView}>
-        <View style={{ justifyContent: 'flex-start' }}>
-          <Text children="გაყიდვა" style={styles.sellText} />
-          <View style={{ flexDirection: 'row' }}>
+        <View style={styles.transferTextView}>
+          <Text children="transfers.sell" style={styles.sellText} />
+          <View style={styles.inputView}>
             <TextInput
               style={styles.amountInput}
               value={inputValueBuy}
@@ -111,9 +124,9 @@ export const Convert = ({
             {renderIcon(accountFromData?.ccy)}
           </View>
         </View>
-        <View style={{ alignItems: 'flex-end' }}>
-          <Text children="ყიდვა" style={styles.buyText} />
-          <View style={{ flexDirection: 'row' }}>
+        <View style={styles.transferFlexEnd}>
+          <Text children="transfers.buy" style={styles.buyText} />
+          <View style={styles.inputView}>
             <TextInput
               style={styles.amountInput}
               value={inputValueSell}
@@ -126,20 +139,22 @@ export const Convert = ({
           </View>
         </View>
       </View>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.inputView}>
         <Text
-          children={`სტანდარტული კურსი: ${buyAmount?.standardRate.toFixed(4)} / `}
+          children={`${t('transfers.standardCourse')}: ${buyAmount?.standardRate.toFixed(4)} / `}
           style={styles.courseText}
         />
         <Text
-          children={`შენი კურსი: ${
-            specialRateUsed ? buyAmount?.specialRate.toFixed(4) : buyAmount?.standardRate.toFixed(4)
+          children={`${t('transfers.specificCourse')}: ${
+            specialRateUsed && conversionAvailableLimit > 0
+              ? buyAmount?.specialRate.toFixed(4)
+              : buyAmount?.standardRate.toFixed(4)
           }`}
           style={styles.courseText}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
-        <Text children={selectedData ? selectedData : 'კონვერტაცია'} style={styles.text} />
+        <Text children={selectedData ? selectedData : 'transfers.convertion'} style={styles.text} />
         <EditSvg style={styles.icon} />
       </TouchableOpacity>
     </View>

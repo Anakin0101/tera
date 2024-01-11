@@ -11,5 +11,6 @@ export interface ITemplateProps {
   index: number;
   fromOtherBanks?: boolean;
   selectedData?: string | null;
+  fromPin?: boolean;
   setSelectedData: (iban: string) => void;
 }

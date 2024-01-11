@@ -3,11 +3,13 @@ import { View } from 'react-native';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
+import { useTranslation } from 'react-i18next';
 
 export const OtherBankList = ({ selectedItemFromStore }: any) => {
   const { accountFromData, accountToData, selectedData, selectedPrice } = selectedItemFromStore;
 
   const styles = useStyleTheme();
+  const { t } = useTranslation();
 
   const renderDetailsItem = (
     label: string,
@@ -22,14 +24,17 @@ export const OtherBankList = ({ selectedItemFromStore }: any) => {
       <View style={styles.backgroundWhite}>
         <View style={styles.detailsSectionWrapper}>
           {renderDetailsItem(
-            'საიდან',
+            'transfers.fromWhere',
             `${accountFromData.accountName} - `,
             accountFromData.accountIban,
           )}
-          {renderDetailsItem('სად', `${accountToData.name} `)}
-          {renderDetailsItem('მიმღების ანგარიში', `${accountToData.iban}`)}
-          {renderDetailsItem('თანხა', `${selectedPrice} ₾`)}
-          {renderDetailsItem('დანიშნულება', selectedData)}
+          {renderDetailsItem('transfers.where', `${accountToData.name} `)}
+          {renderDetailsItem('personalNumber.Receiver', `${accountToData.iban}`)}
+          {renderDetailsItem('transactionDetails.amount', `${selectedPrice} ₾`)}
+          {renderDetailsItem(
+            'transfers.destination',
+            selectedData ? selectedData : t('transfers.personalTransfer'),
+          )}
         </View>
       </View>
     );

@@ -9,6 +9,11 @@ export const useStyles = () => {
     dashboardTemplatesContainer: {
       ...Layout.col,
     },
+    dashboardPensionfundWrapper: {
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+      width: '90%',
+    },
     pensionView: {
       paddingLeft: Spacing.xl,
       paddingVertical: Spacing.xlg,

@@ -27,5 +27,24 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
     },
     template: { paddingVertical: Spacing.lg, marginLeft: -23 },
+    wrapper: {
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
+      ...Layout.justifyContentBetween,
+    },
+    btn: { marginVertical: Spacing.xlm },
+    image: { width: 40, height: 40 },
+    chevron: {
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
+      ...Layout.justifyContentBetween,
+      marginTop: Spacing.l,
+    },
+    fastPayment: {
+      backgroundColor: Colors.error100,
+      borderRadius: Spacing.m,
+      padding: Spacing.m,
+      marginTop: 15,
+    },
   });
 };

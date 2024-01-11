@@ -27,6 +27,7 @@ const App = () => {
   }, []);
 
   return (
+    // eslint-disable-next-line react-native/no-inline-styles
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <Provider store={store}>

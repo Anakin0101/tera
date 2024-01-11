@@ -17,3 +17,11 @@ export interface ITabBarLabelProps {
   onTabPress: (index: number) => void;
   onLayout: (event: LayoutChangeEvent, index: number) => void;
 }
+
+export interface SelectedItem {
+  selectedPrice: any;
+  convertionData: any;
+  accountFromData: any;
+  accountToData: any;
+  selectedTransactionType: any;
+}

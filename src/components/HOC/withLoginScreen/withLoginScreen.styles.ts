@@ -2,7 +2,7 @@ import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 
 export const useStyleTheme = () => {
-  const { Spacing } = useTheme();
+  const { Spacing, Layout } = useTheme();
   return StyleSheet.create({
     loginScreenContainerStyle: {
       flex: 1,
@@ -20,7 +20,7 @@ export const useStyleTheme = () => {
       marginRight: Spacing.xl,
     },
     temporaryThemeCTAContainer: {
-      position: 'absolute',
+      ...Layout.absolute,
       left: 0,
     },
     wrappedComponentWrapperStyle: {

@@ -9,13 +9,10 @@ import passcodeEvents, { PASSCODE_EVENTS_PASSCODE_VERIFIED } from 'utils/eventBu
 import { useTranslation } from 'react-i18next';
 import { useUserReset } from 'hooks';
 import { useVerifyPasscode } from 'hooks/useVerifyPasscode';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const VerifyEasyLoginScreen = () => {
   const styles = useStyleTheme();
   const { watchKeyboard, passcodeLength } = useVerifyPasscode();
-  const savedUserName = useAppSelector(state => state.userInfo.loginName);
-
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
 
@@ -28,7 +25,7 @@ export const VerifyEasyLoginScreen = () => {
   return (
     <View style={styles.wrapper}>
       <>
-        <Account user={savedUserName || ''} />
+        <Account />
         <Button.Secondary text={t('passAuth.change_user')} size="medium" onPress={resetUser} />
         <PinLine fillNumber={passcodeLength} style={styles.pinLine} />
       </>

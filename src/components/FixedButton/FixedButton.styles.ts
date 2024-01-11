@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { horizontalScale, verticalScale } from 'utils/config';
 export const useStyles = () => {
-  const { Layout } = useTheme();
+  const { Layout, Spacing } = useTheme();
 
   return StyleSheet.create({
     button: {
@@ -11,6 +11,9 @@ export const useStyles = () => {
       ...Layout.justifyContentCenter,
       width: horizontalScale(178),
       height: verticalScale(56),
+    },
+    icon: {
+      paddingHorizontal: Spacing.md,
     },
   });
 };

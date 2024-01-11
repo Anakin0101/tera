@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { BackHandler, View } from 'react-native';
 import { Button, Text } from 'components/index';
 import { useStyleTheme } from './TransactionFinishedScreen.styles';
 import { Calendar, Plus, Share, SuccessTransaction } from 'assets/SVGs';
@@ -8,6 +8,8 @@ import { useNavigation } from '@react-navigation/native';
 import { ChooseService } from 'components/index';
 import { TRANSACTIONS_SCREEN } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedData } from 'store/slices/transfers';
 import { TransactionsStackRouteProps } from 'navigation/types';
 import { useRoute } from '@react-navigation/native';
 import { getCurrencyIcon } from 'utils/currency';
@@ -19,6 +21,7 @@ interface SelectedItem {
 }
 
 export const TransactionFinishedScreen = () => {
+  const dispatch = useAppDispatch();
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
@@ -29,13 +32,27 @@ export const TransactionFinishedScreen = () => {
   const navigateToMain = () => {
     navigate(TRANSACTIONS_SCREEN);
   };
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
+
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(setSelectedData(''));
+  }, [dispatch]);
+
   const data = [
     {
       name: 'transfers.saveAsTemplate',
       icon: <Plus />,
     },
     {
-      name: 'transfers.automaticPay',
+      name: 'transfers.automatic',
       icon: <Calendar />,
     },
     {

@@ -4,18 +4,37 @@ import { useStyles } from './Banker.styles';
 import { Divider, IconComponent, Text } from 'components';
 import Images from 'theme/Images';
 import useTheme from 'hooks/useTheme';
+import { GetBankerAPIResponseType } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { openURL } from 'utils/openURL';
+import { useGetSecuredFileByIdQuery } from 'services/apis';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
-export const Banker = ({ data }: any) => {
+export const Banker = ({
+  firstName,
+  lastName,
+  branchName,
+  imageId,
+  phone,
+  email,
+}: GetBankerAPIResponseType) => {
   const styles = useStyles();
   const { Colors } = useTheme();
+  const { userIp } = useAppSelector(state => state.deviceInfo);
 
-  if (!data) {
-    return null;
-  }
-
-  const { firstName, lastName, branchName, imageId } = data;
+  const { data } = useGetSecuredFileByIdQuery({
+    headers: {
+      'X-Bank-UserIp': userIp || '',
+    },
+    fileId: imageId || '',
+  });
 
   const fullName = `${firstName} ${lastName}`;
+  const handleOpenPhone = () => openURL(`tel:${phone}`);
+  const handleOpenEmail = () => openURL(`mailto:${email}`);
+
+  if (!firstName || !lastName) {
+    return null;
+  }
 
   return (
     <>
@@ -28,10 +47,15 @@ export const Banker = ({ data }: any) => {
           />
           <View style={styles.wrapper}>
             <View style={styles.iconView}>
-              <IconComponent
-                imageId={imageId}
-                customIconComponentStyles={styles.customIconComponentStyles}
-              />
+              {data && (
+                <IconComponent
+                  isSecure={true}
+                  imageId={imageId}
+                  base64Image={data.content}
+                  customIconComponentStyles={styles.customIconComponentStyles}
+                />
+              )}
+
               <View style={styles.templateCardContentContainer}>
                 <Text
                   children={fullName}
@@ -53,10 +77,12 @@ export const Banker = ({ data }: any) => {
               <IconComponent
                 pngLocalIcon={Images().Phone}
                 customIconComponentStyles={styles.eyeIcon}
+                handler={handleOpenPhone}
               />
               <IconComponent
                 pngLocalIcon={Images().Email}
                 customIconComponentStyles={styles.eyeIcon}
+                handler={handleOpenEmail}
               />
             </View>
           </View>

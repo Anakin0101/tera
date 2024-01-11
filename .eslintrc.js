@@ -26,7 +26,8 @@ module.exports = {
       'error',
       { argsIgnorePattern: '_', varsIgnorePattern: '_' },
     ],
-    'react-native/no-inline-styles': 'off',
+    'react-native/no-inline-styles': 1,
+	// '@typescript-eslint/no-explicit-any': 'error',
   },
   settings: {
     'import/resolver': {

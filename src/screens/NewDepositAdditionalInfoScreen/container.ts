@@ -74,7 +74,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
       };
 
       if (offer?.depositProducts.length !== 1) {
-        depositParams.periodInMonths = Number(duration);
+        depositParams.periodInMonths = Number(debouncedValue);
       }
 
       calculateDeposit(depositParams);
@@ -87,7 +87,6 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     debitAccount.id,
     initialAmount,
     productId,
-    duration,
     offer?.depositProducts.length,
   ]);
 

@@ -50,9 +50,7 @@ export const TabBarLabel: FC<ITabBarLabelProps> = ({
       key={index}
       style={[
         tabBarLabelStyle ? styles.otherBanksStyle : null,
-        tabBarLabelStyle && activeTab === index
-          ? { backgroundColor: 'rgba(160, 34, 109, 0.1)', borderColor: '#A0226D' }
-          : null,
+        tabBarLabelStyle && activeTab === index ? styles.active : null,
       ]}
     >
       <Animated.Text

@@ -5,7 +5,7 @@ export const useStyleTheme = () => {
   const { Colors, FontSize, Spacing, Layout } = useTheme();
   return StyleSheet.create({
     inputContainer: {
-      height: 50,
+      minHeight: 50,
       borderBottomWidth: 1,
       ...Layout.justifyContentCenter,
       borderBottomColor: Colors.inputBlack50,
@@ -14,7 +14,7 @@ export const useStyleTheme = () => {
       borderBottomColor: Colors.error,
     },
     label: {
-      position: 'absolute',
+      ...Layout.absolute,
       color: Colors.textBlack500,
     },
     wrapper: {
@@ -31,8 +31,10 @@ export const useStyleTheme = () => {
       marginBottom: Spacing.ml - Spacing.xxxs,
     },
     errorMessage: {
-      color: Colors.error,
       fontSize: FontSize.tiny,
+    },
+    errorMessageColor: {
+      color: Colors.error,
     },
   });
 };

@@ -18,5 +18,7 @@ export const useStyleTheme = () => {
       borderColor: Colors.gray200,
       borderWidth: 1,
     },
+    pngLocalIconStyles: { width: 20, height: 20 },
+    imageIdStyles: { width: 60, height: 60 },
   });
 };

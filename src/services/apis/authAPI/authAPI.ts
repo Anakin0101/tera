@@ -3,9 +3,10 @@ import { baseQueryWithInterceptor } from 'services/api';
 import {
   AddTrustedDeviceAPIRequestType,
   AddTrustedDeviceAPIResponseType,
+  DeleteTrustedDeviceAPIRequestType,
+  DeleteTrustedDeviceAPIResponseType,
   GetTrustedDevicesAPIRequestType,
   GetTrustedDevicesAPIResponseType,
-  GetUserInfoAPIResponseType,
   LoginAPIRequestType,
   LoginAPIResponseType,
   LoginByRefreshTokenAPIRequestType,
@@ -13,8 +14,8 @@ import {
   LogoutAPIRequestType,
   LogoutAPIResponseType,
 } from './authAPI.types';
-import { URLS } from 'services/constants/urls';
-import { METHOD_NAMES } from 'services/constants';
+
+import { METHOD_NAMES, URLS } from 'services/constants';
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
@@ -50,16 +51,21 @@ export const authAPI = createApi({
       AddTrustedDeviceAPIResponseType,
       AddTrustedDeviceAPIRequestType
     >({
-      query: body => ({
+      query: ({ headers, body }) => ({
         url: URLS.addTrustedDevice,
         method: METHOD_NAMES.POST,
+        headers: headers,
         body: body,
       }),
     }),
-    getUserProfileInfo: builder.query<GetUserInfoAPIResponseType, void>({
-      query: () => ({
-        url: URLS.getUserProfile,
-        method: METHOD_NAMES.GET,
+    deleteTrustedDevices: builder.mutation<
+      DeleteTrustedDeviceAPIResponseType,
+      DeleteTrustedDeviceAPIRequestType
+    >({
+      query: body => ({
+        url: URLS.deleteTrustedDevices,
+        method: METHOD_NAMES.POST,
+        body: body,
       }),
     }),
     loginByRefreshToken: builder.mutation<
@@ -81,7 +87,6 @@ export const {
   useGetTrustedDevicesQuery,
   useLazyGetTrustedDevicesQuery,
   useLogoutUserMutation,
-  useGetUserProfileInfoQuery,
-  useLazyGetUserProfileInfoQuery,
   useLoginByRefreshTokenMutation,
+  useDeleteTrustedDevicesMutation,
 } = authAPI;

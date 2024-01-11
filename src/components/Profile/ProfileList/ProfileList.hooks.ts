@@ -9,13 +9,19 @@ import { ProfileItemType } from 'screens/ProfileScreen/ProfileScreen.types';
 
 export const useProfileList = () => {
   const { t } = useTranslation();
-  const { savedLanguage, handleLanguageChange } = useLanguageSwitcher();
+  const { handleLanguageChange } = useLanguageSwitcher();
 
-  const newLanguage = useMemo(() => {
-    return savedLanguage === LanguageKeys.geo ? t('common.in_english') : t('common.in_georgian');
-  }, [savedLanguage, t]);
+  const nextLanguage = useMemo(() => {
+    const isCurrentLanguageGeo = i18next.language === LanguageKeys.geo;
+    const lng = isCurrentLanguageGeo ? { lng: 'en' } : { lng: 'geo' };
+    const region = isCurrentLanguageGeo
+      ? t('common.in_english', lng)
+      : t('common.in_georgian', lng);
 
-  const languageIcon = savedLanguage === LanguageKeys.geo ? GeoFlag : EngFlag;
+    return region;
+  }, [t]);
+
+  const languageIcon = i18next.language === LanguageKeys.geo ? EngFlag : GeoFlag;
 
   const profileListConfig: ProfileItemType[] = [
     {
@@ -43,7 +49,8 @@ export const useProfileList = () => {
       id: 'switch_to_language',
       icon: languageIcon,
       text: t('profile.switch_to_language', {
-        language: newLanguage,
+        language: nextLanguage,
+        lng: i18next.language === LanguageKeys.geo ? 'en' : 'geo',
       }),
       handlePress: () =>
         handleLanguageChange(

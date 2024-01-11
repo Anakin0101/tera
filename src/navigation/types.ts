@@ -32,6 +32,7 @@ import {
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
   TRANSACTION_FINISHED_SCREEN,
+  TRANSACTION_FAILED_SCREEN,
   SETTINGS_SCREEN,
   CREATE_PASSCODE_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
@@ -49,14 +50,29 @@ import {
   TERA_WALLET_SCREEN,
   TERA_WALLET_PDF_SCREEN,
   TERA_WALLET_SUCCESS_SCREEN,
+  AUTH_LOADING_SCREEN,
+  GUEST_NAVIGATOR,
+  MAIN_NAVIGATOR,
+  LOADING_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
+
+export type RoutesList = {
+  [AUTH_LOADING_SCREEN]: undefined;
+  [GUEST_NAVIGATOR]: {
+    screen: keyof GuestStackParamList;
+  };
+  [MAIN_NAVIGATOR]: {
+    screen: keyof MainStackParamsList;
+  };
+};
 
 export type MainStackParamsList = {
   [INITIAL_STACK]: undefined;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
+  [LOADING_SCREEN]: undefined;
 };
 
 export type ModalStackParamsList = {
@@ -118,6 +134,7 @@ export type ProductsStackParamsList = {
 export type TransactionsStackParamsList = {
   [TRANSACTIONS_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: undefined;
+  [TRANSACTION_FAILED_SCREEN]: undefined;
   [TO_ACCOUNT_SCREEN]: {
     selected?: any;
     otherBanks?: any;
@@ -127,6 +144,7 @@ export type TransactionsStackParamsList = {
   };
   [TRANSFER_TO_ACCOUNT_SCREEN]: {
     fromOtherBank?: any;
+    fromMobile?: boolean;
   };
   [PRIVATE_TRANSACTION_SCREEN]: {
     from: any;
@@ -134,12 +152,15 @@ export type TransactionsStackParamsList = {
   [TRANSFER_DETAIL_SCREEN]: {
     convertion?: boolean;
     fromOtherBank?: boolean;
+    mobileTransaction?: boolean;
   };
   [TRANSACTION_FINISHED_SCREEN]: {
     convertion?: any;
   };
+
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
+    fromMobile?: boolean;
   };
 };
 
@@ -253,3 +274,8 @@ export type MainStackScreenProps<T extends keyof MainParamsList> = StackNavigati
 >;
 
 export type MainStackRouteProps<T extends keyof MainParamsList> = RouteProp<MainParamsList, T>;
+
+export type RoutesGenericProp<T extends keyof RoutesList & string> = StackNavigationProp<
+  RoutesList,
+  T
+>;

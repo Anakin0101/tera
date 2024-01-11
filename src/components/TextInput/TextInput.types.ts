@@ -20,6 +20,7 @@ export type TextInputProps = {
   invoiceClick?: () => void;
   onChangeText?: (value: string) => void;
   errorMessage?: string;
+  showErrorUI?: boolean;
 };
 
 type ControlledInputType = {

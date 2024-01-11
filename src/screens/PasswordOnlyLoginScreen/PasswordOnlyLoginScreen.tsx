@@ -6,14 +6,14 @@ import { PasswordOnlyLoginBaseProps } from './PasswordOnlyLoginScreen.types';
 import useStyles from './PasswordOnlyLoginScreen.styles';
 import { PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
-import { useUserReset, useLogin } from 'hooks';
+import { useUserReset, useLogin, useKeyChain } from 'hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 
 const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   const styles = useStyles();
-  const savedUserName = useAppSelector(state => state.userInfo.loginName);
-  const { handleSignIn } = useLogin();
+  const { savedLoginName } = useKeyChain();
+
+  const { handleSignIn, loginUserLoading } = useLogin();
   const { t } = useTranslation();
   const { resetUser } = useUserReset();
 
@@ -29,14 +29,14 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
 
   const onSubmit: SubmitHandler<FormData> = data => {
     const { password } = data;
-    if (savedUserName) {
-      handleSignIn(savedUserName, password);
+    if (savedLoginName) {
+      handleSignIn(savedLoginName, password);
     }
   };
 
   return (
     <View style={styles.wrapper}>
-      {savedUserName && <Account user={savedUserName} />}
+      <Account />
       <Button.Secondary text={t('passAuth.change_user')} size="medium" onPress={resetUser} />
       <ControlledInput
         control={control}
@@ -50,7 +50,12 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
         <Text children="common:passAuth.forgot" label special />
       </View>
       <View style={styles.buttonCont}>
-        <Button.Primary text="common:passAuth.signin" onPress={handleSubmit(onSubmit)} fullWidth />
+        <Button.Primary
+          text="common:passAuth.signin"
+          onPress={handleSubmit(onSubmit)}
+          fullWidth
+          isLoading={loginUserLoading}
+        />
       </View>
     </View>
   );

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { config } from 'utils/config';
-import { OPEN_CARD_WIDTH } from 'constants/Dashboard';
+import { OPEN_CARD_WIDTH } from 'constants/index';
 
 const { mobileWidth } = config;
 

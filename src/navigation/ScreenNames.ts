@@ -6,6 +6,13 @@ export const PAYMENTS_STACK = 'PaymentsStack';
 export const TRANSACTIONS_STACK = 'TransactionsStack';
 export const PRODUCTS_STACK = 'ProductsStack';
 export const PROFILE_STACK = 'ProfileStack';
+
+export const GUEST_NAVIGATOR = 'guestNavigator';
+export const MAIN_NAVIGATOR = 'mainNavigator';
+
+// Default Loading Screen
+export const AUTH_LOADING_SCREEN = 'AuthLoadingScreen';
+
 // Screens
 export const PAYMENTS_SCREEN = 'PaymentsScreen';
 export const TRANSACTIONS_SCREEN = 'TransactionsScreen';
@@ -29,7 +36,6 @@ export const SETTINGS_SCREEN = 'SettingsScreen';
 export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
 export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
-
 //transactions
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
 export const TO_ACCOUNT_SCREEN = 'ToAccountScreen';
@@ -37,6 +43,7 @@ export const TRANSFER_TO_ACCOUNT_SCREEN = 'TransferToAccountScreen';
 export const PRIVATE_TRANSACTION_SCREEN = 'PrivateTransactionScreen';
 export const TRANSFER_DETAIL_SCREEN = 'TransferDetailScreen';
 export const TRANSACTION_FINISHED_SCREEN = 'TransactionFinishedScreen';
+export const TRANSACTION_FAILED_SCREEN = 'TransactionFailedScreen';
 export const ALL_TRANSACTIONS_SCREEN = 'AllTransactionsScreen';
 export const TRANSACTION_DETAILS_SCREEN = 'TransactionDetailsScreen';
 export const OTHER_BANK_TANSACTION_SCREEN = 'OtherBankTransactionScreen';
@@ -61,3 +68,6 @@ export const DEPOSIT_SUCCESS_SCREEN = 'DepositSuccessScreen';
 export const TERA_WALLET_SCREEN = 'TeraWalletScreen';
 export const TERA_WALLET_PDF_SCREEN = 'TeraWalletPDFScreen';
 export const TERA_WALLET_SUCCESS_SCREEN = 'TeraWalletSuccessScreen';
+
+// independent screens:
+export const LOADING_SCREEN = 'LoadingScreen';

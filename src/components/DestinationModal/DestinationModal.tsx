@@ -39,6 +39,7 @@ export const DestinationModal: FC<destinationModalProps> = () => {
               onPress={() => handleItemClick(item.id)}
               style={[
                 styles.itemContainer,
+                // eslint-disable-next-line react-native/no-inline-styles
                 {
                   borderTopWidth: index === 0 ? 1 : 0,
                 },

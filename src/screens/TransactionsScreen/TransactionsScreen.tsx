@@ -40,7 +40,7 @@ export const TransactionsScreen = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
         contentContainerStyle={styles.sectionListContent}
-        style={{ paddingTop: 30 }}
+        style={styles.sectionListStyle}
       />
     </View>
   );

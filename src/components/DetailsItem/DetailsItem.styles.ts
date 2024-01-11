@@ -8,6 +8,12 @@ export const useStyles = () => {
     detailsContainer: {
       marginTop: Spacing.l,
     },
+    detailsContainerUnderlined: {
+      marginTop: Spacing.l,
+      borderBottomWidth: 1,
+      paddingVertical: 5,
+      borderBottomColor: Colors.inputBlack50,
+    },
     detailsWrapper: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,

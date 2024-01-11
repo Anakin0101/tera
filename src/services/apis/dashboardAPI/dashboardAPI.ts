@@ -8,9 +8,9 @@ import {
   Asset,
   LoanType,
   CreditCardType,
+  GetBankerAPIResponseType,
 } from './dashboardAPI.types';
-import { URLS } from 'services/constants/urls';
-import { METHOD_NAMES } from 'services/constants';
+import { METHOD_NAMES, URLS } from 'services/constants';
 import { TransactionType } from '../productsAPI/productsAPI.types';
 
 export const dashboardAPI = createApi({
@@ -76,14 +76,10 @@ export const dashboardAPI = createApi({
         },
       }),
     }),
-    getBanker: builder.query<any, void>({
+    getBanker: builder.query<GetBankerAPIResponseType, void>({
       query: () => ({
         url: URLS.getBankerInfo,
         method: METHOD_NAMES.GET,
-        headers: {
-          'X-Bank-UserIp': '1',
-          'X-Bank-DeviceToken': '1',
-        },
       }),
     }),
   }),

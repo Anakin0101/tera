@@ -1,3 +1,3 @@
 export type BiometricKeyProps = {
-  handleBiometricAuth: () => void;
+  handleBiometricAuth?: () => void;
 };

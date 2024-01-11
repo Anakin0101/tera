@@ -4,26 +4,20 @@ import { useStyleTheme } from './Logout.styles';
 import { useTranslation } from 'react-i18next';
 import { IconComponent, Text } from 'components';
 import { LogoutIcon } from 'assets/SVGs';
-import { useLogout, useTheme } from 'hooks';
+import { useLogout } from 'hooks';
 
 export const Logout = () => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
-  const { Colors } = useTheme();
   const { handleLogout } = useLogout();
   return (
     <Pressable style={styles.logoutContainer} onPress={handleLogout}>
       <IconComponent
         IconJSX={LogoutIcon}
-        customIconComponentStyles={{
-          width: 48,
-          height: 48,
-          backgroundColor: Colors.error100,
-          padding: 0,
-          margin: 0,
-        }}
+        customIconComponentStyles={styles.iconComponentCustomStyles}
         hasBorder={false}
         customIconSize={22}
+        pressable={false}
       />
       <Text children={t('profile.logout')} style={styles.textStyles} />
     </Pressable>

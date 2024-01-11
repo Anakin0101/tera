@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import {
   BottomSheetView,
   BottomSheetModal,
@@ -36,13 +36,16 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
     <BottomSheetModal
       snapPoints={snapPoints}
       keyboardBehavior="extend"
-      keyboardBlurBehavior="none"
+      keyboardBlurBehavior={Platform.OS === 'ios' ? 'none' : 'restore'}
       ref={modalRef}
       enableDynamicSizing={enableDynamicSizing}
       backdropComponent={Backdrop}
       handleStyle={styles.handle}
+      // eslint-disable-next-line react-native/no-inline-styles
       handleIndicatorStyle={[styles.handleIndicator, hideHandle && { height: 0 }]}
       enableContentPanningGesture={enableContentPanningGesture}
+      android_keyboardInputMode="adjustPan"
+      enablePanDownToClose={true}
     >
       <BottomSheetView style={enablePadding ? styles.paddingContainer : styles.container}>
         <View style={title ? styles.titleContainer : null}>

@@ -3,7 +3,7 @@ import { useRoute } from '@react-navigation/native';
 import { MainStackRouteProps } from 'navigation/types';
 import { groupTransactionsByDate } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { useGetCustomerOperationsMutation } from 'services/apis/dashboardAPI/dashboardAPI';
+import { useGetCustomerOperationsMutation } from 'services/apis';
 import { getCurrentDateISO, getDateThreeMonthAgeISO, getISOString } from 'utils/formatDate';
 import { TransactionFilters } from './AllTransactionsScreen.types';
 

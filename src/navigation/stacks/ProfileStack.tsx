@@ -18,7 +18,7 @@ const ProfileStackHeaderMap = {
         isInitialScreen
         titlePosition={'left'}
         searchElement={{ position: 'right' }}
-        notificationsElement={{ position: 'right' }}
+        messagesElement={{ position: 'right' }}
         statusBarColor={Colors.dashboardBackground}
       />
     );

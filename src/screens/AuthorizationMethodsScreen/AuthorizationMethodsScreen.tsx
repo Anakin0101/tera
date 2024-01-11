@@ -15,9 +15,12 @@ import { ModalStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setBiometricStatus, setIsBiometricBeingSet } from 'store/slices/userInfo';
 import { openToast } from 'utils/toast';
+import { useEnableBiometricsPrompt } from 'hooks/useEnableBiometricsPrompt';
 
 export const AuthorizationMethodsScreen = () => {
   const styles = useStyleTheme();
+  const { openBiometricSensorModal } = useEnableBiometricsPrompt();
+
   const { navigate } = useNavigation<ModalStackScreenProps<'CreatePasscodeScreen'>>();
 
   const { t } = useTranslation();
@@ -26,7 +29,9 @@ export const AuthorizationMethodsScreen = () => {
   const { handleBiometricActivation } = useBiometrics();
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
   const dispatch = useAppDispatch();
-  const { deviceSupportsBiometricAuth } = useAppSelector(state => state.deviceInfo);
+  const { deviceSupportsBiometricAuth, isBiometricAuthIsEnabled } = useAppSelector(
+    state => state.deviceInfo,
+  );
 
   const handleSetNewPasscode = () => {
     dispatch(setIsBiometricBeingSet(false));
@@ -41,28 +46,32 @@ export const AuthorizationMethodsScreen = () => {
   };
 
   const handleSetBiometrics = () => {
-    dispatch(setIsBiometricBeingSet(true));
-    if (isTrusted) {
-      if (isPasscodeSet) {
-        handleBiometricActivation(
-          () => {
-            dispatch(setBiometricStatus(true));
-            openToast(t('passcode.easy_login_success'), 'success');
-            dispatch(setIsBiometricBeingSet(false));
-          },
-          () => {
-            Alert.alert('error!!!');
-            dispatch(setIsBiometricBeingSet(false));
-          },
-        );
+    if (isBiometricAuthIsEnabled !== false) {
+      dispatch(setIsBiometricBeingSet(true));
+      if (isTrusted) {
+        if (isPasscodeSet) {
+          handleBiometricActivation(
+            () => {
+              dispatch(setBiometricStatus(true));
+              openToast(t('passcode.easy_login_success'), 'success');
+              dispatch(setIsBiometricBeingSet(false));
+            },
+            () => {
+              Alert.alert('error!!!');
+              dispatch(setIsBiometricBeingSet(false));
+            },
+          );
+        } else {
+          navigate(CREATE_PASSCODE_SCREEN);
+        }
       } else {
-        navigate(CREATE_PASSCODE_SCREEN);
+        openModal({
+          title: t('trustDevice.heading'),
+          element: <TrustDeviceModal methodName={'biometrics'} openOTPModal={openOTPModal} />,
+        });
       }
     } else {
-      openModal({
-        title: t('trustDevice.heading'),
-        element: <TrustDeviceModal methodName={'biometrics'} openOTPModal={openOTPModal} />,
-      });
+      openBiometricSensorModal();
     }
   };
 
@@ -70,7 +79,7 @@ export const AuthorizationMethodsScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
         <AuthorizationMethodPasscode handleSetNewPasscode={handleSetNewPasscode} />
-        {deviceSupportsBiometricAuth && (
+        {deviceSupportsBiometricAuth !== false && (
           <AuthorizationMethodBiometrics handleSetBiometrics={handleSetBiometrics} />
         )}
       </View>

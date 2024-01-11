@@ -12,40 +12,28 @@ export const DashboardUpcomingOps = ({ data }: any) => {
 
   return (
     <>
-      <View
-        style={{
-          paddingLeft: 24,
-          paddingVertical: 32,
-          backgroundColor: 'white',
-        }}
-      >
-        <View style={styles.dashboardTemplatesContainer}>
-          <View style={styles.headerContainer}>
-            <Text
-              children={'dashboard.upcomingTransactions'}
-              style={styles.titleContainer}
-              color={Colors.textBlack}
-            />
-            <TouchableOpacity>
-              <Text
-                children={'dashboard.all'}
-                style={styles.titleContainer}
-                color={Colors.primary}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.dashboardTemplatesWrapper}>
-            <FlatList
-              style={styles.dashboardTemplatesContent}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={data}
-              renderItem={({ item }) => {
-                return <UpcomingOpsCard {...item} />;
-              }}
-              keyExtractor={item => String(item.id)}
-            />
-          </View>
+      <View style={styles.dashboardUpcomingOpsContainer}>
+        <View style={styles.headerContainer}>
+          <Text
+            children={'dashboard.upcomingTransactions'}
+            style={styles.titleContainer}
+            color={Colors.textBlack}
+          />
+          <TouchableOpacity>
+            <Text children={'dashboard.all'} style={styles.titleContainer} color={Colors.primary} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.dashboardTemplatesWrapper}>
+          <FlatList
+            style={styles.dashboardTemplatesContent}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={data}
+            renderItem={({ item }) => {
+              return <UpcomingOpsCard {...item} />;
+            }}
+            keyExtractor={item => String(item.id)}
+          />
         </View>
       </View>
       <Divider />

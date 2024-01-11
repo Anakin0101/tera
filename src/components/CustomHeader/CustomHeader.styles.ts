@@ -37,7 +37,7 @@ export const useStyleTheme = () => {
       ...Layout.row,
       ...Layout.justifyContentEnd,
       marginRight: Spacing.ml,
-      position: 'absolute',
+      ...Layout.absolute,
       right: 0,
     },
     componentsWrapper: {

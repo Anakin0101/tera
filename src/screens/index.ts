@@ -9,7 +9,6 @@ export { SettingsScreen } from './SettingsScreen/SettingsScreen';
 export { ProfileScreen } from './ProfileScreen/ProfileScreen';
 export { CreatePasscodeScreen } from './CreatePasscodeScreen/CreatePasscodeScreen';
 
-export { ModalScreenOne } from './ModalScreenOne/ModalScreenOne';
 export { AuthorizationMethodsScreen } from './AuthorizationMethodsScreen/AuthorizationMethodsScreen';
 
 export { TransactionsScreen } from './TransactionsScreen/TransactionsScreen';
@@ -34,3 +33,4 @@ export { NewDepositSummaryScreen } from './NewDepositSummaryScreen/NewDepositSum
 export { TeraWalletScreen } from './TeraWalletScreen/TeraWalletScreen';
 export { TeraWalletPDFScreen } from './TeraWalletScreen/TeraWalletPDFScreen';
 export { TeraWalletSuccess } from './TeraWalletScreen/TeraWalletSuccess';
+export { LoadingScreen } from './LoadingScreen/LoadingScreen';

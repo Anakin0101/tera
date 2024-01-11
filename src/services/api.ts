@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -8,25 +9,25 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 
-import { URLS } from './constants/urls';
 import { RootState } from 'store/index';
-import { Platform } from 'react-native';
-import { METHOD_NAMES } from './constants';
-import {
-  resetUserProfileInfo,
-  setAccessToken,
-  setPostponeEasyLogin,
-  setRefreshToken,
-} from 'store/slices/userInfo';
+import { METHOD_NAMES, URLS } from './constants';
+import { setAccessToken, setPostponeEasyLogin, setRefreshToken } from 'store/slices/userInfo';
 import { RefreshTokenAPIResponse } from './apis/authAPI/authAPI.types';
+import { resetUserProfileInfo } from 'store/slices/profile';
+import { NavigationRef } from 'navigation/index';
+import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
+import { StackActions } from '@react-navigation/native';
 
 // ---- SWAGGER DOCUMENTATION ----
 // http://10.213.0.136:4040/swagger/index.html
 // https://middleware-tst.terabank.ge/swagger/index.html
 
 // ---- API URL ----
-// export const BASE_URL = 'http://10.213.0.136:4040/api/';
+// const BASE_URL = 'http://10.213.0.136:4040/api/v1/';
 export const BASE_URL = 'https://middleware-tst.terabank.ge/api/v1/';
+
+// Everything other than: Banker / Conversations / Documents require /api/v1/Files/GetSecuredFileById
+export const PUBLIC_IMAGE_URL = `${BASE_URL}${URLS.getFileByID}?FileId=`;
 
 const mutex = new Mutex();
 
@@ -108,8 +109,8 @@ export const baseQueryWithInterceptor: BaseQueryFn<
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
-        const userIp = state.deviceInfo.userIp || '';
-        const deviceToken = state.deviceInfo.deviceToken || '';
+        const userIp = state.deviceInfo.userIp || '1';
+        const deviceToken = state.deviceInfo.deviceToken || '1';
         const refreshToken = state.userInfo.refreshToken;
 
         const refreshResult = await baseQuery(
@@ -127,9 +128,11 @@ export const baseQueryWithInterceptor: BaseQueryFn<
           refreshResult.data &&
           typeof refreshResult.data === 'object' &&
           'accessToken' in refreshResult.data &&
-          refreshResult.data.accessToken !== '' &&
+          !!refreshResult.data.accessToken &&
           'refreshToken' in refreshResult.data &&
-          refreshResult.data.refreshToken !== ''
+          !!refreshResult.data.refreshToken &&
+          'success' in refreshResult.data &&
+          !!refreshResult.data.success
         ) {
           const data = refreshResult.data as RefreshTokenAPIResponse;
           api.dispatch(setRefreshToken(data.refreshToken));
@@ -144,27 +147,27 @@ export const baseQueryWithInterceptor: BaseQueryFn<
           result = await baseQuery(updatedArgs, api, extraOptions);
         } else {
           try {
-            const res = await baseQuery(
+            baseQuery(
               {
                 url: URLS.logout,
                 method: METHOD_NAMES.POST,
-                body: {
-                  headers: {
-                    'X-Bank-UserIp': userIp,
-                    'X-Bank-DeviceToken': deviceToken,
-                  },
+                headers: {
+                  'X-Bank-UserIp': userIp,
+                  'X-Bank-DeviceToken': deviceToken,
                 },
               },
               api,
               {},
             );
-            if (res && res.data) {
-              api.dispatch(setPostponeEasyLogin(false));
-              api.dispatch(setAccessToken(''));
-              api.dispatch(resetUserProfileInfo());
-            }
           } catch (error) {
-            console.error('Error during logout:', error);
+            console.warn('Error during logout:', error);
+          } finally {
+            api.dispatch(setPostponeEasyLogin(false));
+            api.dispatch(setAccessToken(''));
+            api.dispatch(resetUserProfileInfo());
+            if (NavigationRef.current) {
+              NavigationRef.current.dispatch(StackActions.replace(GUEST_NAVIGATOR));
+            }
           }
         }
       } finally {

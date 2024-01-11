@@ -1,12 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
-import { URLS } from 'services/constants/urls';
-import { METHOD_NAMES } from 'services/constants';
+import { METHOD_NAMES, URLS } from 'services/constants';
 import {
-  GetTemplatesResponseType,
   convertAmountBuyRequestType,
   convertAmountSellType,
   convertAmountSellRequestType,
+  TransferToOwnAccountResponseType,
+  TransferToOwnAccountRequestType,
 } from './transfersAPI.types';
 
 const commonHeaders = {
@@ -19,14 +19,6 @@ export const transfersAPI = createApi({
   baseQuery: baseQueryWithInterceptor,
   tagTypes: ['Transfers'],
   endpoints: builder => ({
-    getTemplates: builder.query<GetTemplatesResponseType, void>({
-      query: () => ({
-        url: URLS.getTemplates,
-        method: METHOD_NAMES.GET,
-        headers: commonHeaders,
-      }),
-    }),
-
     convertAmountBuy: builder.query<any, convertAmountBuyRequestType>({
       query: ({ amountBuy, currencyBuy, currencySell }) => ({
         url: `${URLS.getAmount}?amountBuy=${amountBuy}&currencyBuy=${currencyBuy}&currencySell=${currencySell}`,
@@ -51,7 +43,10 @@ export const transfersAPI = createApi({
         };
       },
     }),
-    transferToOwnAccount: builder.mutation<any, any>({
+    transferToOwnAccount: builder.mutation<
+      TransferToOwnAccountResponseType,
+      TransferToOwnAccountRequestType
+    >({
       query: operations => ({
         url: URLS.transferToOwnAccount,
         method: METHOD_NAMES.POST,
@@ -72,6 +67,20 @@ export const transfersAPI = createApi({
         headers: commonHeaders,
       }),
     }),
+    checkPin: builder.query<any, any>({
+      query: pin => ({
+        url: `${URLS.checkIban}?pin=${pin}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
+    checkMobile: builder.query<any, any>({
+      query: mobile => ({
+        url: `${URLS.checkIban}?mobile=${mobile}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
     transferToSomeone: builder.mutation<any, any>({
       query: operations => ({
         url: URLS.transferToSomeone,
@@ -81,6 +90,16 @@ export const transfersAPI = createApi({
         formData: true,
       }),
     }),
+    p2ptransferToSomeone: builder.mutation<any, any>({
+      query: operations => ({
+        url: URLS.P2pTransferToSomeone,
+        method: METHOD_NAMES.POST,
+        body: operations.body,
+        headers: operations.headers,
+        formData: true,
+      }),
+    }),
+
     getTransferInfo: builder.query<any, any>({
       query: ({
         transferType,
@@ -95,16 +114,26 @@ export const transfersAPI = createApi({
         headers: commonHeaders,
       }),
     }),
+    checkPersonalNumber: builder.query<any, any>({
+      query: pin => ({
+        url: `${URLS.checkIban}?pin=${pin}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
   }),
 });
 
 export const {
-  useGetTemplatesQuery,
   useConvertAmountBuyQuery,
   useConvertAmountSellQuery,
   useTransferToOwnAccountMutation,
   useTransferToSomeoneMutation,
+  useP2ptransferToSomeoneMutation,
   useExchangeAmountMutation,
   useLazyCheckIbanQuery,
+  useLazyCheckPinQuery,
+  useLazyCheckMobileQuery,
   useLazyGetTransferInfoQuery,
+  useLazyCheckPersonalNumberQuery,
 } = transfersAPI;

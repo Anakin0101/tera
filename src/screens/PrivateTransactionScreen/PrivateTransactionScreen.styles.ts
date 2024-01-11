@@ -30,5 +30,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.xl,
       paddingHorizontal: Spacing.xl,
     },
+    textInputWrapperStyle: { marginLeft: 20, width: '90%' },
+    buttonWrapperStyle: { marginTop: 20 },
   });
 };

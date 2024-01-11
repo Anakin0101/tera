@@ -6,6 +6,7 @@ import { useStyleTheme } from 'components/Button/Button.styles';
 import { useButtonTypeStyle } from 'components/Button/hooks/useButtonTypeStyle';
 import { Text } from 'components/index';
 import useTheme from 'hooks/useTheme';
+import { ButtonLoader } from 'components/Button/ButtonLoader/ButtonLoader';
 
 export const withButton = (buttonType: ButtonType) => {
   return function ButtonComponent({
@@ -23,6 +24,7 @@ export const withButton = (buttonType: ButtonType) => {
     size = 'medium',
     hasBorder = false,
     children,
+    isLoading,
     ...props
   }: ButtonProps) {
     const styles = useButtonTypeStyle(buttonType);
@@ -39,8 +41,8 @@ export const withButton = (buttonType: ButtonType) => {
       fullWidth && sharedStyles.wrapperFullWidthStyle,
       fixedWidth && sharedStyles.wrapperFixWidthStyle,
       styles.wrapperStyle,
-      disabled && styles.wrapperDisabledStyle,
       customWrapperStyle,
+      (disabled || isLoading) && styles.wrapperDisabledStyle,
     ];
 
     const textStyle = [
@@ -62,11 +64,17 @@ export const withButton = (buttonType: ButtonType) => {
     const rightIconComponent = renderIcon(rightIcon);
 
     return (
-      <Pressable {...props} style={wrapperStyle}>
-        {leftIcon && <View style={leftIconStyle}>{leftIconComponent}</View>}
-        {children && isValidElement(children) ? children : null}
-        {text ? <Text children={text} numberOfLines={1} style={textStyle} /> : null}
-        {rightIcon && <View style={rightIconStyle}>{rightIconComponent}</View>}
+      <Pressable {...props} style={wrapperStyle} disabled={isLoading}>
+        {isLoading ? (
+          <ButtonLoader />
+        ) : (
+          <>
+            {leftIcon && <View style={leftIconStyle}>{leftIconComponent}</View>}
+            {children && isValidElement(children) ? children : null}
+            {text ? <Text children={text} numberOfLines={1} style={textStyle} /> : null}
+            {rightIcon && <View style={rightIconStyle}>{rightIconComponent}</View>}
+          </>
+        )}
       </Pressable>
     );
   };

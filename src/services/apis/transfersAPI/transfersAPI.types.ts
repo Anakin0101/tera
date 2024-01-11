@@ -1,8 +1,8 @@
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { Currency } from '../productsAPI/productsAPI.types';
+import { SerializedError } from '@reduxjs/toolkit';
+import { CustomTransferResultError } from 'screens/TransferDetailScreen/TransferDetailScreen.types';
 
-export type GetTemplatesResponseType = {
-  templates: Template[];
-};
 export type convertAmountType = {
   amountBuy: number;
   amountSell: number;
@@ -32,16 +32,11 @@ export type convertAmountSellType = {
   standardReversed: boolean;
 };
 
-export type GetTemplatesRequestType = {
-  //   headers?: Record<string, any>; TODO - update!!
-  headers?: any;
-};
-
 export type convertAmountBuyRequestType = {
   amountBuy?: number;
   currencyBuy?: string;
   currencySell?: string;
-  shouldCallApi?: any;
+  shouldCallApi?: unknown;
 };
 
 export type convertAmountSellRequestType = {
@@ -100,7 +95,7 @@ export type Transactions = {
   balance: number;
   balanceStart: number;
   description: string;
-  docDate: any;
+  docDate: unknown;
   isIncome: boolean;
 };
 
@@ -146,6 +141,10 @@ export enum DepositTypeEnum {
   Universal = 10,
   Saving = 11,
 }
+export enum amountBuyOrSell {
+  buy = 'buy',
+  sell = 'sell',
+}
 
 export enum FinancialTransferTypeEnum {
   ToOwnAccount = 1,
@@ -182,4 +181,15 @@ export type Asset = {
   totalCapitalizedPercent: number;
   totalInterest: number;
   typeId: DepositTypeEnum;
+};
+
+export type TransferToOwnAccountRequestType = {
+  amount: string;
+  creditAccountId: number;
+  debitAccountId: number;
+};
+
+export type TransferToOwnAccountResponseType = {
+  data?: {};
+  error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
 };

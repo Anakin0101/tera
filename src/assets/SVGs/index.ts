@@ -110,3 +110,4 @@ export { SmallCC } from './SmallCC';
 export { CheckLarge } from './CheckLarge';
 export { Timer } from './Timer';
 export { Percent } from './Percent';
+export { FailedSvg } from './Failed';

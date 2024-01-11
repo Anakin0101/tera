@@ -5,38 +5,63 @@ import { Transfer } from './Transfer';
 import { CardSwap } from './CardSwap';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button } from 'components';
-import { setSelectedPrice, setOtpData } from 'store/slices/transfers/indext';
+import { setSelectedPrice, setOtpData } from 'store/slices/transfers';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { useTransferDetails } from 'screens/TransferDetailScreen/container';
-
+import { clearSelectedData } from 'store/slices/transfers';
+import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 interface AccountData {
   iban: any;
   accountId: any;
   ccy: string;
 }
-
+interface TransferData {
+  mobile?: string;
+  purpose: string;
+  extraPurpose: string;
+  otp: string;
+  fastPayment: string;
+  bankCode: string;
+  bankName: string;
+  debitAccountId: number;
+  invoice: any;
+  receiverIban: string;
+  amount: number;
+  receiverName: string;
+  saveAsTemplateName?: string;
+}
 interface TransferToAccountScreenProps {}
 
 export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
+  const { fromOtherBank, fromMobile } = params;
+
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
-  const { handleTransferInfo, transferToSomeoneMutation } = useTransferDetails();
+  const { handleTransferInfo, transferToSomeone, PERSONAL_TRANSACTION } = useTransferDetails(
+    fromMobile ? true : false,
+  );
 
-  const { accountFromData, accountToData, selectedData, receiverInfo, selectedPrice, invoiceData } =
-    useAppSelector(state => state.transfers) as unknown as {
-      accountFromData: AccountData;
-      accountToData: AccountData;
-      selectedData: any;
-      receiverInfo: any;
-      selectedPrice: any;
-      invoiceData: any;
-    };
-
-  const { fromOtherBank } = params;
+  const {
+    accountFromData,
+    accountToData,
+    selectedData,
+    receiverInfo,
+    selectedPrice,
+    invoiceData,
+    selectedTransactionType,
+  } = useAppSelector(state => state.transfers) as unknown as {
+    accountFromData: AccountData;
+    accountToData: AccountData;
+    selectedData: any;
+    receiverInfo: any;
+    selectedPrice: any;
+    invoiceData: any;
+    selectedTransactionType: any;
+  };
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useDispatch();
@@ -48,40 +73,76 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
     setIsButtonDisabled(!text || text.trim() === '');
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearSelectedData());
+    };
+  }, [dispatch]);
   const openTransferScreen = () => {
     navigate(PRIVATE_TRANSACTION_SCREEN, {
       from: 'other',
     });
   };
   const navigateToTransferDetails = async () => {
-    if (isButtonDisabled) {
-      return;
-    }
+    if (isButtonDisabled) return;
 
-    if (params.fromOtherBank) {
-      try {
+    try {
+      const transferType = fromMobile
+        ? FinancialTransferTypeEnum.ToSomeoneInsideBank
+        : receiverInfo.ibanIsValid
+        ? FinancialTransferTypeEnum.ToSomeoneInsideBank
+        : FinancialTransferTypeEnum.Exchange;
+
+      const transferData: TransferData = {
+        debitAccountId: accountFromData.accountId,
+        receiverIban: accountToData.iban,
+        amount: selectedPrice,
+        receiverName: receiverInfo.customerName,
+        purpose: selectedData.length > 0 ? selectedData : PERSONAL_TRANSACTION,
+        extraPurpose: '',
+        otp: '',
+        fastPayment: selectedTransactionType.isFast,
+        bankCode: receiverInfo.bicCode,
+        bankName: receiverInfo.bankName,
+        saveAsTemplateName: '',
+        invoice: invoiceData,
+      };
+
+      if (fromMobile && accountToData.iban) {
+        transferData.mobile = accountToData.iban;
+        const transferToSomeoneResult = await transferToSomeone({
+          headers: {
+            'X-Bank-Isstrongauthrequest': 'true',
+            'X-Bank-Getauthmethod': 'true',
+          },
+          body: transferData,
+        });
+
+        if (transferToSomeoneResult && 'data' in transferToSomeoneResult) {
+          dispatch(setOtpData(transferToSomeoneResult.data));
+
+          navigate(TRANSFER_DETAIL_SCREEN, {
+            convertion: false,
+            fromOtherBank: fromOtherBank,
+            mobileTransaction: true,
+          });
+        }
+      } else {
         await handleTransferInfo({
-          transferType: receiverInfo.ibanIsValid ? 3 : 2,
+          transferType,
           debitAccountId: accountFromData.accountId,
           amount: selectedPrice,
           fastPayment: false,
           ensured: false,
           receiverBankCode: receiverInfo.bicCode,
         });
-        const formData = new FormData();
-        formData.append('debitAccountId', accountFromData.accountId);
-        formData.append('receiverIban', accountToData.iban);
-        formData.append('amount', selectedPrice);
-        formData.append('receiverName', receiverInfo.customerName);
-        formData.append('purpose', selectedData);
-        formData.append('extraPurpose', '');
-        formData.append('otp', '');
-        formData.append('fastPayment', 'false');
-        formData.append('bankCode', receiverInfo.bicCode);
-        formData.append('bankName', receiverInfo.bankName);
-        formData.append('invoice', invoiceData);
 
-        const transferToSomeoneResult = await transferToSomeoneMutation({
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(transferData)) {
+          formData.append(key, value);
+        }
+
+        const transferToSomeoneResult = await transferToSomeone({
           headers: {
             'X-Bank-Isstrongauthrequest': 'true',
             'X-Bank-Getauthmethod': 'true',
@@ -97,11 +158,10 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
             convertion: false,
             fromOtherBank: fromOtherBank,
           });
-        } else {
         }
-      } catch (error) {
-        console.error('Error during API call:', error);
       }
+    } catch (error) {
+      console.warn('Error during API call:', error);
     }
   };
 

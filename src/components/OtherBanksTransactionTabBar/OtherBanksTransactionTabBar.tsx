@@ -2,11 +2,11 @@ import { LayoutChangeEvent } from 'react-native';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Animated, { interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
-import { ITabBarProps } from './OtherBanksTransactionTabBar.types';
+import { ITabBarProps, SelectedItem } from './OtherBanksTransactionTabBar.types';
 import { TabBarLabel } from '../index';
 import { useStyles } from './OtherBanksTransactionTabBar.styles';
 import { Colors } from 'theme/Variables';
-
+import { useAppSelector } from 'store/hooks/useAppSelector';
 export const DISTANCE_BETWEEN_TABS = 35;
 
 export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
@@ -23,8 +23,17 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
   const [, setSecondTabWidth] = useState(0);
   const [, setThirdTabWidth] = useState(0);
 
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: SelectedItem }) => state.transfers,
+  );
+
+  const { accountFromData } = selectedItemFromStore;
+
+  const currencies = ['USD', 'EUR'];
+
   const onLayout = (event: LayoutChangeEvent, idx: number) => {
     const { width } = event.nativeEvent.layout;
+
     idx === 0
       ? setFirstTabWidth(width)
       : idx === 1
@@ -44,7 +53,9 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
     return {
       backgroundColor: interpolateColor(
         translateY.value,
+
         [0, 20],
+
         [Colors.dashboardBackground, Colors.overlay],
       ),
     };
@@ -59,7 +70,7 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
           tabBarLabelStyle
           activeTab={activeTab}
           index={0}
-          tab={t('პირადობით')}
+          tab={t('transactionDetails.personal')}
           onLayout={onLayout}
           onTabPress={onTabPress}
           translateX={translateX}
@@ -68,20 +79,32 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
           tabBarLabelStyle
           activeTab={activeTab}
           index={1}
-          tab={t('ანგარიშით')}
+          tab={t('transactionDetails.iban')}
           onLayout={onLayout}
           onTabPress={onTabPress}
           translateX={translateX}
         />
-        <TabBarLabel
-          tabBarLabelStyle
-          activeTab={activeTab}
-          index={2}
-          tab={'მობილურით'}
-          onLayout={onLayout}
-          onTabPress={onTabPress}
-          translateX={translateX}
-        />
+        {accountFromData?.ccy && !currencies.includes(accountFromData.ccy) ? (
+          <TabBarLabel
+            tabBarLabelStyle
+            activeTab={activeTab}
+            index={2}
+            tab={t('transactionDetails.mobile')}
+            onLayout={onLayout}
+            onTabPress={onTabPress}
+            translateX={translateX}
+          />
+        ) : (
+          <TabBarLabel
+            tabBarLabelStyle
+            activeTab={activeTab}
+            index={2}
+            tab={'transactionDetails.mobile'}
+            onLayout={onLayout}
+            onTabPress={() => {}}
+            translateX={translateX}
+          />
+        )}
       </Animated.View>
       <Animated.View style={[styles.overlay, color]} />
     </>

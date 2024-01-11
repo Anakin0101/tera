@@ -18,5 +18,12 @@ export const useStyleTheme = () => {
       marginLeft: Spacing.lg,
       fontSize: FontSize.regular,
     },
+    iconComponentCustomStyles: {
+      width: 48,
+      height: 48,
+      backgroundColor: Colors.error100,
+      padding: 0,
+      margin: 0,
+    },
   });
 };

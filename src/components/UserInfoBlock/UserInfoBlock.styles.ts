@@ -7,6 +7,7 @@ export const useStyleTheme = () => {
     userInfoBlockContainer: {
       ...Layout.row,
       ...Layout.justifyContentStart,
+      ...Layout.alignItemsCenter,
       padding: Spacing.xl,
       marginBottom: Spacing.xxs,
       backgroundColor: Colors.white,
@@ -16,6 +17,7 @@ export const useStyleTheme = () => {
     userIconContainer: {
       paddingRight: Spacing.s,
     },
+    userIconStyles: { width: 60, height: 60 },
     temporaryImage: {
       width: 60,
       height: 60,

@@ -1,12 +1,34 @@
 import { useCallback, useEffect, useState } from 'react';
+import { AppState, Platform } from 'react-native';
 import Biometrics from 'react-native-biometrics';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setBiometricStatus } from 'store/slices/userInfo';
 import { setBiometricsAuth, getBiometricsAuthStatus, clearBiometricsAuth } from 'utils/keychain';
+import { closeModal } from 'utils/modal';
 
 export const useBiometrics = () => {
-  const [biometricAuthAvailable, setBiometricAuthAvailable] = useState<boolean | null>(null);
   const dispatch = useAppDispatch();
+  const [deviceSupportsBiometricAuth, setDeviceSupportsBiometricAuth] = useState<boolean | null>(
+    null,
+  );
+  const [isBiometricAuthIsEnabled, setIsBiometricAuthIsEnabled] = useState<boolean | null>(null);
+
+  // if device supports biometric auth option
+  const isBiometricSupportedByHardware = useCallback(async () => {
+    const response = await Biometrics.isSensorAvailable();
+    const isHardwareSupported = response.isHardwareSupported;
+
+    setDeviceSupportsBiometricAuth(isHardwareSupported);
+    return isHardwareSupported;
+  }, []);
+
+  // if biometric auth is enabled for the app
+  const isBiometricEnabledOnSmartphone = useCallback(async () => {
+    const { available } = await Biometrics.isSensorAvailable();
+
+    setIsBiometricAuthIsEnabled(available);
+    return available;
+  }, []);
 
   useEffect(() => {
     const checkBiometrics = async () => {
@@ -17,21 +39,31 @@ export const useBiometrics = () => {
     checkBiometrics();
   }, [dispatch]);
 
-  const isBiometricSupported = useCallback(async () => {
-    const { available } = await Biometrics.isSensorAvailable();
-    setBiometricAuthAvailable(available);
-    return available;
-  }, []);
-
   useEffect(() => {
-    isBiometricSupported();
-  }, [isBiometricSupported]);
+    isBiometricSupportedByHardware();
+    isBiometricEnabledOnSmartphone();
+
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'active' && Platform.OS === 'android') {
+        closeModal();
+        isBiometricSupportedByHardware();
+        isBiometricEnabledOnSmartphone();
+      }
+    });
+
+    return () => subscription.remove();
+  }, [isBiometricEnabledOnSmartphone, isBiometricSupportedByHardware]);
 
   const checkBiometricSensor = async () => {
     const { available, biometryType, error } = await Biometrics.isSensorAvailable();
+
     if (error) {
-      console.error('Biometric auth may not be supported:', error);
+      console.warn('Biometric auth may not be supported:', error);
       return false;
+    }
+
+    if (Platform.OS === 'android' && biometryType === Biometrics.FaceID) {
+      return null;
     }
 
     if (available && biometryType) {
@@ -51,7 +83,7 @@ export const useBiometrics = () => {
 
   const handleBiometricPrompt = async (
     onSuccess?: () => void,
-    onError?: () => void,
+    onError?: (e?: string) => void,
     isActivation?: boolean,
   ) => {
     const simplePromptConfig = await checkBiometricSensor();
@@ -68,8 +100,8 @@ export const useBiometrics = () => {
         onSuccess?.();
       }
     } catch (e) {
-      console.error('Biometric prompt error:', e);
-      onError?.();
+      console.warn('Biometric prompt error:', e);
+      onError?.(String(e));
     }
   };
 
@@ -84,7 +116,7 @@ export const useBiometrics = () => {
   //   We use verification, when the biometric auth is already set in keychain and we just want to log the user in
   const handleBiometricVerification = (
     onActivationSuccess?: () => void,
-    onActivationError?: () => void,
+    onActivationError?: (e?: string) => void,
   ) => {
     handleBiometricPrompt(onActivationSuccess, onActivationError, false);
   };
@@ -100,7 +132,8 @@ export const useBiometrics = () => {
   return {
     handleBiometricActivation,
     handleBiometricVerification,
-    biometricAuthAvailable,
     clearBiometrics,
+    deviceSupportsBiometricAuth,
+    isBiometricAuthIsEnabled,
   };
 };

@@ -16,12 +16,18 @@ export const DetailsItem: FC<DetailsItemProps> = ({
   onPress,
   translateProp,
   marginTop,
+  underline,
 }) => {
   const styles = useStyles();
   const blockedFundsSection = Array.isArray(value);
 
   return (
-    <View style={[styles.detailsContainer, marginTop ? { marginTop } : null]}>
+    <View
+      style={[
+        underline ? styles.detailsContainerUnderlined : styles.detailsContainer,
+        marginTop ? { marginTop } : null,
+      ]}
+    >
       <View style={styles.detailsWrapper}>
         <View>
           <Text children={label} color={Colors.textBlack500} />
@@ -36,12 +42,7 @@ export const DetailsItem: FC<DetailsItemProps> = ({
               ))}
             </View>
           ) : (
-            <Text
-              size={15}
-              children={value}
-              translateProp={translateProp}
-              // style={{ fontWeight: 'bold' }}
-            />
+            <Text children={value} translateProp={translateProp} bold />
           )}
           {iban && <Text children={iban} />}
         </View>

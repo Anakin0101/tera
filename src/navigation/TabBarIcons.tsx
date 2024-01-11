@@ -11,6 +11,7 @@ import {
   TabBarTransactions,
   TabBarTransactionsActive,
 } from 'assets/SVGs/index';
+import { verticalScale } from 'utils/config';
 
 export const HomeStackIcon = ({ focused }: { focused: boolean }) =>
   focused ? <TabBarHomeActive /> : <TabBarHome />;
@@ -19,7 +20,19 @@ export const ProductsStackIcon = ({ focused }: { focused: boolean }) =>
   focused ? <TabBarProductsActive /> : <TabBarProducts />;
 
 export const TransactionsStackIcon = ({ focused }: { focused: boolean }) =>
-  focused ? <TabBarTransactionsActive /> : <TabBarTransactions />;
+  focused ? (
+    <TabBarTransactionsActive
+      style={{
+        marginTop: verticalScale(16),
+      }}
+    />
+  ) : (
+    <TabBarTransactions
+      style={{
+        marginTop: verticalScale(16),
+      }}
+    />
+  );
 
 export const PaymentsStackIcon = ({ focused }: { focused: boolean }) =>
   focused ? <TabBarPaymentsActive /> : <TabBarPayments />;
