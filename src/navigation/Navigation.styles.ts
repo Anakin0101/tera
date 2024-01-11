@@ -1,0 +1,16 @@
+import useTheme from 'hooks/useTheme';
+import { StyleSheet } from 'react-native';
+
+export const useStyleTheme = () => {
+  const { Colors, FontSize, FontFamily } = useTheme();
+  return StyleSheet.create({
+    headerTitleStyle: {
+      fontSize: FontSize.regular,
+      lineHeight: 24,
+      letterSpacing: 0.2,
+      fontFamily: FontFamily.Regular,
+      color: Colors.black700,
+      fontWeight: 'bold',
+    },
+  });
+};
