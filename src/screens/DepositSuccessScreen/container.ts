@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { PRODUCTS_SCREEN, TERA_WALLET_SCREEN } from 'navigation/ScreenNames';
 import { ProductsStackScreenProps } from 'navigation/types';
 
 export const useDepositSuccess = () => {
@@ -7,12 +8,12 @@ export const useDepositSuccess = () => {
   const handleHomePress = () => {
     reset({
       index: 0,
-      routes: [{ name: 'ProductsScreen' }],
+      routes: [{ name: PRODUCTS_SCREEN }],
     });
   };
 
   const handleTeraWalletPress = () => {
-    navigate('TeraWalletScreen');
+    navigate(TERA_WALLET_SCREEN);
   };
 
   return {

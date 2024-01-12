@@ -5,6 +5,7 @@ import { CheckLarge } from 'assets/SVGs';
 import { Button, Text } from 'components';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { PRODUCTS_SCREEN } from 'navigation/ScreenNames';
 
 export const TeraWalletSuccess = () => {
   const styles = useStyles();
@@ -13,7 +14,7 @@ export const TeraWalletSuccess = () => {
   const handleHomePress = () => {
     reset({
       index: 0,
-      routes: [{ name: 'ProductsScreen' }],
+      routes: [{ name: PRODUCTS_SCREEN }],
     });
   };
 

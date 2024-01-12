@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { moderateScale } from 'utils/config';
+import { Platform } from 'react-native';
 
 export const useStyles = () => {
   const { Layout, Spacing, Colors, FontFamily } = useTheme();
@@ -26,6 +27,12 @@ export const useStyles = () => {
       height: 65,
       fontFamily: FontFamily.medium,
       marginRight: Spacing.xxs,
+    },
+    currency: {
+      ...Platform.select({
+        android: { marginTop: 2 },
+        ios: { marginTop: 5 },
+      }),
     },
     selected: {
       borderColor: Colors.primary,

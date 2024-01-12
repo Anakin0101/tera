@@ -10,8 +10,10 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setDepositDuration } from 'store/slices/deposit';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { CalculateDeposit } from 'services/apis/productsAPI/productsAPI.types';
+import { NEW_DEPOSIT_SUMMARY_SCREEN } from 'navigation/ScreenNames';
 
 const ITEM_SIZE = 86;
+const COMMA_OR_PERIOD_REGEX = /[,.]/g;
 
 export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const dispatch = useAppDispatch();
@@ -40,14 +42,14 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   );
 
   const interestRate = useMemo(() => {
-    if (interestRates && offer && offer.depositProducts.length === 1) {
+    if (interestRates && offer?.depositProducts?.length === 1) {
       return interestRates[0];
     }
     return interestRates?.find(item => item.periodInMonths === Number(debouncedValue));
   }, [debouncedValue, interestRates, offer]);
 
   useEffect(() => {
-    const min = offer?.depositProducts[0].minPeriod;
+    const min = offer?.depositProducts?.[0]?.minPeriod;
 
     if (offer && typeof min === 'number') {
       setDuration(min.toString());
@@ -57,9 +59,9 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   }, [offer]);
 
   useEffect(() => {
-    if (offer && offer.depositProducts.length === 1) {
-      setProductId(offer.depositProducts[0].productId);
-      setProductName(offer.depositProducts[0].name);
+    if (offer?.depositProducts?.length === 1) {
+      setProductId(offer?.depositProducts?.[0]?.productId);
+      setProductName(offer?.depositProducts?.[0]?.name);
     }
   }, [offer]);
 
@@ -91,16 +93,20 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   ]);
 
   const depositPeriod = useMemo(() => {
-    const min = offer?.depositProducts[0].minPeriod;
-    const max = offer?.depositProducts[0].maxPeriod;
+    try {
+      const min = offer?.depositProducts?.[0]?.minPeriod;
+      const max = offer?.depositProducts?.[0]?.maxPeriod;
 
-    if (min && max) {
-      return Array.from({ length: max - min + 1 }, (_, index) => index + min);
+      if (min && max) {
+        return Array.from({ length: max - min + 1 }, (_, index) => index + min);
+      }
+    } catch (err) {
+      console.warn('Error in depositPeriod useMemo:', err);
     }
   }, [offer]);
 
   useEffect(() => {
-    if (duration && depositPeriod && depositPeriod.includes(Number(duration))) {
+    if (duration && depositPeriod?.includes(Number(duration))) {
       lastValue.current = duration;
     }
     const timeout = setTimeout(() => setDebouncedValue(duration), 600);
@@ -112,19 +118,27 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     if (debouncedValue && depositPeriod && !depositPeriod.includes(Number(debouncedValue))) {
       setDuration('');
     }
-    if (debouncedValue && depositPeriod && depositPeriod.includes(Number(debouncedValue))) {
-      ref.current?.scrollToOffset({
-        offset: (Number(debouncedValue) - 3) * ITEM_SIZE,
-        animated: false,
-      });
+    try {
+      if (debouncedValue && depositPeriod?.includes(Number(debouncedValue))) {
+        ref.current?.scrollToOffset({
+          offset: (Number(debouncedValue) - 3) * ITEM_SIZE,
+          animated: false,
+        });
+      }
+    } catch (err) {
+      console.warn('Error in scrollToOffset on NewDepositAdditionalInfoScreen', err);
     }
   }, [debouncedValue, depositPeriod, ref]);
 
   const handleItemPress = useCallback(
     (index: number) => {
-      ref.current?.scrollToOffset({
-        offset: index * ITEM_SIZE,
-      });
+      try {
+        ref.current?.scrollToOffset({
+          offset: index * ITEM_SIZE,
+        });
+      } catch (err) {
+        console.warn('Error in handleItemPress on NewDepositAdditionalInfoScreen', err);
+      }
     },
     [ref],
   );
@@ -144,11 +158,11 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
         productName: productName,
       }),
     );
-    navigate('NewDepositSummaryScreen');
+    navigate(NEW_DEPOSIT_SUMMARY_SCREEN);
   };
 
   const onChangeText = (value: string) => {
-    const formatted = value.replace(/[,.]/g, '');
+    const formatted = value.replace(COMMA_OR_PERIOD_REGEX, '');
     setDuration(formatted);
   };
 
@@ -158,7 +172,13 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     }
   };
 
-  const minPeriod = offer?.depositProducts[0].minPeriod ?? 0;
+  const minPeriod = useMemo(() => {
+    return offer?.depositProducts?.[0]?.minPeriod ?? 0;
+  }, [offer?.depositProducts]);
+
+  const maxPeriod = useMemo(() => {
+    return offer?.depositProducts?.[0]?.maxPeriod ?? 0;
+  }, [offer?.depositProducts]);
 
   return {
     duration,
@@ -183,5 +203,6 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     imageUrl,
     setProductName,
     minPeriod,
+    maxPeriod,
   };
 };

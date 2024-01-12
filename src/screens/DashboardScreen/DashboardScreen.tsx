@@ -13,8 +13,10 @@ import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEas
 import { openModal } from 'utils/modal';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { debounce } from 'utils/debounce';
+import { useStyleTheme } from './DashboardScreen.style';
 
 export const DashboardScreen = () => {
+  const styles = useStyleTheme();
   const handleClearAllFromStorage = async () => {
     const res = await resetKeychainValues();
     storage.clearAll();
@@ -60,15 +62,19 @@ export const DashboardScreen = () => {
   };
 
   const onTabPress = (index: number) => {
-    translateX.value = withTiming(index * config.mobileWidth);
-    flatlistRef.current?.scrollToOffset({
-      animated: true,
-      offset: index * config.mobileWidth,
-    });
+    try {
+      translateX.value = withTiming(index * config.mobileWidth);
+      flatlistRef.current?.scrollToOffset({
+        animated: true,
+        offset: index * config.mobileWidth,
+      });
+    } catch (err) {
+      console.warn('Error in onTabPress on DashboardScreen', err);
+    }
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.containerFlex}>
       <HomeHeader translateY={scroll} />
       <DashboardTabBar onTabPress={onTabPress} translateX={translateX} translateY={scroll} />
       <FlatList

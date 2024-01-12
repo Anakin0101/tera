@@ -4,11 +4,9 @@ import { useNewDepositDetails } from './container';
 import { Button, Divider, Text } from 'components';
 import { useStyles } from './NewDepositDetailsScreen.styles';
 import { Loader } from 'components/Loader/Loader';
+import i18next from 'i18next';
 
-const benefits = [
-  'შეინახე თავისუფალი თანხა და მიიღე მაღალი საპროცენტო სარგებელი.',
-  'მიიღე სტანდარტულზე 0.1%-ით მეტი სარგებელი ნებისმიერ ვალუტაში გახსნილ ანაბარზე',
-];
+const benefits = [i18next.t('newDeposit.saveFreeMoney'), i18next.t('newDeposit.getMoreInterest')];
 
 export const NewDepositDetailsScreen = () => {
   const styles = useStyles();
@@ -35,11 +33,7 @@ export const NewDepositDetailsScreen = () => {
       <View style={styles.description}>
         <Text children="products.details" medium size={16} />
         <Text children={offer?.description} secondary marginTop={16} />
-        <Text
-          children="სპეციალურად შენთვის - გახსენი დეპოზიტი და მიიღე სტანდარტულზე მაღალი საპროცენტო განაკვეთი."
-          secondary
-          marginTop={16}
-        />
+        <Text children="newDeposit.specialOffer" secondary marginTop={16} />
         <View style={styles.benefitsContainer}>
           {benefits.map(item => (
             <View style={styles.benefitItem} key={item}>

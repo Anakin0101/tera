@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN } from 'navigation/ScreenNames';
 import { ProductsStackRouteProps, ProductsStackScreenProps } from 'navigation/types';
 import { useGetOfferByIdQuery } from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -17,7 +18,7 @@ export const useNewDepositDetails = () => {
       return;
     }
     dispatch(setOfferDetails(offer));
-    navigate('NewDepositInitialAmountScreen');
+    navigate(NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN);
   };
 
   return {

@@ -1,5 +1,4 @@
 import React, { useMemo, useCallback, useEffect, useState } from 'react';
-import { FlatList, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { openModal } from 'utils/modal';
 import {
@@ -11,13 +10,12 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { Currency, WalletAccount } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setWalletData } from 'store/slices/teraWallet';
+import { FlatlistRef, ScrollViewRef } from './TeraWalletScreen.types';
+import { TERA_WALLET_PDF_SCREEN } from 'navigation/ScreenNames';
 
 const ITEM_SIZE = 86;
 
-export const useTeraWallet = (
-  ref: React.RefObject<FlatList>,
-  scrollViewRef: React.RefObject<ScrollView>,
-) => {
+export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) => {
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<ProductsStackScreenProps<'TeraWalletPDFScreen'>>();
   const [amount, setAmount] = useState('');
@@ -29,7 +27,7 @@ export const useTeraWallet = (
   const { data: accounts } = useGetAccountsByCustomerIdQuery();
 
   const amounts = useMemo(() => {
-    return teraWalletInfo?.amount.map(item => ({
+    return teraWalletInfo?.amount?.map(item => ({
       ...item,
       value: parseFloat(item.value).toString(),
     }));
@@ -38,7 +36,7 @@ export const useTeraWallet = (
   useEffect(() => {
     if (amounts) {
       setAmount(amounts[0].value);
-      setDebouncedValue(amounts[0].value);
+      setDebouncedValue(amounts?.[0]?.value);
     }
   }, [amounts]);
 
@@ -46,7 +44,7 @@ export const useTeraWallet = (
     if (!amounts) {
       return;
     }
-    const timeout = setTimeout(() => setAmount(amounts[activeIndex].value), 300);
+    const timeout = setTimeout(() => setAmount(amounts?.[activeIndex]?.value), 300);
 
     return () => clearTimeout(timeout);
   }, [activeIndex, amounts]);
@@ -66,13 +64,17 @@ export const useTeraWallet = (
       return;
     }
 
-    const index = amounts.findIndex(item => item.value === debouncedValue);
+    const index = amounts?.findIndex(item => item.value === debouncedValue);
 
-    if (typeof index === 'number' && index > -1) {
-      ref.current?.scrollToOffset({
-        offset: index * ITEM_SIZE,
-        animated: false,
-      });
+    try {
+      if (typeof index === 'number' && index > -1) {
+        ref.current?.scrollToOffset({
+          offset: index * ITEM_SIZE,
+          animated: false,
+        });
+      }
+    } catch (error) {
+      console.warn('Error in useEffect in TeraWalletScreen container', error);
     }
   }, [amounts, debouncedValue, ref]);
 
@@ -86,15 +88,19 @@ export const useTeraWallet = (
 
   const onBlur = () => {
     if (amounts && !amount) {
-      setAmount(amounts[activeIndex].value);
+      setAmount(amounts?.[activeIndex]?.value);
     }
   };
 
   const handleItemPress = useCallback(
     (index: number) => {
-      ref.current?.scrollToOffset({
-        offset: index * ITEM_SIZE,
-      });
+      try {
+        ref.current?.scrollToOffset({
+          offset: index * ITEM_SIZE,
+        });
+      } catch (err) {
+        console.warn('Error in handleItemPress on TeraWalletScreen', err);
+      }
     },
     [ref],
   );
@@ -130,7 +136,7 @@ export const useTeraWallet = (
       }),
     );
 
-    navigate('TeraWalletPDFScreen');
+    navigate(TERA_WALLET_PDF_SCREEN);
   };
 
   const selectedDepositInfo = useMemo(() => {

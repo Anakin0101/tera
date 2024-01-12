@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import {
   View,
   Image,
@@ -48,11 +48,16 @@ export const NewDepositAdditionalInfoScreen = () => {
     imageUrl,
     setProductName,
     minPeriod,
+    maxPeriod,
   } = useNewDepositAdditionalInfo(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
-    scrollX.value = event.contentOffset.x;
-    runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + minPeriod));
+    try {
+      scrollX.value = event.contentOffset.x;
+      runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + minPeriod));
+    } catch (err) {
+      console.warn('Error in handleScroll on NewDepositAdditionalInfoScreen', err);
+    }
   });
 
   const renderItem: ListRenderItem<string> = useCallback(
@@ -62,7 +67,24 @@ export const NewDepositAdditionalInfoScreen = () => {
     [handleItemPress, scrollX],
   );
 
-  const isSingleOption = offer?.depositProducts.length === 1;
+  const isSingleOption = useMemo(() => {
+    return offer?.depositProducts?.length === 1;
+  }, [offer]);
+
+  const getDepositProducts = () => {
+    return offer?.depositProducts?.map(product => (
+      <Pressable
+        key={product.productId}
+        onPress={() => {
+          setProductId(product.productId);
+          setProductName(product.name);
+        }}
+        style={[styles.period, productId === product.productId && styles.selected]}
+      >
+        <Text children={product.name.ka} special={productId === product.productId} />
+      </Pressable>
+    ));
+  };
 
   return (
     <ScrollView bounces={false} style={styles.wrapper} showsVerticalScrollIndicator={false}>
@@ -78,8 +100,8 @@ export const NewDepositAdditionalInfoScreen = () => {
       <View style={[styles.main, isSingleOption && styles.fullHeight]}>
         {isSingleOption ? (
           <>
-            <Text children="დასრულების თარიღი" secondary center />
-            <Text children="უვადო" special center />
+            <Text children="newDeposit.completionDate" secondary center />
+            <Text children="newDeposit.lifetime" special center />
           </>
         ) : (
           <>
@@ -115,16 +137,18 @@ export const NewDepositAdditionalInfoScreen = () => {
                   />
                 </View>
                 <Text children="newDeposit.completionDate" secondary center marginTop={24} />
-                {debouncedValue && Number(debouncedValue) > 2 && Number(debouncedValue) < 25 && (
-                  <Text
-                    children={formatDateFullMonth(
-                      getDateMonthsLater(Number(debouncedValue)),
-                      'DD-MM-YYYY',
-                    )}
-                    secondary
-                    center
-                  />
-                )}
+                {debouncedValue &&
+                  Number(debouncedValue) >= minPeriod &&
+                  Number(debouncedValue) <= maxPeriod && (
+                    <Text
+                      children={formatDateFullMonth(
+                        getDateMonthsLater(Number(debouncedValue)),
+                        'DD-MM-YYYY',
+                      )}
+                      secondary
+                      center
+                    />
+                  )}
               </View>
             </View>
             <Text children="newDeposit.withdrawBenefits" secondary marginTop={35} center />
@@ -134,18 +158,7 @@ export const NewDepositAdditionalInfoScreen = () => {
               contentContainerStyle={styles.contentContainer}
               showsHorizontalScrollIndicator={false}
             >
-              {offer?.depositProducts.map(product => (
-                <Pressable
-                  key={product.productId}
-                  onPress={() => {
-                    setProductId(product.productId);
-                    setProductName(product.name);
-                  }}
-                  style={[styles.period, productId === product.productId && styles.selected]}
-                >
-                  <Text children={product.name.ka} special={productId === product.productId} />
-                </Pressable>
-              ))}
+              {getDepositProducts()}
             </ScrollView>
           </>
         )}

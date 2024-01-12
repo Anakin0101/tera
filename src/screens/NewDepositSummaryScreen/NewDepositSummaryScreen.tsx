@@ -32,7 +32,7 @@ export const NewDepositSummaryScreen = () => {
             <View>
               <Text children={newDeposit.depositType} medium size={16} />
               <Text
-                children={formatMoney(newDeposit.initialAmount, newDeposit.currency)}
+                children={formatMoney(newDeposit?.initialAmount, newDeposit?.currency)}
                 size={18}
               />
             </View>
@@ -45,8 +45,8 @@ export const NewDepositSummaryScreen = () => {
               <View>
                 <Text children="deposits.period" secondary label />
                 <Text
-                  children={isSingleOption ? 'უვადო' : 'newDeposit.months'}
-                  translateProp={{ value: newDeposit.duration }}
+                  children={isSingleOption ? 'newDeposit.lifetime' : 'newDeposit.months'}
+                  translateProp={{ value: newDeposit?.duration }}
                   size={16}
                 />
               </View>
@@ -58,7 +58,7 @@ export const NewDepositSummaryScreen = () => {
               <View>
                 <Text children="newDeposit.benefit" secondary label />
                 <Text
-                  children={formatMoney(newDeposit.benefit, newDeposit.currency)}
+                  children={formatMoney(newDeposit?.benefit, newDeposit?.currency)}
                   size={16}
                   special
                 />
@@ -71,7 +71,7 @@ export const NewDepositSummaryScreen = () => {
             </View>
             <View>
               <Text children="deposits.interestRate" secondary label />
-              <Text children={`${newDeposit.interestRate}%`} size={16} />
+              <Text children={`${newDeposit?.interestRate}%`} size={16} />
             </View>
           </View>
         </View>
@@ -81,9 +81,9 @@ export const NewDepositSummaryScreen = () => {
               label="newDeposit.fromAccount"
               value={
                 <View style={styles.detailsItem}>
-                  <Text children={newDeposit.creditAccount.iban} size={15} />
+                  <Text children={newDeposit?.creditAccount?.iban} size={15} />
                   <Text
-                    children={formatMoney(newDeposit.creditAccount.balance, newDeposit.currency)}
+                    children={formatMoney(newDeposit?.creditAccount?.balance, newDeposit?.currency)}
                     size={15}
                   />
                 </View>
@@ -93,9 +93,9 @@ export const NewDepositSummaryScreen = () => {
               label="newDeposit.toAccount"
               value={
                 <View style={styles.detailsItem}>
-                  <Text children={newDeposit.debitAccount.iban} size={15} />
+                  <Text children={newDeposit?.debitAccount?.iban} size={15} />
                   <Text
-                    children={formatMoney(newDeposit.debitAccount.balance, newDeposit.currency)}
+                    children={formatMoney(newDeposit?.debitAccount?.balance, newDeposit?.currency)}
                     size={15}
                   />
                 </View>
@@ -104,27 +104,27 @@ export const NewDepositSummaryScreen = () => {
             {!isSingleOption && (
               <DetailsItem
                 label="newDeposit.completionDate"
-                value={getDateMonthsLater(newDeposit.duration, 'DD/MM/YYYY')}
+                value={getDateMonthsLater(newDeposit?.duration, 'DD/MM/YYYY')}
               />
             )}
             {!isSingleOption && (
               <DetailsItem
                 label="newDeposit.timeOfBenefitTransfer"
-                value={newDeposit.productName.ka}
+                value={newDeposit?.productName?.ka}
               />
             )}
-            <DetailsItem label="deposits.interestRate" value={`${newDeposit.interestRate}%`} />
+            <DetailsItem label="deposits.interestRate" value={`${newDeposit?.interestRate}%`} />
             <DetailsItem
               label="newDeposit.specialInterestRate"
-              value={`${newDeposit.specialInterestRate}%`}
+              value={`${newDeposit?.specialInterestRate}%`}
             />
             <DetailsItem
               label="newDeposit.effectiveInterestRate"
-              value={`${newDeposit.effectiveInterestRate}%`}
+              value={`${newDeposit?.effectiveInterestRate}%`}
             />
             <DetailsItem
               label="newDeposit.benefit"
-              value={formatMoney(newDeposit.benefit, newDeposit.currency)}
+              value={formatMoney(newDeposit?.benefit, newDeposit?.currency)}
             />
           </View>
           <View style={styles.footer}>

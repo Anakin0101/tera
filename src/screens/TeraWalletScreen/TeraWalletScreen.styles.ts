@@ -98,7 +98,6 @@ export const useStyles = () => {
     pdf: {
       ...Layout.fill,
       backgroundColor: Colors.white,
-      // marginHorizontal: Spacing.xl,
     },
     successContainer: {
       ...Layout.fill,

@@ -14,6 +14,7 @@ import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { useStyles } from './TeraWalletScreen.styles';
 import { WalletAmount } from 'services/apis/productsAPI/productsAPI.types';
 import { Loader } from 'components/Loader/Loader';
+import { DataType } from './TeraWalletScreen.types';
 
 export const TeraWalletScreen = () => {
   const styles = useStyles();
@@ -38,8 +39,12 @@ export const TeraWalletScreen = () => {
   } = useTeraWallet(flatListRef, scrollViewRef);
 
   const handleScroll = useAnimatedScrollHandler(event => {
-    scrollX.value = event.contentOffset.x;
-    runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
+    try {
+      scrollX.value = event.contentOffset.x;
+      runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
+    } catch (error) {
+      console.warn('Error in handleScroll on TeraWalletScreen', error);
+    }
   });
 
   const renderItem: ListRenderItem<WalletAmount> = useCallback(
@@ -55,6 +60,15 @@ export const TeraWalletScreen = () => {
       );
     },
     [handleItemPress, scrollX, selectedCurrency],
+  );
+
+  const getItemLayout = useCallback(
+    (_: DataType, index: number) => ({
+      length: ITEM_SIZE,
+      offset: ITEM_SIZE * index,
+      index,
+    }),
+    [ITEM_SIZE],
   );
 
   if (!teraWalletInfo) {
@@ -82,7 +96,7 @@ export const TeraWalletScreen = () => {
           snapToInterval={ITEM_SIZE}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.selectAmountContentContainer}
-          getItemLayout={(_, index) => ({ length: ITEM_SIZE, offset: ITEM_SIZE * index, index })}
+          getItemLayout={getItemLayout}
         />
         <View style={styles.inputContainer}>
           <TextInput

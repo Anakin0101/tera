@@ -11,6 +11,7 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setInitialAmount } from 'store/slices/deposit';
 import { openToast } from 'utils/toast';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN } from 'navigation/ScreenNames';
 
 export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>('GEL');
   const [creditAccount, setCreditAccount] = useState<Account | null>(null);
   const [debitAccount, setDebitAccount] = useState<Account | null>(null);
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const isInitialMount = useRef(true);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
     if (
       offer &&
       debouncedAmount &&
-      Number(debouncedAmount) < offer?.depositProducts[0].currencies[0].minAmount
+      Number(debouncedAmount) < offer?.depositProducts?.[0]?.currencies?.[0]?.minAmount
     ) {
       openToast('newDeposit.warning', 'error');
       setAmount('');
@@ -103,7 +104,7 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
         },
       }),
     );
-    navigate('NewDepositAdditionalInfoScreen');
+    navigate(NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN);
   };
 
   return {

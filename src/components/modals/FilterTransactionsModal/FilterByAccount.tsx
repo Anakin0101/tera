@@ -63,23 +63,6 @@ export const FilterTransactionsByAccModal: FC<TransactionByAccModalProps> = ({ s
           ) : (
             <View>
               {groupedAccountsByIban?.map(acc => (
-                // <Pressable key={acc.iban} onPress={() => setAccountNumber(acc.accountNumber)}>
-                //   <View style={styles.account}>
-                //     <View>
-                //       <Text children={acc.accountName} color={Colors.textBlack500} />
-                //       <Text children={acc.iban} />
-                //     </View>
-                //     <View
-                //       style={[
-                //         styles.outline,
-                //         accountNumber === acc.accountNumber && styles.selected,
-                //       ]}
-                //     >
-                //       {accountNumber === acc.accountNumber && <View style={styles.inner} />}
-                //     </View>
-                //   </View>
-                //   <Divider height={1} marginTop={18} marginBottom={18} />
-                // </Pressable>
                 <Account
                   account={acc}
                   key={acc.iban}

@@ -13,6 +13,7 @@ import { closeModal, openModal } from 'utils/modal';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useStyles } from './TeraWalletScreen.styles';
+import { TERA_WALLET_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 
 export const TeraWalletPDFScreen = () => {
   const styles = useStyles();
@@ -54,7 +55,7 @@ export const TeraWalletPDFScreen = () => {
                 .unwrap()
                 .then(() => {
                   closeModal();
-                  navigate('TeraWalletSuccessScreen');
+                  navigate(TERA_WALLET_SUCCESS_SCREEN);
                 });
             }
           }}

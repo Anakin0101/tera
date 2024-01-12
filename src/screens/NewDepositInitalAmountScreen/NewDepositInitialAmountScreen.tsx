@@ -25,6 +25,22 @@ export const NewDepositInitialAmountScreen = () => {
     offer,
   } = useNewDepositInitialAmount(ref);
 
+  const getCurrencies = () => {
+    return offer?.depositProducts?.[0]?.currencies?.map(item => (
+      <Pressable
+        key={item.currency}
+        onPress={() => setSelectedCurrency(item.currency)}
+        style={[styles.currencyContainer, selectedCurrency === item.currency && styles.selected]}
+      >
+        <Text
+          secondary
+          children={CurrencySignMap[item.currency]}
+          special={selectedCurrency === item.currency}
+        />
+      </Pressable>
+    ));
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
@@ -47,33 +63,16 @@ export const NewDepositInitialAmountScreen = () => {
             label
             size={40}
             lineHeight={40}
-            marginTop={Platform.OS === 'ios' ? 5 : 2}
+            style={styles.currency}
             children={CurrencySignMap[selectedCurrency]}
           />
         </View>
-        <View style={styles.currencies}>
-          {offer?.depositProducts[0].currencies.map(item => (
-            <Pressable
-              key={item.currency}
-              onPress={() => setSelectedCurrency(item.currency)}
-              style={[
-                styles.currencyContainer,
-                selectedCurrency === item.currency && styles.selected,
-              ]}
-            >
-              <Text
-                secondary
-                children={CurrencySignMap[item.currency]}
-                special={selectedCurrency === item.currency}
-              />
-            </Pressable>
-          ))}
-        </View>
+        <View style={styles.currencies}>{getCurrencies()}</View>
         <View style={styles.minimumAmount}>
           <Text
             label
             secondary
-            translateProp={{ value: offer?.depositProducts[0].currencies[0].minAmount }}
+            translateProp={{ value: offer?.depositProducts?.[0]?.currencies?.[0]?.minAmount }}
             children="newDeposit.minimumDeposit"
           />
         </View>

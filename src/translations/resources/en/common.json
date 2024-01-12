@@ -413,7 +413,11 @@
     "additionalInfo": "Additional Information",
     "details": "Deposit Details",
     "warning": "The amount must exceed the minimum contribution amount.",
-    "balanceWarning": "There is not enough balance on the selected account. Please choose another account or change the initial amount."
+    "balanceWarning": "There is not enough balance on the selected account. Please choose another account or change the initial amount.",
+    "lifetime": "Lifetime",
+    "specialOffer": "Especially for you - open a deposit and get a higher than standard interest rate.",
+    "saveFreeMoney": "Save free money and get high interest benefits.",
+    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency."
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",

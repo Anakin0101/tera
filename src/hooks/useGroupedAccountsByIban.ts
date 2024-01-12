@@ -18,7 +18,7 @@ export const useGroupedAccountsByIban = () => {
 
   useEffect(() => {
     if (accounts) {
-      const accs = accounts.filter(item => item.accountType !== AccountTypeEnum.Deposit);
+      const accs = accounts.filter(item => item.accountType !== AccountTypeEnum.Deposit) ?? [];
 
       const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(accs, 'accountIban');
       const balanceGEL = accs.filter(acc => acc.ccy === 'GEL');

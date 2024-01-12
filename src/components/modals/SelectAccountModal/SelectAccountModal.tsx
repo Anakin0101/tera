@@ -43,9 +43,13 @@ export const SelectAccountModal: FC<SelectAccountModalProps> = ({
   };
 
   const listData = useMemo(() => {
-    return groupedAccountsByIban
-      .flatMap(item => item.accounts)
-      .filter(account => account.ccy === selectedCurrency);
+    try {
+      return groupedAccountsByIban
+        ?.flatMap(item => item.accounts)
+        ?.filter(account => account.ccy === selectedCurrency);
+    } catch (err) {
+      return [];
+    }
   }, [groupedAccountsByIban, selectedCurrency]);
 
   if (isLoadingAccounts) {

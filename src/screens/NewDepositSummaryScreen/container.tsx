@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { OTPModal } from 'components';
 import { closeModal, openModal } from 'utils/modal';
@@ -9,6 +9,7 @@ import {
   useRegisterDepositMutation,
 } from 'services/apis/productsAPI/productsAPI';
 import { RegisterDepositReq } from 'services/apis/productsAPI/productsAPI.types';
+import { DEPOSIT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 
 export const useNewDepositSummary = () => {
   const [isAgree, setIsAgree] = useState(false);
@@ -20,7 +21,9 @@ export const useNewDepositSummary = () => {
     useAppSelector(state => state.deposit);
   const [activateDeposit] = useActivateDepositMutation();
 
-  const isSingleOption = offer?.depositProducts.length === 1;
+  const isSingleOption = useMemo(() => {
+    return offer?.depositProducts.length === 1;
+  }, [offer]);
 
   useEffect(() => {
     if (result) {
@@ -45,7 +48,7 @@ export const useNewDepositSummary = () => {
                   .unwrap()
                   .then(() => {
                     closeModal();
-                    navigate('DepositSuccessScreen');
+                    navigate(DEPOSIT_SUCCESS_SCREEN);
                   });
               }
             }}

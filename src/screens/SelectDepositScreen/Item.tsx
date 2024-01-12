@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setDepositType } from 'store/slices/deposit';
+import { NEW_DEPOSIT_DETAILS_SCREEN } from 'navigation/ScreenNames';
 
 export const Item: FC<ItemProps> = ({ item }) => {
   const styles = useStyles();
@@ -18,28 +19,21 @@ export const Item: FC<ItemProps> = ({ item }) => {
     dispatch(
       setDepositType({
         depositType: item.title,
-        imageUrl: item.images[0].url,
+        imageUrl: item?.images?.[0]?.url,
       }),
     );
 
-    navigate('NewDepositDetailsScreen', {
-      id: item.id,
-    });
+    navigate(NEW_DEPOSIT_DETAILS_SCREEN, { id: item.id });
   };
 
   return (
     <Pressable onPress={onPress} style={styles.item}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: item.images[0].url }} style={styles.image} />
+        <Image source={{ uri: item?.images?.[0]?.url }} style={styles.image} />
       </View>
       <View style={styles.content}>
         <View style={styles.fill}>
           <Text children={item.title} size={16} />
-          {/* <Text
-            color={Colors.textBlack500}
-            children="newDeposit.initial"
-            translateProp={{ value: item.initialAmount }}
-          /> */}
         </View>
         <ChevronRight />
       </View>
