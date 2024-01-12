@@ -11,7 +11,7 @@ export const PaymentsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader title={t('common:navigation.transactions')} />
+      <CustomHeader title={t('common:navigation.payments')} />
       <Text style={[Fonts.textSmall]}>Payments main Screen</Text>
     </View>
   );
