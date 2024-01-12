@@ -37,7 +37,7 @@ export const useLogin = () => {
       loginName,
       password,
       headers: {
-        'X-Bank-Isstrongauthrequest': '1',
+        'X-Bank-Isstrongauthrequest': 'true',
         'X-Bank-Otp': OTPCode,
       },
     })
@@ -82,6 +82,9 @@ export const useLogin = () => {
               dispatch(resetStateAction());
             }
             setLoginName(loginName);
+            // if accesstoken returns from the API - we log the user in
+            // if only res.success = true, it means device is not trusted and we need to handleSignInWithOTP
+
             if (res.accessToken) {
               dispatch(
                 setUserCredentials({

@@ -6,14 +6,24 @@ import { setAccounts, setTotalAvailableBalance } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useIsFocused } from '@react-navigation/native';
 
 export const useGroupedAccountsByIban = () => {
   const dispatch = useAppDispatch();
+  const isFocused = useIsFocused();
+
   const { groupedAccountsByIban } = useAppSelector(state => state.products);
-  const { data: accounts, isLoading: isLoadingAccounts } = useGetAccountsByCustomerIdQuery(
-    undefined,
-    { skip: groupAccountsByIban.length > 0 },
-  );
+  const {
+    data: accounts,
+    isLoading: isLoadingAccounts,
+    refetch,
+  } = useGetAccountsByCustomerIdQuery(undefined, { skip: false });
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused, refetch]);
 
   useEffect(() => {
     if (accounts) {
