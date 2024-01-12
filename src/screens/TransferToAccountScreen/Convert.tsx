@@ -52,27 +52,67 @@ export const Convert = ({
 
   useEffect(() => {
     try {
-      if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
-        const updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
-        const roundedValue = updatedValue.toFixed(2);
-        setInputValueSell(roundedValue);
+      if (accountFromData.ccy === accountToData.ccy) {
+        if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
+          const updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
+          const roundedValue = updatedValue.toFixed(2);
+          setInputValueSell(roundedValue);
+        } else {
+          console.warn('error during convertion');
+        }
+      } else {
+        if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
+          const updatedValue = parseFloat(inputValueBuy) * calculateWithRate(1);
+          const roundedValue = updatedValue.toFixed(2);
+          setInputValueSell(roundedValue);
+        } else {
+          console.warn('error during convertion');
+        }
       }
     } catch (error) {
       console.warn('Error in calculation:', error);
     }
-  }, [buyAmount, inputValueBuy, sellLoading, sourceInput, calculateWithRate]);
+  }, [
+    buyAmount,
+    inputValueBuy,
+    sellLoading,
+    sourceInput,
+    calculateWithRate,
+    accountFromData,
+    accountToData,
+  ]);
 
   useEffect(() => {
     try {
-      if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
-        const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
-        const roundedValue = updatedValue.toFixed(2);
-        setInputValueBuy(roundedValue);
+      if (accountFromData.ccy === accountToData.ccy) {
+        if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
+          const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
+          const roundedValue = updatedValue.toFixed(2);
+          setInputValueBuy(roundedValue);
+        } else {
+          console.warn('error during convertion');
+        }
+      } else {
+        if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
+          const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
+          const roundedValue = updatedValue.toFixed(2);
+          setInputValueBuy(roundedValue);
+        } else {
+          console.warn('error during convertion');
+        }
       }
     } catch (error) {
       console.warn('Error in calculation:', error);
     }
-  }, [sellAmount, inputValueSell, buyLoading, sourceInput, calculateWithRate]);
+  }, [
+    sellAmount,
+    inputValueSell,
+    buyLoading,
+    sourceInput,
+    calculateWithRate,
+    accountFromData,
+    accountToData,
+  ]);
 
   useEffect(() => {
     if (sourceInput === amountBuyOrSell.buy && inputValueBuy === '') {
