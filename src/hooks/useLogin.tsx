@@ -37,7 +37,7 @@ export const useLogin = () => {
       loginName,
       password,
       headers: {
-        'X-Bank-Isstrongauthrequest': '1',
+        'X-Bank-Isstrongauthrequest': 'true',
         'X-Bank-Otp': OTPCode,
       },
     })
@@ -82,25 +82,31 @@ export const useLogin = () => {
               dispatch(resetStateAction());
             }
             setLoginName(loginName);
-            res.accessToken
-              ? dispatch(
-                  setUserCredentials({
-                    accessToken: res.accessToken,
-                    refreshToken: res.refreshToken,
-                  }),
-                )
-              : openModal({
-                  element: (
-                    <OTPModal
-                      onFinished={code => {
-                        handleSignInWithOTP(code, loginName, password);
-                      }}
-                    />
-                  ),
-                  disableDynamicSizing: true,
-                  disablePanning: true,
-                  withKeyboard: true,
-                });
+            // if accesstoken returns from the API - we log the user in
+            // if only res.success = true, it means device is not trusted and we need to handleSignInWithOTP
+
+            if (res.accessToken) {
+              dispatch(
+                setUserCredentials({
+                  accessToken: res.accessToken,
+                  refreshToken: res.refreshToken,
+                }),
+              );
+              replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
+            } else {
+              openModal({
+                element: (
+                  <OTPModal
+                    onFinished={code => {
+                      handleSignInWithOTP(code, loginName, password);
+                    }}
+                  />
+                ),
+                disableDynamicSizing: true,
+                disablePanning: true,
+                withKeyboard: true,
+              });
+            }
           }
         })
         .catch(err => {
