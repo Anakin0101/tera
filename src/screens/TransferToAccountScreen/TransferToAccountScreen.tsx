@@ -166,6 +166,7 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
           text="onboarding.next"
           fullWidth
           disabled={isButtonDisabled}
+          hitSlop={30}
           onPress={navigateToTransferDetails}
         />
       </View>
