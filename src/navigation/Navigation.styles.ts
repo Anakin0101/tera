@@ -8,9 +8,8 @@ export const useStyleTheme = () => {
       fontSize: FontSize.regular,
       lineHeight: 24,
       letterSpacing: 0.2,
-      fontFamily: FontFamily.Regular,
+      fontFamily: FontFamily.medium,
       color: Colors.black700,
-      fontWeight: 'bold',
     },
   });
 };

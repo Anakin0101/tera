@@ -1,118 +1,46 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Alert, SafeAreaView, View, ViewStyle } from 'react-native';
+import { Alert, SafeAreaView, View } from 'react-native';
 
 import { useStyleTheme } from './CustomHeader.styles';
-import { CustomHeaderOptions, ElementsType } from './CustomHeader.types';
-import { Back, Notification, Search, Chat } from 'assets/SVGs';
-import { useTranslation } from 'react-i18next';
-import { SvgProps } from 'react-native-svg';
+import { CustomHeaderOptions } from './CustomHeader.types';
+import { Search, Chat } from 'assets/SVGs';
 import { IconComponent } from 'components/IconComponent/IconComponent';
-import { CustomStatusBar, Text } from 'components/index';
+import { Text } from 'components/index';
 
 export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
-  isInitialScreen = false,
-  searchElement,
-  notificationsElement,
-  messagesElement,
-  backElement,
   title,
-  accountTitle,
-  titlePosition = 'center',
   customHeaderContainerStyle,
-  bottomBorder,
-  whiteBackground,
-  statusBarColor,
 }) => {
-  const { t } = useTranslation();
   const styles = useStyleTheme();
-  const { goBack } = useNavigation();
-
-  const getComponentByElement = (
-    handler?: () => void,
-    IconJSX?: (props: SvgProps) => React.JSX.Element,
-    native?: boolean,
-    hasBorder?: boolean,
-  ) => <IconComponent handler={handler} IconJSX={IconJSX} native={native} hasBorder={hasBorder} />;
 
   const handleSearch = () => {
     Alert.alert('search!!!');
-  };
-
-  const handleNotificationPress = () => {
-    Alert.alert('handleNotificationPress!!!');
   };
 
   const handleMessagesPress = () => {
     Alert.alert('handleMessagesPress!!!');
   };
 
-  const handleGoBack = () => {
-    // TODO - Go back does not work on Android
-    goBack();
-  };
-
-  const elements: ElementsType[] = [
-    { ...searchElement, handler: handleSearch, icon: Search },
-    { ...messagesElement, handler: handleMessagesPress, icon: Chat },
-    { ...notificationsElement, handler: handleNotificationPress, icon: Notification },
-    { ...backElement, handler: handleGoBack, icon: Back, native: true },
-  ];
-
-  const renderContent = (position: 'left' | 'center' | 'right') => {
-    const components = elements
-      .filter(element => element && element.position === position)
-      .map(({ handler, icon, native, hasBorder }) =>
-        getComponentByElement(handler, icon, native, hasBorder),
-      );
-
-    const containerStyle = `${position}Container` as keyof typeof styles;
-
-    return (
-      <View style={styles[containerStyle] as ViewStyle}>
-        <>
-          {position === titlePosition && (
-            <Text
-              style={[
-                styles.text,
-                isInitialScreen && styles.isInitialScreenText,
-                backElement && styles.withBackButtonStyle,
-              ]}
-            >
-              {t(title)}
-            </Text>
-          )}
-          {position === titlePosition && <Text style={styles.accountText}>{accountTitle}</Text>}
-        </>
-        {components.length > 0 && (
-          <View style={styles.componentsWrapper}>
-            {components.map((comp, index) => (
-              <React.Fragment key={index}>{comp}</React.Fragment>
-            ))}
-          </View>
-        )}
-      </View>
-    );
-  };
-
   return (
-    <>
-      <CustomStatusBar backgroundColor={statusBarColor} />
-      <SafeAreaView>
-        <View
-          style={[
-            styles.container,
-            // isInitialScreen && styles.initialContainer,
-            whiteBackground && styles.whiteBackground,
-            customHeaderContainerStyle,
-            bottomBorder && styles.borderBottom,
-          ]}
-        >
-          {renderContent('left')}
-          {renderContent('center')}
-          {renderContent('right')}
+    <SafeAreaView>
+      <View style={[styles.container, customHeaderContainerStyle]}>
+        <Text children={title} style={styles.text} />
+        <View style={styles.iconContainer}>
+          <IconComponent
+            handler={handleSearch}
+            IconJSX={Search}
+            customIconComponentStyles={styles.icon}
+          />
+          <IconComponent
+            handler={handleMessagesPress}
+            IconJSX={Chat}
+            customIconComponentStyles={styles.icon}
+          />
         </View>
-      </SafeAreaView>
-    </>
+        <View style={styles.badge}>
+          <Text style={styles.badgeLabel}>{4}</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
