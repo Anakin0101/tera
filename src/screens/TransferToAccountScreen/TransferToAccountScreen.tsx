@@ -4,7 +4,7 @@ import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { Transfer } from './Transfer';
 import { CardSwap } from './CardSwap';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { Button } from 'components';
+import { Button, LoadingView } from 'components';
 import { setSelectedPrice } from 'store/slices/transfers';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
@@ -14,9 +14,12 @@ import { Convert } from './Convert';
 import { useConvertAmount } from './useConvertAmountBuy';
 import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
+import { useTransferDetails } from 'screens/TransferDetailScreen/container';
+import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 
 interface AccountData {
+  accountId: any;
   availableBalance: number;
   ccy: string;
 }
@@ -26,13 +29,17 @@ interface TransferToAccountScreenProps {}
 export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
-
-  const { accountFromData, accountToData, selectedData } = useAppSelector(
+  const { handleTransferInfo } = useTransferDetails(false);
+  const { accountFromData, accountToData, selectedData, selectedPrice } = useAppSelector(
     state => state.transfers,
   ) as unknown as {
     accountFromData: AccountData;
     accountToData: AccountData;
     selectedData: any;
+    receiverInfo: any;
+    selectedPrice: any;
+    invoiceData: any;
+    selectedTransactionType: any;
   };
   const dispatch = useDispatch();
   const [shouldCallApi, setShouldCallApi] = useState(true);
@@ -54,7 +61,7 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     currencyBuy: accountFromData?.ccy || '',
     currencySell: accountToData?.ccy || '',
   };
-  const { buyAmount } = useConvertAmount(queryParams, shouldCallApi);
+  const { buyAmount, buyLoading } = useConvertAmount(queryParams, shouldCallApi);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -87,11 +94,23 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     }
   };
 
-  const navigateToTransferDetails = () => {
+  const navigateToTransferDetails = async () => {
     if (isButtonDisabled) {
       return;
     }
+
     const convertionValue = accountFromData?.ccy !== accountToData?.ccy;
+    if (!convertionValue) {
+      await handleTransferInfo({
+        transferType: FinancialTransferTypeEnum.ToOwnAccount,
+        debitAccountId: accountFromData.accountId,
+        amount: selectedPrice,
+        fastPayment: false,
+        ensured: false,
+        receiverBankCode: null,
+      });
+    }
+
     navigate(TRANSFER_DETAIL_SCREEN, {
       convertion: convertionValue,
       fromOtherBank: fromOtherBank,
@@ -115,6 +134,10 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   }, [isFocused]);
 
   const styles = useStyleTheme();
+
+  if (buyLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <View style={styles.container}>
