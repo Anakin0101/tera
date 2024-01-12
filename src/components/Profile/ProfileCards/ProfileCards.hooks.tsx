@@ -25,7 +25,8 @@ export const useProfileCards = () => {
       culture: 'en',
       personalId: userProfileInfo?.personalId || '',
     });
-  }, [getTotalSaving, getUnreadNotifications, userProfileInfo?.personalId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getTotalSaving, getUnreadNotifications]);
 
   const profileCardsConfig: ProfileCardType[] = [
     {

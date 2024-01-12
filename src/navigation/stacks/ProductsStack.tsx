@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import {
   AccountDetailsScreen,
   AllAcountsAndCardsScreen,
@@ -42,215 +42,92 @@ import {
   TERA_WALLET_PDF_SCREEN,
   TERA_WALLET_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
-import { useTheme } from 'hooks';
 import { ProductsStackParamsList } from 'navigation/types';
-import { CustomHeader } from 'components/CustomHeader';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
 import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 import { Colors } from 'theme/Variables';
 import { SelectDepositScreen } from 'screens/SelectDepositScreen/SelectDepositScreen';
-import { guestNavOptions } from 'navigation/config';
+import { guestNavOptions, hideHeader } from 'navigation/config';
+import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { useStyleTheme } from 'navigation/Navigation.styles';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
-
-const ProductsStackHeaderMap = {
-  [MY_ACCOUNT_SCROLLABLE_SCREEN]: () => {
-    return (
-      <CustomHeader
-        title="ჩემი ანგარიში"
-        accountTitle="38.191 ლ"
-        isInitialScreen
-        customHeaderContainerStyle={{ backgroundColor: Colors.lightGray }}
-        titlePosition={'center'}
-        backElement={{ position: 'left' }}
-      />
-    );
-  },
-};
 
 export const ProductsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
-  const { FontFamily } = useTheme();
+  const st = useStyleTheme();
   return (
-    <Navigator initialRouteName={PRODUCTS_SCREEN}>
-      <Screen
-        name={PRODUCTS_SCREEN}
-        component={ProductsScreen}
-        options={{
-          title: t('common:navigation.products'),
-          headerTitleAlign: 'left',
-          headerStyle: {
-            backgroundColor: Colors.headerBackground,
-            shadowColor: 'transparent',
-          },
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
-      />
+    <Navigator
+      initialRouteName={PRODUCTS_SCREEN}
+      screenOptions={{
+        headerLeft: HeaderBackArrow,
+        headerTitleStyle: st.headerTitleStyle,
+        headerStyle: {
+          backgroundColor: Colors.defaultBackground,
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Screen name={PRODUCTS_SCREEN} component={ProductsScreen} options={hideHeader} />
       <Screen
         name={ALL_ACCOUNTS_AND_CARDS_SCREEN}
         component={AllAcountsAndCardsScreen}
-        options={{
-          title: t('products.allAccounts'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.allAccounts') }}
       />
       <Screen
         name={ACCOUNT_DETAILS_SCREEN}
         component={AccountDetailsScreen}
-        options={{
-          title: t('products.accountDetails'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.accountDetails') }}
       />
       <Screen
         name={MY_ACCOUNT_SCROLLABLE_SCREEN}
         component={MyAccountsScrollableScreen}
-        options={{
-          header: ProductsStackHeaderMap[MY_ACCOUNT_SCROLLABLE_SCREEN],
-          headerStyle: {
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={
+          {
+            // TODO - add translation
+          }
+        }
       />
       <Screen
         name={CARD_DETAILS_SCREEN}
         component={CardDetailsScreen}
-        options={{
-          title: t('products.cardDetails'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.cardDetails') }}
       />
       <Screen
         name={CARD_INSURANCE}
         component={CardInsuranceScreen}
-        options={{
-          title: t('products.cardInsurance'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.cardInsurance') }}
       />
       <Screen
         name={INSURANCE_PACKAGE_DETAILS}
         component={InsurancePackageDetails}
-        options={{
-          title: t('products.insurancePackageDetails'),
-          headerStyle: {
-            backgroundColor: Colors.lightGray,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.insurancePackageDetails') }}
       />
       <Screen
         name={DEPOSITS_SCREEN}
         component={DepositsScreen}
-        options={{
-          title: t('products.allDeposits'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.allDeposits') }}
       />
       <Screen
         name={DEPOSIT_DETAILS_SCREEN}
         component={DepositDetailsScreen}
-        options={{
-          title: t('products.depositDetails'),
-          headerStyle: {
-            backgroundColor: Colors.lightGray,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('products.depositDetails') }}
       />
-      <Screen
-        name={LOANS_SCREEN}
-        component={LoansScreen}
-        options={{
-          title: t('loans.title'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
-      />
+      <Screen name={LOANS_SCREEN} component={LoansScreen} options={{ title: t('loans.title') }} />
       <Screen
         name={LOAN_DETAILS_SCREEN}
         component={LoanDetailsScreen}
-        options={{
-          title: t('loans.details'),
-          headerStyle: {
-            backgroundColor: Colors.lightGray,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('loans.details') }}
       />
       <Screen
         name={SELECT_DEPOSIT_SCREEN}
         component={SelectDepositScreen}
         options={{
           title: t('newDeposit.activateDeposit'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
+          headerStyle: st.whiteHeader,
         }}
       />
       <Screen
@@ -258,14 +135,7 @@ export const ProductsStack = () => {
         component={NewDepositDetailsScreen}
         options={{
           title: t('newDeposit.activateDeposit'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
+          headerStyle: st.whiteHeader,
         }}
       />
 
@@ -274,45 +144,18 @@ export const ProductsStack = () => {
         component={NewDepositInitialAmountScreen}
         options={{
           title: t('newDeposit.initialAmount'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
+          headerStyle: st.whiteHeader,
         }}
       />
       <Screen
         name={NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN}
         component={NewDepositAdditionalInfoScreen}
-        options={{
-          title: t('newDeposit.additionalInfo'),
-          headerStyle: {
-            backgroundColor: Colors.defaultBackground,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('newDeposit.additionalInfo') }}
       />
       <Screen
         name={NEW_DEPOSIT_SUMMARY_SCREEN}
         component={NewDepositSummaryScreen}
-        options={{
-          title: t('newDeposit.details'),
-          headerStyle: {
-            backgroundColor: Colors.defaultBackground,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
-        }}
+        options={{ title: t('newDeposit.details') }}
       />
       <Screen
         name={DEPOSIT_SUCCESS_SCREEN}
@@ -324,25 +167,14 @@ export const ProductsStack = () => {
         component={TeraWalletScreen}
         options={{
           title: t('newDeposit.teraWallet'),
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: 'transparent',
-          },
-          headerBackTitle: ' ',
-          headerTitleStyle: {
-            fontFamily: FontFamily.Regular,
-          },
+          headerStyle: st.whiteHeader,
         }}
       />
-      <Screen
-        name={TERA_WALLET_PDF_SCREEN}
-        component={TeraWalletPDFScreen}
-        options={{ headerShown: false }}
-      />
+      <Screen name={TERA_WALLET_PDF_SCREEN} component={TeraWalletPDFScreen} options={hideHeader} />
       <Screen
         name={TERA_WALLET_SUCCESS_SCREEN}
         component={TeraWalletSuccess}
-        options={{ headerShown: false }}
+        options={guestNavOptions}
       />
     </Navigator>
   );

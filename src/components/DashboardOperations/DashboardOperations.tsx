@@ -51,7 +51,7 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
               <FlatList
                 data={data}
                 renderItem={renderItem}
-                keyExtractor={item => item.docDate}
+                keyExtractor={item => item.id.toString()}
                 showsHorizontalScrollIndicator={false}
               />
             </View>

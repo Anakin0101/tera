@@ -43,6 +43,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
       extraScrollHeight={80}
       showsVerticalScrollIndicator={false}
       scrollEnabled={isKeyboardOpened}
+      style={styles.mainContainer}
     >
       <View style={styles.wrapper}>
         <Text children="common:passAuth.auth" headline />

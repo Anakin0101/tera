@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { useTheme } from 'hooks';
+import { useDefaultHeaderHeight, useTheme } from 'hooks';
 import { config } from 'utils/config';
 
 export const useStyles = () => {
   const { Layout, Colors, Spacing, Fonts } = useTheme();
+  const { headerHeight } = useDefaultHeaderHeight();
+
   return StyleSheet.create({
     bold: {
       ...Fonts.textBold,
@@ -30,6 +32,7 @@ export const useStyles = () => {
       ...Layout.overflowHidden,
       width: config.mobileWidth,
       borderColor: Colors.white,
+      paddingBottom: headerHeight + Spacing.xl,
     },
     footer: {
       ...Layout.fill,
