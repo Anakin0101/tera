@@ -134,6 +134,7 @@ export const useLogin = () => {
               refreshToken: newRefreshToken,
             }),
           );
+          replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
         }
         if (error) {
           openToast(error, 'error');
