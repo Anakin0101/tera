@@ -4,7 +4,6 @@ import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/
 import {
   ALL_TRANSACTIONS_SCREEN,
   INITIAL_STACK,
-  LOADING_SCREEN,
   MODAL_STACK,
   TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -12,9 +11,8 @@ import { hideHeader } from 'navigation/config';
 import { MainStackParamsList } from 'navigation/types';
 import { ModalNavigator } from 'navigation/stacks/ModalStack';
 import { useMainNavigator } from 'hooks';
-
+import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
 import { Colors } from 'theme/Variables';
-import { AllTransactionsScreen, LoadingScreen, TransactionDetailsScreen } from 'screens';
 import { TabNavigator } from './TabNavigator';
 import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { useStyleTheme } from 'navigation/Navigation.styles';
@@ -53,7 +51,6 @@ export const MainNavigator = () => {
         component={TransactionDetailsScreen}
         options={{ title: t('transactions.details') }}
       />
-      <Screen name={LOADING_SCREEN} component={LoadingScreen} options={hideHeader} />
     </Navigator>
   );
 };

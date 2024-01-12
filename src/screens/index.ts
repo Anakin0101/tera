@@ -33,4 +33,3 @@ export { NewDepositSummaryScreen } from './NewDepositSummaryScreen/NewDepositSum
 export { TeraWalletScreen } from './TeraWalletScreen/TeraWalletScreen';
 export { TeraWalletPDFScreen } from './TeraWalletScreen/TeraWalletPDFScreen';
 export { TeraWalletSuccess } from './TeraWalletScreen/TeraWalletSuccess';
-export { LoadingScreen } from './LoadingScreen/LoadingScreen';

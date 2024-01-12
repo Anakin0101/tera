@@ -42,6 +42,7 @@
     "dayjs": "^1.11.10",
     "events": "^3.3.0",
     "i18next": "^23.2.3",
+    "lottie-react-native": "^6.5.1",
     "mitt": "^3.0.1",
     "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",

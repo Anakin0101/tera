@@ -53,7 +53,6 @@ import {
   AUTH_LOADING_SCREEN,
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
-  LOADING_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -72,7 +71,6 @@ export type MainStackParamsList = {
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
-  [LOADING_SCREEN]: undefined;
 };
 
 export type ModalStackParamsList = {

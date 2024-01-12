@@ -84,7 +84,9 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
     });
   };
   const navigateToTransferDetails = async () => {
-    if (isButtonDisabled) return;
+    if (isButtonDisabled) {
+      return;
+    }
 
     try {
       const transferType = fromMobile
