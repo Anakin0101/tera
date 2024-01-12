@@ -26,7 +26,6 @@ import {
   PRODUCTS_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
-import { CustomHeader } from 'components/CustomHeader';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
 import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 import { Colors } from 'theme/Variables';
@@ -34,21 +33,6 @@ import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
-
-const ProductsStackHeaderMap = {
-  [MY_ACCOUNT_SCROLLABLE_SCREEN]: () => {
-    return (
-      <CustomHeader
-        title="ჩემი ანგარიში"
-        accountTitle="38.191 ლ"
-        isInitialScreen
-        customHeaderContainerStyle={{ backgroundColor: Colors.lightGray }}
-        titlePosition={'center'}
-        backElement={{ position: 'left' }}
-      />
-    );
-  },
-};
 
 export const ProductsStack = () => {
   const { Navigator, Screen } = Stack;
@@ -72,9 +56,7 @@ export const ProductsStack = () => {
         name={PRODUCTS_SCREEN}
         component={ProductsScreen}
         options={{
-          title: t('common:navigation.products'),
-          headerTitleAlign: 'left',
-          headerLeft: () => null,
+          headerShown: false,
         }}
       />
       <Screen
@@ -94,9 +76,11 @@ export const ProductsStack = () => {
       <Screen
         name={MY_ACCOUNT_SCROLLABLE_SCREEN}
         component={MyAccountsScrollableScreen}
-        options={{
-          header: ProductsStackHeaderMap[MY_ACCOUNT_SCROLLABLE_SCREEN],
-        }}
+        options={
+          {
+            // TODO - add translation
+          }
+        }
       />
       <Screen
         name={CARD_DETAILS_SCREEN}

@@ -61,9 +61,7 @@ export const TransactionsStack = () => {
         name={TRANSACTIONS_SCREEN}
         component={TransactionsScreen}
         options={{
-          title: t('common:navigation.transactions'),
-          headerTitleAlign: 'left',
-          headerLeft: () => null,
+          headerShown: false,
         }}
       />
       <Screen
