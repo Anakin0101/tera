@@ -1,8 +1,10 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { PaymentsScreen } from 'screens';
-import { useTranslation } from 'react-i18next';
 import { PAYMENTS_SCREEN } from 'navigation/ScreenNames';
+import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { useStyleTheme } from 'navigation/Navigation.styles';
+import { Colors } from 'theme/Variables';
 
 export type PaymentsStackParamList = {
   PaymentsScreen: undefined;
@@ -12,15 +14,26 @@ const Stack = createStackNavigator<PaymentsStackParamList>();
 
 export const PaymentsStack = () => {
   const { Navigator, Screen } = Stack;
-  const { t } = useTranslation();
+  const st = useStyleTheme();
   return (
-    <Navigator initialRouteName={PAYMENTS_SCREEN}>
+    <Navigator
+      initialRouteName={PAYMENTS_SCREEN}
+      screenOptions={{
+        headerLeft: HeaderBackArrow,
+        headerTitleStyle: st.headerTitleStyle,
+        headerStyle: {
+          backgroundColor: Colors.defaultBackground,
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
       <Screen
         name={PAYMENTS_SCREEN}
         component={PaymentsScreen}
         options={{
-          title: t('common:navigation.payments'),
-          headerTitleAlign: 'left',
+          headerShown: false,
         }}
       />
     </Navigator>

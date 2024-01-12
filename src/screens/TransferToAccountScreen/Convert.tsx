@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Text } from 'components';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { useConvertAmount } from './useConvertAmountBuy';
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { getCurrencyIcon } from 'utils/currency';
 import { amountBuyOrSell } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
+import { HITSLOP_FOR_BUTTON } from './PressAreaStyle';
 export const Convert = ({
   accountFromData,
   accountToData,
@@ -153,10 +154,10 @@ export const Convert = ({
           style={styles.courseText}
         />
       </View>
-      <TouchableOpacity hitSlop={30} style={styles.button} onPress={openTransferScreen}>
+      <Pressable hitSlop={HITSLOP_FOR_BUTTON} style={styles.button} onPress={openTransferScreen}>
         <Text children={selectedData ? selectedData : 'transfers.convertion'} style={styles.text} />
         <EditSvg style={styles.icon} />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

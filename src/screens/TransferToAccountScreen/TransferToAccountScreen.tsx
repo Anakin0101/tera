@@ -14,8 +14,10 @@ import { Convert } from './Convert';
 import { useConvertAmount } from './useConvertAmountBuy';
 import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
+import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 
 interface AccountData {
+  availableBalance: number;
   ccy: string;
 }
 
@@ -60,8 +62,16 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   const isFocused = useIsFocused();
 
   const handleTextChange = (text: string) => {
-    dispatch(setSelectedPrice(text));
-    setIsButtonDisabled(!text || text.trim() === '');
+    const { isInvalidInput, processedText } = formatAndValidateText({
+      text: text,
+      decimalPlaces: 2,
+      inputRef: inputRef,
+    });
+
+    // Check for balance and update the button's disabled state
+    const isBalanceZero = accountFromData?.availableBalance === 0;
+    dispatch(setSelectedPrice(processedText));
+    setIsButtonDisabled(isBalanceZero || isInvalidInput);
   };
 
   const openTransferScreen = () => {
@@ -140,5 +150,3 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     </View>
   );
 };
-
-//შეცვალე აიქონი

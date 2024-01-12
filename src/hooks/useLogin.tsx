@@ -22,8 +22,9 @@ import { setValue } from 'storage/index';
 import { USER_LOGGED_OUT } from 'storage/constants';
 
 export const useLogin = () => {
-  const [loginUser] = useLoginUserMutation();
-  const [loginByRefreshToken] = useLoginByRefreshTokenMutation();
+  const [loginUser, { isLoading: loginUserLoading }] = useLoginUserMutation();
+  const [loginByRefreshToken, { isLoading: loginByRefreshTokenLoading }] =
+    useLoginByRefreshTokenMutation();
   const dispatch = useAppDispatch();
   const { refreshToken } = useAppSelector(state => state.userInfo);
   const { userIp } = useAppSelector(state => state.deviceInfo);
@@ -36,7 +37,7 @@ export const useLogin = () => {
       loginName,
       password,
       headers: {
-        'X-Bank-Isstrongauthrequest': '1',
+        'X-Bank-Isstrongauthrequest': 'true',
         'X-Bank-Otp': OTPCode,
       },
     })
@@ -81,25 +82,31 @@ export const useLogin = () => {
               dispatch(resetStateAction());
             }
             setLoginName(loginName);
-            res.accessToken
-              ? dispatch(
-                  setUserCredentials({
-                    accessToken: res.accessToken,
-                    refreshToken: res.refreshToken,
-                  }),
-                )
-              : openModal({
-                  element: (
-                    <OTPModal
-                      onFinished={code => {
-                        handleSignInWithOTP(code, loginName, password);
-                      }}
-                    />
-                  ),
-                  disableDynamicSizing: true,
-                  disablePanning: true,
-                  withKeyboard: true,
-                });
+            // if accesstoken returns from the API - we log the user in
+            // if only res.success = true, it means device is not trusted and we need to handleSignInWithOTP
+
+            if (res.accessToken) {
+              dispatch(
+                setUserCredentials({
+                  accessToken: res.accessToken,
+                  refreshToken: res.refreshToken,
+                }),
+              );
+              replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
+            } else {
+              openModal({
+                element: (
+                  <OTPModal
+                    onFinished={code => {
+                      handleSignInWithOTP(code, loginName, password);
+                    }}
+                  />
+                ),
+                disableDynamicSizing: true,
+                disablePanning: true,
+                withKeyboard: true,
+              });
+            }
           }
         })
         .catch(err => {
@@ -127,6 +134,7 @@ export const useLogin = () => {
               refreshToken: newRefreshToken,
             }),
           );
+          replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
         }
         if (error) {
           openToast(error, 'error');
@@ -142,5 +150,7 @@ export const useLogin = () => {
   return {
     handleSignIn,
     handlePasscodeSignIn,
+    loginUserLoading,
+    loginByRefreshTokenLoading,
   };
 };
