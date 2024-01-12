@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import { useLazyGetUserProfileInfoQuery } from 'services/apis';
 import { useStyleTheme } from './ProfileScreen.styles';
-import { CustomHeader, Logout, UserInfoBlock } from 'components/index';
+import { CustomHeader, LoadingView, Logout, UserInfoBlock } from 'components/index';
 import { ProfileCards, ProfileList } from 'components/Profile';
 import { useTranslation } from 'react-i18next';
+import { useProfileScreen } from './container';
 
 export const ProfileScreen = () => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
 
   const { setOptions } = useNavigation<MainStackScreenProps<'ModalStack'>>();
-  const [GetUserProfileInfo] = useLazyGetUserProfileInfoQuery();
+  const { GetUserProfileInfo, profileScreenLoading } = useProfileScreen();
 
   useEffect(() => {
     GetUserProfileInfo();
@@ -22,6 +22,9 @@ export const ProfileScreen = () => {
     });
   }, [GetUserProfileInfo, setOptions]);
 
+  if (profileScreenLoading) {
+    return <LoadingView />;
+  }
   return (
     <View style={styles.wrapper}>
       <CustomHeader title={t('common:navigation.more')} />

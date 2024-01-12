@@ -11,7 +11,7 @@ export const useStyleTheme = () => {
       backgroundColor: Colors.primary,
     },
     wrapperDisabledStyle: {
-      backgroundColor: Colors.secondary,
+      // YOUR CUSTOM DISABLED BUTTON STYLES
     },
     wrapperBorderStyle: {
       // YOUR CUSTOM BORDER STYLES

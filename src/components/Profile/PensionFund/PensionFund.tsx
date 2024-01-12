@@ -7,11 +7,11 @@ export const PensionFund = ({
   totalSaving,
   showPensionFund,
 }: {
-  totalSaving: number;
+  totalSaving?: number;
   showPensionFund: boolean;
 }) => {
   const styles = useStyleTheme();
-  return showPensionFund ? (
+  return showPensionFund && totalSaving ? (
     <Text
       children={`${formatMoney(Number(totalSaving), 'GEL')}`}
       style={styles.pensionFund}

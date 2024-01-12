@@ -1,21 +1,20 @@
-import { useEffect } from 'react';
-import { useGetTotalSavingMutation, useGetUnreadNotificationsCountMutation } from 'services/apis';
 import { ProfileCardType } from './ProfileCards.types';
 import Images from 'theme/Images';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PensionFund } from '../PensionFund/PensionFund';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Notification } from '../Notification/Notification';
+import { useProfileScreen } from 'screens/ProfileScreen/container';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useProfileCards = () => {
   const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
-  const [getTotalSaving, { data: totalSaving }] = useGetTotalSavingMutation();
-
-  const [getUnreadNotifications, { data: unreadNotifications }] =
-    useGetUnreadNotificationsCountMutation();
-
-  //   TODO - temporarily ---- will be fixed when we implement toggle for "show pension fund"
-  const showPensionFund = true;
+  const {
+    getTotalSaving,
+    getUnreadNotifications,
+    unreadNotifications,
+    showPensionFund,
+    totalSaving,
+  } = useProfileScreen();
 
   useEffect(() => {
     getTotalSaving({
@@ -51,10 +50,7 @@ export const useProfileCards = () => {
       icon: Images().PensionFund,
       text: 'profile.pension_fund',
       extraData: (
-        <PensionFund
-          totalSaving={totalSaving?.totalSaving ?? 0}
-          showPensionFund={showPensionFund}
-        />
+        <PensionFund totalSaving={totalSaving?.totalSaving} showPensionFund={showPensionFund} />
       ),
     },
     {

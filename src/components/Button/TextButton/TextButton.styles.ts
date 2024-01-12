@@ -12,7 +12,7 @@ export const useStyleTheme = () => {
       //   borderWidth: 1,
     },
     wrapperDisabledStyle: {
-      backgroundColor: Colors.gray200,
+      // YOUR CUSTOM DISABLED BUTTON STYLES
     },
     wrapperBorderStyle: {
       // YOUR CUSTOM BORDER STYLES
