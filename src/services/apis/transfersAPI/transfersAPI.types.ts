@@ -145,6 +145,12 @@ export enum amountBuyOrSell {
   buy = 'buy',
   sell = 'sell',
 }
+export enum CurrencyEnum {
+  GEL = 'GEL',
+  USD = 'USD',
+  EUR = 'EUR',
+  GBP = 'GBP',
+}
 
 export enum FinancialTransferTypeEnum {
   ToOwnAccount = 1,

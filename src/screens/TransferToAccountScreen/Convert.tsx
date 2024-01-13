@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, Pressable } from 'react-native';
 import { Text } from 'components';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { useConvertAmount } from './useConvertAmountBuy';
@@ -7,8 +7,9 @@ import { EditSvg } from 'assets/SVGs';
 import { setConvertionData } from 'store/slices/transfers';
 import { useDispatch } from 'react-redux';
 import { getCurrencyIcon } from 'utils/currency';
-import { amountBuyOrSell } from 'services/apis/transfersAPI/transfersAPI.types';
+import { amountBuyOrSell, CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
+import { HITSLOP_FOR_BUTTON } from './PressAreaStyle';
 export const Convert = ({
   accountFromData,
   accountToData,
@@ -52,22 +53,31 @@ export const Convert = ({
 
   useEffect(() => {
     try {
-      if (accountFromData.ccy === accountToData.ccy) {
-        if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
-          const updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
-          const roundedValue = updatedValue.toFixed(2);
-          setInputValueSell(roundedValue);
-        } else {
-          console.warn('error during convertion');
+      if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
+        let updatedValue;
+
+        switch (true) {
+          case accountFromData.ccy === CurrencyEnum.GEL:
+            updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
+            break;
+          case accountToData.ccy === CurrencyEnum.GEL:
+            updatedValue = parseFloat(inputValueBuy) * calculateWithRate(1);
+            break;
+          case accountFromData.ccy === CurrencyEnum.USD && accountToData.ccy === CurrencyEnum.EUR:
+            updatedValue = parseFloat(inputValueBuy) / calculateWithRate(1);
+            break;
+          case accountFromData.ccy === CurrencyEnum.EUR && accountToData.ccy === CurrencyEnum.USD:
+            updatedValue = parseFloat(inputValueBuy) * calculateWithRate(1);
+            break;
+          default:
+            console.warn('Invalid currency conversion');
+            return;
         }
+
+        const roundedValue = updatedValue.toFixed(2);
+        setInputValueSell(roundedValue);
       } else {
-        if (buyAmount && sourceInput === amountBuyOrSell.buy && !sellLoading) {
-          const updatedValue = parseFloat(inputValueBuy) * calculateWithRate(1);
-          const roundedValue = updatedValue.toFixed(2);
-          setInputValueSell(roundedValue);
-        } else {
-          console.warn('error during convertion');
-        }
+        console.warn('Error during conversion');
       }
     } catch (error) {
       console.warn('Error in calculation:', error);
@@ -84,22 +94,31 @@ export const Convert = ({
 
   useEffect(() => {
     try {
-      if (accountFromData.ccy === accountToData.ccy) {
-        if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
-          const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
-          const roundedValue = updatedValue.toFixed(2);
-          setInputValueBuy(roundedValue);
-        } else {
-          console.warn('error during convertion');
+      if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
+        let updatedValue;
+
+        switch (true) {
+          case accountToData.ccy === CurrencyEnum.GEL:
+            updatedValue = parseFloat(inputValueSell) / calculateWithRate(1);
+            break;
+          case accountFromData.ccy === CurrencyEnum.GEL:
+            updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
+            break;
+          case accountToData.ccy === CurrencyEnum.USD && accountFromData.ccy === CurrencyEnum.EUR:
+            updatedValue = parseFloat(inputValueSell) / calculateWithRate(1);
+            break;
+          case accountToData.ccy === CurrencyEnum.EUR && accountFromData.ccy === CurrencyEnum.USD:
+            updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
+            break;
+          default:
+            console.warn('Invalid currency conversion');
+            return;
         }
+
+        const roundedValue = updatedValue.toFixed(2);
+        setInputValueBuy(roundedValue);
       } else {
-        if (sellAmount && sourceInput === amountBuyOrSell.sell && !buyLoading) {
-          const updatedValue = parseFloat(inputValueSell) * calculateWithRate(1);
-          const roundedValue = updatedValue.toFixed(2);
-          setInputValueBuy(roundedValue);
-        } else {
-          console.warn('error during convertion');
-        }
+        console.warn('Error during conversion');
       }
     } catch (error) {
       console.warn('Error in calculation:', error);
@@ -193,10 +212,10 @@ export const Convert = ({
           style={styles.courseText}
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
+      <Pressable hitSlop={HITSLOP_FOR_BUTTON} style={styles.button} onPress={openTransferScreen}>
         <Text children={selectedData ? selectedData : 'transfers.convertion'} style={styles.text} />
         <EditSvg style={styles.icon} />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

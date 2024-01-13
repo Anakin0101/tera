@@ -68,7 +68,7 @@ export const TransactionsStack = () => {
         name={MY_ACCOUNTS_SCREEN}
         component={MyAccounts}
         options={{
-          title: t('საიდან'),
+          title: t('transfers.fromWhere'),
         }}
       />
 
@@ -76,28 +76,28 @@ export const TransactionsStack = () => {
         name={TO_ACCOUNT_SCREEN}
         component={ToAccountScreen}
         options={{
-          title: t('სად'),
+          title: t('transfers.where'),
         }}
       />
       <Screen
         name={TRANSFER_TO_ACCOUNT_SCREEN}
         component={TransferToAccountScreen}
         options={{
-          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
+          title: t('transfers.toOwnAccount'),
         }}
       />
       <Screen
         name={PRIVATE_TRANSACTION_SCREEN}
         component={PrivateTransactionScreen}
         options={{
-          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
+          title: t('transfers.toOwnAccount'),
         }}
       />
       <Screen
         name={TRANSFER_DETAIL_SCREEN}
         component={TransferDetailScreen}
         options={{
-          title: t('გადარიცხვის დეტალები'),
+          title: t('transactions.transDetails'),
         }}
       />
       <Screen
@@ -119,7 +119,7 @@ export const TransactionsStack = () => {
         name={OTHER_BANK_TANSACTION_SCREEN}
         component={OtherBankTransactionScreen}
         options={{
-          title: 'სად',
+          title: t('transfers.where'),
         }}
       />
       <Screen
