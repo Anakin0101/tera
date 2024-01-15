@@ -439,6 +439,7 @@
     "mobile": "მობილურის ნომერი"
   },
   "loanRequest": {
-    "creditProducts": "საკრედიტო პროდუქტები"
+    "creditProducts": "საკრედიტო პროდუქტები",
+    "request": "სესხის მოთხოვნა"
   }
 }

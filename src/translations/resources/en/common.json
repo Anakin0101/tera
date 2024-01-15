@@ -440,6 +440,7 @@
     "mobile": "Mobile Number"
   },
   "loanRequest": {
-    "creditProducts": "Credit products"
+    "creditProducts": "Credit products",
+    "request": "Loan request"
   }
 }

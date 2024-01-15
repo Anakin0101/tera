@@ -1,14 +1,48 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'components';
+import { ScrollView, View } from 'react-native';
+import { Button, Divider, Text } from 'components';
+import { DetailProps } from './LoanRequestScreen.types';
 import { useStyles } from './LoanRequestScreen.styles';
+
+const Detail = ({ value }: DetailProps) => {
+  const styles = useStyles();
+
+  return (
+    <View style={styles.detailItem}>
+      <View style={styles.point} />
+      <Text children={value} secondary />
+    </View>
+  );
+};
 
 export const LoanRequestScreen = () => {
   const styles = useStyles();
 
   return (
-    <View style={styles.container}>
-      <Text>LoanRequestScreen</Text>
-    </View>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={styles.header}>
+        <View style={styles.imageContainer} />
+        <Text children="loanRequest.request" medium size={18} marginTop={24} />
+      </View>
+      <Divider height={1} marginTop={32} marginBottom={32} />
+      <View style={styles.description}>
+        <Text children="products.details" medium size={16} />
+        <Text children="აღწერა" secondary marginTop={16} />
+        <Detail value="მინიმალური თანხა 1,000.00 ₾" />
+        <Detail value="ვალუტა: ლარი, აშშ, დოლარი, ევრო" />
+        <Detail value="ეფექტური საპროცენტო განაკვეთი 16,80%-დან" />
+        <Detail value="შემოსავალი მინიმუმ 300 ლარი (ეკვივალენტი უცხოურ ვალუტაში)" />
+      </View>
+      <Button.Primary
+        fullWidth
+        text="common.next"
+        onPress={() => {}}
+        customWrapperStyle={styles.button}
+      />
+    </ScrollView>
   );
 };
