@@ -438,5 +438,8 @@
     "Invoice": "Upload Invoice",
     "next": "Next",
     "mobile": "Mobile Number"
+  },
+  "loanRequest": {
+    "creditProducts": "Credit products"
   }
 }
