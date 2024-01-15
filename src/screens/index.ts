@@ -34,3 +34,4 @@ export { TeraWalletScreen } from './TeraWalletScreen/TeraWalletScreen';
 export { TeraWalletPDFScreen } from './TeraWalletScreen/TeraWalletPDFScreen';
 export { TeraWalletSuccess } from './TeraWalletScreen/TeraWalletSuccess';
 export { LoanRequestScreen } from './LoanRequestScreen/LoanRequestScreen';
+export { LoanAmountScreen } from './LoanAmountScreen/LoanAmountScreen';

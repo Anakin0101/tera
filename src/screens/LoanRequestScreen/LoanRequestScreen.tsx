@@ -3,6 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { Button, Divider, Text } from 'components';
 import { DetailProps } from './LoanRequestScreen.types';
 import { useStyles } from './LoanRequestScreen.styles';
+import { useLoanRequest } from './container';
 
 const Detail = ({ value }: DetailProps) => {
   const styles = useStyles();
@@ -17,6 +18,7 @@ const Detail = ({ value }: DetailProps) => {
 
 export const LoanRequestScreen = () => {
   const styles = useStyles();
+  const { handleNextPress } = useLoanRequest();
 
   return (
     <ScrollView
@@ -40,7 +42,7 @@ export const LoanRequestScreen = () => {
       <Button.Primary
         fullWidth
         text="common.next"
-        onPress={() => {}}
+        onPress={handleNextPress}
         customWrapperStyle={styles.button}
       />
     </ScrollView>

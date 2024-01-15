@@ -54,6 +54,7 @@ import {
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
   LOAN_REQUEST_SCREEN,
+  LOAN_AMOUNT_SCREEN,
 } from './ScreenNames';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -129,6 +130,7 @@ export type ProductsStackParamsList = {
   [TERA_WALLET_PDF_SCREEN]: undefined;
   [TERA_WALLET_SUCCESS_SCREEN]: undefined;
   [LOAN_REQUEST_SCREEN]: undefined;
+  [LOAN_AMOUNT_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

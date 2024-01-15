@@ -441,6 +441,7 @@
   },
   "loanRequest": {
     "creditProducts": "Credit products",
-    "request": "Loan request"
+    "request": "Loan request",
+    "amount": "Loan amount"
   }
 }
