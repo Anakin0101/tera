@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Pdf from 'react-native-pdf';
-import { Button, OTPModal } from 'components';
+import { Button, LoadingView, OTPModal } from 'components';
 import {
   useAddOrUpdateTeraWalletMutation,
   useGenerateTeraWalletPdfMutation,
 } from 'services/apis/productsAPI/productsAPI';
 import { PUBLIC_IMAGE_URL } from 'services/api';
-import { Loader } from 'components/Loader/Loader';
 import { closeModal, openModal } from 'utils/modal';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { ProductsStackScreenProps } from 'navigation/types';
@@ -75,7 +74,7 @@ export const TeraWalletPDFScreen = () => {
           style={styles.pdf}
         />
       ) : (
-        <Loader />
+        <LoadingView />
       )}
       <View style={styles.buttonContainer}>
         <Button.Primary

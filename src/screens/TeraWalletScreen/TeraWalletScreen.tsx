@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { ListRenderItem, ScrollView, View, Pressable, FlatList, TextInput } from 'react-native';
-import { Button, Divider, Text } from 'components';
+import { Button, Divider, LoadingView, Text } from 'components';
 import Animated, {
   runOnJS,
   useSharedValue,
@@ -11,10 +11,9 @@ import { ChevronDown } from 'assets/SVGs';
 import { useTeraWallet } from './container';
 import { formatMoney } from 'utils/formatMoney';
 import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
-import { useStyles } from './TeraWalletScreen.styles';
 import { WalletAmount } from 'services/apis/productsAPI/productsAPI.types';
-import { Loader } from 'components/Loader/Loader';
 import { DataType } from './TeraWalletScreen.types';
+import { useStyles } from './TeraWalletScreen.styles';
 
 export const TeraWalletScreen = () => {
   const styles = useStyles();
@@ -72,7 +71,7 @@ export const TeraWalletScreen = () => {
   );
 
   if (!teraWalletInfo) {
-    return <Loader />;
+    return <LoadingView />;
   }
 
   return (

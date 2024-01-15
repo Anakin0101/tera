@@ -71,7 +71,7 @@ export const NewDepositAdditionalInfoScreen = () => {
     return offer?.depositProducts?.length === 1;
   }, [offer]);
 
-  const getDepositProducts = () => {
+  const getDepositProducts = useCallback(() => {
     return offer?.depositProducts?.map(product => (
       <Pressable
         key={product.productId}
@@ -84,7 +84,14 @@ export const NewDepositAdditionalInfoScreen = () => {
         <Text children={product.name.ka} special={productId === product.productId} />
       </Pressable>
     ));
-  };
+  }, [
+    offer?.depositProducts,
+    productId,
+    setProductId,
+    setProductName,
+    styles.period,
+    styles.selected,
+  ]);
 
   return (
     <ScrollView bounces={false} style={styles.wrapper} showsVerticalScrollIndicator={false}>

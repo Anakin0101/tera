@@ -56,10 +56,5 @@ export const useStyles = () => {
     fill: {
       ...Layout.fill,
     },
-    loader: {
-      ...Layout.fill,
-      ...Layout.center,
-      backgroundColor: Colors.white,
-    },
   });
 };

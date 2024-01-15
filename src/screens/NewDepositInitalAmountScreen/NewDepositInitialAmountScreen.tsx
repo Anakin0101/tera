@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { View, Pressable, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { Button, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
@@ -25,7 +25,7 @@ export const NewDepositInitialAmountScreen = () => {
     offer,
   } = useNewDepositInitialAmount(ref);
 
-  const getCurrencies = () => {
+  const getCurrencies = useCallback(() => {
     return offer?.depositProducts?.[0]?.currencies?.map(item => (
       <Pressable
         key={item.currency}
@@ -39,7 +39,13 @@ export const NewDepositInitialAmountScreen = () => {
         />
       </Pressable>
     ));
-  };
+  }, [
+    offer?.depositProducts,
+    selectedCurrency,
+    setSelectedCurrency,
+    styles.currencyContainer,
+    styles.selected,
+  ]);
 
   return (
     <View style={styles.wrapper}>

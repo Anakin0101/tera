@@ -22,7 +22,7 @@ export const NewDepositSummaryScreen = () => {
   } = useNewDepositSummary();
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.fill}>
       <ScrollView style={styles.scrollView} bounces={false} showsVerticalScrollIndicator={false}>
         <View style={styles.headerContainer}>
           <View style={styles.headerItem}>

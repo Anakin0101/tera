@@ -79,5 +79,8 @@ export const useStyles = () => {
       left: 0,
       right: 0,
     },
+    fill: {
+      ...Layout.fill,
+    },
   });
 };

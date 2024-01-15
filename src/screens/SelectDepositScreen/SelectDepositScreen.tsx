@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { ActivityIndicator, FlatList, ListRenderItem, View } from 'react-native';
+import { FlatList, ListRenderItem, View } from 'react-native';
 import { Item } from './Item';
-import { Text } from 'components';
+import { LoadingView, Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { useSelectDeposit } from './container';
 import { OfferType } from 'services/apis/productsAPI/productsAPI.types';
@@ -32,11 +32,7 @@ export const SelectDepositScreen = () => {
   }, []);
 
   if (!offers) {
-    return (
-      <View style={styles.loader}>
-        <ActivityIndicator />
-      </View>
-    );
+    return <LoadingView />;
   }
 
   return (

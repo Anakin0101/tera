@@ -55,18 +55,18 @@ export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) =>
   }, [amount]);
 
   useEffect(() => {
-    if (!amounts) {
-      return;
-    }
-
-    if (debouncedValue && !amounts.some(item => item.value === debouncedValue)) {
-      setAmount('');
-      return;
-    }
-
-    const index = amounts?.findIndex(item => item.value === debouncedValue);
-
     try {
+      if (!amounts) {
+        return;
+      }
+
+      if (debouncedValue && !amounts.some(item => item.value === debouncedValue)) {
+        setAmount('');
+        return;
+      }
+
+      const index = amounts?.findIndex(item => item.value === debouncedValue);
+
       if (typeof index === 'number' && index > -1) {
         ref.current?.scrollToOffset({
           offset: index * ITEM_SIZE,
