@@ -1,8 +1,15 @@
 import React from 'react';
-import { Image } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { useStyleTheme } from './ButtonLoader.styles';
 
 export const ButtonLoader = () => {
   const styles = useStyleTheme();
-  return <Image source={require('./test.gif')} style={styles.buttonLoaderStyles} />;
+  return (
+    <LottieView
+      style={styles.buttonLoaderStyles}
+      source={require('./ButtonLoaderAnimation.json')}
+      autoPlay
+      loop
+    />
+  );
 };

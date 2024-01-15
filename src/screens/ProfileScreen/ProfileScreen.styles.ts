@@ -5,6 +5,9 @@ export const useStyleTheme = () => {
   const { Spacing, Layout, Fonts, Colors } = useTheme();
   //   TODO - need to create a HOC which will hold all screens with borderTopLeft and right radius
   return StyleSheet.create({
+    wrapper: {
+      ...Layout.flexOne,
+    },
     container: {
       ...Layout.fullSize,
       ...Layout.justifyContentStart,

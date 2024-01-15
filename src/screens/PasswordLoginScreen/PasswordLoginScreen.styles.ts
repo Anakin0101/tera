@@ -7,16 +7,16 @@ const useStyles = () => {
 
   return StyleSheet.create({
     wrapper: {
-      marginTop: verticalScale(38),
+      marginTop: verticalScale(30),
       paddingHorizontal: Spacing.xl - Spacing.xxs,
     },
     chechboxContainer: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
-      marginTop: Spacing.lg,
+      marginTop: Spacing.l,
     },
     buttonCont: {
-      marginTop: Spacing.xxl,
+      marginTop: Spacing.xl,
     },
     dividerContainer: {
       ...Layout.row,
@@ -30,6 +30,9 @@ const useStyles = () => {
     },
     text: {
       marginHorizontal: Spacing.ml,
+    },
+    mainContainer: {
+      ...Layout.flexOne,
     },
   });
 };

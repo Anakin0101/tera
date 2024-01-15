@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import React, { useCallback, useEffect } from 'react';
-import { TextInput, Text, Button, TransferTemplates } from 'components';
+import { TextInput, Text, Button, TransferTemplates, LoadingView } from 'components';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useStyles } from './PersonalNumberTransaction.styles';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
@@ -51,7 +51,8 @@ const PersonalNumberTransaction = () => {
     PERSONAL_NUMBER_LENGTH,
   );
 
-  const { handlePersonalNumber, data, isSuccess, isError } = useOtherBanksContainer(PERSONAL);
+  const { handlePersonalNumber, data, isSuccess, isError, isLoading } =
+    useOtherBanksContainer(PERSONAL);
 
   const selectTemplate = useCallback(
     (pin: any) => {
@@ -111,6 +112,10 @@ const PersonalNumberTransaction = () => {
       // toast of error
     }
   };
+
+  if (temlpatesLoading || isLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <ScrollView style={styles.scroll}>

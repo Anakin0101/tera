@@ -29,6 +29,7 @@ export const TransferDetailScreen = () => {
     handleTransferToOwnAccount,
     transferToSomeone,
     PERSONAL_TRANSACTION,
+    isLoading,
   } = useTransferDetails(params?.mobileTransaction ? true : false);
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
@@ -200,11 +201,13 @@ export const TransferDetailScreen = () => {
       </View>
       <View style={styles.buttonContainer}>
         <Button.Primary
-          text="გადარიცხვა"
+          text={t('transfers.transfer')}
+          hitSlop={30}
           fixedWidth
           onPress={() => {
             handleButtonPress();
           }}
+          isLoading={isLoading}
         />
       </View>
     </ScrollView>

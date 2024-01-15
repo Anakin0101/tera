@@ -8,12 +8,23 @@ import {
 import { TransferToOwnAccountRequestType } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useTransferDetails = (useP2pMutation: boolean = false) => {
-  const [exchangeAmountMutation] = useExchangeAmountMutation();
-  const [transferToOwnAccountMutation] = useTransferToOwnAccountMutation();
-  const [transferToSomeoneMutation, { data: transferData }] = useTransferToSomeoneMutation();
-  const [P2pTransferToSomeone, { data: p2pData }] = useP2ptransferToSomeoneMutation();
-  const [getTransferInfo] = useLazyGetTransferInfoQuery();
+  const [exchangeAmountMutation, { isLoading: isExchangeAmountLoading }] =
+    useExchangeAmountMutation();
+  const [transferToOwnAccountMutation, { isLoading: isTransferToOwnAccountLoading }] =
+    useTransferToOwnAccountMutation();
+  const [transferToSomeoneMutation, { data: transferData, isLoading: isTransferToSomeoneLoading }] =
+    useTransferToSomeoneMutation();
+  const [P2pTransferToSomeone, { data: p2pData, isLoading: isP2pTransferLoading }] =
+    useP2ptransferToSomeoneMutation();
+  const [getTransferInfo, { isLoading: isGetTransferInfoLoading }] = useLazyGetTransferInfoQuery();
   const PERSONAL_TRANSACTION = 'პირადი გადარიცხვა';
+
+  const isLoading =
+    isExchangeAmountLoading ||
+    isTransferToOwnAccountLoading ||
+    isTransferToSomeoneLoading ||
+    isP2pTransferLoading ||
+    isGetTransferInfoLoading;
 
   const transferToSomeone = useP2pMutation ? P2pTransferToSomeone : transferToSomeoneMutation;
   const data = useP2pMutation ? p2pData : transferData;
@@ -56,5 +67,6 @@ export const useTransferDetails = (useP2pMutation: boolean = false) => {
     handleTransferInfo,
     transferToSomeone,
     PERSONAL_TRANSACTION,
+    isLoading,
   };
 };

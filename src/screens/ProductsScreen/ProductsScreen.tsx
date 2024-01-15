@@ -1,14 +1,16 @@
 import React, { useRef } from 'react';
-import { ProductsTabBar } from 'components';
-import { FlatList, ListRenderItem } from 'react-native';
+import { CustomHeader, ProductsTabBar } from 'components';
+import { FlatList, ListRenderItem, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { config } from 'utils/config';
 import TeraBankProducts from './TeraBankProducts';
 import OtherBanksProducsts from './OtherBanksProducsts';
+import { useTranslation } from 'react-i18next';
 
 export const ProductsScreen = () => {
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);
+  const { t } = useTranslation();
 
   const renderItem: ListRenderItem<string> = ({ item }) => {
     switch (item) {
@@ -30,7 +32,8 @@ export const ProductsScreen = () => {
   };
 
   return (
-    <>
+    <View>
+      <CustomHeader title={t('common:navigation.products')} />
       <ProductsTabBar onTabPress={onTabPress} translateX={translateX} />
       <FlatList
         horizontal
@@ -43,6 +46,6 @@ export const ProductsScreen = () => {
         data={['terabank', 'otherbanks']}
         showsHorizontalScrollIndicator={false}
       />
-    </>
+    </View>
   );
 };

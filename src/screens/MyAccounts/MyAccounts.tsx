@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Search } from 'assets/SVGs';
 import { Text } from 'components';
 import { useStyles } from './MyAccounts.styles';
-import { DynamicAccount } from 'components';
+import { DynamicAccount, LoadingView } from 'components';
 import { useTeraTransfers } from './container';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ import { setAccountFromData } from 'store/slices/transfers';
 import { TO_ACCOUNT_SCREEN, OTHER_BANK_TANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { setSelectedIban } from 'store/slices/transfers';
+
 interface Section {
   title: string;
   data: AccountData[];
@@ -33,7 +34,7 @@ export const MyAccounts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
 
-  const { groupedAccountsByIban } = useTeraTransfers();
+  const { groupedAccountsByIban, isLoadingAccounts } = useTeraTransfers();
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
 
@@ -98,6 +99,10 @@ export const MyAccounts = () => {
       </>
     );
   };
+
+  if (isLoadingAccounts) {
+    return <LoadingView />;
+  }
 
   return (
     <View style={styles.container}>

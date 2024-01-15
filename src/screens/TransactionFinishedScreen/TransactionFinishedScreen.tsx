@@ -13,6 +13,7 @@ import { setSelectedData } from 'store/slices/transfers';
 import { TransactionsStackRouteProps } from 'navigation/types';
 import { useRoute } from '@react-navigation/native';
 import { getCurrencyIcon } from 'utils/currency';
+import { useTranslation } from 'react-i18next';
 interface SelectedItem {
   selectedPrice: any;
   convertionData: any;
@@ -29,6 +30,7 @@ export const TransactionFinishedScreen = () => {
   const { accountFromData, accountToData, selectedPrice, convertionData } = selectedItemFromStore;
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransactionsScreen'>>();
+  const { t } = useTranslation();
   const navigateToMain = () => {
     navigate(TRANSACTIONS_SCREEN);
   };
@@ -69,21 +71,29 @@ export const TransactionFinishedScreen = () => {
           <Text children="transfers.success" style={styles.text} numberOfLines={2} />
           {!params.convertion ? (
             <Text
-              children={`თანხა :${selectedPrice} ${getCurrencyIcon(accountFromData.ccy)}`}
+              children={`${t('transactionDetails.amount')} :${selectedPrice} ${getCurrencyIcon(
+                accountFromData.ccy,
+              )}`}
               style={styles.amount}
             />
           ) : (
             <Text
-              children={`გადარიცხული თანხა ${convertionData.buyAmount.amountBuy} ${getCurrencyIcon(
-                accountFromData.ccy,
-              )} = ${convertionData.buyAmount.amountSell} ${getCurrencyIcon(accountToData.ccy)}`}
+              children={`${t('transactions.transAmount')} ${
+                convertionData.buyAmount.amountBuy
+              } ${getCurrencyIcon(accountFromData.ccy)} = ${
+                convertionData.buyAmount.amountSell
+              } ${getCurrencyIcon(accountToData.ccy)}`}
               style={styles.amount}
             />
           )}
 
           <View style={styles.btnWrapper}>
             <ChooseService fromTransaction serviceData={data} />
-            <Button.Primary text="მთავარზე დაბრუნება" onPress={navigateToMain} />
+            <Button.Primary
+              hitSlop={30}
+              text={t('transfers.backToHome')}
+              onPress={navigateToMain}
+            />
           </View>
         </View>
       </View>

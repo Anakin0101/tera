@@ -5,11 +5,15 @@ export const useStyles = () => {
   const { Layout, Colors } = useTheme();
 
   return StyleSheet.create({
-    loadingSpinner: {
+    loadingSpinnerContainer: {
       ...Layout.fill,
       ...Layout.fullSize,
       ...Layout.center,
       backgroundColor: Colors.white,
+    },
+    loadingSpinner: {
+      width: 35,
+      height: 35,
     },
   });
 };

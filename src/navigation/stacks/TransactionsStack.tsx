@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { MyAccounts, TransactionsScreen, ToAccountScreen, TransferToAccountScreen } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -21,6 +21,8 @@ import { OtherBankTransactionScreen } from 'screens/OtherBanksTransactionScreen/
 import { TransferToOtherBankAccountScreen } from 'screens/TransferToAccountScreen/TransferToOtherBankAccountScreen';
 import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
+import { useStyleTheme } from 'navigation/Navigation.styles';
+import { Colors } from 'theme/Variables';
 
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
@@ -40,24 +42,33 @@ const Stack = createStackNavigator<TransactionsStackParamList>();
 export const TransactionsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
+  const st = useStyleTheme();
   return (
-    <Navigator initialRouteName={TRANSACTIONS_SCREEN}>
+    <Navigator
+      initialRouteName={TRANSACTIONS_SCREEN}
+      screenOptions={{
+        headerLeft: HeaderBackArrow,
+        headerTitleStyle: st.headerTitleStyle,
+        headerStyle: {
+          backgroundColor: Colors.defaultBackground,
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
       <Screen
         name={TRANSACTIONS_SCREEN}
         component={TransactionsScreen}
         options={{
-          title: t('common:navigation.transactions'),
-          headerTitleAlign: 'left',
+          headerShown: false,
         }}
       />
       <Screen
         name={MY_ACCOUNTS_SCREEN}
         component={MyAccounts}
         options={{
-          title: t('საიდან'),
-          headerBackTitle: ' ',
-          headerTitleAlign: 'center',
-          headerLeft: () => <HeaderBackArrow />,
+          title: t('transfers.fromWhere'),
         }}
       />
 
@@ -65,41 +76,28 @@ export const TransactionsStack = () => {
         name={TO_ACCOUNT_SCREEN}
         component={ToAccountScreen}
         options={{
-          title: t('სად'),
-          headerBackTitle: ' ',
-          headerTitleAlign: 'center',
-          headerLeft: () => <HeaderBackArrow />,
+          title: t('transfers.where'),
         }}
       />
       <Screen
         name={TRANSFER_TO_ACCOUNT_SCREEN}
         component={TransferToAccountScreen}
         options={{
-          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
-          headerBackTitle: ' ',
-          headerTitleAlign: 'center',
-          headerLeft: () => <HeaderBackArrow />,
+          title: t('transfers.toOwnAccount'),
         }}
       />
       <Screen
         name={PRIVATE_TRANSACTION_SCREEN}
         component={PrivateTransactionScreen}
         options={{
-          title: t('საკუთარ ანგარიშზე გადარიცხვა'),
-          headerBackTitle: ' ',
-          headerLeft: () => <HeaderBackArrow />,
+          title: t('transfers.toOwnAccount'),
         }}
       />
       <Screen
         name={TRANSFER_DETAIL_SCREEN}
         component={TransferDetailScreen}
         options={{
-          title: t('გადარიცხვის დეტალები'),
-          headerStyle: {
-            backgroundColor: '#F9F9F9',
-          },
-          headerBackTitle: ' ',
-          headerLeft: () => <HeaderBackArrow />,
+          title: t('transactions.transDetails'),
         }}
       />
       <Screen
@@ -107,10 +105,6 @@ export const TransactionsStack = () => {
         component={TransactionFinishedScreen}
         options={{
           title: '',
-          headerStyle: {
-            backgroundColor: '#F9F9F9',
-          },
-          headerBackTitle: ' ',
           headerLeft: () => null,
         }}
       />
@@ -119,22 +113,13 @@ export const TransactionsStack = () => {
         component={TransactionFailedScreen}
         options={{
           title: '',
-          headerStyle: {
-            backgroundColor: '#F9F9F9',
-          },
-          headerBackTitle: ' ',
         }}
       />
       <Screen
         name={OTHER_BANK_TANSACTION_SCREEN}
         component={OtherBankTransactionScreen}
         options={{
-          title: 'სად',
-          headerStyle: {
-            backgroundColor: '#F9F9F9',
-          },
-          headerBackTitle: ' ',
-          headerLeft: () => <HeaderBackArrow />,
+          title: t('transfers.where'),
         }}
       />
       <Screen
@@ -142,10 +127,6 @@ export const TransactionsStack = () => {
         component={TransferToOtherBankAccountScreen}
         options={{
           title: '',
-          headerStyle: {
-            backgroundColor: '#F9F9F9',
-          },
-          headerBackTitle: ' ',
         }}
       />
     </Navigator>

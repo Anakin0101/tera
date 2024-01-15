@@ -1,7 +1,7 @@
 import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { Text } from 'components';
-import { Button, TextInput, TransferTemplates } from 'components';
+import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation } from '@react-navigation/native';
@@ -112,6 +112,10 @@ const IbanTransaction = () => {
 
     return templates.templates.filter(item => item.type === 4).slice(0, 4);
   }, [templates?.templates]);
+
+  if (temlpatesLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <ScrollView style={styles.scroll}>

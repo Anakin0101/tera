@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextInput, View, SectionList, SectionListRenderItem } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Search } from 'assets/SVGs';
-import { Text } from 'components';
+import { Text, LoadingView } from 'components';
 import { useStyles } from './ToAccountScreen.styles';
 import { DynamicAccount } from 'components';
 import { useTeraProducts } from 'screens/ProductsScreen/teraProductsContainer';
@@ -13,6 +13,7 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountToData } from 'store/slices/transfers';
 import { TRANSFER_TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+
 interface Section {
   title: string;
   data: AccountData[];
@@ -30,8 +31,9 @@ export const ToAccountScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const [value, setValue] = useState('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
-  const { groupedAccountsByIban } = useTeraProducts();
+  const { groupedAccountsByIban, isLoadingAccounts } = useTeraProducts();
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
   useEffect(() => {
@@ -62,8 +64,15 @@ export const ToAccountScreen = () => {
   }, [groupedAccountsByIban, selected]);
 
   const handleAccountSelection = (accountId: number, item: any) => {
-    setSelectedAccount(prev => (prev !== accountId ? accountId : null));
-    dispatch(setAccountToData(item));
+    if (!isLoading) {
+      setIsLoading(true);
+      setSelectedAccount(prev => (prev !== accountId ? accountId : null));
+      dispatch(setAccountToData(item));
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
 
   const renderItem: SectionListRenderItem<any, any> = ({ item, index, section }) => {
@@ -79,6 +88,10 @@ export const ToAccountScreen = () => {
       </>
     );
   };
+
+  if (isLoadingAccounts) {
+    return <LoadingView />;
+  }
 
   return (
     <View style={styles.container}>

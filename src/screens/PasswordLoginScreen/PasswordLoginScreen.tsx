@@ -43,6 +43,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
       extraScrollHeight={80}
       showsVerticalScrollIndicator={false}
       scrollEnabled={isKeyboardOpened}
+      style={styles.mainContainer}
     >
       <View style={styles.wrapper}>
         <Text children="common:passAuth.auth" headline />
@@ -51,7 +52,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
           control={control}
           name="username"
           label="common:passAuth.username"
-          marginTop={38}
+          marginTop={30}
           errors={errors}
           required
           errorMessage="common:form.is_required"
@@ -60,7 +61,7 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
           control={control}
           name="password"
           label="common:passAuth.password"
-          marginTop={10}
+          marginTop={5}
           secureTextEntry
           errors={errors}
           required

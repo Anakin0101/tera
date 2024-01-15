@@ -10,7 +10,7 @@ export const useTeraProducts = () => {
   const { totalAvailableBalanceGEL, deposits, loans, overdrafts, creditCards } = useAppSelector(
     state => state.products,
   );
-  const { groupedAccountsByIban } = useGroupedAccountsByIban();
+  const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
 
   const allLoans = [...overdrafts, ...creditCards, ...loans];
 
@@ -47,5 +47,6 @@ export const useTeraProducts = () => {
     loans,
     totalLoans,
     allLoans,
+    isLoadingAccounts,
   };
 };

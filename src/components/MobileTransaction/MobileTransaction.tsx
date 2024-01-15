@@ -1,6 +1,6 @@
 import { View, ScrollView } from 'react-native';
 import React, { useCallback, useEffect } from 'react';
-import { TextInput, Text, Button, TransferTemplates } from 'components';
+import { TextInput, Text, Button, TransferTemplates, LoadingView } from 'components';
 import { useStyles } from './MobileTransaction.styles';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
@@ -100,6 +100,10 @@ const MobileTransaction = () => {
       });
     }
   };
+
+  if (temlpatesLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <ScrollView style={styles.scroll}>
