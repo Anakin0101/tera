@@ -18,3 +18,9 @@ export interface SelectCurrencyProps {
   setCurrency: Dispatch<SetStateAction<Currency | null>>;
   currency: Currency | null;
 }
+
+export interface AccountProps {
+  isSelected: boolean;
+  account: IGroupedAccountsByIban;
+  onPress: () => void;
+}

@@ -7,4 +7,5 @@ export interface IDividerProps {
   style?: StyleProp<ViewStyle>;
   marginTop?: number;
   marginBottom?: number;
+  marginLeft?: number;
 }

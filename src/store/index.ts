@@ -32,6 +32,8 @@ import {
   transfersAPI,
 } from 'services/apis';
 import { productsReducer } from './slices/products';
+import { depositReducer } from './slices/deposit';
+import { teraWalletReducer } from './slices/teraWallet';
 import { transfersReducer } from './slices/transfers';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
@@ -50,6 +52,8 @@ const reducers = combineReducers({
   profile: persistedProfile,
   products: productsReducer,
   transfers: transfersReducer,
+  deposit: depositReducer,
+  teraWallet: teraWalletReducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,

@@ -59,3 +59,15 @@ export const DEPOSITS_SCREEN = 'DepositsScreen';
 export const DEPOSIT_DETAILS_SCREEN = 'DepositDetailsScreen';
 export const LOANS_SCREEN = 'LoansScreen';
 export const LOAN_DETAILS_SCREEN = 'LoanDetailsScreen';
+export const SELECT_DEPOSIT_SCREEN = 'SelectDepositScreen';
+export const NEW_DEPOSIT_DETAILS_SCREEN = 'NewDepositDetailsScreen';
+export const NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN = 'NewDepositInitialAmountScreen';
+export const NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN = 'NewDepositAdditionalInfoScreen';
+export const NEW_DEPOSIT_SUMMARY_SCREEN = 'NewDepositSummaryScreen';
+export const DEPOSIT_SUCCESS_SCREEN = 'DepositSuccessScreen';
+export const TERA_WALLET_SCREEN = 'TeraWalletScreen';
+export const TERA_WALLET_PDF_SCREEN = 'TeraWalletPDFScreen';
+export const TERA_WALLET_SUCCESS_SCREEN = 'TeraWalletSuccessScreen';
+
+// independent screens:
+export const LOADING_SCREEN = 'LoadingScreen';

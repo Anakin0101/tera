@@ -27,7 +27,7 @@ export type CardType = {
 export type Account = {
   accountId: number;
   accountIban: string;
-  accountType: number;
+  accountType: AccountTypeEnum;
   accountNumber: number;
   ccy: Currency;
   accountName: string;
@@ -44,20 +44,20 @@ export type Account = {
   cards: CardType[];
 };
 
-type ImageType = {
+type OfferImageType = {
   url: string;
   type: number;
 };
 
 export type OfferType = {
   id: number;
-  type: number;
-  lmsApplicationId: unknown;
-  creditDisbursementId: unknown;
+  type: OfferTypeEnum;
+  lmsApplicationId: number;
+  creditDisbursementId: number;
   hasClientOffer: boolean;
   title: string;
   description: string;
-  images: ImageType[];
+  images: OfferImageType[];
 };
 
 export type OffersAPIResponseType = {
@@ -176,4 +176,141 @@ export type LoanHistory = {
   penalty: number;
   fee: number;
   total: number;
+};
+
+export enum OfferTypeEnum {
+  Deposit = 1,
+  Loan = 2,
+  CardInsurance = 3,
+  CreditDisbursement = 4,
+  Card = 5,
+  Package = 6,
+  OpenBanking = 7,
+}
+
+type OfferName = {
+  en: string;
+  ka: string;
+};
+
+type OfferCurrencies = {
+  currency: Currency;
+  minAmount: number;
+  maxAmount: number;
+};
+
+type DepositProduct = {
+  productId: number;
+  name: OfferName;
+  minPeriod: number;
+  maxPeriod: number;
+  currencies: OfferCurrencies[];
+  hasAccrualAccount: boolean;
+  isCd: boolean;
+};
+
+export type OfferDetails = {
+  id: number;
+  type: OfferTypeEnum;
+  title: string;
+  titleEn: string;
+  description: string;
+  descriptionEn: string;
+  depositProducts: DepositProduct[];
+};
+
+export type InterestRatesReq = {
+  amount: number;
+  productId: number | null;
+  creditAccountId: number;
+  debitAccountId: number;
+  currency: Currency;
+};
+
+export type InterestRate = {
+  percent: number;
+  effectivePercent: number;
+  periodInMonths: number;
+  percentRate: number;
+  clientOffer: number;
+};
+
+export type InterestRatesRes = {
+  interestRates: InterestRate[];
+};
+
+export type CalculateDeposit = {
+  periodInMonths?: number;
+} & InterestRatesReq;
+
+export type CalculateDepositRes = {
+  benefit: number;
+};
+
+export type RegisterDepositReq = Omit<CalculateDeposit, 'currency'>;
+
+export type RegisterDepositRes = {
+  registrationId: string;
+  agreementId: string;
+  cdRegistryId: string;
+  depositId: number;
+  bpId: number;
+  agreementPdf: string;
+  cdRegistryPdf: string;
+};
+
+export enum AccountTypeEnum {
+  Current = 100,
+  Card = 200,
+  Deposit = 32,
+}
+
+export type ActivateDepositReq = {
+  sendOtp?: boolean;
+  otp?: string;
+  registrationId?: string;
+  depositId?: number;
+  fileId?: string;
+  cdFileId?: string;
+  productType?: string;
+  bpId?: number;
+};
+
+export type WalletAmount = {
+  key: number;
+  value: string;
+};
+
+export type WalletAccount = {
+  accountId: number;
+  iban: string;
+  currency: Currency;
+  nameEng: string;
+  nameGeo: string;
+  typeGeo: string;
+  typeEng: string;
+};
+
+export type TeraWalletRes = {
+  ccy: Currency[];
+  amount: WalletAmount[];
+  account: WalletAccount[];
+  canCreateTeraWallet: boolean;
+};
+
+export type TeraWalletPDFReq = {
+  amountId: number;
+  accountId: number;
+};
+
+export type AddOrUpdateTeraWalletReq = {
+  culture?: string;
+  ccy?: Currency;
+  amountId?: number;
+  accountId?: number;
+  teraWalletId?: number;
+  disableWallet?: boolean;
+  fileId?: string;
+  sendOtp?: boolean;
+  otp?: string;
 };

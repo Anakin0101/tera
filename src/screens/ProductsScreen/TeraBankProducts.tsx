@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { useTheme } from 'hooks';
 import { useTeraProducts } from './teraProductsContainer';
 import { Button, CardsAndAccounts, DepositsAndLoans, Divider } from 'components';
 import { useStyles } from './ProductsScreen.styles';
 import { Plus } from 'assets/SVGs';
+import { FooterProps } from './ProductsScreen.types';
 
 const sections = [
   { title: 'accounts', data: [{}] },
@@ -17,11 +18,16 @@ const LeftIcon = () => {
   return <Plus color={Colors.white} />;
 };
 
-const SectionListFooter = () => {
+const SectionListFooter: FC<FooterProps> = ({ onNewProductsPress }) => {
   const styles = useStyles();
   return (
     <View style={styles.footer}>
-      <Button.Primary text="products.new" fullWidth leftIcon={LeftIcon} />
+      <Button.Primary
+        text="products.new"
+        fullWidth
+        leftIcon={LeftIcon}
+        onPress={onNewProductsPress}
+      />
       <Button.Secondary
         fullWidth
         text="products.history"
@@ -41,6 +47,7 @@ const TeraBankProducts = () => {
     totalLoans,
     groupedAccountsByIban,
     allLoans,
+    onNewProductsPress,
   } = useTeraProducts();
 
   const renderSectionListItem: SectionListRenderItem<any, any> = ({ section }) => {
@@ -76,7 +83,7 @@ const TeraBankProducts = () => {
         bounces={false}
         sections={sections}
         renderItem={renderSectionListItem}
-        ListFooterComponent={SectionListFooter}
+        ListFooterComponent={<SectionListFooter onNewProductsPress={onNewProductsPress} />}
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
         contentContainerStyle={styles.sectionListContent}

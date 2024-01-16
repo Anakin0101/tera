@@ -1,9 +1,14 @@
+import React, { useCallback } from 'react';
 import { useEffect, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setTotalDebt, setTotalDeposits } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
+import { closeModal, openModal } from 'utils/modal';
+import { NewProducts } from 'components/modals/NewProducts/NewProducts';
+import { ProductsStackScreenProps } from 'navigation/types';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +44,46 @@ export const useTeraProducts = () => {
     dispatch(setTotalDebt(totalLoans));
   }, [dispatch, totalDeposits, totalLoans]);
 
+  const { navigate } = useNavigation<ProductsStackScreenProps<'SelectDepositScreen'>>();
+
+  const onDepositPress = useCallback(() => {
+    closeModal();
+    navigate('SelectDepositScreen');
+  }, [navigate]);
+
+  const products = useMemo(() => {
+    return [
+      {
+        title: 'newDeposit.tariffPackage',
+        onPress: () => {},
+      },
+      {
+        title: 'newDeposit.card',
+        onPress: () => {},
+      },
+      {
+        title: 'newDeposit.deposit',
+        onPress: onDepositPress,
+      },
+      {
+        title: 'newDeposit.teraWallet',
+        onPress: () => {},
+      },
+      {
+        title: 'newDeposit.loan',
+        onPress: () => {},
+      },
+    ];
+  }, [onDepositPress]);
+
+  const onNewProductsPress = () => {
+    openModal({
+      element: <NewProducts products={products} />,
+      title: 'newDeposit.newProduct',
+      disablePanning: true,
+    });
+  };
+
   return {
     groupedAccountsByIban,
     totalAvailableBalanceGEL,
@@ -47,6 +92,7 @@ export const useTeraProducts = () => {
     loans,
     totalLoans,
     allLoans,
+    onNewProductsPress,
     isLoadingAccounts,
   };
 };

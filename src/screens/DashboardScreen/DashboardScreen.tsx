@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { Alert, FlatList, ListRenderItem, Text } from 'react-native';
+import React, { useRef, useEffect, FC } from 'react';
+import { Alert, FlatList, ListRenderItem, Text, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { DashboardTabBar, HomeHeader } from 'components';
 import TeraBank from './TeraBank';
@@ -13,9 +13,12 @@ import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEas
 import { EasyLoginModal } from 'components/modals';
 import { closeModal, openModal } from 'utils/modal';
 import { debounce } from 'utils/debounce';
+import { useStyleTheme } from './DashboardScreen.style';
 import { DashboardScreenProps } from './DashboardScreen.types';
 
 export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
+  const styles = useStyleTheme();
+
   const handleClearAllFromStorage = async () => {
     const res = await resetKeychainValues();
     storage.clearAll();
@@ -73,15 +76,19 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
   };
 
   const onTabPress = (index: number) => {
-    translateX.value = withTiming(index * config.mobileWidth);
-    flatlistRef.current?.scrollToOffset({
-      animated: true,
-      offset: index * config.mobileWidth,
-    });
+    try {
+      translateX.value = withTiming(index * config.mobileWidth);
+      flatlistRef.current?.scrollToOffset({
+        animated: true,
+        offset: index * config.mobileWidth,
+      });
+    } catch (err) {
+      console.warn('Error in onTabPress on DashboardScreen', err);
+    }
   };
 
   return (
-    <>
+    <View style={styles.containerFlex}>
       <HomeHeader translateY={scroll} />
       <DashboardTabBar onTabPress={onTabPress} translateX={translateX} translateY={scroll} />
       <FlatList
@@ -97,6 +104,6 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
       <Pressable onPress={handleClearAllFromStorage}>
         <Text style={[Fonts.semiLarge]} children="Clear all from storage" />
       </Pressable>
-    </>
+    </View>
   );
 };

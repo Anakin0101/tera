@@ -30,8 +30,9 @@ export const MyAccountsScrollableScreen = () => {
   }, [setOptions]);
 
   if (!account) {
-    return null;
+    return <View />;
   }
+
   const sections = [
     { title: 'cards', data: [{}], name: 'ბარათები' },
     { title: 'details', data: [{}], name: 'დეტალები' },
@@ -69,15 +70,19 @@ export const MyAccountsScrollableScreen = () => {
   };
 
   const handlePress = (index: number) => {
-    if (sectionListRef.current) {
-      setPressedIndex(index);
-      sectionListRef.current.scrollToLocation({
-        sectionIndex: index,
-        itemIndex: index,
-        viewOffset: index > 2 ? 600 : 60,
-        animated: true,
-        viewPosition: 0,
-      });
+    try {
+      if (sectionListRef.current) {
+        setPressedIndex(index);
+        sectionListRef.current.scrollToLocation({
+          sectionIndex: index,
+          itemIndex: index,
+          viewOffset: index > 2 ? 600 : 60,
+          animated: true,
+          viewPosition: 0,
+        });
+      }
+    } catch (err) {
+      console.warn('Error in handlePress in MyAccountScrollableScreen', err);
     }
   };
 

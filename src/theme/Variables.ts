@@ -63,6 +63,7 @@ export const Colors = {
   creditCardBg: '#571538',
   warningSolid: '#FFC423',
   primaryActionButton: 'rgba(160, 34, 109, 0.1)',
+  paleGray: '#D5D5D5',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

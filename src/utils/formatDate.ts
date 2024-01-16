@@ -98,3 +98,7 @@ export const getDateThreeMonthAgeISO = () => {
 export const getISOString = (dateString: string, template = 'YYYY-MM-DD') => {
   return dayjs(dateString, template).toISOString();
 };
+
+export const getDateMonthsLater = (months: number, template = 'DD-MM-YYYY') => {
+  return dayjs().add(months, 'month').format(template);
+};

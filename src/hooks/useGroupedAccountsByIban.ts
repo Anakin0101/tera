@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { useGetAccountsByCustomerIdQuery } from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -6,7 +6,9 @@ import { setAccounts, setTotalAvailableBalance } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { Account, AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { useIsFocused } from '@react-navigation/native';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useGroupedAccountsByIban = () => {
   const dispatch = useAppDispatch();
@@ -25,19 +27,28 @@ export const useGroupedAccountsByIban = () => {
     }
   }, [isFocused, refetch]);
 
-  useEffect(() => {
-    if (accounts) {
-      const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(
-        accounts,
-        'accountIban',
-      );
-      const balanceGEL = accounts.filter(acc => acc.ccy === 'GEL');
-      const totalAvailableGEL = calculateSum(balanceGEL, 'balance');
+  const saveAccounts = useCallback(
+    (allAccounts?: Account[]) => {
+      try {
+        const accs =
+          allAccounts?.filter(item => item.accountType !== AccountTypeEnum.Deposit) ?? [];
 
-      dispatch(setAccounts(groupedAccounts));
-      dispatch(setTotalAvailableBalance(totalAvailableGEL));
-    }
-  }, [accounts, dispatch]);
+        const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(accs, 'accountIban');
+        const balanceGEL = accs?.filter(acc => acc?.ccy === CurrencyEnum.GEL);
+        const totalAvailableGEL = calculateSum(balanceGEL, 'balance');
+
+        dispatch(setAccounts(groupedAccounts));
+        dispatch(setTotalAvailableBalance(totalAvailableGEL));
+      } catch (err) {
+        console.warn('Error in useGroupedAccountsByIban hook: saveAccounts', err);
+      }
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    saveAccounts(accounts);
+  }, [accounts, saveAccounts]);
 
   return {
     isLoadingAccounts,
