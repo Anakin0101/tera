@@ -16,6 +16,7 @@ import {
 } from '../ScreenNames';
 import { useGuestNavigator } from 'hooks';
 import { logAllKeychainValues } from 'utils/logKeychainValues';
+import { LoadingView } from 'components/index';
 
 const Stack = createStackNavigator<GuestStackParamList>();
 
@@ -24,7 +25,7 @@ export const GuestNavigator = () => {
   const { loading, initialRoute } = useGuestNavigator();
 
   if (loading) {
-    return null;
+    return <LoadingView />;
   }
 
   //   TODO TEMp!

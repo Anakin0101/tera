@@ -17,7 +17,7 @@ import { closeModal, openModal } from 'utils/modal';
 import { openToast } from 'utils/toast';
 import { useKeyChain } from './useKeychain';
 import { resetKeychainValues } from 'utils/logKeychainValues';
-import { resetStateAction } from 'store/actions/reset';
+import { purgePersistedStateAction, resetStateAction } from 'store/actions/reset';
 import { setValue } from 'storage/index';
 import { USER_LOGGED_OUT } from 'storage/constants';
 
@@ -80,6 +80,7 @@ export const useLogin = () => {
             if (savedLoginName && savedLoginName !== loginName) {
               await resetKeychainValues();
               dispatch(resetStateAction());
+              dispatch(purgePersistedStateAction());
             }
             setLoginName(loginName);
             // if accesstoken returns from the API - we log the user in
@@ -127,6 +128,7 @@ export const useLogin = () => {
       if (res) {
         const { accessToken: newAccessToken, refreshToken: newRefreshToken, error } = res;
         if (newAccessToken && newRefreshToken) {
+          setValue(USER_LOGGED_OUT, false);
           dispatch(setPasscodeTries(0));
           dispatch(
             setUserCredentials({

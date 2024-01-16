@@ -15,7 +15,7 @@ export const useEnableBiometricsPrompt = () => {
       element: (
         <EasyLoginModal
           handlePress={handleOpenSettings}
-          description={'easylogin.enable_from_settings'}
+          description={'easyLogin.enable_from_settings'}
           primaryButtonText="Settings"
         />
       ),

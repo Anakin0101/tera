@@ -4,7 +4,7 @@ import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { GuestStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { Alert, Keyboard } from 'react-native';
-import { resetStateAction } from 'store/actions/reset';
+import { purgePersistedStateAction, resetStateAction } from 'store/actions/reset';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 
 import { clearLoginName } from 'utils/keychain';
@@ -22,6 +22,7 @@ export const useUserReset = () => {
       closeModal();
       navigate(PASSWORD_LOGIN_SCREEN);
       dispatch(resetStateAction());
+      dispatch(purgePersistedStateAction());
     } else {
       Alert.alert('Could not change user');
     }

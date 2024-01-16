@@ -7,6 +7,7 @@
     "ios": "react-native run-ios",
     "ios-15-pro": "react-native run-ios --simulator='iPhone 15 pro'",
     "ios-se": "react-native run-ios --simulator='iPhone SE (3rd generation)'",
+	"ios-device": "npx react-native run-ios --device='Your iPhone'",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --write .",
