@@ -20,9 +20,12 @@ export const CreatePasscodeScreen = () => {
   const { handleBiometricActivation } = useBiometrics();
   const dispatch = useAppDispatch();
   const isBiometricBeingSet = useAppSelector(state => state.userInfo.isBiometricBeingSet);
+  const { isTrusted } = useAppSelector(state => state.deviceInfo.isDeviceTrusted);
 
   const successCallBack = () => {
-    handleOTPVerification();
+    if (!isTrusted) {
+      handleOTPVerification();
+    }
     if (isBiometricBeingSet) {
       handleBiometricActivation(
         () => {

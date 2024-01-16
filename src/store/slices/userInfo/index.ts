@@ -54,11 +54,9 @@ const userInfoSlice = createSlice({
     setIsBiometricBeingSet: (state, { payload }) => {
       state.isBiometricBeingSet = payload;
     },
-
     setBiometricStatus: (state, { payload }) => {
       state.isBiometricSet = payload;
     },
-
     setPasscodeTries: (state, { payload }) => {
       state.passcodeTries = payload;
     },

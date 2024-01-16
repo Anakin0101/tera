@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, FC } from 'react';
 import { Alert, FlatList, ListRenderItem, Text, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { DashboardTabBar, HomeHeader } from 'components';
@@ -8,15 +8,17 @@ import { config } from 'utils/config';
 import { Pressable } from 'react-native';
 import useTheme from 'hooks/useTheme';
 import { storage, storageKeys } from 'storage/index';
-import { EasyLoginModal } from 'components/modals';
-import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEasyLoginModal';
-import { openModal } from 'utils/modal';
 import { resetKeychainValues } from 'utils/logKeychainValues';
+import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEasyLoginModal';
+import { EasyLoginModal } from 'components/modals';
+import { closeModal, openModal } from 'utils/modal';
 import { debounce } from 'utils/debounce';
 import { useStyleTheme } from './DashboardScreen.style';
+import { DashboardScreenProps } from './DashboardScreen.types';
 
-export const DashboardScreen = () => {
+export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
   const styles = useStyleTheme();
+
   const handleClearAllFromStorage = async () => {
     const res = await resetKeychainValues();
     storage.clearAll();
@@ -36,15 +38,27 @@ export const DashboardScreen = () => {
   }, 1000);
 
   useEffect(() => {
-    if (showEasyLoginPrompt) {
-      debouncedOpenModal();
-    }
-    return () => {
+    const handleBlur = () => {
       if (showEasyLoginPrompt) {
+        closeModal();
         debouncedOpenModal.cancel();
       }
     };
-  }, [debouncedOpenModal, showEasyLoginPrompt]);
+
+    const handleFocus = () => {
+      if (showEasyLoginPrompt) {
+        debouncedOpenModal();
+      }
+    };
+
+    navigation.addListener('blur', handleBlur);
+    navigation.addListener('focus', handleFocus);
+
+    return () => {
+      navigation.removeListener('blur', handleBlur);
+      navigation.removeListener('focus', handleFocus);
+    };
+  }, [debouncedOpenModal, navigation, showEasyLoginPrompt]);
 
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);

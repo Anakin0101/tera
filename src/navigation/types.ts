@@ -1,4 +1,6 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -56,7 +58,6 @@ import {
   LOAN_REQUEST_SCREEN,
   LOAN_AMOUNT_SCREEN,
 } from './ScreenNames';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;

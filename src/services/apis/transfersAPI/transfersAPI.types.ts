@@ -199,3 +199,8 @@ export type TransferToOwnAccountResponseType = {
   data?: {};
   error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
 };
+
+export type TransferToSomeoneResultResponseType = {
+  data?: {};
+  error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
+};

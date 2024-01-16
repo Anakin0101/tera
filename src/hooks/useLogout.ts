@@ -2,14 +2,14 @@ import { useNavigation } from '@react-navigation/native';
 import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
 import { RoutesGenericProp } from 'navigation/types';
 import { useLogoutUserMutation } from 'services/apis';
-import { USER_LOGGED_OUT } from 'storage/constants';
-import { setValue, storageKeys } from 'storage/index';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { resetUserProfileInfo } from 'store/slices/profile';
 import { setAccessToken, setPostponeEasyLogin } from 'store/slices/userInfo';
 import { useGuestNavigator } from './useGuestNavigator';
 import { useCallback } from 'react';
+import { setValue, storageKeys } from 'storage/index';
+import { USER_LOGGED_OUT } from 'storage/constants';
 
 export const useLogout = () => {
   const [logoutUser] = useLogoutUserMutation();
@@ -19,9 +19,9 @@ export const useLogout = () => {
   const { replace } = useNavigation<RoutesGenericProp<'guestNavigator'>>();
   const { initialRoute } = useGuestNavigator();
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = useCallback(async () => {
     try {
-      logoutUser({
+      await logoutUser({
         headers: {
           'X-Bank-UserIp': userIp,
           'X-Bank-DeviceToken': deviceToken,
@@ -38,7 +38,7 @@ export const useLogout = () => {
       dispatch(resetUserProfileInfo());
       replace(GUEST_NAVIGATOR, { screen: initialRoute });
     }
-  }, [dispatch, initialRoute, logoutUser, replace, userHasLoggedOut, userIp, deviceToken]);
+  }, [logoutUser, userIp, deviceToken, userHasLoggedOut, dispatch, replace, initialRoute]);
 
   return { handleLogout };
 };

@@ -11,7 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { themeReducer } from './slices/theme';
-import { RESET_STATE_ACTION_TYPE } from './actions/reset';
+import { PURGE_PERSISTED_STATE_ACTION_TYPE, RESET_STATE_ACTION_TYPE } from './actions/reset';
 import { userInfoReducer } from './slices/userInfo';
 import {
   dashboardPersistConfig,
@@ -66,6 +66,11 @@ const rootReducer: Reducer<RootState> = (state, action) => {
   if (action.type === RESET_STATE_ACTION_TYPE) {
     state = {} as RootState;
   }
+  if (action.type === PURGE_PERSISTED_STATE_ACTION_TYPE) {
+    persistor.purge();
+    return {} as RootState;
+  }
+
   return reducers(state, action);
 };
 
