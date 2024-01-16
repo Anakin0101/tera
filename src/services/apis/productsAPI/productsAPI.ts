@@ -12,6 +12,8 @@ import {
   InterestRatesRes,
   LastTransactionReq,
   LastTransactionRes,
+  LmsProduct,
+  LoanConfigRes,
   LoanHistory,
   LoanSchedule,
   OfferDetails,
@@ -27,7 +29,7 @@ import {
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Products', 'Transaction'],
+  tagTypes: ['Products', 'Transaction', 'Loan'],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
       query: () => ({
@@ -168,6 +170,13 @@ export const productsAPI = createApi({
         body,
       }),
     }),
+
+    getRequestForLoanConfig: builder.query<LmsProduct[], void>({
+      query: () => ({
+        url: URLS.getRequestForLoanConfig,
+      }),
+      transformResponse: (response: LoanConfigRes) => response.lmsProducts,
+    }),
   }),
 });
 
@@ -188,4 +197,5 @@ export const {
   useGetTeraWalletInfoQuery,
   useGenerateTeraWalletPdfMutation,
   useAddOrUpdateTeraWalletMutation,
+  useGetRequestForLoanConfigQuery,
 } = productsAPI;

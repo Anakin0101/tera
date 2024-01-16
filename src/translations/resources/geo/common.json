@@ -445,6 +445,7 @@
     "amountOfMoney": "თანხის რაოდენობა",
     "min": "მინიმალური {{value}}",
     "max": "მაქსიმალური {{value}}",
-    "termOfLoan": "სესხის ვადა"
+    "termOfLoan": "სესხის ვადა",
+    "selectProduct": "აირჩიე პროდუქტი"
   }
 }

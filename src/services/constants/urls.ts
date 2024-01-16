@@ -42,4 +42,5 @@ export const URLS = {
   getTotalSaving: 'Pensions/GetTotalSaving',
   getUnreadMessagesCount: 'Conversations/GetUnreadMessagesCount',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
+  getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
 };

@@ -446,6 +446,7 @@
     "amountOfMoney": "Amount of Money",
     "min": "Minimum {{value}}",
     "max": "Maximum {{value}}",
-    "termOfLoan": "Term of the loan"
+    "termOfLoan": "Term of the loan",
+    "selectProduct": "Select Product"
   }
 }

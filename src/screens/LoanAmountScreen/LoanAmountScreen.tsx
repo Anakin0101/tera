@@ -6,15 +6,33 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
-import { Button, Divider, Text } from 'components';
+import { Button, Divider, LoadingView, Text } from 'components';
 import { useLoanAmount } from './container';
 import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { Colors } from 'theme/Variables';
 import { ChevronDown } from 'assets/SVGs';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
-import { RenderItemT } from './LoanAmountScreen.types';
+import { CurrenciesProps, RenderItemT } from './LoanAmountScreen.types';
 import { useStyles } from './LoanAmountScreen.styles';
 import { formatMoney } from 'utils/formatMoney';
+
+const Currencies = ({ currencies, selectedCurrency, setSelectedCurrency }: CurrenciesProps) => {
+  const styles = useStyles();
+
+  return (
+    <View style={styles.currencies}>
+      {currencies?.map(item => (
+        <Pressable
+          key={item}
+          onPress={() => setSelectedCurrency(item)}
+          style={[styles.currencyContainer, selectedCurrency === item && styles.selected]}
+        >
+          <Text secondary children={CurrencySignMap[item]} special={selectedCurrency === item} />
+        </Pressable>
+      ))}
+    </View>
+  );
+};
 
 export const LoanAmountScreen = () => {
   const styles = useStyles();
@@ -34,27 +52,13 @@ export const LoanAmountScreen = () => {
     setSelectedCurrency,
     loanPeriod,
     ITEM_SIZE,
-    currencies,
     setActiveIndex,
+    isLoanConfigLoading,
+    selectedProduct,
+    minAmount,
+    maxAmount,
+    handleSelectProduct,
   } = useLoanAmount(flatlistRef);
-
-  const getCurrencies = useCallback(() => {
-    return currencies?.map(item => (
-      <Pressable
-        key={item}
-        onPress={() => setSelectedCurrency(item)}
-        style={[styles.currencyContainer, selectedCurrency === item && styles.selected]}
-      >
-        <Text secondary children={CurrencySignMap[item]} special={selectedCurrency === item} />
-      </Pressable>
-    ));
-  }, [
-    currencies,
-    selectedCurrency,
-    setSelectedCurrency,
-    styles.currencyContainer,
-    styles.selected,
-  ]);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     try {
@@ -72,16 +76,20 @@ export const LoanAmountScreen = () => {
     [handleItemPress, scrollX],
   );
 
+  if (isLoanConfigLoading || !selectedProduct) {
+    return <LoadingView />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <View style={styles.headerInner}>
+        <Pressable onPress={handleSelectProduct} style={styles.headerInner}>
           <View>
-            <Text children="აირჩიე პროდუქტი" secondary />
-            <Text children="ოვერდრაფტი" size={16} />
+            <Text children="loanRequest.selectProduct" secondary />
+            <Text children={selectedProduct?.displayName} size={16} />
           </View>
           <ChevronDown color={Colors.black700} />
-        </View>
+        </Pressable>
         <Divider height={1} marginTop={8} />
       </View>
       <KeyboardAwareScrollView
@@ -115,23 +123,25 @@ export const LoanAmountScreen = () => {
               children={CurrencySignMap[selectedCurrency]}
             />
           </View>
-          <View style={styles.currencies}>{getCurrencies()}</View>
+          <Currencies
+            currencies={selectedProduct.products[0].currencies}
+            selectedCurrency={selectedCurrency}
+            setSelectedCurrency={setSelectedCurrency}
+          />
         </View>
         <View style={styles.minMaxContainer}>
           <View style={styles.minimum}>
             <Text
               children="loanRequest.min"
-              translateProp={{ value: formatMoney(1000, 'GEL') }}
+              translateProp={{ value: formatMoney(minAmount) }}
               label
             />
           </View>
-          <View style={styles.minimum}>
-            <Text
-              children="loanRequest.max"
-              translateProp={{ value: formatMoney(5000, 'GEL') }}
-              label
-            />
-          </View>
+          {!!maxAmount && (
+            <View style={styles.minimum}>
+              <Text children="loanRequest.max" translateProp={{ value: formatMoney(5000) }} label />
+            </View>
+          )}
         </View>
         <View style={styles.loadDuration}>
           <Text children="loanRequest.termOfLoan" center secondary />
