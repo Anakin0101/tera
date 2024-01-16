@@ -441,6 +441,10 @@
   "loanRequest": {
     "creditProducts": "საკრედიტო პროდუქტები",
     "request": "სესხის მოთხოვნა",
-    "amount": "სესხის თანხა"
+    "amount": "სესხის თანხა",
+    "amountOfMoney": "თანხის რაოდენობა",
+    "min": "მინიმალური {{value}}",
+    "max": "მაქსიმალური {{value}}",
+    "termOfLoan": "სესხის ვადა"
   }
 }

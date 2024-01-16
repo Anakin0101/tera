@@ -442,6 +442,10 @@
   "loanRequest": {
     "creditProducts": "Credit products",
     "request": "Loan request",
-    "amount": "Loan amount"
+    "amount": "Loan amount",
+    "amountOfMoney": "Amount of Money",
+    "min": "Minimum {{value}}",
+    "max": "Maximum {{value}}",
+    "termOfLoan": "Term of the loan"
   }
 }
