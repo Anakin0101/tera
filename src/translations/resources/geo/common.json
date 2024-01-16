@@ -12,7 +12,8 @@
     "hello": "გამარჯობა",
     "greetings": "მოგესალმებით",
     "settings": "პარამეტრები",
-    "passcode": "პასკოდი"
+    "passcode": "პასკოდი",
+    "register": "რეგისტრაცია"
   },
 
   "onboarding": {
@@ -330,7 +331,8 @@
     "returnToMain": "მთავარზე დაბრუნება"
   },
   "form": {
-    "is_required": "უნდა იყოს შევსებული"
+    "is_required": "უნდა იყოს შევსებული",
+    "11_digits_required": "უნდა შედგებოდეს 11 ციფრისგან"
   },
   "transactions": {
     "title": "ტრანზაქციები",
@@ -442,5 +444,25 @@
     "Invoice": "ატვირთე ინვოისი",
     "next": "შემდეგი",
     "mobile": "მობილურის ნომერი"
+  },
+  "registration": {
+    "choose_registration_method": "აირჩიე რეგისტრაციის მეთოდი",
+    "with_biometric_info": "ბიომეტრიული ინფორმაციით",
+    "with_biometric_info_desc": "დაგჭირდებათ განათებული სივრცე \n პირადობის მოწმობა ან პასპორტი",
+    "with_code_word": "კოდური სიტყვით",
+    "with_code_word_desc": "დაგჭირდებათ უკვე დამახსოვრებული კოდური სიტყვის გახსენება",
+    "choose_verification_type": "აირჩიე ვერიფიკაციის ტიპი",
+    "personalId": "პირადი ნომერი",
+    "with_mobile_number": "მობილური ნომრით",
+    "with_email": "ელ.ფოსტით",
+    "phone_number": "ტელეფონის ნომერი",
+    "code_word": "კოდური სიტყვა",
+    "no_code_word": "არ მაქვს ",
+    "forgot_code_word": "დაგავიწყდა ",
+    "forgot_code_word_description": "აღსადგენად მიმართეთ ტერაბანკის ნებისმიერ ფილიალს, ან გაიარე რეგისტრაცია ბიომეტრიული მეთოდით",
+    "continue_with_biometrics": "განაგრძე ბიომეტრიული მეთოდით",
+    "enter_username": "შეიყვანე მომხმარებლის სახელი",
+    "successful_registration_title": "რეგისტრაცია წარმატებით დასრულდა",
+    "successful_registration_description": "დაკლიკეთ ღიკალზე “შესვლა” და გაიარეთ ავტორიზაცია"
   }
 }

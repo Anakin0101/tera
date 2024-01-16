@@ -13,10 +13,12 @@ import {
   PASSWORD_LOGIN_SCREEN,
   PASSCODE_LOGIN_SCREEN,
   PASSWORD_ONLY_LOGIN_SCREEN,
+  REGISTRATION_STACK,
 } from '../ScreenNames';
 import { useGuestNavigator } from 'hooks';
 import { logAllKeychainValues } from 'utils/logKeychainValues';
 import { LoadingView } from 'components/index';
+import { RegistrationNavigator } from 'navigation/stacks/RegistrationStack';
 
 const Stack = createStackNavigator<GuestStackParamList>();
 
@@ -37,6 +39,7 @@ export const GuestNavigator = () => {
       <Screen component={PasswordLoginScreen} name={PASSWORD_LOGIN_SCREEN} />
       <Screen component={PasswordOnlyLoginScreen} name={PASSWORD_ONLY_LOGIN_SCREEN} />
       <Screen component={PasscodeLoginScreen} name={PASSCODE_LOGIN_SCREEN} />
+      <Screen component={RegistrationNavigator} name={REGISTRATION_STACK} />
     </Navigator>
   );
 };

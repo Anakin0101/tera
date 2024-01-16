@@ -1,15 +1,13 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { Button, Text, ControlledInput, Account } from 'components';
 import { withLoginScreen } from 'components/HOC';
-import { PasswordOnlyLoginBaseProps } from './PasswordOnlyLoginScreen.types';
 import useStyles from './PasswordOnlyLoginScreen.styles';
-import { PASSWORD_ONLY_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
 import { useUserReset, useLogin, useKeyChain } from 'hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
+const PasswordOnlyLoginScreenBase = () => {
   const styles = useStyles();
   const { savedLoginName } = useKeyChain();
 
@@ -42,9 +40,16 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
         control={control}
         name="password"
         label="common:passAuth.password"
-        marginTop={20}
+        marginTop={5}
         secureTextEntry
         errors={errors}
+        required
+        rules={{
+          required: {
+            value: true,
+            message: 'common:form.is_required',
+          },
+        }}
       />
       <View style={styles.chechboxContainer}>
         <Text children="common:passAuth.forgot" label special />
@@ -61,7 +66,4 @@ const PasswordOnlyLoginScreenBase: FC<PasswordOnlyLoginBaseProps> = () => {
   );
 };
 
-export const PasswordOnlyLoginScreen = withLoginScreen<
-  PasswordOnlyLoginBaseProps,
-  typeof PASSWORD_ONLY_LOGIN_SCREEN
->(PasswordOnlyLoginScreenBase, PASSWORD_ONLY_LOGIN_SCREEN);
+export const PasswordOnlyLoginScreen = withLoginScreen(PasswordOnlyLoginScreenBase);
