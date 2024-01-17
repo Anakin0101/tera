@@ -11,5 +11,9 @@ export const useStyleTheme = () => {
       fontFamily: FontFamily.medium,
       color: Colors.black700,
     },
+    whiteHeader: {
+      backgroundColor: Colors.white,
+      shadowColor: Colors.transparent,
+    },
   });
 };

@@ -14,7 +14,10 @@ import { ConversionOrTranferDetails } from './ConversionOrTranferDetails';
 import { OtherBankList } from './OtherBankList';
 import { openModal, closeModal } from 'utils/modal';
 import { OTPModal } from 'components';
-import { TransferToOwnAccountResponseType } from 'services/apis/transfersAPI/transfersAPI.types';
+import {
+  TransferToOwnAccountResponseType,
+  TransferToSomeoneResultResponseType,
+} from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
 
 export const TransferDetailScreen = () => {
@@ -76,12 +79,17 @@ export const TransferDetailScreen = () => {
         headers['X-Bank-Otp'] = code;
       }
 
-      const transferToSomeoneResult = await transferToSomeone({
+      const transferToSomeoneResult: TransferToSomeoneResultResponseType = await transferToSomeone({
         headers: headers,
         body: formData,
       });
 
       closeModal();
+
+      if (transferToSomeoneResult?.error) {
+        handleTransferError(transferToSomeoneResult.error);
+        return;
+      }
 
       if (transferToSomeoneResult) {
         navigate(TRANSACTION_FINISHED_SCREEN, {});
@@ -105,12 +113,17 @@ export const TransferDetailScreen = () => {
         requestBody.otp = code;
       }
 
-      const transferToSomeoneResult = await transferToSomeone({
+      const transferToSomeoneResult: TransferToSomeoneResultResponseType = await transferToSomeone({
         headers: headers,
         body: JSON.stringify(requestBody),
       });
 
       closeModal();
+      if (transferToSomeoneResult?.error) {
+        handleTransferError(transferToSomeoneResult.error);
+        return;
+      }
+
       if (transferToSomeoneResult) {
         navigate(TRANSACTION_FINISHED_SCREEN, {});
       }

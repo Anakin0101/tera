@@ -10,3 +10,4 @@ export { useLogout } from './useLogout';
 export { useCopyToClipboard } from './useCopyToClipboard';
 export { useGuestNavigator } from './useGuestNavigator';
 export { useMainNavigator } from './useMainNavigator';
+export { useGroupedAccountsByIban } from './useGroupedAccountsByIban';

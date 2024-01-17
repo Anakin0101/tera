@@ -16,20 +16,19 @@ export const useEasyLoginModal = () => {
   const navigation = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const { ignoreEasyLogin, postponeEasyLogin } = useAppSelector(state => state.userInfo);
-  const { isPasscodeSet, isBiometricBeingSet } = useAppSelector(state => state.userInfo);
+  const { isPasscodeSet, isBiometricSet } = useAppSelector(state => state.userInfo);
 
-  const easyLoginActivated = isPasscodeSet || isBiometricBeingSet;
+  const easyLoginActivated = isPasscodeSet === true || isBiometricSet === true;
 
   const showEasyLoginPrompt = useMemo(() => {
-    return navigation.isFocused() && !ignoreEasyLogin && !postponeEasyLogin && !easyLoginActivated;
-  }, [navigation, ignoreEasyLogin, postponeEasyLogin, easyLoginActivated]);
+    return !ignoreEasyLogin && !postponeEasyLogin && !easyLoginActivated;
+  }, [ignoreEasyLogin, postponeEasyLogin, easyLoginActivated]);
 
   /**
    * handles navigation to "AuthorizationMethodsScreen", when "activate" is pressed on the EasyLoginModal
    */
   const handleNavigateToAuthorizationMethodsScreeen = () => {
     closeModal();
-
     navigation.navigate(MODAL_STACK, {
       screen: AUTHORIZATION_METHODS_SCREEN,
     });

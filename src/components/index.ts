@@ -47,4 +47,5 @@ export { Collapsible } from './Collapsible/Collapsible';
 export { ProgressBar } from './ProgressBar/ProgressBar';
 export { OtherBanksTransactionTabBar } from './OtherBanksTransactionTabBar/OtherBanksTransactionTabBar';
 export { CustomStatusBar } from './CustomStatusBar/CustomStatusBar';
+export { DetailsItem } from './DetailsItem/DetailsItem';
 export { LoadingView } from './LoadingView/LoadingView';

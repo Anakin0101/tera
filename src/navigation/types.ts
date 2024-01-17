@@ -1,4 +1,6 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -41,11 +43,19 @@ import {
   TRANSACTION_DETAILS_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+  NEW_DEPOSIT_DETAILS_SCREEN,
+  SELECT_DEPOSIT_SCREEN,
+  NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN,
+  NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN,
+  NEW_DEPOSIT_SUMMARY_SCREEN,
+  DEPOSIT_SUCCESS_SCREEN,
+  TERA_WALLET_SCREEN,
+  TERA_WALLET_PDF_SCREEN,
+  TERA_WALLET_SUCCESS_SCREEN,
   AUTH_LOADING_SCREEN,
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
 } from './ScreenNames';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -107,6 +117,17 @@ export type ProductsStackParamsList = {
   [LOAN_DETAILS_SCREEN]: {
     index: number;
   };
+  [SELECT_DEPOSIT_SCREEN]: undefined;
+  [NEW_DEPOSIT_DETAILS_SCREEN]: {
+    id: number;
+  };
+  [NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN]: undefined;
+  [NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN]: undefined;
+  [NEW_DEPOSIT_SUMMARY_SCREEN]: undefined;
+  [DEPOSIT_SUCCESS_SCREEN]: undefined;
+  [TERA_WALLET_SCREEN]: undefined;
+  [TERA_WALLET_PDF_SCREEN]: undefined;
+  [TERA_WALLET_SUCCESS_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

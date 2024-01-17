@@ -16,7 +16,6 @@ export const TrustDeviceModal: FC<TrustDeviceModalProps> = ({ methodName, openOT
     <View style={styles.container}>
       <VerifiedPhoneIcon style={styles.icon} />
       <Text style={styles.text}>
-        {/* {t('trustDevice.title', { name: methodName ? t(getTrustMethodName(methodName)) : '' })} */}
         {t('trustDevice.title', { name: methodName ? t(getTrustMethodName(methodName)) : '' })}
       </Text>
       <Text children="trustDevice.description" style={styles.label} />

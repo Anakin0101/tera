@@ -44,16 +44,12 @@ export const MainNavigator = () => {
       <Screen
         name={ALL_TRANSACTIONS_SCREEN}
         component={AllTransactionsScreen}
-        options={{
-          title: t('transactions.title'),
-        }}
+        options={{ title: t('transactions.title') }}
       />
       <Screen
         name={TRANSACTION_DETAILS_SCREEN}
         component={TransactionDetailsScreen}
-        options={{
-          title: t('transactions.details'),
-        }}
+        options={{ title: t('transactions.details') }}
       />
     </Navigator>
   );

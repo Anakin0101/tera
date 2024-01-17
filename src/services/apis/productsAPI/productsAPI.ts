@@ -3,12 +3,23 @@ import { baseQueryWithInterceptor } from 'services/api';
 import { METHOD_NAMES, URLS } from 'services/constants';
 import {
   Account,
+  ActivateDepositReq,
+  AddOrUpdateTeraWalletReq,
+  CalculateDeposit,
+  CalculateDepositRes,
+  InterestRate,
+  InterestRatesReq,
+  InterestRatesRes,
   LastTransactionReq,
   LastTransactionRes,
   LoanHistory,
   LoanSchedule,
+  OfferDetails,
   OfferType,
-  OffersAPIResponseType,
+  RegisterDepositReq,
+  RegisterDepositRes,
+  TeraWalletPDFReq,
+  TeraWalletRes,
   TransactionType,
   UpdateAccountNameReq,
 } from './productsAPI.types';
@@ -24,15 +35,10 @@ export const productsAPI = createApi({
         method: METHOD_NAMES.GET,
       }),
     }),
-    getOffers: builder.query<OfferType[], number>({
-      query: CustomerId => ({
+    getOffers: builder.query<OfferType[], void>({
+      query: () => ({
         url: URLS.getOffers,
-        method: METHOD_NAMES.GET,
-        params: {
-          CustomerId,
-        },
       }),
-      transformResponse: (response: OffersAPIResponseType) => response.offers,
     }),
     getLastTransactionsByAccNumber: builder.mutation<TransactionType[], LastTransactionReq>({
       query: ({ accountNumber, count, startDate, endDate }) => ({
@@ -93,6 +99,75 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getOfferById: builder.query<OfferDetails, number>({
+      query: OfferId => ({
+        url: URLS.getOfferById,
+        method: METHOD_NAMES.GET,
+        params: { OfferId },
+      }),
+    }),
+
+    getInterestRates: builder.query<InterestRate[], InterestRatesReq>({
+      query: params => ({
+        url: URLS.getInterestRates,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+      transformResponse: (response: InterestRatesRes) => response.interestRates,
+    }),
+
+    calculateDeposit: builder.mutation<number, CalculateDeposit>({
+      query: body => ({
+        url: URLS.calculateDeposit,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: CalculateDepositRes) => response.benefit,
+    }),
+
+    registerDeposit: builder.mutation<RegisterDepositRes, RegisterDepositReq>({
+      query: body => ({
+        url: URLS.registerDeposit,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+
+    activateDeposit: builder.mutation<any, ActivateDepositReq>({
+      query: body => ({
+        url: URLS.activateDeposit,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+
+    getTeraWalletInfo: builder.query<TeraWalletRes, void>({
+      query: () => ({
+        url: URLS.getTeraWalletInfo,
+        method: METHOD_NAMES.GET,
+      }),
+    }),
+
+    generateTeraWalletPdf: builder.mutation<string, TeraWalletPDFReq>({
+      query: body => ({
+        url: URLS.generateTeraWalletPdf,
+        method: METHOD_NAMES.POST,
+        body: {
+          ...body,
+          isCheckedAgreement: false,
+          culture: 'ka',
+        },
+        responseHandler: 'text',
+      }),
+    }),
+
+    addOrUpdateTeraWallet: builder.mutation<any, AddOrUpdateTeraWalletReq>({
+      query: body => ({
+        url: URLS.addOrUpdateTeraWallet,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -105,4 +180,12 @@ export const {
   useGetLoanHistoryQuery,
   useBlockCardMutation,
   useUnblockCardMutation,
+  useGetOfferByIdQuery,
+  useGetInterestRatesQuery,
+  useCalculateDepositMutation,
+  useRegisterDepositMutation,
+  useActivateDepositMutation,
+  useGetTeraWalletInfoQuery,
+  useGenerateTeraWalletPdfMutation,
+  useAddOrUpdateTeraWalletMutation,
 } = productsAPI;

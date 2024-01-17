@@ -2,7 +2,7 @@ import { StyleProp, TextStyle } from 'react-native';
 
 export type CheckboxProps = {
   isChecked: boolean;
-  label?: string;
+  label?: string | React.ReactNode;
   disabled?: boolean;
   checkedColor?: string;
   style?: StyleProp<TextStyle>;

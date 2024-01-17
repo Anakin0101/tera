@@ -1,20 +1,22 @@
 import React, { useCallback, useEffect } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RoutesGenericProp } from '../../navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useGuestNavigator } from 'hooks/useGuestNavigator';
 import { GUEST_NAVIGATOR, INITIAL_STACK, MAIN_NAVIGATOR } from '../../navigation/ScreenNames';
-import { CustomStatusBar } from 'components/index';
+import { CustomStatusBar, LoadingView } from 'components/index';
 import { useStyleTheme } from './AuthLoadingScreen.styles';
+import { useKeyChain } from 'hooks/useKeychain';
 
 export const AuthLoadingScreen = () => {
   const { replace } = useNavigation<RoutesGenericProp<'guestNavigator' | 'mainNavigator'>>();
   const accessToken = useAppSelector(state => state.userInfo.accessToken);
   const { initialRoute } = useGuestNavigator();
   const st = useStyleTheme();
+  const { loading } = useKeyChain();
 
-  const openRightScreen = useCallback(() => {
+  const setCorrectScreen = useCallback(() => {
     if (accessToken) {
       replace(MAIN_NAVIGATOR, { screen: INITIAL_STACK });
     } else {
@@ -23,13 +25,15 @@ export const AuthLoadingScreen = () => {
   }, [accessToken, initialRoute, replace]);
 
   useEffect(() => {
-    openRightScreen();
-  }, [openRightScreen]);
+    if (!loading) {
+      setCorrectScreen();
+    }
+  }, [loading, setCorrectScreen]);
 
   return (
     <View style={st.center}>
       <CustomStatusBar />
-      <ActivityIndicator size={'large'} color={'gray'} />
+      <LoadingView />
     </View>
   );
 };
