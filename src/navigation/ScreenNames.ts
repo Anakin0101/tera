@@ -71,6 +71,7 @@ export const TERA_WALLET_SUCCESS_SCREEN = 'TeraWalletSuccessScreen';
 export const LOAN_REQUEST_SCREEN = 'LoanRequestScreen';
 export const LOAN_AMOUNT_SCREEN = 'LoanAmountScreen';
 export const LOAN_REQUEST_TERMS_SCREEN = 'LoanRequestTermsScreen';
+export const LOAN_REQUEST_ADDITIONAL_INFO_SCREEN = 'LoanRequestAdditionalInfo';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

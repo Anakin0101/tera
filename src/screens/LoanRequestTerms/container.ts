@@ -1,6 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { LOAN_REQUEST_ADDITIONAL_INFO_SCREEN } from 'navigation/ScreenNames';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { useCallback, useMemo, useState } from 'react';
 
 export const useLoanRequestTerms = () => {
+  const { navigate } = useNavigation<ProductsStackScreenProps<'LoanRequestAdditionalInfo'>>();
   const [consentToDataProcessing, setConsentToDataProcessing] = useState(false);
   const [consentToProcessCreditInfo, setConsentToProcessCreditInfo] = useState(false);
   const [consentToProcessRemittances, setConsentToProcessRemittances] = useState(false);
@@ -9,11 +13,12 @@ export const useLoanRequestTerms = () => {
     return consentToDataProcessing && consentToProcessCreditInfo && consentToProcessRemittances;
   }, [consentToDataProcessing, consentToProcessCreditInfo, consentToProcessRemittances]);
 
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     if (!allChecked) {
       return;
     }
-  };
+    navigate(LOAN_REQUEST_ADDITIONAL_INFO_SCREEN);
+  }, [allChecked, navigate]);
 
   return {
     consentToDataProcessing,
