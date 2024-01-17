@@ -19,6 +19,7 @@ export const PaymentsStack = () => {
     <Navigator
       initialRouteName={PAYMENTS_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         headerStyle: {

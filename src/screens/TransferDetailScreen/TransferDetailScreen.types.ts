@@ -50,6 +50,7 @@ export interface SelectedItemProp {
   selectedData: any;
   accountIban: any;
   selectedTransactionType: any;
+  selectedOtherBankDataTitle: string;
 }
 
 export type CustomTransferResultError = {

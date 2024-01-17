@@ -76,9 +76,9 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
     });
 
     // Check for balance and update the button's disabled state
-    const isBalanceZero = accountFromData?.availableBalance === 0;
+
     dispatch(setSelectedPrice(processedText));
-    setIsButtonDisabled(isBalanceZero || isInvalidInput);
+    setIsButtonDisabled(isInvalidInput);
   };
 
   const openTransferScreen = () => {

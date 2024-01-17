@@ -17,6 +17,7 @@ export const ProfileNavigator = () => {
     <Navigator
       initialRouteName={PROFILE_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         headerStyle: {

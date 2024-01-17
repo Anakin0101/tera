@@ -47,6 +47,7 @@ export const TransactionsStack = () => {
     <Navigator
       initialRouteName={TRANSACTIONS_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         headerStyle: {

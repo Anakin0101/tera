@@ -4,6 +4,10 @@ export type GetTemplatesResponseType = {
   templates: Template[];
 };
 
+export type DefaultHeadersRequestType = {
+  headers?: Record<string, any>;
+};
+
 export type GetCustomerOperationsResponseTypes = {
   ops: TransactionType[];
 };

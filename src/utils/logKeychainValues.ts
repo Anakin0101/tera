@@ -1,4 +1,10 @@
-import { getPasscode, getPassword, clearCredentials, getBiometricsAuthStatus } from './keychain';
+import {
+  getPasscode,
+  getPassword,
+  clearCredentials,
+  getBiometricsAuthStatus,
+  getLoginName,
+} from './keychain';
 
 // TODO - should be removed - testing purposes only!!
 export const logAllKeychainValues = async () => {
@@ -12,10 +18,13 @@ export const logAllKeychainValues = async () => {
     // Retrieve biometric auth status
     const biometricAuthStatus = await getBiometricsAuthStatus();
 
+    const loginName = await getLoginName();
+
     console.warn({
       password,
       passcode,
       biometricAuthStatus,
+      loginName,
     });
 
     // Any other keychain values you've stored can be added similarly...

@@ -65,6 +65,7 @@ export const ProductsStack = () => {
     <Navigator
       initialRouteName={PRODUCTS_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         headerStyle: {
