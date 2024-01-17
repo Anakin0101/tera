@@ -24,6 +24,7 @@ export const TransferToOtherBankAccountScreen = () => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
 
+  //   TODO - needs verification from Akaki
   const formattedTransactionTitle =
     transactionTitles[
       fromIban
@@ -184,7 +185,7 @@ export const TransferToOtherBankAccountScreen = () => {
         onTextChange={handleTextChange}
         inputRef={inputRef}
         openTransferScreen={openTransferScreen}
-        transactionTitle={formattedTransactionTitle}
+        transactionTitle={formattedTransactionTitle as keyof typeof transactionTitles}
       />
       <CardSwap accountFromData={accountFromData} accountToData={accountToData} />
       <View style={styles.buttonView}>

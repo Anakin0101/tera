@@ -5,7 +5,7 @@ import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { CustomTextInput } from 'components/CustomInput/CustomInput';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { EditSvg } from 'assets/SVGs';
-import { transferProps } from './TransferToAccountScreen.types';
+import { TransferProps } from './TransferToAccountScreen.types';
 import { getCurrencyIcon } from 'utils/currency';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedOtherBankDataTitle } from 'store/slices/transfers';
@@ -17,7 +17,7 @@ export const Transfer = ({
   accountFromData,
   fromOtherBanks,
   transactionTitle,
-}: transferProps) => {
+}: TransferProps) => {
   const styles = useStyleTheme();
   const dispatch = useAppDispatch();
 
