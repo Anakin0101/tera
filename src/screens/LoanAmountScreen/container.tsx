@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { View } from 'react-native';
 import { openModal } from 'utils/modal';
 import { COMMA_OR_PERIOD_REGEX } from 'constants/regex';
 import { useGetRequestForLoanConfigQuery } from 'services/apis';
 import { DataType, FlatListRef, SelectedProduct } from './LoanAmountScreen.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { SelectLoanTypeModal } from 'components/modals';
 
 const ITEM_SIZE = 86;
 
@@ -107,11 +107,17 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
 
   const handleSelectProduct = useCallback(() => {
     openModal({
-      element: <View />,
+      element: (
+        <SelectLoanTypeModal
+          data={loanConfig}
+          selectedProduct={selectedProduct}
+          setSelectedProduct={setSelectedProduct}
+        />
+      ),
       title: 'loanRequest.selectProduct',
       disablePanning: true,
     });
-  }, []);
+  }, [loanConfig, selectedProduct]);
 
   const minAmount = useMemo(() => {
     const amounts = selectedProduct?.products?.map(item => item.minAmount);
