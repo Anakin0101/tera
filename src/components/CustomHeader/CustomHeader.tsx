@@ -31,14 +31,16 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
             IconJSX={Search}
             customIconComponentStyles={styles.icon}
           />
-          <IconComponent
-            handler={handleMessagesPress}
-            IconJSX={Chat}
-            customIconComponentStyles={styles.icon}
-          />
-        </View>
-        <View style={styles.badge}>
-          <Text style={styles.badgeLabel}>{4}</Text>
+          <View>
+            <IconComponent
+              handler={handleMessagesPress}
+              IconJSX={Chat}
+              customIconComponentStyles={styles.icon}
+            />
+            <View style={styles.badge}>
+              <Text style={styles.badgeLabel}>{4}</Text>
+            </View>
+          </View>
         </View>
       </View>
     </View>

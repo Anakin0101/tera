@@ -40,7 +40,7 @@ export const useStyleTheme = () => {
       borderRadius: Spacing.l / 2,
       backgroundColor: Colors.primary,
       right: -5,
-      top: 7,
+      top: -5,
     },
     badgeLabel: {
       color: Colors.white,
