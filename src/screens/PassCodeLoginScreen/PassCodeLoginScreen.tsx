@@ -12,8 +12,6 @@ import { useUserReset, usePasscode, useLogin, useBiometrics } from 'hooks';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useEnableBiometricsPrompt } from 'hooks/useEnableBiometricsPrompt';
 import { openToast } from 'utils/toast';
-import { storageKeys } from 'storage/index';
-import { USER_LOGGED_OUT } from 'storage/constants';
 
 interface PasscodeLoginBaseProps {}
 
@@ -30,7 +28,6 @@ const PasscodeLoginScreenBase: FC<PasscodeLoginBaseProps> = () => {
   );
   const { openBiometricSensorModal } = useEnableBiometricsPrompt();
   const biometricAuthSet = useAppSelector(state => state.userInfo.isBiometricSet);
-  const userHasLoggedOut = storageKeys().includes(USER_LOGGED_OUT);
 
   const handleBiometricAuthOnLoad = useCallback(() => {
     handleBiometricVerification(
@@ -44,7 +41,7 @@ const PasscodeLoginScreenBase: FC<PasscodeLoginBaseProps> = () => {
   }, [handleBiometricVerification, handlePasscodeSignIn]);
 
   useEffect(() => {
-    if (userHasLoggedOut) {
+    if (logoutStatus) {
       return;
     } else {
       handleBiometricAuthOnLoad();
