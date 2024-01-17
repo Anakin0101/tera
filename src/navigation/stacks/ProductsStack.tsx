@@ -20,6 +20,7 @@ import {
   TeraWalletSuccess,
   LoanRequestScreen,
   LoanAmountScreen,
+  LoanRequestTermsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -45,6 +46,7 @@ import {
   TERA_WALLET_SUCCESS_SCREEN,
   LOAN_REQUEST_SCREEN,
   LOAN_AMOUNT_SCREEN,
+  LOAN_REQUEST_TERMS_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
@@ -194,6 +196,14 @@ export const ProductsStack = () => {
         component={LoanAmountScreen}
         options={{
           title: t('loanRequest.amount'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={LOAN_REQUEST_TERMS_SCREEN}
+        component={LoanRequestTermsScreen}
+        options={{
+          title: t('loanRequest.readTerms'),
           headerStyle: st.whiteHeader,
         }}
       />

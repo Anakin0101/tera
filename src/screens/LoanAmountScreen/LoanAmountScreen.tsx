@@ -58,6 +58,7 @@ export const LoanAmountScreen = () => {
     minAmount,
     maxAmount,
     handleSelectProduct,
+    handleNextPress,
   } = useLoanAmount(flatlistRef);
 
   const handleScroll = useAnimatedScrollHandler(event => {
@@ -175,8 +176,8 @@ export const LoanAmountScreen = () => {
           <Button.Primary
             fullWidth
             text="common.next"
-            onPress={() => {}}
-            customWrapperStyle={[styles.button]}
+            onPress={handleNextPress}
+            customWrapperStyle={[styles.button, !amount && styles.disabled]}
           />
         </View>
       </KeyboardAwareScrollView>

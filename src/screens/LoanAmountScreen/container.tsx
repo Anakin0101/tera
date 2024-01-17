@@ -5,17 +5,21 @@ import { useGetRequestForLoanConfigQuery } from 'services/apis';
 import { DataType, FlatListRef, SelectedProduct } from './LoanAmountScreen.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { SelectLoanTypeModal } from 'components/modals';
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { LOAN_REQUEST_TERMS_SCREEN } from 'navigation/ScreenNames';
 
 const ITEM_SIZE = 86;
 
 export const useLoanAmount = (flatlistRef: FlatListRef) => {
+  const { navigate } = useNavigation<ProductsStackScreenProps<'LoanRequestTermsScreen'>>();
   const [amount, setAmount] = useState('');
   const [duration, setDuration] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyEnum>(CurrencyEnum.GEL);
   const [activeIndex, setActiveIndex] = useState(0);
-  const { data: loanConfig, isLoading: isLoanConfigLoading } = useGetRequestForLoanConfigQuery();
   const [selectedProduct, setSelectedProduct] = useState<SelectedProduct>(null);
+  const { data: loanConfig, isLoading: isLoanConfigLoading } = useGetRequestForLoanConfigQuery();
 
   useEffect(() => {
     if (loanConfig) {
@@ -119,6 +123,13 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
     });
   }, [loanConfig, selectedProduct]);
 
+  const handleNextPress = useCallback(() => {
+    if (!amount) {
+      return;
+    }
+    navigate(LOAN_REQUEST_TERMS_SCREEN);
+  }, [amount, navigate]);
+
   const minAmount = useMemo(() => {
     const amounts = selectedProduct?.products?.map(item => item.minAmount);
     return amounts ? Math.min(...amounts) : 0;
@@ -152,5 +163,6 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
     minAmount,
     maxAmount,
     handleSelectProduct,
+    handleNextPress,
   };
 };

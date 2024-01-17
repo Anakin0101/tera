@@ -446,6 +446,7 @@
     "min": "მინიმალური {{value}}",
     "max": "მაქსიმალური {{value}}",
     "termOfLoan": "სესხის ვადა",
-    "selectProduct": "აირჩიე პროდუქტი"
+    "selectProduct": "აირჩიე პროდუქტი",
+    "readTerms": "გაეცანით პირობებს"
   }
 }

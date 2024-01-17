@@ -447,6 +447,7 @@
     "min": "Minimum {{value}}",
     "max": "Maximum {{value}}",
     "termOfLoan": "Term of the loan",
-    "selectProduct": "Select Product"
+    "selectProduct": "Select Product",
+    "readTerms": "Read the terms and conditions"
   }
 }
