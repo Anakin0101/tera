@@ -161,6 +161,11 @@ export enum FinancialTransferTypeEnum {
   ToTreasury = 6,
   P2pTransfer = 7,
 }
+export enum OtherBanksTransactionsTabsEnum {
+  PERSONAL_TRANSACTION = 1,
+  IBAN_TRANACTION = 0,
+  MOBILE_TRANSACTION = 2,
+}
 
 export type Asset = {
   accountId: number;

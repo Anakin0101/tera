@@ -19,6 +19,7 @@ import {
   TransferToSomeoneResultResponseType,
 } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
+import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 
 export const TransferDetailScreen = () => {
   const { t } = useTranslation();
@@ -27,13 +28,8 @@ export const TransferDetailScreen = () => {
   );
 
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
-  const {
-    handleExchangeAmount,
-    handleTransferToOwnAccount,
-    transferToSomeone,
-    PERSONAL_TRANSACTION,
-    isLoading,
-  } = useTransferDetails(params?.mobileTransaction ? true : false);
+  const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeone, isLoading } =
+    useTransferDetails(params?.mobileTransaction ? true : false);
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const {
@@ -46,6 +42,7 @@ export const TransferDetailScreen = () => {
     selectedData,
     accountIban,
     selectedTransactionType,
+    selectedOtherBankDataTitle,
   } = selectedItemFromStore;
 
   const transferWithOTP = async (code: any, params: any) => {
@@ -66,7 +63,7 @@ export const TransferDetailScreen = () => {
       formData.append(
         'purpose',
         params.fromOtherBank && !selectedData
-          ? t('transfers.personalTransfer')
+          ? selectedOtherBankDataTitle
           : selectedData || t('transfers.bankingTransferOfBalance'),
       );
 

@@ -14,36 +14,26 @@ import { useRoute } from '@react-navigation/native';
 import { useTransferDetails } from 'screens/TransferDetailScreen/container';
 import { clearSelectedData } from 'store/slices/transfers';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
-interface AccountData {
-  iban: any;
-  accountId: any;
-  ccy: string;
-}
-interface TransferData {
-  mobile?: string;
-  purpose: string;
-  extraPurpose: string;
-  otp: string;
-  fastPayment: string;
-  bankCode: string;
-  bankName: string;
-  debitAccountId: number;
-  invoice: any;
-  receiverIban: string;
-  amount: number;
-  receiverName: string;
-  saveAsTemplateName?: string;
-}
-interface TransferToAccountScreenProps {}
-
-export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
+import { TransferData, AccountData } from './TransferToAccountScreen.types';
+import { transactionTitles } from 'utils/transactionUtils';
+import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
+export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
-  const { fromOtherBank, fromMobile } = params;
+  const { fromOtherBank, fromMobile, fromIban, fromPersonal } = params;
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
-  const { handleTransferInfo, transferToSomeone, PERSONAL_TRANSACTION } = useTransferDetails(
-    fromMobile ? true : false,
-  );
+  const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
+
+  const formattedTransactionTitle =
+    transactionTitles[
+      fromIban
+        ? 'fromIban'
+        : fromMobile
+        ? 'fromMobile'
+        : fromPersonal
+        ? 'fromPersonal'
+        : 'defaultTitle'
+    ];
 
   const {
     accountFromData,
@@ -194,6 +184,7 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
         onTextChange={handleTextChange}
         inputRef={inputRef}
         openTransferScreen={openTransferScreen}
+        transactionTitle={formattedTransactionTitle}
       />
       <CardSwap accountFromData={accountFromData} accountToData={accountToData} />
       <View style={styles.buttonView}>

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   useExchangeAmountMutation,
   useTransferToOwnAccountMutation,
@@ -17,17 +18,31 @@ export const useTransferDetails = (useP2pMutation: boolean = false) => {
   const [P2pTransferToSomeone, { data: p2pData, isLoading: isP2pTransferLoading }] =
     useP2ptransferToSomeoneMutation();
   const [getTransferInfo, { isLoading: isGetTransferInfoLoading }] = useLazyGetTransferInfoQuery();
-  const PERSONAL_TRANSACTION = 'პირადი გადარიცხვა';
 
-  const isLoading =
-    isExchangeAmountLoading ||
-    isTransferToOwnAccountLoading ||
-    isTransferToSomeoneLoading ||
-    isP2pTransferLoading ||
-    isGetTransferInfoLoading;
+  const isLoading = useMemo(() => {
+    return (
+      isExchangeAmountLoading ||
+      isTransferToOwnAccountLoading ||
+      isTransferToSomeoneLoading ||
+      isP2pTransferLoading ||
+      isGetTransferInfoLoading
+    );
+  }, [
+    isExchangeAmountLoading,
+    isTransferToOwnAccountLoading,
+    isTransferToSomeoneLoading,
+    isP2pTransferLoading,
+    isGetTransferInfoLoading,
+  ]);
 
-  const transferToSomeone = useP2pMutation ? P2pTransferToSomeone : transferToSomeoneMutation;
-  const data = useP2pMutation ? p2pData : transferData;
+  const transferToSomeone = useMemo(() => {
+    return useP2pMutation ? P2pTransferToSomeone : transferToSomeoneMutation;
+  }, [useP2pMutation, P2pTransferToSomeone, transferToSomeoneMutation]);
+
+  const data = useMemo(() => {
+    return useP2pMutation ? p2pData : transferData;
+  }, [useP2pMutation, p2pData, transferData]);
+
   const handleExchangeAmount = async (params: any) => {
     try {
       const response = await exchangeAmountMutation(params);
@@ -66,7 +81,6 @@ export const useTransferDetails = (useP2pMutation: boolean = false) => {
     data,
     handleTransferInfo,
     transferToSomeone,
-    PERSONAL_TRANSACTION,
     isLoading,
   };
 };

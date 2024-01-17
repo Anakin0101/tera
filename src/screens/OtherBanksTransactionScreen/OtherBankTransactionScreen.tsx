@@ -3,29 +3,22 @@ import { FlatList, ListRenderItem, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { OtherBanksTransactionTabBar } from 'components';
 import { config } from 'utils/config';
-// import { Pressable } from 'react-native';
 import IbanTransaction from 'components/IbanTransaction/IbanTransaction';
 import PersonalNumberTransaction from 'components/PersonalNumberTransaction/PersonalNumberTransaction';
 import MobileTransaction from 'components/MobileTransaction/MobileTransaction';
 import { useStyleTheme } from './OtherBankTransactionScreen.styles';
 import { transactionTabs } from 'constants/transactionConstants';
-import { useTranslation } from 'react-i18next';
-
+import { OtherBanksTransactionsTabsEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 export const OtherBankTransactionScreen = () => {
   const styles = useStyleTheme();
   const flatlistRef = useRef<FlatList>(null);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const zIndex = useSharedValue(1);
-  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<number | null>(0);
 
   const onTabPress = (index: number) => {
-    if (activeTab === index) {
-      setActiveTab(null);
-    } else {
-      setActiveTab(index);
-    }
+    setActiveTab(index);
 
     translateX.value = withTiming(index * config.mobileWidth);
 
@@ -36,13 +29,13 @@ export const OtherBankTransactionScreen = () => {
     });
   };
 
-  const renderItem: ListRenderItem<string> = ({ item }) => {
-    switch (item) {
-      case t('transactionDetails.personal'):
+  const renderItem: ListRenderItem<string> = ({ index }) => {
+    switch (index) {
+      case OtherBanksTransactionsTabsEnum.PERSONAL_TRANSACTION:
         return <PersonalNumberTransaction />;
-      case t('transactionDetails.iban'):
+      case OtherBanksTransactionsTabsEnum.IBAN_TRANACTION:
         return <IbanTransaction />;
-      case t('transactionDetails.mobile'):
+      case OtherBanksTransactionsTabsEnum.MOBILE_TRANSACTION:
         return <MobileTransaction />;
       default:
         return null;

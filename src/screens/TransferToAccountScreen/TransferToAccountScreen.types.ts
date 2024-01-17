@@ -12,7 +12,7 @@ export interface cardSwapProps {
   isFavourite: boolean;
   positionIndex: number;
 }
-
+type TransactionTitle = 'ანგარიშით' | 'მობილურით' | 'პირადობით' | 'პირადი გადარიცხვა';
 export interface transferProps {
   onTextChange: (text: string) => void;
   inputRef: any;
@@ -20,4 +20,27 @@ export interface transferProps {
   selectedData: any;
   accountFromData: any;
   fromOtherBanks?: boolean;
+  transactionTitle?: TransactionTitle | unknown;
+}
+
+export interface TransferData {
+  mobile?: string;
+  purpose: string;
+  extraPurpose: string;
+  otp: string;
+  fastPayment: string;
+  bankCode: string;
+  bankName: string;
+  debitAccountId: number;
+  invoice: any;
+  receiverIban: string;
+  amount: number;
+  receiverName: string;
+  saveAsTemplateName?: string;
+}
+
+export interface AccountData {
+  iban: any;
+  accountId: any;
+  ccy: string;
 }

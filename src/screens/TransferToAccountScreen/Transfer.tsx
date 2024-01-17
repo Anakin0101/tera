@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { Text } from 'components';
 import { useStyleTheme } from './TransferToAccountScreen.styles';
@@ -7,7 +7,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { EditSvg } from 'assets/SVGs';
 import { transferProps } from './TransferToAccountScreen.types';
 import { getCurrencyIcon } from 'utils/currency';
-
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setSelectedOtherBankDataTitle } from 'store/slices/transfers';
 export const Transfer = ({
   onTextChange,
   inputRef,
@@ -15,8 +16,14 @@ export const Transfer = ({
   selectedData,
   accountFromData,
   fromOtherBanks,
+  transactionTitle,
 }: transferProps) => {
   const styles = useStyleTheme();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setSelectedOtherBankDataTitle(transactionTitle));
+  }, [dispatch, transactionTitle]);
 
   return (
     <View style={styles.transferWrapper}>
@@ -38,12 +45,15 @@ export const Transfer = ({
       </View>
       {fromOtherBanks ? (
         <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
-          <Text children={selectedData ? selectedData : 'პირადი გადარიცხვა'} style={styles.text} />
+          <Text children={selectedData ? selectedData : transactionTitle} style={styles.text} />
           <EditSvg style={styles.icon} />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
-          <Text children={selectedData ? selectedData : 'ნაშთის გადატანა'} style={styles.text} />
+          <Text
+            children={selectedData ? selectedData : 'transfers.balanceTansfer'}
+            style={styles.text}
+          />
           <EditSvg style={styles.icon} />
         </TouchableOpacity>
       )}

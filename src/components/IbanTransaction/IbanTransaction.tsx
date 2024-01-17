@@ -101,6 +101,7 @@ const IbanTransaction = () => {
     if (isSuccess) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
+        fromIban: true,
       });
     }
   };
@@ -126,7 +127,7 @@ const IbanTransaction = () => {
             <DetailsItem label="personalNumber.Receiver" value={typedAccountName} />
             {bankIcon && <Image source={bankIcon} style={styles.image} />}
           </View>
-          <DetailsItem label="transactionDetails.Receiver" value={data?.bankName} />
+          <DetailsItem label="transactionDetails.receiver" value={data?.bankName} />
           <TouchableOpacity
             onPress={() =>
               openModal({

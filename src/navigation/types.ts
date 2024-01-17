@@ -144,9 +144,12 @@ export type TransactionsStackParamsList = {
   [TRANSFER_TO_ACCOUNT_SCREEN]: {
     fromOtherBank?: any;
     fromMobile?: boolean;
+    fromIban?: boolean;
+    fromPersonal?: boolean;
   };
   [PRIVATE_TRANSACTION_SCREEN]: {
     from: any;
+    transactionParam?: string;
   };
   [TRANSFER_DETAIL_SCREEN]: {
     convertion?: boolean;
@@ -160,6 +163,8 @@ export type TransactionsStackParamsList = {
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
     fromMobile?: boolean;
+    fromIban?: boolean;
+    fromPersonal?: boolean;
   };
 };
 
