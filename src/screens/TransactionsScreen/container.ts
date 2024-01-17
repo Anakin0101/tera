@@ -9,8 +9,10 @@ import {
   MOBILE_NUMBER_LENGTH,
   PERSONAL_NUMBER_LENGTH,
 } from 'components/MobileTransaction/MobileTransaction.constants';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useTransactionsScreen = () => {
+  const { userIp } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
 
   const [selectedData, setSelectedData] = useState(null);
@@ -21,7 +23,9 @@ export const useTransactionsScreen = () => {
   const [invoiceFile, setInvoiceFile] = useState<any>(null);
   const [chosenAccount, setChosenAccount] = useState<PersonalNumberAccount | null>(null);
 
-  const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery();
+  const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery({
+    headers: { 'X-Bank-UserIp': userIp },
+  });
 
   const toggleCheckIcon = useCallback(
     (account: PersonalNumberAccount) => {

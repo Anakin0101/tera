@@ -9,6 +9,7 @@ import {
   LoanType,
   CreditCardType,
   GetBankerAPIResponseType,
+  DefaultHeadersRequestType,
 } from './dashboardAPI.types';
 import { METHOD_NAMES, URLS } from 'services/constants';
 import { TransactionType } from '../productsAPI/productsAPI.types';
@@ -18,14 +19,11 @@ export const dashboardAPI = createApi({
   baseQuery: baseQueryWithInterceptor,
   tagTypes: ['Dashboard'],
   endpoints: builder => ({
-    getTemplates: builder.query<GetTemplatesResponseType, void>({
-      query: () => ({
+    getTemplates: builder.query<GetTemplatesResponseType, DefaultHeadersRequestType>({
+      query: ({ headers }) => ({
         url: URLS.getTemplates,
         method: METHOD_NAMES.GET,
-        headers: {
-          'X-Bank-UserIp': '1',
-          'X-Bank-DeviceToken': '1',
-        },
+        headers: headers,
       }),
     }),
     getCustomerOperations: builder.mutation<TransactionType[], GetCustomerOperationsRequestTypes>({
@@ -40,40 +38,24 @@ export const dashboardAPI = createApi({
       query: () => ({
         url: URLS.getCreditCard,
         method: METHOD_NAMES.GET,
-        headers: {
-          'X-Bank-UserIp': '1',
-          'X-Bank-DeviceToken': '1',
-        },
       }),
     }),
     getOverDraft: builder.query<OverdraftType[], void>({
       query: () => ({
         url: URLS.getOverdraft,
         method: METHOD_NAMES.GET,
-        headers: {
-          'X-Bank-UserIp': '1',
-          'X-Bank-DeviceToken': '1',
-        },
       }),
     }),
     getLoanCustomerId: builder.query<LoanType[], void>({
       query: () => ({
         url: URLS.getLoanCustomerId,
         method: METHOD_NAMES.GET,
-        headers: {
-          'X-Bank-UserIp': '1',
-          'X-Bank-DeviceToken': '1',
-        },
       }),
     }),
     getAssets: builder.query<Asset[], void>({
       query: () => ({
         url: URLS.getAssets,
         method: METHOD_NAMES.GET,
-        headers: {
-          'X-Bank-UserIp': '1',
-          'X-Bank-DeviceToken': '1',
-        },
       }),
     }),
     getBanker: builder.query<GetBankerAPIResponseType, void>({

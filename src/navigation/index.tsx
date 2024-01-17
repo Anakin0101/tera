@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer, createNavigationContainerRef } from '@react-navigation/native';
 import useTheme from 'hooks/useTheme';
-import { useBootstrapApp } from 'hooks/useBootstrapApp';
 import Routes from './Router';
+import { useBootstrapApp } from 'hooks';
 
 export const NavigationRef = createNavigationContainerRef();
 
