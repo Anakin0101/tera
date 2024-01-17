@@ -448,6 +448,9 @@
     "max": "Maximum {{value}}",
     "termOfLoan": "Term of the loan",
     "selectProduct": "Select Product",
-    "readTerms": "Read the terms and conditions"
+    "readTerms": "Read the terms and conditions",
+    "consentToDataProcessing": "Consent to process personal data",
+    "consentToCheckCreditInfo": "Consent to process credit information",
+    "consentToCheckRemittanceInfo": "Consent to process remittance information"
   }
 }

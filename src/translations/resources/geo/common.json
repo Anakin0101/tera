@@ -447,6 +447,9 @@
     "max": "მაქსიმალური {{value}}",
     "termOfLoan": "სესხის ვადა",
     "selectProduct": "აირჩიე პროდუქტი",
-    "readTerms": "გაეცანით პირობებს"
+    "readTerms": "გაეცანით პირობებს",
+    "consentToDataProcessing": "თანხმობა მონაცემების დამუშავების თაობაზე",
+    "consentToCheckCreditInfo": "თანხმობა კრედიტ ინფოში გადამოწმებაზე",
+    "consentToCheckRemittanceInfo": "თანხმობა გზავნილების ინფორმაციის დამუშავების თაობაზე"
   }
 }
