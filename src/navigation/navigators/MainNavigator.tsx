@@ -29,6 +29,7 @@ export const MainNavigator = () => {
     <Navigator
       initialRouteName={INITIAL_STACK}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         headerStyle: {

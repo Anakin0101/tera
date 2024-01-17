@@ -25,6 +25,7 @@ export const ModalNavigator = () => {
     <Navigator
       initialRouteName={SETTINGS_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         headerStyle: {
