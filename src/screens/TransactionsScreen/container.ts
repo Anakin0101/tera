@@ -9,11 +9,10 @@ import {
   MOBILE_NUMBER_LENGTH,
   PERSONAL_NUMBER_LENGTH,
 } from 'components/MobileTransaction/MobileTransaction.constants';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useTransactionsScreen = () => {
   const dispatch = useAppDispatch();
-  const { userIp, deviceToken: savedDeviceToken } = useAppSelector(state => state.deviceInfo);
+
   const [selectedData, setSelectedData] = useState(null);
   const [typedAccountName, setTypedAccountName] = useState('');
   const [debouncedAccountName, setDebouncedAccountName] = useState('');
@@ -22,13 +21,7 @@ export const useTransactionsScreen = () => {
   const [invoiceFile, setInvoiceFile] = useState<any>(null);
   const [chosenAccount, setChosenAccount] = useState<PersonalNumberAccount | null>(null);
 
-  const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery(
-    {
-      userIp,
-      savedDeviceToken,
-    },
-    { skip: !savedDeviceToken },
-  );
+  const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery();
 
   const toggleCheckIcon = useCallback(
     (account: PersonalNumberAccount) => {

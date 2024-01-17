@@ -18,13 +18,13 @@ export const dashboardAPI = createApi({
   baseQuery: baseQueryWithInterceptor,
   tagTypes: ['Dashboard'],
   endpoints: builder => ({
-    getTemplates: builder.query<GetTemplatesResponseType, any>({
-      query: ({ userIp, deviceToken }) => ({
+    getTemplates: builder.query<GetTemplatesResponseType, void>({
+      query: () => ({
         url: URLS.getTemplates,
         method: METHOD_NAMES.GET,
         headers: {
-          'X-Bank-UserIp': userIp,
-          'X-Bank-DeviceToken': deviceToken,
+          'X-Bank-UserIp': '1',
+          'X-Bank-DeviceToken': '1',
         },
       }),
     }),
