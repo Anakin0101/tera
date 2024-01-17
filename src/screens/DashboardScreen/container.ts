@@ -9,10 +9,19 @@ import {
   useGetAssetsQuery,
   useGetBankerQuery,
 } from 'services/apis';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
-
+useAppSelector;
 export const useDashboardScreen = () => {
-  const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery();
+  const { userIp, deviceToken: savedDeviceToken } = useAppSelector(state => state.deviceInfo);
+  const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery(
+    {
+      userIp,
+      savedDeviceToken,
+    },
+    { skip: !savedDeviceToken },
+  );
+
   const [
     getCustomerOperations,
     { data: customerOperations, isLoading: customerOperationsLoading },

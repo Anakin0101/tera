@@ -29,7 +29,7 @@ export const TransferDetailScreen = () => {
 
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
   const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeone, isLoading } =
-    useTransferDetails(params?.mobileTransaction ? true : false);
+    useTransferDetails(!!params?.mobileTransaction);
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const {

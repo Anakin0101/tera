@@ -1,3 +1,4 @@
+import { transactionTitles } from 'utils/transactionUtils';
 export interface cardSwapProps {
   accountIban: string;
   accountId: number;
@@ -12,7 +13,7 @@ export interface cardSwapProps {
   isFavourite: boolean;
   positionIndex: number;
 }
-type TransactionTitle = 'ანგარიშით' | 'მობილურით' | 'პირადობით' | 'პირადი გადარიცხვა';
+
 export interface transferProps {
   onTextChange: (text: string) => void;
   inputRef: any;
@@ -20,7 +21,7 @@ export interface transferProps {
   selectedData: any;
   accountFromData: any;
   fromOtherBanks?: boolean;
-  transactionTitle?: TransactionTitle | unknown;
+  transactionTitle?: keyof typeof transactionTitles | unknown;
 }
 
 export interface TransferData {
