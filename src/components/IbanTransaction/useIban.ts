@@ -1,6 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import Images from 'theme/Images';
-import { BOG_CODE, TBC_BANK_CODE, VTB_BANK_CODE } from 'constants/BankCodes';
+import {
+  BOG_CODE,
+  TBC_BANK_CODE,
+  VTB_BANK_CODE,
+  CREDO_BANK_CODE,
+  TERRA_BANK_CODE,
+} from 'constants/BankCodes';
 import { debounce } from 'utils/debounce';
 import { setAccountToData } from 'store/slices/transfers';
 
@@ -34,8 +40,11 @@ const useBankIcons = (
       case VTB_BANK_CODE:
         setBankIcon(Images()?.VTBBankLogoIcon);
         break;
-      default:
+      case TERRA_BANK_CODE:
         setBankIcon(Images()?.TeraBankLogoIcon);
+        break;
+      case CREDO_BANK_CODE:
+        setBankIcon(Images()?.CredoBankLogoIcon);
         break;
     }
   }, [externalBankCode]);

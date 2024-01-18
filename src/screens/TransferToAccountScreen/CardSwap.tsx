@@ -13,6 +13,7 @@ import { formatMoney } from 'utils/formatMoney';
 export type cardProps = {
   accountFromData: any;
   accountToData: any;
+  receiver?: string;
 };
 interface SelectedItem {
   selectedIban: number | null;
@@ -67,7 +68,7 @@ const CardItem = ({
   );
 };
 
-export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
+export const CardSwap = ({ accountFromData, accountToData, receiver }: cardProps) => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
@@ -75,6 +76,7 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
 
   const { selectedIban } = selectedItemFromStore;
   const styles = useStyleTheme();
+  let receiverName: string = accountToData?.accountName || accountToData?.name || receiver;
 
   const handlePress = useCallback(
     (arg: number) => {
@@ -98,7 +100,7 @@ export const CardSwap = ({ accountFromData, accountToData }: cardProps) => {
       <TinyChevron style={styles.chevronIcon} />
       <CardItem
         reverse
-        title={accountToData?.accountName ? accountToData?.accountName : accountToData?.name}
+        title={receiverName}
         balance={
           accountToData?.availableBalance || accountToData?.availableBalance === 0
             ? formatMoney(accountToData?.availableBalance)

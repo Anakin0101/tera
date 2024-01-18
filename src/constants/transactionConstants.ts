@@ -12,3 +12,5 @@ export const transactionTabs = [
   i18next.t('transactionDetails.iban'),
   i18next.t('transactionDetails.mobile'),
 ];
+export const TRANSFER_TERA = i18next.t('transfers.tera');
+export const OTHER_BANK = i18next.t('transfers.otherBanks');

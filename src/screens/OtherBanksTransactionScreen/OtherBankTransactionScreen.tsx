@@ -9,6 +9,7 @@ import MobileTransaction from 'components/MobileTransaction/MobileTransaction';
 import { useStyleTheme } from './OtherBankTransactionScreen.styles';
 import { transactionTabs } from 'constants/transactionConstants';
 import { OtherBanksTransactionsTabsEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+
 export const OtherBankTransactionScreen = () => {
   const styles = useStyleTheme();
   const flatlistRef = useRef<FlatList>(null);

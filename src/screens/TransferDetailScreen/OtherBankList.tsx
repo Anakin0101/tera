@@ -4,8 +4,15 @@ import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { maskIban } from 'utils/maskIban';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
+import { SelectedItemProp } from './TransferDetailScreen.types';
 
-export const OtherBankList = ({ selectedItemFromStore }: any) => {
+export const OtherBankList = ({
+  selectedItemFromStore,
+  receiver,
+}: {
+  selectedItemFromStore: SelectedItemProp;
+  receiver?: string;
+}) => {
   const {
     accountFromData,
     accountToData,
@@ -29,9 +36,13 @@ export const OtherBankList = ({ selectedItemFromStore }: any) => {
     return (
       <View style={styles.backgroundWhite}>
         <View style={styles.detailsSectionWrapper}>
-          {renderDetailsItem('transfers.fromWhere', ``, accountFromData.accountIban)}
-          {renderDetailsItem('transfers.where', `${accountToData.name} `)}
-          {renderDetailsItem('personalNumber.Receiver', '', accountToData.iban)}
+          {renderDetailsItem(
+            'transfers.fromWhere',
+            `${accountFromData.accountName} - `,
+            accountFromData.accountIban,
+          )}
+          {renderDetailsItem('transfers.where', `${receiver ? receiver : accountToData.name} `)}
+          {renderDetailsItem('personalNumber.Receiver', `${accountToData.iban}`)}
           {renderDetailsItem('transactionDetails.amount', `${selectedPrice} ₾`)}
           {renderDetailsItem(
             'transfers.destination',

@@ -1,5 +1,5 @@
-import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useEffect, useCallback, useMemo } from 'react';
+import { View, Image, ScrollView, Pressable } from 'react-native';
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import { Text } from 'components';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
@@ -18,11 +18,12 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { ChevronDown } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import useBankIcons from './useIban';
-import { Error } from 'assets/SVGs';
 import { IBAN } from 'constants/transactionConstants';
 import { ibanRegex } from 'constants/transactionConstants';
+import { Error } from 'assets/SVGs';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
+import { TERRA_BANK_CODE } from 'constants/BankCodes';
 
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ const IbanTransaction = () => {
   const { selectedTransactionType } = selectedItemFromStore;
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
+  const [receiver, setReceiver] = useState<string>('');
   const {
     templates,
     temlpatesLoading,
@@ -80,6 +82,10 @@ const IbanTransaction = () => {
     );
     dispatch(setReceiverInfo(data));
   }, [data, dispatch, selectedData, typedAccountName]);
+  const hendleRecieverName = (value: string) => {
+    setReceiver(value);
+    dispatch(setReceiverInfo(value));
+  };
 
   const handleChange = (value: string) => {
     const uppercaseValue = value.toUpperCase();
@@ -111,6 +117,7 @@ const IbanTransaction = () => {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
         fromIban: true,
+        receiver: receiver,
       });
     }
   };
@@ -133,36 +140,50 @@ const IbanTransaction = () => {
       {apiCallInitiated && data ? (
         <View>
           <View style={styles.wrapper}>
-            <DetailsItem label="personalNumber.Receiver" value={typedAccountName} />
+            <DetailsItem label="transactionDetails.receiverIban" value={typedAccountName} />
             {bankIcon && <Image source={bankIcon} style={styles.image} />}
           </View>
-          <DetailsItem label="transactionDetails.receiver" value={data?.bankName} />
-          <TouchableOpacity
-            onPress={() =>
-              openModal({
-                element: <TransactionModal />,
-                title: 'transactions.details',
-                titlePosition: 'center',
-                disablePanning: true,
-              })
-            }
-          >
-            <View style={styles.chevron}>
-              <Text children="transactionDetails.type" size={12} demiBold />
-              <ChevronDown color={Colors.black700} />
-            </View>
-            <Text children={selectedTransactionType.name} size={12} />
-          </TouchableOpacity>
-          {selectedTransactionType.name === 'transactions.standard' ? (
-            <View style={styles.fastPayment}>
-              <Error />
-              <Text children="transactions.standardText" size={12} color={Colors.textBlack} />
-            </View>
+
+          {data?.bicCode === TERRA_BANK_CODE ? (
+            <DetailsItem label={t('transactionDetails.receiver')} value={data?.customerName} />
           ) : (
-            <View style={styles.fastPayment}>
-              <Error />
-              <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
-            </View>
+            <>
+              <TextInput
+                inputStyle={styles.inputStyle}
+                label="transactionDetails.receiver"
+                value={receiver}
+                onChangeText={text => hendleRecieverName(text)}
+                marginTop={32}
+                autoFocus
+              />
+              <Pressable
+                onPress={() =>
+                  openModal({
+                    element: <TransactionModal />,
+                    title: 'transactions.details',
+                    titlePosition: 'center',
+                    disablePanning: true,
+                  })
+                }
+              >
+                <View style={styles.chevron}>
+                  <Text children="transactionDetails.type" size={12} demiBold />
+                  <ChevronDown color={Colors.black700} />
+                </View>
+                <Text children={selectedTransactionType.name} size={12} />
+              </Pressable>
+              {selectedTransactionType.name === 'transactions.standard' ? (
+                <View style={styles.fastPayment}>
+                  <Error />
+                  <Text children="transactions.standardText" size={12} color={Colors.textBlack} />
+                </View>
+              ) : (
+                <View style={styles.fastPayment}>
+                  <Error />
+                  <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
+                </View>
+              )}
+            </>
           )}
         </View>
       ) : (
@@ -190,7 +211,7 @@ const IbanTransaction = () => {
       )}
 
       <View style={styles.btn}>
-        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fixedWidth />
+        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
       </View>
     </ScrollView>
   );

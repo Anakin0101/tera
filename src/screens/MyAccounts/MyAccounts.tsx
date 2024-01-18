@@ -69,17 +69,13 @@ export const MyAccounts = () => {
   }, [sections, value]);
 
   useEffect(() => {
-    if (selectedAccount !== null) {
+    if (!!selectedAccount && otherBanks) {
+      navigate(OTHER_BANK_TANSACTION_SCREEN, { otherBanks: true });
+    } else if (!!selectedAccount && !otherBanks) {
       navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
       dispatch(setSelectedIban(selectedAccount));
     }
-  }, [navigate, selectedAccount, dispatch]);
-
-  useEffect(() => {
-    if (selectedAccount !== null && otherBanks) {
-      navigate(OTHER_BANK_TANSACTION_SCREEN, { otherBanks: true });
-    }
-  }, [navigate, otherBanks, selectedAccount]);
+  }, [navigate, otherBanks, selectedAccount, dispatch]);
 
   const handleAccountSelection = (accountId: number, item: any) => {
     if (!isLoading) {

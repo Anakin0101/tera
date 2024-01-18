@@ -186,7 +186,7 @@ const PersonalNumberTransaction = () => {
         </>
       )}
       <View>
-        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} />
+        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
       </View>
     </ScrollView>
   );
