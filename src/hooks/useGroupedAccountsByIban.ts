@@ -7,12 +7,10 @@ import { calculateSum } from 'utils/calculateSum';
 import { groupAccountsByIban } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Account, AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
-import { useIsFocused } from '@react-navigation/native';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useGroupedAccountsByIban = () => {
   const dispatch = useAppDispatch();
-  const isFocused = useIsFocused();
 
   const { groupedAccountsByIban } = useAppSelector(state => state.products);
   const {
@@ -20,12 +18,6 @@ export const useGroupedAccountsByIban = () => {
     isLoading: isLoadingAccounts,
     refetch,
   } = useGetAccountsByCustomerIdQuery(undefined, { skip: false });
-
-  useEffect(() => {
-    if (isFocused) {
-      refetch();
-    }
-  }, [isFocused, refetch]);
 
   const saveAccounts = useCallback(
     (allAccounts?: Account[]) => {
@@ -53,5 +45,6 @@ export const useGroupedAccountsByIban = () => {
   return {
     isLoadingAccounts,
     groupedAccountsByIban,
+    refetch,
   };
 };

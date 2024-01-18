@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, View, SectionList, SectionListRenderItem } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Search } from 'assets/SVGs';
 import { Text } from 'components';
@@ -25,6 +25,7 @@ interface AccountData {
 
 export const MyAccounts = () => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
+  const isFocused = useIsFocused();
   const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
   const { otherBanks } = params || {};
   const { t } = useTranslation();
@@ -34,9 +35,15 @@ export const MyAccounts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
 
-  const { groupedAccountsByIban, isLoadingAccounts } = useTeraTransfers();
+  const { groupedAccountsByIban, isLoadingAccounts, refetch } = useTeraTransfers();
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused, refetch]);
 
   useEffect(() => {
     if (groupedAccountsByIban) {
