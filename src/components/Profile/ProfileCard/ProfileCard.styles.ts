@@ -30,9 +30,11 @@ export const useStyleTheme = () => {
       height: Spacing.xxxl,
       marginLeft: Spacing.m,
     },
-    profileCardText: {
+    textContainer: {
       paddingLeft: Spacing.ml,
-      marginTop: Spacing.m,
+      flexGrow: 1,
+      ...Layout.justifyContentCenter,
     },
+    profileCardText: {},
   });
 };

@@ -2,7 +2,7 @@ import { Confidentiality, EngFlag, GeoFlag, Passcode, Statements } from 'assets/
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { useLanguageSwitcher } from 'components/LanguageSwitcher/useLanguageSwitcher';
 import i18next from 'i18next';
-import { MODAL_STACK, SETTINGS_SCREEN } from 'navigation/ScreenNames';
+import { AUTHORIZATION_METHODS_SCREEN, MODAL_STACK, SETTINGS_SCREEN } from 'navigation/ScreenNames';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProfileItemType } from 'screens/ProfileScreen/ProfileScreen.types';
@@ -41,7 +41,7 @@ export const useProfileList = () => {
       text: t('profile.choose_authorization_method'),
       navigateTo: {
         stack: MODAL_STACK,
-        screen: SETTINGS_SCREEN,
+        screen: AUTHORIZATION_METHODS_SCREEN,
       },
     },
     {
