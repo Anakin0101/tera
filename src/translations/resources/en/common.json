@@ -366,7 +366,8 @@
     "type": "transaction type",
     "mobile": "mobile",
     "personal": "personal",
-    "iban": "iban"
+    "iban": "iban",
+    "validIbanPrompt": "Please enter a valid IBAN"
   },
   "filters": {
     "income": "Income",

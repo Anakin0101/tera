@@ -21,9 +21,12 @@ import useBankIcons from './useIban';
 import { Error } from 'assets/SVGs';
 import { IBAN } from 'constants/transactionConstants';
 import { ibanRegex } from 'constants/transactionConstants';
+import { openToast } from 'utils/toast';
+import { useTranslation } from 'react-i18next';
 
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const styles = useStyles();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
@@ -66,6 +69,12 @@ const IbanTransaction = () => {
   );
 
   useEffect(() => {
+    if (data && !data.ibanIsValid) {
+      openToast(`${t('transactionDetails.validIbanPrompt')}`, 'error');
+    }
+  }, [data, t]);
+
+  useEffect(() => {
     dispatch(
       setAccountToData({ name: data?.customerName, iban: selectedData || typedAccountName }),
     );
@@ -98,7 +107,7 @@ const IbanTransaction = () => {
   }, [setApiCallInitiated]);
 
   const navigateToTransferScreen = () => {
-    if (isSuccess) {
+    if (isSuccess && data.ibanIsValid) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
         fromIban: true,
