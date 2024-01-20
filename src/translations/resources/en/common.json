@@ -427,6 +427,21 @@
     "saveFreeMoney": "Save free money and get high interest benefits.",
     "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency."
   },
+  "payments": {
+    "totalDebt": "Total Debt",
+    "chooseService": "Choose a Service",
+    "payments": "Payments",
+    "automaticPayment": "Automatic\nPayment",
+    "mobilePayment": "Mobile\nFill",
+    "parkingAndFines": "Parking and\n Fines",
+    "carts": "Carts",
+    "all": "All",
+    "recentPayments": "Recent Payments"
+  },
+  "newPayment": {
+    "title": "New Payment",
+    "searchPlaceholder": "Search payment"
+  },
   "teraWallet": {
     "collectMoney": "Collect money easily",
     "desc": "After activating TeraWallet from each transaction, the amount of your choice will be credited to the account",
