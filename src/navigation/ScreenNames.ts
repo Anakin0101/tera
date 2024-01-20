@@ -36,6 +36,8 @@ export const SETTINGS_SCREEN = 'SettingsScreen';
 export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
 export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
+export const NEW_PAYMENT_SCREEN = 'NewPaymentScreen';
+
 //transactions
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
 export const TO_ACCOUNT_SCREEN = 'ToAccountScreen';

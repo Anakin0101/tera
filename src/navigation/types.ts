@@ -55,6 +55,7 @@ import {
   AUTH_LOADING_SCREEN,
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
+  NEW_PAYMENT_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -79,6 +80,7 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
+  [NEW_PAYMENT_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {
