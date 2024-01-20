@@ -1,23 +1,23 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { View, TextInput as RNTextInput, Pressable } from 'react-native';
-import Animated, {
-  withTiming,
-  interpolate,
-  useSharedValue,
-  useAnimatedStyle,
-  Easing,
-  Extrapolation,
-} from 'react-native-reanimated';
-import { ControlledInputProps, TextInputProps } from './TextInput.types';
-import { useStyleTheme } from './TextInput.styles';
 import { useTranslation } from 'react-i18next';
 import { Controller, FieldValues } from 'react-hook-form';
+import Animated, {
+  Easing,
+  withTiming,
+  interpolate,
+  Extrapolation,
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import { Checkbox, Text } from '../index';
 import { OpenEye, CloseEye, Invoice } from 'assets/SVGs';
+import { ControlledInputProps, TextInputProps, TextInputRefType } from './TextInput.types';
+import { useStyleTheme } from './TextInput.styles';
 
 const HIT_SLOP = { top: 15, bottom: 15 };
 
-export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?: boolean }>(
+export const TextInput = forwardRef<TextInputRefType, TextInputProps & { showErrorUI?: boolean }>(
   (
     {
       value,
@@ -44,10 +44,16 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
     const [secureText, setSecureText] = useState(secureTextEntry);
     const position = useSharedValue(0);
     const { t } = useTranslation();
+    const inputRef = useRef<RNTextInput>(null);
 
     const handlePress = () => {
       setSecureText(prev => !prev);
     };
+
+    useImperativeHandle(ref, () => ({
+      focus: () => handleFocus(),
+      blur: () => handleBlur(),
+    }));
 
     const handleFocus = () => {
       if (!value) {
@@ -74,7 +80,6 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
 
     return (
       <View
-        ref={ref}
         style={[
           styles.inputContainer,
           { marginTop },
@@ -88,6 +93,7 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
         />
         <View style={styles.wrapper}>
           <RNTextInput
+            ref={inputRef}
             value={value}
             hitSlop={HIT_SLOP}
             editable={editable}

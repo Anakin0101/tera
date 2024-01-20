@@ -49,3 +49,4 @@ export { OtherBanksTransactionTabBar } from './OtherBanksTransactionTabBar/Other
 export { CustomStatusBar } from './CustomStatusBar/CustomStatusBar';
 export { DetailsItem } from './DetailsItem/DetailsItem';
 export { LoadingView } from './LoadingView/LoadingView';
+export { Calendar } from './Calendar/Calendar';

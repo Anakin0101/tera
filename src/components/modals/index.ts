@@ -7,3 +7,4 @@ export { ConfirmUserResetModal } from './ConfirmUserResetModal/ConfirmUserResetM
 export { SelectAccountModal } from './SelectAccountModal/SelectAccountModal';
 export { TransactionModal } from './TransactionModal/TransactionModal';
 export { SelectLoanTypeModal } from './SelectLoanTypeModal/SelectLoanTypeModal';
+export { SelectPaymentDateModal } from './SelectPaymentDateModal/SelectPaymentDateModal';

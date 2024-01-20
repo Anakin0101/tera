@@ -74,7 +74,7 @@ LocaleConfig.locales.en = {
 
 LocaleConfig.defaultLocale = getValue(SELECTED_LANGUAGE) || LanguageKeys.geo;
 
-export const Calendar: FC<CalendarProps> = memo(({ minDate, maxDate, onDayPress }) => {
+export const Calendar: FC<CalendarProps> = memo(({ minDate, maxDate, onDayPress, markedDates }) => {
   const styles = useStyles();
 
   return (
@@ -84,6 +84,7 @@ export const Calendar: FC<CalendarProps> = memo(({ minDate, maxDate, onDayPress 
       maxDate={maxDate}
       onDayPress={({ dateString }) => onDayPress(dateString)}
       theme={theme}
+      markedDates={markedDates}
       style={styles.container}
     />
   );

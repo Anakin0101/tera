@@ -452,6 +452,12 @@
     "consentToDataProcessing": "Consent to process personal data",
     "consentToCheckCreditInfo": "Consent to process credit information",
     "consentToCheckRemittanceInfo": "Consent to process remittance information",
-    "additional": "Additional information"
+    "additional": "Additional information",
+    "paymentDate": "Payment Date",
+    "typeOfIncome": "Type of Income",
+    "income": "Monthly Income",
+    "workplace": "Workplace",
+    "position": "Occupied Position",
+    "choosePaymentDate": "Choose a payment date"
   }
 }

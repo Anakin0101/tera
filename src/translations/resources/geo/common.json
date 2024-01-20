@@ -451,6 +451,12 @@
     "consentToDataProcessing": "თანხმობა მონაცემების დამუშავების თაობაზე",
     "consentToCheckCreditInfo": "თანხმობა კრედიტ ინფოში გადამოწმებაზე",
     "consentToCheckRemittanceInfo": "თანხმობა გზავნილების ინფორმაციის დამუშავების თაობაზე",
-    "additional": "დამატებითი ინფორმაცია"
+    "additional": "დამატებითი ინფორმაცია",
+    "paymentDate": "გადახდის რიცხვი",
+    "typeOfIncome": "შემოსავლის ტიპი",
+    "income": "ყოველთვიური შემოსავალი ლარში",
+    "workplace": "სამუშაო ადგილი",
+    "position": "დაკავებული თანამდებობა",
+    "choosePaymentDate": "აირჩიე გადახდის რიცხვი"
   }
 }
