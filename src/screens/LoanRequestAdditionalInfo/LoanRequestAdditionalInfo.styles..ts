@@ -43,5 +43,8 @@ export const useStyles = () => {
     contentContainer: {
       ...Layout.growfull,
     },
+    disabled: {
+      opacity: 0.5,
+    },
   });
 };

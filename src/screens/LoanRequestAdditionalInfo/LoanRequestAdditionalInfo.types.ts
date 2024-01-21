@@ -1,3 +1,4 @@
+import { ItemType } from 'components/modals/IncomeTypeModal/IncomeTypeModal.types';
 import { KeyboardTypeOptions } from 'react-native';
 
 export type FieldProps = {
@@ -11,8 +12,17 @@ export type FieldProps = {
 
 export type FormData = {
   paymentDate: string;
-  typeOfIncome: string;
+  typeOfIncome: ItemType[];
   income: string;
   workplace: string;
   position: string;
 };
+
+export enum IncomeTypeEnum {
+  Salary = 1,
+  Rent = 2,
+  Remittance = 4,
+  Dividend = 8,
+  IncomeFromProfessionalWork = 16,
+  Other = 32,
+}

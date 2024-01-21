@@ -458,6 +458,12 @@
     "income": "Monthly Income",
     "workplace": "Workplace",
     "position": "Occupied Position",
-    "choosePaymentDate": "Choose a payment date"
+    "choosePaymentDate": "Choose a payment date",
+    "salary": "Salary",
+    "rent": "Rent",
+    "remittance": "Remittance",
+    "dividend": "Dividend",
+    "incomeFromProfessionalWork": "Income from professional work",
+    "other": "Other"
   }
 }

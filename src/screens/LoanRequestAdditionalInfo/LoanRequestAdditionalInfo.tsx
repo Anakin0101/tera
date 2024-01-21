@@ -1,8 +1,8 @@
 import React from 'react';
+import { Pressable, View } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, TextInput } from 'components';
-import { Pressable, View } from 'react-native';
 import { ChevronDown } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import { useLoanRequestAdditionalInfo } from './container';
@@ -10,8 +10,14 @@ import { useStyles } from './LoanRequestAdditionalInfo.styles.';
 
 export const LoanRequestAdditionalInfo = () => {
   const styles = useStyles();
-  const { control, onPaymentDatePress, paymentDateRef, typeOfIncomeRef } =
-    useLoanRequestAdditionalInfo();
+  const {
+    control,
+    onPaymentDatePress,
+    paymentDateRef,
+    typeOfIncomeRef,
+    onIncomeTypePress,
+    allFieldsFull,
+  } = useLoanRequestAdditionalInfo();
 
   return (
     <KeyboardAwareScrollView
@@ -51,10 +57,11 @@ export const LoanRequestAdditionalInfo = () => {
           name="typeOfIncome"
           control={control}
           render={({ field: { onChange, value } }) => {
+            const formatedValue = value?.map(item => item.name)?.join(',');
             return (
               <>
                 <TextInput
-                  value={value}
+                  value={formatedValue}
                   marginTop={8}
                   editable={false}
                   onChangeText={onChange}
@@ -63,7 +70,7 @@ export const LoanRequestAdditionalInfo = () => {
                 />
                 <Pressable
                   style={[styles.arrowContainer, styles.incomeTypeInput]}
-                  onPress={() => {}}
+                  onPress={onIncomeTypePress}
                 >
                   <ChevronDown color={Colors.black700} />
                 </Pressable>
@@ -81,6 +88,7 @@ export const LoanRequestAdditionalInfo = () => {
                 marginTop={8}
                 onChangeText={onChange}
                 label="loanRequest.income"
+                keyboardType="numeric"
               />
             );
           }}
@@ -114,7 +122,11 @@ export const LoanRequestAdditionalInfo = () => {
           }}
         />
       </View>
-      <Button.Primary text="common.next" fullWidth customWrapperStyle={styles.button} />
+      <Button.Primary
+        text="common.next"
+        fullWidth
+        customWrapperStyle={[styles.button, !allFieldsFull && styles.disabled]}
+      />
     </KeyboardAwareScrollView>
   );
 };

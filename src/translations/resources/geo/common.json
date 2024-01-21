@@ -457,6 +457,12 @@
     "income": "ყოველთვიური შემოსავალი ლარში",
     "workplace": "სამუშაო ადგილი",
     "position": "დაკავებული თანამდებობა",
-    "choosePaymentDate": "აირჩიე გადახდის რიცხვი"
+    "choosePaymentDate": "აირჩიე გადახდის რიცხვი",
+    "salary": "ხელფასი",
+    "rent": "იჯარა",
+    "remittance": "გზავნილი",
+    "dividend": "დივიდენდი",
+    "incomeFromProfessionalWork": "პროფესიული სამქიანობიდან მიღებული შემოსავალი",
+    "other": "სხვა"
   }
 }
