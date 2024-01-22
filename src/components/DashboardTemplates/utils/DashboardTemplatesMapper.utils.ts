@@ -22,12 +22,12 @@ const getTemplateIcon = (template: Template) => {
 
   if (hasImage) {
     return template?.imageUrl;
+  } else if (isInternal) {
+    return Images()?.TeraBankLogoIcon;
+  } else if (externalBankCode) {
+    return getExternalBankIcon(externalBankCode);
   } else {
-    if (isInternal) {
-      return Images()?.TeraBankLogoIcon;
-    } else if (externalBankCode) {
-      return getExternalBankIcon(externalBankCode);
-    }
+    return Images()?.TeraBankLogoIcon;
   }
 };
 

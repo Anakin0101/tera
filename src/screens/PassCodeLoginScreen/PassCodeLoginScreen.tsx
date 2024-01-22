@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Button } from 'components/Button/Button';
 import { View } from 'react-native';
 import PinKeyboard from 'components/PinKeyboard/PinKeyboard';
@@ -6,16 +6,13 @@ import { PinLine } from 'components/PinLine/PinLine';
 import { useStyleTheme } from './PassCodeLoginScreen.styles';
 import { Account } from 'components/index';
 import { withLoginScreen } from 'components/HOC';
-import { PASSCODE_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { useTranslation } from 'react-i18next';
 import { useUserReset, usePasscode, useLogin, useBiometrics } from 'hooks';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useEnableBiometricsPrompt } from 'hooks/useEnableBiometricsPrompt';
 import { openToast } from 'utils/toast';
 
-interface PasscodeLoginBaseProps {}
-
-const PasscodeLoginScreenBase: FC<PasscodeLoginBaseProps> = () => {
+const PasscodeLoginScreenBase = () => {
   const styles = useStyleTheme();
   const { watchKeyboard, passcodeLength } = usePasscode();
   const { t } = useTranslation();
@@ -84,7 +81,4 @@ const PasscodeLoginScreenBase: FC<PasscodeLoginBaseProps> = () => {
   );
 };
 
-export const PasscodeLoginScreen = withLoginScreen<
-  PasscodeLoginBaseProps,
-  typeof PASSCODE_LOGIN_SCREEN
->(PasscodeLoginScreenBase, PASSCODE_LOGIN_SCREEN);
+export const PasscodeLoginScreen = withLoginScreen(PasscodeLoginScreenBase);

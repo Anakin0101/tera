@@ -1,9 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useStyles } from './CardItem.styles';
 import { IconComponent, Text } from 'components';
 import Images from 'theme/Images';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CardItemProps } from './CardItem.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrencyIcon } from 'utils/currency';
@@ -36,7 +35,7 @@ export const CardItem: React.FC<CardItemProps> = ({
     : renderMaskedValue(value, currency, isSecure, securePension.maskDebit);
 
   return (
-    <TouchableOpacity style={styles.wrapper}>
+    <Pressable style={styles.wrapper}>
       <View style={styles.iconView}>
         <IconComponent
           pngLocalIcon={iconSource}
@@ -67,6 +66,6 @@ export const CardItem: React.FC<CardItemProps> = ({
           customIconComponentStyles={styles.customIconComponentStyles}
         />
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };

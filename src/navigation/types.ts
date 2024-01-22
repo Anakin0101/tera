@@ -57,6 +57,11 @@ import {
   MAIN_NAVIGATOR,
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
+  REGISTRATION_STACK,
+  REGISTRATION_METHOD_SCREEN,
+  VERIFICATION_TYPE_SCREEN,
+  CODE_WORD_SCREEN,
+  REGISTRATION_FINISH_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -191,6 +196,14 @@ export type GuestStackParamList = {
   [PASSWORD_LOGIN_SCREEN]: undefined;
   [PASSWORD_ONLY_LOGIN_SCREEN]: undefined;
   [PASSCODE_LOGIN_SCREEN]: undefined;
+  [REGISTRATION_STACK]: NavigatorScreenParams<RegistrationStackParamsList>;
+};
+
+export type RegistrationStackParamsList = {
+  [REGISTRATION_METHOD_SCREEN]: undefined;
+  [VERIFICATION_TYPE_SCREEN]: undefined;
+  [CODE_WORD_SCREEN]: undefined;
+  [REGISTRATION_FINISH_SCREEN]: undefined;
 };
 
 export type TabParamList = {
@@ -280,6 +293,15 @@ export type ModalStackScreenProps<T extends keyof ModalStackParamsList> = StackN
 
 export type ModalStackRouteProps<T extends keyof ModalStackParamsList> = RouteProp<
   ModalStackParamsList,
+  T
+>;
+
+// Registration stack intellisense
+export type RegistrationStackScreenProps<T extends keyof RegistrationStackParamsList> =
+  StackNavigationProp<RegistrationStackParamsList, T>;
+
+export type RegistrationStackRouteProps<T extends keyof RegistrationStackParamsList> = RouteProp<
+  RegistrationStackParamsList,
   T
 >;
 

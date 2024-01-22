@@ -6,6 +6,7 @@ export const PAYMENTS_STACK = 'PaymentsStack';
 export const TRANSACTIONS_STACK = 'TransactionsStack';
 export const PRODUCTS_STACK = 'ProductsStack';
 export const PROFILE_STACK = 'ProfileStack';
+export const REGISTRATION_STACK = 'RegistrationStack';
 
 export const GUEST_NAVIGATOR = 'guestNavigator';
 export const MAIN_NAVIGATOR = 'mainNavigator';
@@ -73,3 +74,9 @@ export const TERA_WALLET_SUCCESS_SCREEN = 'TeraWalletSuccessScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';
+
+// REGISTRATION STACK
+export const REGISTRATION_METHOD_SCREEN = 'RegistrationMethodScreen';
+export const VERIFICATION_TYPE_SCREEN = 'VerificationScreen';
+export const CODE_WORD_SCREEN = 'CodeWordScreen';
+export const REGISTRATION_FINISH_SCREEN = 'RegistrationFinishScreen';
