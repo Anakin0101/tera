@@ -9,9 +9,11 @@ import { useDispatch } from 'react-redux';
 import { setMaskText } from 'store/slices/dashboard';
 import { IconComponent } from 'components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
 export const DashboardPensionFund = ({ data }: any) => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { Colors } = useTheme();
   const securePension = useAppSelector(state => state.dashboard.maskText);
 
@@ -39,7 +41,7 @@ export const DashboardPensionFund = ({ data }: any) => {
             </View>
             <View style={styles.wrapper}>
               <CardItem
-                title="დანაზოგი"
+                title={t('dashboard.savings')}
                 fromPension
                 value={data}
                 iconSource={Images().PensionIcon}
