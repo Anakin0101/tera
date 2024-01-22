@@ -19,8 +19,8 @@ export const useStyles = () => {
       ...Layout.justifyContentCenter,
       backgroundColor: Colors.textLightBlue,
       borderRadius: Spacing.m,
-      paddingHorizontal: 22,
-      paddingVertical: 16,
+      paddingHorizontal: Spacing.lg,
+      paddingVertical: Spacing.ml,
     },
     budgetData: {
       fontSize: FontSize.tiny,
