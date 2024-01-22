@@ -32,7 +32,7 @@ export const TemplateCard = (props: any) => {
             ellipsizeMode="tail"
           />
         ) : (
-          <></>
+          <Text style={styles.templateCardContent} />
         )}
       </View>
     </View>

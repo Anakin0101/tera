@@ -14,37 +14,41 @@ export const DashboardTemplates = ({ data }: any) => {
 
   return (
     <>
-      <View style={styles.wrapper}>
-        <View style={styles.dashboardTemplatesContainer}>
-          <View style={styles.headerContainer}>
-            <Text
-              children={'dashboard.templates'}
-              style={styles.titleContainer}
-              color={Colors.textBlack}
-            />
-            <TouchableOpacity>
-              <Text
-                children={'dashboard.all'}
-                style={styles.titleContainer}
-                color={Colors.primary}
-              />
-            </TouchableOpacity>
+      {data?.templates ? (
+        <>
+          <View style={styles.wrapper}>
+            <View style={styles.dashboardTemplatesContainer}>
+              <View style={styles.headerContainer}>
+                <Text
+                  children={'dashboard.templates'}
+                  style={styles.titleContainer}
+                  color={Colors.textBlack}
+                />
+                <TouchableOpacity>
+                  <Text
+                    children={'dashboard.all'}
+                    style={styles.titleContainer}
+                    color={Colors.primary}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.dashboardTemplatesWrapper}>
+                <FlatList
+                  style={styles.dashboardTemplatesContent}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={dashboardTemplates}
+                  renderItem={({ item }) => {
+                    return <TemplateCard {...item} />;
+                  }}
+                  keyExtractor={item => String(item.id)}
+                />
+              </View>
+            </View>
           </View>
-          <View style={styles.dashboardTemplatesWrapper}>
-            <FlatList
-              style={styles.dashboardTemplatesContent}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={dashboardTemplates}
-              renderItem={({ item }) => {
-                return <TemplateCard {...item} />;
-              }}
-              keyExtractor={item => String(item.id)}
-            />
-          </View>
-        </View>
-      </View>
-      <Divider />
+          <Divider />
+        </>
+      ) : null}
     </>
   );
 };
