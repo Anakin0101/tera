@@ -48,6 +48,7 @@ export { ChoosePaymentsService } from './Payments/ChoosePaymentsService/ChoosePa
 export { Carts } from './Payments/Carts/Carts';
 export { RecentPayments } from './Payments/RecentPayments/RecentPayments';
 export { SearchComponent } from './SearchComponent/SearchComponent';
+export { ChoosePaymentItem } from './Payments/ChoosePaymentItem/ChoosePaymentItem';
 export { Collapsible } from './Collapsible/Collapsible';
 export { ProgressBar } from './ProgressBar/ProgressBar';
 export { OtherBanksTransactionTabBar } from './OtherBanksTransactionTabBar/OtherBanksTransactionTabBar';
