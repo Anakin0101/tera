@@ -463,6 +463,8 @@
     "remittance": "გზავნილი",
     "dividend": "დივიდენდი",
     "incomeFromProfessionalWork": "პროფესიული სამქიანობიდან მიღებული შემოსავალი",
-    "other": "სხვა"
+    "other": "სხვა",
+    "save": "შენახვა",
+    "details": "სესხის დეტალები"
   }
 }

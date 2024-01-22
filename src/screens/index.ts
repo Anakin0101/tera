@@ -37,3 +37,4 @@ export { LoanRequestScreen } from './LoanRequestScreen/LoanRequestScreen';
 export { LoanAmountScreen } from './LoanAmountScreen/LoanAmountScreen';
 export { LoanRequestTermsScreen } from './LoanRequestTerms/LoanRequestTermsScreen';
 export { LoanRequestAdditionalInfo } from './LoanRequestAdditionalInfo/LoanRequestAdditionalInfo';
+export { NewLoanDetailsScreen } from './NewLoanDetailsScreen/NewLoanDetailsScreen';

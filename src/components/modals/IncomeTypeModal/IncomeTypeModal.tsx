@@ -47,7 +47,7 @@ const Footer: FC<FooterProps> = ({ handleSelectPress }) => {
     <View style={styles.buttonContainer}>
       <Button.Primary
         fullWidth
-        text="common.select"
+        text="loanRequest.save"
         onPress={handleSelectPress}
         customWrapperStyle={styles.button}
       />

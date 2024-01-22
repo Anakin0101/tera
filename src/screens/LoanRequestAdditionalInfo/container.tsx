@@ -6,11 +6,23 @@ import { closeModal, openModal } from 'utils/modal';
 import { IncomeTypeModal, SelectPaymentDateModal } from 'components/modals';
 import { TextInputRefType } from 'components/TextInput/TextInput.types';
 import { ItemType } from 'components/modals/IncomeTypeModal/IncomeTypeModal.types';
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { NEW_LOAN_DETAILS_SCREEN } from 'navigation/ScreenNames';
 
 export const useLoanRequestAdditionalInfo = () => {
+  const { navigate } = useNavigation<ProductsStackScreenProps<'NewLoanDetailsScreen'>>();
   const paymentDateRef = useRef<TextInputRefType>(null);
   const typeOfIncomeRef = useRef<TextInputRefType>(null);
-  const { control, setValue, watch } = useForm<FormData>();
+  const { control, setValue, watch } = useForm<FormData>({
+    defaultValues: {
+      paymentDate: '',
+      typeOfIncome: [],
+      income: '',
+      workplace: '',
+      position: '',
+    },
+  });
   const allFields = watch();
 
   const handleSelectDate = useCallback(
@@ -59,6 +71,13 @@ export const useLoanRequestAdditionalInfo = () => {
     });
   }, [handleSelectIncomeType, watch]);
 
+  const handleNextPress = useCallback(() => {
+    if (!allFieldsFull) {
+      return;
+    }
+    navigate(NEW_LOAN_DETAILS_SCREEN);
+  }, [allFieldsFull, navigate]);
+
   return {
     control,
     onPaymentDatePress,
@@ -66,5 +85,6 @@ export const useLoanRequestAdditionalInfo = () => {
     typeOfIncomeRef,
     onIncomeTypePress,
     allFieldsFull,
+    handleNextPress,
   };
 };

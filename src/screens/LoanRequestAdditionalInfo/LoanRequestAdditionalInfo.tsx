@@ -17,6 +17,7 @@ export const LoanRequestAdditionalInfo = () => {
     typeOfIncomeRef,
     onIncomeTypePress,
     allFieldsFull,
+    handleNextPress,
   } = useLoanRequestAdditionalInfo();
 
   return (
@@ -123,8 +124,9 @@ export const LoanRequestAdditionalInfo = () => {
         />
       </View>
       <Button.Primary
-        text="common.next"
         fullWidth
+        text="common.next"
+        onPress={handleNextPress}
         customWrapperStyle={[styles.button, !allFieldsFull && styles.disabled]}
       />
     </KeyboardAwareScrollView>

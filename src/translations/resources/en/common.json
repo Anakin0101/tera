@@ -464,6 +464,8 @@
     "remittance": "Remittance",
     "dividend": "Dividend",
     "incomeFromProfessionalWork": "Income from professional work",
-    "other": "Other"
+    "other": "Other",
+    "save": "Save",
+    "details": "Loan Details"
   }
 }

@@ -22,6 +22,7 @@ import {
   LoanAmountScreen,
   LoanRequestTermsScreen,
   LoanRequestAdditionalInfo,
+  NewLoanDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -49,6 +50,7 @@ import {
   LOAN_AMOUNT_SCREEN,
   LOAN_REQUEST_TERMS_SCREEN,
   LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
+  NEW_LOAN_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
@@ -216,6 +218,11 @@ export const ProductsStack = () => {
           title: t('loanRequest.additional'),
           headerStyle: st.whiteHeader,
         }}
+      />
+      <Screen
+        name={NEW_LOAN_DETAILS_SCREEN}
+        component={NewLoanDetailsScreen}
+        options={{ title: t('loanRequest.details') }}
       />
     </Navigator>
   );
