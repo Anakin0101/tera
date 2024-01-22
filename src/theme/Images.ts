@@ -32,5 +32,6 @@ export default function () {
     PensionFund: require('assets/images/PensionFund.png'),
     Finances: require('assets/images/Finances.png'),
     Documents: require('assets/images/Documents.png'),
+    ThreeDotsIcon: require('assets/images/ThreeDots.png'),
   };
 }

@@ -107,7 +107,8 @@
     "transfer": "Transfer",
     "pay": "Payment",
     "fill": "Top up",
-    "savings": "Savings"
+    "savings": "Savings",
+    "allPay": "All payments"
   },
 
   "profile": {
