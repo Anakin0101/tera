@@ -13,7 +13,7 @@ export const CartItem: React.FC<CartItemProps> = memo(({ item, isLast = false })
     <Pressable style={[!isLast && styles.itemWrapperMargin]} onPress={() => Alert.alert(item.id)}>
       <View style={styles.itemWrapper}>
         <View style={styles.itemIconWrapper}>
-          <CartIcon />
+          <CartIcon strokeWidth={1.8} />
         </View>
         <View style={styles.contentWrapper}>
           <Text style={styles.itemTitle}>{item.title}</Text>

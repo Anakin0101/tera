@@ -39,7 +39,7 @@ export const ChoosePaymentsService = () => {
       {
         id: '4',
         title: t('payments.parkingAndFines'),
-        icon: <ParkingAndFines />,
+        icon: <ParkingAndFines strokeWidth={1.8} />,
         onPress: () => Alert.alert('პარკირება და ჯარიმები'),
       },
     ],

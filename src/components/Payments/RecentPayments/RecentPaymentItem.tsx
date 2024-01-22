@@ -15,7 +15,7 @@ export const RecentPaymentItem: React.FC<RecentPaymentItemProps> = memo(
         <View style={styles.itemWrapper}>
           <View style={[styles.itemWrapper, styles.contentWrapper]}>
             <View style={styles.itemIconWrapper}>
-              <InternetTVMobile />
+              <InternetTVMobile strokeWidth={1.8} />
             </View>
             <View style={styles.contentWrapper}>
               <Text style={styles.itemTitle}>{item.title}</Text>
