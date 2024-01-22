@@ -440,7 +440,18 @@
   },
   "newPayment": {
     "title": "New Payment",
-    "searchPlaceholder": "Search payment"
+    "searchPlaceholder": "Search payment",
+    "chooseService": "Choose a service",
+    "utilityServices": "Utility Services",
+    "internet_TV_Phone": "Internet/TV/Phone",
+    "mobile": "Mobile connection",
+    "microfinance": "Microfinance",
+    "insurance_pension": "Insurance/Pension",
+    "education": "Education",
+    "stateServices": "State services",
+    "gambling": "Gambling",
+    "parking_fines": "Parking and fines",
+    "other": "Other"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",

@@ -439,7 +439,18 @@
   },
   "newPayment": {
     "title": "ახალი გადახდა",
-    "searchPlaceholder": "მოძებნე გადახდა"
+    "searchPlaceholder": "მოძებნე გადახდა",
+    "chooseService": "აირჩიე სერვისი",
+    "utilityServices": "კომუნალური მომსახურება",
+    "internet_TV_Phone": "ინტერნეტი/TV/ტელეფონი",
+    "mobile": "მობილური კავშირი",
+    "microfinance": "მიკროსაფინანსო",
+    "insurance_pension": "დაზღვევა/პენსია",
+    "education": "განათლება",
+    "stateServices": "სახელმწიფო სერვისები",
+    "gambling": "აზარტული თამაშები",
+    "parking_fines": "პარკირება და ჯარიმები",
+    "other": "სხვა"
   },
   "teraWallet": {
     "collectMoney": "დააგროვე თანხა მარტივად",
