@@ -106,7 +106,8 @@
     "terabytes": "{{value}} terabyte",
     "transfer": "Transfer",
     "pay": "Payment",
-    "fill": "Top up"
+    "fill": "Top up",
+    "savings": "Savings"
   },
 
   "profile": {

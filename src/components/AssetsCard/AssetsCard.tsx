@@ -3,12 +3,13 @@ import { View } from 'react-native';
 import { useStyles } from './AssetsCard.styles';
 import Images from 'theme/Images';
 import { AssetsCardProps } from './AssetsCard.types';
+import { useTranslation } from 'react-i18next';
 import { CardItem } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const AssetsCard: React.FC<AssetsCardProps> = ({ assetsSum, totalSum, currency }) => {
   const securePension = useAppSelector(state => state.dashboard.maskDebit);
-
+  const { t } = useTranslation();
   const renderMaskedValue = (value: number) => {
     const stringValue = String(value);
     const maskedValue = stringValue.replace(/./g, '•');
@@ -19,20 +20,22 @@ export const AssetsCard: React.FC<AssetsCardProps> = ({ assetsSum, totalSum, cur
   return (
     <View style={styles.templateCardContainer}>
       <CardItem
-        title="ანაბრები"
+        title={t('products.allDeposits')}
         isSecure
         value={renderMaskedValue(assetsSum)}
         iconSource={Images().AssetsIcon}
         currency={currency}
       />
       <View style={styles.underline} />
-      <CardItem
-        isSecure
-        title="სესხები"
-        value={renderMaskedValue(totalSum)}
-        iconSource={Images().LiabilitiesIcon}
-        currency={currency}
-      />
+      {totalSum !== 0 ? (
+        <CardItem
+          isSecure
+          title={t('loans.title')}
+          value={renderMaskedValue(totalSum)}
+          iconSource={Images().LiabilitiesIcon}
+          currency={currency}
+        />
+      ) : null}
     </View>
   );
 };
