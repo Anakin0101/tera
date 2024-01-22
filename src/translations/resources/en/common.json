@@ -12,7 +12,8 @@
     "hello": "Hello",
     "greetings": "Greetings",
     "settings": "Settings",
-    "passcode": "Passcode"
+    "passcode": "Passcode",
+    "register": "Register"
   },
   "onboarding": {
     "next": "Next",
@@ -331,7 +332,8 @@
     "returnToMain": "Return to Main"
   },
   "form": {
-    "is_required": "is required"
+    "is_required": "is required",
+    "11_digits_required": "must consist of 11 digits"
   },
   "transactions": {
     "title": "Transactions",
@@ -443,5 +445,25 @@
     "Invoice": "Upload Invoice",
     "next": "Next",
     "mobile": "Mobile Number"
+  },
+  "registration": {
+    "choose_registration_method": "Choose a registration method",
+    "with_biometric_info": "With biometric info",
+    "with_biometric_info_desc": "You will need bright area with Personal ID or passport",
+    "with_code_word": "With code word",
+    "with_code_word_desc": "You will need to remember previously set code word",
+    "choose_verification_type": "Choose verification type",
+    "personalId": "Personal ID",
+    "with_mobile_number": "with mobile number",
+    "with_email": "with E-mail",
+    "phone_number": "Phone number",
+    "code_word": "Code word",
+    "no_code_word": "I do not have ",
+    "forgot_code_word": "Did you forget ",
+    "forgot_code_word_description": "For code word recovery, please apply to any TeraBank branch or register using the biometric information",
+    "continue_with_biometrics": "Continue with biometric method",
+    "enter_username": "enter the Username",
+    "successful_registration_title": "Registration completed successfully",
+    "successful_registration_description": "Click on the button 'Login' and authorize"
   }
 }

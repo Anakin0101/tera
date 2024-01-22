@@ -49,3 +49,5 @@ export { OtherBanksTransactionTabBar } from './OtherBanksTransactionTabBar/Other
 export { CustomStatusBar } from './CustomStatusBar/CustomStatusBar';
 export { DetailsItem } from './DetailsItem/DetailsItem';
 export { LoadingView } from './LoadingView/LoadingView';
+export { RegistrationTitle } from './Registration/RegistrationTitle/RegistrationTitle';
+export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';

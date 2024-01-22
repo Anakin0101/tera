@@ -119,10 +119,19 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
   },
 );
 
-export const ErrorMessage = ({ label, errorMessage, showErrorUI }: TextInputProps) => {
+export type ErrorMessageType = {
+  name: any;
+  errors: any; //TODO - Dea - fix types
+  label?: string;
+  showErrorUI: boolean;
+};
+
+export const ErrorMessage = ({ name, errors, label, showErrorUI }: ErrorMessageType) => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
-  const message = showErrorUI ? `${t(label)} ${t(errorMessage)}` : ' ';
+
+  const errorMessage = `${t(label)} ${t(errors?.[name]?.message)}`;
+  const message = showErrorUI ? errorMessage : ' ';
   return (
     <Text
       children={message}
@@ -177,7 +186,13 @@ export const ControlledInput = <T extends FieldValues>({
           );
         }}
       />
-      <ErrorMessage label={label} showErrorUI={showErrorUI} {...props} />
+      <ErrorMessage
+        name={name}
+        errors={errors}
+        label={label}
+        showErrorUI={showErrorUI}
+        {...props}
+      />
     </>
   );
 };

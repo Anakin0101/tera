@@ -183,7 +183,7 @@ export const useStyles = () => {
       ...Layout.justifyContentBetween,
     },
     blockedFundsIcon: {
-      margin: 10,
+      margin: Spacing.md,
     },
     backgroundWhite: {
       backgroundColor: Colors.white,

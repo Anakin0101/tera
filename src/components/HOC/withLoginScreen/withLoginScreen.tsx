@@ -2,13 +2,7 @@ import React, { ComponentType } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyleTheme } from './withLoginScreen.styles';
-import { useNavigation } from '@react-navigation/native';
-import { GuestStackScreenProps, GuestStackParamList } from 'navigation/types';
 import { LanguageSwitcher } from 'components/LanguageSwitcher/LanguageSwitcher';
-
-interface WithLoginScreenProps {
-  handleNavigation?: () => void;
-}
 
 /**
  *
@@ -19,23 +13,9 @@ interface WithLoginScreenProps {
  *     // See the example inside OnboardingScreen
  * @returns React component - with extended behavior - (with handleNavigation optinal function) and shared UI styles
  */
-export const withLoginScreen = <P extends object, T extends keyof GuestStackParamList>(
-  WrappedComponent: ComponentType<P>,
-  screenName: T | undefined,
-) => {
-  return (props: WithLoginScreenProps) => {
+export const withLoginScreen = <P extends object>(WrappedComponent: ComponentType<P>) => {
+  return (props: P) => {
     const styles = useStyleTheme();
-    const { navigate } = useNavigation<GuestStackScreenProps<T>>();
-
-    const handleNavigation = async () => {
-      try {
-        if (screenName) {
-          navigate(screenName as keyof GuestStackParamList);
-        }
-      } catch (error) {
-        console.warn('Login failed', error);
-      }
-    };
 
     return (
       <SafeAreaView style={styles.loginScreenContainerStyle}>
@@ -44,7 +24,7 @@ export const withLoginScreen = <P extends object, T extends keyof GuestStackPara
             <LanguageSwitcher />
           </View>
           <View style={styles.wrappedComponentWrapperStyle}>
-            <WrappedComponent {...(props as P)} handleNavigation={handleNavigation} />
+            <WrappedComponent {...(props as P)} />
           </View>
         </View>
       </SafeAreaView>
