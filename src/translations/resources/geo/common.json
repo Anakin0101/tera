@@ -349,7 +349,12 @@
     "transDetails": "გადარიცხვის დეტალები",
     "transAmount": "გადარიცხული თანხა",
     "fromMobile": "მე გირიცხავ ფულს მობილური გზავნილით",
-    "defaultTitle": "პირადი გადარიცხვა"
+    "defaultTitle": "პირადი გადარიცხვა",
+    "budgetCode": "ხაზინის კოდი",
+    "getBudgetCode": "შეიყვანე ხაზინის კოდი",
+    "next": "შემდეგი",
+    "createCode": "კოდის აწყობა",
+    "transferToBudget": "ბიუჯეტში გადარიცხვა"
   },
   "transactionDetails": {
     "to": "სად",

@@ -9,6 +9,7 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrencyIcon } from 'utils/currency';
 import { formatMoney } from 'utils/formatMoney';
+import { MY_ACCOUNTS_SCREEN, TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 
 export type cardProps = {
   accountFromData: any;
@@ -81,9 +82,9 @@ export const CardSwap = ({ accountFromData, accountToData, receiver }: cardProps
   const handlePress = useCallback(
     (arg: number) => {
       if (arg === 1) {
-        navigate('MyAccountsScreen');
+        navigate(MY_ACCOUNTS_SCREEN, {});
       } else {
-        navigate('ToAccountScreen', { selected: selectedIban });
+        navigate(TO_ACCOUNT_SCREEN, { selected: selectedIban });
       }
     },
     [navigate, selectedIban],

@@ -55,6 +55,8 @@ import {
   AUTH_LOADING_SCREEN,
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
+  BUDGET_TRANSACTION_SCREEN,
+  TRANSFER_TO_BUDGET,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -89,6 +91,7 @@ export type DashboardStackParamsList = {
 export type ProductsStackParamsList = {
   [PRODUCTS_SCREEN]: undefined;
   [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
+
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;
@@ -132,12 +135,16 @@ export type ProductsStackParamsList = {
 
 export type TransactionsStackParamsList = {
   [TRANSACTIONS_SCREEN]: undefined;
-  [MY_ACCOUNTS_SCREEN]: undefined;
+  [MY_ACCOUNTS_SCREEN]: {
+    otherBanks?: boolean;
+    budget?: boolean;
+  };
   [TRANSACTION_FAILED_SCREEN]: undefined;
   [TO_ACCOUNT_SCREEN]: {
     selected?: any;
     otherBanks?: any;
   };
+  [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
   [OTHER_BANK_TANSACTION_SCREEN]: {
     otherBanks?: any;
   };
@@ -161,6 +168,8 @@ export type TransactionsStackParamsList = {
   [TRANSACTION_FINISHED_SCREEN]: {
     convertion?: any;
   };
+
+  [TRANSFER_TO_BUDGET]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;

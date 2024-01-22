@@ -32,7 +32,7 @@ const data = [
   {
     name: 'transfers.budget',
     icon: <Budget />,
-    screen: '',
+    screen: MY_ACCOUNTS_SCREEN,
     id: 3,
   },
   {
@@ -49,18 +49,23 @@ export const ChooseService = ({ fromTransaction, serviceData }: FromTransaction 
 
   const renderItem: ListRenderItem<Service> = ({ item }) => {
     const onPress = () => {
-      if (item.id === 2) {
-        item.screen &&
-          navigate(item.screen, {
-            otherBanks: true,
-          });
-      } else {
-        item.screen &&
-          navigate(item.screen, {
-            otherBanks: false,
-          });
+      const params: Record<string, any> = {};
+
+      switch (item.id) {
+        case 2:
+          params.otherBanks = true;
+          break;
+        case 3:
+          params.budget = true;
+          break;
+        default:
+          params.otherBanks = false;
+          params.budget = false;
       }
+
+      item.screen && navigate(item.screen, params);
     };
+
     return <ServiceItem item={item} onPress={onPress} />;
   };
 

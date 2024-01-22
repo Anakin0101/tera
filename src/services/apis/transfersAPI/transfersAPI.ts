@@ -7,6 +7,8 @@ import {
   convertAmountSellRequestType,
   TransferToOwnAccountResponseType,
   TransferToOwnAccountRequestType,
+  treasuryRes,
+  treasuryReq,
 } from './transfersAPI.types';
 
 const commonHeaders = {
@@ -121,6 +123,13 @@ export const transfersAPI = createApi({
         headers: commonHeaders,
       }),
     }),
+    getTreasuryCode: builder.query<treasuryRes, treasuryReq>({
+      query: ({ a, b }) => ({
+        url: `${URLS.treasury}?a=${a}&b=${b}`,
+        method: `${METHOD_NAMES.GET}`,
+        headers: commonHeaders,
+      }),
+    }),
   }),
 });
 
@@ -136,4 +145,5 @@ export const {
   useLazyCheckMobileQuery,
   useLazyGetTransferInfoQuery,
   useLazyCheckPersonalNumberQuery,
+  useGetTreasuryCodeQuery,
 } = transfersAPI;
