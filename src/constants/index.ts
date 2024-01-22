@@ -7,3 +7,4 @@ export {
   OPEN_CARD_HEIGHT,
   OPEN_CARD_WIDTH,
 } from './Dashboard';
+export { REGEX } from './regEx';

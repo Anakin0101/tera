@@ -124,3 +124,5 @@ export { Other } from './Other';
 export { Timer } from './Timer';
 export { Percent } from './Percent';
 export { FailedSvg } from './Failed';
+export { Forward } from './Forward';
+export { LockIcon } from './LockIcon';
