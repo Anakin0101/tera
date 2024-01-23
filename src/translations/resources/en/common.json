@@ -334,8 +334,8 @@
   "form": {
     "is_required": "is required",
     "11_digits_required": "must consist of 11 digits",
-	"9_digits_required": "must consist of 9 digits",
-	"invalid_email": "format is incorrect"
+    "9_digits_required": "must consist of 9 digits",
+    "invalid_email": "format is incorrect"
   },
   "transactions": {
     "title": "Transactions",

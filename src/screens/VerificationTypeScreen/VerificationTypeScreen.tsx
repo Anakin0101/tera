@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStyles } from './VerificationTypeScreen.styles';
 import { Button, ControlledInput, RegistrationTitle, Text } from 'components/index';
 import { useNavigation } from '@react-navigation/native';
@@ -13,9 +13,15 @@ import { ErrorMessage } from 'components/TextInput/TextInput';
 
 type FormData = {
   personalId: string;
-  verificationType: string;
+  withPhone: string;
+  withEmail: string;
   phoneNumber: string;
   email: string;
+};
+
+export const RADIO_VALUES = {
+  withEmail: 'withEmail',
+  withPhone: 'withPhone',
 };
 
 export const VerificationTypeScreen = () => {
@@ -26,12 +32,15 @@ export const VerificationTypeScreen = () => {
     formState: { errors },
   } = useForm<FormData>();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'CodeWordScreen'>>();
+  const [selectedRadio, setSelectedRadio] = useState<string | null>(RADIO_VALUES.withPhone);
 
   const onSubmit: SubmitHandler<FormData> = data => {
-    const { email, personalId, phoneNumber, verificationType } = data;
-    console.warn({ email, personalId, phoneNumber, verificationType });
+    const { email, personalId, phoneNumber } = data;
+    console.warn({ email, personalId, phoneNumber });
     navigate(CODE_WORD_SCREEN);
   };
+
+  //   console.log('selectedRadio', selectedRadio);
 
   return (
     <KeyboardAwareScrollView
@@ -63,6 +72,28 @@ export const VerificationTypeScreen = () => {
               },
             }}
           />
+          <View style={styles.radioContainer}>
+            <ControlledInput
+              control={control}
+              type="radio"
+              name="withPhone"
+              label="registration.with_mobile_number"
+              value={RADIO_VALUES.withPhone}
+              selectedRadio={selectedRadio}
+              setSelectedRadio={setSelectedRadio}
+            />
+          </View>
+          <View style={styles.radioContainer}>
+            <ControlledInput
+              control={control}
+              type="radio"
+              name={'withEmail'}
+              label="registration.with_email"
+              value={RADIO_VALUES.withEmail}
+              selectedRadio={selectedRadio}
+              setSelectedRadio={setSelectedRadio}
+            />
+          </View>
           <View style={styles.phoneInputContainer}>
             <View style={styles.rowWrapper}>
               <View style={styles.phonePrefixContainer}>

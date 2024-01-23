@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { RadioProps } from './Radio.types';
 import { useStyleTheme } from './Radio.styles';
+import { Text } from 'components/index';
 
-export const Radio: FC<RadioProps> = ({ value, isSelected, onPress, label, disabled, style }) => {
+export const Radio: FC<RadioProps> = ({ isSelected, onPress, label, disabled, style }) => {
   const styles = useStyleTheme();
+
   const handlePress = () => {
-    onPress(value);
+    onPress?.(!isSelected);
   };
 
   return (

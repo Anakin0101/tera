@@ -12,7 +12,7 @@ import { ControlledInputProps, TextInputProps } from './TextInput.types';
 import { useStyleTheme } from './TextInput.styles';
 import { useTranslation } from 'react-i18next';
 import { Controller, FieldValues } from 'react-hook-form';
-import { Checkbox, Text } from '../index';
+import { Checkbox, Radio, Text } from 'components/index';
 import { OpenEye, CloseEye, Invoice } from 'assets/SVGs';
 
 const HIT_SLOP = { top: 15, bottom: 15 };
@@ -151,10 +151,14 @@ export const ControlledInput = <T extends FieldValues>({
   defaultValue,
   errors,
   showErrorMessage = true,
+  selectedRadio,
+  setSelectedRadio,
   ...props
 }: ControlledInputProps<T> & {
-  handleChange?: () => void;
+  handleChange?: (selectedValue?: string | null) => void;
   showErrorMessage?: boolean;
+  selectedRadio?: string | null;
+  setSelectedRadio?: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const showErrorUI = !!errors?.[name];
   return (
@@ -172,6 +176,19 @@ export const ControlledInput = <T extends FieldValues>({
                 onChange={e => {
                   onChange(e);
                   handleChange?.();
+                }}
+                label={label}
+              />
+            );
+          }
+          if (type === 'radio') {
+            return (
+              <Radio
+                isSelected={value === selectedRadio}
+                onPress={() => {
+                  onChange(name);
+                  handleChange?.(name);
+                  setSelectedRadio?.(name);
                 }}
                 label={label}
               />
