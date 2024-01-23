@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useEffect, useRef } from 'react';
+import React, { FC, RefObject, useEffect, useRef, useState } from 'react';
 import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
@@ -87,6 +87,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const cardsOffset = useSharedValue(0);
+  const [isBannerDataFetched, setIsBannerDataFetched] = useState<boolean>(false);
 
   const {
     templates,
@@ -102,6 +103,8 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     bankerLoading,
     overDraftLoading,
     creditCardsLoading,
+    banners,
+    bannersLoading,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -179,7 +182,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           />
         );
       case 'offers':
-        return <Offers data={tempData.offers} />;
+        return <Offers data={banners?.data} />;
       case 'pension':
         return <DashboardPensionFund data={tempData.pensions} />;
       case 'banker':
@@ -190,6 +193,12 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
         return null;
     }
   };
+
+  useEffect(() => {
+    if (banners) {
+      setIsBannerDataFetched(true);
+    }
+  }, [banners]);
 
   const openCards = (index: number) => {
     if (!index) {
@@ -248,7 +257,9 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     assetsLoading ||
     bankerLoading ||
     overDraftLoading ||
-    creditCardsLoading
+    creditCardsLoading ||
+    bannersLoading ||
+    (!isBannerDataFetched && banners?.data.length === 0)
   ) {
     return (
       <View style={styles.LoaderContenr}>

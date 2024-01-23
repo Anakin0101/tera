@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
-import { ListRenderItem, View, TouchableOpacity } from 'react-native';
+import { ListRenderItem, View, Image, Pressable } from 'react-native';
 import { OffersProps } from './Offers.types';
 import { config, horizontalScale } from 'utils/config';
 import { useStyles } from './Offers.styles';
 import useTheme from 'hooks/useTheme';
 import { Text } from 'components';
-import { CheckShield } from 'assets/SVGs';
 import Indicator from 'components/CardsAndBalance/Indicator';
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
+import { IMAGE_COVER } from 'constants/Images';
 
 const padding = config.mobileWidth - horizontalScale(320) - 24;
 
@@ -21,46 +21,51 @@ export const Offers: FC<OffersProps> = ({ data }) => {
 
   const renderItem: ListRenderItem<any> = ({ item }) => {
     return (
-      <View style={styles.offer}>
-        <CheckShield />
-        <View style={styles.offerDesc}>
-          <Text title children={item.title} bold />
-          <Text label children={item.desc} marginTop={12} />
-          <View style={styles.more}>
-            <Text label children="products.more" color="white" />
-          </View>
-        </View>
-      </View>
+      <Image
+        resizeMode={IMAGE_COVER}
+        source={{ uri: `data:image/jpeg;base64,${item?.imageBase64}` }}
+        style={item?.length === 1 ? styles.offerLengthOne : styles.offer}
+      />
     );
   };
-
-  if (!data) {
-    return null;
-  }
-
   return (
-    <View style={styles.offersWrapper}>
-      <View style={styles.headerWrapper}>
-        <Text children="products.offers" demiBold style={styles.title} />
-        <TouchableOpacity>
-          <Text children={'dashboard.all'} style={styles.titleContainer} color={Colors.primary} />
-        </TouchableOpacity>
-      </View>
-      <Animated.FlatList
-        horizontal
-        pagingEnabled
-        data={data}
-        renderItem={renderItem}
-        decelerationRate="fast"
-        onScroll={scrollHandler}
-        scrollEventThrottle={16}
-        style={styles.list}
-        showsHorizontalScrollIndicator={false}
-        snapToInterval={horizontalScale(320) + 12}
-        contentContainerStyle={styles.contentContainer}
-      />
-      <Indicator data={data} translateX={translateX} hideFirst={false} />
-    </View>
+    <>
+      {data ? (
+        <View style={styles.offersWrapper}>
+          <View style={styles.headerWrapper}>
+            <Text children="products.Offers" demiBold style={styles.title} />
+            {data?.length > 1 ? (
+              <Pressable>
+                <Text
+                  children={'dashboard.all'}
+                  style={styles.titleContainer}
+                  color={Colors.primary}
+                />
+              </Pressable>
+            ) : null}
+          </View>
+          <Animated.FlatList
+            horizontal
+            pagingEnabled
+            data={data}
+            renderItem={renderItem}
+            scrollEnabled={data.length > 1}
+            decelerationRate="fast"
+            onScroll={scrollHandler}
+            scrollEventThrottle={16}
+            style={styles.list}
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={horizontalScale(320) + 12}
+            contentContainerStyle={styles.contentContainer}
+          />
+          <Indicator
+            data={data.length > 1 ? data : null}
+            translateX={translateX}
+            hideFirst={false}
+          />
+        </View>
+      ) : null}
+    </>
   );
 };
 
