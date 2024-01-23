@@ -237,3 +237,11 @@ export type GetBankerAPIResponseType = {
   email?: string;
   imageId?: string;
 };
+
+export type BannerDataTypes = {
+  bannerLink?: string;
+  imageBase64?: string;
+};
+export type BannerDataResponse = {
+  data: BannerDataTypes[];
+};

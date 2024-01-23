@@ -5,17 +5,30 @@ import { horizontalScale } from 'utils/config';
 export const useStyles = () => {
   const { Layout, Fonts, FontSize, Colors } = useTheme();
 
+  const baseContainerStyle = {
+    ...Layout.col,
+    ...Layout.justifyContentBetween,
+    ...Layout.alignItemsStart,
+    height: 188,
+    backgroundColor: Colors.gray,
+    borderRadius: 12,
+    padding: 12,
+  };
+
   return StyleSheet.create({
     templateCardContainer: {
-      ...Layout.col,
-      ...Layout.justifyContentBetween,
-      ...Layout.alignItemsStart,
+      ...baseContainerStyle,
       width: horizontalScale(158),
-      height: 188,
-      backgroundColor: Colors.gray,
-      borderRadius: 12,
       marginRight: Spacing.s,
-      padding: 12,
+    },
+    containerOneCard: {
+      ...baseContainerStyle,
+      width: horizontalScale(363),
+    },
+    containertwoCard: {
+      ...baseContainerStyle,
+      width: horizontalScale(178),
+      marginRight: Spacing.s,
     },
     discardRightMargin: {
       marginRight: Spacing.zero,

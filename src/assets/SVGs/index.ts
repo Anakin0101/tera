@@ -126,3 +126,4 @@ export { Percent } from './Percent';
 export { FailedSvg } from './Failed';
 export { Forward } from './Forward';
 export { LockIcon } from './LockIcon';
+export { ArrowDown } from './ArrowDown';

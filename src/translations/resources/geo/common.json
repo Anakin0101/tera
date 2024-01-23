@@ -112,7 +112,8 @@
     "transfer": "გადარიცხვა",
     "pay": "გადახდა",
     "fill": "შევსება",
-    "savings": "დანაზოგი"
+    "savings": "დანაზოგი",
+    "allPay": "ყველა გადახდა"
   },
 
   "profile": {
@@ -333,7 +334,9 @@
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",
-    "11_digits_required": "უნდა შედგებოდეს 11 ციფრისგან"
+    "11_digits_required": "უნდა შედგებოდეს 11 ციფრისგან",
+    "9_digits_required": "უნდა შედგებოდეს 9 ციფრისგან",
+    "invalid_email": "არ შეესაბამება ფორმატს"
   },
   "transactions": {
     "title": "ტრანზაქციები",
@@ -483,6 +486,7 @@
     "with_mobile_number": "მობილური ნომრით",
     "with_email": "ელ.ფოსტით",
     "phone_number": "ტელეფონის ნომერი",
+    "email": "ელ. ფოსტა",
     "code_word": "კოდური სიტყვა",
     "no_code_word": "არ მაქვს ",
     "forgot_code_word": "დაგავიწყდა ",

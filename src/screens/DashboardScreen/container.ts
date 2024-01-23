@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useGetUserProfileInfoQuery } from 'services/apis';
+import { useGetBannersQuery, useGetUserProfileInfoQuery } from 'services/apis';
 import {
   useGetTemplatesQuery,
   useGetCustomerOperationsMutation,
@@ -27,6 +27,12 @@ export const useDashboardScreen = () => {
   const { data: assets, isLoading: assetsLoading } = useGetAssetsQuery();
   const { data: banker, isLoading: bankerLoading } = useGetBankerQuery();
   const { data: profile } = useGetUserProfileInfoQuery();
+  const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
+    channel: 'internet-bank',
+    language: 'ka',
+    page: 'dashboard-main',
+    isCorporate: false,
+  });
 
   useEffect(() => {
     getCustomerOperations({
@@ -38,9 +44,10 @@ export const useDashboardScreen = () => {
   }, [getCustomerOperations]);
 
   const isDashboardMounted = useMemo(() => {
-    const mounted = !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName;
+    const mounted =
+      !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName && !!banners;
     return mounted;
-  }, [assets, banker, profile?.firstName, templates?.templates.length]);
+  }, [assets, banker, profile?.firstName, templates?.templates.length, banners]);
 
   return {
     templates,
@@ -58,5 +65,7 @@ export const useDashboardScreen = () => {
     assets,
     banker,
     isDashboardMounted,
+    banners,
+    bannersLoading,
   };
 };
