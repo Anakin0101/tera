@@ -335,7 +335,9 @@
   },
   "form": {
     "is_required": "is required",
-    "11_digits_required": "must consist of 11 digits"
+    "11_digits_required": "must consist of 11 digits",
+    "9_digits_required": "must consist of 9 digits",
+    "invalid_email": "format is incorrect"
   },
   "transactions": {
     "title": "Transactions",
@@ -485,6 +487,7 @@
     "with_mobile_number": "with mobile number",
     "with_email": "with E-mail",
     "phone_number": "Phone number",
+    "email": "E-mail",
     "code_word": "Code word",
     "no_code_word": "I do not have ",
     "forgot_code_word": "Did you forget ",

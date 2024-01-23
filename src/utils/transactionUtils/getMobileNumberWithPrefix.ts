@@ -1,4 +1,4 @@
-import { MOBILE_CODE } from 'utils/transactionUtils/index';
+import { MOBILE_CODE } from 'constants/index';
 
 export const getMobileNumberWithPrefix = (mobileNumber: string | undefined): string => {
   if (!mobileNumber) {
