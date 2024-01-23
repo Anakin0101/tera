@@ -46,22 +46,22 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
     );
   };
 
-  if (!data?.length) {
-    return null;
-  }
-
   return (
     <>
-      <View style={[styles.header, headerContaienrStyle]}>
-        <Text children={sectionTitle} style={headerLabelStyle} />
-      </View>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
-        ListFooterComponent={showFooter ? footer : null}
-        style={[styles.list, style]}
-      />
+      {data?.length ? (
+        <>
+          <View style={[styles.header, headerContaienrStyle]}>
+            <Text children={sectionTitle} style={headerLabelStyle} />
+          </View>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            showsHorizontalScrollIndicator={false}
+            ListFooterComponent={showFooter ? footer : null}
+            style={[styles.list, style]}
+          />
+        </>
+      ) : null}
     </>
   );
 };
