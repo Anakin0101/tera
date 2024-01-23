@@ -73,6 +73,7 @@ export const LOAN_AMOUNT_SCREEN = 'LoanAmountScreen';
 export const LOAN_REQUEST_TERMS_SCREEN = 'LoanRequestTermsScreen';
 export const LOAN_REQUEST_ADDITIONAL_INFO_SCREEN = 'LoanRequestAdditionalInfo';
 export const NEW_LOAN_DETAILS_SCREEN = 'NewLoanDetailsScreen';
+export const LOAN_REQUEST_ACCEPTED_SCREEN = 'LoanRequestAcceptedScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

@@ -60,6 +60,7 @@ import {
   LOAN_REQUEST_TERMS_SCREEN,
   LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
   NEW_LOAN_DETAILS_SCREEN,
+  LOAN_REQUEST_ACCEPTED_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -138,6 +139,7 @@ export type ProductsStackParamsList = {
   [LOAN_REQUEST_TERMS_SCREEN]: undefined;
   [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
   [NEW_LOAN_DETAILS_SCREEN]: undefined;
+  [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

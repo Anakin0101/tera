@@ -24,7 +24,7 @@ export const TeraWalletSuccess = () => {
         <CheckLarge />
       </View>
       <Text center medium size={24} marginTop={32} lineHeight={34} children="teraWallet.success" />
-      <Text center secondary marginTop={20} children="newDeposit.seeContract" />
+      <Text center secondary marginTop={20} children="common.seeContract" />
       <View style={styles.buttonContainer}>
         <Button.Primary
           text="common.returnToMain"

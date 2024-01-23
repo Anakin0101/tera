@@ -327,7 +327,8 @@
     "from": "From",
     "to": "To",
     "next": "Next",
-    "returnToMain": "Return to Main"
+    "returnToMain": "Return to Main",
+    "seeContract": "See the contract on the\n'My Documents' page"
   },
   "form": {
     "is_required": "is required"
@@ -409,7 +410,6 @@
     "termsOfContract": "the terms of the existing contract",
     "months": "{{value}} Months",
     "success": "The deposit has been\nsuccessfully opened",
-    "seeContract": "See the contract on the\n'My Documents' page",
     "activateTeraWallet": "Activate TeraWallet",
     "activateAutomaticPayments": "Activate Automatic Payments",
     "initialAmount": "Initial Amount",
@@ -467,6 +467,7 @@
     "other": "Other",
     "save": "Save",
     "details": "Loan Details",
-    "duration": "Duration"
+    "duration": "Duration",
+    "requestAccepted": "Request accepted\n'{{value}}'"
   }
 }

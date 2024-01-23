@@ -27,7 +27,7 @@ export const DepositSuccessScreen = () => {
           lineHeight={34}
           children="newDeposit.success"
         />
-        <Text center secondary marginTop={20} children="newDeposit.seeContract" />
+        <Text center secondary marginTop={20} children="common.seeContract" />
         <Button.Secondary
           fullWidth
           text="newDeposit.activateTeraWallet"
