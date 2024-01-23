@@ -357,7 +357,8 @@
     "getBudgetCode": "შეიყვანე ხაზინის კოდი",
     "next": "შემდეგი",
     "createCode": "კოდის აწყობა",
-    "transferToBudget": "ბიუჯეტში გადარიცხვა"
+    "transferToBudget": "ბიუჯეტში გადარიცხვა",
+    "budgetTitle": "სახაზინო კოდი"
   },
   "transactionDetails": {
     "to": "სად",

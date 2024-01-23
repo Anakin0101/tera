@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontSize, FontFamily } = useTheme();
+  const { Layout, Colors, Spacing, FontFamily, Fonts } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.fill,
@@ -10,9 +10,7 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.xl,
     },
     budgetTitle: {
-      fontSize: FontSize.regularPlus,
-      color: Colors.textBlack,
-      fontWeight: '400',
+      ...Fonts.titleregularPlus,
     },
     budgetView: {
       ...Layout.row,
@@ -23,13 +21,11 @@ export const useStyles = () => {
       paddingVertical: Spacing.ml,
     },
     budgetData: {
-      fontSize: FontSize.tiny,
-      fontWeight: '400',
-      color: Colors.textBlack,
+      ...Fonts.titleTiny,
     },
     button: {
-      marginTop: 20,
-      marginBottom: 30,
+      marginTop: Spacing.lg,
+      marginBottom: Spacing.xlm,
       paddingVertical: Spacing.ml,
     },
     buttonText: {

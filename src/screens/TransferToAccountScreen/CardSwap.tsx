@@ -15,6 +15,7 @@ export type cardProps = {
   accountFromData: any;
   accountToData: any;
   receiver?: string;
+  fromBudget?: boolean;
 };
 interface SelectedItem {
   selectedIban: number | null;
@@ -25,12 +26,14 @@ const CardItem = ({
   onPress,
   reverse,
   ccy,
+  fromBudget,
 }: {
   title: string | undefined;
   balance?: number | string;
   onPress: () => void;
   reverse?: boolean;
   ccy: string;
+  fromBudget?: boolean;
 }) => {
   const styles = useStyleTheme();
 
@@ -54,11 +57,15 @@ const CardItem = ({
         <>
           <View style={styles.wrapCard}>
             <Text children={title} style={styles.textAccount} numberOfLines={1} />
-            <Text
-              children={`${balance} ${getCurrencyIcon(ccy)}`}
-              style={styles.textLine}
-              numberOfLines={1}
-            />
+            {fromBudget ? (
+              <Text children={balance} style={styles.textLine} numberOfLines={1} />
+            ) : (
+              <Text
+                children={`${balance} ${getCurrencyIcon(ccy)}`}
+                style={styles.textLine}
+                numberOfLines={1}
+              />
+            )}
           </View>
           <View style={styles.cardContainer}>
             <View style={styles.card} />
@@ -69,7 +76,7 @@ const CardItem = ({
   );
 };
 
-export const CardSwap = ({ accountFromData, accountToData, receiver }: cardProps) => {
+export const CardSwap = ({ accountFromData, accountToData, receiver, fromBudget }: cardProps) => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
@@ -101,6 +108,7 @@ export const CardSwap = ({ accountFromData, accountToData, receiver }: cardProps
       <TinyChevron style={styles.chevronIcon} />
       <CardItem
         reverse
+        fromBudget={fromBudget}
         title={receiverName}
         balance={
           accountToData?.availableBalance || accountToData?.availableBalance === 0

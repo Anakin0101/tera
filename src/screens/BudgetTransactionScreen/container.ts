@@ -1,7 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useGetTreasuryCodeQuery } from 'services/apis';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setAccountToData } from 'store/slices/transfers';
 
 export const useBudget = () => {
+  const dispatch = useAppDispatch();
   const [budgetCode, setBudgetCode] = useState<string>('');
 
   const { a, b } = useMemo(() => {
@@ -23,6 +26,7 @@ export const useBudget = () => {
 
   const onChangeBudgetCode = (code: string) => {
     setBudgetCode(code);
+    dispatch(setAccountToData({ iban: code, name: 'transactions.budgetTitle' }));
   };
 
   return {

@@ -358,7 +358,8 @@
     "getBudgetCode": "type budget code",
     "next": "Next",
     "createCode": "create code",
-    "transferToBudget": "Transfer to budget"
+    "transferToBudget": "Transfer to budget",
+    "budgetTitle": "სახაზინო კოდი"
   },
   "transactionDetails": {
     "to": "To",

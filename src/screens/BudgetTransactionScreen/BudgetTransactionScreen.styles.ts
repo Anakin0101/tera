@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontSize } = useTheme();
+  const { Layout, Colors, Spacing, FontFamily, Fonts } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.fill,
@@ -11,13 +10,11 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.xl,
     },
     budgetTitle: {
-      fontSize: FontSize.regularPlus,
-      color: Colors.textBlack,
-      fontWeight: '400',
+      ...Fonts.titleregularPlus,
     },
     button: {
       marginTop: 70,
-      marginBottom: 30,
+      marginBottom: Spacing.xlm,
       paddingVertical: Spacing.ml,
     },
     buttonText: {
