@@ -38,7 +38,7 @@ const Indicator: FC<IndicatorProps> = ({ data = [], translateX, hideFirst = true
 
   return (
     <View style={styles.dotContainer}>
-      {data.map((_, i) => {
+      {data?.map((_, i) => {
         if (i === 0 && hideFirst) {
           return;
         }

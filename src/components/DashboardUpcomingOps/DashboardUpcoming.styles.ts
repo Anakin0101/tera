@@ -37,9 +37,9 @@ export const useStyles = () => {
       width: horizontalScale(158),
       height: 188,
       backgroundColor: Colors.gray,
-      borderRadius: 12,
+      borderRadius: Spacing.m,
       marginRight: Spacing.s,
-      padding: 12,
+      padding: Spacing.m,
     },
     templateCardContainer: {
       ...Layout.col,
@@ -48,9 +48,9 @@ export const useStyles = () => {
       width: horizontalScale(158),
       height: 188,
       backgroundColor: Colors.gray,
-      borderRadius: 12,
+      borderRadius: Spacing.m,
       marginRight: Spacing.s,
-      padding: 12,
+      padding: Spacing.m,
     },
     containerOneCard: {
       width: '100%',

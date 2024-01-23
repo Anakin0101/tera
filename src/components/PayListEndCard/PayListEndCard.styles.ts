@@ -14,10 +14,10 @@ export const useStyles = () => {
       width: horizontalScale(158),
       height: 188,
       backgroundColor: Colors.gray,
-      borderRadius: 12,
+      borderRadius: Spacing.m,
       marginRight: Spacing.s,
-      paddingHorizontal: 19,
-      paddingVertical: 17,
+      paddingHorizontal: Spacing.l,
+      paddingVertical: Spacing.ml,
     },
     allPayText: {
       alignSelf: 'flex-start',

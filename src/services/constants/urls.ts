@@ -42,4 +42,5 @@ export const URLS = {
   getTotalSaving: 'Pensions/GetTotalSaving',
   getUnreadMessagesCount: 'Conversations/GetUnreadMessagesCount',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
+  testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',
 };
