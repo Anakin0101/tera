@@ -41,10 +41,18 @@ export const useStyles = () => {
       color: Colors.textBlack500,
       marginRight: Spacing.s,
     },
+    radiosContainer: {
+      ...Layout.rowHCenter,
+      marginBottom: Spacing.xlm,
+      width: '100%',
+    },
     radioContainer: {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
       marginTop: Spacing.l,
+    },
+    withPhone: {
+      marginRight: Spacing.lg,
     },
   });
 };

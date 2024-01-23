@@ -184,7 +184,7 @@ export const ControlledInput = <T extends FieldValues>({
           if (type === 'radio') {
             return (
               <Radio
-                isSelected={value === selectedRadio}
+                isSelected={name === selectedRadio}
                 onPress={() => {
                   onChange(name);
                   handleChange?.(name);
