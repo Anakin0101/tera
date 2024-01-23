@@ -1,22 +1,45 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FORM_HEIGHT } from './VerificationTypeScreen.constants';
+import { FORM_HEIGHT, PHONE_INPUT_WIDTH } from './VerificationTypeScreen.constants';
 
 export const useStyles = () => {
-  const { Spacing } = useTheme();
+  const { Spacing, Layout, Colors } = useTheme();
   return StyleSheet.create({
     container: {
-      flex: 1,
+      ...Layout.fill,
     },
     wrapper: {
       marginHorizontal: Spacing.xl,
     },
     formContainer: {
       minHeight: FORM_HEIGHT,
-      borderWidth: 1,
     },
     ctaWrapper: {
       marginVertical: Spacing.md,
+    },
+    phoneInputContainer: {
+      ...Layout.justifyContentCenter,
+      alignItems: 'baseline',
+    },
+    rowWrapper: {
+      ...Layout.row,
+    },
+    phoneInputWrapper: {
+      maxWidth: PHONE_INPUT_WIDTH,
+    },
+    phonePrefixContainer: {
+      ...Layout.fill,
+      paddingVertical: Spacing.md,
+      ...Layout.row,
+      ...Layout.justifyContentStart,
+      ...Layout.alignItemsCenter,
+      borderBottomWidth: 1,
+      borderBottomColor: Colors.borderColor,
+      marginRight: Spacing.ml,
+    },
+    phonePrefix: {
+      color: Colors.textBlack500,
+      marginRight: Spacing.s,
     },
   });
 };

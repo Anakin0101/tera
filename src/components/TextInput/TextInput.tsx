@@ -150,9 +150,11 @@ export const ControlledInput = <T extends FieldValues>({
   handleChange,
   defaultValue,
   errors,
+  showErrorMessage = true,
   ...props
 }: ControlledInputProps<T> & {
   handleChange?: () => void;
+  showErrorMessage?: boolean;
 }) => {
   const showErrorUI = !!errors?.[name];
   return (
@@ -186,13 +188,15 @@ export const ControlledInput = <T extends FieldValues>({
           );
         }}
       />
-      <ErrorMessage
-        name={name}
-        errors={errors}
-        label={label}
-        showErrorUI={showErrorUI}
-        {...props}
-      />
+      {showErrorMessage && (
+        <ErrorMessage
+          name={name}
+          errors={errors}
+          label={label}
+          showErrorUI={showErrorUI}
+          {...props}
+        />
+      )}
     </>
   );
 };
