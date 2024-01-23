@@ -466,6 +466,7 @@
     "incomeFromProfessionalWork": "Income from professional work",
     "other": "Other",
     "save": "Save",
-    "details": "Loan Details"
+    "details": "Loan Details",
+    "duration": "Duration"
   }
 }

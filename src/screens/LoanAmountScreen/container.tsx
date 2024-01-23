@@ -8,10 +8,13 @@ import { SelectLoanTypeModal } from 'components/modals';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { LOAN_REQUEST_TERMS_SCREEN } from 'navigation/ScreenNames';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setNewLoanAmountAndDuration } from 'store/slices/loan';
 
 const ITEM_SIZE = 86;
 
 export const useLoanAmount = (flatlistRef: FlatListRef) => {
+  const dispatch = useAppDispatch();
   const { navigate } = useNavigation<ProductsStackScreenProps<'LoanRequestTermsScreen'>>();
   const [amount, setAmount] = useState('');
   const [duration, setDuration] = useState('');
@@ -124,11 +127,19 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
   }, [loanConfig, selectedProduct]);
 
   const handleNextPress = useCallback(() => {
-    if (!amount) {
+    if (!(amount && selectedProduct)) {
       return;
     }
+    dispatch(
+      setNewLoanAmountAndDuration({
+        amount,
+        duration,
+        currency: selectedCurrency,
+        loanType: selectedProduct?.displayName,
+      }),
+    );
     navigate(LOAN_REQUEST_TERMS_SCREEN);
-  }, [amount, navigate]);
+  }, [amount, dispatch, duration, navigate, selectedCurrency, selectedProduct]);
 
   const minAmount = useMemo(() => {
     const amounts = selectedProduct?.products?.map(item => item.minAmount);

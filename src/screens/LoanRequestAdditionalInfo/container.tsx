@@ -9,8 +9,11 @@ import { ItemType } from 'components/modals/IncomeTypeModal/IncomeTypeModal.type
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { NEW_LOAN_DETAILS_SCREEN } from 'navigation/ScreenNames';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setNewLoanAdditionalData } from 'store/slices/loan';
 
 export const useLoanRequestAdditionalInfo = () => {
+  const dispatch = useAppDispatch();
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewLoanDetailsScreen'>>();
   const paymentDateRef = useRef<TextInputRefType>(null);
   const typeOfIncomeRef = useRef<TextInputRefType>(null);
@@ -75,8 +78,17 @@ export const useLoanRequestAdditionalInfo = () => {
     if (!allFieldsFull) {
       return;
     }
+    dispatch(
+      setNewLoanAdditionalData({
+        paymentDate: allFields.paymentDate,
+        typeOfIncome: allFields.typeOfIncome,
+        income: allFields.income,
+        workplace: allFields.workplace,
+        position: allFields.position,
+      }),
+    );
     navigate(NEW_LOAN_DETAILS_SCREEN);
-  }, [allFieldsFull, navigate]);
+  }, [allFields, allFieldsFull, dispatch, navigate]);
 
   return {
     control,
