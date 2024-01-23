@@ -8,3 +8,4 @@ export {
   OPEN_CARD_WIDTH,
 } from './Dashboard';
 export { REGEX } from './regEx';
+export { MOBILE_CODE } from './common';

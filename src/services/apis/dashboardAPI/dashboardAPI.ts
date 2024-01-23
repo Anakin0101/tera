@@ -10,6 +10,7 @@ import {
   CreditCardType,
   GetBankerAPIResponseType,
   DefaultHeadersRequestType,
+  BannerDataResponse,
 } from './dashboardAPI.types';
 import { METHOD_NAMES, URLS } from 'services/constants';
 import { TransactionType } from '../productsAPI/productsAPI.types';
@@ -58,6 +59,13 @@ export const dashboardAPI = createApi({
         method: METHOD_NAMES.GET,
       }),
     }),
+    getBanners: builder.query<BannerDataResponse, any>({
+      query: ({ channel, language, page, isCorporate }) => ({
+        url: URLS.testBaseUrlBanners,
+        method: METHOD_NAMES.GET,
+        params: { channel, language, page, isCorporate },
+      }),
+    }),
     getBanker: builder.query<GetBankerAPIResponseType, void>({
       query: () => ({
         url: URLS.getBankerInfo,
@@ -75,4 +83,5 @@ export const {
   useGetLoanCustomerIdQuery,
   useGetAssetsQuery,
   useGetBankerQuery,
+  useGetBannersQuery,
 } = dashboardAPI;

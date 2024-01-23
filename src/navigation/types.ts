@@ -57,6 +57,7 @@ import {
   MAIN_NAVIGATOR,
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
+  NEW_PAYMENT_SCREEN,
   REGISTRATION_STACK,
   REGISTRATION_METHOD_SCREEN,
   VERIFICATION_TYPE_SCREEN,
@@ -86,6 +87,7 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
+  [NEW_PAYMENT_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {
