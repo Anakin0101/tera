@@ -1,8 +1,6 @@
 export const transactionTitles = {
-  fromIban: 'ანგარიშით',
-  fromMobile: 'მობილურით',
-  fromPersonal: 'პირადობით',
-  defaultTitle: 'პირადი გადარიცხვა',
+  fromMobile: 'transactions.fromMobile',
+  defaultTitle: 'transactions.defaultTitle',
 };
 
-export const PERSONAL_TRANSACTION = 'პირადი გადარიცხვა';
+export const PERSONAL_TRANSACTION = 'transactions.defaultTitle';

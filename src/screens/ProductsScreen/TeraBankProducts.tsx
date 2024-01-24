@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { SectionList, SectionListRenderItem, View } from 'react-native';
 import { useTheme } from 'hooks';
 import { useTeraProducts } from './teraProductsContainer';
+import { useIsFocused } from '@react-navigation/native';
 import { Button, CardsAndAccounts, DepositsAndLoans, Divider } from 'components';
 import { useStyles } from './ProductsScreen.styles';
 import { Plus } from 'assets/SVGs';
@@ -48,7 +49,15 @@ const TeraBankProducts = () => {
     groupedAccountsByIban,
     allLoans,
     onNewProductsPress,
+    refetch,
   } = useTeraProducts();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused, refetch]);
 
   const renderSectionListItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {

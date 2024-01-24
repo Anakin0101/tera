@@ -13,9 +13,8 @@ export const useStyles = () => {
       borderColor: Colors.inputBlack50,
       borderRadius: 40,
       paddingHorizontal: 10,
-      paddingVertical: 12,
       alignItems: 'center',
-      height: 50,
+      height: 38,
       justifyContent: 'center',
     },
     active: {

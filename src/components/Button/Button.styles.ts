@@ -17,7 +17,7 @@ export const useStyleTheme = () => {
     },
     wrapperFixWidthStyle: { ...Layout.fixWidth, ...Layout.rowCenter },
     wrapperPaddingMedium: {
-      paddingVertical: Spacing.s,
+      paddingVertical: Spacing.m,
       paddingHorizontal: Spacing.ml,
     },
     wrapperPaddingLarge: {

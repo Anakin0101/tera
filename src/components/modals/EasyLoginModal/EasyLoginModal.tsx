@@ -10,7 +10,9 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { closeModal } from 'utils/modal';
 
 export const EasyLoginModal: FC<EasyLoginModalProps> = ({
+  type,
   handlePress,
+  cancelOnly,
   title = 'easyLogin.title',
   description = 'easyLogin.description',
   primaryButtonText = 'easyLogin.activate',
@@ -30,8 +32,10 @@ export const EasyLoginModal: FC<EasyLoginModalProps> = ({
     closeModal?.();
   };
 
-  const handlePostponeEasyLogin = () => {
-    dispatch(setPostponeEasyLogin(true));
+  const handleCancelButtonPress = () => {
+    if (!cancelOnly) {
+      dispatch(setPostponeEasyLogin(true));
+    }
     closeModal?.();
   };
 
@@ -43,14 +47,18 @@ export const EasyLoginModal: FC<EasyLoginModalProps> = ({
         <Text children={description} style={styles.label} />
       </View>
       <View style={styles.toggleContainer}>
-        <Text children="easyLogin.do_not_ask_again" style={styles.label} />
-        <SwitchComponent
-          value={ignoreEasyLoginValue}
-          onValueChange={val => handleIgnoreEasyLoginToggle(val)}
-        />
+        {type === 'activate' && (
+          <>
+            <Text children="easyLogin.do_not_ask_again" style={styles.label} />
+            <SwitchComponent
+              value={ignoreEasyLoginValue}
+              onValueChange={val => handleIgnoreEasyLoginToggle(val)}
+            />
+          </>
+        )}
       </View>
       <View style={styles.buttonsContainer}>
-        <Button.Text text={secondaryButtonText} size="large" onPress={handlePostponeEasyLogin} />
+        <Button.Text text={secondaryButtonText} size="large" onPress={handleCancelButtonPress} />
         <Button.Primary text={primaryButtonText} size="large" onPress={handlePress} />
       </View>
     </View>

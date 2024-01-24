@@ -10,7 +10,7 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { Checkbox, Text } from '../index';
+import { Checkbox, Radio, Text } from 'components/index';
 import { OpenEye, CloseEye, Invoice } from 'assets/SVGs';
 import { ControlledInputProps, TextInputProps, TextInputRefType } from './TextInput.types';
 import { useStyleTheme } from './TextInput.styles';
@@ -125,10 +125,19 @@ export const TextInput = forwardRef<TextInputRefType, TextInputProps & { showErr
   },
 );
 
-export const ErrorMessage = ({ label, errorMessage, showErrorUI }: TextInputProps) => {
+export type ErrorMessageType = {
+  name: any;
+  errors: any; //TODO - Dea - fix types
+  label?: string;
+  showErrorUI: boolean;
+};
+
+export const ErrorMessage = ({ name, errors, label, showErrorUI }: ErrorMessageType) => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
-  const message = showErrorUI ? `${t(label)} ${t(errorMessage)}` : ' ';
+
+  const errorMessage = `${t(label)} ${t(errors?.[name]?.message)}`;
+  const message = showErrorUI ? errorMessage : ' ';
   return (
     <Text
       children={message}
@@ -147,9 +156,15 @@ export const ControlledInput = <T extends FieldValues>({
   handleChange,
   defaultValue,
   errors,
+  showErrorMessage = true,
+  selectedRadio,
+  setSelectedRadio,
   ...props
 }: ControlledInputProps<T> & {
-  handleChange?: () => void;
+  handleChange?: (selectedValue?: string | null) => void;
+  showErrorMessage?: boolean;
+  selectedRadio?: string | null;
+  setSelectedRadio?: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const showErrorUI = !!errors?.[name];
   return (
@@ -172,6 +187,19 @@ export const ControlledInput = <T extends FieldValues>({
               />
             );
           }
+          if (type === 'radio') {
+            return (
+              <Radio
+                isSelected={name === selectedRadio}
+                onPress={() => {
+                  onChange(name);
+                  handleChange?.(name);
+                  setSelectedRadio?.(name);
+                }}
+                label={label}
+              />
+            );
+          }
           return (
             <TextInput
               value={value}
@@ -183,7 +211,15 @@ export const ControlledInput = <T extends FieldValues>({
           );
         }}
       />
-      <ErrorMessage label={label} showErrorUI={showErrorUI} {...props} />
+      {showErrorMessage && (
+        <ErrorMessage
+          name={name}
+          errors={errors}
+          label={label}
+          showErrorUI={showErrorUI}
+          {...props}
+        />
+      )}
     </>
   );
 };

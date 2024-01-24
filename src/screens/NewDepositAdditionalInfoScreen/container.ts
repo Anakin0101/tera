@@ -13,7 +13,7 @@ import { CalculateDeposit } from 'services/apis/productsAPI/productsAPI.types';
 import { NEW_DEPOSIT_SUMMARY_SCREEN } from 'navigation/ScreenNames';
 
 const ITEM_SIZE = 86;
-const COMMA_OR_PERIOD_REGEX = /[,.]/g;
+const COMMA_OR_PERIOD = /[,.]/g;
 
 export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const dispatch = useAppDispatch();
@@ -162,7 +162,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   };
 
   const onChangeText = (value: string) => {
-    const formatted = value.replace(COMMA_OR_PERIOD_REGEX, '');
+    const formatted = value.replace(COMMA_OR_PERIOD, '');
     setDuration(formatted);
   };
 

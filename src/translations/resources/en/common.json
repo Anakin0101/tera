@@ -12,7 +12,8 @@
     "hello": "Hello",
     "greetings": "Greetings",
     "settings": "Settings",
-    "passcode": "Passcode"
+    "passcode": "Passcode",
+    "register": "Register"
   },
   "onboarding": {
     "next": "Next",
@@ -105,7 +106,9 @@
     "terabytes": "{{value}} terabyte",
     "transfer": "Transfer",
     "pay": "Payment",
-    "fill": "Top up"
+    "fill": "Top up",
+    "savings": "Savings",
+    "allPay": "All payments"
   },
 
   "profile": {
@@ -155,7 +158,8 @@
     "buy": "buy",
     "standardCourse": "standard course",
     "specificCourse": "your course",
-    "transfer": "transfer"
+    "transfer": "transfer",
+    "personalTransfer": "პირადი გადარიცხვა"
   },
   "products": {
     "accountsAndCards": "Accounts and Cards ({{value}})",
@@ -328,10 +332,18 @@
     "to": "To",
     "next": "Next",
     "returnToMain": "Return to Main",
-    "seeContract": "See the contract on the\n'My Documents' page"
+    "seeContract": "See the contract on the\n'My Documents' page",
+    "continue": "Continue",
+    "do_not_have": "I don't have ",
+    "accept": "I accept to ",
+    "terms_and_conditions": "terms and conditions",
+    "login": "Log in"
   },
   "form": {
-    "is_required": "is required"
+    "is_required": "is required",
+    "11_digits_required": "must consist of 11 digits",
+    "9_digits_required": "must consist of 9 digits",
+    "invalid_email": "format is incorrect"
   },
   "transactions": {
     "title": "Transactions",
@@ -348,13 +360,22 @@
     "fastText": "თუ გადარიცხვა სამუშაო დღის (ორშაბათი-პარასკევი) 10:00-დან 17:35 საათამდე შესრულდება, მიმღებს თანხა ანგარიშზე იმავე დღესვე დაუჯდება. ოპერაცია 15 წუთის განმავლობაში შესრულდება. არასამუშაო დროს შესრულებული გადარიცხვა აისახება მომდევნო სამუშაო დღეს. სწრაფი გადარიცხვის საკომისიო: 5 000 ლარამდე გადარიცხვისას: ფიქსირებული 1 ლარი. 5 000 ლარიდან - ფიქსირებული 2 ლარი.",
     "standardText": "თუ გადარიცხვა სამუშაო დღის (ორშაბათი-პარასკევი) 10:00-დან 17:35 საათამდე შესრულდება, მიმღებს თანხა ანგარიშზე იმავე დღესვე დაუჯდება. არასამუშაო დროს შესრულებული გადარიცხვა აისახება მომდევნო სამუშაო დღეს",
     "transDetails": "Transaction Details",
-    "transAmount": "Transaction amount"
+    "transAmount": "Transaction amount",
+    "fromMobile": "I transfer money with mobile",
+    "defaultTitle": "personal transfer",
+    "budgetCode": "Budget code",
+    "getBudgetCode": "type budget code",
+    "next": "Next",
+    "createCode": "create code",
+    "transferToBudget": "Transfer to budget",
+    "budgetTitle": "სახაზინო კოდი"
   },
   "transactionDetails": {
     "to": "To",
     "sender": "Sender",
     "bank": "Bank",
     "receiver": "Receiver",
+    "receiverIban": "Receiver Iban",
     "paymentType": "Payment Type",
     "amount": "Amount",
     "desc": "Description",
@@ -367,7 +388,8 @@
     "type": "transaction type",
     "mobile": "mobile",
     "personal": "personal",
-    "iban": "iban"
+    "iban": "iban",
+    "validIbanPrompt": "Please enter a valid IBAN"
   },
   "filters": {
     "income": "Income",
@@ -422,6 +444,32 @@
     "saveFreeMoney": "Save free money and get high interest benefits.",
     "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency."
   },
+  "payments": {
+    "totalDebt": "Total Debt",
+    "chooseService": "Choose a Service",
+    "payments": "Payments",
+    "automaticPayment": "Automatic\nPayment",
+    "mobilePayment": "Mobile\nFill",
+    "parkingAndFines": "Parking and\n Fines",
+    "carts": "Carts",
+    "all": "All",
+    "recentPayments": "Recent Payments"
+  },
+  "newPayment": {
+    "title": "New Payment",
+    "searchPlaceholder": "Search payment",
+    "chooseService": "Choose a service",
+    "utilityServices": "Utility Services",
+    "internet_TV_Phone": "Internet/TV/Phone",
+    "mobile": "Mobile connection",
+    "microfinance": "Microfinance",
+    "insurance_pension": "Insurance/Pension",
+    "education": "Education",
+    "stateServices": "State services",
+    "gambling": "Gambling",
+    "parking_fines": "Parking and fines",
+    "other": "Other"
+  },
   "teraWallet": {
     "collectMoney": "Collect money easily",
     "desc": "After activating TeraWallet from each transaction, the amount of your choice will be credited to the account",
@@ -471,5 +519,27 @@
     "requestAccepted": "Request accepted\n'{{value}}'",
     "minAmountWarning": "The requested amount must exceed the minimum amount.",
     "maxAmountWarning": "The requested amount must not exceed the maximum amount."
+  },
+  "registration": {
+    "choose_registration_method": "Choose a registration method",
+    "with_biometric_info": "With biometric info",
+    "with_biometric_info_desc": "You will need bright area with Personal ID or passport",
+    "with_code_word": "With code word",
+    "with_code_word_desc": "You will need to remember previously set code word",
+    "choose_verification_type": "Choose verification type",
+    "personalId": "Personal ID",
+    "with_mobile_number": "with mobile number",
+    "with_email": "with E-mail",
+    "phone_number": "Phone number",
+    "email": "E-mail",
+    "code_word": "Code word",
+    "no_code_word": "I do not have ",
+    "forgot_code_word": "Did you forget ",
+    "forgot_code_word_description": "For code word recovery, please apply to any TeraBank branch or register using the biometric information",
+    "continue_with_biometrics": "Continue with biometric method",
+    "enter_username": "enter the Username",
+    "successful_registration_title": "Registration completed successfully",
+    "successful_registration_description": "Click on the button 'Login' and authorize",
+    "enter_code_word": "Enter code word"
   }
 }

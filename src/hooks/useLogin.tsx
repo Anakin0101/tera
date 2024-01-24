@@ -109,7 +109,7 @@ export const useLogin = () => {
         .catch(err => {
           const errorTitle = (err as { [key: string]: any })?.data?.title;
           openToast(errorTitle, 'error');
-          console.warn(err);
+          console.warn(err, 'errorTitle');
         });
     }
   };

@@ -11,7 +11,6 @@ export const useStyles = () => {
     },
     dashboardPensionfundWrapper: {
       ...Layout.row,
-      ...Layout.justifyContentBetween,
       width: '90%',
     },
     pensionView: {
@@ -23,6 +22,7 @@ export const useStyles = () => {
       ...Fonts.textBold,
       fontSize: FontSize.regularPlus,
       fontWeight: '400',
+      marginRight: Spacing.md,
     },
     wrapper: { marginTop: Spacing.m },
     customIconComponentStyles: {

@@ -6,6 +6,7 @@ export const PAYMENTS_STACK = 'PaymentsStack';
 export const TRANSACTIONS_STACK = 'TransactionsStack';
 export const PRODUCTS_STACK = 'ProductsStack';
 export const PROFILE_STACK = 'ProfileStack';
+export const REGISTRATION_STACK = 'RegistrationStack';
 
 export const GUEST_NAVIGATOR = 'guestNavigator';
 export const MAIN_NAVIGATOR = 'mainNavigator';
@@ -36,6 +37,8 @@ export const SETTINGS_SCREEN = 'SettingsScreen';
 export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
 export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
+export const NEW_PAYMENT_SCREEN = 'NewPaymentScreen';
+
 //transactions
 export const MY_ACCOUNTS_SCREEN = 'MyAccountsScreen';
 export const TO_ACCOUNT_SCREEN = 'ToAccountScreen';
@@ -48,6 +51,8 @@ export const ALL_TRANSACTIONS_SCREEN = 'AllTransactionsScreen';
 export const TRANSACTION_DETAILS_SCREEN = 'TransactionDetailsScreen';
 export const OTHER_BANK_TANSACTION_SCREEN = 'OtherBankTransactionScreen';
 export const TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN = 'TransferToOtherBankAccountScreen';
+export const BUDGET_TRANSACTION_SCREEN = 'BudgetTransactionScreen';
+export const TRANSFER_TO_BUDGET = 'TransferToBudget';
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';
@@ -77,3 +82,10 @@ export const LOAN_REQUEST_ACCEPTED_SCREEN = 'LoanRequestAcceptedScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';
+
+// REGISTRATION STACK
+export const REGISTRATION_METHOD_SCREEN = 'RegistrationMethodScreen';
+export const VERIFICATION_TYPE_SCREEN = 'VerificationScreen';
+export const CODE_WORD_SCREEN = 'CodeWordScreen';
+export const ENTER_USERNAME_SCREEN = 'EnterUsernameScreen';
+export const REGISTRATION_FINISH_SCREEN = 'RegistrationFinishScreen';

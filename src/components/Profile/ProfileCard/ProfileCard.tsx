@@ -23,7 +23,9 @@ export const ProfileCardComponent = (props: ProfileCardType) => {
           </View>
         ) : null}
       </View>
-      <Text style={styles.profileCardText} children={text} />
+      <View style={styles.textContainer}>
+        <Text style={styles.profileCardText} children={text} numberOfLines={2} />
+      </View>
     </View>
   );
 };

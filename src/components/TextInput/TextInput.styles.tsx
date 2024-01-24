@@ -23,7 +23,7 @@ export const useStyleTheme = () => {
       ...Layout.justifyContentBetween,
     },
     input: {
-      width: '85%',
+      width: '100%',
       paddingLeft: Spacing.zero,
       fontSize: FontSize.regular,
     },

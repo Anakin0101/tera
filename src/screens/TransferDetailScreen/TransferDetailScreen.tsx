@@ -199,7 +199,7 @@ export const TransferDetailScreen = () => {
           {params.fromOtherBank ? (
             <OtherBankList
               selectedItemFromStore={selectedItemFromStore}
-              convertion={params.convertion}
+              receiver={params.receiver}
             />
           ) : (
             <TransferDetailsList

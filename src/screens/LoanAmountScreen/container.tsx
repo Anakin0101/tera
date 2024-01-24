@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { openToast } from 'utils/toast';
 import { openModal } from 'utils/modal';
-import { COMMA_OR_PERIOD_REGEX } from 'constants/regex';
+
 import { SelectLoanTypeModal } from 'components/modals';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -14,6 +14,7 @@ import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { DataType, FlatListRef, SelectedProduct } from './LoanAmountScreen.types';
 
 const ITEM_SIZE = 86;
+const COMMA_OR_PERIOD = /[,.]/g;
 
 export const useLoanAmount = (flatlistRef: FlatListRef) => {
   const dispatch = useAppDispatch();
@@ -179,7 +180,7 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
   );
 
   const onChangeText = useCallback((value: string) => {
-    const formatted = value.replace(COMMA_OR_PERIOD_REGEX, '');
+    const formatted = value.replace(COMMA_OR_PERIOD, '');
     setDuration(formatted);
   }, []);
 

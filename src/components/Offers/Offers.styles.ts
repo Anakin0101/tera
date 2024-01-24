@@ -4,6 +4,14 @@ import { horizontalScale } from 'utils/config';
 
 export const useStyles = (padding: number) => {
   const { Spacing, Layout, Colors, Fonts, FontSize } = useTheme();
+
+  const generaWrapperlStyle = {
+    ...Layout.row,
+    borderRadius: Spacing.m,
+    height: 180,
+    padding: Spacing.lg,
+    aspectRatio: 16 / 9,
+  };
   return StyleSheet.create({
     list: {
       marginLeft: Spacing.xl,
@@ -19,12 +27,12 @@ export const useStyles = (padding: number) => {
       fontWeight: '400',
     },
     offer: {
-      ...Layout.row,
-      borderRadius: Spacing.m,
-      backgroundColor: 'rgb(231, 243, 232)',
+      ...generaWrapperlStyle,
       width: horizontalScale(320),
-      height: 180,
-      padding: 20,
+    },
+    offerLengthOne: {
+      ...generaWrapperlStyle,
+      width: horizontalScale(360),
     },
     offersWrapper: {
       backgroundColor: Colors.white,

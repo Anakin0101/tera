@@ -13,6 +13,7 @@ import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { MOBILE, mobileNumberRegex } from 'constants/transactionConstants';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import useBankIcons from 'components/IbanTransaction/useIban';
+import { getMobileNumberWithPrefix } from 'utils/transactionUtils/getMobileNumberWithPrefix';
 
 const MobileTransaction = () => {
   const { navigate } =
@@ -37,7 +38,7 @@ const MobileTransaction = () => {
     MOBILE_NUMBER_LENGTH,
   } = useTransactionsScreen();
 
-  const { handlePersonalNumber, data, isSuccess, isError } = useOtherBanksContainer(MOBILE);
+  const { handleMobileNumber, data, isSuccess, isError } = useOtherBanksContainer(MOBILE);
   const { debouncedHandleChange } = useBankIcons(
     null,
     setDebouncedAccountName,
@@ -48,12 +49,12 @@ const MobileTransaction = () => {
     (pin: any) => {
       setSelectedData(pin);
       setTypedAccountName(pin);
-      handlePersonalNumber(pin);
+      handleMobileNumber(getMobileNumberWithPrefix(pin));
       setApiCallInitiated(true);
       dispatch(setAccountToData({ pin: pin }));
       dispatch(setTemplateForIban(pin));
     },
-    [setSelectedData, setTypedAccountName, handlePersonalNumber, setApiCallInitiated, dispatch],
+    [setSelectedData, setTypedAccountName, handleMobileNumber, setApiCallInitiated, dispatch],
   );
 
   useEffect(() => {
@@ -81,11 +82,11 @@ const MobileTransaction = () => {
       debouncedAccountName !== previousAccountName
     ) {
       setApiCallInitiated(true);
-      handlePersonalNumber(debouncedAccountName);
+      handleMobileNumber(debouncedAccountName);
       setPreviousAccountName(debouncedAccountName);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedAccountName, handlePersonalNumber, previousAccountName]);
+  }, [debouncedAccountName, handleMobileNumber, previousAccountName]);
 
   const filteredTemplates = templates?.templates.filter(
     item =>
@@ -139,7 +140,7 @@ const MobileTransaction = () => {
         </>
       )}
       <View>
-        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} />
+        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
       </View>
     </ScrollView>
   );
