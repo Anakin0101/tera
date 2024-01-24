@@ -505,6 +505,7 @@
 				DEVELOPMENT_TEAM = NH7Z54VUZP;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = teraMobile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tera Mobile";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,6 +533,7 @@
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = NH7Z54VUZP;
 				INFOPLIST_FILE = teraMobile/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tera Mobile";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
