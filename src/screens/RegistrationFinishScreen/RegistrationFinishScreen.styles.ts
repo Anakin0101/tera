@@ -8,5 +8,8 @@ export const useStyles = () => {
       flex: 1,
       margin: Spacing.md,
     },
+    ctaWrapper: {
+      marginVertical: Spacing.md,
+    },
   });
 };

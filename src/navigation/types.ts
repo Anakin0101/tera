@@ -61,6 +61,7 @@ import {
   VERIFICATION_TYPE_SCREEN,
   CODE_WORD_SCREEN,
   REGISTRATION_FINISH_SCREEN,
+  ENTER_USERNAME_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -196,7 +197,12 @@ export type RegistrationStackParamsList = {
   [REGISTRATION_METHOD_SCREEN]: undefined;
   [VERIFICATION_TYPE_SCREEN]: undefined;
   [CODE_WORD_SCREEN]: undefined;
-  [REGISTRATION_FINISH_SCREEN]: undefined;
+  [ENTER_USERNAME_SCREEN]: undefined;
+  [REGISTRATION_FINISH_SCREEN]:
+    | {
+        isSuccess?: boolean;
+      }
+    | undefined;
 };
 
 export type TabParamList = {

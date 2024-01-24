@@ -79,4 +79,5 @@ export const LOADING_SCREEN = 'LoadingScreen';
 export const REGISTRATION_METHOD_SCREEN = 'RegistrationMethodScreen';
 export const VERIFICATION_TYPE_SCREEN = 'VerificationScreen';
 export const CODE_WORD_SCREEN = 'CodeWordScreen';
+export const ENTER_USERNAME_SCREEN = 'EnterUsernameScreen';
 export const REGISTRATION_FINISH_SCREEN = 'RegistrationFinishScreen';

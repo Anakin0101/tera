@@ -12,17 +12,13 @@ export const useStyles = () => {
       marginHorizontal: Spacing.xl,
     },
     formContainer: {
-      height: FORM_HEIGHT,
+      maxHeight: FORM_HEIGHT,
     },
     ctaWrapper: {
       marginVertical: Spacing.md,
     },
-    codeWordTextContainer: {
-      marginTop: -Spacing.m,
+    chechboxContainer: {
       ...Layout.rowHCenter,
-    },
-    withError: {
-      marginTop: Spacing.s,
     },
     linkContainer: {
       ...Layout.rowHCenter,

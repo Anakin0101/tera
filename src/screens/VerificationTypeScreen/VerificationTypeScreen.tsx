@@ -155,7 +155,7 @@ export const VerificationTypeScreen = () => {
           )}
         </View>
         <Button.Primary
-          text="common:passAuth.signin"
+          text="common.continue"
           onPress={handleSubmit(onSubmit)}
           fullWidth
           isLoading={false}
