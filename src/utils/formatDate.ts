@@ -102,3 +102,23 @@ export const getISOString = (dateString: string, template = 'YYYY-MM-DD') => {
 export const getDateMonthsLater = (months: number, template = 'DD-MM-YYYY') => {
   return dayjs().add(months, 'month').format(template);
 };
+
+export const getDateAfter = (days: number, template = 'YYYY-MM-DD') => {
+  return dayjs().add(days, 'day').format(template);
+};
+
+export const getAllDatesBetween = (startDate: string, endDate: string) => {
+  const dates = [];
+  let currentDate = dayjs(startDate);
+
+  while (currentDate.isSameOrBefore(endDate, 'day')) {
+    dates.push(currentDate.format('YYYY-MM-DD'));
+    currentDate = currentDate.add(1, 'day');
+  }
+
+  return dates;
+};
+
+export const getDate = (dateString: string, template = 'YYYY-MM-DD') => {
+  return dayjs(dateString, template).date();
+};

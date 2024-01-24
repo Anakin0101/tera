@@ -7,6 +7,7 @@ import { ChevronDown } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import { useLoanRequestAdditionalInfo } from './container';
 import { useStyles } from './LoanRequestAdditionalInfo.styles.';
+import dayjs from 'dayjs';
 
 export const LoanRequestAdditionalInfo = () => {
   const styles = useStyles();
@@ -34,10 +35,11 @@ export const LoanRequestAdditionalInfo = () => {
           name="paymentDate"
           control={control}
           render={({ field: { onChange, value } }) => {
+            const formattedValue = value ? dayjs(value, 'YYYY-MM-DD').date().toString() : value;
             return (
               <>
                 <TextInput
-                  value={value}
+                  value={formattedValue}
                   marginTop={8}
                   editable={false}
                   onChangeText={onChange}

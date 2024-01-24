@@ -468,6 +468,8 @@
     "save": "Save",
     "details": "Loan Details",
     "duration": "Duration",
-    "requestAccepted": "Request accepted\n'{{value}}'"
+    "requestAccepted": "Request accepted\n'{{value}}'",
+    "minAmountWarning": "The requested amount must exceed the minimum amount.",
+    "maxAmountWarning": "The requested amount must not exceed the maximum amount."
   }
 }

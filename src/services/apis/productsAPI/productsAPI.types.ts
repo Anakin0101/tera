@@ -341,3 +341,26 @@ export type LoanConfigRes = {
   maxPaymentDayAfterRequested: number;
   minPaymentDayAfterRequested: number;
 };
+
+export type RequestForLoanReq = {
+  amount: number;
+  monthlyNetIncome: number;
+  interval: number;
+  productsGroupId: number;
+  currency: CurrencyEnum;
+  employerName: string;
+  position: string;
+  allowToCheckCreditInfo: boolean;
+  allowToCheckRevenue: boolean;
+  allowToCheckMessageInfo: boolean;
+  paymentDate: string;
+  incomeType: number;
+  sendOtp: boolean;
+  otp: string;
+};
+
+export type RequestForLoanConsentTexts = {
+  consentTodataProcessing: string;
+  consentToDataProcessingInCreditInfo: string;
+  consentToMessageDataProcessingInfo: string;
+};

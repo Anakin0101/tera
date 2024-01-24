@@ -11,6 +11,8 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { NEW_LOAN_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setNewLoanAdditionalData } from 'store/slices/loan';
+import { getDateAfter } from 'utils/formatDate';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useLoanRequestAdditionalInfo = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +29,17 @@ export const useLoanRequestAdditionalInfo = () => {
     },
   });
   const allFields = watch();
+  const { minPaymentDayAfterRequested, maxPaymentDayAfterRequested } = useAppSelector(
+    state => state.loan,
+  );
+
+  const minDate = useMemo(() => {
+    return getDateAfter(minPaymentDayAfterRequested);
+  }, [minPaymentDayAfterRequested]);
+
+  const maxDate = useMemo(() => {
+    return getDateAfter(maxPaymentDayAfterRequested);
+  }, [maxPaymentDayAfterRequested]);
 
   const handleSelectDate = useCallback(
     (date: string) => {
@@ -53,12 +66,17 @@ export const useLoanRequestAdditionalInfo = () => {
   const onPaymentDatePress = useCallback(() => {
     openModal({
       element: (
-        <SelectPaymentDateModal onPress={handleSelectDate} selectedDate={watch('paymentDate')} />
+        <SelectPaymentDateModal
+          minDate={minDate}
+          maxDate={maxDate}
+          onPress={handleSelectDate}
+          selectedDate={watch('paymentDate') || minDate}
+        />
       ),
       title: 'loanRequest.choosePaymentDate',
       disablePanning: true,
     });
-  }, [handleSelectDate, watch]);
+  }, [handleSelectDate, maxDate, minDate, watch]);
 
   const onIncomeTypePress = useCallback(() => {
     openModal({

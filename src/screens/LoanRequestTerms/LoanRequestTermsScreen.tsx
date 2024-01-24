@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ScrollView, View } from 'react-native';
-import { Button, Checkbox, Divider, Text } from 'components';
+import { Button, Checkbox, Divider, LoadingView, Text } from 'components';
 import { FontSize } from 'theme/Variables';
 import { useStyles } from './LoanRequestTermsScreen.styles';
 import { TitleProps } from './LoanRequestTermsScreen.types';
@@ -21,17 +21,31 @@ export const LoanRequestTermsScreen = () => {
     setConsentToProcessRemittances,
     handlePress,
     allChecked,
+    consentTexts,
+    isConsentTextsLoading,
   } = useLoanRequestTerms();
 
+  if (isConsentTextsLoading) {
+    return <LoadingView />;
+  }
+
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.textContainer}>
         <Title value="loanRequest.consentToDataProcessing" />
-        <Text children="ტექსტი" marginTop={18} secondary />
+        <Text children={consentTexts?.consentTodataProcessing} marginTop={18} secondary />
         <Title value="loanRequest.consentToCheckCreditInfo" />
-        <Text children="ტექსტი" marginTop={18} secondary />
+        <Text
+          children={consentTexts?.consentToDataProcessingInCreditInfo}
+          marginTop={18}
+          secondary
+        />
         <Title value="loanRequest.consentToCheckRemittanceInfo" />
-        <Text children="ტექსტი" marginTop={18} secondary />
+        <Text
+          children={consentTexts?.consentToMessageDataProcessingInfo}
+          marginTop={18}
+          secondary
+        />
       </View>
       <Divider height={1} marginTop={36} />
       <View style={styles.footer}>

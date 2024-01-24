@@ -43,4 +43,6 @@ export const URLS = {
   getUnreadMessagesCount: 'Conversations/GetUnreadMessagesCount',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
+  requestForLoan: 'Loan/RequestForLoan',
+  getRequestForLoanConsentTexts: 'Loan/GetRequestForLoanConsentTexts',
 };

@@ -5,4 +5,8 @@ export interface CalendarProps {
   maxDate?: string;
   onDayPress: (date: string) => void;
   markedDates?: MarkedDates;
+  current?: string;
+  hideExtraDays?: boolean;
+  disabledByDefault?: boolean;
+  disableAllTouchEventsForDisabledDays?: boolean;
 }

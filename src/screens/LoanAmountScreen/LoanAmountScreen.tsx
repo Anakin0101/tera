@@ -6,15 +6,15 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
-import { Button, Divider, LoadingView, Text } from 'components';
 import { useLoanAmount } from './container';
-import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { Colors } from 'theme/Variables';
 import { ChevronDown } from 'assets/SVGs';
+import { formatMoney } from 'utils/formatMoney';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
+import { Button, Divider, LoadingView, Text } from 'components';
+import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { CurrenciesProps, RenderItemT } from './LoanAmountScreen.types';
 import { useStyles } from './LoanAmountScreen.styles';
-import { formatMoney } from 'utils/formatMoney';
 
 const Currencies = ({ currencies, selectedCurrency, setSelectedCurrency }: CurrenciesProps) => {
   const styles = useStyles();
@@ -49,7 +49,6 @@ export const LoanAmountScreen = () => {
     amount,
     setAmount,
     selectedCurrency,
-    setSelectedCurrency,
     loanPeriod,
     ITEM_SIZE,
     setActiveIndex,
@@ -59,6 +58,8 @@ export const LoanAmountScreen = () => {
     maxAmount,
     handleSelectProduct,
     handleNextPress,
+    handleCurrencyPress,
+    currencies,
   } = useLoanAmount(flatlistRef);
 
   const handleScroll = useAnimatedScrollHandler(event => {
@@ -125,9 +126,9 @@ export const LoanAmountScreen = () => {
             />
           </View>
           <Currencies
-            currencies={selectedProduct.products[0].currencies}
+            currencies={currencies}
             selectedCurrency={selectedCurrency}
-            setSelectedCurrency={setSelectedCurrency}
+            setSelectedCurrency={handleCurrencyPress}
           />
         </View>
         <View style={styles.minMaxContainer}>
@@ -140,7 +141,11 @@ export const LoanAmountScreen = () => {
           </View>
           {!!maxAmount && (
             <View style={styles.minimum}>
-              <Text children="loanRequest.max" translateProp={{ value: formatMoney(5000) }} label />
+              <Text
+                children="loanRequest.max"
+                translateProp={{ value: formatMoney(maxAmount) }}
+                label
+              />
             </View>
           )}
         </View>
@@ -162,7 +167,7 @@ export const LoanAmountScreen = () => {
           />
           <View style={styles.inputContainer}>
             <TextInput
-              maxLength={2}
+              maxLength={3}
               onBlur={onBlur}
               value={duration}
               onChangeText={onChangeText}

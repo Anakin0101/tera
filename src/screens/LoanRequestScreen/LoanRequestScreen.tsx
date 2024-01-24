@@ -34,10 +34,10 @@ export const LoanRequestScreen = () => {
       <View style={styles.description}>
         <Text children="products.details" medium size={16} />
         <Text children="აღწერა" secondary marginTop={16} />
-        <Detail value="მინიმალური თანხა 1,000.00 ₾" />
-        <Detail value="ვალუტა: ლარი, აშშ, დოლარი, ევრო" />
-        <Detail value="ეფექტური საპროცენტო განაკვეთი 16,80%-დან" />
-        <Detail value="შემოსავალი მინიმუმ 300 ლარი (ეკვივალენტი უცხოურ ვალუტაში)" />
+        <Detail value="მინიმალური თანხა" />
+        <Detail value="ვალუტა" />
+        <Detail value="ეფექტური საპროცენტო განაკვეთი" />
+        <Detail value="მინიმალური შემოსავალი" />
       </View>
       <Button.Primary
         fullWidth

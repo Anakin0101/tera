@@ -20,11 +20,15 @@ import {
   OfferType,
   RegisterDepositReq,
   RegisterDepositRes,
+  RequestForLoanConsentTexts,
+  RequestForLoanReq,
   TeraWalletPDFReq,
   TeraWalletRes,
   TransactionType,
   UpdateAccountNameReq,
 } from './productsAPI.types';
+import { store } from 'store/index';
+import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
 
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
@@ -175,7 +179,31 @@ export const productsAPI = createApi({
       query: () => ({
         url: URLS.getRequestForLoanConfig,
       }),
-      transformResponse: (response: LoanConfigRes) => response.lmsProducts,
+      transformResponse: (response: LoanConfigRes) => {
+        store.dispatch(
+          setMinMaxPaymendDayAfterRequested({
+            minPaymentDayAfterRequested: response.minPaymentDayAfterRequested,
+            maxPaymentDayAfterRequested: response.maxPaymentDayAfterRequested,
+          }),
+        );
+
+        return response.lmsProducts;
+      },
+    }),
+
+    getRequestForLoanConsentText: builder.query<RequestForLoanConsentTexts, string>({
+      query: culture => ({
+        url: URLS.getRequestForLoanConsentTexts,
+        params: { culture },
+      }),
+    }),
+
+    requestForLoan: builder.mutation<{}, Partial<RequestForLoanReq>>({
+      query: body => ({
+        url: URLS.requestForLoan,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
     }),
   }),
 });
@@ -198,4 +226,6 @@ export const {
   useGenerateTeraWalletPdfMutation,
   useAddOrUpdateTeraWalletMutation,
   useGetRequestForLoanConfigQuery,
+  useRequestForLoanMutation,
+  useGetRequestForLoanConsentTextQuery,
 } = productsAPI;

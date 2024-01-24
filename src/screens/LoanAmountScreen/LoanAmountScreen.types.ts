@@ -15,5 +15,5 @@ export type SelectedProduct = LmsProduct | null;
 export type CurrenciesProps = {
   currencies: CurrencyEnum[];
   selectedCurrency: CurrencyEnum;
-  setSelectedCurrency: React.Dispatch<React.SetStateAction<CurrencyEnum>>;
+  setSelectedCurrency: (item: CurrencyEnum) => void;
 };

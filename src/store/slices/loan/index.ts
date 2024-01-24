@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  MinMaxPaymentDayPayload,
   NewLoanAdditionalDataPayload,
   NewLoanAmountAndDurationPayload,
   NewLoanStateProps,
@@ -11,11 +12,14 @@ const initialState: NewLoanStateProps = {
   amount: '',
   currency: CurrencyEnum.GEL,
   duration: '',
+  productsGroupId: null,
   paymentDate: '',
   typeOfIncome: [],
   income: '',
   workplace: '',
   position: '',
+  minPaymentDayAfterRequested: 0,
+  maxPaymentDayAfterRequested: 0,
 };
 
 const loanSlice = createSlice({
@@ -27,6 +31,7 @@ const loanSlice = createSlice({
       state.amount = payload.amount;
       state.duration = payload.duration;
       state.currency = payload.currency;
+      state.productsGroupId = payload.productsGroupId;
     },
     setNewLoanAdditionalData: (state, { payload }: NewLoanAdditionalDataPayload) => {
       state.paymentDate = payload.paymentDate;
@@ -35,8 +40,16 @@ const loanSlice = createSlice({
       state.workplace = payload.workplace;
       state.position = payload.position;
     },
+    setMinMaxPaymendDayAfterRequested: (state, { payload }: MinMaxPaymentDayPayload) => {
+      state.minPaymentDayAfterRequested = payload.minPaymentDayAfterRequested;
+      state.maxPaymentDayAfterRequested = payload.maxPaymentDayAfterRequested;
+    },
   },
 });
 
-export const { setNewLoanAmountAndDuration, setNewLoanAdditionalData } = loanSlice.actions;
+export const {
+  setNewLoanAmountAndDuration,
+  setNewLoanAdditionalData,
+  setMinMaxPaymendDayAfterRequested,
+} = loanSlice.actions;
 export const loanReducer = loanSlice.reducer;
