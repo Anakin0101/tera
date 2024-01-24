@@ -34,7 +34,7 @@ export const useLoanRequestAdditionalInfo = () => {
   );
 
   const minDate = useMemo(() => {
-    return getDateAfter(minPaymentDayAfterRequested);
+    return getDateAfter(minPaymentDayAfterRequested + 1);
   }, [minPaymentDayAfterRequested]);
 
   const maxDate = useMemo(() => {
