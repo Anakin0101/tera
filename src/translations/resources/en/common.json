@@ -361,7 +361,13 @@
     "transDetails": "Transaction Details",
     "transAmount": "Transaction amount",
     "fromMobile": "I transfer money with mobile",
-    "defaultTitle": "personal transfer"
+    "defaultTitle": "personal transfer",
+    "budgetCode": "Budget code",
+    "getBudgetCode": "type budget code",
+    "next": "Next",
+    "createCode": "create code",
+    "transferToBudget": "Transfer to budget",
+    "budgetTitle": "სახაზინო კოდი"
   },
   "transactionDetails": {
     "to": "To",

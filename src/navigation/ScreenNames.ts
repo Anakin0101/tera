@@ -51,6 +51,8 @@ export const ALL_TRANSACTIONS_SCREEN = 'AllTransactionsScreen';
 export const TRANSACTION_DETAILS_SCREEN = 'TransactionDetailsScreen';
 export const OTHER_BANK_TANSACTION_SCREEN = 'OtherBankTransactionScreen';
 export const TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN = 'TransferToOtherBankAccountScreen';
+export const BUDGET_TRANSACTION_SCREEN = 'BudgetTransactionScreen';
+export const TRANSFER_TO_BUDGET = 'TransferToBudget';
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';

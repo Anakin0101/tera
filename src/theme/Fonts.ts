@@ -34,6 +34,11 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontWeight: 'bold',
       color: Colors.textBlack,
     },
+    titleTiny: {
+      fontSize: FontSize.tiny,
+      fontWeight: 'bold',
+      color: Colors.textBlack,
+    },
     titleRegular: {
       fontSize: FontSize.regular,
       fontWeight: 'bold',
