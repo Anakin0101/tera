@@ -31,5 +31,11 @@ export const useStyles = () => {
     dashboardTemplatesContent: {
       paddingVertical: Spacing.xl,
     },
+    noTransactionsWrapper: {
+      ...Layout.center,
+    },
+    noTransactionsText: {
+      ...Fonts.textPrimary,
+    },
   });
 };
