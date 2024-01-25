@@ -57,3 +57,4 @@ export { DetailsItem } from './DetailsItem/DetailsItem';
 export { LoadingView } from './LoadingView/LoadingView';
 export { RegistrationTitle } from './Registration/RegistrationTitle/RegistrationTitle';
 export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';
+export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';

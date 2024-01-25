@@ -23,6 +23,7 @@ export const useStyles = () => {
     },
     iconContainer: {
       marginRight: Spacing.ml,
+      marginLeft: Spacing.md,
       ...Layout.center,
     },
     forwardContainer: {
