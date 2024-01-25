@@ -12,7 +12,7 @@ export const useStyles = () => {
       marginHorizontal: Spacing.xl,
     },
     formContainer: {
-      minHeight: FORM_HEIGHT,
+      height: FORM_HEIGHT,
     },
     ctaWrapper: {
       marginVertical: Spacing.md,
