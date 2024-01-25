@@ -41,6 +41,7 @@ export const URLS = {
   getSecuredFileById: 'Files/GetSecuredFileById',
   getTotalSaving: 'Pensions/GetTotalSaving',
   getUnreadMessagesCount: 'Conversations/GetUnreadMessagesCount',
+  getPaymentServices: 'Payment/GetPaymentServices',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   treasury: 'Transfers/GetTreasuryCodeParts',
   testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',

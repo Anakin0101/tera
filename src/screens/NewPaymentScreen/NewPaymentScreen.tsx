@@ -16,10 +16,15 @@ import {
   Gambling,
   Other,
 } from 'assets/SVGs';
+// import { useNewPayment } from './container';
 
 export const NewPaymentScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
+
+  // const { providersGroups, isLoading } = useNewPayment();
+
+  // console.log(isLoading, 'isLoading');
 
   const [searchText, setSearchText] = useState<string>('');
 

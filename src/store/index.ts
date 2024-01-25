@@ -16,6 +16,7 @@ import { userInfoReducer } from './slices/userInfo';
 import {
   dashboardPersistConfig,
   deviceInfoPersistConfig,
+  paymentPersistConfig,
   profilePersistConfig,
   themePersistConfig,
   userInfoPersistConfig,
@@ -30,11 +31,13 @@ import {
   filesAPI,
   profileAPI,
   transfersAPI,
+  paymentsAPI,
 } from 'services/apis';
 import { productsReducer } from './slices/products';
 import { depositReducer } from './slices/deposit';
 import { teraWalletReducer } from './slices/teraWallet';
 import { transfersReducer } from './slices/transfers';
+import { paymentsReducer } from './slices/payments';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -43,6 +46,7 @@ const persistedUserInfo = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedDeviceInfo = persistReducer(deviceInfoPersistConfig, deviceInfoReducer);
 const persistedDashboard = persistReducer(dashboardPersistConfig, dashboardReducer);
 const persistedProfile = persistReducer(profilePersistConfig, profileReducer);
+const persistedPayments = persistReducer(paymentPersistConfig, paymentsReducer);
 
 const reducers = combineReducers({
   theme: persistedTheme,
@@ -51,6 +55,7 @@ const reducers = combineReducers({
   dashboard: persistedDashboard,
   profile: persistedProfile,
   products: productsReducer,
+  payments: persistedPayments,
   transfers: transfersReducer,
   deposit: depositReducer,
   teraWallet: teraWalletReducer,
@@ -58,6 +63,7 @@ const reducers = combineReducers({
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,
   [transfersAPI.reducerPath]: transfersAPI.reducer,
+  [paymentsAPI.reducerPath]: paymentsAPI.reducer,
   [filesAPI.reducerPath]: filesAPI.reducer,
   [profileAPI.reducerPath]: profileAPI.reducer,
 });
@@ -76,6 +82,7 @@ const middlewares = [
   productsAPI.middleware,
   transfersAPI.middleware,
   filesAPI.middleware,
+  paymentsAPI.middleware,
   profileAPI.middleware,
 ];
 
