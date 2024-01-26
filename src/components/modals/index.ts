@@ -6,3 +6,4 @@ export { LoanScheduleModal } from './LoanScheduleModal/LoanScheduleModal';
 export { ConfirmUserResetModal } from './ConfirmUserResetModal/ConfirmUserResetModal';
 export { SelectAccountModal } from './SelectAccountModal/SelectAccountModal';
 export { TransactionModal } from './TransactionModal/TransactionModal';
+export { CodeWordModal } from './CodeWordModal/CodeWordModal';

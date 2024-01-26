@@ -11,6 +11,8 @@ import { Colors } from 'theme/Variables';
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { CodeWordFormData } from './CodeWordScreen.types';
+import { closeModal, openModal } from 'utils/modal';
+import { CodeWordModal } from 'components/modals';
 
 export const CodeWordScreen = () => {
   const styles = useStyles();
@@ -28,9 +30,17 @@ export const CodeWordScreen = () => {
     navigate(ENTER_USERNAME_SCREEN);
   };
 
+  const handleIdentomatRegistration = () => {
+    closeModal();
+    Alert.alert('should navigate to restore code word screen');
+  };
+
   const handleCodeWordRestoration = () => {
     // TBD
-    Alert.alert('should navigate to restore code word screen');
+
+    openModal({
+      element: <CodeWordModal onPress={handleIdentomatRegistration} />,
+    });
   };
 
   return (
