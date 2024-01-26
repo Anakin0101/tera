@@ -1,10 +1,12 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { Button, DetailsItem, Divider, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { Timer } from 'assets/SVGs';
 import { useStyles } from './NewLoanDetailsScreen.styles';
 import { useNewLoanDetails } from './container';
+
+const ICON = require('assets/images/Bags.png');
 
 export const NewLoanDetailsScreen = () => {
   const styles = useStyles();
@@ -19,7 +21,9 @@ export const NewLoanDetailsScreen = () => {
       <View style={styles.growfull}>
         <View style={styles.headerContainer}>
           <View style={styles.headerItem}>
-            <View style={styles.iconContainer} />
+            <View style={styles.iconContainer}>
+              <Image source={ICON} style={styles.icon} />
+            </View>
             <View>
               <Text children={newLoan?.loanType} medium size={16} />
               <Text

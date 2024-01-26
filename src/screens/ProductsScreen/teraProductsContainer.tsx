@@ -60,22 +60,27 @@ export const useTeraProducts = () => {
   const products = useMemo(() => {
     return [
       {
+        image: require('assets/images/Gold.png'),
         title: 'newDeposit.tariffPackage',
         onPress: () => {},
       },
       {
+        image: require('assets/images/Card.png'),
         title: 'newDeposit.card',
         onPress: () => {},
       },
       {
+        image: require('assets/images/Deposit.png'),
         title: 'newDeposit.deposit',
         onPress: onDepositPress,
       },
       {
+        image: require('assets/images/TeraWallet.png'),
         title: 'newDeposit.teraWallet',
         onPress: () => {},
       },
       {
+        image: require('assets/images/Loan.png'),
         title: 'newDeposit.loan',
         onPress: onLoanPress,
       },

@@ -33,6 +33,10 @@ export const useStyles = () => {
       borderWidth: 1,
       borderColor: Colors.inputBlack50,
     },
+    icon: {
+      width: Spacing.xl,
+      height: Spacing.xl,
+    },
     image: {
       ...Layout.fullHeight,
       ...Layout.fullWidth,

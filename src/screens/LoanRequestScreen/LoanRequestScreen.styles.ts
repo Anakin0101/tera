@@ -25,6 +25,10 @@ export const useStyles = () => {
       borderWidth: 1,
       borderColor: Colors.inputBlack50,
     },
+    icon: {
+      width: 45,
+      height: 45,
+    },
     image: {
       ...Layout.fullHeight,
       ...Layout.fullWidth,

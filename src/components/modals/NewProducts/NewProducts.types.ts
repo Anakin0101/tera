@@ -1,4 +1,7 @@
+import { ImageSourcePropType } from 'react-native';
+
 export interface Item {
+  image: ImageSourcePropType;
   title: string;
   onPress: () => void;
 }

@@ -1,9 +1,11 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import { Button, Divider, Text } from 'components';
 import { DetailProps } from './LoanRequestScreen.types';
 import { useStyles } from './LoanRequestScreen.styles';
 import { useLoanRequest } from './container';
+
+const ICON = require('assets/images/Bags.png');
 
 const Detail = ({ value }: DetailProps) => {
   const styles = useStyles();
@@ -27,7 +29,9 @@ export const LoanRequestScreen = () => {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.header}>
-        <View style={styles.imageContainer} />
+        <View style={styles.imageContainer}>
+          <Image source={ICON} style={styles.icon} />
+        </View>
         <Text children="loanRequest.request" medium size={18} marginTop={24} />
       </View>
       <Divider height={1} marginTop={32} marginBottom={32} />
