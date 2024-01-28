@@ -504,7 +504,7 @@
     "continue_with_biometrics": "განაგრძე ბიომეტრიული მეთოდით",
     "enter_username": "შეიყვანე მომხმარებლის სახელი",
     "successful_registration_title": "რეგისტრაცია წარმატებით დასრულდა",
-    "successful_registration_description": "დაკლიკეთ ღიკალზე “შესვლა” და გაიარეთ ავტორიზაცია",
+    "successful_registration_description": "დაკლიკეთ ღილაკზე “შესვლა” და გაიარეთ ავტორიზაცია",
     "enter_code_word": "შეიყვანე კოდური სიტყვა"
   }
 }

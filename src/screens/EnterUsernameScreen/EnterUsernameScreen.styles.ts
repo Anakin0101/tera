@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FORM_HEIGHT } from 'screens/VerificationTypeScreen/VerificationTypeScreen.constants';
 
 export const useStyles = () => {
   const { Spacing, Layout } = useTheme();
@@ -11,11 +10,11 @@ export const useStyles = () => {
     wrapper: {
       marginHorizontal: Spacing.xl,
     },
-    formContainer: {
-      maxHeight: FORM_HEIGHT,
-    },
     ctaWrapper: {
-      marginVertical: Spacing.md,
+      paddingHorizontal: Spacing.xl,
+    },
+    ctaOpenWrapper: {
+      paddingBottom: Spacing.md,
     },
     chechboxContainer: {
       ...Layout.rowHCenter,

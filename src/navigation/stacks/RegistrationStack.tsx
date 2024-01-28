@@ -46,7 +46,13 @@ export const RegistrationNavigator = () => {
       <Screen name={VERIFICATION_TYPE_SCREEN} component={VerificationTypeScreen} />
       <Screen name={CODE_WORD_SCREEN} component={CodeWordScreen} />
       <Screen name={ENTER_USERNAME_SCREEN} component={EnterUsernameScreen} />
-      <Screen name={REGISTRATION_FINISH_SCREEN} component={RegistrationFinishScreen} />
+      <Screen
+        name={REGISTRATION_FINISH_SCREEN}
+        component={RegistrationFinishScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Navigator>
   );
 };
