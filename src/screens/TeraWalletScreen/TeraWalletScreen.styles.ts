@@ -25,6 +25,10 @@ export const useStyles = () => {
       borderColor: Colors.inputBlack50,
       marginTop: Spacing.xxl,
     },
+    image: {
+      width: 45,
+      height: 45,
+    },
     selectAmount: {
       marginTop: Spacing.ml,
     },
@@ -100,22 +104,11 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
     },
     successContainer: {
-      ...Layout.fill,
+      paddingHorizontal: 0,
       backgroundColor: Colors.white,
-    },
-    successIcon: {
-      ...Layout.center,
-      ...Layout.selfCenter,
-      width: 80,
-      height: 80,
-      borderRadius: 40,
-      backgroundColor: Colors.success,
-      marginTop: 150,
     },
     successButton: {
       paddingVertical: 14,
-      paddingHorizontal: 24,
-      marginTop: 50,
     },
   });
 };

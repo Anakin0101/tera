@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Svg, { Path, SvgProps, Circle } from 'react-native-svg';
 
-export const FailedSvg = (props: SvgProps) => {
+export const FailedSvg = ({ width, height, ...props }: SvgProps) => {
   return (
-    <Svg width={80} height={80} viewBox="0 0 80 80" fill="none" {...props}>
+    <Svg width={width} height={height} viewBox="0 0 80 80" fill="none" {...props}>
       <Circle cx={40} cy={40} r={40} fill="#E22D20" />
       <Path
         fillRule="evenodd"

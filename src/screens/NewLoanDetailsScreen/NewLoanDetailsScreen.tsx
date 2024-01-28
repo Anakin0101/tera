@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { Button, DetailsItem, Divider, Image, Text } from 'components';
+import { Image, ScrollView, View } from 'react-native';
+import { Button, DetailsItem, Divider, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { Timer } from 'assets/SVGs';
 import { useStyles } from './NewLoanDetailsScreen.styles';

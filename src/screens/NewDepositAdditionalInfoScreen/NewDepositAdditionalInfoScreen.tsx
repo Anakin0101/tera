@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import {
   View,
-  Image,
   FlatList,
   Pressable,
   TextInput,
@@ -16,7 +15,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Item } from './Item';
 import { formatMoney } from 'utils/formatMoney';
-import { Button, Divider, Text } from 'components';
+import { Button, Divider, Image, Text } from 'components';
 import { useNewDepositAdditionalInfo } from './container';
 import { formatDateFullMonth, getDateMonthsLater } from 'utils/formatDate';
 import { useStyles } from './NewDepositAdditionalInfoScreen.styles';

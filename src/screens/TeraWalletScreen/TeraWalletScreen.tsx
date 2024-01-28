@@ -1,5 +1,13 @@
 import React, { useCallback, useRef } from 'react';
-import { ListRenderItem, ScrollView, View, Pressable, FlatList, TextInput } from 'react-native';
+import {
+  ListRenderItem,
+  ScrollView,
+  View,
+  Pressable,
+  FlatList,
+  TextInput,
+  Image,
+} from 'react-native';
 import { Button, Divider, LoadingView, Text } from 'components';
 import Animated, {
   runOnJS,
@@ -14,6 +22,8 @@ import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { WalletAmount } from 'services/apis/productsAPI/productsAPI.types';
 import { DataType } from './TeraWalletScreen.types';
 import { useStyles } from './TeraWalletScreen.styles';
+
+const ICON = require('assets/images/TeraWallet.png');
 
 export const TeraWalletScreen = () => {
   const styles = useStyles();
@@ -77,7 +87,9 @@ export const TeraWalletScreen = () => {
   return (
     <ScrollView ref={scrollViewRef} style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <Image source={ICON} style={styles.image} />
+        </View>
         <Text children="teraWallet.collectMoney" center medium size={18} marginTop={24} />
         <Text children="teraWallet.desc" center secondary marginTop={16} />
         <Divider height={1} marginTop={32} marginBottom={32} />

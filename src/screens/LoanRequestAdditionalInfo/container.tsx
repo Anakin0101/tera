@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormData } from './LoanRequestAdditionalInfo.types';
@@ -13,6 +13,7 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setNewLoanAdditionalData } from 'store/slices/loan';
 import { getDateAfter } from 'utils/formatDate';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { setAdjustResize, setAdjustPan } from 'rn-android-keyboard-adjust';
 
 export const useLoanRequestAdditionalInfo = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,13 @@ export const useLoanRequestAdditionalInfo = () => {
   const { minPaymentDayAfterRequested, maxPaymentDayAfterRequested } = useAppSelector(
     state => state.loan,
   );
+
+  useEffect(() => {
+    setAdjustPan();
+    return () => {
+      setAdjustResize();
+    };
+  }, []);
 
   const minDate = useMemo(() => {
     return getDateAfter(minPaymentDayAfterRequested + 1);

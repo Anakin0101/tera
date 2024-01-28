@@ -59,3 +59,4 @@ export { Calendar } from './Calendar/Calendar';
 export { RegistrationTitle } from './Registration/RegistrationTitle/RegistrationTitle';
 export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';
 export { Image } from './Image/Image';
+export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';

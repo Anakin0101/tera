@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
+import { FlatList, Image, ListRenderItem, View } from 'react-native';
 import { Item } from './Item';
-import { Image, LoadingView, Text } from 'components';
+import { LoadingView, Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { useSelectDeposit } from './container';
 import { OfferType } from 'services/apis/productsAPI/productsAPI.types';

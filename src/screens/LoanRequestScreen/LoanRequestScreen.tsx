@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { Button, Divider, Image, Text } from 'components';
+import { Image, ScrollView, View } from 'react-native';
+import { Button, Divider, Text } from 'components';
 import { DetailProps } from './LoanRequestScreen.types';
 import { useStyles } from './LoanRequestScreen.styles';
 import { useLoanRequest } from './container';

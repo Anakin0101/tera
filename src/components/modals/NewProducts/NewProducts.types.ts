@@ -1,7 +1,7 @@
-import { Source } from 'react-native-fast-image';
+import { ImageRequireSource } from 'react-native';
 
 export interface Item {
-  image: Source;
+  image: ImageRequireSource;
   title: string;
   onPress: () => void;
 }
