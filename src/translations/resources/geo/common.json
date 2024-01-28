@@ -395,7 +395,10 @@
     "toOwnAccount": "საკუთარ ანგარიშებს შორის გადარიცხვა",
     "exchange": "კონვერტაცია",
     "toTreasure": "სახაზინო გადარიცხვა",
-    "payments": "გადახდები"
+    "payments": "გადახდები",
+    "lastThreeDays": "ბოლო სამი დღე",
+    "lastWeek": "ბოლო კვირა",
+    "lastThreeWeeks": "ბოლო სამი კვირა"
   },
   "newDeposit": {
     "newProduct": "ახალი პროდუქტი",

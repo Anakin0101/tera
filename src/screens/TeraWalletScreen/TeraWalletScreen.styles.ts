@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { config } from 'utils/config';
+import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 
-const ITEM_SIZE = 86;
-const ITEM_SPACING = (config.mobileWidth - ITEM_SIZE) / 2;
+const ITEM_SPACING = (config.mobileWidth - CIRCULAR_ITEM_SIZE) / 2;
 
 export const useStyles = () => {
   const { Layout, Colors, Spacing, FontFamily } = useTheme();

@@ -12,9 +12,8 @@ import { LOAN_REQUEST_TERMS_SCREEN } from 'navigation/ScreenNames';
 import { LoanProduct } from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { DataType, FlatListRef, SelectedProduct } from './LoanAmountScreen.types';
-
-const ITEM_SIZE = 86;
-const COMMA_OR_PERIOD = /[,.]/g;
+import { CIRCULAR_ITEM_SIZE } from 'constants/common';
+import { REGEX } from 'constants/index';
 
 export const useLoanAmount = (flatlistRef: FlatListRef) => {
   const dispatch = useAppDispatch();
@@ -157,7 +156,7 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
 
       if (typeof index === 'number' && index > -1) {
         flatlistRef.current?.scrollToOffset({
-          offset: index * ITEM_SIZE,
+          offset: index * CIRCULAR_ITEM_SIZE,
           animated: false,
         });
       }
@@ -172,15 +171,15 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
 
   const getItemLayout = useCallback(
     (_: DataType, index: number) => ({
-      length: ITEM_SIZE,
-      offset: ITEM_SIZE * index,
+      length: CIRCULAR_ITEM_SIZE,
+      offset: CIRCULAR_ITEM_SIZE * index,
       index,
     }),
     [],
   );
 
   const onChangeText = useCallback((value: string) => {
-    const formatted = value.replace(COMMA_OR_PERIOD, '');
+    const formatted = value.replace(REGEX.COMMA_OR_PERIOD, '');
     setDuration(formatted);
   }, []);
 
@@ -194,7 +193,7 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
     (index: number) => {
       try {
         flatlistRef.current?.scrollToOffset({
-          offset: index * ITEM_SIZE,
+          offset: index * CIRCULAR_ITEM_SIZE,
         });
       } catch (err) {
         console.warn('Error in handleItemPress on LoanAmountScreen', err);
@@ -295,7 +294,7 @@ export const useLoanAmount = (flatlistRef: FlatListRef) => {
     selectedCurrency,
     setSelectedCurrency,
     loanPeriod,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     debouncedValue,
     setActiveIndex,
     isLoanConfigLoading,

@@ -8,6 +8,7 @@ import { Colors } from 'theme/Variables';
 import { useLoanRequestAdditionalInfo } from './container';
 import { useStyles } from './LoanRequestAdditionalInfo.styles.';
 import dayjs from 'dayjs';
+import { YYYY_MM_DD } from 'constants/DateTemplates';
 
 export const LoanRequestAdditionalInfo = () => {
   const styles = useStyles();
@@ -35,7 +36,7 @@ export const LoanRequestAdditionalInfo = () => {
           name="paymentDate"
           control={control}
           render={({ field: { onChange, value } }) => {
-            const formattedValue = value ? dayjs(value, 'YYYY-MM-DD').date().toString() : value;
+            const formattedValue = value ? dayjs(value, YYYY_MM_DD).date().toString() : value;
             return (
               <>
                 <TextInput

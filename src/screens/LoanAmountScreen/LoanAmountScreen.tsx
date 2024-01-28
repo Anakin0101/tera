@@ -50,7 +50,7 @@ export const LoanAmountScreen = () => {
     setAmount,
     selectedCurrency,
     loanPeriod,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     setActiveIndex,
     isLoanConfigLoading,
     selectedProduct,
@@ -65,7 +65,7 @@ export const LoanAmountScreen = () => {
   const handleScroll = useAnimatedScrollHandler(event => {
     try {
       scrollX.value = event.contentOffset.x;
-      runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
+      runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / CIRCULAR_ITEM_SIZE));
     } catch (err) {
       console.warn('Error in handleScroll on LoanAmountScreen', err);
     }
@@ -159,7 +159,7 @@ export const LoanAmountScreen = () => {
             onScroll={handleScroll}
             renderItem={renderItem}
             decelerationRate="fast"
-            snapToInterval={ITEM_SIZE}
+            snapToInterval={CIRCULAR_ITEM_SIZE}
             getItemLayout={getItemLayout}
             showsHorizontalScrollIndicator={false}
             style={styles.list}

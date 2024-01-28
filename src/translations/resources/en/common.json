@@ -397,7 +397,10 @@
     "toOwnAccount": "To Own Account",
     "exchange": "Exchange",
     "toTreasure": "To Treasure",
-    "payments": "Payments"
+    "payments": "Payments",
+    "lastThreeDays": "Last three days",
+    "lastWeek": "Last week",
+    "lastThreeWeeks": "Last three weeks"
   },
   "newDeposit": {
     "newProduct": "New Product",

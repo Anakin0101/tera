@@ -35,7 +35,7 @@ export const NewDepositAdditionalInfoScreen = () => {
     depositType,
     initialAmount,
     currency,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     offer,
     setProductId,
     productId,
@@ -48,12 +48,15 @@ export const NewDepositAdditionalInfoScreen = () => {
     setProductName,
     minPeriod,
     maxPeriod,
+    getItemLayout,
   } = useNewDepositAdditionalInfo(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     try {
       scrollX.value = event.contentOffset.x;
-      runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + minPeriod));
+      runOnJS(setDuration)(
+        String(Math.round(event.contentOffset.x / CIRCULAR_ITEM_SIZE) + minPeriod),
+      );
     } catch (err) {
       console.warn('Error in handleScroll on NewDepositAdditionalInfoScreen', err);
     }
@@ -122,14 +125,10 @@ export const NewDepositAdditionalInfoScreen = () => {
                   onScroll={handleScroll}
                   renderItem={renderItem}
                   decelerationRate="fast"
-                  snapToInterval={ITEM_SIZE}
+                  snapToInterval={CIRCULAR_ITEM_SIZE}
                   showsHorizontalScrollIndicator={false}
                   contentContainerStyle={styles.durationContentContainer}
-                  getItemLayout={(_, index) => ({
-                    length: ITEM_SIZE,
-                    offset: ITEM_SIZE * index,
-                    index,
-                  })}
+                  getItemLayout={getItemLayout}
                 />
                 <View style={styles.inputContainer}>
                   <TextInput
