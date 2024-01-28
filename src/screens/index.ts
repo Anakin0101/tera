@@ -40,3 +40,4 @@ export { CodeWordScreen } from './CodeWordScreen/CodeWordScreen';
 export { VerificationTypeScreen } from './VerificationTypeScreen/VerificationTypeScreen';
 export { RegistrationMethodScreen } from './RegistrationMethodScreen/RegistrationMethodScreen';
 export { RegistrationFinishScreen } from './RegistrationFinishScreen/RegistrationFinishScreen';
+export { AutomaticPaymentsScreen } from './AutomaticPaymentsScreen/AutomaticPaymentsScreen';

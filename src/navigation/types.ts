@@ -64,6 +64,8 @@ import {
   CODE_WORD_SCREEN,
   REGISTRATION_FINISH_SCREEN,
   ENTER_USERNAME_SCREEN,
+  PAYMENTS_SCREEN,
+  AUTOMATIC_PAYMENTS_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -77,7 +79,7 @@ export type RoutesList = {
 };
 
 export type MainStackParamsList = {
-  [INITIAL_STACK]: undefined;
+  [INITIAL_STACK]: NavigatorScreenParams<TabParamList>;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
@@ -188,7 +190,10 @@ export type TransactionsStackParamsList = {
   };
 };
 
-export type PaymentsStackParamsList = {};
+export type PaymentsStackParamsList = {
+  [PAYMENTS_SCREEN]: undefined;
+  [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
+};
 
 export type ProfileStackParamsList = {
   [PROFILE_SCREEN]: undefined;

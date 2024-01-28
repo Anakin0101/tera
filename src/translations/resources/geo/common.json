@@ -506,5 +506,10 @@
     "successful_registration_title": "რეგისტრაცია წარმატებით დასრულდა",
     "successful_registration_description": "დაკლიკეთ ღილაკზე “შესვლა” და გაიარეთ ავტორიზაცია",
     "enter_code_word": "შეიყვანე კოდური სიტყვა"
+  },
+  "automaticPayments": {
+    "title": "ავტომატური გადახდები",
+    "addPayment": "გადახდის დამატება",
+    "empty": "თქვენ არ გაქვთ დამატებული\nავტომატური გადახდები"
   }
 }

@@ -508,5 +508,10 @@
     "successful_registration_title": "Registration completed successfully",
     "successful_registration_description": "Click on the button 'Login' and authorize",
     "enter_code_word": "Enter code word"
+  },
+  "automaticPayments": {
+    "title": "Automatic Payments",
+    "addPayment": "Add Payment",
+    "empty": "You have no automatic\npayments added"
   }
 }

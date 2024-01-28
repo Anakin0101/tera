@@ -127,3 +127,5 @@ export { FailedSvg } from './Failed';
 export { Forward } from './Forward';
 export { LockIcon } from './LockIcon';
 export { ArrowDown } from './ArrowDown';
+export { CalendarLarge } from './CalendarLarge';
+export { AddPlus } from './AddPlus';
