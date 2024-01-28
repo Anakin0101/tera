@@ -33,7 +33,7 @@ export const useStyles = () => {
     maskedView: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
-      minWiwidth: 90,
+      minWidth: 90,
     },
     templateCardAmount: {
       fontSize: FontSize.regular,

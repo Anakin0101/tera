@@ -6,7 +6,7 @@ import { Linking, Platform, NativeModules } from 'react-native';
 export const useEnableBiometricsPrompt = () => {
   const handleOpenSettings = () => {
     Platform.OS === 'ios'
-      ? Linking.openSettings()
+      ? Linking.openURL('app-settings:')
       : NativeModules.OpenSettingsModule.openMainSettings();
   };
 
