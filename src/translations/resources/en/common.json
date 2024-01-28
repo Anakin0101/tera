@@ -331,7 +331,12 @@
     "from": "From",
     "to": "To",
     "next": "Next",
-    "returnToMain": "Return to Main"
+    "returnToMain": "Return to Main",
+    "continue": "Continue",
+    "do_not_have": "I don't have ",
+    "accept": "I accept to ",
+    "terms_and_conditions": "terms and conditions",
+    "login": "Log in"
   },
   "form": {
     "is_required": "is required",
@@ -508,6 +513,7 @@
     "continue_with_biometrics": "Continue with biometric method",
     "enter_username": "enter the Username",
     "successful_registration_title": "Registration completed successfully",
-    "successful_registration_description": "Click on the button 'Login' and authorize"
+    "successful_registration_description": "Click on the button 'Login' and authorize",
+    "enter_code_word": "Enter code word"
   }
 }

@@ -7,6 +7,7 @@ export const useStyles = () => {
     title: {
       marginLeft: Spacing.md,
       marginVertical: Spacing.xxxl - Spacing.s,
+      maxWidth: '80%',
     },
   });
 };

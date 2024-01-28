@@ -8,8 +8,7 @@ export const useStyles = () => {
       ...Layout.fill,
     },
     wrapper: {
-      paddingHorizontal: Spacing.xl,
-      paddingBottom: Spacing.ml,
+      marginHorizontal: Spacing.xl,
     },
     ctaWrapper: {
       paddingHorizontal: Spacing.xl,
@@ -17,12 +16,8 @@ export const useStyles = () => {
     ctaOpenWrapper: {
       paddingBottom: Spacing.md,
     },
-    codeWordTextContainer: {
-      marginTop: -Spacing.m,
+    chechboxContainer: {
       ...Layout.rowHCenter,
-    },
-    withError: {
-      marginTop: Spacing.s,
     },
     linkContainer: {
       ...Layout.rowHCenter,

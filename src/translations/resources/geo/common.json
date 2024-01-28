@@ -15,7 +15,6 @@
     "passcode": "პასკოდი",
     "register": "რეგისტრაცია"
   },
-
   "onboarding": {
     "next": "შემდეგი",
     "skip": "გამოტოვება",
@@ -330,7 +329,12 @@
     "from": "საიდან",
     "to": "სადამდე",
     "next": "შემდეგი",
-    "returnToMain": "მთავარზე დაბრუნება"
+    "returnToMain": "მთავარზე დაბრუნება",
+    "continue": "გაგრძელება",
+    "do_not_have": "არ მაქვს ",
+    "accept": "ვეთანხმები ",
+    "terms_and_conditions": "წესებს და პირობებს",
+    "login": "შესვლა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",
@@ -507,6 +511,7 @@
     "continue_with_biometrics": "განაგრძე ბიომეტრიული მეთოდით",
     "enter_username": "შეიყვანე მომხმარებლის სახელი",
     "successful_registration_title": "რეგისტრაცია წარმატებით დასრულდა",
-    "successful_registration_description": "დაკლიკეთ ღიკალზე “შესვლა” და გაიარეთ ავტორიზაცია"
+    "successful_registration_description": "დაკლიკეთ ღილაკზე “შესვლა” და გაიარეთ ავტორიზაცია",
+    "enter_code_word": "შეიყვანე კოდური სიტყვა"
   }
 }

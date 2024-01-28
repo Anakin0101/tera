@@ -55,9 +55,15 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       color: Colors.textGray700,
     },
     titleLarge: {
-      fontSize: FontSize.large * 2,
-      fontWeight: 'bold',
+      fontSize: FontSize.large,
+      fontWeight: '400',
       color: Colors.textBlack,
+      lineHeight: 34,
+    },
+    description: {
+      fontSize: FontSize.small,
+      lineHeight: 22,
+      color: Colors.textBlack400,
     },
     textCenter: {
       textAlign: 'center',
