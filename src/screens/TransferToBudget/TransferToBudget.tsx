@@ -9,10 +9,20 @@ import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedPrice } from 'store/slices/transfers';
 import CardSwap from 'screens/TransferToAccountScreen/CardSwap';
+import { useNavigation } from '@react-navigation/native';
+import { TransactionsStackScreenProps } from 'navigation/types';
+import { BUDGET_TRANSFER_DETAILS, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 
 export const TransferToBudget = () => {
-  const navigateToTransferDetails = () => {};
-  const openTransferScreen = () => {};
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransferDetailsScreen'>>();
+  const navigateToTransferDetails = () => {
+    navigate(BUDGET_TRANSFER_DETAILS);
+  };
+  const openTransferScreen = () => {
+    navigate(PRIVATE_TRANSACTION_SCREEN, {
+      from: 'other',
+    });
+  };
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const dispatch = useAppDispatch();
   const selectedItemFromStore = useAppSelector(
@@ -43,10 +53,10 @@ export const TransferToBudget = () => {
         openTransferScreen={openTransferScreen}
       />
       <CardSwap accountFromData={accountFromData} accountToData={accountToData} fromBudget />
-      <View>
+      <View style={styles.buttonsContainer}>
         <Button.Primary
           text="onboarding.next"
-          fullWidth
+          fixedWidth
           disabled={isButtonDisabled}
           hitSlop={30}
           onPress={navigateToTransferDetails}

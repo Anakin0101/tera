@@ -36,6 +36,7 @@ export { TeraWalletPDFScreen } from './TeraWalletScreen/TeraWalletPDFScreen';
 export { NewPaymentScreen } from './NewPaymentScreen/NewPaymentScreen';
 export { TeraWalletSuccess } from './TeraWalletScreen/TeraWalletSuccess';
 export { TransferToBudget } from './TransferToBudget/TransferToBudget';
+export { BudgetTransferDetailsScreen } from './BudgetTransferDetailsScreen/BudgetTransferDetailsScreen';
 export { CodeWordScreen } from './CodeWordScreen/CodeWordScreen';
 export { VerificationTypeScreen } from './VerificationTypeScreen/VerificationTypeScreen';
 export { RegistrationMethodScreen } from './RegistrationMethodScreen/RegistrationMethodScreen';

@@ -40,6 +40,11 @@ export interface ErroResponse {
   };
 }
 
+export interface budget {
+  payerName: string;
+  payerCode: string;
+  payForSomeone: boolean;
+}
 export interface SelectedItemProp {
   selectedPrice: any;
   convertionData: any;
@@ -51,6 +56,7 @@ export interface SelectedItemProp {
   accountIban: any;
   selectedTransactionType: any;
   selectedOtherBankDataTitle: string;
+  setBudgetPerson: budget;
 }
 
 export type CustomTransferResultError = {

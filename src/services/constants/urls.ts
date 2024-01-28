@@ -44,4 +44,5 @@ export const URLS = {
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   treasury: 'Transfers/GetTreasuryCodeParts',
   testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',
+  sendTreasury: 'Transfers/TransferToTreasury',
 };
