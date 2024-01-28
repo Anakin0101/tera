@@ -24,4 +24,6 @@ export interface SelectedItem {
   accountFromData: any;
   accountToData: any;
   selectedTransactionType: any;
+  wrappedCode: any;
+  treasuryFromCode: any;
 }

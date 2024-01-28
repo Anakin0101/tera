@@ -367,7 +367,14 @@
     "next": "შემდეგი",
     "createCode": "კოდის აწყობა",
     "transferToBudget": "ბიუჯეტში გადარიცხვა",
-    "budgetTitle": "სახაზინო კოდი"
+    "budgetTitle": "სახაზინო კოდი",
+    "inBudget": "ბიუჯეტში გადარიცხვა",
+    "forMe": "ჩემთვის",
+    "forOthers": "სხვისთვის",
+    "transferforSomeone": "ვისთვის რიცხავ თანხას",
+    "chooseReceiver": "აირჩიე მიმღები",
+    "chooseCity": "აირჩიე ქალაქი ან რეგიონი",
+    "choosePayment": "აირჩიე გადასახადი"
   },
   "transactionDetails": {
     "to": "სად",

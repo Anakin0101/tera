@@ -1,0 +1,109 @@
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Button, TextInput } from 'components';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useStyleTheme } from './BudgetTransferDetailsScreen.styles';
+import { useRoute } from '@react-navigation/native';
+import { TransactionsStackRouteProps } from 'navigation/types';
+import { useTranslation } from 'react-i18next';
+import { SelectedItemProp } from 'screens/TransferDetailScreen/TransferDetailScreen.types';
+import { BudgetDetails } from 'components/Budget/BudgetDetails';
+import { TransferDetailsList } from 'screens/TransferDetailScreen/TransferDetailsList';
+import { Text } from 'components';
+import { BudgetReceiver } from 'components/Budget/BudgetReceiver';
+import { budgeTenum, budgetReceiverUser } from 'utils/transactionUtils';
+import { useBudgetTransferDetail } from './Container';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setBudgetPerson } from 'store/slices/transfers';
+
+export const BudgetTransferDetailsScreen = () => {
+  const dispatch = useAppDispatch();
+  const { navigateToTransferScreen, isTreasuryLoading } = useBudgetTransferDetail();
+  const { t } = useTranslation();
+  const [selectedItem, setSelectedItem] = useState<number>(1);
+  const [selectPersonalId, setSelectPersonalId] = useState<string>('');
+  const [userName, setUserName] = useState<string>('');
+
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: SelectedItemProp }) => state.transfers,
+  );
+  const { accountFromData, selectedPrice } = selectedItemFromStore;
+
+  const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+
+  const styles = useStyleTheme();
+  const { buyAmount } = selectedItemFromStore?.convertionData || {};
+
+  const onTextChange = (text: string) => {
+    setSelectPersonalId(text);
+    dispatch(setBudgetPerson({ payerCode: text }));
+  };
+  const onTextChangeUserName = (text: string) => {
+    setUserName(text);
+    dispatch(setBudgetPerson({ payerName: text }));
+  };
+  useEffect(() => {
+    dispatch(
+      setBudgetPerson({ payForSomeone: selectedItem === budgeTenum.FOR_OTHERS ? true : false }),
+    );
+  }, [dispatch, selectedItem]);
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.containerWrapper}>
+        <BudgetDetails
+          buyAmount={buyAmount}
+          accountFromData={accountFromData}
+          params={params}
+          selectedPrice={selectedPrice}
+        />
+      </View>
+
+      <View style={styles.details}>
+        <View style={styles.wrapper}>
+          <Text children="transactions.transferforSomeone" style={styles.title} />
+          <View style={styles.budgetInputView}>
+            {budgetReceiverUser.map((user, index) => (
+              <BudgetReceiver
+                account={user}
+                key={index}
+                onPress={() => setSelectedItem(user.id)}
+                isSelected={selectedItem === user.id}
+              />
+            ))}
+          </View>
+          {selectedItem === budgeTenum.FOR_OTHERS && (
+            <TextInput
+              inputStyle={styles.input}
+              value={selectPersonalId}
+              keyboardType="numeric"
+              label="registration.personalId"
+              onChangeText={onTextChange}
+            />
+          )}
+          {selectedItem === budgeTenum.FOR_OTHERS && (
+            <View style={styles.userView}>
+              <TextInput
+                inputStyle={styles.input}
+                value={userName}
+                keyboardType="numeric"
+                label="სახელი"
+                onChangeText={onTextChangeUserName}
+              />
+            </View>
+          )}
+
+          <TransferDetailsList selectedItemFromStore={selectedItemFromStore} />
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button.Primary
+          text={t('transfers.transfer')}
+          hitSlop={30}
+          fixedWidth
+          isLoading={isTreasuryLoading}
+          onPress={() => navigateToTransferScreen()}
+        />
+      </View>
+    </ScrollView>
+  );
+};
