@@ -28,12 +28,7 @@ export const Item: FC<ItemProps> = ({ item, selectedIncomeTypes, setSelectedInco
     <Pressable onPress={handlePress}>
       <Divider height={1} />
       <View style={styles.item}>
-        <Text
-          //   numberOfLines={1}
-          secondary={!isSelected}
-          children={item?.name}
-          style={styles.title}
-        />
+        <Text secondary={!isSelected} children={item?.name} style={styles.title} />
         {isSelected && <CheckCircle height={24} width={24} />}
       </View>
     </Pressable>

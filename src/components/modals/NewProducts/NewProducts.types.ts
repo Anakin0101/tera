@@ -1,7 +1,7 @@
-import { ImageSourcePropType } from 'react-native';
+import { Source } from 'react-native-fast-image';
 
 export interface Item {
-  image: ImageSourcePropType;
+  image: Source;
   title: string;
   onPress: () => void;
 }

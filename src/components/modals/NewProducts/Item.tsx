@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Image, Pressable, View } from 'react-native';
-import { Divider, Text } from 'components';
+import { Pressable, View } from 'react-native';
+import { Divider, Image, Text } from 'components';
 import { useStyles } from './NewProducts.styles';
 import { ListItemProps } from './NewProducts.types';
 
