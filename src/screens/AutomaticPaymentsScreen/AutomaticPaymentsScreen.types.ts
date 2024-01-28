@@ -11,4 +11,5 @@ export type RenderItem = ListRenderItem<Item>;
 
 export type ItemProps = {
   item: Item;
+  onPress: () => void;
 };

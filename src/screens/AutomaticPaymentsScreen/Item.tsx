@@ -1,15 +1,15 @@
 import React, { FC, memo } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Divider, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { useStyles } from './AutomaticPaymentsScreen.styles';
 import { ItemProps } from './AutomaticPaymentsScreen.types';
 
-export const Item: FC<ItemProps> = memo(({ item }) => {
+export const Item: FC<ItemProps> = memo(({ item, onPress }) => {
   const styles = useStyles();
 
   return (
-    <View>
+    <Pressable onPress={onPress}>
       <View style={styles.itemContainer}>
         <View style={styles.itemIconContainer} />
         <View style={styles.info}>
@@ -24,6 +24,6 @@ export const Item: FC<ItemProps> = memo(({ item }) => {
         </View>
       </View>
       <Divider height={1} marginTop={8} marginBottom={8} marginLeft={60} />
-    </View>
+    </Pressable>
   );
 });

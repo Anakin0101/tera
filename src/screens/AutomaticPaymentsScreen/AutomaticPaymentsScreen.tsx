@@ -3,6 +3,7 @@ import { FlatList, View } from 'react-native';
 import { Item } from './Item';
 import { AddNewPayment } from './AddNewPayment';
 import { EmptyComponent } from './EmptyComponent';
+import { useAutomaticPayments } from './container';
 import { RenderItem } from './AutomaticPaymentsScreen.types';
 import { useStyles } from './AutomaticPaymentsScreen.styles';
 
@@ -18,10 +19,14 @@ const data = [
 
 export const AutomaticPaymentsScreen = () => {
   const styles = useStyles();
+  const { handleItemPress } = useAutomaticPayments();
 
-  const renderItem: RenderItem = useCallback(({ item }) => {
-    return <Item item={item} />;
-  }, []);
+  const renderItem: RenderItem = useCallback(
+    ({ item }) => {
+      return <Item item={item} onPress={handleItemPress} />;
+    },
+    [handleItemPress],
+  );
 
   return (
     <View style={styles.container}>

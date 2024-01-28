@@ -66,6 +66,7 @@ import {
   ENTER_USERNAME_SCREEN,
   PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
+  AUTOMATIC_PAYMENT_DETAILS_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -193,6 +194,7 @@ export type TransactionsStackParamsList = {
 export type PaymentsStackParamsList = {
   [PAYMENTS_SCREEN]: undefined;
   [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
+  [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: undefined;
 };
 
 export type ProfileStackParamsList = {

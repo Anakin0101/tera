@@ -1,8 +1,12 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
-import { AutomaticPaymentsScreen, PaymentsScreen } from 'screens';
-import { AUTOMATIC_PAYMENTS_SCREEN, PAYMENTS_SCREEN } from 'navigation/ScreenNames';
+import { AutomaticPaymentDetailsScreen, AutomaticPaymentsScreen, PaymentsScreen } from 'screens';
+import {
+  AUTOMATIC_PAYMENTS_SCREEN,
+  AUTOMATIC_PAYMENT_DETAILS_SCREEN,
+  PAYMENTS_SCREEN,
+} from 'navigation/ScreenNames';
 import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
@@ -39,6 +43,11 @@ export const PaymentsStack = () => {
           title: t('automaticPayments.title'),
           headerStyle: { backgroundColor: Colors.white },
         }}
+      />
+      <Screen
+        name={AUTOMATIC_PAYMENT_DETAILS_SCREEN}
+        component={AutomaticPaymentDetailsScreen}
+        options={{ title: t('automaticPayments.paymentDetails') }}
       />
     </Navigator>
   );

@@ -41,3 +41,4 @@ export { VerificationTypeScreen } from './VerificationTypeScreen/VerificationTyp
 export { RegistrationMethodScreen } from './RegistrationMethodScreen/RegistrationMethodScreen';
 export { RegistrationFinishScreen } from './RegistrationFinishScreen/RegistrationFinishScreen';
 export { AutomaticPaymentsScreen } from './AutomaticPaymentsScreen/AutomaticPaymentsScreen';
+export { AutomaticPaymentDetailsScreen } from './AutomaticPaymentDetailsScreen/AutomaticPaymentDetailsScreen';

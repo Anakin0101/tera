@@ -86,3 +86,4 @@ export const REGISTRATION_FINISH_SCREEN = 'RegistrationFinishScreen';
 
 // ayments
 export const AUTOMATIC_PAYMENTS_SCREEN = 'AutomaticPaymentsScreen';
+export const AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'AutomaticPaymentDetailsScreen';
