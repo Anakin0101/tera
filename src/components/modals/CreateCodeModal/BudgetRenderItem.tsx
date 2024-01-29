@@ -19,7 +19,7 @@ interface RenderItemProps {
   activeIndex: number;
 }
 
-const RenderItem: FunctionComponent<RenderItemProps> = ({
+const BudgetRenderItem: FunctionComponent<RenderItemProps> = ({
   item,
   setChosenItem,
   onChangeBudgetCode,
@@ -52,4 +52,4 @@ const RenderItem: FunctionComponent<RenderItemProps> = ({
   );
 };
 
-export default RenderItem;
+export default BudgetRenderItem;
