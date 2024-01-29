@@ -1,13 +1,20 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
+import { useDefaultHeaderHeight } from 'hooks/useDefaultHeaderHeight';
 
 export const useStyleTheme = () => {
   const { FontSize, Spacing, Layout, Colors } = useTheme();
+  const { headerHeight } = useDefaultHeaderHeight();
 
   return StyleSheet.create({
+    wrapper: {
+      height: headerHeight,
+      ...Layout.justifyContentEnd,
+    },
     container: {
+      height: headerHeight,
       ...Layout.row,
-      ...Layout.alignItemsCenter,
+      ...Layout.alignItemsEnd,
       ...Layout.justifyContentBetween,
       marginHorizontal: Spacing.xl,
     },

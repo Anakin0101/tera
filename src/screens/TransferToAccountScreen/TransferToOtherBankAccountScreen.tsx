@@ -10,40 +10,24 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
+import { OTHER_BANK, TRANSFER_TERA } from 'constants/transactionConstants';
 import { useRoute } from '@react-navigation/native';
 import { useTransferDetails } from 'screens/TransferDetailScreen/container';
 import { clearSelectedData } from 'store/slices/transfers';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
-interface AccountData {
-  iban: any;
-  accountId: any;
-  ccy: string;
-}
-interface TransferData {
-  mobile?: string;
-  purpose: string;
-  extraPurpose: string;
-  otp: string;
-  fastPayment: string;
-  bankCode: string;
-  bankName: string;
-  debitAccountId: number;
-  invoice: any;
-  receiverIban: string;
-  amount: number;
-  receiverName: string;
-  saveAsTemplateName?: string;
-}
-interface TransferToAccountScreenProps {}
-
-export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
+import { TransferData, AccountData } from './TransferToAccountScreen.types';
+import { transactionTitles } from 'utils/transactionUtils';
+import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
+import { TERRA_BANK_CODE } from 'constants/BankCodes';
+export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
-  const { fromOtherBank, fromMobile } = params;
+  const { fromOtherBank, fromMobile, receiver } = params;
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
-  const { handleTransferInfo, transferToSomeone, PERSONAL_TRANSACTION } = useTransferDetails(
-    fromMobile ? true : false,
-  );
+  const { navigate, setOptions } =
+    useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
+
+  const formattedTransactionTitle = transactionTitles[fromMobile ? 'fromMobile' : 'defaultTitle'];
 
   const {
     accountFromData,
@@ -68,6 +52,12 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
   const inputRef = useRef<TextInput>(null);
   const isFocused = useIsFocused();
 
+  useEffect(() => {
+    const navigationOptions =
+      receiverInfo?.bicCode === TERRA_BANK_CODE ? TRANSFER_TERA : OTHER_BANK;
+    setOptions({ title: navigationOptions });
+  }, [receiverInfo?.bankName, setOptions, receiverInfo?.bicCode]);
+
   const handleTextChange = (text: string) => {
     dispatch(setSelectedPrice(text));
     setIsButtonDisabled(!text || text.trim() === '');
@@ -87,7 +77,6 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
     if (isButtonDisabled) {
       return;
     }
-
     try {
       const transferType = fromMobile
         ? FinancialTransferTypeEnum.ToSomeoneInsideBank
@@ -99,7 +88,7 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
         debitAccountId: accountFromData.accountId,
         receiverIban: accountToData.iban,
         amount: selectedPrice,
-        receiverName: receiverInfo.customerName,
+        receiverName: receiverInfo?.customerName || receiverInfo,
         purpose: selectedData.length > 0 ? selectedData : PERSONAL_TRANSACTION,
         extraPurpose: '',
         otp: '',
@@ -127,6 +116,7 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
             convertion: false,
             fromOtherBank: fromOtherBank,
             mobileTransaction: true,
+            receiver: receiver,
           });
         }
       } else {
@@ -159,6 +149,7 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
           navigate(TRANSFER_DETAIL_SCREEN, {
             convertion: false,
             fromOtherBank: fromOtherBank,
+            receiver: receiver,
           });
         }
       }
@@ -194,8 +185,13 @@ export const TransferToOtherBankAccountScreen: React.FC<TransferToAccountScreenP
         onTextChange={handleTextChange}
         inputRef={inputRef}
         openTransferScreen={openTransferScreen}
+        transactionTitle={formattedTransactionTitle as keyof typeof transactionTitles}
       />
-      <CardSwap accountFromData={accountFromData} accountToData={accountToData} />
+      <CardSwap
+        accountFromData={accountFromData}
+        accountToData={accountToData}
+        receiver={receiver}
+      />
       <View style={styles.buttonView}>
         <Button.Primary
           text="onboarding.next"

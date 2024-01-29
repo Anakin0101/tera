@@ -8,7 +8,7 @@ export const useStyleTheme = () => {
       fontSize: FontSize.regular,
       lineHeight: 24,
       letterSpacing: 0.2,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.DemiBold,
       color: Colors.black700,
     },
     whiteHeader: {

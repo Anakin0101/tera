@@ -13,8 +13,8 @@ export const useStyleTheme = () => {
       borderColor: Colors.textBlack400,
     },
     inner: {
-      width: 10,
-      height: 10,
+      width: Spacing.md,
+      height: Spacing.md,
       borderRadius: 5,
       backgroundColor: Colors.primary,
     },

@@ -107,6 +107,7 @@ const PersonalNumberTransaction = () => {
     if (isSuccess) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
+        fromPersonal: true,
       });
     } else {
       // toast of error
@@ -185,7 +186,7 @@ const PersonalNumberTransaction = () => {
         </>
       )}
       <View>
-        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} />
+        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
       </View>
     </ScrollView>
   );

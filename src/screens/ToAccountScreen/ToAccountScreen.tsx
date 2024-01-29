@@ -8,7 +8,7 @@ import { DynamicAccount } from 'components';
 import { useTeraProducts } from 'screens/ProductsScreen/teraProductsContainer';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps } from 'navigation/types';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountToData } from 'store/slices/transfers';
@@ -26,6 +26,7 @@ interface AccountData {
 export const ToAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
+  const isFocused = useIsFocused();
   const { selected } = params;
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -33,9 +34,16 @@ export const ToAccountScreen = () => {
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
-  const { groupedAccountsByIban, isLoadingAccounts } = useTeraProducts();
+  const { groupedAccountsByIban, isLoadingAccounts, refetch } = useTeraProducts();
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused, refetch]);
+
   useEffect(() => {
     if (selectedAccount !== null) {
       navigate(TRANSFER_TO_ACCOUNT_SCREEN, { fromOtherBank: false });

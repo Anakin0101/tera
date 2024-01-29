@@ -15,6 +15,7 @@ export const useStyles = () => {
       ...Fonts.textBold,
       fontSize: FontSize.regularPlus,
       fontWeight: '400',
+      marginRight: Spacing.md,
     },
     dashboardTemplatesContainer: {
       ...Layout.col,
@@ -41,7 +42,6 @@ export const useStyles = () => {
     },
     wrapMask: {
       ...Layout.row,
-      ...Layout.justifyContentBetween,
       width: '90%',
     },
   });

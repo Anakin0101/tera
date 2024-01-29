@@ -1,3 +1,5 @@
+import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
+
 export type Currency = 'GEL' | 'USD' | 'EUR' | 'GBP';
 
 export enum CardStatusCode {
@@ -313,4 +315,52 @@ export type AddOrUpdateTeraWalletReq = {
   fileId?: string;
   sendOtp?: boolean;
   otp?: string;
+};
+
+export type LoanProduct = {
+  name: string;
+  currencyForWhichIsConfigured: CurrencyEnum;
+  lmsId: number;
+  minAmount: number;
+  maxAmount: number;
+  currencies: CurrencyEnum[];
+  period: {
+    min: number;
+    max: number;
+  };
+};
+
+export type LmsProduct = {
+  displayName: string;
+  productsGroupId: number;
+  products: LoanProduct[];
+};
+
+export type LoanConfigRes = {
+  lmsProducts: LmsProduct[];
+  maxPaymentDayAfterRequested: number;
+  minPaymentDayAfterRequested: number;
+};
+
+export type RequestForLoanReq = {
+  amount: number;
+  monthlyNetIncome: number;
+  interval: number;
+  productsGroupId: number;
+  currency: CurrencyEnum;
+  employerName: string;
+  position: string;
+  allowToCheckCreditInfo: boolean;
+  allowToCheckRevenue: boolean;
+  allowToCheckMessageInfo: boolean;
+  paymentDate: string;
+  incomeType: number;
+  sendOtp: boolean;
+  otp: string;
+};
+
+export type RequestForLoanConsentTexts = {
+  consentTodataProcessing: string;
+  consentToDataProcessingInCreditInfo: string;
+  consentToMessageDataProcessingInfo: string;
 };

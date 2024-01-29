@@ -3,12 +3,8 @@ import { StyleSheet } from 'react-native';
 import { FontSize } from 'theme/Variables';
 
 export const useStyleTheme = () => {
-  const { Spacing, Layout, Colors } = useTheme();
+  const { Spacing, Layout } = useTheme();
   return StyleSheet.create({
-    container: {
-      backgroundColor: Colors.white,
-      height: '100%',
-    },
     textWrapper: { height: 400, ...Layout.alignItemsCenter, paddingVertical: Spacing.xlm },
     text: { fontSize: FontSize.large, textAlign: 'center' },
     amount: { fontSize: FontSize.small, paddingVertical: Spacing.lg },

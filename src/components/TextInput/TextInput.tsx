@@ -1,23 +1,23 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { View, TextInput as RNTextInput, Pressable } from 'react-native';
-import Animated, {
-  withTiming,
-  interpolate,
-  useSharedValue,
-  useAnimatedStyle,
-  Easing,
-  Extrapolation,
-} from 'react-native-reanimated';
-import { ControlledInputProps, TextInputProps } from './TextInput.types';
-import { useStyleTheme } from './TextInput.styles';
 import { useTranslation } from 'react-i18next';
 import { Controller, FieldValues } from 'react-hook-form';
-import { Checkbox, Text } from '../index';
+import Animated, {
+  Easing,
+  withTiming,
+  interpolate,
+  Extrapolation,
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+import { Checkbox, Radio, Text } from 'components/index';
 import { OpenEye, CloseEye, Invoice } from 'assets/SVGs';
+import { ControlledInputProps, TextInputProps, TextInputRefType } from './TextInput.types';
+import { useStyleTheme } from './TextInput.styles';
 
 const HIT_SLOP = { top: 15, bottom: 15 };
 
-export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?: boolean }>(
+export const TextInput = forwardRef<TextInputRefType, TextInputProps & { showErrorUI?: boolean }>(
   (
     {
       value,
@@ -44,10 +44,16 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
     const [secureText, setSecureText] = useState(secureTextEntry);
     const position = useSharedValue(0);
     const { t } = useTranslation();
+    const inputRef = useRef<RNTextInput>(null);
 
     const handlePress = () => {
       setSecureText(prev => !prev);
     };
+
+    useImperativeHandle(ref, () => ({
+      focus: () => handleFocus(),
+      blur: () => handleBlur(),
+    }));
 
     const handleFocus = () => {
       if (!value) {
@@ -74,7 +80,6 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
 
     return (
       <View
-        ref={ref}
         style={[
           styles.inputContainer,
           { marginTop },
@@ -88,6 +93,7 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
         />
         <View style={styles.wrapper}>
           <RNTextInput
+            ref={inputRef}
             value={value}
             hitSlop={HIT_SLOP}
             editable={editable}
@@ -119,10 +125,19 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps & { showErrorUI?
   },
 );
 
-export const ErrorMessage = ({ label, errorMessage, showErrorUI }: TextInputProps) => {
+export type ErrorMessageType = {
+  name: any;
+  errors: any; //TODO - Dea - fix types
+  label?: string;
+  showErrorUI: boolean;
+};
+
+export const ErrorMessage = ({ name, errors, label, showErrorUI }: ErrorMessageType) => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
-  const message = showErrorUI ? `${t(label)} ${t(errorMessage)}` : ' ';
+
+  const errorMessage = `${t(label)} ${t(errors?.[name]?.message)}`;
+  const message = showErrorUI ? errorMessage : ' ';
   return (
     <Text
       children={message}
@@ -141,9 +156,15 @@ export const ControlledInput = <T extends FieldValues>({
   handleChange,
   defaultValue,
   errors,
+  showErrorMessage = true,
+  selectedRadio,
+  setSelectedRadio,
   ...props
 }: ControlledInputProps<T> & {
-  handleChange?: () => void;
+  handleChange?: (selectedValue?: string | null) => void;
+  showErrorMessage?: boolean;
+  selectedRadio?: string | null;
+  setSelectedRadio?: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const showErrorUI = !!errors?.[name];
   return (
@@ -166,6 +187,19 @@ export const ControlledInput = <T extends FieldValues>({
               />
             );
           }
+          if (type === 'radio') {
+            return (
+              <Radio
+                isSelected={name === selectedRadio}
+                onPress={() => {
+                  onChange(name);
+                  handleChange?.(name);
+                  setSelectedRadio?.(name);
+                }}
+                label={label}
+              />
+            );
+          }
           return (
             <TextInput
               value={value}
@@ -177,7 +211,15 @@ export const ControlledInput = <T extends FieldValues>({
           );
         }}
       />
-      <ErrorMessage label={label} showErrorUI={showErrorUI} {...props} />
+      {showErrorMessage && (
+        <ErrorMessage
+          name={name}
+          errors={errors}
+          label={label}
+          showErrorUI={showErrorUI}
+          {...props}
+        />
+      )}
     </>
   );
 };

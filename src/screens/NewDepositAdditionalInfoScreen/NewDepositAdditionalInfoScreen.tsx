@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import {
   View,
-  Image,
   FlatList,
   Pressable,
   TextInput,
@@ -16,7 +15,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Item } from './Item';
 import { formatMoney } from 'utils/formatMoney';
-import { Button, Divider, Text } from 'components';
+import { Button, Divider, Image, Text } from 'components';
 import { useNewDepositAdditionalInfo } from './container';
 import { formatDateFullMonth, getDateMonthsLater } from 'utils/formatDate';
 import { useStyles } from './NewDepositAdditionalInfoScreen.styles';
@@ -36,7 +35,7 @@ export const NewDepositAdditionalInfoScreen = () => {
     depositType,
     initialAmount,
     currency,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     offer,
     setProductId,
     productId,
@@ -49,12 +48,15 @@ export const NewDepositAdditionalInfoScreen = () => {
     setProductName,
     minPeriod,
     maxPeriod,
+    getItemLayout,
   } = useNewDepositAdditionalInfo(ref);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     try {
       scrollX.value = event.contentOffset.x;
-      runOnJS(setDuration)(String(Math.round(event.contentOffset.x / ITEM_SIZE) + minPeriod));
+      runOnJS(setDuration)(
+        String(Math.round(event.contentOffset.x / CIRCULAR_ITEM_SIZE) + minPeriod),
+      );
     } catch (err) {
       console.warn('Error in handleScroll on NewDepositAdditionalInfoScreen', err);
     }
@@ -123,14 +125,10 @@ export const NewDepositAdditionalInfoScreen = () => {
                   onScroll={handleScroll}
                   renderItem={renderItem}
                   decelerationRate="fast"
-                  snapToInterval={ITEM_SIZE}
+                  snapToInterval={CIRCULAR_ITEM_SIZE}
                   showsHorizontalScrollIndicator={false}
                   contentContainerStyle={styles.durationContentContainer}
-                  getItemLayout={(_, index) => ({
-                    length: ITEM_SIZE,
-                    offset: ITEM_SIZE * index,
-                    index,
-                  })}
+                  getItemLayout={getItemLayout}
                 />
                 <View style={styles.inputContainer}>
                   <TextInput

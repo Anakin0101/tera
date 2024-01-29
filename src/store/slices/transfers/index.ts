@@ -5,6 +5,7 @@ const initialState = {
   accountToData: null,
   convertionData: null,
   selectedData: '',
+  selectedOtherBankDataTitle: '',
   selectedPrice: 0,
   receiverInfo: null,
   otpData: null,
@@ -42,7 +43,9 @@ const transfersSlice = createSlice({
     setSelectedData: (state, action) => {
       state.selectedData = action.payload;
     },
-
+    setSelectedOtherBankDataTitle: (state, action) => {
+      state.selectedOtherBankDataTitle = action.payload;
+    },
     setSelectedPrice: (state, action) => {
       state.selectedPrice = action.payload;
     },
@@ -93,5 +96,6 @@ export const {
   clearTemplate,
   setAccountIban,
   setSelectedTransactionType,
+  setSelectedOtherBankDataTitle,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

@@ -9,7 +9,7 @@ export const useStyles = () => {
       marginTop: 8,
     },
     check: {
-      paddingVertical: 24,
+      paddingVertical: Spacing.xl,
       paddingHorizontal: 24,
     },
     button: {

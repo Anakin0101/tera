@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Image, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useStyles } from './SelectDepositScreen.styles';
 import { ChevronRight } from 'assets/SVGs';
-import { Text } from 'components';
+import { Image, Text } from 'components';
 import { ItemProps } from './SelectDepositScreen.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
@@ -18,7 +18,7 @@ export const Item: FC<ItemProps> = ({ item }) => {
   const onPress = () => {
     dispatch(
       setDepositType({
-        depositType: item.title,
+        depositType: item?.title,
         imageUrl: item?.images?.[0]?.url,
       }),
     );

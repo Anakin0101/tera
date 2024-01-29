@@ -1,11 +1,17 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { AuthorizationMethodsScreen, CreatePasscodeScreen, SettingsScreen } from 'screens';
+import {
+  AuthorizationMethodsScreen,
+  CreatePasscodeScreen,
+  NewPaymentScreen,
+  SettingsScreen,
+} from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
 import {
   AUTHORIZATION_METHODS_SCREEN,
   CREATE_PASSCODE_SCREEN,
+  NEW_PAYMENT_SCREEN,
   SETTINGS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
 } from 'navigation/ScreenNames';
@@ -25,11 +31,12 @@ export const ModalNavigator = () => {
     <Navigator
       initialRouteName={SETTINGS_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
+        headerShadowVisible: false,
         headerStyle: {
           backgroundColor: Colors.defaultBackground,
-          shadowColor: 'transparent',
         },
         headerBackTitleVisible: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -54,6 +61,14 @@ export const ModalNavigator = () => {
         name={CREATE_PASSCODE_SCREEN}
         component={CreatePasscodeScreen}
         options={{ title: t('passcode.headerTitle') }}
+      />
+      <Screen
+        name={NEW_PAYMENT_SCREEN}
+        component={NewPaymentScreen}
+        options={{
+          title: t('newPayment.title'),
+          headerShadowVisible: true,
+        }}
       />
     </Navigator>
   );

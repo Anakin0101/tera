@@ -4,13 +4,24 @@ import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { maskIban } from 'utils/maskIban';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
-import { useTranslation } from 'react-i18next';
+import { SelectedItemProp } from './TransferDetailScreen.types';
 
-export const OtherBankList = ({ selectedItemFromStore }: any) => {
-  const { accountFromData, accountToData, selectedData, selectedPrice } = selectedItemFromStore;
+export const OtherBankList = ({
+  selectedItemFromStore,
+  receiver,
+}: {
+  selectedItemFromStore: SelectedItemProp;
+  receiver?: string;
+}) => {
+  const {
+    accountFromData,
+    accountToData,
+    selectedData,
+    selectedPrice,
+    selectedOtherBankDataTitle,
+  } = selectedItemFromStore;
 
   const styles = useStyleTheme();
-  const { t } = useTranslation();
 
   const renderDetailsItem = (
     label: string,
@@ -25,13 +36,17 @@ export const OtherBankList = ({ selectedItemFromStore }: any) => {
     return (
       <View style={styles.backgroundWhite}>
         <View style={styles.detailsSectionWrapper}>
-          {renderDetailsItem('transfers.fromWhere', ``, accountFromData.accountIban)}
-          {renderDetailsItem('transfers.where', `${accountToData.name} `)}
-          {renderDetailsItem('personalNumber.Receiver', '', accountToData.iban)}
+          {renderDetailsItem(
+            'transfers.fromWhere',
+            `${accountFromData.accountName} - `,
+            accountFromData.accountIban,
+          )}
+          {renderDetailsItem('transfers.where', `${receiver ? receiver : accountToData.name} `)}
+          {renderDetailsItem('personalNumber.Receiver', `${accountToData.iban}`)}
           {renderDetailsItem('transactionDetails.amount', `${selectedPrice} ₾`)}
           {renderDetailsItem(
             'transfers.destination',
-            selectedData ? selectedData : t('transfers.personalTransfer'),
+            selectedData ? selectedData : selectedOtherBankDataTitle,
           )}
         </View>
       </View>

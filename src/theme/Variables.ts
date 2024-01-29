@@ -26,10 +26,10 @@ export const Colors = {
   pinColor: '#1C1C1CFA',
   textWhite: 'rgba(253, 253, 253, 0.98)',
   textGray700: 'rgba(15, 15, 15, 0.98)',
+  textGray: '#a4a4a4',
   textGray400: '#4D4D4D',
   textGray200: '#A1A1A1',
   primary: '#A0226D',
-
   textPrimary: '#A0226D',
   secondary: '#9F1D6B0F',
   inactiveTint: '#777C8B',
@@ -51,6 +51,7 @@ export const Colors = {
   currency: '#AAAAAA',
   black200: 'rgba(29, 29, 29, 0.20)',
   black700: '#0F0F0FFA',
+  black: 'rgba(0, 0, 0, 1)',
   headerBackground: 'rgba(246, 246, 246, 1)',
   pink: '#9F1D6B0F',
   skeleton: 'rgba(254, 254, 254, 1)',
@@ -58,12 +59,14 @@ export const Colors = {
   accountText500: 'rgba(15, 15, 15, 0.64)',
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
+  grayBorderColor: 'rgba(29, 29, 29, 0.10)',
   primaryToggleButtonCollor: 'rgba(159, 29, 107, 0.06)',
   insuranceBg: 'rgb(249, 243, 247)',
   creditCardBg: '#571538',
   warningSolid: '#FFC423',
   primaryActionButton: 'rgba(160, 34, 109, 0.1)',
   paleGray: '#D5D5D5',
+  textLightBlue: 'rgba(143, 160, 204, 0.1)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

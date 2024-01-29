@@ -73,12 +73,9 @@ export const useTrustDeviceModal = () => {
 
       if ('data' in res) {
         const { deviceToken } = res.data;
+        // TODO - Dea - double check
         if (deviceToken) {
-          dispatch(
-            setDeviceToken({
-              deviceToken: deviceToken,
-            }),
-          );
+          dispatch(setDeviceToken(deviceToken));
         }
         openModal({
           element: <OTPModal onFinished={handlePasscodeSet} />,

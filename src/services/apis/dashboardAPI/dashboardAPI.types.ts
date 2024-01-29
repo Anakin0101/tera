@@ -4,6 +4,10 @@ export type GetTemplatesResponseType = {
   templates: Template[];
 };
 
+export type DefaultHeadersRequestType = {
+  headers?: Record<string, any>;
+};
+
 export type GetCustomerOperationsResponseTypes = {
   ops: TransactionType[];
 };
@@ -232,4 +236,12 @@ export type GetBankerAPIResponseType = {
   branchPhone?: string;
   email?: string;
   imageId?: string;
+};
+
+export type BannerDataTypes = {
+  bannerLink?: string;
+  imageBase64?: string;
+};
+export type BannerDataResponse = {
+  data: BannerDataTypes[];
 };

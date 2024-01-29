@@ -3,11 +3,14 @@ import { useLazyGetTrustedDevicesQuery } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setIsDeviceTrusted } from 'store/slices/deviceInfo';
+import { useBootstrapApp } from './useBootstrapApp';
 
 export const useMainNavigator = () => {
   const [getTrustedDevices, { data, isLoading, error }] = useLazyGetTrustedDevicesQuery();
   const { userIp, deviceToken } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
+
+  useBootstrapApp();
 
   useEffect(() => {
     getTrustedDevices({

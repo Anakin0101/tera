@@ -33,7 +33,12 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
   //  TODO -  temporary solution
   const debouncedOpenModal = debounce(() => {
     openModal({
-      element: <EasyLoginModal handlePress={handleNavigateToAuthorizationMethodsScreeen} />,
+      element: (
+        <EasyLoginModal
+          type={'activate'}
+          handlePress={handleNavigateToAuthorizationMethodsScreeen}
+        />
+      ),
     });
   }, 1000);
 

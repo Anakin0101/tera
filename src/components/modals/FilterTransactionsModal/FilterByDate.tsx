@@ -9,33 +9,34 @@ import { TransactionByAccModalProps } from './FilterTransactionsModal.types';
 import { useStyles } from './FilterTransactionsModal.styles';
 import { closeModal } from 'utils/modal';
 import dayjs from 'dayjs';
+import { YYYY_MM_DD } from 'constants/DateTemplates';
+import i18next from 'i18next';
 
 const templates = [
   {
     id: 1,
-    title: 'ბოლო სამი დღე',
+    title: i18next.t('filters.lastThreeDays'),
   },
   {
     id: 2,
-    title: 'ბოლო კვირა',
+    title: i18next.t('filters.lastWeek'),
   },
   {
     id: 3,
-    title: 'ბოლო სამი კვირა',
+    title: i18next.t('filters.lastThreeWeeks'),
   },
 ];
 
-const TEMPLATE = 'YYYY-MM-DD';
-const currentDate = dayjs().format(TEMPLATE);
+const currentDate = dayjs().format(YYYY_MM_DD);
 
 const getStartDateByTemplateId = (id: number) => {
   switch (id) {
     case 1:
-      return dayjs().subtract(2, 'day').format(TEMPLATE);
+      return dayjs().subtract(2, 'day').format(YYYY_MM_DD);
     case 2:
-      return dayjs().subtract(1, 'week').format(TEMPLATE);
+      return dayjs().subtract(1, 'week').format(YYYY_MM_DD);
     case 3:
-      return dayjs().subtract(3, 'week').format(TEMPLATE);
+      return dayjs().subtract(3, 'week').format(YYYY_MM_DD);
     default:
       return currentDate;
   }

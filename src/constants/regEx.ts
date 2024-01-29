@@ -1,0 +1,5 @@
+export const REGEX = {
+  MAX_LENGTH_11: /^\d{11}$/,
+  MAX_LENGTH_9: /^\d{9}$/,
+  EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+};

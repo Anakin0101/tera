@@ -31,7 +31,7 @@ export const useOtherBanksContainer = (param: string) => {
       throw error;
     }
   };
-  const handleMobileNumber = async (mobile: any) => {
+  const handleMobileNumber = async (mobile: string) => {
     try {
       const response = await checkQueryMutation(mobile);
       return response;

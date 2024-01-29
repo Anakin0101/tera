@@ -9,14 +9,14 @@ export const config = {
   mobileHeight: Dimensions.get('window').height,
 };
 
-export const horizontalScale = (size: number) => {
+export const horizontalScale = (size: number): number => {
   return (config.mobileWidth / DESIGN_WIDTH) * size;
 };
 
-export const verticalScale = (size: number) => {
+export const verticalScale = (size: number): number => {
   return (config.mobileHeight / DESIGN_HEIGHT) * size;
 };
 
-export const moderateScale = (size: number, factor = 0.5) => {
+export const moderateScale = (size: number, factor = 0.5): number => {
   return size + (horizontalScale(size) - size) * factor;
 };

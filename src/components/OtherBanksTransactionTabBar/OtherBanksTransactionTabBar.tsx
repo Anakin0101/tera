@@ -69,7 +69,7 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
         <TabBarLabel
           tabBarLabelStyle
           activeTab={activeTab}
-          index={0}
+          index={1}
           tab={t('transactionDetails.personal')}
           onLayout={onLayout}
           onTabPress={onTabPress}
@@ -78,7 +78,7 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
         <TabBarLabel
           tabBarLabelStyle
           activeTab={activeTab}
-          index={1}
+          index={0}
           tab={t('transactionDetails.iban')}
           onLayout={onLayout}
           onTabPress={onTabPress}
@@ -99,7 +99,7 @@ export const OtherBanksTransactionTabBar: FC<ITabBarProps> = ({
             tabBarLabelStyle
             activeTab={activeTab}
             index={2}
-            tab={'transactionDetails.mobile'}
+            tab={t('transactionDetails.mobile')}
             onLayout={onLayout}
             onTabPress={() => {}}
             translateX={translateX}

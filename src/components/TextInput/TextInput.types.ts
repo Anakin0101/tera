@@ -24,7 +24,7 @@ export type TextInputProps = {
 };
 
 type ControlledInputType = {
-  type?: 'text' | 'checkbox';
+  type?: 'text' | 'checkbox' | 'radio';
 };
 
 export type ControlledInputProps<T extends FieldValues> = TextInputProps &
@@ -32,3 +32,8 @@ export type ControlledInputProps<T extends FieldValues> = TextInputProps &
   UseControllerProps<T> & {
     errors?: FieldErrors<T>;
   };
+
+export interface TextInputRefType {
+  focus: () => void;
+  blur: () => void;
+}

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { SectionList, SectionListRenderItem } from 'react-native';
 import { Button, DepositsAndLoans } from 'components';
 import { Colors } from 'theme/Variables';
 import { useLoans } from './container';
 import { Plus } from 'assets/SVGs';
 import { useStyles } from './ LoansScreen.styles';
+import { FooterProps } from './LoanScreen.types';
 
 const sections = [
   { title: 'loans', data: [{}] },
@@ -13,7 +14,7 @@ const sections = [
 
 const LeftIcon = () => <Plus color={Colors.white} />;
 
-const ListFooter = () => {
+const ListFooter: FC<FooterProps> = ({ onPress }) => {
   const styles = useStyles();
 
   return (
@@ -21,6 +22,7 @@ const ListFooter = () => {
       fullWidth
       text="loans.new"
       leftIcon={LeftIcon}
+      onPress={onPress}
       customWrapperStyle={styles.button}
       customTextStyle={styles.buttonText}
     />
@@ -29,7 +31,7 @@ const ListFooter = () => {
 
 export const LoansScreen = () => {
   const styles = useStyles();
-  const { totalDebtGEL, data } = useLoans();
+  const { totalDebtGEL, data, handleNewLoanPress } = useLoans();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
@@ -46,7 +48,7 @@ export const LoansScreen = () => {
     <SectionList
       sections={sections}
       renderItem={renderItem}
-      ListFooterComponent={ListFooter}
+      ListFooterComponent={<ListFooter onPress={handleNewLoanPress} />}
       style={styles.list}
       ListFooterComponentStyle={styles.footer}
       contentContainerStyle={styles.contentContainer}

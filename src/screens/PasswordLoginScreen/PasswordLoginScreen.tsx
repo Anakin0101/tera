@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
-import { PasswordLoginBaseProps } from './PasswordLoginScreen.types';
 import useStyles from './PasswordLoginScreen.styles';
 import { useLogin } from 'hooks';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { withLoginScreen } from 'components/HOC';
-import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
+import { REGISTRATION_METHOD_SCREEN, REGISTRATION_STACK } from 'navigation/ScreenNames';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setShouldSaveUsername } from 'store/slices/userInfo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
+import { useNavigation } from '@react-navigation/native';
+import { GuestStackScreenProps } from 'navigation/types';
 
 type FormData = {
   username: string;
@@ -18,11 +19,12 @@ type FormData = {
   save: string;
 };
 
-const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
+const PasswordLoginScreenBase = () => {
   const styles = useStyles();
   const { handleSignIn, loginUserLoading } = useLogin();
   const dispatch = useAppDispatch();
   const { isKeyboardOpened } = useKeyboard();
+  const { navigate } = useNavigation<GuestStackScreenProps<'RegistrationStack'>>();
 
   const {
     control,
@@ -34,6 +36,12 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
     const { username, password, save } = data;
     dispatch(setShouldSaveUsername(Boolean(save)));
     handleSignIn(username, password);
+  };
+
+  const registerUser = () => {
+    navigate(REGISTRATION_STACK, {
+      screen: REGISTRATION_METHOD_SCREEN,
+    });
   };
 
   return (
@@ -55,7 +63,12 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
           marginTop={30}
           errors={errors}
           required
-          errorMessage="common:form.is_required"
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
         />
         <ControlledInput
           control={control}
@@ -65,7 +78,12 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
           secureTextEntry
           errors={errors}
           required
-          errorMessage="common:form.is_required"
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
         />
         <View style={styles.chechboxContainer}>
           <ControlledInput
@@ -88,14 +106,11 @@ const PasswordLoginScreenBase: FC<PasswordLoginBaseProps> = () => {
             <Text children="common:passAuth.or" label special style={styles.text} />
             <View style={styles.divider} />
           </View>
-          <Button.Secondary text="common:passAuth.signup" onPress={() => {}} fullWidth />
+          <Button.Secondary text="common:passAuth.signup" onPress={registerUser} fullWidth />
         </View>
       </View>
     </KeyboardAwareScrollView>
   );
 };
 
-export const PasswordLoginScreen = withLoginScreen<
-  PasswordLoginBaseProps,
-  typeof PASSWORD_LOGIN_SCREEN
->(PasswordLoginScreenBase, PASSWORD_LOGIN_SCREEN);
+export const PasswordLoginScreen = withLoginScreen(PasswordLoginScreenBase);
