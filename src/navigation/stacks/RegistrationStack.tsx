@@ -6,6 +6,7 @@ import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
 import {
   CODE_WORD_SCREEN,
+  ENTER_USERNAME_SCREEN,
   REGISTRATION_FINISH_SCREEN,
   REGISTRATION_METHOD_SCREEN,
   VERIFICATION_TYPE_SCREEN,
@@ -18,6 +19,7 @@ import {
   RegistrationMethodScreen,
   VerificationTypeScreen,
 } from 'screens/index';
+import { EnterUsernameScreen } from 'screens/EnterUsernameScreen/EnterUsernameScreen';
 
 const RegistrationStack = createStackNavigator<RegistrationStackParamsList>();
 
@@ -43,7 +45,14 @@ export const RegistrationNavigator = () => {
       <Screen name={REGISTRATION_METHOD_SCREEN} component={RegistrationMethodScreen} />
       <Screen name={VERIFICATION_TYPE_SCREEN} component={VerificationTypeScreen} />
       <Screen name={CODE_WORD_SCREEN} component={CodeWordScreen} />
-      <Screen name={REGISTRATION_FINISH_SCREEN} component={RegistrationFinishScreen} />
+      <Screen name={ENTER_USERNAME_SCREEN} component={EnterUsernameScreen} />
+      <Screen
+        name={REGISTRATION_FINISH_SCREEN}
+        component={RegistrationFinishScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Navigator>
   );
 };

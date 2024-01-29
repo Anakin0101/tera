@@ -55,12 +55,21 @@ import {
   AUTH_LOADING_SCREEN,
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
+  LOAN_REQUEST_SCREEN,
+  LOAN_AMOUNT_SCREEN,
+  LOAN_REQUEST_TERMS_SCREEN,
+  LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
+  NEW_LOAN_DETAILS_SCREEN,
+  LOAN_REQUEST_ACCEPTED_SCREEN,
+  BUDGET_TRANSACTION_SCREEN,
+  TRANSFER_TO_BUDGET,
   NEW_PAYMENT_SCREEN,
   REGISTRATION_STACK,
   REGISTRATION_METHOD_SCREEN,
   VERIFICATION_TYPE_SCREEN,
   CODE_WORD_SCREEN,
   REGISTRATION_FINISH_SCREEN,
+  ENTER_USERNAME_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -96,6 +105,7 @@ export type DashboardStackParamsList = {
 export type ProductsStackParamsList = {
   [PRODUCTS_SCREEN]: undefined;
   [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
+
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;
@@ -135,16 +145,26 @@ export type ProductsStackParamsList = {
   [TERA_WALLET_SCREEN]: undefined;
   [TERA_WALLET_PDF_SCREEN]: undefined;
   [TERA_WALLET_SUCCESS_SCREEN]: undefined;
+  [LOAN_REQUEST_SCREEN]: undefined;
+  [LOAN_AMOUNT_SCREEN]: undefined;
+  [LOAN_REQUEST_TERMS_SCREEN]: undefined;
+  [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
+  [NEW_LOAN_DETAILS_SCREEN]: undefined;
+  [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {
   [TRANSACTIONS_SCREEN]: undefined;
-  [MY_ACCOUNTS_SCREEN]: undefined;
+  [MY_ACCOUNTS_SCREEN]: {
+    otherBanks?: boolean;
+    budget?: boolean;
+  };
   [TRANSACTION_FAILED_SCREEN]: undefined;
   [TO_ACCOUNT_SCREEN]: {
     selected?: any;
     otherBanks?: any;
   };
+  [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
   [OTHER_BANK_TANSACTION_SCREEN]: {
     otherBanks?: any;
   };
@@ -168,6 +188,8 @@ export type TransactionsStackParamsList = {
   [TRANSACTION_FINISHED_SCREEN]: {
     convertion?: any;
   };
+
+  [TRANSFER_TO_BUDGET]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
@@ -196,7 +218,12 @@ export type RegistrationStackParamsList = {
   [REGISTRATION_METHOD_SCREEN]: undefined;
   [VERIFICATION_TYPE_SCREEN]: undefined;
   [CODE_WORD_SCREEN]: undefined;
-  [REGISTRATION_FINISH_SCREEN]: undefined;
+  [ENTER_USERNAME_SCREEN]: undefined;
+  [REGISTRATION_FINISH_SCREEN]:
+    | {
+        isSuccess?: boolean;
+      }
+    | undefined;
 };
 
 export type TabParamList = {

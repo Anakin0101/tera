@@ -10,7 +10,11 @@ import { useTeraTransfers } from './container';
 import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountFromData } from 'store/slices/transfers';
-import { TO_ACCOUNT_SCREEN, OTHER_BANK_TANSACTION_SCREEN } from 'navigation/ScreenNames';
+import {
+  TO_ACCOUNT_SCREEN,
+  OTHER_BANK_TANSACTION_SCREEN,
+  BUDGET_TRANSACTION_SCREEN,
+} from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { setSelectedIban } from 'store/slices/transfers';
 
@@ -24,10 +28,10 @@ interface AccountData {
 }
 
 export const MyAccounts = () => {
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
   const isFocused = useIsFocused();
-  const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
-  const { otherBanks } = params || {};
+  const { params } = useRoute<TransactionsStackRouteProps<'MyAccountsScreen'>>();
+  const { otherBanks, budget } = params || {};
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const styles = useStyles();
@@ -71,11 +75,13 @@ export const MyAccounts = () => {
   useEffect(() => {
     if (!!selectedAccount && otherBanks) {
       navigate(OTHER_BANK_TANSACTION_SCREEN, { otherBanks: true });
-    } else if (!!selectedAccount && !otherBanks) {
+    } else if (!!selectedAccount && !otherBanks && !budget) {
       navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
       dispatch(setSelectedIban(selectedAccount));
+    } else if (!!selectedAccount && budget) {
+      navigate(BUDGET_TRANSACTION_SCREEN, { selected: selectedAccount });
     }
-  }, [navigate, otherBanks, selectedAccount, dispatch]);
+  }, [navigate, otherBanks, selectedAccount, budget, dispatch]);
 
   const handleAccountSelection = (accountId: number, item: any) => {
     if (!isLoading) {

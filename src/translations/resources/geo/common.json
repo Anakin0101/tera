@@ -15,7 +15,6 @@
     "passcode": "პასკოდი",
     "register": "რეგისტრაცია"
   },
-
   "onboarding": {
     "next": "შემდეგი",
     "skip": "გამოტოვება",
@@ -331,7 +330,13 @@
     "from": "საიდან",
     "to": "სადამდე",
     "next": "შემდეგი",
-    "returnToMain": "მთავარზე დაბრუნება"
+    "returnToMain": "მთავარზე დაბრუნება",
+    "seeContract": "ხელშეკრულება იხილეთ “ჩემი\nდოკუმენტების” გვერდზე",
+    "continue": "გაგრძელება",
+    "do_not_have": "არ მაქვს ",
+    "accept": "ვეთანხმები ",
+    "terms_and_conditions": "წესებს და პირობებს",
+    "login": "შესვლა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",
@@ -356,7 +361,13 @@
     "transDetails": "გადარიცხვის დეტალები",
     "transAmount": "გადარიცხული თანხა",
     "fromMobile": "მე გირიცხავ ფულს მობილური გზავნილით",
-    "defaultTitle": "პირადი გადარიცხვა"
+    "defaultTitle": "პირადი გადარიცხვა",
+    "budgetCode": "ხაზინის კოდი",
+    "getBudgetCode": "შეიყვანე ხაზინის კოდი",
+    "next": "შემდეგი",
+    "createCode": "კოდის აწყობა",
+    "transferToBudget": "ბიუჯეტში გადარიცხვა",
+    "budgetTitle": "სახაზინო კოდი"
   },
   "transactionDetails": {
     "to": "სად",
@@ -385,7 +396,10 @@
     "toOwnAccount": "საკუთარ ანგარიშებს შორის გადარიცხვა",
     "exchange": "კონვერტაცია",
     "toTreasure": "სახაზინო გადარიცხვა",
-    "payments": "გადახდები"
+    "payments": "გადახდები",
+    "lastThreeDays": "ბოლო სამი დღე",
+    "lastWeek": "ბოლო კვირა",
+    "lastThreeWeeks": "ბოლო სამი კვირა"
   },
   "newDeposit": {
     "newProduct": "ახალი პროდუქტი",
@@ -420,7 +434,6 @@
     "termsOfContract": "არსებული ხელშეკრულების პირობებს",
     "months": "{{value}} თვე",
     "success": "ანაბარი წარმატებით\nგაიხსნა",
-    "seeContract": "ხელშეკრულება იხილეთ “ჩემი\nდოკუმენტების” გვერდზე",
     "activateTeraWallet": "ტერა საფულეს გააქტიურება",
     "activateAutomaticPayments": "ავტომატური გადახდების გააქტიურება",
     "initialAmount": "საწყისი თანხა",
@@ -476,6 +489,39 @@
     "next": "შემდეგი",
     "mobile": "მობილურის ნომერი"
   },
+  "loanRequest": {
+    "creditProducts": "საკრედიტო პროდუქტები",
+    "request": "სესხის მოთხოვნა",
+    "amount": "სესხის თანხა",
+    "amountOfMoney": "თანხის რაოდენობა",
+    "min": "მინიმალური {{value}}",
+    "max": "მაქსიმალური {{value}}",
+    "termOfLoan": "სესხის ვადა",
+    "selectProduct": "აირჩიე პროდუქტი",
+    "readTerms": "გაეცანით პირობებს",
+    "consentToDataProcessing": "თანხმობა მონაცემების დამუშავების თაობაზე",
+    "consentToCheckCreditInfo": "თანხმობა კრედიტ ინფოში გადამოწმებაზე",
+    "consentToCheckRemittanceInfo": "თანხმობა გზავნილების ინფორმაციის დამუშავების თაობაზე",
+    "additional": "დამატებითი ინფორმაცია",
+    "paymentDate": "გადახდის რიცხვი",
+    "typeOfIncome": "შემოსავლის ტიპი",
+    "income": "ყოველთვიური შემოსავალი ლარში",
+    "workplace": "სამუშაო ადგილი",
+    "position": "დაკავებული თანამდებობა",
+    "choosePaymentDate": "აირჩიე გადახდის რიცხვი",
+    "salary": "ხელფასი",
+    "rent": "იჯარა",
+    "remittance": "გზავნილი",
+    "dividend": "დივიდენდი",
+    "incomeFromProfessionalWork": "პროფესიული სამქიანობიდან მიღებული შემოსავალი",
+    "other": "სხვა",
+    "save": "შენახვა",
+    "details": "სესხის დეტალები",
+    "duration": "ხანგრძლივობა",
+    "requestAccepted": "მოთხოვნა მიღებულია\n'{{value}}'",
+    "minAmountWarning": "მოთხოვნილი თანხა უნდა აღემატებოდეს მინიმალურ რაოდენობას.",
+    "maxAmountWarning": "მოთხოვნული თანხა არ უნდა აღემატებოდეს მაქსიმალურ რაოდენობას."
+  },
   "registration": {
     "choose_registration_method": "აირჩიე რეგისტრაციის მეთოდი",
     "with_biometric_info": "ბიომეტრიული ინფორმაციით",
@@ -495,6 +541,7 @@
     "continue_with_biometrics": "განაგრძე ბიომეტრიული მეთოდით",
     "enter_username": "შეიყვანე მომხმარებლის სახელი",
     "successful_registration_title": "რეგისტრაცია წარმატებით დასრულდა",
-    "successful_registration_description": "დაკლიკეთ ღიკალზე “შესვლა” და გაიარეთ ავტორიზაცია"
+    "successful_registration_description": "დაკლიკეთ ღილაკზე “შესვლა” და გაიარეთ ავტორიზაცია",
+    "enter_code_word": "შეიყვანე კოდური სიტყვა"
   }
 }

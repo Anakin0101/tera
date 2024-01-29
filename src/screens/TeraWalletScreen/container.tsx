@@ -10,10 +10,9 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { Currency, WalletAccount } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setWalletData } from 'store/slices/teraWallet';
-import { FlatlistRef, ScrollViewRef } from './TeraWalletScreen.types';
+import { DataType, FlatlistRef, ScrollViewRef } from './TeraWalletScreen.types';
 import { TERA_WALLET_PDF_SCREEN } from 'navigation/ScreenNames';
-
-const ITEM_SIZE = 86;
+import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 
 export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) => {
   const dispatch = useAppDispatch();
@@ -69,7 +68,7 @@ export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) =>
 
       if (typeof index === 'number' && index > -1) {
         ref.current?.scrollToOffset({
-          offset: index * ITEM_SIZE,
+          offset: index * CIRCULAR_ITEM_SIZE,
           animated: false,
         });
       }
@@ -96,7 +95,7 @@ export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) =>
     (index: number) => {
       try {
         ref.current?.scrollToOffset({
-          offset: index * ITEM_SIZE,
+          offset: index * CIRCULAR_ITEM_SIZE,
         });
       } catch (err) {
         console.warn('Error in handleItemPress on TeraWalletScreen', err);
@@ -145,6 +144,15 @@ export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) =>
     }
   }, [accounts, selectedDeposit]);
 
+  const getItemLayout = useCallback(
+    (_: DataType, index: number) => ({
+      length: CIRCULAR_ITEM_SIZE,
+      offset: CIRCULAR_ITEM_SIZE * index,
+      index,
+    }),
+    [],
+  );
+
   return {
     handleItemPress,
     amount,
@@ -155,11 +163,12 @@ export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) =>
     onBlur,
     onFocus,
     amounts,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     selectedDeposit,
     selectedCurrency,
     teraWalletInfo,
     handleNextPress,
     selectedDepositInfo,
+    getItemLayout,
   };
 };

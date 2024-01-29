@@ -332,7 +332,13 @@
     "from": "From",
     "to": "To",
     "next": "Next",
-    "returnToMain": "Return to Main"
+    "returnToMain": "Return to Main",
+    "seeContract": "See the contract on the\n'My Documents' page",
+    "continue": "Continue",
+    "do_not_have": "I don't have ",
+    "accept": "I accept to ",
+    "terms_and_conditions": "terms and conditions",
+    "login": "Log in"
   },
   "form": {
     "is_required": "is required",
@@ -357,7 +363,13 @@
     "transDetails": "Transaction Details",
     "transAmount": "Transaction amount",
     "fromMobile": "I transfer money with mobile",
-    "defaultTitle": "personal transfer"
+    "defaultTitle": "personal transfer",
+    "budgetCode": "Budget code",
+    "getBudgetCode": "type budget code",
+    "next": "Next",
+    "createCode": "create code",
+    "transferToBudget": "Transfer to budget",
+    "budgetTitle": "სახაზინო კოდი"
   },
   "transactionDetails": {
     "to": "To",
@@ -386,7 +398,10 @@
     "toOwnAccount": "To Own Account",
     "exchange": "Exchange",
     "toTreasure": "To Treasure",
-    "payments": "Payments"
+    "payments": "Payments",
+    "lastThreeDays": "Last three days",
+    "lastWeek": "Last week",
+    "lastThreeWeeks": "Last three weeks"
   },
   "newDeposit": {
     "newProduct": "New Product",
@@ -421,7 +436,6 @@
     "termsOfContract": "the terms of the existing contract",
     "months": "{{value}} Months",
     "success": "The deposit has been\nsuccessfully opened",
-    "seeContract": "See the contract on the\n'My Documents' page",
     "activateTeraWallet": "Activate TeraWallet",
     "activateAutomaticPayments": "Activate Automatic Payments",
     "initialAmount": "Initial Amount",
@@ -477,6 +491,39 @@
     "next": "Next",
     "mobile": "Mobile Number"
   },
+  "loanRequest": {
+    "creditProducts": "Credit products",
+    "request": "Loan request",
+    "amount": "Loan amount",
+    "amountOfMoney": "Amount of Money",
+    "min": "Minimum {{value}}",
+    "max": "Maximum {{value}}",
+    "termOfLoan": "Term of the loan",
+    "selectProduct": "Select Product",
+    "readTerms": "Read the terms and conditions",
+    "consentToDataProcessing": "Consent to process personal data",
+    "consentToCheckCreditInfo": "Consent to process credit information",
+    "consentToCheckRemittanceInfo": "Consent to process remittance information",
+    "additional": "Additional information",
+    "paymentDate": "Payment Date",
+    "typeOfIncome": "Type of Income",
+    "income": "Monthly Income",
+    "workplace": "Workplace",
+    "position": "Occupied Position",
+    "choosePaymentDate": "Choose a payment date",
+    "salary": "Salary",
+    "rent": "Rent",
+    "remittance": "Remittance",
+    "dividend": "Dividend",
+    "incomeFromProfessionalWork": "Income from professional work",
+    "other": "Other",
+    "save": "Save",
+    "details": "Loan Details",
+    "duration": "Duration",
+    "requestAccepted": "Request accepted\n'{{value}}'",
+    "minAmountWarning": "The requested amount must exceed the minimum amount.",
+    "maxAmountWarning": "The requested amount must not exceed the maximum amount."
+  },
   "registration": {
     "choose_registration_method": "Choose a registration method",
     "with_biometric_info": "With biometric info",
@@ -496,6 +543,7 @@
     "continue_with_biometrics": "Continue with biometric method",
     "enter_username": "enter the Username",
     "successful_registration_title": "Registration completed successfully",
-    "successful_registration_description": "Click on the button 'Login' and authorize"
+    "successful_registration_description": "Click on the button 'Login' and authorize",
+    "enter_code_word": "Enter code word"
   }
 }

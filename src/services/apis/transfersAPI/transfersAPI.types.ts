@@ -98,6 +98,12 @@ export type Transactions = {
   docDate: unknown;
   isIncome: boolean;
 };
+export type TreasuryItem = {
+  id: string;
+  name: string;
+};
+
+export type treasuryRes = TreasuryItem[] | undefined;
 
 type InternalTransaction = {
   debitIban: string;
@@ -208,4 +214,10 @@ export type TransferToOwnAccountResponseType = {
 export type TransferToSomeoneResultResponseType = {
   data?: {};
   error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
+};
+
+export type treasuryReq = {
+  a?: string;
+  b?: string;
+  c?: string;
 };

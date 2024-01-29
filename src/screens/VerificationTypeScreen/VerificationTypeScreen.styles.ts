@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FORM_HEIGHT, PHONE_INPUT_WIDTH } from './VerificationTypeScreen.constants';
+import { PHONE_INPUT_WIDTH } from './VerificationTypeScreen.constants';
 
 export const useStyles = () => {
   const { Spacing, Layout, Colors } = useTheme();
@@ -9,13 +9,14 @@ export const useStyles = () => {
       ...Layout.fill,
     },
     wrapper: {
-      marginHorizontal: Spacing.xl,
-    },
-    formContainer: {
-      minHeight: FORM_HEIGHT,
+      paddingHorizontal: Spacing.xl,
+      paddingBottom: Spacing.ml,
     },
     ctaWrapper: {
-      marginVertical: Spacing.md,
+      paddingHorizontal: Spacing.xl,
+    },
+    ctaOpenWrapper: {
+      paddingBottom: Spacing.md,
     },
     phoneInputContainer: {
       ...Layout.justifyContentCenter,

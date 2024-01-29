@@ -1,6 +1,13 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { MyAccounts, TransactionsScreen, ToAccountScreen, TransferToAccountScreen } from 'screens';
+import {
+  MyAccounts,
+  TransactionsScreen,
+  ToAccountScreen,
+  TransferToAccountScreen,
+  BudgetTransactionScreen,
+  TransferToBudget,
+} from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
   MY_ACCOUNTS_SCREEN,
@@ -13,6 +20,8 @@ import {
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
   TRANSACTION_FAILED_SCREEN,
+  BUDGET_TRANSACTION_SCREEN,
+  TRANSFER_TO_BUDGET,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
@@ -35,6 +44,8 @@ export type TransactionsStackParamList = {
   [OTHER_BANK_TANSACTION_SCREEN]: undefined;
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: undefined;
   [TRANSACTION_FAILED_SCREEN]: undefined;
+  [BUDGET_TRANSACTION_SCREEN]: undefined;
+  [TRANSFER_TO_BUDGET]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -128,6 +139,20 @@ export const TransactionsStack = () => {
         component={TransferToOtherBankAccountScreen}
         options={{
           title: '',
+        }}
+      />
+      <Screen
+        name={BUDGET_TRANSACTION_SCREEN}
+        component={BudgetTransactionScreen}
+        options={{
+          title: t('transactions.budgetCode'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_BUDGET}
+        component={TransferToBudget}
+        options={{
+          title: t('transactions.transferToBudget'),
         }}
       />
     </Navigator>

@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { config } from 'utils/config';
+import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 
-const ITEM_SIZE = 86;
-const ITEM_SPACING = (config.mobileWidth - ITEM_SIZE) / 2;
+const ITEM_SPACING = (config.mobileWidth - CIRCULAR_ITEM_SIZE) / 2;
 
 export const useStyles = () => {
   const { Layout, Colors, Spacing, FontFamily } = useTheme();
@@ -24,6 +24,10 @@ export const useStyles = () => {
       borderWidth: 1,
       borderColor: Colors.inputBlack50,
       marginTop: Spacing.xxl,
+    },
+    image: {
+      width: 45,
+      height: 45,
     },
     selectAmount: {
       marginTop: Spacing.ml,
@@ -100,22 +104,11 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
     },
     successContainer: {
-      ...Layout.fill,
+      paddingHorizontal: 0,
       backgroundColor: Colors.white,
-    },
-    successIcon: {
-      ...Layout.center,
-      ...Layout.selfCenter,
-      width: 80,
-      height: 80,
-      borderRadius: 40,
-      backgroundColor: Colors.success,
-      marginTop: 150,
     },
     successButton: {
       paddingVertical: 14,
-      paddingHorizontal: 24,
-      marginTop: 50,
     },
   });
 };

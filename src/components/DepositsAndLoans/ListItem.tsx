@@ -1,10 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Pressable, View } from 'react-native';
 import { Divider, IconComponent, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useTheme } from 'hooks';
+import { getValue } from 'storage/index';
+import { SELECTED_LANGUAGE } from 'storage/constants';
+import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { ListItemProps } from './DepositsAndLoans.types';
 import { useStyles } from './DepositsAndLoans.styles';
+
+const lng = getValue(SELECTED_LANGUAGE) || LanguageKeys.geo;
 
 export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => {
   const styles = useStyles();
@@ -15,6 +20,14 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
   const isOverdraft = 'overdraftLimit' in item;
 
   const isCreditCard = 'creditLimit' in item;
+
+  const title = useMemo(() => {
+    if (isDeposit) {
+      return lng === 'geo' ? item.depositType : item.depositTypeEng;
+    } else {
+      return item.productName;
+    }
+  }, [isDeposit, item]);
 
   return (
     <Pressable onPress={onPress} style={styles.account}>
@@ -27,7 +40,7 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
               size={14}
               numberOfLines={1}
               color={Colors.textBlack500}
-              children={isDeposit ? item.depositName : item.productName}
+              children={title}
             />
             <Text size={16}>
               {formatMoney(
