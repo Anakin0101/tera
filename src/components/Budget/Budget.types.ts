@@ -16,3 +16,32 @@ export interface budgetReceiverProps {
   account: Receiver;
   onPress: () => void;
 }
+
+interface SelectedPrice {
+  selectedPrice: any;
+}
+
+interface AccountFromData {
+  accountId: number;
+  accountIban: string;
+  accountType: number;
+  accountNumber: number;
+  ccy: string;
+  accountName: string;
+  accountNameLat: string;
+  accountNameCustom: string | null;
+  accountStatusId: number;
+  isDebit: boolean;
+  isCredit: boolean;
+  isFavourite: boolean;
+  blockedAmount: number;
+  availableBalance: number;
+  balance: number;
+  positionIndex: number;
+  cards: any[] | null;
+}
+
+export interface BudgetDetailsProps {
+  selectedPrice: SelectedPrice;
+  accountFromData: AccountFromData;
+}

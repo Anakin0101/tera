@@ -32,6 +32,7 @@ const IbanTransaction = () => {
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );
+
   const { selectedTransactionType } = selectedItemFromStore;
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);

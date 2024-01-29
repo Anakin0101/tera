@@ -22,15 +22,12 @@ export const useBudgetTransferDetail = () => {
     selectedItemFromStore;
   const [sendTreasuryMutation, { isLoading: isTreasuryLoading }] = useSendTreasuryMutation();
 
-  const handleTreasuryTransfer = async (code?: string, includeGetauthmethod = true) => {
+  const handleTreasuryTransfer = async (includeGetauthmethod = true, code?: string) => {
     let headers: { [key: string]: string } = {
       'X-Bank-Isstrongauthrequest': 'true',
       'X-Bank-Getauthmethod': includeGetauthmethod ? 'true' : 'false',
+      ...(code !== undefined && { 'X-Bank-Otp': code }),
     };
-
-    if (code !== undefined) {
-      headers['X-Bank-Otp'] = code;
-    }
 
     return sendTreasuryMutation({
       headers,
@@ -59,13 +56,13 @@ export const useBudgetTransferDetail = () => {
     });
 
     if (checkTransfer?.isSuccess) {
-      const response: TreasuryApiResponse = await handleTreasuryTransfer(undefined, true);
+      const response: TreasuryApiResponse = await handleTreasuryTransfer(true);
       if (response?.data?.otpRequired) {
         openModal({
-          element: <OTPModal onFinished={code => handleTreasuryTransfer(code, false)} />,
+          element: <OTPModal onFinished={code => handleTreasuryTransfer(false, code)} />,
         });
       }
-      const CheckedResponse = await handleTreasuryTransfer(undefined, false);
+      const CheckedResponse = await handleTreasuryTransfer(false);
       if (CheckedResponse) {
         navigate(TRANSACTION_FINISHED_SCREEN, {});
       } else {
