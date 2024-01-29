@@ -12,22 +12,28 @@ import {
   InterestRatesRes,
   LastTransactionReq,
   LastTransactionRes,
+  LmsProduct,
+  LoanConfigRes,
   LoanHistory,
   LoanSchedule,
   OfferDetails,
   OfferType,
   RegisterDepositReq,
   RegisterDepositRes,
+  RequestForLoanConsentTexts,
+  RequestForLoanReq,
   TeraWalletPDFReq,
   TeraWalletRes,
   TransactionType,
   UpdateAccountNameReq,
 } from './productsAPI.types';
+import { store } from 'store/index';
+import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
 
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Products', 'Transaction'],
+  tagTypes: ['Products', 'Transaction', 'Loan'],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
       query: () => ({
@@ -168,6 +174,37 @@ export const productsAPI = createApi({
         body,
       }),
     }),
+
+    getRequestForLoanConfig: builder.query<LmsProduct[], void>({
+      query: () => ({
+        url: URLS.getRequestForLoanConfig,
+      }),
+      transformResponse: (response: LoanConfigRes) => {
+        store.dispatch(
+          setMinMaxPaymendDayAfterRequested({
+            minPaymentDayAfterRequested: response.minPaymentDayAfterRequested,
+            maxPaymentDayAfterRequested: response.maxPaymentDayAfterRequested,
+          }),
+        );
+
+        return response.lmsProducts;
+      },
+    }),
+
+    getRequestForLoanConsentText: builder.query<RequestForLoanConsentTexts, string>({
+      query: culture => ({
+        url: URLS.getRequestForLoanConsentTexts,
+        params: { culture },
+      }),
+    }),
+
+    requestForLoan: builder.mutation<{}, Partial<RequestForLoanReq>>({
+      query: body => ({
+        url: URLS.requestForLoan,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -188,4 +225,7 @@ export const {
   useGetTeraWalletInfoQuery,
   useGenerateTeraWalletPdfMutation,
   useAddOrUpdateTeraWalletMutation,
+  useGetRequestForLoanConfigQuery,
+  useRequestForLoanMutation,
+  useGetRequestForLoanConsentTextQuery,
 } = productsAPI;

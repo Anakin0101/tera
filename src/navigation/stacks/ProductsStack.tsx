@@ -18,6 +18,12 @@ import {
   TeraWalletScreen,
   TeraWalletPDFScreen,
   TeraWalletSuccess,
+  LoanRequestScreen,
+  LoanAmountScreen,
+  LoanRequestTermsScreen,
+  LoanRequestAdditionalInfo,
+  NewLoanDetailsScreen,
+  LoanRequestAcceptedScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -41,6 +47,12 @@ import {
   TERA_WALLET_SCREEN,
   TERA_WALLET_PDF_SCREEN,
   TERA_WALLET_SUCCESS_SCREEN,
+  LOAN_REQUEST_SCREEN,
+  LOAN_AMOUNT_SCREEN,
+  LOAN_REQUEST_TERMS_SCREEN,
+  LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
+  NEW_LOAN_DETAILS_SCREEN,
+  LOAN_REQUEST_ACCEPTED_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
@@ -175,6 +187,48 @@ export const ProductsStack = () => {
       <Screen
         name={TERA_WALLET_SUCCESS_SCREEN}
         component={TeraWalletSuccess}
+        options={guestNavOptions}
+      />
+      <Screen
+        name={LOAN_REQUEST_SCREEN}
+        component={LoanRequestScreen}
+        options={{
+          title: t('loanRequest.creditProducts'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={LOAN_AMOUNT_SCREEN}
+        component={LoanAmountScreen}
+        options={{
+          title: t('loanRequest.amount'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={LOAN_REQUEST_TERMS_SCREEN}
+        component={LoanRequestTermsScreen}
+        options={{
+          title: t('loanRequest.readTerms'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={LOAN_REQUEST_ADDITIONAL_INFO_SCREEN}
+        component={LoanRequestAdditionalInfo}
+        options={{
+          title: t('loanRequest.additional'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={NEW_LOAN_DETAILS_SCREEN}
+        component={NewLoanDetailsScreen}
+        options={{ title: t('loanRequest.details') }}
+      />
+      <Screen
+        name={LOAN_REQUEST_ACCEPTED_SCREEN}
+        component={LoanRequestAcceptedScreen}
         options={guestNavOptions}
       />
     </Navigator>

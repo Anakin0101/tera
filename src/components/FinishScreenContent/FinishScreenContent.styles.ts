@@ -9,7 +9,7 @@ export const useStyleTheme = () => {
     container: {
       ...Layout.fill,
       ...Layout.justifyContentCenter,
-      marginHorizontal: Spacing.xxxl,
+      paddingHorizontal: Spacing.xxxl,
     },
     wrapper: {
       marginTop: -[Spacing.xxl],

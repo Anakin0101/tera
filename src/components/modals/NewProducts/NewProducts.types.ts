@@ -1,4 +1,7 @@
+import { ImageRequireSource } from 'react-native';
+
 export interface Item {
+  image: ImageRequireSource;
   title: string;
   onPress: () => void;
 }

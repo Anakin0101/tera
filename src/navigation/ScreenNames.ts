@@ -73,6 +73,12 @@ export const DEPOSIT_SUCCESS_SCREEN = 'DepositSuccessScreen';
 export const TERA_WALLET_SCREEN = 'TeraWalletScreen';
 export const TERA_WALLET_PDF_SCREEN = 'TeraWalletPDFScreen';
 export const TERA_WALLET_SUCCESS_SCREEN = 'TeraWalletSuccessScreen';
+export const LOAN_REQUEST_SCREEN = 'LoanRequestScreen';
+export const LOAN_AMOUNT_SCREEN = 'LoanAmountScreen';
+export const LOAN_REQUEST_TERMS_SCREEN = 'LoanRequestTermsScreen';
+export const LOAN_REQUEST_ADDITIONAL_INFO_SCREEN = 'LoanRequestAdditionalInfo';
+export const NEW_LOAN_DETAILS_SCREEN = 'NewLoanDetailsScreen';
+export const LOAN_REQUEST_ACCEPTED_SCREEN = 'LoanRequestAcceptedScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';
