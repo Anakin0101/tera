@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
 
 export const useStyles = () => {
-  const { Layout, Fonts, Spacing, FontSize, Colors } = useTheme();
+  const { Layout, Fonts, Spacing, FontSize, Colors, FontFamily } = useTheme();
 
   return StyleSheet.create({
     headerContainer: {
@@ -35,7 +35,10 @@ export const useStyles = () => {
       ...Layout.center,
     },
     noTransactionsText: {
-      ...Fonts.textPrimary,
+      color: Colors.textBlack500,
+      FontFamily: FontFamily.medium,
+      fontSize: FontSize.small,
+      marginTop: Spacing.xlm,
     },
   });
 };

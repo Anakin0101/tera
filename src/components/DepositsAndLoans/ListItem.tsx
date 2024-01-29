@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
-import { Divider, Text } from '../index';
+import { Divider, IconComponent, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useTheme } from 'hooks';
 import { ListItemProps } from './DepositsAndLoans.types';
 import { useStyles } from './DepositsAndLoans.styles';
 
-export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress }) => {
+export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
@@ -18,7 +18,7 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress }) => {
 
   return (
     <Pressable onPress={onPress} style={styles.account}>
-      <View style={styles.cardContainer} />
+      <IconComponent customIconComponentStyles={styles.cardContainer} pngLocalIcon={icon} />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
           <View style={styles.textContainer}>

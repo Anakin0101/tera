@@ -5,4 +5,5 @@ export interface CardItemProps {
   isSecure?: boolean;
   currency: string;
   fromPension?: boolean;
+  onPress?: () => void;
 }

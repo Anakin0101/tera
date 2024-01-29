@@ -1,5 +1,9 @@
 import { useEffect, useMemo } from 'react';
-import { useGetBannersQuery, useGetUserProfileInfoQuery } from 'services/apis';
+import {
+  useGetBannersQuery,
+  useGetTotalSavingMutation,
+  useGetUserProfileInfoQuery,
+} from 'services/apis';
 import {
   useGetTemplatesQuery,
   useGetCustomerOperationsMutation,
@@ -27,12 +31,20 @@ export const useDashboardScreen = () => {
   const { data: assets, isLoading: assetsLoading } = useGetAssetsQuery();
   const { data: banker, isLoading: bankerLoading } = useGetBankerQuery();
   const { data: profile } = useGetUserProfileInfoQuery();
+  const [getTotalSaving, { data: totalSaving, isLoading: totalSavingLoading }] =
+    useGetTotalSavingMutation();
   const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
     channel: 'internet-bank',
     language: 'ka',
     page: 'dashboard-main',
     isCorporate: false,
   });
+
+  useEffect(() => {
+    getTotalSaving({
+      culture: 'en',
+    });
+  }, [getTotalSaving]);
 
   useEffect(() => {
     getCustomerOperations({
@@ -67,5 +79,7 @@ export const useDashboardScreen = () => {
     isDashboardMounted,
     banners,
     bannersLoading,
+    totalSavingLoading,
+    totalSaving,
   };
 };

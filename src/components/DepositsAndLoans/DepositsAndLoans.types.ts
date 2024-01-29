@@ -21,6 +21,7 @@ export type ListItemProps = {
   item: RenderItemType;
   isLast: boolean;
   onPress: () => void;
+  icon?: string;
 };
 
 export interface HeaderProps {
