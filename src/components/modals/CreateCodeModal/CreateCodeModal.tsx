@@ -5,7 +5,7 @@ import { createBudgetEnum } from './CreateModal.types';
 import { closeModal } from 'utils/modal';
 import { useBudget } from 'screens/BudgetTransactionScreen/container';
 import { useStyles } from './CreateCodeModal.styles';
-import RenderItem from './RenderItem';
+import BudgetRenderItem from './BudgetRenderItem';
 import { renderItemProps } from './CreateModal.types';
 import { getTextForIndex } from 'utils/transactionUtils';
 import { ArrowHeader } from 'assets/SVGs/ArrowHeader';
@@ -61,7 +61,7 @@ export const CreateCodeModal = memo(() => {
   );
   const renderItem = ({ item, index }: renderItemProps) => {
     return (
-      <RenderItem
+      <BudgetRenderItem
         item={item}
         activeIndex={activeCompIndex}
         showAboveLine={index === 0}
