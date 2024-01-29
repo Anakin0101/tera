@@ -13,23 +13,3 @@ export interface renderItemProps {
   item: TreasuryItem;
   index: number;
 }
-export interface FirstViewProps {
-  showHideComponent: (index: number) => void;
-  setChosenItem: (id: string) => void;
-  treasury: TreasuryItem[];
-  onChangeBudgetCode: (code: string) => void;
-}
-
-export interface SecondViewProps {
-  showHideComponent: (index: number) => void;
-  setChosenItem: (id: string) => void;
-  treasury: TreasuryItem[];
-  onChangeBudgetCode: (code: string) => void;
-}
-
-export interface ThirdViewProps {
-  showHideComponent: (index: number) => void;
-  setChosenItem: (id: string) => void;
-  onChangeBudgetCode: (code: string) => void;
-  treasury: TreasuryItem[];
-}

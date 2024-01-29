@@ -14,7 +14,7 @@ import LottieView from 'lottie-react-native';
 export const CreateCodeModal = memo(() => {
   const styles = useStyles();
   const { treasury, onChangeBudgetCode } = useBudget(true);
-  const [chosenItems, setChosenItems] = useState<Array<string | null>>([null, null, null]);
+  const [chosenItems, setChosenItems] = useState<Array<string | null>>([]);
   const [activeCompIndex, setActiveCompIndex] = useState<number>(createBudgetEnum.FIRST_VIEW);
 
   const showHideComponent = useCallback((activeComponentIndex: number) => {
@@ -42,7 +42,23 @@ export const CreateCodeModal = memo(() => {
       </View>
     );
   };
+  const handleSetChosenItem = useCallback(
+    (chosenItem: string | null) => {
+      setChosenItems(prevChosenItems => {
+        const updatedChosenItems = [...prevChosenItems];
+        updatedChosenItems[activeCompIndex - 1] = chosenItem;
+        return updatedChosenItems;
+      });
+    },
+    [activeCompIndex, setChosenItems],
+  );
 
+  const handleChangeBudgetCode = useCallback(
+    (code: string) => {
+      onChangeBudgetCode(code, String.fromCharCode('a'.charCodeAt(0) + activeCompIndex - 1));
+    },
+    [activeCompIndex, onChangeBudgetCode],
+  );
   const renderItem = ({ item, index }: renderItemProps) => {
     return (
       <RenderItem
@@ -50,15 +66,8 @@ export const CreateCodeModal = memo(() => {
         activeIndex={activeCompIndex}
         showAboveLine={index === 0}
         showUnderline={treasury && index < treasury?.length - 1}
-        setChosenItem={(chosenItem: string | null) =>
-          setChosenItems(prevChosenItems => {
-            prevChosenItems[activeCompIndex - 1] = chosenItem;
-            return [...prevChosenItems];
-          })
-        }
-        onChangeBudgetCode={(code: string) =>
-          onChangeBudgetCode(code, String.fromCharCode('a'.charCodeAt(0) + activeCompIndex - 1))
-        }
+        setChosenItem={handleSetChosenItem}
+        onChangeBudgetCode={handleChangeBudgetCode}
         showHideComponent={() => showHideComponent(activeCompIndex + 1)}
       />
     );

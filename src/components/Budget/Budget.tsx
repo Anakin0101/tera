@@ -55,11 +55,11 @@ export const Budget = ({
       {checkLength && (treasuryFromCode || treasury) ? (
         <View style={styles.budgetView}>
           <Text
-            children={`${(treasury && treasury[0]?.id) ?? createdWrappedCode}  - `}
+            children={`${treasury?.[0]?.id ?? createdWrappedCode}  - `}
             style={styles.budgetData}
           />
           <Text
-            children={`${(treasury && treasury[0]?.name) ?? treasuryFromCode[0]?.name}  `}
+            children={`${treasury?.[0]?.name ?? treasuryFromCode?.[0]?.name}  `}
             style={styles.budgetData}
           />
         </View>

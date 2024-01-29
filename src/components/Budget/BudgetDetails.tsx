@@ -5,8 +5,9 @@ import Images from 'theme/Images';
 import { getCurrencyIcon } from 'utils/currency';
 import { useStyles } from './Budget.styles';
 import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
+import { BudgetDetailsProps } from './Budget.types';
 
-export const BudgetDetails = ({ selectedPrice, accountFromData }: any) => {
+export const BudgetDetails = ({ selectedPrice, accountFromData }: BudgetDetailsProps) => {
   const styles = useStyles();
 
   return (

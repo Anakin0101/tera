@@ -3,8 +3,6 @@ import { View, ScrollView } from 'react-native';
 import { Button, TextInput } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './BudgetTransferDetailsScreen.styles';
-import { useRoute } from '@react-navigation/native';
-import { TransactionsStackRouteProps } from 'navigation/types';
 import { useTranslation } from 'react-i18next';
 import { SelectedItemProp } from 'screens/TransferDetailScreen/TransferDetailScreen.types';
 import { BudgetDetails } from 'components/Budget/BudgetDetails';
@@ -29,10 +27,7 @@ export const BudgetTransferDetailsScreen = () => {
   );
   const { accountFromData, selectedPrice } = selectedItemFromStore;
 
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
-
   const styles = useStyleTheme();
-  const { buyAmount } = selectedItemFromStore?.convertionData || {};
 
   const onTextChange = (text: string) => {
     setSelectPersonalId(text);
@@ -43,19 +38,12 @@ export const BudgetTransferDetailsScreen = () => {
     dispatch(setBudgetPerson({ payerName: text }));
   };
   useEffect(() => {
-    dispatch(
-      setBudgetPerson({ payForSomeone: selectedItem === budgeTenum.FOR_OTHERS ? true : false }),
-    );
+    dispatch(setBudgetPerson({ payForSomeone: selectedItem === budgeTenum.FOR_OTHERS }));
   }, [dispatch, selectedItem]);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.containerWrapper}>
-        <BudgetDetails
-          buyAmount={buyAmount}
-          accountFromData={accountFromData}
-          params={params}
-          selectedPrice={selectedPrice}
-        />
+        <BudgetDetails accountFromData={accountFromData} selectedPrice={selectedPrice} />
       </View>
 
       <View style={styles.details}>
@@ -65,7 +53,7 @@ export const BudgetTransferDetailsScreen = () => {
             {budgetReceiverUser.map((user, index) => (
               <BudgetReceiver
                 account={user}
-                key={index}
+                key={user.id + index.toString()}
                 onPress={() => setSelectedItem(user.id)}
                 isSelected={selectedItem === user.id}
               />
@@ -98,7 +86,7 @@ export const BudgetTransferDetailsScreen = () => {
       <View style={styles.buttonContainer}>
         <Button.Primary
           text={t('transfers.transfer')}
-          hitSlop={30}
+          hitSlop={15}
           fixedWidth
           isLoading={isTreasuryLoading}
           onPress={() => navigateToTransferScreen()}
