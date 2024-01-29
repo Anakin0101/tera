@@ -19,5 +19,9 @@ export const useStyles = () => {
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
     },
+    image: {
+      width: Spacing.xl,
+      height: Spacing.xl,
+    },
   });
 };
