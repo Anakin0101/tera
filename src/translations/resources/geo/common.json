@@ -14,7 +14,7 @@
     "settings": "პარამეტრები",
     "passcode": "პასკოდი",
     "register": "რეგისტრაცია",
-	"password_recovery": "პაროლის აღდგენა"
+    "password_recovery": "პაროლის აღდგენა"
   },
   "onboarding": {
     "next": "შემდეგი",
@@ -553,7 +553,7 @@
     "enter_code_word": "შეიყვანე კოდური სიტყვა"
   },
   "passwordRecovery": {
-	"choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",
-	"successful_password_recovery_title": "პაროლის აღდგენა წარმატებით დასრულდა"
+    "choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",
+    "successful_password_recovery_title": "პაროლის აღდგენა წარმატებით დასრულდა"
   }
 }

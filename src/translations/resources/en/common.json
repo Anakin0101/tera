@@ -14,7 +14,7 @@
     "settings": "Settings",
     "passcode": "Passcode",
     "register": "Register",
-	"password_recovery": "Password Recovery"
+    "password_recovery": "Password Recovery"
   },
   "onboarding": {
     "next": "Next",
@@ -555,7 +555,7 @@
     "enter_code_word": "Enter code word"
   },
   "passwordRecovery": {
-	"choose_password_recovery_method": "Choose a password recovery method",
-	"successful_password_recovery_title": "Password recovery finished successfully"
+    "choose_password_recovery_method": "Choose a password recovery method",
+    "successful_password_recovery_title": "Password recovery finished successfully"
   }
 }
