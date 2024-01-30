@@ -4,6 +4,7 @@ import { Text } from 'components';
 import { useStyles } from './Budget.styles';
 import { budgetReceiverProps } from './Budget.types';
 
+// rewrite radio to a reusable component - TBD
 export const BudgetReceiver: FC<budgetReceiverProps> = ({ isSelected, account, onPress }) => {
   const styles = useStyles();
 
