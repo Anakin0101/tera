@@ -13,6 +13,9 @@ import { useKeyboard } from 'utils/useKeyboard';
 import { CodeWordFormData } from './CodeWordScreen.types';
 import { closeModal, openModal } from 'utils/modal';
 import { CodeWordModal } from 'components/modals';
+import { useUserRegister } from 'hooks/useUserRegister';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { buildRegisterUserRequest } from 'store/slices/registerUser';
 
 export const CodeWordScreen = () => {
   const styles = useStyles();
@@ -23,11 +26,17 @@ export const CodeWordScreen = () => {
   } = useForm<CodeWordFormData>();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'EnterUsernameScreen'>>();
   const { isKeyboardOpened } = useKeyboard();
+  const { handleUserRegister, isLoading, isSuccess } = useUserRegister();
+  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<CodeWordFormData> = data => {
-    const { codeWord } = data;
-    console.warn({ codeWord });
-    navigate(ENTER_USERNAME_SCREEN);
+    const { secretWord } = data;
+    console.warn({ secretWord });
+    dispatch(buildRegisterUserRequest({ secretWord }));
+    handleUserRegister();
+    if (isSuccess) {
+      navigate(ENTER_USERNAME_SCREEN);
+    }
   };
 
   const handleIdentomatRegistration = () => {
@@ -55,7 +64,7 @@ export const CodeWordScreen = () => {
               text="common.continue"
               onPress={handleSubmit(onSubmit)}
               fullWidth
-              isLoading={false}
+              isLoading={isLoading}
             />
           </View>
         }
@@ -64,7 +73,7 @@ export const CodeWordScreen = () => {
 
         <ControlledInput
           control={control}
-          name="codeWord"
+          name="secretWord"
           label="registration.code_word"
           errors={errors}
           keyboardType={'default'}
@@ -75,7 +84,7 @@ export const CodeWordScreen = () => {
             },
           }}
         />
-        <View style={[styles.codeWordTextContainer, errors.codeWord && styles.withError]}>
+        <View style={[styles.codeWordTextContainer, errors.secretWord && styles.withError]}>
           <Text children="common.do_not_have" label />
           <Pressable style={styles.linkContainer} onPress={handleCodeWordRestoration}>
             <Text children="registration.code_word" label special />

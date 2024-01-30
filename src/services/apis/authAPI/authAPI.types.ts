@@ -1,3 +1,7 @@
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { CustomBackendError } from 'services/types';
+
 export type LoginAPIResponseType = {
   accessToken: string | null;
   authContext?: any;
@@ -63,6 +67,31 @@ export type DeleteTrustedDeviceAPIResponseType = {
   channelData: unknown;
 };
 export type DeleteTrustedDeviceAPIRequestType = {};
+
+// registerUser
+export type RegisterUserAPIResponseType = {
+  error: FetchBaseQueryError | SerializedError | CustomBackendError;
+  moreDataRequired: boolean;
+  pending: boolean;
+  success: boolean;
+};
+
+export type RegisterUserAPIResponseErrorType = Pick<RegisterUserAPIResponseType, 'error'>['error'];
+
+export type RegisterUserAPIRequestType = {
+  body: {
+    personalId?: string | null;
+    email?: string | null;
+    mobile?: string | null;
+    culture?: string;
+    cardData?: any;
+    userName?: string | null;
+    secretWord?: string | null;
+    sendOtp?: boolean;
+    otp?: string | null;
+  };
+  headers?: Record<string, any>;
+};
 
 // logout
 export type LogoutAPIResponseType = {

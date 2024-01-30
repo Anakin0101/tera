@@ -13,6 +13,9 @@ import { ErrorMessage } from 'components/TextInput/TextInput';
 import { useKeyboard } from 'utils/useKeyboard';
 import { VerificationTypeScreenFormData } from './VerificationTypeScreen.types';
 import { RADIO_VALUES } from './VerificationTypeScreen.constants';
+import { useUserRegister } from 'hooks/useUserRegister';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { buildRegisterUserRequest } from 'store/slices/registerUser';
 
 export const VerificationTypeScreen = () => {
   const styles = useStyles();
@@ -24,12 +27,19 @@ export const VerificationTypeScreen = () => {
   const { navigate } = useNavigation<RegistrationStackScreenProps<'CodeWordScreen'>>();
   const [selectedRadio, setSelectedRadio] = useState<string | null>(RADIO_VALUES.withPhone);
   const { isKeyboardOpened } = useKeyboard();
+  const dispatch = useAppDispatch();
+  const { handleUserRegister, isLoading, isSuccess } = useUserRegister();
 
   const onSubmit: SubmitHandler<VerificationTypeScreenFormData> = data => {
-    const { email, personalId, phoneNumber } = data;
-    console.warn({ email, personalId, phoneNumber });
-    navigate(CODE_WORD_SCREEN);
+    const { email, personalId, mobile } = data;
+    console.warn({ email, personalId, mobile });
+    dispatch(buildRegisterUserRequest({ email: email || null, personalId, mobile }));
+    handleUserRegister();
+    if (isSuccess) {
+      navigate(CODE_WORD_SCREEN);
+    }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingScrollView
@@ -42,7 +52,7 @@ export const VerificationTypeScreen = () => {
               text="common.continue"
               onPress={handleSubmit(onSubmit)}
               fullWidth
-              isLoading={false}
+              isLoading={isLoading}
             />
           </View>
         }
@@ -103,7 +113,7 @@ export const VerificationTypeScreen = () => {
                   showErrorMessage={false}
                   keyboardType="phone-pad"
                   control={control}
-                  name="phoneNumber"
+                  name="mobile"
                   label="registration.phone_number"
                   errors={errors}
                   rules={{
@@ -120,10 +130,10 @@ export const VerificationTypeScreen = () => {
               </View>
             </View>
 
-            {errors.phoneNumber && (
+            {errors.mobile && (
               <ErrorMessage
                 errors={errors}
-                name={'phoneNumber'}
+                name={'mobile'}
                 label="registration.phone_number"
                 showErrorUI={true}
               />
