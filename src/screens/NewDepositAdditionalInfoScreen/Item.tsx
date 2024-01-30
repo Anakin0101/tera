@@ -10,23 +10,26 @@ import { Colors } from 'theme/Variables';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { ItemProps } from './NewDepositAdditionalInfoScreen.types';
 import { useStyles } from './NewDepositAdditionalInfoScreen.styles';
-
-const ITEM_SIZE = 86;
+import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 
 export const Item: FC<ItemProps> = memo(({ item, index, scrollX, onPress, currency }) => {
   const styles = useStyles();
 
   const animStyle = useAnimatedStyle(() => {
-    const inputRange = [(index - 1) * ITEM_SIZE, index * ITEM_SIZE, (index + 1) * ITEM_SIZE];
+    const inputRange = [
+      (index - 1) * CIRCULAR_ITEM_SIZE,
+      index * CIRCULAR_ITEM_SIZE,
+      (index + 1) * CIRCULAR_ITEM_SIZE,
+    ];
 
     const scale = interpolate(
       scrollX.value,
       [
-        (index - 2) * ITEM_SIZE,
-        (index - 1) * ITEM_SIZE,
-        index * ITEM_SIZE,
-        (index + 1) * ITEM_SIZE,
-        (index + 2) * ITEM_SIZE,
+        (index - 2) * CIRCULAR_ITEM_SIZE,
+        (index - 1) * CIRCULAR_ITEM_SIZE,
+        index * CIRCULAR_ITEM_SIZE,
+        (index + 1) * CIRCULAR_ITEM_SIZE,
+        (index + 2) * CIRCULAR_ITEM_SIZE,
       ],
       [0.7, 0.8, 1, 0.8, 0.7],
     );
@@ -57,11 +60,11 @@ export const Item: FC<ItemProps> = memo(({ item, index, scrollX, onPress, curren
     const color = interpolateColor(
       scrollX.value,
       [
-        (index - 2) * ITEM_SIZE,
-        (index - 1) * ITEM_SIZE,
-        index * ITEM_SIZE,
-        (index + 1) * ITEM_SIZE,
-        (index + 2) * ITEM_SIZE,
+        (index - 2) * CIRCULAR_ITEM_SIZE,
+        (index - 1) * CIRCULAR_ITEM_SIZE,
+        index * CIRCULAR_ITEM_SIZE,
+        (index + 1) * CIRCULAR_ITEM_SIZE,
+        (index + 2) * CIRCULAR_ITEM_SIZE,
       ],
       [Colors.textBlack500, Colors.black700, Colors.primary, Colors.black700, Colors.textBlack500],
     );

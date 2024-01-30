@@ -55,8 +55,15 @@ import {
   AUTH_LOADING_SCREEN,
   GUEST_NAVIGATOR,
   MAIN_NAVIGATOR,
+  LOAN_REQUEST_SCREEN,
+  LOAN_AMOUNT_SCREEN,
+  LOAN_REQUEST_TERMS_SCREEN,
+  LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
+  NEW_LOAN_DETAILS_SCREEN,
+  LOAN_REQUEST_ACCEPTED_SCREEN,
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
+  BUDGET_TRANSFER_DETAILS,
   NEW_PAYMENT_SCREEN,
   REGISTRATION_STACK,
   REGISTRATION_METHOD_SCREEN,
@@ -139,6 +146,12 @@ export type ProductsStackParamsList = {
   [TERA_WALLET_SCREEN]: undefined;
   [TERA_WALLET_PDF_SCREEN]: undefined;
   [TERA_WALLET_SUCCESS_SCREEN]: undefined;
+  [LOAN_REQUEST_SCREEN]: undefined;
+  [LOAN_AMOUNT_SCREEN]: undefined;
+  [LOAN_REQUEST_TERMS_SCREEN]: undefined;
+  [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
+  [NEW_LOAN_DETAILS_SCREEN]: undefined;
+  [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {
@@ -173,11 +186,14 @@ export type TransactionsStackParamsList = {
     mobileTransaction?: boolean;
     receiver?: string;
   };
-  [TRANSACTION_FINISHED_SCREEN]: {
-    convertion?: any;
-  };
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: any;
+      };
 
   [TRANSFER_TO_BUDGET]: undefined;
+  [BUDGET_TRANSFER_DETAILS]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { SectionList, SectionListRenderItem } from 'react-native';
 import {
   Button,
@@ -9,6 +9,7 @@ import { useDepositsScreen } from './container';
 import { Plus } from 'assets/SVGs';
 import { useStyles } from './DepositsScreen.styles';
 import { Colors } from 'theme/Variables';
+import { FooterProps } from './DepositScreen.types';
 
 const sections = [
   { title: 'deposits', data: [{}] },
@@ -17,7 +18,7 @@ const sections = [
 
 const LeftIcon = () => <Plus color={Colors.white} />;
 
-const ListFooter = () => {
+const ListFooter: FC<FooterProps> = ({ onPress }) => {
   const styles = useStyles();
 
   return (
@@ -27,13 +28,14 @@ const ListFooter = () => {
       customWrapperStyle={styles.button}
       customTextStyle={styles.buttonText}
       leftIcon={LeftIcon}
+      onPress={onPress}
     />
   );
 };
 
 export const DepositsScreen = () => {
   const styles = useStyles();
-  const { deposits, totalDepositsGEL } = useDepositsScreen();
+  const { deposits, totalDepositsGEL, handleNewDepositPress } = useDepositsScreen();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
@@ -57,7 +59,7 @@ export const DepositsScreen = () => {
     <SectionList
       sections={sections}
       renderItem={renderItem}
-      ListFooterComponent={ListFooter}
+      ListFooterComponent={<ListFooter onPress={handleNewDepositPress} />}
       style={styles.list}
       ListFooterComponentStyle={styles.footer}
       contentContainerStyle={styles.contentContainer}

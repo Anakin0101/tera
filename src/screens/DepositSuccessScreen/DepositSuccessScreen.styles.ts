@@ -5,13 +5,17 @@ export const useStyles = () => {
   const { Layout, Spacing, Colors } = useTheme();
 
   return StyleSheet.create({
-    container: {
+    safeAreaView: {
       ...Layout.fill,
       backgroundColor: Colors.white,
     },
-    contentContainer: {
+    container: {
+      ...Layout.growfull,
       padding: Spacing.xl,
-      paddingTop: 80,
+    },
+    wrapper: {
+      ...Layout.growfull,
+      ...Layout.center,
     },
     iconContainer: {
       ...Layout.center,

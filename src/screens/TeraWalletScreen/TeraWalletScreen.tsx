@@ -1,5 +1,13 @@
 import React, { useCallback, useRef } from 'react';
-import { ListRenderItem, ScrollView, View, Pressable, FlatList, TextInput } from 'react-native';
+import {
+  ListRenderItem,
+  ScrollView,
+  View,
+  Pressable,
+  FlatList,
+  TextInput,
+  Image,
+} from 'react-native';
 import { Button, Divider, LoadingView, Text } from 'components';
 import Animated, {
   runOnJS,
@@ -12,8 +20,9 @@ import { useTeraWallet } from './container';
 import { formatMoney } from 'utils/formatMoney';
 import { Item } from 'screens/NewDepositAdditionalInfoScreen/Item';
 import { WalletAmount } from 'services/apis/productsAPI/productsAPI.types';
-import { DataType } from './TeraWalletScreen.types';
 import { useStyles } from './TeraWalletScreen.styles';
+
+const ICON = require('assets/images/TeraWallet.png');
 
 export const TeraWalletScreen = () => {
   const styles = useStyles();
@@ -29,18 +38,19 @@ export const TeraWalletScreen = () => {
     onBlur,
     onFocus,
     amounts,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     selectedDeposit,
     selectedCurrency,
     teraWalletInfo,
     handleNextPress,
     selectedDepositInfo,
+    getItemLayout,
   } = useTeraWallet(flatListRef, scrollViewRef);
 
   const handleScroll = useAnimatedScrollHandler(event => {
     try {
       scrollX.value = event.contentOffset.x;
-      runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / ITEM_SIZE));
+      runOnJS(setActiveIndex)(Math.round(event.contentOffset.x / CIRCULAR_ITEM_SIZE));
     } catch (error) {
       console.warn('Error in handleScroll on TeraWalletScreen', error);
     }
@@ -61,15 +71,6 @@ export const TeraWalletScreen = () => {
     [handleItemPress, scrollX, selectedCurrency],
   );
 
-  const getItemLayout = useCallback(
-    (_: DataType, index: number) => ({
-      length: ITEM_SIZE,
-      offset: ITEM_SIZE * index,
-      index,
-    }),
-    [ITEM_SIZE],
-  );
-
   if (!teraWalletInfo) {
     return <LoadingView />;
   }
@@ -77,7 +78,9 @@ export const TeraWalletScreen = () => {
   return (
     <ScrollView ref={scrollViewRef} style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <Image source={ICON} style={styles.image} />
+        </View>
         <Text children="teraWallet.collectMoney" center medium size={18} marginTop={24} />
         <Text children="teraWallet.desc" center secondary marginTop={16} />
         <Divider height={1} marginTop={32} marginBottom={32} />
@@ -92,7 +95,7 @@ export const TeraWalletScreen = () => {
           onScroll={handleScroll}
           renderItem={renderItem}
           decelerationRate="fast"
-          snapToInterval={ITEM_SIZE}
+          snapToInterval={CIRCULAR_ITEM_SIZE}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.selectAmountContentContainer}
           getItemLayout={getItemLayout}

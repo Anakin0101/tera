@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { useTheme } from 'hooks';
-import { Divider, Text } from '../index';
+import { Divider, IconComponent, Text } from '../index';
 import { formatDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { LastTransactionProps } from './LastTransaction.types';
 import { useStyles } from './LastTransactions.styles';
+import Images from 'theme/Images';
 
 const LastTransactionItem: FC<LastTransactionProps> = ({ item, onPress, showUnderline = true }) => {
   const styles = useStyles();
@@ -14,7 +15,12 @@ const LastTransactionItem: FC<LastTransactionProps> = ({ item, onPress, showUnde
 
   return (
     <Pressable onPress={onPress} style={styles.transactionWrapper}>
-      <View style={styles.imageContainer} />
+      <View style={styles.imageContainer}>
+        <IconComponent
+          pngLocalIcon={item.isIncome ? Images().IncomeIcon : Images().PayOutIcon}
+          customIconComponentStyles={styles.Icon}
+        />
+      </View>
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
           <Text size={14} numberOfLines={1} style={styles.description}>
