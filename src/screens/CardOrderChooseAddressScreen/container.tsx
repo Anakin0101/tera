@@ -3,13 +3,21 @@ import { useGetBranchesMutation } from 'services/apis/productsAPI/productsAPI';
 import { Branch } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { saveBranch } from 'store/slices/products';
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { CARD_ORDER_DETAILS_SCREEN } from 'navigation/ScreenNames';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useForm } from 'react-hook-form';
 
 const useBranches = (initialSearchText: string = '') => {
   const dispatch = useAppDispatch();
+  const { control } = useForm();
+  const { navigate } = useNavigation<ProductsStackScreenProps<'CardOrderChosenCardScreen'>>();
   const [getBranches, { data: branches }] = useGetBranchesMutation();
   const [searchText, setSearchText] = useState<string>(initialSearchText);
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
   const [filteredBranches, setFilteredBranches] = useState<Branch[]>([]);
+  const { selectedCardData } = useAppSelector(state => state.products);
 
   useEffect(() => {
     getBranches();
@@ -56,6 +64,11 @@ const useBranches = (initialSearchText: string = '') => {
     }
   }, [selectedBranch, filteredBranches, dispatch]);
 
+  const navigateToOrderDetailsScreen = () => {
+    if (!selectedBranch) return;
+    navigate(CARD_ORDER_DETAILS_SCREEN);
+  };
+
   return {
     filteredBranches,
     searchText,
@@ -63,6 +76,9 @@ const useBranches = (initialSearchText: string = '') => {
     selectedBranch,
     setSelectedBranch,
     branches,
+    selectedCardData,
+    navigateToOrderDetailsScreen,
+    control,
   };
 };
 

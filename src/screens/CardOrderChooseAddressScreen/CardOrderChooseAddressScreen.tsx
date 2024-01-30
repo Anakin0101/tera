@@ -1,22 +1,14 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { useAppSelector } from 'store/hooks/useAppSelector';
-import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
 import { useStyles } from './CardOrderChooseAddressScreen.styles';
 import { useTranslation } from 'react-i18next';
 import { Item as Header } from './Item';
-import { useForm } from 'react-hook-form';
 import { Divider, Text, Button, ControlledInput, LoadingView, SearchComponent } from 'components';
 import { CardProduct } from 'services/apis/productsAPI/productsAPI.types';
 import useBranches from './container';
-import { CARD_ORDER_DETAILS_SCREEN } from 'navigation/ScreenNames';
 
 export const CardOrderChooseAddressScreen = () => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardOrderChosenCardScreen'>>();
-  const { control } = useForm();
-  const { selectedCardData } = useAppSelector(state => state.products);
   const { t } = useTranslation();
 
   const {
@@ -26,12 +18,10 @@ export const CardOrderChooseAddressScreen = () => {
     selectedBranch,
     setSelectedBranch,
     branches,
+    navigateToOrderDetailsScreen,
+    selectedCardData,
+    control,
   } = useBranches();
-
-  const navigateToOrderDetailsScreen = () => {
-    if (!selectedBranch) return;
-    navigate(CARD_ORDER_DETAILS_SCREEN);
-  };
 
   if (!branches) {
     return <LoadingView />;
