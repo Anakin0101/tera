@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useNewDepositDetails } from './container';
-import { Button, Divider, LoadingView, Text } from 'components';
+import { Button, Divider, Image, LoadingView, Text } from 'components';
 import { useStyles } from './NewDepositDetailsScreen.styles';
 import i18next from 'i18next';
 

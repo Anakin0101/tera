@@ -1,6 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, Image, Pressable, ScrollView, View } from 'react-native';
-import { Button, Checkbox, DetailsItem, Text } from 'components';
+import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
+import { Button, Checkbox, DetailsItem, Image, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { useNewDepositSummary } from './container';
 import { getDateMonthsLater } from 'utils/formatDate';

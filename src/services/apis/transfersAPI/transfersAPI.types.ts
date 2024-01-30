@@ -105,6 +105,31 @@ export type TreasuryItem = {
 
 export type treasuryRes = TreasuryItem[] | undefined;
 
+export type sendTreasuryRes = {
+  orderId: number;
+  otpRequired: boolean;
+  templateId: number;
+};
+
+export type TreasuryApiResponse = {
+  data?: sendTreasuryRes;
+  error?: FetchBaseQueryError | SerializedError;
+};
+export type sendTreasuryReq = {
+  body: {
+    amount: string;
+    debitAccountId: number;
+    payForSomeone: boolean;
+    payerCode: string;
+    payerName: string;
+    purpose: string;
+    sendOtp: boolean;
+    treasuryCode: string;
+    usedTemplateId: null;
+  };
+  headers: Headers | string[][] | Record<string, string | undefined> | undefined;
+};
+
 type InternalTransaction = {
   debitIban: string;
   creditIban: string;

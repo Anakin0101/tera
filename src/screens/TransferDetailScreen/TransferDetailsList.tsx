@@ -22,6 +22,7 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
   };
 
   const renderTransferDetails = () => {
+    const accountName = accountToData.accountName ? `${accountToData.accountName} - ` : '';
     const renderSelectedData = () => {
       if (selectedData !== '') {
         return renderDetailsItem('transfers.destination', selectedData);
@@ -42,8 +43,8 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
           )}
           {renderDetailsItem(
             'transfers.where',
-            `${accountToData.accountName} -`,
-            accountToData.accountIban,
+            accountName,
+            accountToData.accountIban || accountToData.iban,
           )}
           {convertion
             ? renderDetailsItem(

@@ -7,6 +7,7 @@ import {
   TransferToAccountScreen,
   BudgetTransactionScreen,
   TransferToBudget,
+  BudgetTransferDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -22,6 +23,7 @@ import {
   TRANSACTION_FAILED_SCREEN,
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
+  BUDGET_TRANSFER_DETAILS,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
@@ -46,6 +48,7 @@ export type TransactionsStackParamList = {
   [TRANSACTION_FAILED_SCREEN]: undefined;
   [BUDGET_TRANSACTION_SCREEN]: undefined;
   [TRANSFER_TO_BUDGET]: undefined;
+  [BUDGET_TRANSFER_DETAILS]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -153,6 +156,13 @@ export const TransactionsStack = () => {
         component={TransferToBudget}
         options={{
           title: t('transactions.transferToBudget'),
+        }}
+      />
+      <Screen
+        name={BUDGET_TRANSFER_DETAILS}
+        component={BudgetTransferDetailsScreen}
+        options={{
+          title: t('transactions.details'),
         }}
       />
     </Navigator>
