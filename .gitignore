@@ -2,7 +2,7 @@
 #
 .DS_Store
 
-.xcode.env.local
+/ios/.xcode.env.local
 
 #env
 .env
