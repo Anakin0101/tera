@@ -35,6 +35,10 @@ export const useStyles = () => {
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
     },
+    Icon: {
+      width: 16,
+      height: 16,
+    },
     marginTop: {
       marginTop: 5,
     },

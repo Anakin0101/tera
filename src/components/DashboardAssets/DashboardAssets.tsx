@@ -42,31 +42,35 @@ export const DashboardAssets = ({ creditCards, overDraft, getLoanCustomerId, ass
 
   return (
     <>
-      <View style={styles.assetsView}>
-        <View style={styles.dashboardTemplatesContainer}>
-          <View style={styles.headerContainer}>
-            <View style={styles.wrapMask}>
-              <Text
-                children={'dashboard.assets'}
-                style={styles.titleContainer}
-                color={Colors.textBlack}
-              />
-              <TouchableOpacity style={styles.mask} onPress={() => handleSecurePensionToggle()}>
-                <IconComponent
-                  pngLocalIcon={!securePension ? Images().OpenEye : Images().CloseEye}
-                  customIconComponentStyles={styles.eyeIcon}
+      {assetsSum.amount > 0 ? (
+        <>
+          <View style={styles.assetsView}>
+            <View style={styles.dashboardTemplatesContainer}>
+              <View style={styles.headerContainer}>
+                <View style={styles.wrapMask}>
+                  <Text
+                    children={'dashboard.assets'}
+                    style={styles.titleContainer}
+                    color={Colors.textBlack}
+                  />
+                  <TouchableOpacity style={styles.mask} onPress={() => handleSecurePensionToggle()}>
+                    <IconComponent
+                      pngLocalIcon={!securePension ? Images().OpenEye : Images().CloseEye}
+                      customIconComponentStyles={styles.eyeIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <AssetsCard
+                  assetsSum={assetsSum.amount}
+                  totalSum={totalSum}
+                  currency={assetsSum.currency}
                 />
-              </TouchableOpacity>
+              </View>
             </View>
-            <AssetsCard
-              assetsSum={assetsSum.amount}
-              totalSum={totalSum}
-              currency={assetsSum.currency}
-            />
           </View>
-        </View>
-      </View>
-      <Divider />
+          <Divider />
+        </>
+      ) : null}
     </>
   );
 };

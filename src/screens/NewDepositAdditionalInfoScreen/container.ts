@@ -11,9 +11,9 @@ import { setDepositDuration } from 'store/slices/deposit';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { CalculateDeposit } from 'services/apis/productsAPI/productsAPI.types';
 import { NEW_DEPOSIT_SUMMARY_SCREEN } from 'navigation/ScreenNames';
-
-const ITEM_SIZE = 86;
-const COMMA_OR_PERIOD_REGEX = /[,.]/g;
+import { CIRCULAR_ITEM_SIZE } from 'constants/common';
+import { DataType } from 'screens/LoanAmountScreen/LoanAmountScreen.types';
+import { REGEX } from 'constants/regex';
 
 export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const dispatch = useAppDispatch();
@@ -121,7 +121,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     try {
       if (debouncedValue && depositPeriod?.includes(Number(debouncedValue))) {
         ref.current?.scrollToOffset({
-          offset: (Number(debouncedValue) - 3) * ITEM_SIZE,
+          offset: (Number(debouncedValue) - 3) * CIRCULAR_ITEM_SIZE,
           animated: false,
         });
       }
@@ -134,7 +134,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     (index: number) => {
       try {
         ref.current?.scrollToOffset({
-          offset: index * ITEM_SIZE,
+          offset: index * CIRCULAR_ITEM_SIZE,
         });
       } catch (err) {
         console.warn('Error in handleItemPress on NewDepositAdditionalInfoScreen', err);
@@ -162,7 +162,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   };
 
   const onChangeText = (value: string) => {
-    const formatted = value.replace(COMMA_OR_PERIOD_REGEX, '');
+    const formatted = value.replace(REGEX.COMMA_OR_PERIOD, '');
     setDuration(formatted);
   };
 
@@ -180,6 +180,15 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     return offer?.depositProducts?.[0]?.maxPeriod ?? 0;
   }, [offer?.depositProducts]);
 
+  const getItemLayout = useCallback(
+    (_: DataType, index: number) => ({
+      length: CIRCULAR_ITEM_SIZE,
+      offset: CIRCULAR_ITEM_SIZE * index,
+      index,
+    }),
+    [],
+  );
+
   return {
     duration,
     setDuration,
@@ -191,7 +200,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     depositType,
     initialAmount,
     currency,
-    ITEM_SIZE,
+    CIRCULAR_ITEM_SIZE,
     offer,
     setProductId,
     productId,
@@ -204,5 +213,6 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
     setProductName,
     minPeriod,
     maxPeriod,
+    getItemLayout,
   };
 };

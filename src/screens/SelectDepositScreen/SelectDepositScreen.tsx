@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
+import { FlatList, Image, ListRenderItem, View } from 'react-native';
 import { Item } from './Item';
 import { LoadingView, Text } from 'components';
 import { Colors } from 'theme/Variables';
@@ -7,11 +7,15 @@ import { useSelectDeposit } from './container';
 import { OfferType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './SelectDepositScreen.styles';
 
+const ICON = require('assets/images/Deposit.png');
+
 const ListHeader = () => {
   const styles = useStyles();
   return (
     <View style={styles.header}>
-      <View style={styles.iconContainer} />
+      <View style={styles.iconContainer}>
+        <Image source={ICON} style={styles.icon} />
+      </View>
       <Text children="newDeposit.saveMoney" medium size={16} marginTop={24} />
       <Text
         center

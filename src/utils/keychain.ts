@@ -132,6 +132,7 @@ export const getBiometricsAuthStatus = async (): Promise<boolean | null> => {
 export const clearCredentials = async (): Promise<boolean> => {
   try {
     await KeyChain.resetGenericPassword();
+    await KeyChain.resetGenericPassword({ service: LOGIN_NAME_SERVICE });
     await KeyChain.resetGenericPassword({ service: PASSCODE_SERVICE });
     await KeyChain.resetGenericPassword({ service: PASSWORD_SERVICE });
     await KeyChain.resetGenericPassword({ service: BIOMETRIC_AUTH_SERVICE });

@@ -4,6 +4,8 @@ export const VTB_BANK_CODE = 'UGEBGE22';
 export const BASIS_BANK_CODE = 'CBASGE22';
 export const TERRA_BANK_CODE = 'TEBAGE22';
 export const CREDO_BANK_CODE = 'JSCRGE22';
+export const LIBERTY_BANK_CODE = 'LBRTGE22';
+export const KHALIK_BANK_CODE = 'HABGGE22';
 
 export const bankCodesList = [
   BOG_CODE,
@@ -12,4 +14,6 @@ export const bankCodesList = [
   BASIS_BANK_CODE,
   TERRA_BANK_CODE,
   CREDO_BANK_CODE,
+  LIBERTY_BANK_CODE,
+  KHALIK_BANK_CODE,
 ];

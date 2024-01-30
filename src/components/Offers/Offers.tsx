@@ -30,7 +30,7 @@ export const Offers: FC<OffersProps> = ({ data }) => {
   };
   return (
     <>
-      {data ? (
+      {data?.length ? (
         <View style={styles.offersWrapper}>
           <View style={styles.headerWrapper}>
             <Text children="products.Offers" demiBold style={styles.title} />

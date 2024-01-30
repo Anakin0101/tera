@@ -1,4 +1,11 @@
-import { BOG_CODE, TBC_BANK_CODE, VTB_BANK_CODE } from 'constants/BankCodes';
+import {
+  BOG_CODE,
+  CREDO_BANK_CODE,
+  KHALIK_BANK_CODE,
+  LIBERTY_BANK_CODE,
+  TBC_BANK_CODE,
+  VTB_BANK_CODE,
+} from 'constants/BankCodes';
 import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import Images from 'theme/Images';
 
@@ -10,6 +17,12 @@ const getExternalBankIcon = (externalBankCode: string) => {
       return Images()?.TBCBankLogoIcon;
     case VTB_BANK_CODE:
       return Images()?.VTBBankLogoIcon;
+    case CREDO_BANK_CODE:
+      return Images()?.CredoBankLogoIcon;
+    case LIBERTY_BANK_CODE:
+      return Images()?.LibertyBankLogoIcon;
+    case KHALIK_BANK_CODE:
+      return Images()?.KhalikBankLogoIcon;
     default:
       return Images()?.TeraBankLogoIcon;
   }

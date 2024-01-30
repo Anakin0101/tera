@@ -68,9 +68,9 @@ export const useBiometrics = () => {
 
     if (available && biometryType) {
       const promptMessageMap = {
-        [Biometrics.Biometrics]: 'biometric message for TouchID Android',
-        [Biometrics.TouchID]: 'biometric message for TouchID iOS only',
-        [Biometrics.FaceID]: 'biometric message for FaceID iOS only',
+        [Biometrics.Biometrics]: 'Please press your fingerprint for biometric authorization',
+        [Biometrics.TouchID]: 'Please press your fingerprint for biometric authorization',
+        [Biometrics.FaceID]: 'Please simply glance at the screen to activate Face ID',
       };
 
       return {

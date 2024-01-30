@@ -14,6 +14,7 @@ import { TransactionsStackRouteProps } from 'navigation/types';
 import { useRoute } from '@react-navigation/native';
 import { getCurrencyIcon } from 'utils/currency';
 import { useTranslation } from 'react-i18next';
+
 interface SelectedItem {
   selectedPrice: any;
   convertionData: any;
@@ -24,6 +25,7 @@ interface SelectedItem {
 export const TransactionFinishedScreen = () => {
   const dispatch = useAppDispatch();
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );
@@ -31,9 +33,11 @@ export const TransactionFinishedScreen = () => {
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransactionsScreen'>>();
   const { t } = useTranslation();
+
   const navigateToMain = () => {
     navigate(TRANSACTIONS_SCREEN);
   };
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       return true;
@@ -63,40 +67,35 @@ export const TransactionFinishedScreen = () => {
     },
   ];
   const styles = useStyleTheme();
-  return (
-    <>
-      <View style={styles.wrapper}>
-        <SuccessTransaction />
-        <View style={styles.textWrapper}>
-          <Text children="transfers.success" style={styles.text} numberOfLines={2} />
-          {!params.convertion ? (
-            <Text
-              children={`${t('transactions.transAmount')}: ${selectedPrice} ${getCurrencyIcon(
-                accountFromData.ccy,
-              )}`}
-              style={styles.amount}
-            />
-          ) : (
-            <Text
-              children={`${t('transactions.transAmount')} ${
-                convertionData.buyAmount.amountBuy
-              } ${getCurrencyIcon(accountFromData.ccy)} = ${
-                convertionData.buyAmount.amountSell
-              } ${getCurrencyIcon(accountToData.ccy)}`}
-              style={styles.amount}
-            />
-          )}
 
-          <View style={styles.btnWrapper}>
-            <ChooseService fromTransaction serviceData={data} />
-            <Button.Primary
-              hitSlop={30}
-              text={t('transfers.backToHome')}
-              onPress={navigateToMain}
-            />
-          </View>
+  return (
+    <View style={styles.wrapper}>
+      <SuccessTransaction />
+      <View style={styles.textWrapper}>
+        <Text children="transfers.success" style={styles.text} numberOfLines={2} />
+        {!params?.convertion ? (
+          <Text
+            children={`${t('transactions.transAmount')}: ${selectedPrice} ${getCurrencyIcon(
+              accountFromData.ccy,
+            )}`}
+            style={styles.amount}
+          />
+        ) : (
+          <Text
+            children={`${t('transactions.transAmount')} ${
+              convertionData.buyAmount.amountBuy
+            } ${getCurrencyIcon(accountFromData.ccy)} = ${
+              convertionData.buyAmount.amountSell
+            } ${getCurrencyIcon(accountToData.ccy)}`}
+            style={styles.amount}
+          />
+        )}
+
+        <View style={styles.btnWrapper}>
+          <ChooseService fromTransaction serviceData={data} />
+          <Button.Primary hitSlop={30} text={t('transfers.backToHome')} onPress={navigateToMain} />
         </View>
       </View>
-    </>
+    </View>
   );
 };
