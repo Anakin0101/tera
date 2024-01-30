@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Divider, Text } from 'components';
+import { Divider, IconComponent, Text } from 'components';
 import { ActionButtons } from 'components/Slider/ActionButtons';
 import { Colors } from 'theme/Variables';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
@@ -11,6 +11,7 @@ import { useTransactionDetails } from './container';
 import { Income, Outcome } from 'assets/SVGs';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getTransactionTypeNameByEnum } from 'screens/AllTransactionsScreen/ListHeader';
+import Images from 'theme/Images';
 
 export const TransactionDetailsScreen = () => {
   const styles = useStyles();
@@ -26,7 +27,12 @@ export const TransactionDetailsScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.headerSection}>
-            <View style={[styles.iconContainer, styles.marginTop]} />
+            <View style={[styles.iconContainer, styles.marginTop]}>
+              <IconComponent
+                customIconComponentStyles={styles.Icon}
+                pngLocalIcon={op.isIncome ? Images().IncomeIcon : Images().PayOutIcon}
+              />
+            </View>
             <View style={styles.headerDesc}>
               <Text children={op.receiverName} color={Colors.inactiveTint} />
               <Text

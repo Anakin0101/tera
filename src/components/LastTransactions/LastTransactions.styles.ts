@@ -30,6 +30,11 @@ export const useStyles = () => {
       borderWidth: 1,
       borderRadius: 24,
       borderColor: Colors.inputBlack50,
+      ...Layout.center,
+    },
+    Icon: {
+      width: 16,
+      height: 16,
     },
     seeAll: {
       borderWidth: 1,

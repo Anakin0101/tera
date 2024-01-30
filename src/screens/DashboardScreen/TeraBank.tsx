@@ -21,13 +21,12 @@ import {
   DashboardOperations,
   DashboardSkeleton,
   DashboardTemplates,
-  DashboardUpcomingOps,
+  // DashboardUpcomingOps,
 } from 'components';
 import { ITeraBankProps } from './DashboardScreen.types';
 import { useStyleTheme } from './DashboardScreen.style';
 import { useDashboardScreen } from './container';
 import { Banker } from 'components';
-import { tempData } from './Sections';
 import { Offers } from 'components';
 import { DashboardPensionFund } from 'components/DashboardPensionFund/DashboardPensionFund';
 import { config } from 'utils/config';
@@ -105,6 +104,8 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     creditCardsLoading,
     banners,
     bannersLoading,
+    totalSavingLoading,
+    totalSaving,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -170,8 +171,9 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     switch (section.title) {
       case 'templates':
         return <DashboardTemplates data={templates} />;
-      case 'payments':
-        return <DashboardUpcomingOps data={tempData.payments} />;
+      // waiting API
+      // case 'payments':
+      //   return <DashboardUpcomingOps data={tempData.payments} />;
       case 'assets':
         return (
           <DashboardAssets
@@ -184,7 +186,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       case 'offers':
         return <Offers data={banners?.data} />;
       case 'pension':
-        return <DashboardPensionFund data={tempData.pensions} />;
+        return <DashboardPensionFund data={totalSaving?.totalSaving} />;
       case 'banker':
         return <Banker {...banker} />;
       case 'transactions':
@@ -259,6 +261,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     overDraftLoading ||
     creditCardsLoading ||
     bannersLoading ||
+    totalSavingLoading ||
     (!isBannerDataFetched && banners?.data.length === 0)
   ) {
     return (

@@ -108,7 +108,8 @@
     "pay": "Payment",
     "fill": "Top up",
     "savings": "Savings",
-    "allPay": "All payments"
+    "allPay": "All payments",
+    "noTransactions": "You don't have transactions"
   },
 
   "profile": {

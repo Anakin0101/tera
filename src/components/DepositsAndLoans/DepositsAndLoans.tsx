@@ -19,6 +19,7 @@ import {
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
+import Images from 'theme/Images';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
   const styles = useStyles(seeAll);
@@ -93,6 +94,7 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
     return (
       <ListItem
         item={item}
+        icon={variant === 'deposit' ? Images().AssetsIcon : Images().LiabilitiesIcon}
         onPress={() =>
           variant === 'deposit' ? navigateToDepositDetails(index) : navigateToLoanDetails(index)
         }

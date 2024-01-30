@@ -26,6 +26,7 @@ export const CardItem: React.FC<CardItemProps> = ({
   isSecure = false,
   currency,
   fromPension,
+  onPress,
 }) => {
   const styles = useStyles();
   const securePension = useAppSelector(state => state.dashboard);
@@ -35,7 +36,7 @@ export const CardItem: React.FC<CardItemProps> = ({
     : renderMaskedValue(value, currency, isSecure, securePension.maskDebit);
 
   return (
-    <Pressable style={styles.wrapper}>
+    <Pressable style={styles.wrapper} onPress={onPress}>
       <View style={styles.iconView}>
         <IconComponent
           pngLocalIcon={iconSource}
@@ -59,12 +60,14 @@ export const CardItem: React.FC<CardItemProps> = ({
         </View>
       </View>
       <View>
-        <IconComponent
-          native
-          hasBorder={false}
-          pngLocalIcon={Images().ChevronRight}
-          customIconComponentStyles={styles.customIconComponentStyles}
-        />
+        {!fromPension ? (
+          <IconComponent
+            native
+            hasBorder={false}
+            pngLocalIcon={Images().ChevronRight}
+            customIconComponentStyles={styles.customIconComponentStyles}
+          />
+        ) : null}
       </View>
     </Pressable>
   );
