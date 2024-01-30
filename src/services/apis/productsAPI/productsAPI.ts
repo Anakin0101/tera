@@ -26,6 +26,9 @@ import {
   TeraWalletRes,
   TransactionType,
   UpdateAccountNameReq,
+  BranchesResponse,
+  Branch,
+  AddCardRequest,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -109,7 +112,7 @@ export const productsAPI = createApi({
       query: OfferId => ({
         url: URLS.getOfferById,
         method: METHOD_NAMES.GET,
-        params: { OfferId },
+        params: { OfferId, culture: 'ka' },
       }),
     }),
 
@@ -205,6 +208,20 @@ export const productsAPI = createApi({
         body,
       }),
     }),
+    getBranches: builder.mutation<Branch[], void>({
+      query: () => ({
+        url: URLS.getBranches,
+        method: METHOD_NAMES.POST,
+      }),
+      transformResponse: (response: BranchesResponse) => response.branches,
+    }),
+    addCard: builder.mutation<void, AddCardRequest>({
+      query: body => ({
+        url: URLS.addCard,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -228,4 +245,6 @@ export const {
   useGetRequestForLoanConfigQuery,
   useRequestForLoanMutation,
   useGetRequestForLoanConsentTextQuery,
+  useGetBranchesMutation,
+  useAddCardMutation,
 } = productsAPI;

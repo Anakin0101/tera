@@ -9,7 +9,11 @@ import { calculateSum } from 'utils/calculateSum';
 import { closeModal, openModal } from 'utils/modal';
 import { NewProducts } from 'components/modals/NewProducts/NewProducts';
 import { ProductsStackScreenProps } from 'navigation/types';
-import { LOAN_REQUEST_SCREEN, SELECT_DEPOSIT_SCREEN } from 'navigation/ScreenNames';
+import {
+  LOAN_REQUEST_SCREEN,
+  SELECT_DEPOSIT_SCREEN,
+  CARD_ORDER_TYPE_SCREEN,
+} from 'navigation/ScreenNames';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -57,6 +61,11 @@ export const useTeraProducts = () => {
     navigate(LOAN_REQUEST_SCREEN);
   }, [navigate]);
 
+  const onCardPress = useCallback(() => {
+    closeModal();
+    navigate(CARD_ORDER_TYPE_SCREEN);
+  }, [navigate]);
+
   const products = useMemo(() => {
     return [
       {
@@ -67,7 +76,7 @@ export const useTeraProducts = () => {
       {
         image: require('assets/images/Card.png'),
         title: 'newDeposit.card',
-        onPress: () => {},
+        onPress: onCardPress,
       },
       {
         image: require('assets/images/Deposit.png'),
@@ -85,7 +94,7 @@ export const useTeraProducts = () => {
         onPress: onLoanPress,
       },
     ];
-  }, [onDepositPress, onLoanPress]);
+  }, [onDepositPress, onLoanPress, onCardPress]);
 
   const onNewProductsPress = () => {
     openModal({

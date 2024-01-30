@@ -47,4 +47,6 @@ export const URLS = {
   getRequestForLoanConsentTexts: 'Loan/GetRequestForLoanConsentTexts',
   treasury: 'Transfers/GetTreasuryCodeParts',
   testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',
+  getBranches: 'Catalogs/GetBranches',
+  addCard: 'Account/AddCard',
 };
