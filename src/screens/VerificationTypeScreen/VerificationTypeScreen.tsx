@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStyles } from './VerificationTypeScreen.styles';
 import { Button, ControlledInput, RegistrationTitle, Text } from 'components/index';
 import { useNavigation } from '@react-navigation/native';
@@ -14,8 +14,6 @@ import { useKeyboard } from 'utils/useKeyboard';
 import { VerificationTypeScreenFormData } from './VerificationTypeScreen.types';
 import { RADIO_VALUES } from './VerificationTypeScreen.constants';
 import { useUserRegister } from 'hooks/useUserRegister';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { buildRegisterUserRequest } from 'store/slices/registerUser';
 
 export const VerificationTypeScreen = () => {
   const styles = useStyles();
@@ -23,21 +21,24 @@ export const VerificationTypeScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm<VerificationTypeScreenFormData>();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'CodeWordScreen'>>();
   const [selectedRadio, setSelectedRadio] = useState<string | null>(RADIO_VALUES.withPhone);
   const { isKeyboardOpened } = useKeyboard();
-  const dispatch = useAppDispatch();
-  const { handleUserRegister, isLoading, isSuccess } = useUserRegister();
+  const { handleUserRegister, isLoading } = useUserRegister();
+
+  useEffect(() => {
+    clearErrors();
+  }, [clearErrors]);
+
+  const handleNavigation = () => {
+    navigate(CODE_WORD_SCREEN);
+  };
 
   const onSubmit: SubmitHandler<VerificationTypeScreenFormData> = data => {
     const { email, personalId, mobile } = data;
-    console.warn({ email, personalId, mobile });
-    dispatch(buildRegisterUserRequest({ email: email || null, personalId, mobile }));
-    handleUserRegister();
-    if (isSuccess) {
-      navigate(CODE_WORD_SCREEN);
-    }
+    handleUserRegister({ email, personalId, mobile }, handleNavigation);
   };
 
   return (

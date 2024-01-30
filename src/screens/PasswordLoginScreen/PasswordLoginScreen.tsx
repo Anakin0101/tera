@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
 import useStyles from './PasswordLoginScreen.styles';
 import { useLogin } from 'hooks';
@@ -12,6 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useKeyboard } from 'utils/useKeyboard';
 import { useNavigation } from '@react-navigation/native';
 import { GuestStackScreenProps } from 'navigation/types';
+import { setCurrentFlow } from 'store/slices/registerUser';
 
 type FormData = {
   username: string;
@@ -39,8 +40,18 @@ const PasswordLoginScreenBase = () => {
   };
 
   const registerUser = () => {
+    dispatch(setCurrentFlow('registration'));
     navigate(REGISTRATION_STACK, {
       screen: REGISTRATION_METHOD_SCREEN,
+      params: { flow: 'registration' },
+    });
+  };
+
+  const handlePasswordRecovery = () => {
+    dispatch(setCurrentFlow('passwordRecovery'));
+    navigate(REGISTRATION_STACK, {
+      screen: REGISTRATION_METHOD_SCREEN,
+      params: { flow: 'passwordRecovery' },
     });
   };
 
@@ -92,7 +103,9 @@ const PasswordLoginScreenBase = () => {
             name="save"
             label="common:passAuth.save"
           />
-          <Text children="common:passAuth.forgot" label special />
+          <Pressable onPress={handlePasswordRecovery}>
+            <Text children="common:passAuth.forgot" label special />
+          </Pressable>
         </View>
         <View style={styles.buttonCont}>
           <Button.Primary

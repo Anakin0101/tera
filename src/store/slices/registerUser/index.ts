@@ -11,6 +11,7 @@ const initialState: RegisterUserStateProps = {
   secretWord: null,
   sendOtp: false,
   otp: null,
+  flow: 'registration',
 };
 
 const registerUserSlice = createSlice({
@@ -21,8 +22,15 @@ const registerUserSlice = createSlice({
       ...state,
       ...payload,
     }),
+    setCurrentFlow: (state, { payload }) => {
+      state.flow = payload;
+    },
+    resetRegisterUser: () => {
+      return { ...initialState };
+    },
   },
 });
 
-export const { buildRegisterUserRequest } = registerUserSlice.actions;
+export const { buildRegisterUserRequest, setCurrentFlow, resetRegisterUser } =
+  registerUserSlice.actions;
 export const registerUserReducer = registerUserSlice.reducer;

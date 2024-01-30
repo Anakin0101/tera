@@ -13,7 +13,8 @@
     "greetings": "Greetings",
     "settings": "Settings",
     "passcode": "Passcode",
-    "register": "Register"
+    "register": "Register",
+	"password_recovery": "Password Recovery"
   },
   "onboarding": {
     "next": "Next",
@@ -552,5 +553,9 @@
     "successful_registration_title": "Registration completed successfully",
     "successful_registration_description": "Click on the button 'Login' and authorize",
     "enter_code_word": "Enter code word"
+  },
+  "passwordRecovery": {
+	"choose_password_recovery_method": "Choose a password recovery method",
+	"successful_password_recovery_title": "Password recovery finished successfully"
   }
 }

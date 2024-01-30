@@ -14,8 +14,6 @@ import { CodeWordFormData } from './CodeWordScreen.types';
 import { closeModal, openModal } from 'utils/modal';
 import { CodeWordModal } from 'components/modals';
 import { useUserRegister } from 'hooks/useUserRegister';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { buildRegisterUserRequest } from 'store/slices/registerUser';
 
 export const CodeWordScreen = () => {
   const styles = useStyles();
@@ -26,27 +24,25 @@ export const CodeWordScreen = () => {
   } = useForm<CodeWordFormData>();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'EnterUsernameScreen'>>();
   const { isKeyboardOpened } = useKeyboard();
-  const { handleUserRegister, isLoading, isSuccess } = useUserRegister();
-  const dispatch = useAppDispatch();
+  const { handleUserRegister, isLoading } = useUserRegister();
+
+  const handleNavigation = () => {
+    navigate(ENTER_USERNAME_SCREEN);
+  };
 
   const onSubmit: SubmitHandler<CodeWordFormData> = data => {
     const { secretWord } = data;
-    console.warn({ secretWord });
-    dispatch(buildRegisterUserRequest({ secretWord }));
-    handleUserRegister();
-    if (isSuccess) {
-      navigate(ENTER_USERNAME_SCREEN);
-    }
+
+    handleUserRegister({ secretWord }, handleNavigation);
   };
 
+  // TBD
   const handleIdentomatRegistration = () => {
     closeModal();
     Alert.alert('should navigate to restore code word screen');
   };
 
   const handleCodeWordRestoration = () => {
-    // TBD
-
     openModal({
       element: <CodeWordModal onPress={handleIdentomatRegistration} />,
     });
