@@ -186,9 +186,11 @@ export type TransactionsStackParamsList = {
     mobileTransaction?: boolean;
     receiver?: string;
   };
-  [TRANSACTION_FINISHED_SCREEN]: {
-    convertion?: any;
-  };
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: any;
+      };
 
   [TRANSFER_TO_BUDGET]: undefined;
   [BUDGET_TRANSFER_DETAILS]: undefined;
