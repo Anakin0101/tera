@@ -16,35 +16,43 @@ const useBranches = (initialSearchText: string = '') => {
   }, [getBranches]);
 
   useEffect(() => {
-    if (!branches) return;
+    try {
+      if (!branches) return;
 
-    const lowercasedSearchText = searchText.toLowerCase();
-    const filtered = branches.filter(
-      branch =>
-        branch.name.Geo.toLowerCase().includes(lowercasedSearchText) ||
-        branch.name.Eng.toLowerCase().includes(lowercasedSearchText),
-    );
+      const lowercasedSearchText = searchText.toLowerCase();
+      const filtered = branches.filter(
+        branch =>
+          branch.name.Geo.toLowerCase().includes(lowercasedSearchText) ||
+          branch.name.Eng.toLowerCase().includes(lowercasedSearchText),
+      );
 
-    setFilteredBranches(filtered);
+      setFilteredBranches(filtered);
+    } catch (error) {
+      console.warn('Error filtering branches:', error);
+    }
   }, [branches, searchText]);
 
   useEffect(() => {
-    if (!selectedBranch) return;
+    try {
+      if (!selectedBranch) return;
 
-    const idMatch = selectedBranch.match(/id:(\d+)/);
-    const branchId = idMatch ? parseInt(idMatch[1], 10) : null;
+      const idMatch = selectedBranch.match(/id:(\d+)/);
+      const branchId = idMatch ? parseInt(idMatch[1], 10) : null;
 
-    if (branchId === null) return;
+      if (branchId === null) return;
 
-    const branch = filteredBranches.find(branch => branch.id === branchId);
+      const branch = filteredBranches.find(branch => branch.id === branchId);
 
-    if (branch) {
-      dispatch(
-        saveBranch({
-          id: branch.id,
-          branchName: branch.name.Geo,
-        }),
-      );
+      if (branch) {
+        dispatch(
+          saveBranch({
+            id: branch.id,
+            branchName: branch.name.Geo,
+          }),
+        );
+      }
+    } catch (error) {
+      console.warn('Error processing selected branch:', error);
     }
   }, [selectedBranch, filteredBranches, dispatch]);
 

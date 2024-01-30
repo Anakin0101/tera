@@ -27,20 +27,24 @@ export const useCardOrderChooseIban = () => {
   const uniqueAccountsList = uniqueAccounts ? Object.values(uniqueAccounts) : [];
 
   const navigateToChooseAddressScreen = () => {
-    if (!selectedIban) return;
-    const selectedAccount = uniqueAccountsList.find(
-      account => account.accountIban === selectedIban,
-    );
-
-    if (selectedAccount) {
-      dispatch(
-        saveIban({
-          accountIban: selectedAccount.accountIban,
-          accountId: selectedAccount.accountId.toString(),
-        }),
+    try {
+      if (!selectedIban) return;
+      const selectedAccount = uniqueAccountsList.find(
+        account => account.accountIban === selectedIban,
       );
 
-      navigate(CARD_ORDER_CHOOSE_ADDRESS_SCREEN);
+      if (selectedAccount) {
+        dispatch(
+          saveIban({
+            accountIban: selectedAccount.accountIban,
+            accountId: selectedAccount.accountId.toString(),
+          }),
+        );
+
+        navigate(CARD_ORDER_CHOOSE_ADDRESS_SCREEN);
+      }
+    } catch (error) {
+      console.error('Error navigating to choose address screen:', error);
     }
   };
 
