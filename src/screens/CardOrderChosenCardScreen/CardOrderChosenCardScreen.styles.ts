@@ -10,23 +10,6 @@ export const useStyles = () => {
     container: {
       backgroundColor: Colors.defaultBackground,
     },
-    header: {
-      ...Layout.alignItemsStart,
-      paddingBottom: Spacing.xlg,
-    },
-    iconContainer: {
-      ...Layout.center,
-      ...Layout.selfCenter,
-      width: 100,
-      height: 100,
-      borderRadius: 50,
-      borderWidth: 1,
-      borderColor: Colors.inputBlack50,
-    },
-    icon: {
-      width: 45,
-      height: 45,
-    },
     contentContainer: {
       paddingHorizontal: Spacing.xl,
     },
