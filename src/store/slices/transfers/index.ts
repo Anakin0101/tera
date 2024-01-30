@@ -18,6 +18,13 @@ const initialState = {
     isFast: false,
     selected: 1,
   },
+  setBudgetPerson: {
+    payerCode: '',
+    payerName: '',
+    payForSomeone: false,
+  },
+  wrappedCode: null,
+  treasuryFromCode: null,
 };
 
 const transfersSlice = createSlice({
@@ -76,6 +83,21 @@ const transfersSlice = createSlice({
     setSelectedTransactionType: (state, action) => {
       state.selectedTransactionType = action.payload;
     },
+    setBudgetPerson: (state, action) => {
+      state.setBudgetPerson = action.payload;
+    },
+    setWrappedCode: (state, action) => {
+      state.wrappedCode = action.payload;
+    },
+    setClearWrappedCode: state => {
+      state.wrappedCode = null;
+    },
+    setTreasuryFromCode: (state, action) => {
+      state.treasuryFromCode = action.payload;
+    },
+    setClearTreasuryFromCode: state => {
+      state.treasuryFromCode = null;
+    },
   },
 });
 
@@ -97,5 +119,10 @@ export const {
   setAccountIban,
   setSelectedTransactionType,
   setSelectedOtherBankDataTitle,
+  setBudgetPerson,
+  setWrappedCode,
+  setTreasuryFromCode,
+  setClearTreasuryFromCode,
+  setClearWrappedCode,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

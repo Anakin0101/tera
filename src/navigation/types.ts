@@ -63,6 +63,7 @@ import {
   LOAN_REQUEST_ACCEPTED_SCREEN,
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
+  BUDGET_TRANSFER_DETAILS,
   NEW_PAYMENT_SCREEN,
   REGISTRATION_STACK,
   REGISTRATION_METHOD_SCREEN,
@@ -185,11 +186,14 @@ export type TransactionsStackParamsList = {
     mobileTransaction?: boolean;
     receiver?: string;
   };
-  [TRANSACTION_FINISHED_SCREEN]: {
-    convertion?: any;
-  };
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: any;
+      };
 
   [TRANSFER_TO_BUDGET]: undefined;
+  [BUDGET_TRANSFER_DETAILS]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;

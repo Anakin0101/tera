@@ -17,7 +17,7 @@ export const ConversionOrTranferDetails = ({
 
   return (
     <>
-      {params.fromOtherBank ? (
+      {params?.fromOtherBank ? (
         <View style={styles.card}>
           <IconComponent
             pngLocalIcon={Images().LiabilitiesIcon}
@@ -41,7 +41,7 @@ export const ConversionOrTranferDetails = ({
           />
           <View>
             <Text children="transfers.account" style={styles.textLabel} />
-            {params.convertion && (
+            {params?.convertion && (
               <View style={styles.buyWrapper}>
                 <Text
                   children={`${formatToTwoDecimalPlaces(buyAmount.amountBuy)} ${getCurrencyIcon(
@@ -57,7 +57,7 @@ export const ConversionOrTranferDetails = ({
                 />
               </View>
             )}
-            {params.convertion ? (
+            {params?.convertion ? (
               <Text
                 children="transfers.yourCurrency"
                 style={styles.textYourCourse}

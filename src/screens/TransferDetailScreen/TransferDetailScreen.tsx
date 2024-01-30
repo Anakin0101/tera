@@ -89,7 +89,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN, {});
+        navigate(TRANSACTION_FINISHED_SCREEN);
       }
     } else {
       headers['Content-Type'] = 'application/json';
@@ -122,7 +122,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN, {});
+        navigate(TRANSACTION_FINISHED_SCREEN);
       }
     }
   };
@@ -173,7 +173,7 @@ export const TransferDetailScreen = () => {
         if (transferResult?.error) {
           handleTransferError(transferResult.error);
         } else {
-          navigate(TRANSACTION_FINISHED_SCREEN, {});
+          navigate(TRANSACTION_FINISHED_SCREEN);
         }
       } catch (error) {
         console.warn('Transfer to Own Account Error:', error);
