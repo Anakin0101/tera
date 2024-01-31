@@ -3,7 +3,7 @@ import { useStyles } from './VerificationTypeScreen.styles';
 import { Button, ControlledInput, RegistrationTitle, Text } from 'components/index';
 import { useNavigation } from '@react-navigation/native';
 import { RegistrationStackScreenProps } from 'navigation/types';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { Platform, SafeAreaView, View } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CODE_WORD_SCREEN } from 'navigation/ScreenNames';

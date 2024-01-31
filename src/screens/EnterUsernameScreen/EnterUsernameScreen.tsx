@@ -7,7 +7,7 @@ import { Alert, Pressable, SafeAreaView, View } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { closeModal, openModal } from 'utils/modal';
 import { REGISTRATION_FINISH_SCREEN } from 'navigation/ScreenNames';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { EnterUsernameFormData } from './EnterUsernameScreen.types';
 import { useUserRegister } from 'hooks/useUserRegister';
@@ -79,7 +79,6 @@ export const EnterUsernameScreen = () => {
               onPress={handleSubmit(onSubmit)}
               fullWidth
               isLoading={isLoading}
-              customWrapperStyle={styles.ctaWrapper}
             />
           </View>
         }

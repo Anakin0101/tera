@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ENTER_USERNAME_SCREEN } from 'navigation/ScreenNames';
 import { ArrowDown } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { CodeWordFormData } from './CodeWordScreen.types';
 import { closeModal, openModal } from 'utils/modal';
