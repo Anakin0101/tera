@@ -53,6 +53,7 @@ import {
   LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
   NEW_LOAN_DETAILS_SCREEN,
   LOAN_REQUEST_ACCEPTED_SCREEN,
+  TARIFF_PACKAGES_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
@@ -62,6 +63,7 @@ import { SelectDepositScreen } from 'screens/SelectDepositScreen/SelectDepositSc
 import { guestNavOptions, hideHeader } from 'navigation/config';
 import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { useStyleTheme } from 'navigation/Navigation.styles';
+import { TariffPackagesListScreen } from 'screens/TariffPackagesListScreen/TariffPackagesListScreen';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -230,6 +232,11 @@ export const ProductsStack = () => {
         name={LOAN_REQUEST_ACCEPTED_SCREEN}
         component={LoanRequestAcceptedScreen}
         options={guestNavOptions}
+      />
+      <Screen
+        name={TARIFF_PACKAGES_SCREEN}
+        component={TariffPackagesListScreen}
+        options={{ title: t('newDeposit.tariffPackages') }}
       />
     </Navigator>
   );

@@ -71,6 +71,7 @@ import {
   CODE_WORD_SCREEN,
   REGISTRATION_FINISH_SCREEN,
   ENTER_USERNAME_SCREEN,
+  TARIFF_PACKAGES_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -152,6 +153,7 @@ export type ProductsStackParamsList = {
   [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
   [NEW_LOAN_DETAILS_SCREEN]: undefined;
   [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

@@ -414,6 +414,7 @@
   "newDeposit": {
     "newProduct": "New Product",
     "tariffPackage": "Tariff Package",
+    "tariffPackages": "Tariff Packages",
     "card": "Card",
     "deposit": "Deposit",
     "teraWallet": "Tera Wallet",
@@ -454,7 +455,11 @@
     "lifetime": "Lifetime",
     "specialOffer": "Especially for you - open a deposit and get a higher than standard interest rate.",
     "saveFreeMoney": "Save free money and get high interest benefits.",
-    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency."
+    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency.",
+    "selectTariff": "Choose the tariff packages tailored to your wishes",
+    "monthlyFee": "Monthly fee",
+    "annualFee": "Annual fee",
+    "cardStatus": "Active"
   },
   "payments": {
     "totalDebt": "Total Debt",
