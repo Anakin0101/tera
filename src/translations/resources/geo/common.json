@@ -336,7 +336,10 @@
     "do_not_have": "არ მაქვს ",
     "accept": "ვეთანხმები ",
     "terms_and_conditions": "წესებს და პირობებს",
-    "login": "შესვლა"
+    "login": "შესვლა",
+    "choose": "აირჩიე",
+    "edit": "რედაქტირება",
+    "delete": "წაშლა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",

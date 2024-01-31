@@ -338,7 +338,10 @@
     "do_not_have": "I don't have ",
     "accept": "I accept to ",
     "terms_and_conditions": "terms and conditions",
-    "login": "Log in"
+    "login": "Log in",
+    "choose": "Choose",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "form": {
     "is_required": "is required",

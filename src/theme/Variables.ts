@@ -67,6 +67,8 @@ export const Colors = {
   primaryActionButton: 'rgba(160, 34, 109, 0.1)',
   paleGray: '#D5D5D5',
   textLightBlue: 'rgba(143, 160, 204, 0.1)',
+  actionSheetBg: 'rgb(219,219,219)',
+  actionSheetBorder: 'rgb(167,167,167)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

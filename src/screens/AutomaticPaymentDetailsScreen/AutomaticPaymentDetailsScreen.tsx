@@ -1,11 +1,12 @@
 import React from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useStyles } from './AutomaticPaymentDetailsScreen.styles';
-import { DetailsItem, Divider, Text } from 'components';
+import { ActionSheet, DetailsItem, Divider, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { More } from 'assets/SVGs';
+import { useAutomaticPaymentDetails } from './container';
 
-const Header = () => {
+const Header = ({ onPress }: { onPress: () => void }) => {
   const styles = useStyles();
   return (
     <View style={styles.header}>
@@ -14,7 +15,7 @@ const Header = () => {
         <Text children="დენი" secondary />
         <Text children={formatMoney(120, 'GEL')} size={16} />
       </View>
-      <Pressable style={styles.actionIconContainer}>
+      <Pressable onPress={onPress} style={styles.actionIconContainer}>
         <More />
       </Pressable>
     </View>
@@ -23,10 +24,11 @@ const Header = () => {
 
 export const AutomaticPaymentDetailsScreen = () => {
   const styles = useStyles();
+  const { isActionSheetVisible, toggleActionSheet, actionItems } = useAutomaticPaymentDetails();
 
   return (
     <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-      <Header />
+      <Header onPress={toggleActionSheet} />
       <View style={[styles.main, styles.borderRadius]}>
         <Text children="გადახდის გრაფიკი" medium size={18} letterSpacing={-0.5} />
         <DetailsItem label="გადახდის პერიოდულობა" value="ყოველთვიური" valueStyle={styles.text} />
@@ -53,6 +55,12 @@ export const AutomaticPaymentDetailsScreen = () => {
         />
         <DetailsItem label="საიდან" value="ჩემი ანგარიში" valueStyle={styles.text} />
       </View>
+      <ActionSheet
+        actionItems={actionItems}
+        isVisible={isActionSheetVisible}
+        onCancel={toggleActionSheet}
+        title="common.choose"
+      />
     </ScrollView>
   );
 };
