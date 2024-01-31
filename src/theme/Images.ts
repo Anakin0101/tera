@@ -35,5 +35,8 @@ export default function () {
     ThreeDotsIcon: require('assets/images/ThreeDots.png'),
     IncomeIcon: require('assets/images/incomeIcon.png'),
     PayOutIcon: require('assets/images/PayOutIcon.png'),
+    GoldMedal: require('assets/images/medalGold.png'),
+    ClasicMedal: require('assets/images/ClassicMedal.png'),
+    PlatinumMedal: require('assets/images/PlatinumMedal.png'),
   };
 }
