@@ -11,6 +11,15 @@ export const DashboardUpcomingOps = ({ data }: any) => {
   const styles = useStyles();
   const { Colors } = useTheme();
 
+  //   TBD - fix type
+  const renderItem = ({ item }: { item: any }) => (
+    <UpcomingOpsCard {...item} length={data.length} />
+  );
+
+  const renderFooter = () => {
+    return data.length > 2 ? <PayListEndCard onPress={() => {}} /> : null;
+  };
+
   return (
     <>
       {data?.length > 0 ? (
@@ -30,11 +39,9 @@ export const DashboardUpcomingOps = ({ data }: any) => {
                 scrollEnabled={data.length > 2}
                 showsHorizontalScrollIndicator={false}
                 data={data}
-                renderItem={({ item }) => <UpcomingOpsCard {...item} length={data.length} />}
+                renderItem={renderItem}
                 keyExtractor={item => String(item.id)}
-                ListFooterComponent={
-                  data.length > 2 ? () => <PayListEndCard onPress={() => {}} /> : null
-                }
+                ListFooterComponent={renderFooter}
               />
             </View>
           </View>

@@ -36,3 +36,9 @@ export const profilePersistConfig = {
   key: 'profile',
   storage: reduxStorage,
 };
+
+export const registerUserPersistConfig = {
+  key: 'registerUser',
+  storage: reduxStorage,
+  whitelist: [],
+};

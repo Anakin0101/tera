@@ -7,9 +7,11 @@ import { Alert, Pressable, SafeAreaView, View } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { closeModal, openModal } from 'utils/modal';
 import { REGISTRATION_FINISH_SCREEN } from 'navigation/ScreenNames';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { EnterUsernameFormData } from './EnterUsernameScreen.types';
+import { useUserRegister } from 'hooks/useUserRegister';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const EnterUsernameScreen = () => {
   const styles = useStyles();
@@ -20,30 +22,42 @@ export const EnterUsernameScreen = () => {
     formState: { errors },
   } = useForm<EnterUsernameFormData>({ defaultValues: { agree: true } });
   const { replace } = useNavigation<RegistrationStackScreenProps<'RegistrationFinishScreen'>>();
+  const { userName: storedUserName } = useAppSelector(state => state.registerUser);
 
   const termsAndConditionsAccepted = watch('agree');
+  const { handleUserRegister, isLoading } = useUserRegister();
 
-  const checkOTP = () => {
-    // TBD send a request to BE and check is OTP was entered correctly, if yes => Navigate to success screen
-    Alert.alert('OTP matches');
+  const handleSuccessfulOTP = () => {
     closeModal();
     replace(REGISTRATION_FINISH_SCREEN, {
       isSuccess: true,
     });
-    return true;
   };
 
-  const onSubmit: SubmitHandler<EnterUsernameFormData> = data => {
-    const { username } = data;
-    console.warn({ username });
-    // Open OTPModal
-    // if successful - navigate(REGISTRATION_FINISH_SCREEN);
+  const checkOTP = (enteredOTP: string) => {
+    handleUserRegister({ otp: enteredOTP }, handleSuccessfulOTP);
+  };
+
+  const handleOpenModal = () => {
     openModal({
       element: <OTPModal onFinished={checkOTP} />,
       disableDynamicSizing: true,
       disablePanning: true,
       withKeyboard: true,
     });
+  };
+
+  const handleSendOTP = () => {
+    handleUserRegister({ sendOtp: true }, handleOpenModal);
+  };
+
+  const onSubmit: SubmitHandler<EnterUsernameFormData> = data => {
+    const { userName } = data;
+    if (storedUserName) {
+      handleSendOTP();
+    } else {
+      handleUserRegister({ userName }, handleSendOTP);
+    }
   };
 
   const handleTermsAndConditions = () => {
@@ -64,8 +78,7 @@ export const EnterUsernameScreen = () => {
               text="common.continue"
               onPress={handleSubmit(onSubmit)}
               fullWidth
-              isLoading={false}
-              customWrapperStyle={styles.ctaWrapper}
+              isLoading={isLoading}
             />
           </View>
         }
@@ -74,7 +87,7 @@ export const EnterUsernameScreen = () => {
 
         <ControlledInput
           control={control}
-          name="username"
+          name="userName"
           label="passAuth.username"
           errors={errors}
           keyboardType={'default'}

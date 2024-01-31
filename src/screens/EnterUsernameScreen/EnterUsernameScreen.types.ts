@@ -1,4 +1,4 @@
 export type EnterUsernameFormData = {
-  username: string;
+  userName: string;
   agree: boolean;
 };

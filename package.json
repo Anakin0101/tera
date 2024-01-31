@@ -27,6 +27,7 @@
     "*.{js,jsx,ts,tsx}": "yarn verify"
   },
   "dependencies": {
+    "@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view": "^1.0.5",
     "@gorhom/bottom-sheet": "4.5.1",
     "@react-native-clipboard/clipboard": "1.11.2",
     "@react-native-community/blur": "^4.3.2",
@@ -59,7 +60,6 @@
     "react-native-document-picker": "^9.1.0",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.12.0",
-    "react-native-keyboard-avoiding-scroll-view": "^1.0.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-keychain": "^8.1.2",
     "react-native-linear-gradient": "^2.8.3",
@@ -106,7 +106,7 @@
     "lint-staged": "^14.0.1",
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "2.8.8",
-    "react-native-flipper": "0.125.0",
+    "react-native-flipper": "^0.212.0",
     "react-test-renderer": "18.2.0",
     "redux-flipper": "^2.0.2",
     "typescript": "^5.1.6"

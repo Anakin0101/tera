@@ -5,6 +5,7 @@ export const URLS = {
   addTrustedDevice: 'Auth/AddTrustedDevice',
   getTrustedDevices: 'Auth/GetTrustedDevices',
   deleteTrustedDevices: 'Auth/DeleteTrustedDevices',
+  registerUser: 'Auth/registerUser',
   getTemplates: 'Templates/GetTemplates',
   getUserProfile: 'Customers/GetUserProfile',
   loginByRefreshToken: 'Auth/LoginByRefreshToken',

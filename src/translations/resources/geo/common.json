@@ -13,7 +13,8 @@
     "greetings": "მოგესალმებით",
     "settings": "პარამეტრები",
     "passcode": "პასკოდი",
-    "register": "რეგისტრაცია"
+    "register": "რეგისტრაცია",
+    "password_recovery": "პაროლის აღდგენა"
   },
   "onboarding": {
     "next": "შემდეგი",
@@ -550,5 +551,9 @@
     "successful_registration_title": "რეგისტრაცია წარმატებით დასრულდა",
     "successful_registration_description": "დაკლიკეთ ღილაკზე “შესვლა” და გაიარეთ ავტორიზაცია",
     "enter_code_word": "შეიყვანე კოდური სიტყვა"
+  },
+  "passwordRecovery": {
+    "choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",
+    "successful_password_recovery_title": "პაროლის აღდგენა წარმატებით დასრულდა"
   }
 }

@@ -1,3 +1,3 @@
 export type CodeWordFormData = {
-  codeWord: string;
+  secretWord: string;
 };
