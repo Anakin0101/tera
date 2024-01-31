@@ -43,7 +43,6 @@ const PasswordLoginScreenBase = () => {
     dispatch(setCurrentFlow('registration'));
     navigate(REGISTRATION_STACK, {
       screen: REGISTRATION_METHOD_SCREEN,
-      params: { flow: 'registration' },
     });
   };
 
@@ -51,7 +50,6 @@ const PasswordLoginScreenBase = () => {
     dispatch(setCurrentFlow('passwordRecovery'));
     navigate(REGISTRATION_STACK, {
       screen: REGISTRATION_METHOD_SCREEN,
-      params: { flow: 'passwordRecovery' },
     });
   };
 

@@ -32,7 +32,6 @@ export const CodeWordScreen = () => {
 
   const onSubmit: SubmitHandler<CodeWordFormData> = data => {
     const { secretWord } = data;
-
     handleUserRegister({ secretWord }, handleNavigation);
   };
 
