@@ -71,7 +71,10 @@ import {
   CODE_WORD_SCREEN,
   REGISTRATION_FINISH_SCREEN,
   ENTER_USERNAME_SCREEN,
+  CHOOSE_PAYMENT_PROVIDER_SCREEN,
+  CHECK_PAYMENT_PROVIDER_SCREEN,
 } from './ScreenNames';
+import { ProvidersGroup, Provider } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -96,6 +99,8 @@ export type ModalStackParamsList = {
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
   [NEW_PAYMENT_SCREEN]: undefined;
+  [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider };
+  [CHOOSE_PAYMENT_PROVIDER_SCREEN]: { providerInfo: ProvidersGroup };
 };
 
 export type DashboardStackParamsList = {
