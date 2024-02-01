@@ -16,6 +16,8 @@ export const CardOrderDetailsScreen = () => {
     handleOrderCard,
     selectedBranch,
     userPhoneNumber,
+    checkboxValue,
+    isLoading,
   } = useCardOrderDetails();
 
   return (
@@ -94,6 +96,8 @@ export const CardOrderDetailsScreen = () => {
             text={`შეკვეთა - ${selectedCardData?.productServiceConditions?.[0]?.value}`}
             fullWidth
             onPress={handleOrderCard}
+            disabled={!checkboxValue}
+            isLoading={isLoading}
           />
         </View>
       </View>

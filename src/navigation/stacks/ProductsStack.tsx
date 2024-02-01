@@ -291,6 +291,8 @@ export const ProductsStack = () => {
           title: t('products.cardDetails'),
           headerStyle: st.whiteHeader,
         }}
+      />
+      <Screen
         name={TARIFF_PACKAGES_SCREEN}
         component={TariffPackagesListScreen}
         options={{ title: t('newDeposit.tariffPackages') }}

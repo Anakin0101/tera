@@ -15,7 +15,7 @@ export const useCardOrderDetails = () => {
   const userPhoneNumber = useAppSelector(state => state.profile.userProfileInfo?.mobile);
   const { control, watch } = useForm<FormData>();
   const checkboxValue = watch('save');
-  const [addCard, { isSuccess }] = useAddCardMutation();
+  const [addCard, { isSuccess, isLoading }] = useAddCardMutation();
 
   const generateData = useCallback(
     (sendOtp: boolean, otp = ''): AddCardRequest => ({
@@ -75,5 +75,7 @@ export const useCardOrderDetails = () => {
     handleOrderCard,
     selectedBranch,
     userPhoneNumber,
+    checkboxValue,
+    isLoading,
   };
 };
