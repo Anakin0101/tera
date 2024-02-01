@@ -36,7 +36,7 @@ export const useStyles = () => {
     },
     noTransactionsText: {
       color: Colors.textBlack500,
-      FontFamily: FontFamily.medium,
+      fontFamily: FontFamily.medium,
       fontSize: FontSize.small,
       marginTop: Spacing.xlm,
     },
