@@ -481,6 +481,18 @@
     "parking_fines": "Parking and fines",
     "other": "Other"
   },
+  "checkPaymentProvider": {
+    "title": "Enter subscriber information",
+    "providerNumber": "Subscriber number",
+    "next": "Next",
+    "myFinancial": "My Financial",
+    "name": "Name",
+    "address": "Address",
+    "lastBillingDate": "Last billing date",
+    "balance": "Balance",
+    "amountToBePaid": "Amount to be paid",
+    "commission": "Commission"
+  },
   "teraWallet": {
     "collectMoney": "Collect money easily",
     "desc": "After activating TeraWallet from each transaction, the amount of your choice will be credited to the account",
