@@ -12,6 +12,7 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import {
   LOAN_REQUEST_SCREEN,
   SELECT_DEPOSIT_SCREEN,
+  CARD_ORDER_TYPE_SCREEN,
   TARIFF_PACKAGES_SCREEN,
 } from 'navigation/ScreenNames';
 
@@ -65,6 +66,11 @@ export const useTeraProducts = () => {
     navigate(TARIFF_PACKAGES_SCREEN);
   }, [navigate]);
 
+  const onCardPress = useCallback(() => {
+    closeModal();
+    navigate(CARD_ORDER_TYPE_SCREEN);
+  }, [navigate]);
+
   const products = useMemo(() => {
     return [
       {
@@ -75,7 +81,7 @@ export const useTeraProducts = () => {
       {
         image: require('assets/images/Card.png'),
         title: 'newDeposit.card',
-        onPress: () => {},
+        onPress: onCardPress,
       },
       {
         image: require('assets/images/Deposit.png'),
@@ -93,7 +99,7 @@ export const useTeraProducts = () => {
         onPress: onLoanPress,
       },
     ];
-  }, [onDepositPress, onLoanPress, onTariffPress]);
+  }, [onDepositPress, onLoanPress, onTariffPress, onCardPress]);
 
   const onNewProductsPress = () => {
     openModal({

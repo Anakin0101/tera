@@ -28,5 +28,9 @@ export const useStyleTheme = () => {
     label: {
       marginLeft: Spacing.s,
     },
+    detailsWrapper: {
+      ...Layout.col,
+      ...Layout.justifyContentBetween,
+    },
   });
 };

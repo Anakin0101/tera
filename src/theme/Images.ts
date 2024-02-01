@@ -33,6 +33,7 @@ export default function () {
     Finances: require('assets/images/Finances.png'),
     Documents: require('assets/images/Documents.png'),
     ThreeDotsIcon: require('assets/images/ThreeDots.png'),
+    Card: require('assets/images/Card.png'),
     IncomeIcon: require('assets/images/incomeIcon.png'),
     PayOutIcon: require('assets/images/PayOutIcon.png'),
     GoldMedal: require('assets/images/medalGold.png'),

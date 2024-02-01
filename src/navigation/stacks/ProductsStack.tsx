@@ -24,6 +24,12 @@ import {
   LoanRequestAdditionalInfo,
   NewLoanDetailsScreen,
   LoanRequestAcceptedScreen,
+  CardOrderTypeScreen,
+  CardOrderChooseCardScreen,
+  CardOrderChosenCardScreen,
+  CardOrderChooseIbanScreen,
+  CardOrderChooseAddressScreen,
+  CardOrderDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -53,6 +59,12 @@ import {
   LOAN_REQUEST_ADDITIONAL_INFO_SCREEN,
   NEW_LOAN_DETAILS_SCREEN,
   LOAN_REQUEST_ACCEPTED_SCREEN,
+  CARD_ORDER_TYPE_SCREEN,
+  CARD_ORDER_CHOOSE_CARD_SCREEN,
+  CARD_ORDER_CHOSEN_CARD_SCREEN,
+  CARD_ORDER_CHOOSE_IBAN_SCREEN,
+  CARD_ORDER_CHOOSE_ADDRESS_SCREEN,
+  CARD_ORDER_DETAILS_SCREEN,
   TARIFF_PACKAGES_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
@@ -232,6 +244,53 @@ export const ProductsStack = () => {
         name={LOAN_REQUEST_ACCEPTED_SCREEN}
         component={LoanRequestAcceptedScreen}
         options={guestNavOptions}
+      />
+      <Screen
+        name={CARD_ORDER_TYPE_SCREEN}
+        component={CardOrderTypeScreen}
+        options={{
+          title: t('products.type'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={CARD_ORDER_CHOOSE_CARD_SCREEN}
+        component={CardOrderChooseCardScreen}
+        options={{
+          title: t('products.plasticCard'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={CARD_ORDER_CHOSEN_CARD_SCREEN}
+        component={CardOrderChosenCardScreen}
+        options={{
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={CARD_ORDER_CHOOSE_IBAN_SCREEN}
+        component={CardOrderChooseIbanScreen}
+        options={{
+          title: t('products.account'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={CARD_ORDER_CHOOSE_ADDRESS_SCREEN}
+        component={CardOrderChooseAddressScreen}
+        options={{
+          title: t('products.branch'),
+          headerStyle: st.whiteHeader,
+        }}
+      />
+      <Screen
+        name={CARD_ORDER_DETAILS_SCREEN}
+        component={CardOrderDetailsScreen}
+        options={{
+          title: t('products.cardDetails'),
+          headerStyle: st.whiteHeader,
+        }}
       />
       <Screen
         name={TARIFF_PACKAGES_SCREEN}
