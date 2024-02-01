@@ -13,7 +13,7 @@ import { LoanProduct } from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { DataType, FlatListRef, SelectedProduct } from './LoanAmountScreen.types';
 import { CIRCULAR_ITEM_SIZE } from 'constants/common';
-import { REGEX } from 'constants/regEx';
+import { REGEX } from 'constants/regex';
 
 export const useLoanAmount = (flatlistRef: FlatListRef) => {
   const dispatch = useAppDispatch();
