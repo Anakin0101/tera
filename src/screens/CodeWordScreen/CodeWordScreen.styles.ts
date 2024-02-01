@@ -9,13 +9,13 @@ export const useStyles = () => {
     },
     wrapper: {
       paddingHorizontal: Spacing.xl,
-      paddingBottom: Spacing.ml,
     },
     ctaWrapper: {
       paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
     },
     ctaOpenWrapper: {
-      paddingBottom: Spacing.md,
+      paddingVertical: Spacing.md,
     },
     codeWordTextContainer: {
       marginTop: -Spacing.m,

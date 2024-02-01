@@ -10,6 +10,7 @@ import { setSelectedTransaction } from 'store/slices/products';
 import { MainStackScreenProps } from 'navigation/types';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './DashboardOperations.styles';
+import { NoTransactions } from 'assets/SVGs/NoTransactions';
 
 export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
   const styles = useStyles();
@@ -48,16 +49,25 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
               />
             </View>
             <View style={styles.dashboardTemplatesWrapper}>
-              <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={item => item.id.toString()}
-                showsHorizontalScrollIndicator={false}
-              />
+              {data && data.length ? (
+                <FlatList
+                  data={data}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.id.toString()}
+                  showsHorizontalScrollIndicator={false}
+                />
+              ) : (
+                <View style={styles.noTransactionsWrapper}>
+                  <NoTransactions />
+                  <Text children="dashboard.noTransactions" style={styles.noTransactionsText} />
+                </View>
+              )}
             </View>
           </View>
         </View>
-        <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
+        {data && data.length ? (
+          <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
+        ) : null}
       </View>
     </>
   );

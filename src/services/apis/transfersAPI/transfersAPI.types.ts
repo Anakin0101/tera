@@ -1,7 +1,7 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { Currency } from '../productsAPI/productsAPI.types';
 import { SerializedError } from '@reduxjs/toolkit';
-import { CustomTransferResultError } from 'screens/TransferDetailScreen/TransferDetailScreen.types';
+import { CustomBackendError } from 'services/types';
 
 export type convertAmountType = {
   amountBuy: number;
@@ -104,6 +104,31 @@ export type TreasuryItem = {
 };
 
 export type treasuryRes = TreasuryItem[] | undefined;
+
+export type sendTreasuryRes = {
+  orderId: number;
+  otpRequired: boolean;
+  templateId: number;
+};
+
+export type TreasuryApiResponse = {
+  data?: sendTreasuryRes;
+  error?: FetchBaseQueryError | SerializedError;
+};
+export type sendTreasuryReq = {
+  body: {
+    amount: string;
+    debitAccountId: number;
+    payForSomeone: boolean;
+    payerCode: string;
+    payerName: string;
+    purpose: string;
+    sendOtp: boolean;
+    treasuryCode: string;
+    usedTemplateId: null;
+  };
+  headers: Headers | string[][] | Record<string, string | undefined> | undefined;
+};
 
 type InternalTransaction = {
   debitIban: string;
@@ -208,12 +233,12 @@ export type TransferToOwnAccountRequestType = {
 
 export type TransferToOwnAccountResponseType = {
   data?: {};
-  error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
+  error?: CustomBackendError | FetchBaseQueryError | SerializedError;
 };
 
 export type TransferToSomeoneResultResponseType = {
   data?: {};
-  error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
+  error?: CustomBackendError | FetchBaseQueryError | SerializedError;
 };
 
 export type treasuryReq = {

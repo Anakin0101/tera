@@ -42,6 +42,7 @@ export { LoanRequestAdditionalInfo } from './LoanRequestAdditionalInfo/LoanReque
 export { NewLoanDetailsScreen } from './NewLoanDetailsScreen/NewLoanDetailsScreen';
 export { LoanRequestAcceptedScreen } from './LoanRequestAcceptedScreen/LoanRequestAcceptedScreen';
 export { TransferToBudget } from './TransferToBudget/TransferToBudget';
+export { BudgetTransferDetailsScreen } from './BudgetTransferDetailsScreen/BudgetTransferDetailsScreen';
 export { CodeWordScreen } from './CodeWordScreen/CodeWordScreen';
 export { VerificationTypeScreen } from './VerificationTypeScreen/VerificationTypeScreen';
 export { RegistrationMethodScreen } from './RegistrationMethodScreen/RegistrationMethodScreen';

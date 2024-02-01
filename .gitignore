@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+/ios/.xcode.env.local
+
 #env
 .env
 .env.*
@@ -25,6 +27,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 template/ios/.xcode.env.local
+*.xcode.env.local
 
 # Android/IntelliJ
 #

@@ -13,6 +13,8 @@ import {
   LoginByRefreshTokenAPIResponseType,
   LogoutAPIRequestType,
   LogoutAPIResponseType,
+  RegisterUserAPIRequestType,
+  RegisterUserAPIResponseType,
 } from './authAPI.types';
 
 import { METHOD_NAMES, URLS } from 'services/constants';
@@ -68,6 +70,14 @@ export const authAPI = createApi({
         body: body,
       }),
     }),
+    registerUser: builder.mutation<RegisterUserAPIResponseType, RegisterUserAPIRequestType>({
+      query: ({ headers, body }) => ({
+        url: URLS.registerUser,
+        method: METHOD_NAMES.POST,
+        headers: headers,
+        body: body,
+      }),
+    }),
     loginByRefreshToken: builder.mutation<
       LoginByRefreshTokenAPIResponseType,
       LoginByRefreshTokenAPIRequestType
@@ -89,4 +99,5 @@ export const {
   useLogoutUserMutation,
   useLoginByRefreshTokenMutation,
   useDeleteTrustedDevicesMutation,
+  useRegisterUserMutation,
 } = authAPI;

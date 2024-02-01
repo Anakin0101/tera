@@ -63,6 +63,7 @@ import {
   LOAN_REQUEST_ACCEPTED_SCREEN,
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
+  BUDGET_TRANSFER_DETAILS,
   NEW_PAYMENT_SCREEN,
   REGISTRATION_STACK,
   REGISTRATION_METHOD_SCREEN,
@@ -76,6 +77,7 @@ import {
   CARD_ORDER_CHOOSE_IBAN_SCREEN,
   CARD_ORDER_CHOOSE_ADDRESS_SCREEN,
   CARD_ORDER_DETAILS_SCREEN,
+  TARIFF_PACKAGES_SCREEN,
 } from './ScreenNames';
 
 export type RoutesList = {
@@ -163,6 +165,7 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_CHOOSE_IBAN_SCREEN]: undefined;
   [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {
@@ -197,11 +200,14 @@ export type TransactionsStackParamsList = {
     mobileTransaction?: boolean;
     receiver?: string;
   };
-  [TRANSACTION_FINISHED_SCREEN]: {
-    convertion?: any;
-  };
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: any;
+      };
 
   [TRANSFER_TO_BUDGET]: undefined;
+  [BUDGET_TRANSFER_DETAILS]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
@@ -227,7 +233,11 @@ export type GuestStackParamList = {
 };
 
 export type RegistrationStackParamsList = {
-  [REGISTRATION_METHOD_SCREEN]: undefined;
+  [REGISTRATION_METHOD_SCREEN]:
+    | undefined
+    | {
+        flow: 'registration' | 'passwordRecovery';
+      };
   [VERIFICATION_TYPE_SCREEN]: undefined;
   [CODE_WORD_SCREEN]: undefined;
   [ENTER_USERNAME_SCREEN]: undefined;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useStyles } from './RegistrationMethodScreen.styles';
 import { Platform, View } from 'react-native';
 import { RegistrationMethodCard, RegistrationTitle } from 'components/index';
@@ -7,8 +7,10 @@ import { Colors } from 'theme/Variables';
 import { useNavigation } from '@react-navigation/native';
 import { RegistrationStackScreenProps } from 'navigation/types';
 import { VERIFICATION_TYPE_SCREEN } from 'navigation/ScreenNames';
+import { RegistrationMethodScreenProps } from './RegistrationMethodScreen.types';
 
-export const RegistrationMethodScreen = () => {
+export const RegistrationMethodScreen: FC<RegistrationMethodScreenProps> = ({ route }) => {
+  const { flow } = route?.params ?? {};
   const styles = useStyles();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'VerificationScreen'>>();
 
@@ -24,7 +26,13 @@ export const RegistrationMethodScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <RegistrationTitle text={'registration.choose_registration_method'} />
+      <RegistrationTitle
+        text={
+          flow === 'registration'
+            ? 'registration.choose_registration_method'
+            : 'passwordRecovery.choose_password_recovery_method'
+        }
+      />
       <RegistrationMethodCard
         icon={BiometricIcon}
         title={'registration.with_biometric_info'}

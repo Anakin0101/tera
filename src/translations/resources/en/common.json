@@ -13,7 +13,8 @@
     "greetings": "Greetings",
     "settings": "Settings",
     "passcode": "Passcode",
-    "register": "Register"
+    "register": "Register",
+    "password_recovery": "Password Recovery"
   },
   "onboarding": {
     "next": "Next",
@@ -108,7 +109,8 @@
     "pay": "Payment",
     "fill": "Top up",
     "savings": "Savings",
-    "allPay": "All payments"
+    "allPay": "All payments",
+    "noTransactions": "You don't have transactions"
   },
 
   "profile": {
@@ -393,7 +395,14 @@
     "next": "Next",
     "createCode": "create code",
     "transferToBudget": "Transfer to budget",
-    "budgetTitle": "სახაზინო კოდი"
+    "budgetTitle": "სახაზინო კოდი",
+    "inBudget": "ბიუჯეტში გადარიცხვა",
+    "forMe": "ჩემთვის",
+    "forOthers": "სხვისთვის",
+    "transferforSomeone": "ვისთვის რიცხავ თანხას",
+    "chooseReceiver": "აირჩიე მიმღები",
+    "chooseCity": "აირჩიე ქალაქი ან რეგიონი",
+    "choosePayment": "აირჩიე გადასახადი"
   },
   "transactionDetails": {
     "to": "To",
@@ -430,6 +439,7 @@
   "newDeposit": {
     "newProduct": "New Product",
     "tariffPackage": "Tariff Package",
+    "tariffPackages": "Tariff Packages",
     "card": "Card",
     "deposit": "Deposit",
     "teraWallet": "Tera Wallet",
@@ -470,7 +480,11 @@
     "lifetime": "Lifetime",
     "specialOffer": "Especially for you - open a deposit and get a higher than standard interest rate.",
     "saveFreeMoney": "Save free money and get high interest benefits.",
-    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency."
+    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency.",
+    "selectTariff": "Choose the tariff packages tailored to your wishes",
+    "monthlyFee": "Monthly fee",
+    "annualFee": "Annual fee",
+    "cardStatus": "Active"
   },
   "payments": {
     "totalDebt": "Total Debt",
@@ -569,5 +583,9 @@
     "successful_registration_title": "Registration completed successfully",
     "successful_registration_description": "Click on the button 'Login' and authorize",
     "enter_code_word": "Enter code word"
+  },
+  "passwordRecovery": {
+    "choose_password_recovery_method": "Choose a password recovery method",
+    "successful_password_recovery_title": "Password recovery finished successfully"
   }
 }

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
+import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
   const { Layout, Fonts, Spacing, FontSize, Colors } = useTheme();
@@ -30,6 +31,15 @@ export const useStyles = () => {
     },
     dashboardTemplatesContent: {
       paddingVertical: Spacing.xl,
+    },
+    noTransactionsWrapper: {
+      ...Layout.center,
+    },
+    noTransactionsText: {
+      color: Colors.textBlack500,
+      fontFamily: FontFamily.medium,
+      fontSize: FontSize.small,
+      marginTop: Spacing.xlm,
     },
   });
 };

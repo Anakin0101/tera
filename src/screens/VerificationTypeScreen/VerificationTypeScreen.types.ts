@@ -2,6 +2,6 @@ export type VerificationTypeScreenFormData = {
   personalId: string;
   withPhone: string;
   withEmail: string;
-  phoneNumber: string;
+  mobile: string;
   email: string;
 };
