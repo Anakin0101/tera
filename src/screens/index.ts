@@ -49,3 +49,4 @@ export { RegistrationMethodScreen } from './RegistrationMethodScreen/Registratio
 export { RegistrationFinishScreen } from './RegistrationFinishScreen/RegistrationFinishScreen';
 export { AutomaticPaymentsScreen } from './AutomaticPaymentsScreen/AutomaticPaymentsScreen';
 export { AutomaticPaymentDetailsScreen } from './AutomaticPaymentDetailsScreen/AutomaticPaymentDetailsScreen';
+export { NewAutomaticPaymentScreen } from './NewAutomaticPaymentScreen/NewAutomaticPaymentScreen';

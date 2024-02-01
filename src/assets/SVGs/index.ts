@@ -130,3 +130,6 @@ export { ArrowDown } from './ArrowDown';
 export { CalendarLarge } from './CalendarLarge';
 export { AddPlus } from './AddPlus';
 export { More } from './More';
+export { Event } from './Event';
+export { ChevronDownLarge } from './ChevronDownLarge';
+export { AlertCircle } from './AlertCircle';

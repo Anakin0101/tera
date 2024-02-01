@@ -31,7 +31,11 @@ export const ActionSheet: FC<ActionSheetProps> = memo(
             </View>
           )}
           {getActions()}
-          <TouchableHighlight onPress={onCancel} style={styles.cancel}>
+          <TouchableHighlight
+            onPress={onCancel}
+            style={styles.cancel}
+            underlayColor={Colors.actionSheetBg}
+          >
             <Text center children="common.cancel" size={18} color={Colors.primary} />
           </TouchableHighlight>
         </View>

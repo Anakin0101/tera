@@ -69,6 +69,8 @@ export const Colors = {
   textLightBlue: 'rgba(143, 160, 204, 0.1)',
   actionSheetBg: 'rgb(219,219,219)',
   actionSheetBorder: 'rgb(167,167,167)',
+  blue: '#1D5AF2',
+  lightBlue: '#F3F5FF',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

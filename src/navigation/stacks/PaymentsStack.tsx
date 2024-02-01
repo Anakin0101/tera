@@ -1,10 +1,16 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
-import { AutomaticPaymentDetailsScreen, AutomaticPaymentsScreen, PaymentsScreen } from 'screens';
+import {
+  AutomaticPaymentDetailsScreen,
+  AutomaticPaymentsScreen,
+  NewAutomaticPaymentScreen,
+  PaymentsScreen,
+} from 'screens';
 import {
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
+  NEW_AUTOMATIC_PAYMENT_SCREEN,
   PAYMENTS_SCREEN,
 } from 'navigation/ScreenNames';
 import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
@@ -48,6 +54,14 @@ export const PaymentsStack = () => {
         name={AUTOMATIC_PAYMENT_DETAILS_SCREEN}
         component={AutomaticPaymentDetailsScreen}
         options={{ title: t('automaticPayments.paymentDetails') }}
+      />
+      <Screen
+        name={NEW_AUTOMATIC_PAYMENT_SCREEN}
+        component={NewAutomaticPaymentScreen}
+        options={{
+          title: 'ახალი გადახდა',
+          headerStyle: { backgroundColor: Colors.white },
+        }}
       />
     </Navigator>
   );
