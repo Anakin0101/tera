@@ -1,7 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
 import { METHOD_NAMES, URLS } from 'services/constants';
-import { GetPaymentsServiceParams, GetPaymentsServiceResponse } from './paymentsAPI.types';
+import {
+  GetPaymentsServiceParams,
+  GetPaymentsServiceResponse,
+  GetDebtVerifyBasketResponse,
+  GetDebtVerifyBasketParams,
+  DebtVerifyInfoResponse,
+  DebtVerifyRequestBody,
+} from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
   reducerPath: 'paymentsAPI',
@@ -15,7 +22,26 @@ export const paymentsAPI = createApi({
         params: { IsAdult: isAdult },
       }),
     }),
+    getDebtVerifyBasket: builder.mutation<GetDebtVerifyBasketResponse, GetDebtVerifyBasketParams>({
+      query: params => ({
+        url: URLS.getDebtVerifyBasket,
+        method: METHOD_NAMES.POST,
+        params,
+      }),
+    }),
+    debtVerifyResults: builder.mutation<DebtVerifyInfoResponse, DebtVerifyRequestBody>({
+      query: body => ({
+        url: URLS.checkDebtVerifyBasket,
+        method: METHOD_NAMES.POST,
+        params: { notShowError: 1 }, // ეს გაჰარდკოდებულია ვებშიც
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetPaymentServicesQuery } = paymentsAPI;
+export const {
+  useGetPaymentServicesQuery,
+  useGetDebtVerifyBasketMutation,
+  useDebtVerifyResultsMutation,
+} = paymentsAPI;

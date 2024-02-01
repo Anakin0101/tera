@@ -42,6 +42,8 @@ export const URLS = {
   getTotalSaving: 'Pensions/GetTotalSaving',
   getUnreadMessagesCount: 'Conversations/GetUnreadMessagesCount',
   getPaymentServices: 'Payment/GetPaymentServices',
+  getDebtVerifyBasket: 'Payment/GetDebtVerifyBasket',
+  checkDebtVerifyBasket: 'Payment/DebtVerifyBasket',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
   requestForLoan: 'Loan/RequestForLoan',
