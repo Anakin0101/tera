@@ -1,6 +1,8 @@
+import { SelectedMethod } from 'components/modals/AutomaticPaymentMethodModal/AutomaticPaymentMethodModal.types';
+
 export type FormData = {
   abonentNumber: string;
-  paymentMethod: string;
+  paymentMethod: SelectedMethod;
   amount: string;
   title: string;
   startDate: string;

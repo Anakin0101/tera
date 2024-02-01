@@ -364,3 +364,9 @@ export type RequestForLoanConsentTexts = {
   consentToDataProcessingInCreditInfo: string;
   consentToMessageDataProcessingInfo: string;
 };
+
+export enum AutoPaymentTypeEnum {
+  ByDebt = 0,
+  FixedDateByDebt = 1,
+  FixedAmount = 2,
+}

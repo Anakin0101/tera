@@ -10,7 +10,14 @@ import { Alert } from './Alert';
 
 export const NewAutomaticPaymentScreen = () => {
   const styles = useStyles();
-  const { control, toggleActiveAllTime, isChecked, setIsChecked } = useNewAutomaticPayment();
+  const {
+    control,
+    toggleActiveAllTime,
+    isChecked,
+    setIsChecked,
+    paymentMethodRef,
+    onPaymentMethodPress,
+  } = useNewAutomaticPayment();
 
   return (
     <KeyboardAwareScrollView
@@ -50,13 +57,14 @@ export const NewAutomaticPaymentScreen = () => {
             return (
               <View>
                 <TextInput
-                  value={value}
+                  value={value?.name}
                   marginTop={16}
                   editable={false}
                   onChangeText={onChange}
                   label="გადახდის მეთოდი"
+                  ref={paymentMethodRef}
                 />
-                <Pressable style={styles.iconContainer} onPress={() => {}}>
+                <Pressable style={styles.iconContainer} onPress={onPaymentMethodPress}>
                   <ChevronDownLarge />
                 </Pressable>
               </View>

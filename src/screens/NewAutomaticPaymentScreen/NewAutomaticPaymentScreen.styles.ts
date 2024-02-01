@@ -55,7 +55,7 @@ export const useStyles = () => {
     switchLabel: {
       ...Platform.select({
         ios: {
-          bottom: Spacing.xxxs,
+          bottom: moderateScale(Spacing.xxxs),
         },
       }),
     },
