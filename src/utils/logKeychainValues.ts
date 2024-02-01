@@ -33,7 +33,6 @@ export const logAllKeychainValues = async () => {
   }
 };
 
-// TODO - should be removed - testing purposes only!!
 export const resetKeychainValues = async () => {
   try {
     const val = await clearCredentials();

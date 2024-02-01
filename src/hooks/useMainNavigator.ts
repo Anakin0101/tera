@@ -13,14 +13,12 @@ export const useMainNavigator = () => {
   useBootstrapApp();
 
   useEffect(() => {
-    if (userIp && deviceToken) {
-      getTrustedDevices({
-        headers: {
-          'X-Bank-UserIp': userIp,
-          'X-Bank-DeviceToken': deviceToken,
-        },
-      });
-    }
+    getTrustedDevices({
+      headers: {
+        'X-Bank-UserIp': userIp,
+        'X-Bank-DeviceToken': deviceToken,
+      },
+    });
   }, [deviceToken, getTrustedDevices, userIp]);
 
   const getIsDeviceTrusted = useCallback(() => {

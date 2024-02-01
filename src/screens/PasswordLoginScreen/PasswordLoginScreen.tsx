@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
 import useStyles from './PasswordLoginScreen.styles';
@@ -10,9 +10,10 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setShouldSaveUsername } from 'store/slices/userInfo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
-import { useNavigation } from '@react-navigation/native';
-import { GuestStackScreenProps } from 'navigation/types';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { GuestStackRouteProps, GuestStackScreenProps } from 'navigation/types';
 import { setCurrentFlow } from 'store/slices/registerUser';
+import { resetStateAction } from 'store/actions/reset';
 
 type FormData = {
   username: string;
@@ -21,11 +22,22 @@ type FormData = {
 };
 
 const PasswordLoginScreenBase = () => {
+  const { params } = useRoute<GuestStackRouteProps<'PasswordLoginScreen'>>();
+  const { clearStorage } = params ?? {};
   const styles = useStyles();
   const { handleSignIn, loginUserLoading } = useLogin();
   const dispatch = useAppDispatch();
   const { isKeyboardOpened } = useKeyboard();
   const { navigate } = useNavigation<GuestStackScreenProps<'RegistrationStack'>>();
+
+  /**
+   * if user was redirected from Passcode Login Screen (after User reset), we should clear the storage
+   */
+  useEffect(() => {
+    if (clearStorage) {
+      dispatch(resetStateAction());
+    }
+  }, [clearStorage, dispatch]);
 
   const {
     control,

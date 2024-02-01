@@ -4,24 +4,19 @@ import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
 import { GuestStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { Alert, Keyboard } from 'react-native';
-import { resetStateAction } from 'store/actions/reset';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-
-import { clearLoginName } from 'utils/keychain';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { closeModal, openModal } from 'utils/modal';
 
 export const useUserReset = () => {
   const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
-  const dispatch = useAppDispatch();
 
   const confirmUserReset = async () => {
     const result = await resetKeychainValues();
     if (result) {
-      await clearLoginName();
       closeModal();
-      navigate(PASSWORD_LOGIN_SCREEN);
-      dispatch(resetStateAction());
+      navigate(PASSWORD_LOGIN_SCREEN, {
+        clearStorage: true,
+      });
     } else {
       Alert.alert('Could not change user');
     }

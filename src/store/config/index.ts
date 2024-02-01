@@ -29,7 +29,7 @@ export const dashboardPersistConfig = {
 export const deviceInfoPersistConfig = {
   key: 'deviceInfo',
   storage: reduxStorage,
-  whitelist: ['deviceToken'],
+  whitelist: ['deviceToken', 'userIp'],
 };
 
 export const profilePersistConfig = {
