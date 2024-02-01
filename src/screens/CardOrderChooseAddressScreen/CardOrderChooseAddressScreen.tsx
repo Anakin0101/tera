@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Item as Header } from './Item';
 import { Divider, Text, Button, ControlledInput, LoadingView, SearchComponent } from 'components';
 import { CardProduct } from 'services/apis/productsAPI/productsAPI.types';
-import useBranches from './container';
+import { useBranches } from './container';
 
 export const CardOrderChooseAddressScreen = () => {
   const styles = useStyles();
@@ -17,13 +17,13 @@ export const CardOrderChooseAddressScreen = () => {
     setSearchText,
     selectedBranch,
     setSelectedBranch,
-    branches,
     navigateToOrderDetailsScreen,
     selectedCardData,
     control,
+    isLoading,
   } = useBranches();
 
-  if (!branches) {
+  if (isLoading) {
     return <LoadingView />;
   }
 
@@ -51,7 +51,7 @@ export const CardOrderChooseAddressScreen = () => {
         </View>
         <Divider />
         <View style={styles.section}>
-          {filteredBranches.map(branch => (
+          {filteredBranches?.map(branch => (
             <ControlledInput
               control={control}
               key={branch.id}
@@ -70,6 +70,7 @@ export const CardOrderChooseAddressScreen = () => {
             text={t('personalNumber.next')}
             fullWidth
             onPress={navigateToOrderDetailsScreen}
+            disabled={!selectedBranch}
           />
         </View>
       </View>

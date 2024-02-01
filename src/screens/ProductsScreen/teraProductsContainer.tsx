@@ -99,7 +99,7 @@ export const useTeraProducts = () => {
         onPress: onLoanPress,
       },
     ];
-  }, [onDepositPress, onLoanPress, onTariffPress,onCardPress]);
+  }, [onDepositPress, onLoanPress, onTariffPress, onCardPress]);
 
   const onNewProductsPress = () => {
     openModal({

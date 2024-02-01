@@ -64,6 +64,7 @@ export const CardOrderChooseIbanScreen = () => {
             text="personalNumber.next"
             fullWidth
             onPress={navigateToChooseAddressScreen}
+            disabled={!selectedIban}
           />
         </View>
       </View>
