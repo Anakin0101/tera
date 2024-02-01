@@ -11,7 +11,6 @@ import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-s
 import { useKeyboard } from 'utils/useKeyboard';
 import { EnterUsernameFormData } from './EnterUsernameScreen.types';
 import { useUserRegister } from 'hooks/useUserRegister';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const EnterUsernameScreen = () => {
   const styles = useStyles();
@@ -19,10 +18,10 @@ export const EnterUsernameScreen = () => {
     control,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors },
   } = useForm<EnterUsernameFormData>({ defaultValues: { agree: true } });
   const { replace } = useNavigation<RegistrationStackScreenProps<'RegistrationFinishScreen'>>();
-  const { userName: storedUserName } = useAppSelector(state => state.registerUser);
 
   const termsAndConditionsAccepted = watch('agree');
   const { handleUserRegister, isLoading } = useUserRegister();
@@ -35,7 +34,12 @@ export const EnterUsernameScreen = () => {
   };
 
   const checkOTP = (enteredOTP: string) => {
-    handleUserRegister({ otp: enteredOTP }, handleSuccessfulOTP);
+    const { userName: formUserName } = getValues();
+
+    handleUserRegister(
+      { otp: enteredOTP, sendOtp: false, userName: formUserName },
+      handleSuccessfulOTP,
+    );
   };
 
   const handleOpenModal = () => {
@@ -48,16 +52,13 @@ export const EnterUsernameScreen = () => {
   };
 
   const handleSendOTP = () => {
-    handleUserRegister({ sendOtp: true }, handleOpenModal);
+    const { userName: formUserName } = getValues();
+    handleUserRegister({ sendOtp: true, userName: formUserName }, handleOpenModal);
   };
 
   const onSubmit: SubmitHandler<EnterUsernameFormData> = data => {
     const { userName } = data;
-    if (storedUserName) {
-      handleSendOTP();
-    } else {
-      handleUserRegister({ userName }, handleSendOTP);
-    }
+    handleUserRegister({ userName, sendOtp: false }, handleSendOTP);
   };
 
   const handleTermsAndConditions = () => {
