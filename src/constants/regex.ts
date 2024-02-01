@@ -3,5 +3,4 @@ export const REGEX = {
   MAX_LENGTH_9: /^\d{9}$/,
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   COMMA_OR_PERIOD: /[.,]/g,
-  MATCH_ID: /id:(\d+)/,
 };
