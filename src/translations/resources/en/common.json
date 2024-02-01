@@ -13,7 +13,8 @@
     "greetings": "Greetings",
     "settings": "Settings",
     "passcode": "Passcode",
-    "register": "Register"
+    "register": "Register",
+    "password_recovery": "Password Recovery"
   },
   "onboarding": {
     "next": "Next",
@@ -229,7 +230,32 @@
     "depositDetails": "Deposit Details",
     "updateCard": "Update Card",
     "insure": "Standart",
-    "type": "Card Type"
+    "type": "Card Type",
+    "getCardEasily": "Get the card easily",
+    "tailoredProducts": "Receive products tailored to your desires",
+    "plasticCard": "Plastic card",
+    "orderPlasticCard": "Order a plastic card",
+    "chooseCard": "Choose a card",
+    "linkCardToAccount": "Which account would you like to link the card to?",
+    "universalAccount": "Universal account",
+    "newIban": "New Account",
+    "toExistingAccount": "Or to an existing account",
+    "branch": "branch",
+    "chooseBranch": "Choose a branch",
+    "cardDeliveryIssue": "In case the card cannot be delivered to the specified address, the courier will bring it to the branch you have selected",
+    "findBranch": "Find a branch",
+    "annualServiceFee": "Annual service fee",
+    "nameOnCard": "Name and surname printed on the card",
+    "delivery": "Delivery",
+    "cardDeliveryType": "Type of card delivery",
+    "pickupAtBranch": "I will pick up at the branch",
+    "pinCodeReceivingMethod": "Method of receiving the PIN code",
+    "phoneForPin": "Phone number for receiving the PIN code",
+    "SMS": "SMS",
+    "cardSecurity": "Card security",
+    "noInsuranceWanted": "I do not want insurance",
+    "agreeToBankingTerms": "I agree to the standard terms of banking operations",
+    "orderAmount": "Order - "
   },
   "deposits": {
     "agreementNumber": "Agreement Number",
@@ -413,6 +439,7 @@
   "newDeposit": {
     "newProduct": "New Product",
     "tariffPackage": "Tariff Package",
+    "tariffPackages": "Tariff Packages",
     "card": "Card",
     "deposit": "Deposit",
     "teraWallet": "Tera Wallet",
@@ -453,7 +480,11 @@
     "lifetime": "Lifetime",
     "specialOffer": "Especially for you - open a deposit and get a higher than standard interest rate.",
     "saveFreeMoney": "Save free money and get high interest benefits.",
-    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency."
+    "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency.",
+    "selectTariff": "Choose the tariff packages tailored to your wishes",
+    "monthlyFee": "Monthly fee",
+    "annualFee": "Annual fee",
+    "cardStatus": "Active"
   },
   "payments": {
     "totalDebt": "Total Debt",
@@ -564,5 +595,9 @@
     "successful_registration_title": "Registration completed successfully",
     "successful_registration_description": "Click on the button 'Login' and authorize",
     "enter_code_word": "Enter code word"
+  },
+  "passwordRecovery": {
+    "choose_password_recovery_method": "Choose a password recovery method",
+    "successful_password_recovery_title": "Password recovery finished successfully"
   }
 }

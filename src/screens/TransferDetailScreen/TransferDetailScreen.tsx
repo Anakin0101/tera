@@ -4,7 +4,7 @@ import { Button } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { useNavigation } from '@react-navigation/native';
-import { CustomTransferResultError, SelectedItemProp } from './TransferDetailScreen.types';
+import { SelectedItemProp } from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
@@ -20,6 +20,7 @@ import {
 } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
+import { CustomBackendError } from 'services/types';
 
 export const TransferDetailScreen = () => {
   const { t } = useTranslation();
@@ -128,7 +129,7 @@ export const TransferDetailScreen = () => {
   };
   const handleTransferError = (error: any) => {
     if ('data' in error) {
-      const { data } = error as CustomTransferResultError;
+      const { data } = error as CustomBackendError;
       if (data?.status === 400) {
         navigate(TRANSACTION_FAILED_SCREEN);
       } else {

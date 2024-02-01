@@ -5,6 +5,7 @@ export const URLS = {
   addTrustedDevice: 'Auth/AddTrustedDevice',
   getTrustedDevices: 'Auth/GetTrustedDevices',
   deleteTrustedDevices: 'Auth/DeleteTrustedDevices',
+  registerUser: 'Auth/registerUser',
   getTemplates: 'Templates/GetTemplates',
   getUserProfile: 'Customers/GetUserProfile',
   loginByRefreshToken: 'Auth/LoginByRefreshToken',
@@ -50,5 +51,7 @@ export const URLS = {
   getRequestForLoanConsentTexts: 'Loan/GetRequestForLoanConsentTexts',
   treasury: 'Transfers/GetTreasuryCodeParts',
   testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',
+  getBranches: 'Catalogs/GetBranches',
+  addCard: 'Account/AddCard',
   sendTreasury: 'Transfers/TransferToTreasury',
 };

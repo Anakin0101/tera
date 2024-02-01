@@ -82,6 +82,13 @@ export const LOAN_REQUEST_TERMS_SCREEN = 'LoanRequestTermsScreen';
 export const LOAN_REQUEST_ADDITIONAL_INFO_SCREEN = 'LoanRequestAdditionalInfo';
 export const NEW_LOAN_DETAILS_SCREEN = 'NewLoanDetailsScreen';
 export const LOAN_REQUEST_ACCEPTED_SCREEN = 'LoanRequestAcceptedScreen';
+export const CARD_ORDER_TYPE_SCREEN = 'CardOrderTypeScreen';
+export const CARD_ORDER_CHOOSE_CARD_SCREEN = 'CardOrderChooseCardScreen';
+export const CARD_ORDER_CHOSEN_CARD_SCREEN = 'CardOrderChosenCardScreen';
+export const CARD_ORDER_CHOOSE_IBAN_SCREEN = 'CardOrderChooseIbanScreen';
+export const CARD_ORDER_CHOOSE_ADDRESS_SCREEN = 'CardOrderChooseAddressScreen';
+export const CARD_ORDER_DETAILS_SCREEN = 'CardOrderDetailsScreen';
+export const TARIFF_PACKAGES_SCREEN = 'TariffPackagesListScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

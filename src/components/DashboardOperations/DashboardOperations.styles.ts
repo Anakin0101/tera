@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
+import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Layout, Fonts, Spacing, FontSize, Colors, FontFamily } = useTheme();
+  const { Layout, Fonts, Spacing, FontSize, Colors } = useTheme();
 
   return StyleSheet.create({
     headerContainer: {

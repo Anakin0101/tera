@@ -1166,6 +1166,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view/-/react-native-keyboard-sticky-footer-avoiding-scroll-view-1.0.5.tgz#d7c2e98841f6e0fab6bc9e855b636d2352499276"
+  integrity sha512-igTUarqeSOVAkQshsVqXo0AGgmARwflABNBSWr+BVdZlMxjnJZ9BlOwgJilA7DZrFWkHceknC6GlxvbziJH3bQ==
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
@@ -6485,10 +6490,10 @@ react-native-fast-image@^8.6.3:
   resolved "https://registry.npmjs.org/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz"
   integrity sha512-Sdw4ESidXCXOmQ9EcYguNY2swyoWmx53kym2zRsvi+VeFCHEdkO+WG1DK+6W81juot40bbfLNhkc63QnWtesNg==
 
-react-native-flipper@0.125.0:
-  version "0.125.0"
-  resolved "https://registry.npmjs.org/react-native-flipper/-/react-native-flipper-0.125.0.tgz"
-  integrity sha512-Ahql6yMRcI/ZHrf8YlIyyaWdv6X4be9uRYVgYphYHtHPuaTpINXOu+Sqhb+OhRzb7wqa2lvCU8bo7AgG33iSyg==
+react-native-flipper@^0.212.0:
+  version "0.212.0"
+  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.212.0.tgz#b3fdd47676ecd09a25edd77a1466acace6276762"
+  integrity sha512-bDRfIgE3v/jjEEdnvGP0T6maDD+bXhDAQ/SZUYTKd/CQ6YIU1c0EF+e0urU62LNMv6XEFQKz226McdddyVhYZA==
 
 react-native-gesture-handler@^2.12.0:
   version "2.14.1"
@@ -6505,11 +6510,6 @@ react-native-iphone-x-helper@^1.0.3:
   version "1.3.1"
   resolved "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
-
-react-native-keyboard-avoiding-scroll-view@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-avoiding-scroll-view/-/react-native-keyboard-avoiding-scroll-view-1.0.1.tgz#61fe9a921474b789610a746bb30dc2b7b265b4fd"
-  integrity sha512-l+CYCbQ7fueM4kat28zSdi7r1ABxRBHikVCTmjGQLIvJBABxS7qgi3Y9ozU8CpqD6wEeqPb02AnBS+jiAYXBvA==
 
 react-native-keyboard-aware-scroll-view@^0.9.5:
   version "0.9.5"

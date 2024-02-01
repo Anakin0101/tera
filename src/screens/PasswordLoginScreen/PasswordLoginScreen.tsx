@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Pressable, View } from 'react-native';
 import { Button, Text, ControlledInput } from 'components';
 import useStyles from './PasswordLoginScreen.styles';
 import { useLogin } from 'hooks';
@@ -10,8 +10,10 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setShouldSaveUsername } from 'store/slices/userInfo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
-import { useNavigation } from '@react-navigation/native';
-import { GuestStackScreenProps } from 'navigation/types';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { GuestStackRouteProps, GuestStackScreenProps } from 'navigation/types';
+import { setCurrentFlow } from 'store/slices/registerUser';
+import { resetStateAction } from 'store/actions/reset';
 
 type FormData = {
   username: string;
@@ -20,11 +22,22 @@ type FormData = {
 };
 
 const PasswordLoginScreenBase = () => {
+  const { params } = useRoute<GuestStackRouteProps<'PasswordLoginScreen'>>();
+  const { clearStorage } = params ?? {};
   const styles = useStyles();
   const { handleSignIn, loginUserLoading } = useLogin();
   const dispatch = useAppDispatch();
   const { isKeyboardOpened } = useKeyboard();
   const { navigate } = useNavigation<GuestStackScreenProps<'RegistrationStack'>>();
+
+  /**
+   * if user was redirected from Passcode Login Screen (after User reset), we should clear the storage
+   */
+  useEffect(() => {
+    if (clearStorage) {
+      dispatch(resetStateAction());
+    }
+  }, [clearStorage, dispatch]);
 
   const {
     control,
@@ -39,6 +52,14 @@ const PasswordLoginScreenBase = () => {
   };
 
   const registerUser = () => {
+    dispatch(setCurrentFlow('registration'));
+    navigate(REGISTRATION_STACK, {
+      screen: REGISTRATION_METHOD_SCREEN,
+    });
+  };
+
+  const handlePasswordRecovery = () => {
+    dispatch(setCurrentFlow('passwordRecovery'));
     navigate(REGISTRATION_STACK, {
       screen: REGISTRATION_METHOD_SCREEN,
     });
@@ -48,7 +69,7 @@ const PasswordLoginScreenBase = () => {
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
       contentInsetAdjustmentBehavior="automatic"
-      extraScrollHeight={80}
+      extraScrollHeight={100}
       showsVerticalScrollIndicator={false}
       scrollEnabled={isKeyboardOpened}
       style={styles.mainContainer}
@@ -92,7 +113,9 @@ const PasswordLoginScreenBase = () => {
             name="save"
             label="common:passAuth.save"
           />
-          <Text children="common:passAuth.forgot" label special />
+          <Pressable onPress={handlePasswordRecovery}>
+            <Text children="common:passAuth.forgot" label special />
+          </Pressable>
         </View>
         <View style={styles.buttonCont}>
           <Button.Primary

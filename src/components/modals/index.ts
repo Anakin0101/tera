@@ -10,4 +10,3 @@ export { SelectLoanTypeModal } from './SelectLoanTypeModal/SelectLoanTypeModal';
 export { SelectPaymentDateModal } from './SelectPaymentDateModal/SelectPaymentDateModal';
 export { IncomeTypeModal } from './IncomeTypeModal/IncomeTypeModal';
 export { CodeWordModal } from './CodeWordModal/CodeWordModal';
-export { CreateCodeModal } from './CreateCodeModal/CreateCodeModal';

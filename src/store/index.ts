@@ -13,11 +13,13 @@ import {
 import { themeReducer } from './slices/theme';
 import { RESET_STATE_ACTION_TYPE } from './actions/reset';
 import { userInfoReducer } from './slices/userInfo';
+import { registerUserReducer } from './slices/registerUser';
 import {
   dashboardPersistConfig,
   deviceInfoPersistConfig,
   paymentPersistConfig,
   profilePersistConfig,
+  registerUserPersistConfig,
   themePersistConfig,
   userInfoPersistConfig,
 } from './config';
@@ -48,6 +50,7 @@ const persistedDeviceInfo = persistReducer(deviceInfoPersistConfig, deviceInfoRe
 const persistedDashboard = persistReducer(dashboardPersistConfig, dashboardReducer);
 const persistedProfile = persistReducer(profilePersistConfig, profileReducer);
 const persistedPayments = persistReducer(paymentPersistConfig, paymentsReducer);
+const persistedUserRegister = persistReducer(registerUserPersistConfig, registerUserReducer);
 
 const reducers = combineReducers({
   theme: persistedTheme,
@@ -61,6 +64,7 @@ const reducers = combineReducers({
   deposit: depositReducer,
   teraWallet: teraWalletReducer,
   loan: loanReducer,
+  registerUser: persistedUserRegister,
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,

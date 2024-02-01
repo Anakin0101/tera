@@ -29,7 +29,7 @@ export const dashboardPersistConfig = {
 export const deviceInfoPersistConfig = {
   key: 'deviceInfo',
   storage: reduxStorage,
-  whitelist: ['deviceToken'],
+  whitelist: ['deviceToken', 'userIp'],
 };
 
 export const profilePersistConfig = {
@@ -40,4 +40,10 @@ export const profilePersistConfig = {
 export const paymentPersistConfig = {
   key: 'paymnets',
   storage: reduxStorage,
+};
+
+export const registerUserPersistConfig = {
+  key: 'registerUser',
+  storage: reduxStorage,
+  whitelist: [],
 };

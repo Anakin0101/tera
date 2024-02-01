@@ -73,6 +73,13 @@ import {
   ENTER_USERNAME_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
+  CARD_ORDER_TYPE_SCREEN,
+  CARD_ORDER_CHOOSE_CARD_SCREEN,
+  CARD_ORDER_CHOSEN_CARD_SCREEN,
+  CARD_ORDER_CHOOSE_IBAN_SCREEN,
+  CARD_ORDER_CHOOSE_ADDRESS_SCREEN,
+  CARD_ORDER_DETAILS_SCREEN,
+  TARIFF_PACKAGES_SCREEN,
 } from './ScreenNames';
 import { ProvidersGroup, Provider } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
@@ -157,6 +164,13 @@ export type ProductsStackParamsList = {
   [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
   [NEW_LOAN_DETAILS_SCREEN]: undefined;
   [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
+  [CARD_ORDER_TYPE_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_CARD_SCREEN]: undefined;
+  [CARD_ORDER_CHOSEN_CARD_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_IBAN_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
+  [CARD_ORDER_DETAILS_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {
@@ -217,7 +231,11 @@ export type ProfileStackParamsList = {
 
 export type GuestStackParamList = {
   [ONBOARDING_SCREEN]: undefined;
-  [PASSWORD_LOGIN_SCREEN]: undefined;
+  [PASSWORD_LOGIN_SCREEN]:
+    | undefined
+    | {
+        clearStorage: boolean;
+      };
   [PASSWORD_ONLY_LOGIN_SCREEN]: undefined;
   [PASSCODE_LOGIN_SCREEN]: undefined;
   [REGISTRATION_STACK]: NavigatorScreenParams<RegistrationStackParamsList>;

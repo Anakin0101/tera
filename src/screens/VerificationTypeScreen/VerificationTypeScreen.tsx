@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStyles } from './VerificationTypeScreen.styles';
 import { Button, ControlledInput, RegistrationTitle, Text } from 'components/index';
 import { useNavigation } from '@react-navigation/native';
 import { RegistrationStackScreenProps } from 'navigation/types';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { Platform, SafeAreaView, View } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CODE_WORD_SCREEN } from 'navigation/ScreenNames';
@@ -13,6 +13,7 @@ import { ErrorMessage } from 'components/TextInput/TextInput';
 import { useKeyboard } from 'utils/useKeyboard';
 import { VerificationTypeScreenFormData } from './VerificationTypeScreen.types';
 import { RADIO_VALUES } from './VerificationTypeScreen.constants';
+import { useUserRegister } from 'hooks/useUserRegister';
 
 export const VerificationTypeScreen = () => {
   const styles = useStyles();
@@ -20,16 +21,26 @@ export const VerificationTypeScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm<VerificationTypeScreenFormData>();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'CodeWordScreen'>>();
   const [selectedRadio, setSelectedRadio] = useState<string | null>(RADIO_VALUES.withPhone);
   const { isKeyboardOpened } = useKeyboard();
+  const { handleUserRegister, isLoading } = useUserRegister();
 
-  const onSubmit: SubmitHandler<VerificationTypeScreenFormData> = data => {
-    const { email, personalId, phoneNumber } = data;
-    console.warn({ email, personalId, phoneNumber });
+  useEffect(() => {
+    clearErrors();
+  }, [clearErrors]);
+
+  const handleNavigation = () => {
     navigate(CODE_WORD_SCREEN);
   };
+
+  const onSubmit: SubmitHandler<VerificationTypeScreenFormData> = data => {
+    const { email, personalId, mobile } = data;
+    handleUserRegister({ email, personalId, mobile }, handleNavigation);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingScrollView
@@ -42,7 +53,7 @@ export const VerificationTypeScreen = () => {
               text="common.continue"
               onPress={handleSubmit(onSubmit)}
               fullWidth
-              isLoading={false}
+              isLoading={isLoading}
             />
           </View>
         }
@@ -103,7 +114,7 @@ export const VerificationTypeScreen = () => {
                   showErrorMessage={false}
                   keyboardType="phone-pad"
                   control={control}
-                  name="phoneNumber"
+                  name="mobile"
                   label="registration.phone_number"
                   errors={errors}
                   rules={{
@@ -120,10 +131,10 @@ export const VerificationTypeScreen = () => {
               </View>
             </View>
 
-            {errors.phoneNumber && (
+            {errors.mobile && (
               <ErrorMessage
                 errors={errors}
-                name={'phoneNumber'}
+                name={'mobile'}
                 label="registration.phone_number"
                 showErrorUI={true}
               />
