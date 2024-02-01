@@ -7,5 +7,5 @@ export {
   OPEN_CARD_HEIGHT,
   OPEN_CARD_WIDTH,
 } from './Dashboard';
-export { REGEX } from './regex';
+export { REGEX } from './regEx';
 export { MOBILE_CODE } from './common';
