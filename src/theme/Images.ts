@@ -33,5 +33,6 @@ export default function () {
     Finances: require('assets/images/Finances.png'),
     Documents: require('assets/images/Documents.png'),
     ThreeDotsIcon: require('assets/images/ThreeDots.png'),
+    Card: require('assets/images/Card.png'),
   };
 }

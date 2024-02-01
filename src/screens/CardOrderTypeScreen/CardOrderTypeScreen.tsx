@@ -4,13 +4,12 @@ import { Item } from './Item';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { useStyles } from './CardOrderTypeScreen.styles';
-
-const ICON = require('assets/images/Card.png');
+import Images from 'theme/Images';
 
 const plasticCardDetails = {
   title: 'products.plasticCard',
   subtitle: 'products.orderPlasticCard',
-  image: ICON,
+  image: Images()?.Card,
 };
 
 const ListHeader = () => {
@@ -18,7 +17,7 @@ const ListHeader = () => {
   return (
     <View style={styles.header}>
       <View style={styles.iconContainer}>
-        <Image source={ICON} style={styles.icon} />
+        <Image source={Images()?.Card} style={styles.icon} />
       </View>
       <Text children="products.getCardEasily" medium size={16} marginTop={24} />
       <Text
