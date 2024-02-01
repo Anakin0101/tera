@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useStyles } from './RegistrationMethodScreen.styles';
 import { Platform, View } from 'react-native';
 import { RegistrationMethodCard, RegistrationTitle } from 'components/index';
@@ -7,12 +7,12 @@ import { Colors } from 'theme/Variables';
 import { useNavigation } from '@react-navigation/native';
 import { RegistrationStackScreenProps } from 'navigation/types';
 import { VERIFICATION_TYPE_SCREEN } from 'navigation/ScreenNames';
-import { RegistrationMethodScreenProps } from './RegistrationMethodScreen.types';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
-export const RegistrationMethodScreen: FC<RegistrationMethodScreenProps> = ({ route }) => {
-  const { flow } = route?.params ?? {};
+export const RegistrationMethodScreen = () => {
   const styles = useStyles();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'VerificationScreen'>>();
+  const { flow } = useAppSelector(state => state.registerUser);
 
   const BiometricIcon =
     Platform.OS === 'android' ? (

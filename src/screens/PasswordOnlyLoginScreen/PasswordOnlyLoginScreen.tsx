@@ -43,7 +43,6 @@ const PasswordOnlyLoginScreenBase = () => {
     dispatch(setCurrentFlow('passwordRecovery'));
     navigate(REGISTRATION_STACK, {
       screen: REGISTRATION_METHOD_SCREEN,
-      params: { flow: 'passwordRecovery' },
     });
   };
 

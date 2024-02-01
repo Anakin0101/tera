@@ -233,11 +233,7 @@ export type GuestStackParamList = {
 };
 
 export type RegistrationStackParamsList = {
-  [REGISTRATION_METHOD_SCREEN]:
-    | undefined
-    | {
-        flow: 'registration' | 'passwordRecovery';
-      };
+  [REGISTRATION_METHOD_SCREEN]: undefined;
   [VERIFICATION_TYPE_SCREEN]: undefined;
   [CODE_WORD_SCREEN]: undefined;
   [ENTER_USERNAME_SCREEN]: undefined;
