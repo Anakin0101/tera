@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RegisterUserStateProps } from './types';
+import { CommonStateProps, RecoverPasswordStateProps, RegisterUserStateProps } from './types';
 
-const initialState: RegisterUserStateProps = {
+const initialState: CommonStateProps = {
+  // registration
   personalId: null,
   email: null,
   mobile: null,
@@ -11,6 +12,16 @@ const initialState: RegisterUserStateProps = {
   secretWord: null,
   sendOtp: false,
   otp: null,
+  //   passwordRecovery
+  pin: null,
+  channelData: '',
+  channelId: 0,
+  customerBrowser: '',
+  customerIp: '',
+  defaultLogin: true,
+  ignoreEmptyUserNameCheck: true,
+  timezoneOffset: 0,
+  //   general
   flow: 'registration',
 };
 
@@ -18,7 +29,10 @@ const registerUserSlice = createSlice({
   name: 'registerUser',
   initialState,
   reducers: {
-    buildRegisterUserRequest: (state, { payload }: PayloadAction<RegisterUserStateProps>) => ({
+    buildRegisterUserRequest: (
+      state,
+      { payload }: PayloadAction<RecoverPasswordStateProps | RegisterUserStateProps>,
+    ) => ({
       ...state,
       ...payload,
     }),
