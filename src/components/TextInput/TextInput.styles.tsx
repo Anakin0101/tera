@@ -29,6 +29,7 @@ export const useStyleTheme = () => {
     },
     iconContainer: {
       marginBottom: Spacing.ml - Spacing.xxxs,
+      marginLeft: -[Spacing.xxxl],
     },
     errorMessage: {
       fontSize: FontSize.tiny,
