@@ -8,7 +8,7 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { CARD_ORDER_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useForm } from 'react-hook-form';
-import { REGEX } from 'constants/regex';
+import { REGEX } from 'constants/index';
 
 export const useBranches = (initialSearchText: string = '') => {
   const dispatch = useAppDispatch();

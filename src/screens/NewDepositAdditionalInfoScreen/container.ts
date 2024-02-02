@@ -13,7 +13,7 @@ import { CalculateDeposit } from 'services/apis/productsAPI/productsAPI.types';
 import { NEW_DEPOSIT_SUMMARY_SCREEN } from 'navigation/ScreenNames';
 import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 import { DataType } from 'screens/LoanAmountScreen/LoanAmountScreen.types';
-import { REGEX } from 'constants/regex';
+import { REGEX } from 'constants/index';
 
 export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const dispatch = useAppDispatch();
