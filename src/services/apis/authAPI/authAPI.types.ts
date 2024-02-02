@@ -83,12 +83,37 @@ export type RegisterUserAPIRequestType = {
     personalId?: string | null;
     email?: string | null;
     mobile?: string | null;
-    culture?: string;
-    cardData?: any;
+    culture?: string | null;
+    cardData?: unknown;
     userName?: string | null;
     secretWord?: string | null;
     sendOtp?: boolean;
     otp?: string | null;
+  };
+  headers?: Record<string, any>;
+};
+
+// recoverPassword
+export type RecoverPasswordAPIResponseType = RegisterUserAPIResponseType;
+
+export type RecoverPasswordAPIRequestType = {
+  body: {
+    channelId?: number;
+    culture?: string | null;
+    timezoneOffset?: number;
+    customerIp?: string | null;
+    customerBrowser?: string | null;
+    channelData?: string | null;
+    pin?: string | null;
+    mobile?: string | null;
+    email?: string | null;
+    cardData?: unknown;
+    secretWord?: string | null;
+    userName?: string | null;
+    sendOtp?: boolean;
+    otp?: string | null;
+    ignoreEmptyUserNameCheck?: true;
+    defaultLogin?: true;
   };
   headers?: Record<string, any>;
 };

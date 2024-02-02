@@ -14,6 +14,8 @@ import { CodeWordFormData } from './CodeWordScreen.types';
 import { closeModal, openModal } from 'utils/modal';
 import { CodeWordModal } from 'components/modals';
 import { useUserRegister } from 'hooks/useUserRegister';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useRecoverPassword } from 'hooks/useRecoverPasswory';
 
 export const CodeWordScreen = () => {
   const styles = useStyles();
@@ -24,7 +26,9 @@ export const CodeWordScreen = () => {
   } = useForm<CodeWordFormData>();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'EnterUsernameScreen'>>();
   const { isKeyboardOpened } = useKeyboard();
-  const { handleUserRegister, isLoading } = useUserRegister();
+  const { handleUserRegister, isLoading: registerUserLoading } = useUserRegister();
+  const { flow } = useAppSelector(state => state.registerUser);
+  const { handleRecoverPassword, isLoading: recoverPasswordLoading } = useRecoverPassword();
 
   const handleNavigation = () => {
     navigate(ENTER_USERNAME_SCREEN);
@@ -32,7 +36,10 @@ export const CodeWordScreen = () => {
 
   const onSubmit: SubmitHandler<CodeWordFormData> = data => {
     const { secretWord } = data;
-    handleUserRegister({ secretWord }, handleNavigation);
+
+    flow === 'registration'
+      ? handleUserRegister({ secretWord }, handleNavigation)
+      : handleRecoverPassword({ secretWord }, handleNavigation);
   };
 
   // TBD
@@ -59,7 +66,7 @@ export const CodeWordScreen = () => {
               text="common.continue"
               onPress={handleSubmit(onSubmit)}
               fullWidth
-              isLoading={isLoading}
+              isLoading={registerUserLoading || recoverPasswordLoading}
             />
           </View>
         }
