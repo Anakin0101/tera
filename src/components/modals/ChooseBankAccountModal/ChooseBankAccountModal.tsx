@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { FlatList, Modal, SafeAreaView, View } from 'react-native';
 import { SearchComponent, Text } from 'components';
 import { useStyles } from './ChooseBankAccountModal.styles';
@@ -43,6 +43,23 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
     [selectedAccount, confirm],
   );
 
+  // local search
+  const groupedAccountsByIbanList = useMemo(() => {
+    let ibanList = groupedAccountsByIban || [];
+    try {
+      if (searchText) {
+        // Filter providers based on the Georgian name (name.ka)
+        ibanList = ibanList.filter(item =>
+          item?.accountName.toLowerCase().includes(searchText.toLowerCase()),
+        );
+      }
+    } catch (e) {
+      console.warn('Error in groupedAccountsByIbanList filter', e);
+    }
+    // Return the filtered ibanList
+    return ibanList;
+  }, [groupedAccountsByIban, searchText]);
+
   /**
    * Render the content based on the loading state and grouped accounts.
    *
@@ -62,7 +79,7 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
     } else {
       return (
         <FlatList
-          data={groupedAccountsByIban}
+          data={groupedAccountsByIbanList}
           keyExtractor={(item, index) => item.iban + index.toString()}
           renderItem={renderItem}
           contentContainerStyle={styles.listWrapper}
@@ -70,7 +87,7 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
         />
       );
     }
-  }, [groupedAccountsByIban, isLoading, renderItem, styles.listWrapper, styles.loadingWrapper]);
+  }, [groupedAccountsByIbanList, isLoading, renderItem, styles.listWrapper, styles.loadingWrapper]);
 
   return (
     <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={cancel}>
