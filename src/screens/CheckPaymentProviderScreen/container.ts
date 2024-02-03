@@ -10,7 +10,6 @@ import {
   LanguageKeys,
 } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { PaymentFieldValue } from 'services/apis/paymentsAPI/paymentsAPI.types';
-// import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 
 export const useCheckProviderInfo = (serviceId: number) => {
   const savedLanguage = getValue(SELECTED_LANGUAGE);
@@ -20,8 +19,6 @@ export const useCheckProviderInfo = (serviceId: number) => {
 
   const [getDebtVerifyResults, { data: debtVerifyInfo, isLoading: isDebtVerifyLoading }] =
     useDebtVerifyResultsMutation();
-
-  // const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
 
   useEffect(() => {
     getDebtVerifyBasket({

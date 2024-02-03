@@ -13,12 +13,16 @@ import {
   Text,
 } from 'components/index';
 import { useStyles } from './CheckPaymentProviderScreen.style';
-import { MainStackRouteProps } from 'navigation/types';
+import { MainStackRouteProps, MainStackScreenProps } from 'navigation/types';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { getValue } from 'storage/index';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { useCheckProviderInfo } from './container';
 import { SubscriberFieldsValue } from './CheckPaymentProviderScreen.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
+import { DebtVerifyBasketResponse } from 'services/apis/paymentsAPI/paymentsAPI.types';
+import { MODAL_STACK, PAYMENT_DETAILS_SCREEN } from 'navigation/ScreenNames';
+import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
 
 export const CheckPaymentProviderScreen = () => {
   const { t } = useTranslation();
@@ -26,7 +30,10 @@ export const CheckPaymentProviderScreen = () => {
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'CheckPaymentProviderScreen'>>();
   const { providerItem } = params || {};
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+
   const savedLanguage = getValue(SELECTED_LANGUAGE);
+
   const {
     debtVerifyBasketInfo,
     isLoading,
@@ -36,7 +43,9 @@ export const CheckPaymentProviderScreen = () => {
   } = useCheckProviderInfo(providerItem?.id);
 
   const [subscriberFieldsValue, setSubscriberFieldsValue] = useState<SubscriberFieldsValue>([]);
-  const [payableMoney, setPayableMoney] = useState<string>('');
+  const [subscriberInputFieldsValue, setSubscriberInputFieldsValue] =
+    useState<SubscriberFieldsValue>([]);
+  const [selectedAccount, setSelectedAccount] = useState<Account>();
 
   const headerTitle = useMemo(() => {
     // Initialize title with an empty string
@@ -62,16 +71,16 @@ export const CheckPaymentProviderScreen = () => {
   /**
    * React hook to update the subscriberFieldsValue based on the debtVerifyBasketInfo.
    *
-   * @param {DebtVerifyBasketInfo[]} debtVerifyBasketInfo - Information about debt verification baskets.
+   * @param {DebtVerifyBasketResponse[]} debtVerifyBasketInfo - Information about debt verification baskets.
    * @param {function} setSubscriberFieldsValue - State updater function for subscriberFieldsValue.
    */
   useEffect(() => {
     /**
      * Create a new array of subscriber fields with empty values based on debtVerifyBasketInfo.
-     * @param {DebtVerifyBasketInfo} item - An item from the debt verification basket.
+     * @param {DebtVerifyBasketResponse} item - An item from the debt verification basket.
      * @returns {SubscriberFieldValue} An object with id and an empty value.
      */
-    const createSubscriberField = item => ({
+    const createSubscriberField = (item: DebtVerifyBasketResponse) => ({
       id: item.id,
       value: item.value || '',
     });
@@ -111,6 +120,7 @@ export const CheckPaymentProviderScreen = () => {
 
             return updatedFields;
           });
+          setSubscriberInputFieldsValue([]);
         }}
       />
     ));
@@ -125,13 +135,43 @@ export const CheckPaymentProviderScreen = () => {
 
     // If any field has an empty value, return early without invoking getDebtVerifyResultsHandler.
     if (areAllNonEmpty) {
-      /**
-       * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
-       * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
-       */
-      getDebtVerifyResultsHandler(subscriberFieldsValue);
+      const sum = sumForSubscriberFieldsValue(subscriberInputFieldsValue);
+
+      if (debtVerifyResults?.length && sum > 0 && selectedAccount) {
+        navigate(MODAL_STACK, {
+          screen: PAYMENT_DETAILS_SCREEN,
+          params: {
+            providerItem,
+            debtVerifyBasketInfo,
+            debtVerifyResults,
+            selectedAccount,
+            subscriberFieldsValue,
+            subscriberInputFieldsValue,
+          },
+        });
+      } else {
+        /**
+         * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
+         * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
+         */
+
+        getDebtVerifyResultsHandler(subscriberFieldsValue);
+      }
     }
-  }, [subscriberFieldsValue, getDebtVerifyResultsHandler]);
+  }, [
+    subscriberFieldsValue,
+    subscriberInputFieldsValue,
+    debtVerifyResults,
+    selectedAccount,
+    navigate,
+    providerItem,
+    getDebtVerifyResultsHandler,
+    debtVerifyBasketInfo,
+  ]);
+
+  const selectAccountOnPress = useCallback((account: Account) => {
+    setSelectedAccount(account);
+  }, []);
 
   if (isLoading) {
     return <LoadingView />;
@@ -151,13 +191,15 @@ export const CheckPaymentProviderScreen = () => {
         {!!debtVerifyResults?.length && (
           <SubscriberInfo
             debtVerifyResults={debtVerifyResults}
-            payableMoney={payableMoney}
-            setPayableMoney={setPayableMoney}
+            subscriberInputFieldsValue={subscriberInputFieldsValue}
+            setSubscriberInputFieldsValue={setSubscriberInputFieldsValue}
             feeRules={providerItem?.feeRules || []}
           />
         )}
       </View>
-      <MyBalance />
+      {!!debtVerifyResults?.length && (
+        <MyBalance selectedAccount={selectedAccount} selectAccountOnPress={selectAccountOnPress} />
+      )}
       <View style={styles.nextButtonWrapper}>
         <Button.Primary
           text="common.next"

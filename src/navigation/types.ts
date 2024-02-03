@@ -80,8 +80,18 @@ import {
   CARD_ORDER_CHOOSE_ADDRESS_SCREEN,
   CARD_ORDER_DETAILS_SCREEN,
   TARIFF_PACKAGES_SCREEN,
+  PAYMENT_DETAILS_SCREEN,
+  PAYMENT_SUCCESS_SCREEN,
+  PAYMENTS_SCREEN,
 } from './ScreenNames';
-import { ProvidersGroup, Provider } from 'services/apis/paymentsAPI/paymentsAPI.types';
+import {
+  ProvidersGroup,
+  Provider,
+  DebtVerifyResult,
+  DebtVerifyBasketResponse,
+} from 'services/apis/paymentsAPI/paymentsAPI.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
+import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -108,6 +118,18 @@ export type ModalStackParamsList = {
   [NEW_PAYMENT_SCREEN]: undefined;
   [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider };
   [CHOOSE_PAYMENT_PROVIDER_SCREEN]: { providerInfo: ProvidersGroup };
+  [PAYMENT_DETAILS_SCREEN]: {
+    providerItem: Provider;
+    debtVerifyResults: Array<DebtVerifyResult>;
+    selectedAccount: Account;
+    subscriberFieldsValue: SubscriberFieldsValue;
+    subscriberInputFieldsValue: SubscriberFieldsValue;
+    debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
+  };
+  [PAYMENT_SUCCESS_SCREEN]: {
+    providerItem: Provider;
+    subscriberInputFieldsValue: SubscriberFieldsValue;
+  };
 };
 
 export type DashboardStackParamsList = {
@@ -223,7 +245,9 @@ export type TransactionsStackParamsList = {
   };
 };
 
-export type PaymentsStackParamsList = {};
+export type PaymentsStackParamsList = {
+  [PAYMENTS_SCREEN]: undefined;
+};
 
 export type ProfileStackParamsList = {
   [PROFILE_SCREEN]: undefined;

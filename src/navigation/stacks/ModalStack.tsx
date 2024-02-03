@@ -4,6 +4,8 @@ import {
   AuthorizationMethodsScreen,
   CreatePasscodeScreen,
   NewPaymentScreen,
+  PaymentDetailsScreen,
+  PaymentSuccessScreen,
   SettingsScreen,
 } from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
@@ -14,6 +16,8 @@ import {
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
   NEW_PAYMENT_SCREEN,
+  PAYMENT_DETAILS_SCREEN,
+  PAYMENT_SUCCESS_SCREEN,
   SETTINGS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
 } from 'navigation/ScreenNames';
@@ -81,6 +85,24 @@ export const ModalNavigator = () => {
         options={{
           title: '',
           headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={PAYMENT_DETAILS_SCREEN}
+        component={PaymentDetailsScreen}
+        options={{
+          title: t('paymentDetailsScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={PAYMENT_SUCCESS_SCREEN}
+        component={PaymentSuccessScreen}
+        options={{
+          title: '',
+          headerShadowVisible: true,
+          gestureEnabled: false,
+          headerShown: false,
         }}
       />
       <Screen
