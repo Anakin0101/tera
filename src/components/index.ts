@@ -51,6 +51,7 @@ export { ChooseProviderItem } from './Payments/ChooseProviderItem/ChooseProvider
 export { SearchComponent } from './SearchComponent/SearchComponent';
 export { ChoosePaymentItem } from './Payments/ChoosePaymentItem/ChoosePaymentItem';
 export { SubscriberInfo } from './Payments/SubscriberInfo/SubscriberInfo';
+export { PaymentDetails } from './Payments/PaymentDetails/PaymentDetails';
 export { MyBalance } from './Payments/MyBalance/MyBalance';
 export { PaymentFieldInput } from './Payments/PaymentFieldInput/PaymentFieldInput';
 export { Collapsible } from './Collapsible/Collapsible';
