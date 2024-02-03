@@ -8,6 +8,8 @@ import {
   GetDebtVerifyBasketParams,
   DebtVerifyInfoResponse,
   DebtVerifyRequestBody,
+  PayResponse,
+  PayRequestBody,
 } from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
@@ -37,6 +39,13 @@ export const paymentsAPI = createApi({
         body,
       }),
     }),
+    payService: builder.mutation<PayResponse, PayRequestBody>({
+      query: body => ({
+        url: URLS.payService,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -44,4 +53,5 @@ export const {
   useGetPaymentServicesQuery,
   useGetDebtVerifyBasketMutation,
   useDebtVerifyResultsMutation,
+  usePayServiceMutation,
 } = paymentsAPI;

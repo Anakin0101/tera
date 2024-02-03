@@ -124,3 +124,39 @@ export interface PaymentFieldValue {
   id: number;
   value: string;
 }
+
+export interface PayRequestBody {
+  accountId: number | null;
+  isTeraBytes: any;
+  payments: Array<Payment>;
+  sendOtp: boolean;
+  otp: string | null;
+  culture: LanguageKeyForAPIEnum;
+}
+
+export interface Payment {
+  serviceId: number;
+  fieldValues: Array<PaymentFieldValue>;
+  saveIntoBasketId: number | null;
+  basketItemName: string | null;
+  basketItemDescription: string | null;
+}
+
+export interface PayResponse {
+  otpRequired: boolean;
+  paymentResults: Array<PaymentResult>;
+  error?: {
+    data?: {
+      detail?: string;
+    };
+  };
+}
+
+export interface PaymentResult {
+  serviceId: number;
+  serviceName: string;
+  amount: number;
+  fee: number;
+  saveIntoBasketSuccessed: boolean;
+  saveIntoBasketError: any;
+}
