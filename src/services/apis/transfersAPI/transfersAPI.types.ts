@@ -38,6 +38,9 @@ export type convertAmountBuyRequestType = {
   currencySell?: string;
   shouldCallApi?: unknown;
 };
+export interface SaveTemplateResponseData {
+  data: { id: number; otpRequired: boolean; authMethod: string; authorized: boolean };
+}
 
 export type convertAmountSellRequestType = {
   amountSell?: number;
@@ -115,6 +118,7 @@ export type TreasuryApiResponse = {
   data?: sendTreasuryRes;
   error?: FetchBaseQueryError | SerializedError;
 };
+
 export type sendTreasuryReq = {
   body: {
     amount: string;

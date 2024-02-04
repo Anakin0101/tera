@@ -1,16 +1,23 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { TemplateCard, Text } from 'components';
 import { useStyles } from './DashboardTemplates.styles';
 import { getDashboardTemplates } from './utils/DashboardTemplatesMapper.utils';
 import useTheme from 'hooks/useTheme';
 import { Divider } from 'components';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
+import { ALL_TEMPLATES_SCREEN } from 'navigation/ScreenNames';
 
 export const DashboardTemplates = ({ data }: any) => {
   const styles = useStyles();
   const dashboardTemplates = getDashboardTemplates(data?.templates);
   const { Colors } = useTheme();
+  const { navigate } = useNavigation<MainStackScreenProps<'AllTemplatesScreen'>>();
+
+  const handleNavigateToTemplates = () => {
+    navigate(ALL_TEMPLATES_SCREEN);
+  };
 
   return (
     <>
@@ -24,7 +31,7 @@ export const DashboardTemplates = ({ data }: any) => {
                   style={styles.titleContainer}
                   color={Colors.textBlack}
                 />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleNavigateToTemplates}>
                   <Text
                     children={'dashboard.all'}
                     style={styles.titleContainer}

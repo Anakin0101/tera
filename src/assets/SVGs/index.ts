@@ -39,10 +39,10 @@ export { SmartPhoneChecked } from './SmartPhoneChecked';
 export { VerifiedPhoneIcon } from './VerifiedPhone';
 export { ResendIcon } from './Resend';
 export { TerraLogoIcon } from './TerraLogoIcon';
-
+export { TemplateAdd } from './TemplateAdd';
 export { FaceIdColoredSvg } from './FaceIdColored';
 export { LogoutIcon } from './Logout';
-
+export { TemplateDelete } from './TemplateDelete';
 export { Refreshing } from './Refreshing';
 export { Users } from './Users';
 export { UserArrowRight } from './UserArrowRight';

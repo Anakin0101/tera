@@ -48,4 +48,5 @@ export const URLS = {
   treasury: 'Transfers/GetTreasuryCodeParts',
   testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',
   sendTreasury: 'Transfers/TransferToTreasury',
+  saveTemplate: '/Templates/SaveTemplate',
 };

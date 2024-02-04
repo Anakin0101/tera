@@ -109,7 +109,8 @@
     "fill": "Top up",
     "savings": "Savings",
     "allPay": "All payments",
-    "noTransactions": "You don't have transactions"
+    "noTransactions": "You don't have transactions",
+    "trustedTemplate": "სანდო შაბლონი"
   },
 
   "profile": {
@@ -376,7 +377,12 @@
     "transferforSomeone": "ვისთვის რიცხავ თანხას",
     "chooseReceiver": "აირჩიე მიმღები",
     "chooseCity": "აირჩიე ქალაქი ან რეგიონი",
-    "choosePayment": "აირჩიე გადასახადი"
+    "choosePayment": "აირჩიე გადასახადი",
+    "searchTemplate": "მოძებნე შაბლონი",
+    "blockCard": "ნამდვილად გსურთ “ჩემი ბარათის”\nდაბლოკვა?",
+    "unblockCard": "ნამდვილად გსურთ “ჩემი ბარათის”\nგანბლოკვა?",
+    "trustedTemplate": "გახადე შაბლონი სანდო და 24 საათის შემდეგ შეასრულე 1 000 ლარამდე (ან ექვივალენტი ლარში) ოპერაციები დამატებით სმს/დიჯიპას კოდის გარეშე.",
+    "deleteTemplate": "ნამდვილად გსურთ შაბლონის წაშლა?"
   },
   "transactionDetails": {
     "to": "To",

@@ -70,7 +70,7 @@ export const TransactionFinishedScreen = () => {
 
   return (
     <View style={styles.wrapper}>
-      <SuccessTransaction />
+      <SuccessTransaction width={88} height={88} />
       <View style={styles.textWrapper}>
         <Text children="transfers.success" style={styles.text} numberOfLines={2} />
         {!params?.convertion ? (
