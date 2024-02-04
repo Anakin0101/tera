@@ -90,6 +90,7 @@ import {
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   PAYMENT_ERROR_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
+  TARIFF_PACKAGES_SINGLE_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -101,6 +102,7 @@ import {
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
+import { TariffCardProps } from 'components/TariffCard/TariffCardLayout.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -231,6 +233,7 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SINGLE_SCREEN]: TariffCardProps;
 };
 
 export type TransactionsStackParamsList = {
