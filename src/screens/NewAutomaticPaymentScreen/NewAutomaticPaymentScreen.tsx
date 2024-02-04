@@ -7,6 +7,7 @@ import { useNewAutomaticPayment } from './container';
 import { useStyles } from './NewAutomaticPaymentScreen.styles';
 import { Event, ChevronDownLarge } from 'assets/SVGs';
 import { Alert } from './Alert';
+import { Colors } from 'theme/Variables';
 
 export const NewAutomaticPaymentScreen = () => {
   const styles = useStyles();
@@ -17,6 +18,11 @@ export const NewAutomaticPaymentScreen = () => {
     setIsChecked,
     paymentMethodRef,
     onPaymentMethodPress,
+    startDateRef,
+    onSelectStartDatePress,
+    endDateRef,
+    onSelectEndDatePress,
+    activeAllTime,
   } = useNewAutomaticPayment();
 
   return (
@@ -63,6 +69,7 @@ export const NewAutomaticPaymentScreen = () => {
                   onChangeText={onChange}
                   label="გადახდის მეთოდი"
                   ref={paymentMethodRef}
+                  inputStyle={styles.input}
                 />
                 <Pressable style={styles.iconContainer} onPress={onPaymentMethodPress}>
                   <ChevronDownLarge />
@@ -105,8 +112,10 @@ export const NewAutomaticPaymentScreen = () => {
                   editable={false}
                   onChangeText={onChange}
                   label="დაწყების თარიღი"
+                  ref={startDateRef}
+                  inputStyle={styles.input}
                 />
-                <Pressable style={[styles.iconContainer]} onPress={() => {}}>
+                <Pressable style={styles.iconContainer} onPress={onSelectStartDatePress}>
                   <Event />
                 </Pressable>
               </View>
@@ -137,9 +146,11 @@ export const NewAutomaticPaymentScreen = () => {
                   editable={false}
                   onChangeText={onChange}
                   label="დასრულების თარიღი"
+                  ref={endDateRef}
+                  inputStyle={styles.input}
                 />
-                <Pressable style={[styles.iconContainer]} onPress={() => {}}>
-                  <Event />
+                <Pressable style={styles.iconContainer} onPress={onSelectEndDatePress}>
+                  <Event color={activeAllTime ? Colors.textBlack500 : Colors.black} />
                 </Pressable>
               </View>
             );
@@ -157,21 +168,24 @@ export const NewAutomaticPaymentScreen = () => {
                   editable={false}
                   onChangeText={onChange}
                   label="გადახდის რიცხვი"
+                  inputStyle={styles.input}
                 />
-                <Pressable style={[styles.iconContainer]} onPress={() => {}}>
+                <Pressable style={styles.iconContainer} onPress={() => {}}>
                   <ChevronDownLarge />
                 </Pressable>
               </View>
             );
           }}
         />
-        <Checkbox
-          isChecked={isChecked}
-          onChange={setIsChecked}
-          label="ვეთანხმები წესებს და პირობებს"
-          style={styles.terms}
-          labelStyle={styles.labelStyle}
-        />
+        <View style={styles.terms}>
+          <Checkbox
+            isChecked={isChecked}
+            onChange={setIsChecked}
+            label="ვეთანხმები"
+            labelStyle={styles.labelStyle}
+          />
+          <Text color={Colors.primary} children="წესებს და პირობებს" />
+        </View>
       </View>
       <View style={styles.footer}>
         <Button.Primary fullWidth text="common.next" customWrapperStyle={styles.button} />

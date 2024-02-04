@@ -60,6 +60,8 @@ export const useStyles = () => {
       }),
     },
     terms: {
+      ...Layout.rowHCenter,
+      gap: Spacing.xxs,
       marginTop: 70,
     },
     labelStyle: {
@@ -76,6 +78,9 @@ export const useStyles = () => {
     },
     button: {
       paddingVertical: 14,
+    },
+    input: {
+      color: Colors.black,
     },
   });
 };

@@ -123,3 +123,7 @@ export const getAllDatesBetween = (startDate: string, endDate: string) => {
 export const getDate = (dateString: string, template = YYYY_MM_DD) => {
   return dayjs(dateString, template).date();
 };
+
+export const getCurrentDate = (template = YYYY_MM_DD) => {
+  return dayjs().format(template);
+};

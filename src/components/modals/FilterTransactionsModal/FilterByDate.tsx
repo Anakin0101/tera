@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { Text } from 'components';
 import { Buttons } from './Buttons';
@@ -108,6 +108,16 @@ export const FilterByDate: FC<TransactionByAccModalProps> = ({ setFilters }) => 
     }
   };
 
+  const markedDates = useMemo(
+    () => ({
+      [startDate]: {
+        selected: true,
+        selectedColor: Colors.primary,
+      },
+    }),
+    [startDate],
+  );
+
   return (
     <View style={styles.filterByDateWrapper}>
       <View style={styles.dateContainer}>
@@ -131,6 +141,8 @@ export const FilterByDate: FC<TransactionByAccModalProps> = ({ setFilters }) => 
           minDate={type === 'end' ? startDate : undefined}
           maxDate={endDate || currentDate}
           onDayPress={onDayPress}
+          markedDates={markedDates}
+          hideExtraDays
         />
       )}
       <ScrollView
