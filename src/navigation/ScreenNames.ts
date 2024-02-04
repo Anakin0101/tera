@@ -95,6 +95,7 @@ export const CARD_ORDER_CHOOSE_IBAN_SCREEN = 'CardOrderChooseIbanScreen';
 export const CARD_ORDER_CHOOSE_ADDRESS_SCREEN = 'CardOrderChooseAddressScreen';
 export const CARD_ORDER_DETAILS_SCREEN = 'CardOrderDetailsScreen';
 export const TARIFF_PACKAGES_SCREEN = 'TariffPackagesListScreen';
+export const TARIFF_PACKAGES_SINGLE_SCREEN = 'TariffPackagesSingleScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

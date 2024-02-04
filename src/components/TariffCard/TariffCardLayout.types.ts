@@ -1,4 +1,4 @@
-export interface TariffCardCardProps {
+export interface TariffCardProps {
   cardTypeName: string;
   commissionMnth: number;
   commissionYr: number;

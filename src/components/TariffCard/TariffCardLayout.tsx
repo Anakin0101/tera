@@ -1,12 +1,12 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { useStyles } from './TariffCardLayout.styles';
 import { useTranslation } from 'react-i18next';
 import { IconComponent, Text } from 'components';
-import { TariffCardCardProps } from './TariffCardLayout.types';
+import { TariffCardProps } from './TariffCardLayout.types';
 import { ArrowRight } from 'assets/SVGs';
 
-export const TariffCardLayout: React.FC<TariffCardCardProps> = ({
+export const TariffCardLayout: React.FC<TariffCardProps> = ({
   cardTypeName,
   commissionMnth,
   commissionYr,
@@ -16,7 +16,7 @@ export const TariffCardLayout: React.FC<TariffCardCardProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
   return (
-    <Pressable style={styles.cardContainer}>
+    <View style={styles.cardContainer}>
       <View style={styles.row}>
         <IconComponent customIconComponentStyles={styles.iconWrapper} pngLocalIcon={icon} />
         <View>
@@ -29,14 +29,14 @@ export const TariffCardLayout: React.FC<TariffCardCardProps> = ({
             ) : null}
           </View>
           <Text style={styles.commission}>
-            {t('newDeposit.monthlyFee')} <Text style={styles.cardName}>{commissionMnth} ₾</Text>
+            {t('newDeposit.monthlyFee')}: <Text style={styles.cardName}>{commissionMnth} ₾</Text>
           </Text>
           <Text style={styles.commission}>
-            {t('newDeposit.annualFee')} <Text style={styles.cardName}>{commissionYr} ₾</Text>
+            {t('newDeposit.annualFee')}: <Text style={styles.cardName}>{commissionYr} ₾</Text>
           </Text>
         </View>
       </View>
       <IconComponent hasBorder={false} customIconSize={24} IconJSX={ArrowRight} />
-    </Pressable>
+    </View>
   );
 };
