@@ -60,6 +60,36 @@ export type OfferType = {
   title: string;
   description: string;
   images: OfferImageType[];
+  cardProducts?: CardProduct[];
+};
+
+export type CardProduct = {
+  cardId: number | null;
+  canUpdate: boolean;
+  cardProductId: number;
+  name: string;
+  serviceFee: string;
+  cardQuickPrintEnabled: boolean;
+  validityPeriodYears: number;
+  endDate: string;
+  cardImageUrl: string;
+  cardKind: string;
+  cardHolderName: string;
+  cardProcessingConditions: CardProcessingCondition[];
+  productServiceConditions: ProductServiceCondition[];
+  productUpdateServiceConditions: Record<string, ProductServiceCondition[]>;
+};
+
+export type CardProcessingCondition = {
+  id: string;
+  title: string;
+  value: string;
+};
+
+export type ProductServiceCondition = {
+  id: string;
+  title: string;
+  value: string;
 };
 
 export type OffersAPIResponseType = {
@@ -188,6 +218,7 @@ export enum OfferTypeEnum {
   Card = 5,
   Package = 6,
   OpenBanking = 7,
+  NewCard = 31,
 }
 
 type OfferName = {
@@ -219,6 +250,7 @@ export type OfferDetails = {
   description: string;
   descriptionEn: string;
   depositProducts: DepositProduct[];
+  cardProducts: CardProduct[];
 };
 
 export type InterestRatesReq = {
@@ -369,4 +401,30 @@ export enum AutoPaymentTypeEnum {
   ByDebt = 0,
   FixedDateByDebt = 1,
   FixedAmount = 2,
+}
+interface BranchName {
+  Geo: string;
+  Eng: string;
+}
+
+export interface Branch {
+  id: number;
+  name: BranchName;
+}
+
+export interface BranchesResponse {
+  branches: Branch[];
+}
+
+export interface AddCardRequest {
+  accountId: string | undefined;
+  cardId: null;
+  culture: string;
+  departmentId: number | undefined;
+  isUrgent: boolean;
+  otp: string;
+  productId: number | null | undefined;
+  sendOtp: boolean;
+  timezoneOffset: number;
+  updateReason: number;
 }

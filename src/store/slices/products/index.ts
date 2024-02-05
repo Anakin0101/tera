@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductsStateProps } from './types';
+import { ProductsStateProps, IbanInfo, BranchInfo } from './types';
 import { dashboardAPI } from 'services/apis';
 
 const initialState: ProductsStateProps = {
@@ -14,6 +14,9 @@ const initialState: ProductsStateProps = {
   totalDebtGEL: 0,
   creditCards: [],
   selectedTransaction: null,
+  selectedCardData: null,
+  selectedIban: null,
+  selectedBranch: null,
 };
 
 const productsSlice = createSlice({
@@ -40,6 +43,15 @@ const productsSlice = createSlice({
     },
     setSelectedTransaction: (state, { payload }) => {
       state.selectedTransaction = payload;
+    },
+    setSelectedCardData: (state, { payload }) => {
+      state.selectedCardData = payload;
+    },
+    saveIban: (state, { payload }: { payload: IbanInfo }) => {
+      state.selectedIban = payload;
+    },
+    saveBranch: (state, { payload }: { payload: BranchInfo }) => {
+      state.selectedBranch = payload;
     },
   },
   extraReducers: builder => {
@@ -72,5 +84,8 @@ export const {
   setTotalDeposits,
   setTotalDebt,
   setSelectedTransaction,
+  setSelectedCardData,
+  saveIban,
+  saveBranch,
 } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;

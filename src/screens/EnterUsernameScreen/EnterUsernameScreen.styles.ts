@@ -8,13 +8,14 @@ export const useStyles = () => {
       ...Layout.fill,
     },
     wrapper: {
-      marginHorizontal: Spacing.xl,
+      paddingHorizontal: Spacing.xl,
     },
     ctaWrapper: {
       paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
     },
     ctaOpenWrapper: {
-      paddingBottom: Spacing.md,
+      paddingVertical: Spacing.md,
     },
     chechboxContainer: {
       ...Layout.rowHCenter,

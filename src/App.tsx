@@ -13,7 +13,7 @@ import { Modal, Toast } from 'components';
 import { saveModalRef } from 'utils/modal';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { Platform, StatusBar } from 'react-native';
+import { LogBox, Platform, StatusBar } from 'react-native';
 import { Colors } from 'theme/Variables';
 
 const App = () => {
@@ -25,6 +25,8 @@ const App = () => {
       StatusBar.setBackgroundColor(Colors.dashboardBackground);
     }
   }, []);
+
+  LogBox.ignoreAllLogs();
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles

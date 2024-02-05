@@ -20,6 +20,7 @@ import {
   VerificationTypeScreen,
 } from 'screens/index';
 import { EnterUsernameScreen } from 'screens/EnterUsernameScreen/EnterUsernameScreen';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 const RegistrationStack = createStackNavigator<RegistrationStackParamsList>();
 
@@ -27,13 +28,15 @@ export const RegistrationNavigator = () => {
   const { Navigator, Screen } = RegistrationStack;
   const st = useStyleTheme();
   const { t } = useTranslation();
+  const { flow } = useAppSelector(state => state.registerUser);
   return (
     <Navigator
       initialRouteName={REGISTRATION_METHOD_SCREEN}
       screenOptions={{
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
-        title: t('navigation.register'),
+        title:
+          flow === 'registration' ? t('navigation.register') : t('navigation.password_recovery'),
         headerStyle: {
           backgroundColor: Colors.defaultBackground,
           shadowColor: 'transparent',

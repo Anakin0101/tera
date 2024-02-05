@@ -101,5 +101,9 @@ export const useStyles = () => {
       lineHeight: 20,
       fontFamily: FontFamily.medium,
     },
+    iconStyle: {
+      width: 24,
+      height: 24,
+    },
   });
 };

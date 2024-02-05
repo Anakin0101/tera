@@ -4,3 +4,4 @@ export * from './filesAPI/filesAPI';
 export * from './productsAPI/productsAPI';
 export * from './profileAPI/profileAPI';
 export * from './transfersAPI/transfersAPI';
+export * from './paymentsAPI/paymentsAPI';

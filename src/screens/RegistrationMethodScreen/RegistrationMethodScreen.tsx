@@ -7,10 +7,12 @@ import { Colors } from 'theme/Variables';
 import { useNavigation } from '@react-navigation/native';
 import { RegistrationStackScreenProps } from 'navigation/types';
 import { VERIFICATION_TYPE_SCREEN } from 'navigation/ScreenNames';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const RegistrationMethodScreen = () => {
   const styles = useStyles();
   const { navigate } = useNavigation<RegistrationStackScreenProps<'VerificationScreen'>>();
+  const { flow } = useAppSelector(state => state.registerUser);
 
   const BiometricIcon =
     Platform.OS === 'android' ? (
@@ -24,7 +26,13 @@ export const RegistrationMethodScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <RegistrationTitle text={'registration.choose_registration_method'} />
+      <RegistrationTitle
+        text={
+          flow === 'registration'
+            ? 'registration.choose_registration_method'
+            : 'passwordRecovery.choose_password_recovery_method'
+        }
+      />
       <RegistrationMethodCard
         icon={BiometricIcon}
         title={'registration.with_biometric_info'}

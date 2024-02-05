@@ -4,6 +4,7 @@ import { FieldErrors, FieldValues, UseControllerProps } from 'react-hook-form';
 export type TextInputProps = {
   value?: string;
   label?: string;
+  subTitle?: string;
   required?: boolean;
   marginTop?: number;
   editable?: boolean;

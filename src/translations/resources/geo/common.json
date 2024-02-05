@@ -13,7 +13,8 @@
     "greetings": "მოგესალმებით",
     "settings": "პარამეტრები",
     "passcode": "პასკოდი",
-    "register": "რეგისტრაცია"
+    "register": "რეგისტრაცია",
+    "password_recovery": "პაროლის აღდგენა"
   },
   "onboarding": {
     "next": "შემდეგი",
@@ -233,7 +234,32 @@
     "depositDetails": "ანაბრის დეტალები",
     "updateCard": "ბარათის განახლება",
     "insure": "სტანდარტი",
-    "type": "ბარათის ტიპი"
+    "type": "ბარათის ტიპი",
+    "getCardEasily": "აიღე ბარათი მარტივად",
+    "tailoredProducts": "მიიღე შენს სურვილზე მორგებული პროდუქტები",
+    "plasticCard": "პალსიტკური ბარათი",
+    "orderPlasticCard": "შეუკვეთე პლასტიკური ბარათი",
+    "chooseCard": "აირჩიე ბარათი",
+    "linkCardToAccount": "რომელ ანგარიშზე გსურს ბარათის მიბმა?",
+    "universalAccount": "უნივერსალური ანგარიში",
+    "newIban": "ახალ ანგარიშზე",
+    "toExistingAccount": "ან არსებულ ანგარიშზე",
+    "branch": "ფილიალი",
+    "chooseBranch": "აირჩიე ფილიალი",
+    "cardDeliveryIssue": "მითითებულ მისმართზე ბარათის ვერ ჩაბარების შემთხვევაში, კურიერი მას მიიტანს თქვენს მიერ არჩეულ ფილიალში",
+    "findBranch": "მოძებნე ფილიალი",
+    "annualServiceFee": "წლიური მომსახურების საკომისიო",
+    "nameOnCard": "ბარათზე დატანილი სახელი და გვარი",
+    "delivery": "მიწოდება",
+    "cardDeliveryType": "ბარათის მიწოდების ტიპი",
+    "pickupAtBranch": "ფილიალში ავიღებ",
+    "pinCodeReceivingMethod": "პინ კოდის მიღების მეთოდი",
+    "phoneForPin": "ტელეფონის ნომერი პინ კოდის მიღებისთვის",
+    "SMS": "SMS",
+    "cardSecurity": "ბარათის უსაფრთხოება",
+    "noInsuranceWanted": "არ მსურს დაზღვევა",
+    "agreeToBankingTerms": "ვეთანხმები საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
+    "orderAmount": "შეკვეთა - "
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",
@@ -414,6 +440,7 @@
   "newDeposit": {
     "newProduct": "ახალი პროდუქტი",
     "tariffPackage": "სატარიფო პაკეტი",
+    "tariffPackages": "სატარიფო პაკეტები",
     "card": "ბარათი",
     "deposit": "ანაბარი",
     "teraWallet": "ტერასაფულე",
@@ -454,7 +481,11 @@
     "lifetime": "უვადო",
     "specialOffer": "სპეციალურად შენთვის - გახსენი დეპოზიტი და მიიღე სტანდარტულზე მაღალი საპროცენტო განაკვეთი.",
     "saveFreeMoney": "შეინახე თავისუფალი თანხა და მიიღე მაღალი საპროცენტო სარგებელი.",
-    "getMoreInterest": "მიიღე სტანდარტულზე 0.1%-ით მეტი სარგებელი ნებისმიერ ვალუტაში გახსნილ ანაბარზე"
+    "getMoreInterest": "მიიღე სტანდარტულზე 0.1%-ით მეტი სარგებელი ნებისმიერ ვალუტაში გახსნილ ანაბარზე",
+    "selectTariff": "აირჩიე შენს სურვილზე მორგებული სატარიფო პაკეტები",
+    "monthlyFee": "თვიური საკომისიო",
+    "annualFee": "წლიური საკომისიო",
+    "cardStatus": "აქტიური"
   },
   "payments": {
     "totalDebt": "სულ დავალიანება",
@@ -481,6 +512,34 @@
     "gambling": "აზარტული თამაშები",
     "parking_fines": "პარკირება და ჯარიმები",
     "other": "სხვა"
+  },
+  "checkPaymentProvider": {
+    "title": "შეიყვანეთ აბონენტის ინფორმაცია",
+    "providerNumber": "აბონენტის ნომერი",
+    "next": "შემდეგი",
+    "myFinancial": "ჩემი ანგარიში",
+    "name": "სახელი",
+    "address": "მისამართი",
+    "lastBillingDate": "ბოლო გადარიცხვის თარიღი",
+    "balance": "ბალანსი",
+    "amountToBePaid": "გადასახდელი თანხა",
+    "commission": "საკომისიო",
+    "searchAccount": "მოძებნე ანგარიში",
+    "chooseAccount": "აირჩიე ანგარიში",
+    "fromWhere": "საიდან"
+  },
+  "paymentDetailsScreen": {
+    "title": "გადახდის დეტალები",
+    "details": "დეტალები",
+    "pay": "გადახდა"
+  },
+  "paymentSuccessScreen": {
+    "title": "გადახდა\n წარმატებით შესრულდა",
+    "money": "თანხა: ",
+    "saveAsToTemplate": "შაბლონად შენახვა",
+    "automaticPay": "ავტომატური გადახდა",
+    "receiptShare": "ქვითრის გაზიარება",
+    "mainPage": "მთავარზე დაბრუნება"
   },
   "teraWallet": {
     "collectMoney": "დააგროვე თანხა მარტივად",
@@ -559,5 +618,9 @@
     "addPayment": "გადახდის დამატება",
     "empty": "თქვენ არ გაქვთ დამატებული\nავტომატური გადახდები",
     "paymentDetails": "გადახდის დეტალები"
+  },
+  "passwordRecovery": {
+    "choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",
+    "successful_password_recovery_title": "პაროლის აღდგენა წარმატებით დასრულდა"
   }
 }

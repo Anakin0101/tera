@@ -23,23 +23,6 @@ export interface TransfersState {
   selectedPrice: number;
 }
 
-interface ErrorData {
-  type: string;
-  title: string;
-  status: number;
-  detail: string;
-  code: string;
-  traceId: string;
-  showErrorUi: boolean;
-}
-
-export interface ErroResponse {
-  error?: {
-    status: number;
-    data: ErrorData;
-  };
-}
-
 export interface budget {
   payerName: string;
   payerCode: string;
@@ -58,12 +41,3 @@ export interface SelectedItemProp {
   selectedOtherBankDataTitle: string;
   setBudgetPerson: budget;
 }
-
-export type CustomTransferResultError = {
-  data?: {
-    status: number;
-    title: string;
-    type: string;
-    [key: string]: any;
-  };
-};
