@@ -37,6 +37,11 @@ export const profilePersistConfig = {
   storage: reduxStorage,
 };
 
+export const paymentPersistConfig = {
+  key: 'paymnets',
+  storage: reduxStorage,
+};
+
 export const registerUserPersistConfig = {
   key: 'registerUser',
   storage: reduxStorage,

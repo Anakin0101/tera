@@ -6,8 +6,8 @@ interface CheckCircleProps extends SvgProps {
   height?: number;
 }
 
-export const CheckCircle = ({ width = 34, height = 54, ...props }: CheckCircleProps) => (
-  <Svg width={width} height={height} fill="none" {...props}>
+export const CheckCircle = ({ ...props }: CheckCircleProps) => (
+  <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
     <Path
       fill="#43B64B"
       fillRule="evenodd"

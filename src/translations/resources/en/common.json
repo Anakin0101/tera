@@ -512,6 +512,34 @@
     "parking_fines": "Parking and fines",
     "other": "Other"
   },
+  "checkPaymentProvider": {
+    "title": "Enter subscriber information",
+    "providerNumber": "Subscriber number",
+    "next": "Next",
+    "myFinancial": "My Financial",
+    "name": "Name",
+    "address": "Address",
+    "lastBillingDate": "Last billing date",
+    "balance": "Balance",
+    "amountToBePaid": "Amount to be paid",
+    "commission": "Commission",
+    "searchAccount": "Search Account",
+    "chooseAccount": "Choose Account",
+    "fromWhere": "From where"
+  },
+  "paymentDetailsScreen": {
+    "title": "Payment Details",
+    "details": "Details",
+    "pay": "Pay"
+  },
+  "paymentSuccessScreen": {
+    "title": "Pay\n Successfully executed",
+    "money": "Money: ",
+    "saveAsToTemplate": "Save as to template",
+    "automaticPay": "Automatic pay",
+    "receiptShare": "Receipt share",
+    "mainPage": "Return to main page"
+  },
   "teraWallet": {
     "collectMoney": "Collect money easily",
     "desc": "After activating TeraWallet from each transaction, the amount of your choice will be credited to the account",

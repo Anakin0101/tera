@@ -17,6 +17,7 @@ import { registerUserReducer } from './slices/registerUser';
 import {
   dashboardPersistConfig,
   deviceInfoPersistConfig,
+  paymentPersistConfig,
   profilePersistConfig,
   registerUserPersistConfig,
   themePersistConfig,
@@ -32,11 +33,13 @@ import {
   filesAPI,
   profileAPI,
   transfersAPI,
+  paymentsAPI,
 } from 'services/apis';
 import { productsReducer } from './slices/products';
 import { depositReducer } from './slices/deposit';
 import { teraWalletReducer } from './slices/teraWallet';
 import { transfersReducer } from './slices/transfers';
+import { paymentsReducer } from './slices/payments';
 import { loanReducer } from './slices/loan';
 import { storage } from 'storage/index';
 
@@ -47,6 +50,7 @@ const persistedUserInfo = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedDeviceInfo = persistReducer(deviceInfoPersistConfig, deviceInfoReducer);
 const persistedDashboard = persistReducer(dashboardPersistConfig, dashboardReducer);
 const persistedProfile = persistReducer(profilePersistConfig, profileReducer);
+const persistedPayments = persistReducer(paymentPersistConfig, paymentsReducer);
 const persistedUserRegister = persistReducer(registerUserPersistConfig, registerUserReducer);
 
 const reducers = combineReducers({
@@ -56,6 +60,7 @@ const reducers = combineReducers({
   dashboard: persistedDashboard,
   profile: persistedProfile,
   products: productsReducer,
+  payments: persistedPayments,
   transfers: transfersReducer,
   deposit: depositReducer,
   teraWallet: teraWalletReducer,
@@ -65,6 +70,7 @@ const reducers = combineReducers({
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,
   [transfersAPI.reducerPath]: transfersAPI.reducer,
+  [paymentsAPI.reducerPath]: paymentsAPI.reducer,
   [filesAPI.reducerPath]: filesAPI.reducer,
   [profileAPI.reducerPath]: profileAPI.reducer,
 });
@@ -84,6 +90,7 @@ const middlewares = [
   productsAPI.middleware,
   transfersAPI.middleware,
   filesAPI.middleware,
+  paymentsAPI.middleware,
   profileAPI.middleware,
 ];
 

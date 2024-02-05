@@ -37,6 +37,10 @@ export const SETTINGS_SCREEN = 'SettingsScreen';
 export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
 export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';
+export const CHOOSE_PAYMENT_PROVIDER_SCREEN = 'ChoosePaymentProviderScreen';
+export const CHECK_PAYMENT_PROVIDER_SCREEN = 'CheckPaymentProviderScreen';
+export const PAYMENT_DETAILS_SCREEN = 'PaymentDetailsScreen';
+export const PAYMENT_SUCCESS_SCREEN = 'PaymentSuccessScreen';
 export const NEW_PAYMENT_SCREEN = 'NewPaymentScreen';
 
 //transactions

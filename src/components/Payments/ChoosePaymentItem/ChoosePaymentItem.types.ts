@@ -1,9 +1,6 @@
-import { ReactNode } from 'react';
+import { ProvidersGroup } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
 export interface ChoosePaymentItemProps {
-  id: string;
-  title: string;
-  icon: ReactNode;
-  onPress: () => void;
+  item: ProvidersGroup;
   isLast?: boolean;
 }

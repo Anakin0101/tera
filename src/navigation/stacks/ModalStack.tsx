@@ -4,14 +4,20 @@ import {
   AuthorizationMethodsScreen,
   CreatePasscodeScreen,
   NewPaymentScreen,
+  PaymentDetailsScreen,
+  PaymentSuccessScreen,
   SettingsScreen,
 } from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
 import {
   AUTHORIZATION_METHODS_SCREEN,
+  CHECK_PAYMENT_PROVIDER_SCREEN,
+  CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
   NEW_PAYMENT_SCREEN,
+  PAYMENT_DETAILS_SCREEN,
+  PAYMENT_SUCCESS_SCREEN,
   SETTINGS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
 } from 'navigation/ScreenNames';
@@ -20,6 +26,8 @@ import { Colors } from 'theme/Variables';
 import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
+import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen/ChoosePaymentProviderScreen';
+import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -34,6 +42,7 @@ export const ModalNavigator = () => {
         headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
+        headerTitleContainerStyle: { maxWidth: '75%' },
         headerShadowVisible: false,
         headerStyle: {
           backgroundColor: Colors.defaultBackground,
@@ -67,6 +76,40 @@ export const ModalNavigator = () => {
         component={NewPaymentScreen}
         options={{
           title: t('newPayment.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={CHOOSE_PAYMENT_PROVIDER_SCREEN}
+        component={ChoosePaymentProviderScreen}
+        options={{
+          title: '',
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={PAYMENT_DETAILS_SCREEN}
+        component={PaymentDetailsScreen}
+        options={{
+          title: t('paymentDetailsScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={PAYMENT_SUCCESS_SCREEN}
+        component={PaymentSuccessScreen}
+        options={{
+          title: '',
+          headerShadowVisible: true,
+          gestureEnabled: false,
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name={CHECK_PAYMENT_PROVIDER_SCREEN}
+        component={CheckPaymentProviderScreen}
+        options={{
+          title: '',
           headerShadowVisible: true,
         }}
       />

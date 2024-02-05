@@ -18,7 +18,6 @@ export const useStyles = () => {
       color: Colors.black,
       letterSpacing: -0.5,
       fontFamily: FontFamily.medium,
-      paddingHorizontal: Spacing.xl,
     },
     listWrapper: {
       paddingHorizontal: Spacing.xl,

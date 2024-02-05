@@ -510,6 +510,34 @@
     "parking_fines": "პარკირება და ჯარიმები",
     "other": "სხვა"
   },
+  "checkPaymentProvider": {
+    "title": "შეიყვანეთ აბონენტის ინფორმაცია",
+    "providerNumber": "აბონენტის ნომერი",
+    "next": "შემდეგი",
+    "myFinancial": "ჩემი ანგარიში",
+    "name": "სახელი",
+    "address": "მისამართი",
+    "lastBillingDate": "ბოლო გადარიცხვის თარიღი",
+    "balance": "ბალანსი",
+    "amountToBePaid": "გადასახდელი თანხა",
+    "commission": "საკომისიო",
+    "searchAccount": "მოძებნე ანგარიში",
+    "chooseAccount": "აირჩიე ანგარიში",
+    "fromWhere": "საიდან"
+  },
+  "paymentDetailsScreen": {
+    "title": "გადახდის დეტალები",
+    "details": "დეტალები",
+    "pay": "გადახდა"
+  },
+  "paymentSuccessScreen": {
+    "title": "გადახდა\n წარმატებით შესრულდა",
+    "money": "თანხა: ",
+    "saveAsToTemplate": "შაბლონად შენახვა",
+    "automaticPay": "ავტომატური გადახდა",
+    "receiptShare": "ქვითრის გაზიარება",
+    "mainPage": "მთავარზე დაბრუნება"
+  },
   "teraWallet": {
     "collectMoney": "დააგროვე თანხა მარტივად",
     "desc": "ტერასაფულის გააქტიურების შემდეგ\nყოველი ტრანზაქციიდან ანაბარზე დაირიცხება\nთქვენს მიერ არჩეული თანხა",
