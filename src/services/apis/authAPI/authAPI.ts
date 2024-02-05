@@ -13,6 +13,8 @@ import {
   LoginByRefreshTokenAPIResponseType,
   LogoutAPIRequestType,
   LogoutAPIResponseType,
+  RecoverPasswordAPIRequestType,
+  RecoverPasswordAPIResponseType,
   RegisterUserAPIRequestType,
   RegisterUserAPIResponseType,
 } from './authAPI.types';
@@ -78,6 +80,17 @@ export const authAPI = createApi({
         body: body,
       }),
     }),
+    recoverPassword: builder.mutation<
+      RecoverPasswordAPIResponseType,
+      RecoverPasswordAPIRequestType
+    >({
+      query: ({ headers, body }) => ({
+        url: URLS.recoverPassword,
+        method: METHOD_NAMES.POST,
+        headers: headers,
+        body: body,
+      }),
+    }),
     loginByRefreshToken: builder.mutation<
       LoginByRefreshTokenAPIResponseType,
       LoginByRefreshTokenAPIRequestType
@@ -100,4 +113,5 @@ export const {
   useLoginByRefreshTokenMutation,
   useDeleteTrustedDevicesMutation,
   useRegisterUserMutation,
+  useRecoverPasswordMutation,
 } = authAPI;

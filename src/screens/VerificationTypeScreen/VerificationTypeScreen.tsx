@@ -14,6 +14,8 @@ import { useKeyboard } from 'utils/useKeyboard';
 import { VerificationTypeScreenFormData } from './VerificationTypeScreen.types';
 import { RADIO_VALUES } from './VerificationTypeScreen.constants';
 import { useUserRegister } from 'hooks/useUserRegister';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { useRecoverPassword } from 'hooks/useRecoverPasswory';
 
 export const VerificationTypeScreen = () => {
   const styles = useStyles();
@@ -26,7 +28,9 @@ export const VerificationTypeScreen = () => {
   const { navigate } = useNavigation<RegistrationStackScreenProps<'CodeWordScreen'>>();
   const [selectedRadio, setSelectedRadio] = useState<string | null>(RADIO_VALUES.withPhone);
   const { isKeyboardOpened } = useKeyboard();
-  const { handleUserRegister, isLoading } = useUserRegister();
+  const { handleUserRegister, isLoading: registerUserLoading } = useUserRegister();
+  const { flow } = useAppSelector(state => state.registerUser);
+  const { handleRecoverPassword, isLoading: recoverPasswordLoading } = useRecoverPassword();
 
   useEffect(() => {
     clearErrors();
@@ -38,7 +42,9 @@ export const VerificationTypeScreen = () => {
 
   const onSubmit: SubmitHandler<VerificationTypeScreenFormData> = data => {
     const { email, personalId, mobile } = data;
-    handleUserRegister({ email, personalId, mobile }, handleNavigation);
+    flow === 'registration'
+      ? handleUserRegister({ email, personalId, mobile }, handleNavigation)
+      : handleRecoverPassword({ email, pin: personalId, mobile }, handleNavigation);
   };
 
   return (
@@ -53,7 +59,7 @@ export const VerificationTypeScreen = () => {
               text="common.continue"
               onPress={handleSubmit(onSubmit)}
               fullWidth
-              isLoading={isLoading}
+              isLoading={registerUserLoading || recoverPasswordLoading}
             />
           </View>
         }

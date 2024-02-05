@@ -41,6 +41,7 @@ import { teraWalletReducer } from './slices/teraWallet';
 import { transfersReducer } from './slices/transfers';
 import { paymentsReducer } from './slices/payments';
 import { loanReducer } from './slices/loan';
+import { storage } from 'storage/index';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -77,6 +78,7 @@ const reducers = combineReducers({
 const rootReducer: Reducer<RootState> = (state, action) => {
   if (action.type === RESET_STATE_ACTION_TYPE) {
     state = {} as RootState;
+    storage.clearAll();
   }
 
   return reducers(state, action);
