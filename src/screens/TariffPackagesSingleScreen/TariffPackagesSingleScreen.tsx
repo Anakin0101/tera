@@ -9,6 +9,8 @@ import { TariffProductsLayout } from 'components/TariffProducts/TariffProductsLa
 import { useStyles } from './TariffDescriptionSingle.styles';
 import { CheckStatic } from 'assets/SVGs/CheckStatic';
 import { useTranslation } from 'react-i18next';
+import { openModal } from 'utils/modal';
+import { PackagesOption } from './PackagesOption';
 
 export const TariffPackagesSingleScreen = () => {
   const { params } = useRoute<ProductsStackRouteProps<'TariffPackagesSingleScreen'>>();
@@ -73,6 +75,14 @@ export const TariffPackagesSingleScreen = () => {
     },
   ];
 
+  const onSelectPress = () => {
+    openModal({
+      element: <PackagesOption />,
+      title: 'პაკეტის რედაქტირება',
+      disablePanning: true,
+    });
+  };
+
   const renderItem = ({ item, index }: { item: TariffProductsProps; index: number }) => {
     const isFirstItem = index === 0;
     const itemStyle = isFirstItem ? styles.firstItemStyle : styles.regularItemStyle;
@@ -97,7 +107,9 @@ export const TariffPackagesSingleScreen = () => {
       ListHeaderComponent={<TariffDescriptionSingle {...params} />}
       renderItem={renderItem}
       keyExtractor={item => item.id}
-      ListFooterComponent={<Button.Primary fixedWidth text={t('common.select')} />}
+      ListFooterComponent={
+        <Button.Primary onPress={onSelectPress} fixedWidth text={t('common.select')} />
+      }
     />
   );
 };
