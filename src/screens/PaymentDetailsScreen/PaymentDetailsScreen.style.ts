@@ -12,6 +12,10 @@ export const useStyles = () => {
     },
     headerWrapper: {
       ...Layout.fill,
+      flexWrap: 'nowrap',
+      paddingVertical: Spacing.xxs,
+      paddingRight: Spacing.xl,
+      marginLeft: Spacing.xxs,
     },
     headerTitle: {
       fontSize: FontSize.small,
@@ -19,7 +23,6 @@ export const useStyles = () => {
       color: Colors.textBlack500,
       fontFamily: FontFamily.medium,
       lineHeight: 16,
-      flex: 1,
     },
     providerWrapper: {
       backgroundColor: Colors.white,

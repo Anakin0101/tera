@@ -66,12 +66,12 @@ export const useStyles = () => {
       borderRadius: 40,
     },
     buttonLabel: {
-      fontSize: FontSize.regular,
+      fontSize: FontSize.small,
       letterSpacing: -0.2,
       fontFamily: FontFamily.medium,
-      lineHeight: 20,
+      lineHeight: 16,
       marginHorizontal: Spacing.m,
-      marginVertical: Spacing.s,
+      marginVertical: Spacing.xxs,
     },
   });
 };
