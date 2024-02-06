@@ -255,11 +255,7 @@ export type ProfileStackParamsList = {
 
 export type GuestStackParamList = {
   [ONBOARDING_SCREEN]: undefined;
-  [PASSWORD_LOGIN_SCREEN]:
-    | undefined
-    | {
-        clearStorage: boolean;
-      };
+  [PASSWORD_LOGIN_SCREEN]: undefined;
   [PASSWORD_ONLY_LOGIN_SCREEN]: undefined;
   [PASSCODE_LOGIN_SCREEN]: undefined;
   [REGISTRATION_STACK]: NavigatorScreenParams<RegistrationStackParamsList>;
