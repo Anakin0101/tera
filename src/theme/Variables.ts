@@ -72,6 +72,7 @@ export const Colors = {
   blue: 'rgba(29, 90, 242, 1)',
   lightBlue: 'rgba(243, 245, 255, 1)',
   tariffPrice: 'rgba(183, 183, 183, 0.98)',
+  greyText: 'rgba(29, 29, 29, 0.40)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

@@ -64,5 +64,77 @@ export const useStyles = () => {
     regularItemStyle: {
       ...baseItemStyle,
     },
+    container: {
+      ...Layout.rowCenter,
+    },
+    button: {
+      marginHorizontal: Spacing.md,
+      paddingVertical: Spacing.s,
+      paddingHorizontal: Spacing.ml,
+      borderRadius: Spacing.xlm,
+    },
+    activeButton: {
+      backgroundColor: Colors.primaryToggleButtonCollor,
+      borderColor: Colors.primary,
+      borderWidth: Spacing.xxxs,
+    },
+    inactiveButton: {
+      backgroundColor: Colors.white,
+      borderColor: Colors.inputBlack50,
+      borderWidth: 1,
+    },
+    buttonText: {
+      fontSize: FontSize.small,
+      fontFamily: FontFamily.medium,
+    },
+    buttonActiveText: {
+      color: Colors.primary,
+    },
+    inactiveButtontext: {
+      color: Colors.textBlack,
+    },
+    singleCardName: {
+      color: Colors.textBlack500,
+      fontSize: FontSize.regular,
+      fontFamily: FontFamily.medium,
+    },
+    text: {
+      color: Colors.textBlack500,
+      fontSize: FontSize.small,
+      fontFamily: FontFamily.medium,
+    },
+    marginBottom: {
+      marginBottom: Spacing.l,
+    },
+    descWrapper: {
+      marginTop: Spacing.xlg,
+    },
+    paytypeWrapper: {
+      marginBottom: Spacing.ml,
+      marginTop: Spacing.xlm,
+    },
+    centredView: {
+      ...Layout.alignItemsCenter,
+    },
+    successTextView: {
+      marginTop: Spacing.xlg,
+      paddingHorizontal: Spacing.xlm,
+    },
+    changeTextView: {
+      marginTop: Spacing.lg,
+      marginBottom: Spacing.xxl,
+    },
+    successText: {
+      color: Colors.textBlack,
+      fontSize: FontSize.large,
+      fontFamily: FontFamily.DemiBold,
+      textAlign: 'center',
+      lineHeight: 34,
+    },
+    changeText: {
+      color: Colors.greyText,
+      fontSize: FontSize.small,
+      fontFamily: FontFamily.medium,
+    },
   });
 };
