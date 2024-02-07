@@ -62,6 +62,7 @@ export const useStyles = () => {
       borderRadius: 50,
     },
     buttonWrapper: {
+      width: moderateScale(100),
       ...Layout.row,
       ...Layout.justifyContentAround,
       marginRight: Spacing.lg,

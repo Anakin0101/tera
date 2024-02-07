@@ -81,6 +81,14 @@ export const dashboardAPI = createApi({
         body,
       }),
     }),
+    deleteTemplate: builder.mutation<any, any>({
+      query: ({ headers, body }) => ({
+        url: URLS.deleteTemplate,
+        method: METHOD_NAMES.DELETE,
+        headers,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -94,4 +102,5 @@ export const {
   useGetBankerQuery,
   useGetBannersQuery,
   useSaveTemplateMutation,
+  useDeleteTemplateMutation,
 } = dashboardAPI;

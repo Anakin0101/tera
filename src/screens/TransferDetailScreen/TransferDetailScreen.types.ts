@@ -57,6 +57,7 @@ export interface SelectedItemProp {
   selectedTransactionType: any;
   selectedOtherBankDataTitle: string;
   setBudgetPerson: budget;
+  isInternal: boolean;
 }
 
 export type CustomTransferResultError = {

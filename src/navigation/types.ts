@@ -189,7 +189,9 @@ export type TransactionsStackParamsList = {
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined
     | {
-        convertion?: any;
+        convertion?: boolean;
+        internal?: boolean;
+        fromIban?: boolean;
       };
 
   [TRANSFER_TO_BUDGET]: undefined;

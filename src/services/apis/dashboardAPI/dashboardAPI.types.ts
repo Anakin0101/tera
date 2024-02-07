@@ -63,7 +63,7 @@ type MobilePaymentTransaction = {
   serviceId: number;
   serviceSubType: string;
   amount: number;
-  isTrusted: null;
+  isTrusted?: null;
 };
 type P2PTransfer = {
   mobile: string;
@@ -74,7 +74,7 @@ type P2PTransfer = {
   amount: number;
   description: string;
   extraDescription: string;
-  isTrusted: null;
+  isTrusted?: null;
 };
 type InternalTransaction = {
   debitIban: string;
@@ -99,14 +99,18 @@ type BankExternalTransaction = {
   insured: boolean;
   isTrusted: boolean;
   trustedAddDate: string | null;
-  otpRequired: boolean; // Added otpRequired property here
+  otpRequired?: boolean;
 };
 
 export type Template = {
   id: number;
   name: string;
   type: number;
-  imageUrl: string | null;
+  icon: any;
+  internalIban: any;
+  internalAmount: any;
+  currency: any;
+  imageUrl?: string | null;
   conversion: Conversion | null;
   internal: InternalTransaction | null;
   bankInternal: BankInternalTransaction | null;

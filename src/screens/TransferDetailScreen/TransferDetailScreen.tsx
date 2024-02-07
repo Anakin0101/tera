@@ -20,7 +20,9 @@ import {
 } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
-
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setTransferType, setSpecificTransferData } from 'store/slices/transfers';
+import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 export const TransferDetailScreen = () => {
   const { t } = useTranslation();
   const selectedItemFromStore = useAppSelector(
@@ -32,6 +34,7 @@ export const TransferDetailScreen = () => {
     useTransferDetails(!!params?.mobileTransaction);
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const dispatch = useAppDispatch();
   const {
     accountFromData,
     accountToData,
@@ -43,6 +46,7 @@ export const TransferDetailScreen = () => {
     accountIban,
     selectedTransactionType,
     selectedOtherBankDataTitle,
+    isInternal,
   } = selectedItemFromStore;
 
   const transferWithOTP = async (code: any, params: any) => {
@@ -80,7 +84,29 @@ export const TransferDetailScreen = () => {
         headers: headers,
         body: formData,
       });
+      dispatch(
+        setTransferType({
+          type: isInternal
+            ? FinancialTransferTypeEnum.ToSomeoneInsideBank
+            : FinancialTransferTypeEnum.ToSomeoneInGeorgia,
+        }),
+      );
 
+      dispatch(
+        setSpecificTransferData({
+          transferType: isInternal ? 'bankInternal' : 'bankExternal',
+          data: {
+            personalId: null,
+            debitIban: accountFromData.accountIban,
+            creditIban: accountToData.accountIban,
+            currency: accountFromData.ccy,
+            amount: selectedItemFromStore.selectedPrice,
+            description: selectedData ? selectedData : PERSONAL_TRANSACTION,
+            extraDescription: '',
+            isTrusted: false,
+          },
+        }),
+      );
       closeModal();
 
       if (transferToSomeoneResult?.error) {
@@ -89,7 +115,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN);
+        navigate(TRANSACTION_FINISHED_SCREEN, { fromIban: true });
       }
     } else {
       headers['Content-Type'] = 'application/json';
@@ -145,6 +171,24 @@ export const TransferDetailScreen = () => {
           creditAccountId: accountToData?.accountId,
           debitAccountId: accountFromData?.accountId,
         });
+
+        dispatch(
+          setTransferType({
+            type: FinancialTransferTypeEnum.Exchange,
+          }),
+        );
+
+        dispatch(
+          setSpecificTransferData({
+            transferType: 'conversion',
+            data: {
+              debitIban: accountFromData.accountIban,
+              debitCurrency: accountFromData.ccy,
+              creditIban: accountToData.accountIban,
+              creditCurrency: accountToData.ccy,
+            },
+          }),
+        );
         if (transferConvertion?.error) {
           handleTransferError(transferConvertion.error);
         } else {
@@ -169,11 +213,28 @@ export const TransferDetailScreen = () => {
           creditAccountId: accountToData?.accountId,
           debitAccountId: accountFromData?.accountId,
         });
+        dispatch(
+          setTransferType({
+            type: FinancialTransferTypeEnum.ToOwnAccount,
+          }),
+        );
+
+        dispatch(
+          setSpecificTransferData({
+            transferType: 'internal',
+            data: {
+              debitIban: accountFromData.accountIban,
+              currency: accountFromData.ccy,
+              creditIban: accountToData.accountIban,
+              amount: selectedItemFromStore.selectedPrice,
+            },
+          }),
+        );
 
         if (transferResult?.error) {
           handleTransferError(transferResult.error);
         } else {
-          navigate(TRANSACTION_FINISHED_SCREEN);
+          navigate(TRANSACTION_FINISHED_SCREEN, { internal: true });
         }
       } catch (error) {
         console.warn('Transfer to Own Account Error:', error);

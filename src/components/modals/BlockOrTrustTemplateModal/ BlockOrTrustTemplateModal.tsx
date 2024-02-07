@@ -5,7 +5,11 @@ import { Colors } from 'theme/Variables';
 import { useStyles } from './BlockOrTrustTemplateModal.styles';
 import { templateCardProps } from './BlockOrTrustTemplateModal.types';
 
-export const BlockOrTrustTemplateModal: FC<templateCardProps> = ({ onPress, shouldBlock }) => {
+export const BlockOrTrustTemplateModal: FC<templateCardProps> = ({
+  onPress,
+  shouldBlock,
+  isDelete,
+}) => {
   const styles = useStyles();
 
   return (
@@ -13,14 +17,18 @@ export const BlockOrTrustTemplateModal: FC<templateCardProps> = ({ onPress, shou
       <View style={styles.header}>
         <Text
           center
-          children={!shouldBlock ? 'transactions.trustedTemplate' : 'transactions.deleteTemplate'}
+          children={
+            !shouldBlock && !isDelete
+              ? 'transactions.trustedTemplate'
+              : !shouldBlock && isDelete
+              ? 'asdasdasd'
+              : 'transactions.deleteTemplate'
+          }
           color={Colors.textBlack500}
         />
       </View>
       <Button.Primary
-        onPress={() => {
-          onPress();
-        }}
+        onPress={onPress}
         fixedWidth
         text="common.confirm"
         customWrapperStyle={styles.button}

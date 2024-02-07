@@ -8,7 +8,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Animated, { useAnimatedStyle, interpolate, useSharedValue } from 'react-native-reanimated';
 import { IconComponent } from 'components/index';
 import { Divider } from 'components/index';
-import { TemplateDelete, TemplateAdd } from 'assets/SVGs';
+import { TemplateDelete, TemplateAdd, TemplateDeleteTrust } from 'assets/SVGs';
 import { TemplatesSectionProps } from './AllTemplatesScreen.types';
 
 let rowRefs: Array<any> = [];
@@ -31,20 +31,43 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
       transform: [{ translateX }],
     };
   }, []);
+  const isTemplateTrusted = (template: any): boolean => {
+    const sectionKeys: (keyof any)[] = [
+      'conversion',
+      'p2pTransfers',
+      'bankExternal',
+      'mobilePayment',
+      'bankInternal',
+      'budget',
+      'internal',
+    ];
+    return sectionKeys.some(section => template[section]?.isTrusted === true);
+  };
+  const trusted = isTemplateTrusted(templates);
 
   const renderRightActions = useCallback(() => {
     return (
       <Animated.View style={animatedStyle}>
         <View style={styles.buttonWrapper}>
-          {templates.isTrusted ? (
+          <TouchableOpacity style={styles.rightAction} onPress={() => templateDeleteBtn(templates)}>
+            <TemplateDelete />
+          </TouchableOpacity>
+          {trusted ? (
             <TouchableOpacity
               style={styles.rightAction}
-              onPress={() => templateDeleteBtn(templates)}
+              onPress={() => {
+                templateAddBtn(templates, true);
+              }}
             >
-              <TemplateDelete />
+              <TemplateDeleteTrust />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity style={styles.rightAction} onPress={() => templateAddBtn(templates)}>
+            <TouchableOpacity
+              style={styles.rightAction}
+              onPress={() => {
+                templateAddBtn(templates, false);
+              }}
+            >
               <TemplateAdd />
             </TouchableOpacity>
           )}
@@ -55,9 +78,10 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
     animatedStyle,
     styles.buttonWrapper,
     styles.rightAction,
+    trusted,
     templateDeleteBtn,
-    templateAddBtn,
     templates,
+    templateAddBtn,
   ]);
 
   const closeRow = useCallback(() => {

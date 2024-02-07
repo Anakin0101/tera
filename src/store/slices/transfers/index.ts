@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   accountFromData: null,
@@ -25,7 +25,39 @@ const initialState = {
   },
   wrappedCode: null,
   treasuryFromCode: null,
+  currentTransfer: {
+    id: null,
+    name: '',
+    type: 1,
+    data: {
+      conversion: null,
+      internal: null,
+      bankInternal: null,
+      budget: null,
+      bankExternal: null,
+      mobilePayment: null,
+      p2pTransfers: null,
+    },
+  },
+  isInternal: false,
 };
+interface SetTransferTypePayload {
+  id?: null;
+  name?: string;
+  type?: number;
+}
+type TransferDataType =
+  | 'conversion'
+  | 'internal'
+  | 'bankInternal'
+  | 'budget'
+  | 'bankExternal'
+  | 'mobilePayment'
+  | 'p2pTransfers';
+interface SetSpecificTransferDataPayload {
+  transferType: TransferDataType;
+  data: any;
+}
 
 const transfersSlice = createSlice({
   name: 'transfers',
@@ -98,6 +130,41 @@ const transfersSlice = createSlice({
     setClearTreasuryFromCode: state => {
       state.treasuryFromCode = null;
     },
+    setTransferType: (state, action: PayloadAction<SetTransferTypePayload>) => {
+      const { id, name, type } = action.payload;
+      if (id !== undefined) {
+        state.currentTransfer.id = id;
+      }
+      if (name !== undefined) {
+        state.currentTransfer.name = name;
+      }
+      if (type !== undefined) {
+        state.currentTransfer.type = type;
+      }
+    },
+    setSpecificTransferData: (state, action: PayloadAction<SetSpecificTransferDataPayload>) => {
+      const { transferType, data } = action.payload;
+      state.currentTransfer.data[transferType] = data;
+    },
+    clearCurrentTransfer: state => {
+      state.currentTransfer = {
+        id: null,
+        name: '',
+        type: 1,
+        data: {
+          conversion: null,
+          internal: null,
+          bankInternal: null,
+          budget: null,
+          bankExternal: null,
+          mobilePayment: null,
+          p2pTransfers: null,
+        },
+      };
+    },
+    setIsInternal: (state, action) => {
+      state.isInternal = action.payload;
+    },
   },
 });
 
@@ -124,5 +191,9 @@ export const {
   setTreasuryFromCode,
   setClearTreasuryFromCode,
   setClearWrappedCode,
+  setTransferType,
+  setSpecificTransferData,
+  clearCurrentTransfer,
+  setIsInternal,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

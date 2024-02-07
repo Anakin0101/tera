@@ -8,8 +8,24 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { Budget, Calendar, Refreshing, UserArrowRight } from 'assets/SVGs';
 import { Service } from './ChooseService.types';
 import { useStyles } from './ChooseService.styles';
+import { openModal } from 'utils/modal';
+import { SaveTemplateModal } from 'components/modals/SaveTemplate/SaveTemplateModal';
+
 interface ServiceData {
   serviceData?: any;
+}
+interface ParamTypes {
+  transferParams?:
+    | {
+        conversion?: boolean;
+        internal?: boolean;
+        budget?: boolean;
+        external?: boolean;
+        fromOtherBank?: boolean;
+        mobileTransaction?: boolean;
+        receiver?: string;
+      }
+    | undefined;
 }
 
 interface FromTransaction {
@@ -43,7 +59,11 @@ const data = [
   },
 ];
 
-export const ChooseService = ({ fromTransaction, serviceData }: FromTransaction & ServiceData) => {
+export const ChooseService = ({
+  fromTransaction,
+  serviceData,
+  transferParams,
+}: FromTransaction & ServiceData & ParamTypes) => {
   const styles = useStyles();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
 
@@ -65,8 +85,16 @@ export const ChooseService = ({ fromTransaction, serviceData }: FromTransaction 
 
       item.screen && navigate(item.screen, params);
     };
+    const onTemplatePress = () => {
+      openModal({
+        element: <SaveTemplateModal />,
+        title: 'products.changeName',
+        titlePosition: 'center',
+        disableDynamicSizing: true,
+      });
+    };
 
-    return <ServiceItem item={item} onPress={onPress} />;
+    return <ServiceItem item={item} onPress={transferParams ? onTemplatePress : onPress} />;
   };
 
   return (

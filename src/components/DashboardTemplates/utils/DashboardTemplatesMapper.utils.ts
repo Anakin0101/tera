@@ -52,13 +52,6 @@ export const getDashboardTemplates = (templates: Template[]) => {
     const isInternal = template.bankInternal;
     const templateIcon = getTemplateIcon(template);
 
-    const isTrusted =
-      (template.bankInternal?.isTrusted ||
-        template.budget?.isTrusted ||
-        template.bankExternal?.isTrusted ||
-        template.mobilePayment?.isTrusted ||
-        template.p2pTransfers?.isTrusted) ??
-      false;
     const conversion = template.conversion
       ? {
           debitIban: template.conversion.debitIban,
@@ -154,9 +147,6 @@ export const getDashboardTemplates = (templates: Template[]) => {
         ? template.bankInternal?.description
         : template?.bankExternal?.description ?? '',
       icon: templateIcon,
-      trusted: isInternal
-        ? template?.bankInternal?.trustedAddDate
-        : template?.bankExternal?.trustedAddDate,
       internalIban:
         conversion?.debitIban ||
         internal?.debitIban ||
@@ -175,13 +165,11 @@ export const getDashboardTemplates = (templates: Template[]) => {
         p2pTransfers?.amount ||
         '',
       currency:
-        conversion?.debitCurrency ||
         internal?.currency ||
         bankInternal?.currency ||
         bankExternal?.currency ||
         p2pTransfers?.currency ||
         '',
-      isTrusted,
       conversion,
       internal,
       bankInternal,
