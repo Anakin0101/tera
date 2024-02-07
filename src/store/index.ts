@@ -41,7 +41,8 @@ import { teraWalletReducer } from './slices/teraWallet';
 import { transfersReducer } from './slices/transfers';
 import { paymentsReducer } from './slices/payments';
 import { loanReducer } from './slices/loan';
-import { storage } from 'storage/index';
+import { clearStorageExceptKeys } from 'storage/index';
+import { APP_LAUNCHED, SELECTED_LANGUAGE } from 'storage/constants';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -78,7 +79,11 @@ const reducers = combineReducers({
 const rootReducer: Reducer<RootState> = (state, action) => {
   if (action.type === RESET_STATE_ACTION_TYPE) {
     state = {} as RootState;
-    storage.clearAll();
+    /**
+     * we need to reset the storage to an empty object, except whether app has already been launched or not.
+     * We need to determine, whether we start with onboardingScreen or Password login screen
+     */
+    clearStorageExceptKeys([APP_LAUNCHED, SELECTED_LANGUAGE]);
   }
 
   return reducers(state, action);
