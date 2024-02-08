@@ -25,6 +25,7 @@ import {
   NEW_AUTOMATIC_PAYMENT_SCREEN,
   NEW_PAYMENT_SCREEN,
   PAYMENT_DETAILS_SCREEN,
+  PAYMENT_ERROR_SCREEN,
   PAYMENT_SUCCESS_SCREEN,
   SETTINGS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
@@ -36,6 +37,7 @@ import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
 import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen/ChoosePaymentProviderScreen';
 import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
+import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -106,6 +108,16 @@ export const ModalNavigator = () => {
       <Screen
         name={PAYMENT_SUCCESS_SCREEN}
         component={PaymentSuccessScreen}
+        options={{
+          title: '',
+          headerShadowVisible: true,
+          gestureEnabled: false,
+          headerShown: false,
+        }}
+      />
+      <Screen
+        name={PAYMENT_ERROR_SCREEN}
+        component={PaymentErrorScreen}
         options={{
           title: '',
           headerShadowVisible: true,

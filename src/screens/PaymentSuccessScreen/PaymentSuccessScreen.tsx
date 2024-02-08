@@ -10,7 +10,7 @@ import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
 import { formatMoney } from 'utils/formatMoney';
 import { getFee } from 'utils/paymentUtils';
 import { AutomaticPayment, Plus, Share, SuccessTransaction } from 'assets/SVGs';
-import { PAYMENTS_SCREEN, PAYMENTS_STACK } from 'navigation/ScreenNames';
+import { DASHBOARD_SCREEN } from 'navigation/ScreenNames';
 
 export const PaymentSuccessScreen = () => {
   const { t } = useTranslation();
@@ -66,7 +66,7 @@ export const PaymentSuccessScreen = () => {
   );
 
   const openMainScreen = () => {
-    navigate(PAYMENTS_STACK, { screen: PAYMENTS_SCREEN });
+    navigate(DASHBOARD_SCREEN);
   };
 
   return (

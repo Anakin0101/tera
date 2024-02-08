@@ -3,12 +3,14 @@ import { StyleSheet } from 'react-native';
 import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Spacing } = useTheme();
+  const { Colors, Spacing, Layout } = useTheme();
 
   return StyleSheet.create({
-    container: {},
+    container: {
+      ...Layout.fill,
+    },
     wrapper: {
-      marginHorizontal: Spacing.xl,
+      paddingHorizontal: Spacing.xl,
     },
     headerTitle: {
       marginBottom: Spacing.xl,
@@ -23,9 +25,12 @@ export const useStyles = () => {
       marginHorizontal: Spacing.xl,
       paddingBottom: Spacing.xxxl,
     },
-    nextButtonWrapper: {
-      marginTop: Spacing.ml,
-      marginHorizontal: Spacing.xl,
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
+    },
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
     },
   });
 };

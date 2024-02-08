@@ -1,9 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'components/index';
 import { useStyleTheme } from './FinishScreenContent.styles';
 import { FailedSvg, SuccessTransaction } from 'assets/SVGs';
 import { FinishScreenContentProps } from './FinishScreenContent.tyoes';
+import { useNavigation } from '@react-navigation/native';
+import { DashboardStackScreenProps } from 'navigation/types';
+import { DASHBOARD_SCREEN } from 'navigation/ScreenNames';
 
 export const FinishScreenContent: FC<FinishScreenContentProps> = ({
   isSuccess = true,
@@ -21,9 +24,18 @@ export const FinishScreenContent: FC<FinishScreenContentProps> = ({
   iconSize = 88,
 }) => {
   const styles = useStyleTheme();
+  const { navigate } = useNavigation<DashboardStackScreenProps<'DashboardScreen'>>();
+
+  const handleHomePress = useCallback(() => {
+    navigate(DASHBOARD_SCREEN);
+  }, [navigate]);
 
   const handlePress = () => {
-    ctaHandler?.();
+    if (ctaHandler) {
+      ctaHandler();
+    } else {
+      handleHomePress();
+    }
   };
 
   return (

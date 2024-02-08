@@ -87,6 +87,7 @@ import {
   PAYMENT_SUCCESS_SCREEN,
   PAYMENTS_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
+  PAYMENT_ERROR_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -123,7 +124,11 @@ export type ModalStackParamsList = {
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
   [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean };
   [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider; isAutomaticPayment?: boolean };
-  [CHOOSE_PAYMENT_PROVIDER_SCREEN]: { providerInfo: ProvidersGroup; isAutomaticPayment?: boolean };
+  [CHOOSE_PAYMENT_PROVIDER_SCREEN]: {
+    providerInfo?: ProvidersGroup;
+    isAutomaticPayment?: boolean;
+    isParkingAndFines?: boolean;
+  };
   [PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
     debtVerifyResults: Array<DebtVerifyResult>;
@@ -153,6 +158,7 @@ export type ModalStackParamsList = {
     automaticPaymentForm: AutomaticPaymentForm;
     subscriberFieldsValue: SubscriberFieldsValue;
   };
+  [PAYMENT_ERROR_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

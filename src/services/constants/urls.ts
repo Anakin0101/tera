@@ -6,7 +6,7 @@ export const URLS = {
   getTrustedDevices: 'Auth/GetTrustedDevices',
   deleteTrustedDevices: 'Auth/DeleteTrustedDevices',
   registerUser: 'Auth/registerUser',
-  recoverPassword: 'Auth/RecoverPasssword',
+  recoverPassword: 'Auth/RecoverPassword',
   getTemplates: 'Templates/GetTemplates',
   getUserProfile: 'Customers/GetUserProfile',
   loginByRefreshToken: 'Auth/LoginByRefreshToken',

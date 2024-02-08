@@ -22,8 +22,14 @@ export const useGroupedAccountsByIban = () => {
   const saveAccounts = useCallback(
     (allAccounts?: Account[]) => {
       try {
+        // filter accounts where:
+        //  - Only currency is GEL
+        //  - accountType must not be deposit
         const accs =
-          allAccounts?.filter(item => item.accountType !== AccountTypeEnum.Deposit) ?? [];
+          allAccounts?.filter(
+            ({ accountType, ccy }) =>
+              accountType !== AccountTypeEnum.Deposit && ccy === CurrencyEnum.GEL,
+          ) ?? [];
 
         const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(accs, 'accountIban');
         const balanceGEL = accs?.filter(acc => acc?.ccy === CurrencyEnum.GEL);
