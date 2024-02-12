@@ -59,6 +59,11 @@ export interface SelectedItemProp {
   setBudgetPerson: budget;
   isInternal: boolean;
 }
+export interface paramsTypes {
+  convertion?: boolean;
+  fromOtherBank?: boolean;
+  mobileTransaction?: boolean;
+}
 
 export type CustomTransferResultError = {
   data?: {

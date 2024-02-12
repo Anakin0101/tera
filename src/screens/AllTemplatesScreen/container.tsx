@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import {
   useGetTemplatesQuery,
@@ -17,7 +16,7 @@ export const useAllTemplates = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const [search, setSearch] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
-
+  const [isTrustedTemplate, setIsTrustedTemplate] = useState(false);
   const [saveTemplate, { isLoading: saveTemplateLoading }] = useSaveTemplateMutation();
   const [deleteTemplate, { isLoading: deleteTemplateLoading }] = useDeleteTemplateMutation();
   const {
@@ -34,10 +33,6 @@ export const useAllTemplates = () => {
     }, 500);
     return () => clearTimeout(handler);
   }, [search]);
-
-  useEffect(() => {
-    refetch();
-  }, [saveTemplateLoading, deleteTemplateLoading, refetch]);
 
   const updateTrustStatus = (template: Template, isTrusted: boolean): Template => {
     const updatedTemplate: Template = { ...template };
@@ -59,7 +54,8 @@ export const useAllTemplates = () => {
   const templateTrustFunction = async (isTrusted: boolean, data: Template, code?: string) => {
     let headers = {
       'X-Bank-userip': userIp,
-      'X-Bank-Sendotp': code ? 'true' : 'false',
+      'X-Bank-Getauthmethod': 'true',
+      'X-Bank-Sendotp': isTrusted ? 'true' : 'false',
       'X-Bank-Isstrongauthrequest': true,
       ...(code && { 'X-Bank-Otp': code }),
     };
@@ -67,7 +63,13 @@ export const useAllTemplates = () => {
     return await saveTemplate({
       headers,
       body: updateTrustStatus(data, isTrusted),
-    }).unwrap();
+    })
+      .unwrap()
+      .then(response => {
+        refetch();
+        setIsTrustedTemplate(true);
+        return response;
+      });
   };
 
   const BlockOrTrustFunction = async (shouldBlock: boolean, data: Template, isDelete = false) => {
@@ -78,17 +80,21 @@ export const useAllTemplates = () => {
         body: { templateId: data.id },
       })
         .unwrap()
-        .then(() => openToast('Template successfully deleted', 'success'))
+        .then(() => {
+          refetch();
+          openToast('Template successfully deleted', 'success');
+        })
         .catch(err => console.error('Delete template failed:', err));
     } else {
       try {
         const response = await templateTrustFunction(!isDelete, data);
-
-        if (response.otpRequired) {
+        if (response?.otpRequired) {
           openModal({
             element: <OTPModal onFinished={code => templateTrustFunction(!isDelete, data, code)} />,
           });
         } else {
+          refetch();
+          setIsTrustedTemplate(false);
           openToast(`Template successfully ${isDelete ? 'untrusted' : 'trusted'}`, 'success');
         }
       } catch (err) {
@@ -140,6 +146,7 @@ export const useAllTemplates = () => {
     search,
     templateDeleteBtn,
     templateAddBtn,
+    isTrustedTemplate,
     saveTemplateSuccessLoading: saveTemplateLoading,
     deleteTemplateSuccessLoading: deleteTemplateLoading,
   };

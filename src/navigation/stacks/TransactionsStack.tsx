@@ -120,6 +120,7 @@ export const TransactionsStack = () => {
         component={TransactionFinishedScreen}
         options={{
           title: '',
+          gestureEnabled: false,
           headerLeft: () => null,
         }}
       />

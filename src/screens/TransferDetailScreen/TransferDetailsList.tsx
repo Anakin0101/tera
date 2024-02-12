@@ -38,7 +38,7 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
         <View style={styles.detailsSectionWrapper}>
           {renderDetailsItem(
             'transfers.fromWhere',
-            `${accountFromData.accountName} - `,
+            `${accountFromData.accountName}  `,
             accountFromData.accountIban,
           )}
           {renderDetailsItem(

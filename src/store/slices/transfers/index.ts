@@ -29,15 +29,13 @@ const initialState = {
     id: null,
     name: '',
     type: 1,
-    data: {
-      conversion: null,
-      internal: null,
-      bankInternal: null,
-      budget: null,
-      bankExternal: null,
-      mobilePayment: null,
-      p2pTransfers: null,
-    },
+    conversion: null,
+    internal: null,
+    bankInternal: null,
+    budget: null,
+    bankExternal: null,
+    mobilePayment: null,
+    p2pTransfers: null,
   },
   isInternal: false,
 };
@@ -144,22 +142,20 @@ const transfersSlice = createSlice({
     },
     setSpecificTransferData: (state, action: PayloadAction<SetSpecificTransferDataPayload>) => {
       const { transferType, data } = action.payload;
-      state.currentTransfer.data[transferType] = data;
+      state.currentTransfer[transferType] = data;
     },
     clearCurrentTransfer: state => {
       state.currentTransfer = {
         id: null,
         name: '',
         type: 1,
-        data: {
-          conversion: null,
-          internal: null,
-          bankInternal: null,
-          budget: null,
-          bankExternal: null,
-          mobilePayment: null,
-          p2pTransfers: null,
-        },
+        conversion: null,
+        internal: null,
+        bankInternal: null,
+        budget: null,
+        bankExternal: null,
+        mobilePayment: null,
+        p2pTransfers: null,
       };
     },
     setIsInternal: (state, action) => {

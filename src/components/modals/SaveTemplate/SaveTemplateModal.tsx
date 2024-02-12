@@ -35,7 +35,7 @@ export const SaveTemplateModal: FC<ModalProps> = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <TextInput
         label="products.accountName"
         value={accountName}

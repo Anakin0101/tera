@@ -18,6 +18,7 @@ export const AllTemplatesScreen = () => {
     templateAddBtn,
     saveTemplateSuccessLoading,
     deleteTemplateSuccessLoading,
+    isTrustedTemplate,
   } = useAllTemplates();
   const dashboardTemplates = useMemo(() => {
     return getDashboardTemplates(templates || []);
@@ -43,6 +44,7 @@ export const AllTemplatesScreen = () => {
             renderItem={({ item, index }) => (
               <TemplatesSection
                 templates={item}
+                isTrustedTemplate={isTrustedTemplate}
                 index={index}
                 templateDeleteBtn={templateDeleteBtn}
                 templateAddBtn={templateAddBtn}

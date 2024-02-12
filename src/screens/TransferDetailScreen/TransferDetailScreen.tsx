@@ -4,7 +4,11 @@ import { Button } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { useNavigation } from '@react-navigation/native';
-import { CustomTransferResultError, SelectedItemProp } from './TransferDetailScreen.types';
+import {
+  CustomTransferResultError,
+  SelectedItemProp,
+  paramsTypes,
+} from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
@@ -22,7 +26,8 @@ import { useTranslation } from 'react-i18next';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setTransferType, setSpecificTransferData } from 'store/slices/transfers';
-import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { TransferTemplateTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+
 export const TransferDetailScreen = () => {
   const { t } = useTranslation();
   const selectedItemFromStore = useAppSelector(
@@ -49,10 +54,12 @@ export const TransferDetailScreen = () => {
     isInternal,
   } = selectedItemFromStore;
 
-  const transferWithOTP = async (code: any, params: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const transferWithOTP = async (params: paramsTypes, code?: string) => {
     let headers: { [key: string]: string } = {
       'X-Bank-Isstrongauthrequest': 'true',
       'Content-Type': 'multipart/form-data',
+      ...(code !== undefined && { 'X-Bank-Otp': code }),
     };
 
     if (!params?.mobileTransaction) {
@@ -76,9 +83,6 @@ export const TransferDetailScreen = () => {
       formData.append('fastPayment', 'false');
       formData.append('bankCode', receiverInfo.bicCode);
       formData.append('bankName', receiverInfo.bankName);
-      if (code !== false) {
-        headers['X-Bank-Otp'] = code;
-      }
 
       const transferToSomeoneResult: TransferToSomeoneResultResponseType = await transferToSomeone({
         headers: headers,
@@ -87,8 +91,8 @@ export const TransferDetailScreen = () => {
       dispatch(
         setTransferType({
           type: isInternal
-            ? FinancialTransferTypeEnum.ToSomeoneInsideBank
-            : FinancialTransferTypeEnum.ToSomeoneInGeorgia,
+            ? TransferTemplateTypeEnum.ToSomeoneInsideBank
+            : TransferTemplateTypeEnum.ToSomeoneInGeorgia,
         }),
       );
 
@@ -98,7 +102,7 @@ export const TransferDetailScreen = () => {
           data: {
             personalId: null,
             debitIban: accountFromData.accountIban,
-            creditIban: accountToData.accountIban,
+            creditIban: accountToData.accountIban || accountToData.iban,
             currency: accountFromData.ccy,
             amount: selectedItemFromStore.selectedPrice,
             description: selectedData ? selectedData : PERSONAL_TRANSACTION,
@@ -132,7 +136,7 @@ export const TransferDetailScreen = () => {
         bankName: receiverInfo.bankName,
       };
 
-      if (code !== false) {
+      if (code !== undefined) {
         requestBody.otp = code;
       }
 
@@ -163,7 +167,7 @@ export const TransferDetailScreen = () => {
     }
   };
   const handleButtonPress = async () => {
-    if (params.convertion && !params.fromOtherBank) {
+    if (params?.convertion && !params?.fromOtherBank) {
       try {
         const transferConvertion: TransferToOwnAccountResponseType = await handleExchangeAmount({
           debitAmount: convertionData?.buyAmount.amountBuy,
@@ -174,7 +178,7 @@ export const TransferDetailScreen = () => {
 
         dispatch(
           setTransferType({
-            type: FinancialTransferTypeEnum.Exchange,
+            type: TransferTemplateTypeEnum.Exchange,
           }),
         );
 
@@ -184,7 +188,7 @@ export const TransferDetailScreen = () => {
             data: {
               debitIban: accountFromData.accountIban,
               debitCurrency: accountFromData.ccy,
-              creditIban: accountToData.accountIban,
+              creditIban: accountToData.accountIban || accountToData.iban,
               creditCurrency: accountToData.ccy,
             },
           }),
@@ -200,11 +204,11 @@ export const TransferDetailScreen = () => {
     } else if (params.fromOtherBank) {
       if (otpData.otpRequired) {
         openModal({
-          element: <OTPModal onFinished={code => transferWithOTP(code, params)} />,
+          element: <OTPModal onFinished={code => transferWithOTP(params, code)} />,
           withKeyboard: true,
         });
       } else {
-        await transferWithOTP(false, params);
+        await transferWithOTP(params);
       }
     } else {
       try {
@@ -215,7 +219,7 @@ export const TransferDetailScreen = () => {
         });
         dispatch(
           setTransferType({
-            type: FinancialTransferTypeEnum.ToOwnAccount,
+            type: TransferTemplateTypeEnum.ToOwnAccount,
           }),
         );
 
@@ -225,7 +229,7 @@ export const TransferDetailScreen = () => {
             data: {
               debitIban: accountFromData.accountIban,
               currency: accountFromData.ccy,
-              creditIban: accountToData.accountIban,
+              creditIban: accountToData.accountIban || accountToData.iban,
               amount: selectedItemFromStore.selectedPrice,
             },
           }),
@@ -257,15 +261,15 @@ export const TransferDetailScreen = () => {
       </View>
       <View style={styles.details}>
         <View style={styles.wrapper}>
-          {params.fromOtherBank ? (
+          {params?.fromOtherBank ? (
             <OtherBankList
               selectedItemFromStore={selectedItemFromStore}
-              receiver={params.receiver}
+              receiver={params?.receiver}
             />
           ) : (
             <TransferDetailsList
               selectedItemFromStore={selectedItemFromStore}
-              convertion={params.convertion}
+              convertion={params?.convertion}
             />
           )}
         </View>

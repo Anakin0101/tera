@@ -38,7 +38,7 @@ export const OtherBankList = ({
         <View style={styles.detailsSectionWrapper}>
           {renderDetailsItem(
             'transfers.fromWhere',
-            `${accountFromData.accountName} - `,
+            `${accountFromData.accountName} `,
             accountFromData.accountIban,
           )}
           {renderDetailsItem('transfers.where', `${receiver ? receiver : accountToData.name} `)}

@@ -118,6 +118,7 @@ export type Template = {
   bankExternal: BankExternalTransaction | null;
   mobilePayment: MobilePaymentTransaction | null;
   p2pTransfers: P2PTransfer | null;
+  [key: string]: any;
 };
 
 export type GetTemplatesResponseType = {

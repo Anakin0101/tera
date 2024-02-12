@@ -128,3 +128,5 @@ export { Forward } from './Forward';
 export { LockIcon } from './LockIcon';
 export { ArrowDown } from './ArrowDown';
 export { TemplateDeleteTrust } from './TemplateDeleteTrust';
+export { PendingTemplate } from './PendingTemplate';
+export { SuccessTemplate } from './SuccessTemplate';

@@ -8,8 +8,16 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Animated, { useAnimatedStyle, interpolate, useSharedValue } from 'react-native-reanimated';
 import { IconComponent } from 'components/index';
 import { Divider } from 'components/index';
-import { TemplateDelete, TemplateAdd, TemplateDeleteTrust } from 'assets/SVGs';
+import {
+  TemplateDelete,
+  TemplateAdd,
+  TemplateDeleteTrust,
+  SuccessTemplate,
+  PendingTemplate,
+} from 'assets/SVGs';
 import { TemplatesSectionProps } from './AllTemplatesScreen.types';
+import { sectionKeys, trustedTransactions } from 'utils/transactionUtils';
+import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
 let rowRefs: Array<any> = [];
 let prevOpenedRow: any;
@@ -24,6 +32,36 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
 
   const dragX = useSharedValue(0);
 
+  const isWithin24Hours = (timestamp: string | number | Date) => {
+    const trustedTime = new Date(timestamp).getTime();
+    const currentTime = new Date().getTime();
+    return (currentTime - trustedTime) / (1000 * 60 * 60) <= 24;
+  };
+  const getEarliestTrustedDate = (template: Template) => {
+    const trustedDates = sectionKeys
+      .flatMap(section =>
+        template[section as keyof Template]?.isTrusted
+          ? new Date(template[section as keyof Template]?.trustedAddDate ?? '').getTime()
+          : [],
+      )
+      .filter(date => !isNaN(date));
+
+    if (trustedDates.length === 0) {
+      return null;
+    }
+
+    const earliestTimestamp = Math.min(...trustedDates);
+    return new Date(earliestTimestamp);
+  };
+
+  const renderTrustIcon = useCallback(() => {
+    const earliestTrustedDate = getEarliestTrustedDate(templates);
+    if (earliestTrustedDate) {
+      return isWithin24Hours(earliestTrustedDate) ? <PendingTemplate /> : <SuccessTemplate />;
+    }
+    return null;
+  }, [templates]);
+
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(dragX.value, [0, 50, 60, 61], [-1, 0, 0, 100]);
 
@@ -31,19 +69,14 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
       transform: [{ translateX }],
     };
   }, []);
-  const isTemplateTrusted = (template: any): boolean => {
-    const sectionKeys: (keyof any)[] = [
-      'conversion',
-      'p2pTransfers',
-      'bankExternal',
-      'mobilePayment',
-      'bankInternal',
-      'budget',
-      'internal',
-    ];
-    return sectionKeys.some(section => template[section]?.isTrusted === true);
+  const isTemplateTrusted = (template: Template): boolean => {
+    return trustedTransactions.some(section => template[section]?.isTrusted === true);
   };
   const trusted = isTemplateTrusted(templates);
+  const isTemplateInSection = (template: Template): boolean => {
+    return trustedTransactions.some(section => template[section] !== null);
+  };
+  const templateInSection = isTemplateInSection(templates);
 
   const renderRightActions = useCallback(() => {
     return (
@@ -52,24 +85,28 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
           <TouchableOpacity style={styles.rightAction} onPress={() => templateDeleteBtn(templates)}>
             <TemplateDelete />
           </TouchableOpacity>
-          {trusted ? (
-            <TouchableOpacity
-              style={styles.rightAction}
-              onPress={() => {
-                templateAddBtn(templates, true);
-              }}
-            >
-              <TemplateDeleteTrust />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={styles.rightAction}
-              onPress={() => {
-                templateAddBtn(templates, false);
-              }}
-            >
-              <TemplateAdd />
-            </TouchableOpacity>
+          {templateInSection && (
+            <>
+              {trusted ? (
+                <TouchableOpacity
+                  style={styles.rightAction}
+                  onPress={() => {
+                    templateAddBtn(templates, true);
+                  }}
+                >
+                  <TemplateDeleteTrust />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.rightAction}
+                  onPress={() => {
+                    templateAddBtn(templates, false);
+                  }}
+                >
+                  <TemplateAdd />
+                </TouchableOpacity>
+              )}
+            </>
           )}
         </View>
       </Animated.View>
@@ -78,6 +115,7 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
     animatedStyle,
     styles.buttonWrapper,
     styles.rightAction,
+    templateInSection,
     trusted,
     templateDeleteBtn,
     templates,
@@ -102,7 +140,10 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
       renderRightActions={renderRightActions}
     >
       <Pressable style={styles.templates}>
-        <IconComponent customIconComponentStyles={styles.cardContainer} pngLocalIcon={icon} />
+        <View>
+          <IconComponent customIconComponentStyles={styles.cardContainer} pngLocalIcon={icon} />
+          {trusted && <View style={styles.trustIcon}>{renderTrustIcon()}</View>}
+        </View>
         <View style={styles.detailsWrapper}>
           <View style={styles.details}>
             <View style={styles.textContainer}>

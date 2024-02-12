@@ -196,6 +196,25 @@ export enum FinancialTransferTypeEnum {
   ToTreasury = 6,
   P2pTransfer = 7,
 }
+export enum TransferTemplateTypeEnum {
+  Exchange = 1,
+
+  ToOwnAccount = 2,
+
+  ToSomeoneInsideBank = 3,
+
+  ToSomeoneInGeorgiaGEL = 4,
+
+  ToSomeoneInGeorgia = 5,
+
+  ToTreasury = 6,
+
+  ToSomeoneOutOfGeorgia = 7,
+
+  MobilePayment = 8,
+
+  P2p = 17,
+}
 export enum OtherBanksTransactionsTabsEnum {
   PERSONAL_TRANSACTION = 1,
   IBAN_TRANACTION = 0,

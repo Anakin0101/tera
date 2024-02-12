@@ -40,6 +40,7 @@ export const useStyles = () => {
       ...Layout.fill,
       marginLeft: Spacing.m,
     },
+    trustIcon: { position: 'absolute', right: 0, top: 30 },
     details: {
       ...Layout.row,
       ...Layout.alignItemsCenter,

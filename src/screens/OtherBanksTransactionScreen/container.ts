@@ -16,7 +16,7 @@ export const useOtherBanksContainer = (param: string) => {
       : useLazyCheckIbanQuery;
   const [checkQueryMutation, { isSuccess, data, isError, isLoading }] = checkQuery();
 
-  const handleCheckIban = async (pin: any) => {
+  const handleCheckIban = async (pin: string) => {
     try {
       const response = await checkQueryMutation(pin);
 
@@ -27,7 +27,7 @@ export const useOtherBanksContainer = (param: string) => {
       throw error;
     }
   };
-  const handlePersonalNumber = async (pin: any) => {
+  const handlePersonalNumber = async (pin: string) => {
     try {
       const response = await checkQueryMutation(pin);
       return response;
