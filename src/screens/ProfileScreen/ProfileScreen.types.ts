@@ -1,4 +1,3 @@
-import { ModalStackParamsList } from 'navigation/types';
 import { SvgProps } from 'react-native-svg';
 
 export type ProfileItemType = {
@@ -9,8 +8,9 @@ export type ProfileItemType = {
   navigateTo?:
     | {
         stack: any;
-        screen: keyof ModalStackParamsList;
+        screen: 'AuthorizationMethodsScreen' | 'SettingsScreen';
       }
-    | keyof ModalStackParamsList;
+    | 'AuthorizationMethodsScreen'
+    | 'SettingsScreen';
   handlePress?: () => void;
 };

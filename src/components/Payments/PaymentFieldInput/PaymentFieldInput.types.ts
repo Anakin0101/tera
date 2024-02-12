@@ -5,3 +5,9 @@ export interface PaymentFieldInputProps {
   value: string;
   onChangeText: (filedId: number, textValue: string) => void;
 }
+
+export interface PaymentDropDownFieldInputProps {
+  item: DebtVerifyBasketResponse;
+  value: string;
+  onChangeText: (textValue: string) => void;
+}
