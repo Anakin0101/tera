@@ -15,7 +15,7 @@ import { TransactionModal } from 'components/modals';
 import { openModal } from 'utils/modal';
 import { SelectedItem } from 'components/OtherBanksTransactionTabBar/OtherBanksTransactionTabBar.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { ChevronDown } from 'assets/SVGs';
+import { ChevronDown, Copy } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import useBankIcons from './useIban';
 import { IBAN } from 'constants/transactionConstants';
@@ -24,6 +24,7 @@ import { Error } from 'assets/SVGs';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
+import { useCopyToClipboard } from 'hooks';
 
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ const IbanTransaction = () => {
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );
+  const { copyToClipboard } = useCopyToClipboard();
 
   const { selectedTransactionType } = selectedItemFromStore;
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
@@ -131,6 +133,10 @@ const IbanTransaction = () => {
     return templates.templates.filter(item => item.type === 4).slice(0, 4);
   }, [templates?.templates]);
 
+  const copyIban = () => {
+    typedAccountName && copyToClipboard(typedAccountName, 'products.clipboard');
+  };
+
   if (temlpatesLoading) {
     return <LoadingView />;
   }
@@ -141,7 +147,12 @@ const IbanTransaction = () => {
       {apiCallInitiated && data ? (
         <View>
           <View style={styles.wrapper}>
-            <DetailsItem label="transactionDetails.receiverIban" value={typedAccountName} />
+            <DetailsItem
+              label="transactionDetails.receiverIban"
+              value={typedAccountName}
+              onPress={copyIban}
+              icon={<Copy />}
+            />
             {bankIcon && <Image source={bankIcon} style={styles.image} />}
           </View>
 
