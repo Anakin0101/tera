@@ -9,7 +9,7 @@ import { ChoosePaymentsListProps } from './ChoosePaymentsService.types';
 import { PaymentItem } from './PaymentItem';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import { MODAL_STACK, NEW_PAYMENT_SCREEN } from 'navigation/ScreenNames';
+import { AUTOMATIC_PAYMENTS_SCREEN, MODAL_STACK, NEW_PAYMENT_SCREEN } from 'navigation/ScreenNames';
 
 export const ChoosePaymentsService = () => {
   const styles = useStyles();
@@ -34,7 +34,10 @@ export const ChoosePaymentsService = () => {
         id: '3',
         title: t('payments.automaticPayment'),
         icon: <AutomaticPayment />,
-        onPress: () => Alert.alert('ავტომატური გადახდები'),
+        onPress: () =>
+          navigate(MODAL_STACK, {
+            screen: AUTOMATIC_PAYMENTS_SCREEN,
+          }),
       },
       {
         id: '4',

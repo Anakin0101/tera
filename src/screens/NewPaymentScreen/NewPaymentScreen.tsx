@@ -6,10 +6,14 @@ import { useStyles } from './NewPaymentScreen.style';
 
 import { useNewPayment } from './container';
 import { ProvidersGroup } from 'services/apis/paymentsAPI/paymentsAPI.types';
+import { useRoute } from '@react-navigation/native';
+import { ModalStackRouteProps } from 'navigation/types';
 
 export const NewPaymentScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const { params } = useRoute<ModalStackRouteProps<'NewPaymentScreen'>>();
+  const { isAutomaticPayment } = params || {};
 
   const { providersGroups, isLoading } = useNewPayment();
 
@@ -17,9 +21,15 @@ export const NewPaymentScreen = () => {
 
   const renderItem = useCallback(
     ({ item, index }: { item: ProvidersGroup; index: number }) => {
-      return <ChoosePaymentItem isLast={index === providersGroups?.length - 1} item={item} />;
+      return (
+        <ChoosePaymentItem
+          isLast={index === providersGroups?.length - 1}
+          item={item}
+          isAutomaticPayment={isAutomaticPayment}
+        />
+      );
     },
-    [providersGroups?.length],
+    [isAutomaticPayment, providersGroups?.length],
   );
 
   const renderHeader = useCallback(() => {

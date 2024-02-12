@@ -4,6 +4,7 @@ import {
   OverdraftType,
 } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface LoanSliderItemProps {
   item: OverdraftType | LoanType | CreditCardType;
@@ -26,14 +27,14 @@ export interface DetailsProps {
 export interface CollapsibleHeaderProps {
   title: string;
   total: number;
-  currency: Currency;
+  currency: CurrencyEnum;
 }
 
 export interface TotalDebtContentProps {
   totalPrincipalPayable: number;
   totalInterestPayable: number;
   totalPenalty: number;
-  currency: Currency;
+  currency: CurrencyEnum;
 }
 export interface OverdueContentProps {
   overduePrincipalAmount: number;
@@ -41,5 +42,5 @@ export interface OverdueContentProps {
   overdueInterestAmount: number;
   overdueInterestPenalty: number;
   defferdPrincipalAmount?: number;
-  currency: Currency;
+  currency: CurrencyEnum;
 }

@@ -4,7 +4,7 @@ import { openModal } from 'utils/modal';
 import { SelectAccountModal } from 'components/modals';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { setAdjustResize, setAdjustPan } from 'rn-android-keyboard-adjust';
-import { Account, Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -12,6 +12,7 @@ import { setInitialAmount } from 'store/slices/deposit';
 import { openToast } from 'utils/toast';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN } from 'navigation/ScreenNames';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositAdditionalInfoScreen'>>();
   const [amount, setAmount] = useState('');
   const [debouncedAmount, setDebouncedAmount] = useState('');
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('GEL');
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyEnum>(CurrencyEnum.GEL);
   const [creditAccount, setCreditAccount] = useState<Account | null>(null);
   const [debitAccount, setDebitAccount] = useState<Account | null>(null);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);

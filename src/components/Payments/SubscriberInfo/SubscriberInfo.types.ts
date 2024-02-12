@@ -3,12 +3,13 @@ import { DebtVerifyResult, FeeRule } from 'services/apis/paymentsAPI/paymentsAPI
 
 export interface SubscriberInfoItemProps {
   name: string;
-  value: string;
+  value?: string;
 }
 
 export interface SubscriberInfoProps {
   debtVerifyResults: Array<DebtVerifyResult>;
   feeRules: Array<FeeRule>;
-  subscriberInputFieldsValue: SubscriberFieldsValue;
-  setSubscriberInputFieldsValue: React.Dispatch<React.SetStateAction<SubscriberFieldsValue>>;
+  subscriberInputFieldsValue?: SubscriberFieldsValue;
+  setSubscriberInputFieldsValue?: React.Dispatch<React.SetStateAction<SubscriberFieldsValue>>;
+  isAutomaticPayment?: boolean;
 }

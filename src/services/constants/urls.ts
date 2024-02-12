@@ -56,4 +56,8 @@ export const URLS = {
   getBranches: 'Catalogs/GetBranches',
   addCard: 'Account/AddCard',
   sendTreasury: 'Transfers/TransferToTreasury',
+  addAutoPayment: 'Payment/AddAutoPayment',
+  getAutomPayments: 'Payment/GetAutoPayments',
+  getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
+  cancelAutoPayment: 'Payment/CancelAutoPayment',
 };

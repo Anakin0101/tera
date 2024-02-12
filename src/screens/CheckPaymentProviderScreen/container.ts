@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useDebtVerifyResultsMutation,
   useGetDebtVerifyBasketMutation,
@@ -9,10 +9,16 @@ import {
   LanguageKeyForAPIEnum,
   LanguageKeys,
 } from 'components/LanguageSwitcher/LanguageSwitcher.types';
-import { PaymentFieldValue } from 'services/apis/paymentsAPI/paymentsAPI.types';
+import { PaymentFieldValue, Provider } from 'services/apis/paymentsAPI/paymentsAPI.types';
+import { useNavigation } from '@react-navigation/native';
+import { ModalStackScreenProps } from 'navigation/types';
+import { NEW_AUTOMATIC_PAYMENT_SCREEN } from 'navigation/ScreenNames';
+import { SubscriberFieldsValue } from './CheckPaymentProviderScreen.types';
 
-export const useCheckProviderInfo = (serviceId: number) => {
+export const useCheckProviderInfo = (providerItem: Provider) => {
   const savedLanguage = getValue(SELECTED_LANGUAGE);
+  const { navigate } = useNavigation<ModalStackScreenProps<'NewAutomaticPaymentScreen'>>();
+  const [subscriberFieldsValue, setSubscriberFieldsValue] = useState<SubscriberFieldsValue>([]);
 
   const [getDebtVerifyBasket, { data: debtVerifyBasketInfo, isLoading }] =
     useGetDebtVerifyBasketMutation();
@@ -22,19 +28,32 @@ export const useCheckProviderInfo = (serviceId: number) => {
 
   useEffect(() => {
     getDebtVerifyBasket({
-      serviceId,
+      serviceId: providerItem?.id,
       culture:
         savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
     });
-  }, [getDebtVerifyBasket, savedLanguage, serviceId]);
+  }, [getDebtVerifyBasket, providerItem?.id, savedLanguage]);
 
-  const getDebtVerifyResultsHandler = (fieldValues: Array<PaymentFieldValue>) => {
+  const getDebtVerifyResultsHandler = (
+    fieldValues: Array<PaymentFieldValue>,
+    isAutomaticPayment?: boolean,
+  ) => {
     getDebtVerifyResults({
       fieldValues,
-      serviceId,
+      serviceId: providerItem?.id,
       culture:
         savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
-    });
+    })
+      .unwrap()
+      .then(res => {
+        if (isAutomaticPayment) {
+          navigate(NEW_AUTOMATIC_PAYMENT_SCREEN, {
+            providerItem,
+            subscriberFieldsValue,
+            debtVerifyResults: res?.debtVerifyResults || [],
+          });
+        }
+      });
   };
 
   return {
@@ -43,5 +62,7 @@ export const useCheckProviderInfo = (serviceId: number) => {
     isDebtVerifyLoading,
     getDebtVerifyResultsHandler,
     debtVerifyResults: debtVerifyInfo?.debtVerifyResults || [],
+    subscriberFieldsValue,
+    setSubscriberFieldsValue,
   };
 };

@@ -1,4 +1,5 @@
 import { TOptions } from 'i18next';
+import { StyleProp, TextStyle } from 'react-native';
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export type BlockedAmount = {
@@ -16,4 +17,6 @@ export interface DetailsItemProps {
   translateProp?: TOptions;
   marginTop?: number;
   underline?: boolean;
+  labelStyle?: StyleProp<TextStyle>;
+  valueStyle?: StyleProp<TextStyle>;
 }

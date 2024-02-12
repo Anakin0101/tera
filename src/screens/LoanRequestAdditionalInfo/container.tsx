@@ -11,9 +11,11 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { NEW_LOAN_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setNewLoanAdditionalData } from 'store/slices/loan';
-import { getDateAfter } from 'utils/formatDate';
+import { getAllDatesBetween, getDate, getDateAfter } from 'utils/formatDate';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setAdjustResize, setAdjustPan } from 'rn-android-keyboard-adjust';
+import { MarkedDay } from 'components/modals/SelectPaymentDateModal/SelectPaymentDateModal.types';
+import { Colors } from 'theme/Variables';
 
 export const useLoanRequestAdditionalInfo = () => {
   const dispatch = useAppDispatch();
@@ -71,20 +73,42 @@ export const useLoanRequestAdditionalInfo = () => {
     [setValue],
   );
 
+  const markedDates = useCallback(
+    (selected: string) => {
+      const dates: Record<string, MarkedDay> = {};
+      getAllDatesBetween(minDate, maxDate).forEach(date => {
+        dates[date] = {
+          selected: date === selected,
+          selectedColor: Colors.primary,
+          disabled: getDate(date) > 28,
+          disableTouchEvent: getDate(date) > 28,
+        };
+      });
+
+      return dates;
+    },
+    [maxDate, minDate],
+  );
+
   const onPaymentDatePress = useCallback(() => {
     openModal({
       element: (
         <SelectPaymentDateModal
           minDate={minDate}
           maxDate={maxDate}
+          current={minDate}
           onPress={handleSelectDate}
           selectedDate={watch('paymentDate') || minDate}
+          markedDates={markedDates}
+          hideExtraDays
+          disabledByDefault
+          disableAllTouchEventsForDisabledDays
         />
       ),
       title: 'loanRequest.choosePaymentDate',
       disablePanning: true,
     });
-  }, [handleSelectDate, maxDate, minDate, watch]);
+  }, [handleSelectDate, markedDates, maxDate, minDate, watch]);
 
   const onIncomeTypePress = useCallback(() => {
     openModal({

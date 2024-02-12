@@ -29,7 +29,7 @@ export const CheckPaymentProviderScreen = () => {
   const styles = useStyles();
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'CheckPaymentProviderScreen'>>();
-  const { providerItem } = params || {};
+  const { providerItem, isAutomaticPayment } = params || {};
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const savedLanguage = getValue(SELECTED_LANGUAGE);
@@ -40,9 +40,10 @@ export const CheckPaymentProviderScreen = () => {
     getDebtVerifyResultsHandler,
     debtVerifyResults,
     isDebtVerifyLoading,
-  } = useCheckProviderInfo(providerItem?.id);
+    subscriberFieldsValue,
+    setSubscriberFieldsValue,
+  } = useCheckProviderInfo(providerItem);
 
-  const [subscriberFieldsValue, setSubscriberFieldsValue] = useState<SubscriberFieldsValue>([]);
   const [subscriberInputFieldsValue, setSubscriberInputFieldsValue] =
     useState<SubscriberFieldsValue>([]);
   const [selectedAccount, setSelectedAccount] = useState<Account>();
@@ -92,7 +93,7 @@ export const CheckPaymentProviderScreen = () => {
       // Set the state with the new array of subscriber fields
       setSubscriberFieldsValue(newSubscriberFieldsValue);
     }
-  }, [debtVerifyBasketInfo]);
+  }, [debtVerifyBasketInfo, setSubscriberFieldsValue]);
 
   /**
    * Render the correct input fields based on the items in debtVerifyBasketInfo.
@@ -124,7 +125,7 @@ export const CheckPaymentProviderScreen = () => {
         }}
       />
     ));
-  }, [debtVerifyBasketInfo, subscriberFieldsValue]);
+  }, [debtVerifyBasketInfo, setSubscriberFieldsValue, subscriberFieldsValue]);
 
   const checkSubscriberInfo = useCallback(() => {
     /**
@@ -155,7 +156,7 @@ export const CheckPaymentProviderScreen = () => {
          * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
          */
 
-        getDebtVerifyResultsHandler(subscriberFieldsValue);
+        getDebtVerifyResultsHandler(subscriberFieldsValue, isAutomaticPayment);
       }
     }
   }, [
@@ -165,8 +166,9 @@ export const CheckPaymentProviderScreen = () => {
     selectedAccount,
     navigate,
     providerItem,
-    getDebtVerifyResultsHandler,
     debtVerifyBasketInfo,
+    getDebtVerifyResultsHandler,
+    isAutomaticPayment,
   ]);
 
   const selectAccountOnPress = useCallback((account: Account) => {
@@ -188,7 +190,7 @@ export const CheckPaymentProviderScreen = () => {
       <View style={styles.wrapper}>
         <Text style={styles.headerTitle}>{t('checkPaymentProvider.title')}</Text>
         {renderCorrectInput()}
-        {!!debtVerifyResults?.length && (
+        {!isAutomaticPayment && !!debtVerifyResults?.length && (
           <SubscriberInfo
             debtVerifyResults={debtVerifyResults}
             subscriberInputFieldsValue={subscriberInputFieldsValue}
@@ -197,7 +199,7 @@ export const CheckPaymentProviderScreen = () => {
           />
         )}
       </View>
-      {!!debtVerifyResults?.length && (
+      {!isAutomaticPayment && !!debtVerifyResults?.length && (
         <MyBalance selectedAccount={selectedAccount} selectAccountOnPress={selectAccountOnPress} />
       )}
       <View style={styles.nextButtonWrapper}>

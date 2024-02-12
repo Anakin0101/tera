@@ -101,3 +101,9 @@ export const VERIFICATION_TYPE_SCREEN = 'VerificationScreen';
 export const CODE_WORD_SCREEN = 'CodeWordScreen';
 export const ENTER_USERNAME_SCREEN = 'EnterUsernameScreen';
 export const REGISTRATION_FINISH_SCREEN = 'RegistrationFinishScreen';
+
+// ayments
+export const AUTOMATIC_PAYMENTS_SCREEN = 'AutomaticPaymentsScreen';
+export const AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'AutomaticPaymentDetailsScreen';
+export const NEW_AUTOMATIC_PAYMENT_SCREEN = 'NewAutomaticPaymentScreen';
+export const NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'NewAutomaticPaymentDetailsScreen';

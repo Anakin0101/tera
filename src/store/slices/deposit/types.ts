@@ -1,4 +1,5 @@
-import { Currency, OfferDetails } from 'services/apis/productsAPI/productsAPI.types';
+import { OfferDetails } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 interface SelectedAccount {
   id: number;
@@ -14,7 +15,7 @@ interface ProductName {
 export type NewDepositStateProps = {
   depositType: string;
   initialAmount: number;
-  currency: Currency;
+  currency: CurrencyEnum;
   duration: number;
   interestRate: number;
   specialInterestRate: number;
@@ -31,7 +32,7 @@ export type NewDepositStateProps = {
 
 interface InitialAmount {
   initialAmount: number;
-  currency: Currency;
+  currency: CurrencyEnum;
   creditAccount: SelectedAccount;
   debitAccount: SelectedAccount;
 }

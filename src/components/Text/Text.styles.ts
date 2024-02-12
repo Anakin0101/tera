@@ -25,7 +25,7 @@ export const useStyleTheme = () => {
     },
     label: {
       fontSize: moderateScale(FontSize.tiny),
-      lineHeight: FontSize.regular,
+      lineHeight: FontSize.regularPlus,
     },
     title: {
       fontSize: moderateScale(FontSize.small),

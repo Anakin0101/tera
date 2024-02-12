@@ -23,4 +23,5 @@ export type TextProps = {
   lightItalic?: boolean;
   regular?: boolean;
   medium?: boolean;
+  letterSpacing?: number;
 } & RNTextProps;

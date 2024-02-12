@@ -16,7 +16,7 @@ export const ChoosePaymentProviderScreen = () => {
   const styles = useStyles();
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'ChoosePaymentProviderScreen'>>();
-  const { providerInfo } = params || {};
+  const { providerInfo, isAutomaticPayment } = params || {};
   const savedLanguage = getValue(SELECTED_LANGUAGE);
 
   const [searchText, setSearchText] = useState<string>('');
@@ -45,7 +45,13 @@ export const ChoosePaymentProviderScreen = () => {
   // local search
   const providersList = useMemo(() => {
     // Initialize providerList with the list of providers from providerInfo or an empty array
-    let providerList = providerInfo?.providers || [];
+    let providerList = [];
+    if (isAutomaticPayment) {
+      providerList = providerInfo?.providers?.filter(item => item.directDebitType !== 3);
+    } else {
+      providerList = providerInfo?.providers;
+    }
+
     try {
       // Check if searchText is provided and the selected language is 'geo'
       if (searchText && savedLanguage === LanguageKeys.geo) {
@@ -64,13 +70,19 @@ export const ChoosePaymentProviderScreen = () => {
     }
     // Return the filtered providerList
     return providerList;
-  }, [providerInfo?.providers, savedLanguage, searchText]);
+  }, [isAutomaticPayment, providerInfo?.providers, savedLanguage, searchText]);
 
   const renderItem = useCallback(
     ({ item, index }: { item: Provider; index: number }) => {
-      return <ChooseProviderItem isLast={index === providersList?.length - 1} item={item} />;
+      return (
+        <ChooseProviderItem
+          isLast={index === providersList?.length - 1}
+          item={item}
+          isAutomaticPayment={isAutomaticPayment}
+        />
+      );
     },
-    [providersList?.length],
+    [isAutomaticPayment, providersList?.length],
   );
 
   const renderHeader = useCallback(() => {

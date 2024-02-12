@@ -65,3 +65,4 @@ export { RegistrationTitle } from './Registration/RegistrationTitle/Registration
 export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';
 export { Image } from './Image/Image';
 export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';
+export { ActionSheet } from './ActionSheet/ActionSheet';
