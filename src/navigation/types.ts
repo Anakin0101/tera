@@ -86,15 +86,18 @@ import {
   PAYMENT_DETAILS_SCREEN,
   PAYMENT_SUCCESS_SCREEN,
   PAYMENTS_SCREEN,
+  NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
   Provider,
   DebtVerifyResult,
   DebtVerifyBasketResponse,
+  // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
+import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -118,9 +121,9 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
-  [NEW_PAYMENT_SCREEN]: undefined;
-  [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider };
-  [CHOOSE_PAYMENT_PROVIDER_SCREEN]: { providerInfo: ProvidersGroup };
+  [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean };
+  [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider; isAutomaticPayment?: boolean };
+  [CHOOSE_PAYMENT_PROVIDER_SCREEN]: { providerInfo: ProvidersGroup; isAutomaticPayment?: boolean };
   [PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
     debtVerifyResults: Array<DebtVerifyResult>;
@@ -131,7 +134,24 @@ export type ModalStackParamsList = {
   };
   [PAYMENT_SUCCESS_SCREEN]: {
     providerItem: Provider;
-    subscriberInputFieldsValue: SubscriberFieldsValue;
+    subscriberInputFieldsValue?: SubscriberFieldsValue;
+    amount?: number;
+  };
+  [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
+  [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
+    id: number;
+    imageId: string;
+  };
+  [NEW_AUTOMATIC_PAYMENT_SCREEN]: {
+    providerItem: Provider;
+    debtVerifyResults: Array<DebtVerifyResult>;
+    subscriberFieldsValue: SubscriberFieldsValue;
+  };
+  [NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
+    providerItem: Provider;
+    debtVerifyResults: Array<DebtVerifyResult>;
+    automaticPaymentForm: AutomaticPaymentForm;
+    subscriberFieldsValue: SubscriberFieldsValue;
   };
 };
 
@@ -250,9 +270,6 @@ export type TransactionsStackParamsList = {
 
 export type PaymentsStackParamsList = {
   [PAYMENTS_SCREEN]: undefined;
-  [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
-  [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: undefined;
-  [NEW_AUTOMATIC_PAYMENT_SCREEN]: undefined;
 };
 
 export type ProfileStackParamsList = {

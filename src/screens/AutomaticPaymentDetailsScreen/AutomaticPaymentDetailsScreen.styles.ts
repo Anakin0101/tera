@@ -21,6 +21,13 @@ export const useStyles = () => {
       borderRadius: Spacing.lg,
       borderColor: Colors.inputBlack50,
     },
+    icon: {
+      width: Spacing.xxxl,
+      height: Spacing.xxxl,
+      margin: Spacing.zero,
+      borderWidth: 1,
+      borderColor: Colors.borderColor,
+    },
     main: {
       backgroundColor: Colors.white,
       paddingVertical: Spacing.xlg,

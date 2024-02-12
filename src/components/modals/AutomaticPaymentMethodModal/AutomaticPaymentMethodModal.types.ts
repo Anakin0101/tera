@@ -19,8 +19,10 @@ export type SelectedMethod = ItemT | null;
 export type ModalProps = {
   onPress: (item: SelectedMethod) => void;
   selectedMethod: SelectedMethod;
+  directDebitType: number;
 };
 
 export type FooterProps = {
   handleSelectPress: () => void;
+  isDisabled: boolean;
 };

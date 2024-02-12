@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
-import { useStyles } from './AutomaticPaymentDetailsScreen.styles';
-import { ActionSheet, DetailsItem, Divider, Text } from 'components';
-import { formatMoney } from 'utils/formatMoney';
+import { ActionSheet, DetailsItem, Divider, IconComponent, Text } from 'components';
 import { More } from 'assets/SVGs';
+import { formatMoney } from 'utils/formatMoney';
 import { useAutomaticPaymentDetails } from './container';
+import { LoadingInView } from 'components/LoadingView/LoadingInView';
+import { HeaderProps } from './AutomaticPaymentDetailsScreen.types';
+import { useStyles } from './AutomaticPaymentDetailsScreen.styles';
+import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
+import { getFormattedDate, getFormattedDateFromISO } from 'utils/formatDate';
+import { SEPARATED_BY_SLASH } from 'constants/DateTemplates';
 
-const Header = ({ onPress }: { onPress: () => void }) => {
+const Header: FC<HeaderProps> = ({ onPress, name, amount = 0, imageId }) => {
   const styles = useStyles();
   return (
     <View style={styles.header}>
-      <View style={styles.itemIconContainer} />
+      <IconComponent imageId={imageId} customImageIDStyle={styles.icon} />
       <View style={styles.info}>
-        <Text children="დენი" secondary />
-        <Text children={formatMoney(120, 'GEL')} size={16} />
+        <Text children={name} secondary />
+        <Text children={formatMoney(amount, 'GEL')} size={16} />
       </View>
       <Pressable onPress={onPress} style={styles.actionIconContainer}>
         <More />
@@ -24,36 +29,102 @@ const Header = ({ onPress }: { onPress: () => void }) => {
 
 export const AutomaticPaymentDetailsScreen = () => {
   const styles = useStyles();
-  const { isActionSheetVisible, toggleActionSheet, actionItems } = useAutomaticPaymentDetails();
+
+  const {
+    isActionSheetVisible,
+    toggleActionSheet,
+    actionItems,
+    isLoading,
+    paymentDetails,
+    imageId,
+  } = useAutomaticPaymentDetails();
+
+  const getMethod = useCallback((type?: AutoPaymentTypeEnum) => {
+    switch (type) {
+      case AutoPaymentTypeEnum.ByDebt:
+        return 'automaticPayments.fixedAmount';
+      case AutoPaymentTypeEnum.FixedAmount:
+        return 'automaticPayments.fixedAmount';
+      case AutoPaymentTypeEnum.FixedDateByDebt:
+        return 'automaticPayments.fixedDateByDebt';
+    }
+  }, []);
+
+  const combined = useMemo(
+    () =>
+      paymentDetails?.debtVerifyResponse?.debtVerifyResults?.flatMap(item => item.serviceFields),
+    [paymentDetails?.debtVerifyResponse?.debtVerifyResults],
+  );
+
+  const renderPaymendDetails = useCallback(() => {
+    return combined?.map(item => {
+      if (item?.readonly && item?.visible) {
+        return <DetailsItem label={item.name} value={item.value} />;
+      }
+      return null;
+    });
+  }, [combined]);
+
+  if (isLoading) {
+    return <LoadingInView />;
+  }
 
   return (
     <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-      <Header onPress={toggleActionSheet} />
+      <Header
+        onPress={toggleActionSheet}
+        name={paymentDetails?.name}
+        amount={paymentDetails?.fixedAmount || paymentDetails?.maxAmount}
+        imageId={imageId}
+      />
       <View style={[styles.main, styles.borderRadius]}>
-        <Text children="გადახდის გრაფიკი" medium size={18} letterSpacing={-0.5} />
-        <DetailsItem label="გადახდის პერიოდულობა" value="ყოველთვიური" valueStyle={styles.text} />
-        <DetailsItem label="გადახდის რიცხვი" value="2" valueStyle={styles.text} />
-        <DetailsItem label="პირველ გადახდის თარიღი" value="2/03/2022" valueStyle={styles.text} />
-        <DetailsItem label="ბოლო გადახდის თარიღი" value="2/10/2022" valueStyle={styles.text} />
-      </View>
-      <Divider />
-      <View style={styles.main}>
-        <Text children="გადახდის დეტალები" medium size={18} letterSpacing={-0.5} />
-        <DetailsItem label="აბონენტის ნომერი" value="12345" valueStyle={styles.text} />
-        <DetailsItem label="სახელი" value="დაუთაშვილი გივი" valueStyle={styles.text} />
-        <DetailsItem label="მისამართი" value="გარეჯელის ქ.24" valueStyle={styles.text} />
-        <DetailsItem label="ბოლო დარიცხვის თარიღი" value="01/30/2022" valueStyle={styles.text} />
+        <Text children="automaticPayments.paymentSchedule" medium size={18} letterSpacing={-0.5} />
         <DetailsItem
-          label="დავალიანება"
-          value={formatMoney(230, 'GEL')}
-          valueStyle={[styles.text, styles.debt]}
-        />
-        <DetailsItem
-          label="თანხის რაოდენობა"
-          value={formatMoney(230, 'GEL')}
+          label="automaticPayments.paymentMethod"
+          value={getMethod(paymentDetails?.type)}
           valueStyle={styles.text}
         />
-        <DetailsItem label="საიდან" value="ჩემი ანგარიში" valueStyle={styles.text} />
+        {!!paymentDetails?.payDay && (
+          <DetailsItem
+            label="automaticPayments.paymentDate"
+            value={paymentDetails?.payDay}
+            valueStyle={styles.text}
+          />
+        )}
+        <DetailsItem
+          label="automaticPayments.startDate"
+          value={getFormattedDateFromISO(paymentDetails?.startDate, SEPARATED_BY_SLASH)}
+          valueStyle={styles.text}
+        />
+        {!!paymentDetails?.endDate && (
+          <DetailsItem
+            label="automaticPayments.endDate"
+            value={getFormattedDateFromISO(paymentDetails?.endDate, SEPARATED_BY_SLASH)}
+            valueStyle={styles.text}
+          />
+        )}
+        {!!paymentDetails?.lastPayDate && (
+          <DetailsItem
+            label="automaticPayments.lastPaymenDate"
+            value={getFormattedDate(paymentDetails?.lastPayDate, SEPARATED_BY_SLASH)}
+            valueStyle={styles.text}
+          />
+        )}
+      </View>
+      <Divider />
+      <View style={[styles.main]}>
+        <Text children="automaticPayments.paymentDetails" medium size={18} letterSpacing={-0.5} />
+        <DetailsItem
+          label="automaticPayments.subscriberNumber"
+          value={paymentDetails?.customerNumber}
+          valueStyle={styles.text}
+        />
+        {renderPaymendDetails()}
+        <DetailsItem
+          label="automaticPayments.from"
+          value={paymentDetails?.account}
+          valueStyle={styles.text}
+        />
       </View>
       <ActionSheet
         actionItems={actionItems}

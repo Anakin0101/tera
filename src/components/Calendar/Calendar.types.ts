@@ -9,4 +9,7 @@ export interface CalendarProps {
   hideExtraDays?: boolean;
   disabledByDefault?: boolean;
   disableAllTouchEventsForDisabledDays?: boolean;
+  hideDayNames?: boolean;
+  hideArrows?: boolean;
+  customHeaderTitle?: JSX.Element;
 }

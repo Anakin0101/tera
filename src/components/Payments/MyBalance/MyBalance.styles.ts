@@ -18,6 +18,7 @@ export const useStyles = () => {
     container: {
       marginLeft: Spacing.xl,
       ...Layout.row,
+      ...Layout.alignItemsCenter,
     },
     arrowStyle: {
       marginRight: Spacing.xl,

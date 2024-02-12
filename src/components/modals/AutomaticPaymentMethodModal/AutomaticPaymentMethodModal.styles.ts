@@ -25,5 +25,8 @@ export const useStyles = () => {
     button: {
       paddingVertical: Spacing.ml,
     },
+    disbaled: {
+      opacity: 0.5,
+    },
   });
 };

@@ -1,9 +1,9 @@
 import React, { FC, memo } from 'react';
 import { Pressable, View } from 'react-native';
-import { Divider, Text } from 'components';
+import { Divider, IconComponent, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
-import { useStyles } from './AutomaticPaymentsScreen.styles';
 import { ItemProps } from './AutomaticPaymentsScreen.types';
+import { useStyles } from './AutomaticPaymentsScreen.styles';
 
 export const Item: FC<ItemProps> = memo(({ item, onPress }) => {
   const styles = useStyles();
@@ -11,15 +11,14 @@ export const Item: FC<ItemProps> = memo(({ item, onPress }) => {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.itemContainer}>
-        <View style={styles.itemIconContainer} />
+        <IconComponent imageId={item?.largeImageId} customImageIDStyle={styles.icon} />
         <View style={styles.info}>
           <View style={styles.itemRow}>
-            <Text medium children={item.title} />
-            <Text medium children={formatMoney(item.amount, 'GEL')} />
+            <Text medium children={item?.name} />
+            <Text medium children={formatMoney(item?.fixedAmount || item?.maxAmount, 'GEL')} />
           </View>
           <View style={styles.itemRow}>
-            <Text label secondary children={item.user} />
-            <Text label secondary children={item.number} />
+            <Text label secondary children={item?.customerNumber} />
           </View>
         </View>
       </View>

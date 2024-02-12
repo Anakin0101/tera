@@ -16,7 +16,7 @@ export const PaymentSuccessScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { params } = useRoute<MainStackRouteProps<'PaymentSuccessScreen'>>();
-  const { providerItem, subscriberInputFieldsValue } = params || {};
+  const { providerItem, subscriberInputFieldsValue, amount } = params || {};
 
   const { navigate } = useNavigation<MainStackScreenProps<'PaymentSuccessScreen'>>();
 
@@ -32,8 +32,16 @@ export const PaymentSuccessScreen = () => {
      * @function
      * @returns {number} The calculated sum.
      */
-    () => sumForSubscriberFieldsValue(subscriberInputFieldsValue),
-    [subscriberInputFieldsValue],
+    () => {
+      if (subscriberInputFieldsValue) {
+        return sumForSubscriberFieldsValue(subscriberInputFieldsValue);
+      }
+
+      if (amount) {
+        return amount;
+      }
+    },
+    [amount, subscriberInputFieldsValue],
   );
 
   /**
@@ -77,12 +85,14 @@ export const PaymentSuccessScreen = () => {
           </View>
           <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.saveAsToTemplate')}</Text>
         </View>
-        <View style={styles.actionContainer}>
-          <View style={styles.actionButton}>
-            <AutomaticPayment />
+        {!amount && (
+          <View style={styles.actionContainer}>
+            <View style={styles.actionButton}>
+              <AutomaticPayment />
+            </View>
+            <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.automaticPay')}</Text>
           </View>
-          <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.automaticPay')}</Text>
-        </View>
+        )}
         <View style={styles.actionContainer}>
           <View style={styles.actionButton}>
             <Share />

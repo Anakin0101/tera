@@ -2,20 +2,27 @@ import React from 'react';
 import { Pressable, View } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Button, Checkbox, SwitchComponent, Text, TextInput } from 'components';
-import { useNewAutomaticPayment } from './container';
-import { useStyles } from './NewAutomaticPaymentScreen.styles';
-import { Event, ChevronDownLarge } from 'assets/SVGs';
+import {
+  Text,
+  Button,
+  Checkbox,
+  MyBalance,
+  TextInput,
+  SubscriberInfo,
+  SwitchComponent,
+} from 'components';
 import { Alert } from './Alert';
 import { Colors } from 'theme/Variables';
+import { useNewAutomaticPayment } from './container';
+import { Event, ChevronDownLarge } from 'assets/SVGs';
+import { useStyles } from './NewAutomaticPaymentScreen.styles';
+import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const NewAutomaticPaymentScreen = () => {
   const styles = useStyles();
   const {
     control,
     toggleActiveAllTime,
-    isChecked,
-    setIsChecked,
     paymentMethodRef,
     onPaymentMethodPress,
     startDateRef,
@@ -23,12 +30,23 @@ export const NewAutomaticPaymentScreen = () => {
     endDateRef,
     onSelectEndDatePress,
     activeAllTime,
+    abonentNumberRef,
+    debtVerifyResults,
+    onSelectPayDayPress,
+    toggleCheckbox,
+    paymentDateRef,
+    isDisabled,
+    account,
+    selectAccount,
+    providerItem,
+    handleNextPress,
+    paymentMethod,
   } = useNewAutomaticPayment();
 
   return (
     <KeyboardAwareScrollView
       bounces={false}
-      keyboardShouldPersistTaps="handled"
+      keyboardShouldPersistTaps="never"
       contentInsetAdjustmentBehavior="automatic"
       showsVerticalScrollIndicator={false}
       style={styles.scrollView}
@@ -40,7 +58,7 @@ export const NewAutomaticPaymentScreen = () => {
           size={18}
           marginTop={32}
           letterSpacing={-0.5}
-          children="შეიყვანეთ აბონენტის ინფორმაცია"
+          children="automaticPayments.enterSubscriberInfo"
         />
         <Controller
           name="abonentNumber"
@@ -51,10 +69,17 @@ export const NewAutomaticPaymentScreen = () => {
                 marginTop={16}
                 value={value}
                 onChangeText={onChange}
-                label="აბონენტის ნომერი"
+                label="automaticPayments.subscriberNumber"
+                editable={false}
+                ref={abonentNumberRef}
               />
             );
           }}
+        />
+        <SubscriberInfo
+          isAutomaticPayment
+          feeRules={providerItem?.feeRules}
+          debtVerifyResults={debtVerifyResults}
         />
         <Controller
           name="paymentMethod"
@@ -67,7 +92,7 @@ export const NewAutomaticPaymentScreen = () => {
                   marginTop={16}
                   editable={false}
                   onChangeText={onChange}
-                  label="გადახდის მეთოდი"
+                  label="automaticPayments.paymentMethod"
                   ref={paymentMethodRef}
                   inputStyle={styles.input}
                 />
@@ -82,10 +107,28 @@ export const NewAutomaticPaymentScreen = () => {
           name="amount"
           control={control}
           render={({ field: { onChange, value } }) => {
-            return <TextInput marginTop={16} value={value} onChangeText={onChange} label="თანხა" />;
+            return (
+              <TextInput
+                marginTop={16}
+                value={value}
+                onChangeText={onChange}
+                label={
+                  paymentMethod?.type === AutoPaymentTypeEnum.FixedAmount
+                    ? 'automaticPayments.amount'
+                    : 'automaticPayments.maxAmount'
+                }
+                keyboardType="decimal-pad"
+              />
+            );
           }}
         />
-        <Alert message="სისტემა 3 დღის განმავლობაში ეცდება გადახდას" />
+        <Alert
+          message={
+            paymentMethod?.type === AutoPaymentTypeEnum.ByDebt
+              ? 'automaticPayments.alert_two'
+              : 'automaticPayments.alert'
+          }
+        />
         <Controller
           name="title"
           control={control}
@@ -95,7 +138,8 @@ export const NewAutomaticPaymentScreen = () => {
                 marginTop={16}
                 value={value}
                 onChangeText={onChange}
-                label="დავალების დასახელება"
+                label="automaticPayments.taskName"
+                autoCorrect={false}
               />
             );
           }}
@@ -111,7 +155,7 @@ export const NewAutomaticPaymentScreen = () => {
                   marginTop={16}
                   editable={false}
                   onChangeText={onChange}
-                  label="დაწყების თარიღი"
+                  label="automaticPayments.startDate"
                   ref={startDateRef}
                   inputStyle={styles.input}
                 />
@@ -129,7 +173,7 @@ export const NewAutomaticPaymentScreen = () => {
             return (
               <View style={styles.switchContainer}>
                 <SwitchComponent value={value} onValueChange={toggleActiveAllTime} style={{}} />
-                <Text children="აქტიური მუდმივად" style={styles.switchLabel} />
+                <Text children="automaticPayments.activeAllTime" style={styles.switchLabel} />
               </View>
             );
           }}
@@ -145,7 +189,7 @@ export const NewAutomaticPaymentScreen = () => {
                   marginTop={16}
                   editable={false}
                   onChangeText={onChange}
-                  label="დასრულების თარიღი"
+                  label="automaticPayments.endDate"
                   ref={endDateRef}
                   inputStyle={styles.input}
                 />
@@ -156,39 +200,56 @@ export const NewAutomaticPaymentScreen = () => {
             );
           }}
         />
+        {paymentMethod?.type === AutoPaymentTypeEnum.FixedAmount && (
+          <Controller
+            name="paymentDate"
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <View>
+                  <TextInput
+                    value={value ? String(value) : ''}
+                    marginTop={16}
+                    editable={false}
+                    onChangeText={onChange}
+                    label="automaticPayments.paymentDate"
+                    inputStyle={styles.input}
+                    ref={paymentDateRef}
+                  />
+                  <Pressable style={styles.iconContainer} onPress={onSelectPayDayPress}>
+                    <ChevronDownLarge color={activeAllTime ? Colors.textBlack500 : Colors.black} />
+                  </Pressable>
+                </View>
+              );
+            }}
+          />
+        )}
         <Controller
-          name="paymentDate"
+          name="agreed"
           control={control}
-          render={({ field: { onChange, value } }) => {
+          render={({ field: { value } }) => {
             return (
-              <View>
-                <TextInput
-                  value={value}
-                  marginTop={16}
-                  editable={false}
-                  onChangeText={onChange}
-                  label="გადახდის რიცხვი"
-                  inputStyle={styles.input}
+              <View style={styles.terms}>
+                <Checkbox
+                  isChecked={value}
+                  onChange={toggleCheckbox}
+                  label="common.accept"
+                  labelStyle={styles.labelStyle}
                 />
-                <Pressable style={styles.iconContainer} onPress={() => {}}>
-                  <ChevronDownLarge />
-                </Pressable>
+                <Text color={Colors.primary} children="common.terms_and_conditions" />
               </View>
             );
           }}
         />
-        <View style={styles.terms}>
-          <Checkbox
-            isChecked={isChecked}
-            onChange={setIsChecked}
-            label="ვეთანხმები"
-            labelStyle={styles.labelStyle}
-          />
-          <Text color={Colors.primary} children="წესებს და პირობებს" />
-        </View>
       </View>
-      <View style={styles.footer}>
-        <Button.Primary fullWidth text="common.next" customWrapperStyle={styles.button} />
+      <MyBalance selectedAccount={account} selectAccountOnPress={selectAccount} />
+      <View style={styles.buttonContainer}>
+        <Button.Primary
+          fullWidth
+          text="common.next"
+          onPress={handleNextPress}
+          customWrapperStyle={[styles.button, isDisabled && styles.disabled]}
+        />
       </View>
     </KeyboardAwareScrollView>
   );

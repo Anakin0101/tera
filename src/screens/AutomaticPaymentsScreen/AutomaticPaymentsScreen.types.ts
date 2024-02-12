@@ -1,15 +1,9 @@
 import { ListRenderItem } from 'react-native';
+import { AutomPaymentRes } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
-export type Item = {
-  title: string;
-  user: string;
-  amount: number;
-  number: number;
-};
-
-export type RenderItem = ListRenderItem<Item>;
+export type RenderItem = ListRenderItem<AutomPaymentRes>;
 
 export type ItemProps = {
-  item: Item;
+  item: AutomPaymentRes;
   onPress: () => void;
 };

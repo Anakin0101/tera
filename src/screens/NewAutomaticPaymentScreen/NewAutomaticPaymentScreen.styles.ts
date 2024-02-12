@@ -69,18 +69,18 @@ export const useStyles = () => {
       letterSpacing: 0.25,
       lineHeight: 22,
     },
-    footer: {
-      borderTopWidth: 1,
-      borderTopColor: Colors.inputBlack50,
+    buttonContainer: {
       paddingHorizontal: Spacing.xl,
-      paddingVertical: Spacing.ml,
-      marginTop: 14,
+      marginTop: Spacing.ml,
     },
     button: {
       paddingVertical: 14,
     },
     input: {
       color: Colors.black,
+    },
+    disabled: {
+      opacity: 0.5,
     },
   });
 };

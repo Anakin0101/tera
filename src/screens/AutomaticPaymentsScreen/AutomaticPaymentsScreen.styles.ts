@@ -20,17 +20,17 @@ export const useStyles = () => {
     button: {
       paddingVertical: 14,
       marginTop: 40,
+      marginBottom: Spacing.lg,
     },
     itemContainer: {
       ...Layout.row,
     },
-    itemIconContainer: {
-      ...Layout.center,
+    icon: {
       width: Spacing.xxxl,
       height: Spacing.xxxl,
-      borderRadius: Spacing.xl,
+      margin: Spacing.zero,
       borderWidth: 1,
-      borderColor: Colors.inputBlack50,
+      borderColor: Colors.borderColor,
     },
     info: {
       ...Layout.fill,

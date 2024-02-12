@@ -1,6 +1,7 @@
 import { SelectedMethod } from 'components/modals/AutomaticPaymentMethodModal/AutomaticPaymentMethodModal.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
 
-export type FormData = {
+export type AutomaticPaymentForm = {
   abonentNumber: string;
   paymentMethod: SelectedMethod;
   amount: string;
@@ -8,8 +9,9 @@ export type FormData = {
   startDate: string;
   activeAllTime: boolean;
   endDate: string;
-  paymentDate: string;
-  account: string;
+  paymentDate: number;
+  account?: Account;
+  agreed: boolean;
 };
 
 export type AlertProps = {

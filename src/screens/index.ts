@@ -58,3 +58,4 @@ export { CardOrderChosenCardScreen } from './CardOrderChosenCardScreen/CardOrder
 export { CardOrderChooseIbanScreen } from './CardOrderChooseIbanScreen/CardOrderChooseIbanScreen';
 export { CardOrderChooseAddressScreen } from './CardOrderChooseAddressScreen/CardOrderChooseAddressScreen';
 export { CardOrderDetailsScreen } from './CardOrderDetailsScreen/CardOrderDetailsScreen';
+export { NewAutomaticPaymentDetailsScreen } from './NewAutomaticPaymentDetailsScreen/NewAutomaticPaymentDetailsScreen';

@@ -38,7 +38,7 @@ export const SelectPaymentDateModal: FC<SelectPaymentDateModalProps> = ({
         fullWidth
         onPress={handlePress}
         text="common.select"
-        customWrapperStyle={styles.button}
+        customWrapperStyle={[styles.button, !selected && styles.disabled]}
       />
     </View>
   );

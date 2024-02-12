@@ -106,3 +106,4 @@ export const REGISTRATION_FINISH_SCREEN = 'RegistrationFinishScreen';
 export const AUTOMATIC_PAYMENTS_SCREEN = 'AutomaticPaymentsScreen';
 export const AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'AutomaticPaymentDetailsScreen';
 export const NEW_AUTOMATIC_PAYMENT_SCREEN = 'NewAutomaticPaymentScreen';
+export const NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'NewAutomaticPaymentDetailsScreen';

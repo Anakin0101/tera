@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Item } from './Item';
 import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
@@ -11,23 +11,9 @@ import {
 } from './AutomaticPaymentMethodModal.types';
 import { useStyles } from './AutomaticPaymentMethodModal.styles';
 import { Button } from 'components';
+import { useTranslation } from 'react-i18next';
 
-const AUTOMATIC_PAYMENT_METHOD = [
-  {
-    name: 'ფიქსირებული თანხა',
-    type: AutoPaymentTypeEnum.FixedAmount,
-  },
-  {
-    name: 'დავალიანების მიხედვით',
-    type: AutoPaymentTypeEnum.ByDebt,
-  },
-  {
-    name: 'ფიქსირებულ რიცხვში',
-    type: AutoPaymentTypeEnum.FixedDateByDebt,
-  },
-];
-
-const Footer: FC<FooterProps> = ({ handleSelectPress }) => {
+const Footer: FC<FooterProps> = ({ handleSelectPress, isDisabled }) => {
   const styles = useStyles();
 
   return (
@@ -36,19 +22,55 @@ const Footer: FC<FooterProps> = ({ handleSelectPress }) => {
         fullWidth
         text="common.select"
         onPress={handleSelectPress}
-        customWrapperStyle={styles.button}
+        customWrapperStyle={[styles.button, isDisabled && styles.disbaled]}
       />
     </View>
   );
 };
 
-export const AutomaticPaymentMethodModal: FC<ModalProps> = ({ selectedMethod, onPress }) => {
+export const AutomaticPaymentMethodModal: FC<ModalProps> = ({
+  selectedMethod,
+  onPress,
+  directDebitType,
+}) => {
   const styles = useStyles();
   const [method, setMethod] = useState<SelectedMethod>(selectedMethod);
+  const { t } = useTranslation();
+
+  const paymentMethod = useMemo(
+    () => [
+      {
+        name: t('automaticPayments.fixedAmount'),
+        type: AutoPaymentTypeEnum.FixedAmount,
+      },
+    ],
+    [t],
+  );
+
+  const additionalMethods = useMemo(
+    () => [
+      {
+        name: t('automaticPayments.byDebt'),
+        type: AutoPaymentTypeEnum.ByDebt,
+      },
+      {
+        name: t('automaticPayments.fixedDateByDebt'),
+        type: AutoPaymentTypeEnum.FixedDateByDebt,
+      },
+    ],
+    [t],
+  );
 
   const handleSelectPress = useCallback(() => {
     onPress(method);
   }, [method, onPress]);
+
+  const methods = useMemo(() => {
+    if (directDebitType === 1) {
+      return [...paymentMethod, ...additionalMethods];
+    }
+    return paymentMethod;
+  }, [additionalMethods, directDebitType, paymentMethod]);
 
   const renderItem: RenderItem = useCallback(
     ({ item }) => {
@@ -64,11 +86,11 @@ export const AutomaticPaymentMethodModal: FC<ModalProps> = ({ selectedMethod, on
   return (
     <FlatList
       bounces={false}
-      data={AUTOMATIC_PAYMENT_METHOD}
+      data={methods}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       style={styles.list}
-      ListFooterComponent={<Footer handleSelectPress={handleSelectPress} />}
+      ListFooterComponent={<Footer handleSelectPress={handleSelectPress} isDisabled={!method} />}
     />
   );
 };
