@@ -30,6 +30,7 @@ export const useNewAutomaticPaymentDetails = () => {
     });
 
     const request: AutoPaymentReq = {
+      userId: 0,
       sendOtp: false,
       name: automaticPaymentForm.title,
       startDate: getISOString(automaticPaymentForm.startDate),
@@ -64,7 +65,7 @@ export const useNewAutomaticPaymentDetails = () => {
                 ...request,
                 otp: code,
                 headers: {
-                  'x-bank-otp': code,
+                  'X-Bank-Otp': code,
                 },
               })
                 .unwrap()

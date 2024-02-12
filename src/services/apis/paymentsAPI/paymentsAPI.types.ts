@@ -162,6 +162,7 @@ export interface PaymentResult {
 }
 
 export interface AutoPayment {
+  userId: number;
   culture: string;
   name: string;
   serviceId: number;
