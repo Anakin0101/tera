@@ -10,6 +10,7 @@ import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types
 import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { HeaderProps } from './NewAutomaticPaymentDetailsScreen.types';
 import { useStyles } from './NewAutomaticPaymentDetailsScreen.styles';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const Header: FC<HeaderProps> = ({ name, imageId, amount, lang }) => {
   const styles = useStyles();
@@ -18,7 +19,7 @@ const Header: FC<HeaderProps> = ({ name, imageId, amount, lang }) => {
       <IconComponent imageId={imageId} customImageIDStyle={styles.icon} />
       <View style={styles.info}>
         <Text children={lang === LanguageKeys.geo ? name.ka : name.en} secondary />
-        <Text children={formatMoney(amount, 'GEL')} size={16} />
+        <Text children={formatMoney(amount, CurrencyEnum.GEL)} size={16} />
       </View>
     </View>
   );
@@ -50,7 +51,7 @@ export const NewAutomaticPaymentDetailsScreen = () => {
   }, [automaticPaymentForm.amount, providerItem?.feeRules]);
 
   const paymentAmount = useMemo(() => {
-    return formatMoney(fee + Number(automaticPaymentForm.amount), 'GEL');
+    return formatMoney(fee + Number(automaticPaymentForm.amount), CurrencyEnum.GEL);
   }, [automaticPaymentForm.amount, fee]);
 
   return (
@@ -75,9 +76,12 @@ export const NewAutomaticPaymentDetailsScreen = () => {
               ? 'automaticPayments.amount'
               : 'automaticPayments.maxAmount'
           }
-          value={formatMoney(Number(automaticPaymentForm.amount), 'GEL')}
+          value={formatMoney(Number(automaticPaymentForm.amount), CurrencyEnum.GEL)}
         />
-        <DetailsItem label="automaticPayments.commission" value={formatMoney(fee, 'GEL')} />
+        <DetailsItem
+          label="automaticPayments.commission"
+          value={formatMoney(fee, CurrencyEnum.GEL)}
+        />
         <DetailsItem label="automaticPayments.startDate" value={automaticPaymentForm.startDate} />
         <DetailsItem
           label="automaticPayments.endDate"

@@ -643,7 +643,8 @@
     "pay": "გადახდა",
     "paymentSchedule": "გადახდის გრაფიკი",
     "lastPaymentDate": "ბოლო გადახდის თარიღი",
-    "amountTypeWarning": "შეყვანილი თანხა არ არის ვალიდური. გთხოვთ, შეიყვანოთ რიცხვითი მნიშვნელობა."
+    "amountTypeWarning": "შეყვანილი თანხა არ არის ვალიდური. გთხოვთ, შეიყვანოთ რიცხვითი მნიშვნელობა.",
+    "newPayment": "ახალი გადახდა"
   },
   "passwordRecovery": {
     "choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",

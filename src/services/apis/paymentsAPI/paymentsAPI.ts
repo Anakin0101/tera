@@ -70,10 +70,11 @@ export const paymentsAPI = createApi({
       transformResponse: (response: AutoPaymentDetailsRes) => response.autoPayment,
     }),
     addAutomaticPayment: builder.mutation<AddAutoPaymentRes, AutoPaymentReq>({
-      query: body => ({
+      query: ({ headers, ...body }) => ({
         url: URLS.addAutoPayment,
         method: METHOD_NAMES.POST,
         body,
+        headers,
       }),
       invalidatesTags: ['AutoPayments'],
     }),

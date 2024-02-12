@@ -175,8 +175,9 @@ export interface AutoPayment {
   accountId: number;
   getAuthMethod: boolean;
   sendOtp: boolean;
-  otp: string | null;
-  appHash: string | null;
+  otp: string;
+  appHash: string;
+  headers: Record<string, string>;
 }
 
 export type AutoPaymentReq = Partial<AutoPayment>;

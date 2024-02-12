@@ -60,7 +60,13 @@ export const useNewAutomaticPaymentDetails = () => {
         <OTPModal
           onFinished={code => {
             if (code === '000000') {
-              addAutoPayment(request)
+              addAutoPayment({
+                ...request,
+                otp: code,
+                headers: {
+                  'x-bank-otp': code,
+                },
+              })
                 .unwrap()
                 .then(() => {
                   closeModal();

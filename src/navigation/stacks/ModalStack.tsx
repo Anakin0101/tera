@@ -138,7 +138,7 @@ export const ModalNavigator = () => {
         name={NEW_AUTOMATIC_PAYMENT_SCREEN}
         component={NewAutomaticPaymentScreen}
         options={{
-          title: 'ახალი გადახდა',
+          title: t('automaticPayments.newPayment'),
           headerStyle: { backgroundColor: Colors.white },
         }}
       />

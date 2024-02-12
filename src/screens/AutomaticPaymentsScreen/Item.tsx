@@ -4,6 +4,7 @@ import { Divider, IconComponent, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { ItemProps } from './AutomaticPaymentsScreen.types';
 import { useStyles } from './AutomaticPaymentsScreen.styles';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const Item: FC<ItemProps> = memo(({ item, onPress }) => {
   const styles = useStyles();
@@ -15,7 +16,10 @@ export const Item: FC<ItemProps> = memo(({ item, onPress }) => {
         <View style={styles.info}>
           <View style={styles.itemRow}>
             <Text medium children={item?.name} />
-            <Text medium children={formatMoney(item?.fixedAmount || item?.maxAmount, 'GEL')} />
+            <Text
+              medium
+              children={formatMoney(item?.fixedAmount || item?.maxAmount, CurrencyEnum.GEL)}
+            />
           </View>
           <View style={styles.itemRow}>
             <Text label secondary children={item?.customerNumber} />

@@ -14,6 +14,7 @@ import { useStyles } from './CardsAndAccounts.styles';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { ACCOUNT_DETAILS_SCREEN, ALL_ACCOUNTS_AND_CARDS_SCREEN } from 'navigation/ScreenNames';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance }) => {
   const styles = useStyles();
@@ -34,7 +35,7 @@ const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance 
         </View>
       )}
       <Text regular size={30} lineHeight={36} marginTop={!showTitle ? 24 : 0}>
-        {formatMoney(totalAvailableBalance)} ₾
+        {formatMoney(totalAvailableBalance, CurrencyEnum.GEL)}
       </Text>
     </View>
   );

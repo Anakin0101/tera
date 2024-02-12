@@ -634,8 +634,8 @@
     "paymentDate": "Payment date",
     "selectPaymentMethod": "Choose a payment method",
     "selectStartDate": "Choose a start date",
-    "selectEndDate": "აირჩიე დასრულების თარიღი",
-    "selectPaymentDate": "Choose an end date",
+    "selectEndDate": "Choose an end date",
+    "selectPaymentDate": "Choose a payment date",
     "fixedAmount": "Fixed amount",
     "byDebt": "According to the debt",
     "fixedDateByDebt": "In a fixed date",
@@ -645,7 +645,8 @@
     "pay": "Pay",
     "paymentSchedule": "Payment schedule",
     "lastPaymentDate": "Last payment date",
-    "amountTypeWarning": "The amount you entered is not valid. Please input a numeric value"
+    "amountTypeWarning": "The amount you entered is not valid. Please input a numeric value",
+    "newPayment": "New payment"
   },
   "passwordRecovery": {
     "choose_password_recovery_method": "Choose a password recovery method",

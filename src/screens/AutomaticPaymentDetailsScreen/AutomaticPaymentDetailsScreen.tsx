@@ -10,6 +10,7 @@ import { useStyles } from './AutomaticPaymentDetailsScreen.styles';
 import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { getFormattedDate, getFormattedDateFromISO } from 'utils/formatDate';
 import { SEPARATED_BY_SLASH } from 'constants/DateTemplates';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const Header: FC<HeaderProps> = ({ onPress, name, amount = 0, imageId }) => {
   const styles = useStyles();
@@ -18,7 +19,7 @@ const Header: FC<HeaderProps> = ({ onPress, name, amount = 0, imageId }) => {
       <IconComponent imageId={imageId} customImageIDStyle={styles.icon} />
       <View style={styles.info}>
         <Text children={name} secondary />
-        <Text children={formatMoney(amount, 'GEL')} size={16} />
+        <Text children={formatMoney(amount, CurrencyEnum.GEL)} size={16} />
       </View>
       <Pressable onPress={onPress} style={styles.actionIconContainer}>
         <More />

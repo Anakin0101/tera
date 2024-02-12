@@ -35,7 +35,7 @@ export const AutomaticPaymentDateModal: FC<ModalProps> = ({
 
   const getDates = () => {
     return rows.map((_, index) => (
-      <View style={styles.row}>
+      <View style={styles.row} key={index}>
         {payDays.slice(index * 7, index * 7 + 7).map(i => {
           const isEnabled = selectableDates.includes(i);
 
@@ -47,7 +47,7 @@ export const AutomaticPaymentDateModal: FC<ModalProps> = ({
           };
 
           return (
-            <Pressable onPress={handlePress} style={styles.dateWrapper}>
+            <Pressable onPress={handlePress} style={styles.dateWrapper} key={i}>
               <View style={[styles.dateContainer, i === date && styles.selected]}>
                 <Text
                   color={

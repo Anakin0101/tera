@@ -31,7 +31,7 @@ export type Account = {
   accountIban: string;
   accountType: AccountTypeEnum;
   accountNumber: number;
-  ccy: Currency;
+  ccy: CurrencyEnum;
   accountName: string;
   accountNameLat: string;
   accountNameCustom: null | string;
@@ -103,7 +103,7 @@ export type DepositType = {
   amount: number;
   canCredit: boolean;
   canDebit: boolean;
-  currency: Currency;
+  currency: CurrencyEnum;
   depositId: number;
   depositName: string;
   depositNameEng: string;
@@ -131,7 +131,7 @@ export type TransactionType = {
   amount: number;
   isIncome: boolean;
   senderIban: string;
-  currency: Currency;
+  currency: CurrencyEnum;
   rowN: number;
   id: number;
   docNumber: number;
@@ -155,9 +155,9 @@ export type TransactionType = {
   intermedBankName: string;
   taxPayerTaxCode: string;
   taxPayerName: string;
-  currencyBuy: Currency;
+  currencyBuy: CurrencyEnum;
   amountBuy: number;
-  currencySell: Currency;
+  currencySell: CurrencyEnum;
   amountSell: number;
   rateItems: number;
   rateAmount: number;
@@ -227,7 +227,7 @@ type OfferName = {
 };
 
 type OfferCurrencies = {
-  currency: Currency;
+  currency: CurrencyEnum;
   minAmount: number;
   maxAmount: number;
 };
@@ -318,7 +318,7 @@ export type WalletAmount = {
 export type WalletAccount = {
   accountId: number;
   iban: string;
-  currency: Currency;
+  currency: CurrencyEnum;
   nameEng: string;
   nameGeo: string;
   typeGeo: string;

@@ -24,13 +24,17 @@ export const useAutomaticPaymentDetails = () => {
   const [cancelAutoPayment] = useCancelAutoPaymentMutation();
   const [isActionSheetVisible, setIsActionSheetVisible] = useState(false);
 
-  useEffect(() => {
+  const getDetails = useCallback(() => {
     getAutoPaymentDetails({
       id,
       culture:
         savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
     });
-  }, [getAutoPaymentDetails, id, params.id]);
+  }, [getAutoPaymentDetails, id]);
+
+  useEffect(() => {
+    getDetails();
+  }, [getDetails]);
 
   const toggleActionSheet = useCallback(() => {
     setIsActionSheetVisible(prev => !prev);
