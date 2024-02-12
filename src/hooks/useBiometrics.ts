@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AppState, Platform } from 'react-native';
-import Biometrics from 'react-native-biometrics';
+import ReactNativeBiometrics, { BiometryTypes } from 'react-native-biometrics';
+
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setBiometricStatus } from 'store/slices/userInfo';
 import { setBiometricsAuth, getBiometricsAuthStatus, clearBiometricsAuth } from 'utils/keychain';
 import { closeModal } from 'utils/modal';
+// TBD - if we want to allow device-passcode log in to our app, uncomment { allowDeviceCredentials: true }
+// const rnBiometrics = new ReactNativeBiometrics({ allowDeviceCredentials: true });
+const rnBiometrics = new ReactNativeBiometrics();
 
 export const useBiometrics = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +19,8 @@ export const useBiometrics = () => {
 
   // if device supports biometric auth option
   const isBiometricSupportedByHardware = useCallback(async () => {
-    const response = await Biometrics.isSensorAvailable();
-    const isHardwareSupported = response.isHardwareSupported;
+    // TBD - fix check - does device physically support biometric auth - DEA!!!
+    const isHardwareSupported = true;
 
     setDeviceSupportsBiometricAuth(isHardwareSupported);
     return isHardwareSupported;
@@ -24,7 +28,7 @@ export const useBiometrics = () => {
 
   // if biometric auth is enabled for the app
   const isBiometricEnabledOnSmartphone = useCallback(async () => {
-    const { available } = await Biometrics.isSensorAvailable();
+    const { available } = await rnBiometrics.isSensorAvailable();
 
     setIsBiometricAuthIsEnabled(available);
     return available;
@@ -44,7 +48,7 @@ export const useBiometrics = () => {
     isBiometricEnabledOnSmartphone();
 
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'active' && Platform.OS === 'android') {
+      if (nextAppState === 'active') {
         closeModal();
         isBiometricSupportedByHardware();
         isBiometricEnabledOnSmartphone();
@@ -55,22 +59,22 @@ export const useBiometrics = () => {
   }, [isBiometricEnabledOnSmartphone, isBiometricSupportedByHardware]);
 
   const checkBiometricSensor = async () => {
-    const { available, biometryType, error } = await Biometrics.isSensorAvailable();
+    const { available, biometryType, error } = await rnBiometrics.isSensorAvailable();
 
     if (error) {
       console.warn('Biometric auth may not be supported:', error);
       return false;
     }
 
-    if (Platform.OS === 'android' && biometryType === Biometrics.FaceID) {
+    if (Platform.OS === 'android' && biometryType === BiometryTypes.FaceID) {
       return null;
     }
 
     if (available && biometryType) {
       const promptMessageMap = {
-        [Biometrics.Biometrics]: 'Please press your fingerprint for biometric authorization',
-        [Biometrics.TouchID]: 'Please press your fingerprint for biometric authorization',
-        [Biometrics.FaceID]: 'Please simply glance at the screen to activate Face ID',
+        [BiometryTypes.Biometrics]: 'Please press your fingerprint for biometric authorization',
+        [BiometryTypes.TouchID]: 'Please press your fingerprint for biometric authorization',
+        [BiometryTypes.FaceID]: 'Please simply glance at the screen to activate Face ID',
       };
 
       return {
@@ -92,7 +96,7 @@ export const useBiometrics = () => {
     }
 
     try {
-      const { success } = await Biometrics.simplePrompt(simplePromptConfig);
+      const { success } = await rnBiometrics.simplePrompt(simplePromptConfig);
       if (success) {
         if (isActivation) {
           await setBiometricsAuth(true);

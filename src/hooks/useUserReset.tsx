@@ -1,27 +1,31 @@
-import { useNavigation } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 import { ConfirmUserResetModal } from 'components/modals';
 import { PASSWORD_LOGIN_SCREEN } from 'navigation/ScreenNames';
-import { GuestStackScreenProps } from 'navigation/types';
+import { NavigationRef } from 'navigation/index';
 import React from 'react';
 import { Alert, Keyboard } from 'react-native';
 import { resetStateAction } from 'store/actions/reset';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-
-import { clearLoginName } from 'utils/keychain';
+import { debounce } from 'utils/debounce';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { closeModal, openModal } from 'utils/modal';
 
 export const useUserReset = () => {
-  const { navigate } = useNavigation<GuestStackScreenProps<'PasswordLoginScreen'>>();
   const dispatch = useAppDispatch();
+
+  //   because of navigation async state, we need to debounce user reset
+  const handleResetState = debounce(() => {
+    dispatch(resetStateAction());
+  }, 1000);
 
   const confirmUserReset = async () => {
     const result = await resetKeychainValues();
     if (result) {
-      await clearLoginName();
       closeModal();
-      navigate(PASSWORD_LOGIN_SCREEN);
-      dispatch(resetStateAction());
+      if (NavigationRef.current) {
+        NavigationRef.current.dispatch(StackActions.replace(PASSWORD_LOGIN_SCREEN));
+        handleResetState();
+      }
     } else {
       Alert.alert('Could not change user');
     }

@@ -1,3 +1,7 @@
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { CustomBackendError } from 'services/types';
+
 export type LoginAPIResponseType = {
   accessToken: string | null;
   authContext?: any;
@@ -63,6 +67,56 @@ export type DeleteTrustedDeviceAPIResponseType = {
   channelData: unknown;
 };
 export type DeleteTrustedDeviceAPIRequestType = {};
+
+// registerUser
+export type RegisterUserAPIResponseType = {
+  error: FetchBaseQueryError | SerializedError | CustomBackendError;
+  moreDataRequired: boolean;
+  pending: boolean;
+  success: boolean;
+};
+
+export type RegisterUserAPIResponseErrorType = Pick<RegisterUserAPIResponseType, 'error'>['error'];
+
+export type RegisterUserAPIRequestType = {
+  body: {
+    personalId?: string | null;
+    email?: string | null;
+    mobile?: string | null;
+    culture?: string | null;
+    cardData?: unknown;
+    userName?: string | null;
+    secretWord?: string | null;
+    sendOtp?: boolean;
+    otp?: string | null;
+  };
+  headers?: Record<string, any>;
+};
+
+// recoverPassword
+export type RecoverPasswordAPIResponseType = RegisterUserAPIResponseType;
+
+export type RecoverPasswordAPIRequestType = {
+  body: {
+    channelId?: number;
+    culture?: string | null;
+    timezoneOffset?: number;
+    customerIp?: string | null;
+    customerBrowser?: string | null;
+    channelData?: string | null;
+    pin?: string | null;
+    mobile?: string | null;
+    email?: string | null;
+    cardData?: unknown;
+    secretWord?: string | null;
+    userName?: string | null;
+    sendOtp?: boolean;
+    otp?: string | null;
+    ignoreEmptyUserNameCheck?: true;
+    defaultLogin?: true;
+  };
+  headers?: Record<string, any>;
+};
 
 // logout
 export type LogoutAPIResponseType = {

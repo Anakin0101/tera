@@ -71,7 +71,27 @@ import {
   CODE_WORD_SCREEN,
   REGISTRATION_FINISH_SCREEN,
   ENTER_USERNAME_SCREEN,
+  CHOOSE_PAYMENT_PROVIDER_SCREEN,
+  CHECK_PAYMENT_PROVIDER_SCREEN,
+  CARD_ORDER_TYPE_SCREEN,
+  CARD_ORDER_CHOOSE_CARD_SCREEN,
+  CARD_ORDER_CHOSEN_CARD_SCREEN,
+  CARD_ORDER_CHOOSE_IBAN_SCREEN,
+  CARD_ORDER_CHOOSE_ADDRESS_SCREEN,
+  CARD_ORDER_DETAILS_SCREEN,
+  TARIFF_PACKAGES_SCREEN,
+  PAYMENT_DETAILS_SCREEN,
+  PAYMENT_SUCCESS_SCREEN,
+  PAYMENTS_SCREEN,
 } from './ScreenNames';
+import {
+  ProvidersGroup,
+  Provider,
+  DebtVerifyResult,
+  DebtVerifyBasketResponse,
+} from 'services/apis/paymentsAPI/paymentsAPI.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
+import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -96,6 +116,20 @@ export type ModalStackParamsList = {
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
   [NEW_PAYMENT_SCREEN]: undefined;
+  [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider };
+  [CHOOSE_PAYMENT_PROVIDER_SCREEN]: { providerInfo: ProvidersGroup };
+  [PAYMENT_DETAILS_SCREEN]: {
+    providerItem: Provider;
+    debtVerifyResults: Array<DebtVerifyResult>;
+    selectedAccount: Account;
+    subscriberFieldsValue: SubscriberFieldsValue;
+    subscriberInputFieldsValue: SubscriberFieldsValue;
+    debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
+  };
+  [PAYMENT_SUCCESS_SCREEN]: {
+    providerItem: Provider;
+    subscriberInputFieldsValue: SubscriberFieldsValue;
+  };
 };
 
 export type DashboardStackParamsList = {
@@ -152,6 +186,13 @@ export type ProductsStackParamsList = {
   [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
   [NEW_LOAN_DETAILS_SCREEN]: undefined;
   [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
+  [CARD_ORDER_TYPE_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_CARD_SCREEN]: undefined;
+  [CARD_ORDER_CHOSEN_CARD_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_IBAN_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
+  [CARD_ORDER_DETAILS_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {
@@ -206,7 +247,9 @@ export type TransactionsStackParamsList = {
   };
 };
 
-export type PaymentsStackParamsList = {};
+export type PaymentsStackParamsList = {
+  [PAYMENTS_SCREEN]: undefined;
+};
 
 export type ProfileStackParamsList = {
   [PROFILE_SCREEN]: undefined;

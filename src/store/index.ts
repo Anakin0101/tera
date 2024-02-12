@@ -13,10 +13,13 @@ import {
 import { themeReducer } from './slices/theme';
 import { RESET_STATE_ACTION_TYPE } from './actions/reset';
 import { userInfoReducer } from './slices/userInfo';
+import { registerUserReducer } from './slices/registerUser';
 import {
   dashboardPersistConfig,
   deviceInfoPersistConfig,
+  paymentPersistConfig,
   profilePersistConfig,
+  registerUserPersistConfig,
   themePersistConfig,
   userInfoPersistConfig,
 } from './config';
@@ -30,12 +33,16 @@ import {
   filesAPI,
   profileAPI,
   transfersAPI,
+  paymentsAPI,
 } from 'services/apis';
 import { productsReducer } from './slices/products';
 import { depositReducer } from './slices/deposit';
 import { teraWalletReducer } from './slices/teraWallet';
 import { transfersReducer } from './slices/transfers';
+import { paymentsReducer } from './slices/payments';
 import { loanReducer } from './slices/loan';
+import { clearStorageExceptKeys } from 'storage/index';
+import { APP_LAUNCHED, SELECTED_LANGUAGE } from 'storage/constants';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -44,6 +51,8 @@ const persistedUserInfo = persistReducer(userInfoPersistConfig, userInfoReducer)
 const persistedDeviceInfo = persistReducer(deviceInfoPersistConfig, deviceInfoReducer);
 const persistedDashboard = persistReducer(dashboardPersistConfig, dashboardReducer);
 const persistedProfile = persistReducer(profilePersistConfig, profileReducer);
+const persistedPayments = persistReducer(paymentPersistConfig, paymentsReducer);
+const persistedUserRegister = persistReducer(registerUserPersistConfig, registerUserReducer);
 
 const reducers = combineReducers({
   theme: persistedTheme,
@@ -52,14 +61,17 @@ const reducers = combineReducers({
   dashboard: persistedDashboard,
   profile: persistedProfile,
   products: productsReducer,
+  payments: persistedPayments,
   transfers: transfersReducer,
   deposit: depositReducer,
   teraWallet: teraWalletReducer,
   loan: loanReducer,
+  registerUser: persistedUserRegister,
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,
   [transfersAPI.reducerPath]: transfersAPI.reducer,
+  [paymentsAPI.reducerPath]: paymentsAPI.reducer,
   [filesAPI.reducerPath]: filesAPI.reducer,
   [profileAPI.reducerPath]: profileAPI.reducer,
 });
@@ -67,6 +79,11 @@ const reducers = combineReducers({
 const rootReducer: Reducer<RootState> = (state, action) => {
   if (action.type === RESET_STATE_ACTION_TYPE) {
     state = {} as RootState;
+    /**
+     * we need to reset the storage to an empty object, except whether app has already been launched or not.
+     * We need to determine, whether we start with onboardingScreen or Password login screen
+     */
+    clearStorageExceptKeys([APP_LAUNCHED, SELECTED_LANGUAGE]);
   }
 
   return reducers(state, action);
@@ -78,6 +95,7 @@ const middlewares = [
   productsAPI.middleware,
   transfersAPI.middleware,
   filesAPI.middleware,
+  paymentsAPI.middleware,
   profileAPI.middleware,
 ];
 

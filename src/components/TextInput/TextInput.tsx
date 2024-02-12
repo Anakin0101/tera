@@ -150,6 +150,7 @@ export const ControlledInput = <T extends FieldValues>({
   control,
   name,
   label,
+  subTitle,
   rules,
   required,
   type = 'text',
@@ -197,6 +198,7 @@ export const ControlledInput = <T extends FieldValues>({
                   setSelectedRadio?.(name);
                 }}
                 label={label}
+                subTitle={subTitle}
               />
             );
           }

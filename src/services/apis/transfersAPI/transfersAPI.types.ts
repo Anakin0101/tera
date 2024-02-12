@@ -1,7 +1,7 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { Currency } from '../productsAPI/productsAPI.types';
 import { SerializedError } from '@reduxjs/toolkit';
-import { CustomTransferResultError } from 'screens/TransferDetailScreen/TransferDetailScreen.types';
+import { CustomBackendError } from 'services/types';
 
 export type convertAmountType = {
   amountBuy: number;
@@ -256,12 +256,12 @@ export type TransferToOwnAccountRequestType = {
 
 export type TransferToOwnAccountResponseType = {
   data?: {};
-  error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
+  error?: CustomBackendError | FetchBaseQueryError | SerializedError;
 };
 
 export type TransferToSomeoneResultResponseType = {
   data?: {};
-  error?: CustomTransferResultError | FetchBaseQueryError | SerializedError;
+  error?: CustomBackendError | FetchBaseQueryError | SerializedError;
 };
 
 export type treasuryReq = {
