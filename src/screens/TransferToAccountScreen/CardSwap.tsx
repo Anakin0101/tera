@@ -100,7 +100,7 @@ export const CardSwap = ({
   const handlePress = useCallback(
     (arg: number) => {
       if (arg === 1) {
-        navigate(MY_ACCOUNTS_SCREEN, {});
+        navigate(MY_ACCOUNTS_SCREEN, { otherBanks: fromOtherBanks });
       } else {
         if (fromOtherBanks) {
           navigate(OTHER_BANK_TANSACTION_SCREEN, {});
