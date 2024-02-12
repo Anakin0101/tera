@@ -136,7 +136,7 @@ const IbanTransaction = () => {
   }
 
   return (
-    <ScrollView style={styles.scroll}>
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.bottomStretchStyle}>
       <Text children="personalNumber.Recepient" size={18} demiBold />
       {apiCallInitiated && data ? (
         <View>
@@ -211,7 +211,7 @@ const IbanTransaction = () => {
         </>
       )}
 
-      <View style={styles.btn}>
+      <View style={[styles.btn, styles.bottomStretchStyle]}>
         <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
       </View>
     </ScrollView>
