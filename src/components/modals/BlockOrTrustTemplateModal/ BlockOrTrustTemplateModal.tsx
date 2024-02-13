@@ -21,7 +21,7 @@ export const BlockOrTrustTemplateModal: FC<templateCardProps> = ({
             !shouldBlock && !isDelete
               ? 'transactions.trustedTemplate'
               : !shouldBlock && isDelete
-              ? 'asdasdasd'
+              ? 'transactions.untrust'
               : 'transactions.deleteTemplate'
           }
           color={Colors.textBlack500}

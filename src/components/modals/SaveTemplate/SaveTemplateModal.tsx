@@ -1,14 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Button, TextInput } from 'components';
-import { ModalProps } from './SaveTemplateModal.types';
 import { useStyles } from './SaveTemplateModal.styles';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setTransferType } from 'store/slices/transfers';
 import { useSaveTemplateMutation } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { closeModal } from 'utils/modal';
-export const SaveTemplateModal: FC<ModalProps> = () => {
+export const SaveTemplateModal = () => {
   const templateData = useAppSelector(state => state.transfers.currentTransfer);
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const [saveTemplate] = useSaveTemplateMutation();

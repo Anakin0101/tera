@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, TouchableOpacity } from 'react-native';
+import { FlatList, View, Pressable } from 'react-native';
 import { TemplateCard, Text } from 'components';
 import { useStyles } from './DashboardTemplates.styles';
 import { getDashboardTemplates } from './utils/DashboardTemplatesMapper.utils';
@@ -31,13 +31,13 @@ export const DashboardTemplates = ({ data }: any) => {
                   style={styles.titleContainer}
                   color={Colors.textBlack}
                 />
-                <TouchableOpacity onPress={handleNavigateToTemplates}>
+                <Pressable onPress={handleNavigateToTemplates}>
                   <Text
                     children={'dashboard.all'}
                     style={styles.titleContainer}
                     color={Colors.primary}
                   />
-                </TouchableOpacity>
+                </Pressable>
               </View>
               <View style={styles.dashboardTemplatesWrapper}>
                 <FlatList

@@ -15,6 +15,7 @@ import { OtherBankList } from './OtherBankList';
 import { openModal, closeModal } from 'utils/modal';
 import { OTPModal } from 'components';
 import {
+  TRANSFER_TYPE,
   TransferToOwnAccountResponseType,
   TransferToSomeoneResultResponseType,
 } from 'services/apis/transfersAPI/transfersAPI.types';
@@ -95,7 +96,7 @@ export const TransferDetailScreen = () => {
 
       dispatch(
         setSpecificTransferData({
-          transferType: isInternal ? 'bankInternal' : 'bankExternal',
+          transferType: isInternal ? TRANSFER_TYPE.bankInternal : TRANSFER_TYPE.bankExternal,
           data: {
             personalId: null,
             debitIban: accountFromData.accountIban,
@@ -222,7 +223,7 @@ export const TransferDetailScreen = () => {
 
         dispatch(
           setSpecificTransferData({
-            transferType: 'internal',
+            transferType: TRANSFER_TYPE.internal,
             data: {
               debitIban: accountFromData.accountIban,
               currency: accountFromData.ccy,
@@ -247,40 +248,44 @@ export const TransferDetailScreen = () => {
   const { buyAmount } = selectedItemFromStore?.convertionData || {};
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.containerWrapper}>
-        <ConversionOrTranferDetails
-          buyAmount={buyAmount}
-          accountFromData={accountFromData}
-          params={params}
-          selectedPrice={selectedPrice}
-        />
-      </View>
-      <View style={styles.details}>
-        <View style={styles.wrapper}>
-          {params?.fromOtherBank ? (
-            <OtherBankList
-              selectedItemFromStore={selectedItemFromStore}
-              receiver={params?.receiver}
-            />
-          ) : (
-            <TransferDetailsList
-              selectedItemFromStore={selectedItemFromStore}
-              convertion={params?.convertion}
-            />
-          )}
+    <ScrollView bounces={false} contentContainerStyle={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.containerWrapper}>
+          <ConversionOrTranferDetails
+            buyAmount={buyAmount}
+            accountFromData={accountFromData}
+            params={params}
+            selectedPrice={selectedPrice}
+          />
         </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button.Primary
-          text={t('transfers.transfer')}
-          hitSlop={30}
-          fixedWidth
-          onPress={() => {
-            handleButtonPress();
-          }}
-          isLoading={isLoading}
-        />
+        <View style={styles.container}>
+          <View style={styles.wrapper}>
+            <View style={styles.inner}>
+              {params?.fromOtherBank ? (
+                <OtherBankList
+                  selectedItemFromStore={selectedItemFromStore}
+                  receiver={params?.receiver}
+                />
+              ) : (
+                <TransferDetailsList
+                  selectedItemFromStore={selectedItemFromStore}
+                  convertion={params?.convertion}
+                />
+              )}
+            </View>
+          </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button.Primary
+            text={t('transfers.transfer')}
+            hitSlop={30}
+            fixedWidth
+            onPress={() => {
+              handleButtonPress();
+            }}
+            isLoading={isLoading}
+          />
+        </View>
       </View>
     </ScrollView>
   );

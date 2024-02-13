@@ -19,8 +19,8 @@ import { TemplatesSectionProps } from './AllTemplatesScreen.types';
 import { sectionKeys, trustedTransactions } from 'utils/transactionUtils';
 import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
-let rowRefs: Array<any> = [];
-let prevOpenedRow: any;
+let rowRefs: Array<Swipeable | null> = [];
+let prevOpenedRow: Swipeable | null;
 
 export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
   templates,

@@ -2,7 +2,7 @@ import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { PaymentsScreen } from 'screens';
 import { PAYMENTS_SCREEN } from 'navigation/ScreenNames';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
 

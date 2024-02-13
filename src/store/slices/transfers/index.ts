@@ -130,33 +130,19 @@ const transfersSlice = createSlice({
     },
     setTransferType: (state, action: PayloadAction<SetTransferTypePayload>) => {
       const { id, name, type } = action.payload;
-      if (id !== undefined) {
-        state.currentTransfer.id = id;
-      }
-      if (name !== undefined) {
-        state.currentTransfer.name = name;
-      }
-      if (type !== undefined) {
-        state.currentTransfer.type = type;
-      }
+      state.currentTransfer = {
+        ...state.currentTransfer,
+        id: id !== undefined ? id : state.currentTransfer.id,
+        name: name !== undefined ? name : state.currentTransfer.name,
+        type: type !== undefined ? type : state.currentTransfer.type,
+      };
     },
     setSpecificTransferData: (state, action: PayloadAction<SetSpecificTransferDataPayload>) => {
       const { transferType, data } = action.payload;
       state.currentTransfer[transferType] = data;
     },
-    clearCurrentTransfer: state => {
-      state.currentTransfer = {
-        id: null,
-        name: '',
-        type: 1,
-        conversion: null,
-        internal: null,
-        bankInternal: null,
-        budget: null,
-        bankExternal: null,
-        mobilePayment: null,
-        p2pTransfers: null,
-      };
+    clearCurrentTransfer: () => {
+      return initialState;
     },
     setIsInternal: (state, action) => {
       state.isInternal = action.payload;

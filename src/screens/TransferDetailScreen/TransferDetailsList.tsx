@@ -22,7 +22,7 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
   };
 
   const renderTransferDetails = () => {
-    const accountName = accountToData.accountName ? `${accountToData.accountName} - ` : '';
+    const accountName = accountToData.accountName ? `${accountToData.accountName}  ` : '';
     const renderSelectedData = () => {
       if (selectedData !== '') {
         return renderDetailsItem('transfers.destination', selectedData);
@@ -35,46 +35,42 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
 
     return (
       <View style={styles.backgroundWhite}>
-        <View style={styles.detailsSectionWrapper}>
-          {renderDetailsItem(
-            'transfers.fromWhere',
-            `${accountFromData.accountName}  `,
-            accountFromData.accountIban,
-          )}
-          {renderDetailsItem(
-            'transfers.where',
-            accountName,
-            accountToData.accountIban || accountToData.iban,
-          )}
-          {convertion
-            ? renderDetailsItem(
-                'transactionDetails.amount',
-                `${formatToTwoDecimalPlaces(convertionData.buyAmount.amountBuy)} ${getCurrencyIcon(
-                  accountFromData.ccy,
-                )}`,
-              )
-            : renderDetailsItem(
-                'transactionDetails.amount',
-                `${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(
-                  accountFromData.ccy,
-                )}`,
-              )}
-          {convertion &&
-            renderDetailsItem(
-              'transfers.acceptable',
-              `${formatToTwoDecimalPlaces(convertionData.buyAmount.amountSell)}  ${getCurrencyIcon(
-                accountToData.ccy,
+        {renderDetailsItem(
+          'transfers.fromWhere',
+          `${accountFromData?.accountName}  `,
+          accountFromData?.accountIban,
+        )}
+        {renderDetailsItem(
+          'transfers.where',
+          accountName,
+          accountToData?.accountIban || accountToData?.iban,
+        )}
+        {convertion
+          ? renderDetailsItem(
+              'transactionDetails.amount',
+              `${formatToTwoDecimalPlaces(convertionData?.buyAmount?.amountBuy)} ${getCurrencyIcon(
+                accountFromData?.ccy,
               )}`,
+            )
+          : renderDetailsItem(
+              'transactionDetails.amount',
+              `${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(accountFromData?.ccy)}`,
             )}
-          {convertion &&
-            renderDetailsItem(
-              'transfers.course',
-              `${t('transfers.yourCourse')}${getCurrencyIcon(accountToData.ccy)} = ${
-                specialRateUsed ? specialRate : standardRate
-              }${getCurrencyIcon(accountFromData.ccy)}`,
-            )}
-          {renderSelectedData()}
-        </View>
+        {convertion &&
+          renderDetailsItem(
+            'transfers.acceptable',
+            `${formatToTwoDecimalPlaces(convertionData?.buyAmount?.amountSell)}  ${getCurrencyIcon(
+              accountToData.ccy,
+            )}`,
+          )}
+        {convertion &&
+          renderDetailsItem(
+            'transfers.course',
+            `${t('transfers.yourCourse')}${getCurrencyIcon(accountToData?.ccy)} = ${
+              specialRateUsed ? specialRate : standardRate
+            }${getCurrencyIcon(accountFromData?.ccy)}`,
+          )}
+        {renderSelectedData()}
       </View>
     );
   };

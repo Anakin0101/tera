@@ -1,8 +1,3 @@
-export interface HeaderProps {
-  search: string;
-  onChangeText: React.Dispatch<React.SetStateAction<string>>;
-  debouncedValue: string;
-}
 import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
 export interface TemplatesSectionProps {

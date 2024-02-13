@@ -186,6 +186,11 @@ export enum CurrencyEnum {
   EUR = 'EUR',
   GBP = 'GBP',
 }
+export enum TRANSFER_TYPE {
+  bankInternal = 'bankInternal',
+  bankExternal = 'bankExternal',
+  internal = 'internal',
+}
 
 export enum FinancialTransferTypeEnum {
   ToOwnAccount = 1,

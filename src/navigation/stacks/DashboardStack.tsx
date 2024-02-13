@@ -4,7 +4,7 @@ import { DashboardScreen } from 'screens';
 import { ALL_TEMPLATES_SCREEN, DASHBOARD_SCREEN } from 'navigation/ScreenNames';
 import { AllTemplatesScreen } from 'screens/AllTemplatesScreen/AllTemplatesScreen';
 import { DashboardStackParamsList } from 'navigation/types';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { Colors } from 'theme/Variables';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';

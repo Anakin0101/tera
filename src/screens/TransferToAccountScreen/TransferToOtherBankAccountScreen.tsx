@@ -19,10 +19,12 @@ import { TransferData, AccountData } from './TransferToAccountScreen.types';
 import { transactionTitles } from 'utils/transactionUtils';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
+import { openToast } from 'utils/toast';
+import { useTranslation } from 'react-i18next';
 export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { fromOtherBank, fromMobile, receiver } = params;
-
+  const { t } = useTranslation();
   const { navigate, setOptions } =
     useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
@@ -118,6 +120,8 @@ export const TransferToOtherBankAccountScreen = () => {
             mobileTransaction: true,
             receiver: receiver,
           });
+        } else {
+          openToast(t('authErrors.tryAgain'), 'error');
         }
       } else {
         await handleTransferInfo({
@@ -151,6 +155,8 @@ export const TransferToOtherBankAccountScreen = () => {
             fromOtherBank: fromOtherBank,
             receiver: receiver,
           });
+        } else {
+          openToast(t('authErrors.tryAgain'), 'error');
         }
       }
     } catch (error) {

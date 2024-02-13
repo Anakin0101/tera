@@ -11,7 +11,7 @@ import {
   REGISTRATION_METHOD_SCREEN,
   VERIFICATION_TYPE_SCREEN,
 } from 'navigation/ScreenNames';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { Colors } from 'theme/Variables';
 import {
   CodeWordScreen,

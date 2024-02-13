@@ -6,12 +6,12 @@ import {
   useDeleteTemplateMutation,
 } from 'services/apis';
 import { openModal } from 'utils/modal';
-import { BlockOrTrustTemplateModal } from 'components/modals/BlockOrTrustTemplateModal/ BlockOrTrustTemplateModal';
+import { OTPModal } from 'components/modals';
+import { BlockOrTrustTemplateModal } from 'components/index';
 import { closeModal } from 'utils/modal';
 import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { OTPModal } from 'components/modals';
 import { openToast } from 'utils/toast';
-
+import { debounce } from 'utils/debounce';
 export const useAllTemplates = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const [search, setSearch] = useState('');
@@ -28,10 +28,11 @@ export const useAllTemplates = () => {
   });
 
   useEffect(() => {
-    const handler = setTimeout(() => {
+    const handler = debounce(() => {
       setDebouncedValue(search);
     }, 500);
-    return () => clearTimeout(handler);
+    handler();
+    return () => handler.cancel();
   }, [search]);
 
   const updateTrustStatus = (template: Template, isTrusted: boolean): Template => {
@@ -108,7 +109,6 @@ export const useAllTemplates = () => {
       element: (
         <BlockOrTrustTemplateModal
           shouldBlock={true}
-          onClose={closeModal}
           onPress={() => BlockOrTrustFunction(true, data)}
         />
       ),
@@ -123,7 +123,6 @@ export const useAllTemplates = () => {
         <BlockOrTrustTemplateModal
           isDelete={isDelete}
           shouldBlock={false}
-          onClose={closeModal}
           onPress={() => BlockOrTrustFunction(false, data, isDelete)}
         />
       ),
