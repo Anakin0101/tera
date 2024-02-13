@@ -39,10 +39,8 @@ export { SmartPhoneChecked } from './SmartPhoneChecked';
 export { VerifiedPhoneIcon } from './VerifiedPhone';
 export { ResendIcon } from './Resend';
 export { TerraLogoIcon } from './TerraLogoIcon';
-
 export { FaceIdColoredSvg } from './FaceIdColored';
 export { LogoutIcon } from './Logout';
-
 export { Refreshing } from './Refreshing';
 export { Users } from './Users';
 export { UserArrowRight } from './UserArrowRight';
@@ -121,6 +119,7 @@ export { Education } from './Education';
 export { StateServices } from './StateServices';
 export { Gambling } from './Gambling';
 export { Other } from './Other';
+export { Contact } from './Contact';
 export { Timer } from './Timer';
 export { Percent } from './Percent';
 export { FailedSvg } from './Failed';
