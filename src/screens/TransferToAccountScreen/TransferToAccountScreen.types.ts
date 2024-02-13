@@ -41,6 +41,7 @@ export interface TransferData {
 }
 
 export interface AccountData {
+  availableBalance: string;
   iban: any;
   accountId: any;
   ccy: string;

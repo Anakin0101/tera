@@ -20,6 +20,8 @@ import { transactionTitles } from 'utils/transactionUtils';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
 import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
+import { openToast } from 'utils/toast';
+import { useTranslation } from 'react-i18next';
 
 export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
@@ -53,6 +55,7 @@ export const TransferToOtherBankAccountScreen = () => {
   const dispatch = useDispatch();
   const inputRef = useRef<TextInput>(null);
   const isFocused = useIsFocused();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const navigationOptions =
@@ -154,6 +157,10 @@ export const TransferToOtherBankAccountScreen = () => {
         });
 
         if (transferToSomeoneResult && 'data' in transferToSomeoneResult) {
+          if (accountFromData?.availableBalance < selectedPrice) {
+            openToast(`${t('transfers.balanceAvailable')}`, 'error');
+            return;
+          }
           dispatch(setOtpData(transferToSomeoneResult.data));
 
           navigate(TRANSFER_DETAIL_SCREEN, {

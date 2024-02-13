@@ -165,7 +165,8 @@
     "standardCourse": "სტანდარტული კურსი",
     "specificCourse": "შენი კურსი",
     "transfer": "გადარიცხვა",
-    "personalTransfer": "პირადი გადარიცხვა"
+    "personalTransfer": "პირადი გადარიცხვა",
+    "balanceAvailable": "ანგარიშზე არ არის საკმარისი თანხა"
   },
   "products": {
     "accountsAndCards": "ანგარიშები და ბარათები ({{value}})",
