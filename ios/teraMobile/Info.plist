@@ -31,6 +31,8 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSContactsUsageDescription</key>
+	<string>We need access to your mobile device in order to make mobile balance top-ups easier. Please enable it in the Settings app to continue</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>To unlock the device</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
