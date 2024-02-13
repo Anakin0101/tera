@@ -103,7 +103,7 @@ export const CardSwap = ({
         navigate(MY_ACCOUNTS_SCREEN, { otherBanks: fromOtherBanks });
       } else {
         if (fromOtherBanks) {
-          navigate(OTHER_BANK_TANSACTION_SCREEN, {});
+          navigate(OTHER_BANK_TANSACTION_SCREEN);
         } else {
           navigate(TO_ACCOUNT_SCREEN, { selected: selectedIban });
         }
