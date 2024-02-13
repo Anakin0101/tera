@@ -13,6 +13,7 @@ import { hideHeader } from 'navigation/config';
 import {
   AUTHORIZATION_METHODS_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
+  CHOOSE_MOBILE_PROVIDER_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
   NEW_PAYMENT_SCREEN,
@@ -28,6 +29,7 @@ import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
 import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen/ChoosePaymentProviderScreen';
 import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
+import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -103,6 +105,13 @@ export const ModalNavigator = () => {
           headerShadowVisible: true,
           gestureEnabled: false,
           headerShown: false,
+        }}
+      />
+      <Screen
+        name={CHOOSE_MOBILE_PROVIDER_SCREEN}
+        component={ChooseMobileProviderScreen}
+        options={{
+          title: t('chooseMobileProviderScreen.title'),
         }}
       />
       <Screen

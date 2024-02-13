@@ -9,7 +9,11 @@ import { ChoosePaymentsListProps } from './ChoosePaymentsService.types';
 import { PaymentItem } from './PaymentItem';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import { MODAL_STACK, NEW_PAYMENT_SCREEN } from 'navigation/ScreenNames';
+import {
+  CHOOSE_MOBILE_PROVIDER_SCREEN,
+  MODAL_STACK,
+  NEW_PAYMENT_SCREEN,
+} from 'navigation/ScreenNames';
 
 export const ChoosePaymentsService = () => {
   const styles = useStyles();
@@ -28,7 +32,7 @@ export const ChoosePaymentsService = () => {
         id: '2',
         title: t('payments.mobilePayment'),
         icon: <MobilePayment />,
-        onPress: () => Alert.alert('მობილურის შევსება'),
+        onPress: () => navigate(MODAL_STACK, { screen: CHOOSE_MOBILE_PROVIDER_SCREEN }),
       },
       {
         id: '3',

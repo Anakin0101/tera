@@ -83,6 +83,7 @@ import {
   PAYMENT_DETAILS_SCREEN,
   PAYMENT_SUCCESS_SCREEN,
   PAYMENTS_SCREEN,
+  CHOOSE_MOBILE_PROVIDER_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -126,6 +127,7 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
   };
+  [CHOOSE_MOBILE_PROVIDER_SCREEN]: undefined;
   [PAYMENT_SUCCESS_SCREEN]: {
     providerItem: Provider;
     subscriberInputFieldsValue: SubscriberFieldsValue;
