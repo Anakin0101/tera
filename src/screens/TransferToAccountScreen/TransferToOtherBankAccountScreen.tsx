@@ -201,6 +201,7 @@ export const TransferToOtherBankAccountScreen = () => {
         accountFromData={accountFromData}
         accountToData={accountToData}
         receiver={receiver}
+        fromOtherBanks
       />
       <View style={styles.buttonView}>
         <Button.Primary

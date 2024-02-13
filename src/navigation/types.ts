@@ -236,9 +236,11 @@ export type TransactionsStackParamsList = {
     otherBanks?: any;
   };
   [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
-  [OTHER_BANK_TANSACTION_SCREEN]: {
-    otherBanks?: any;
-  };
+  [OTHER_BANK_TANSACTION_SCREEN]?:
+    | {
+        otherBanks?: boolean;
+      }
+    | undefined;
   [TRANSFER_TO_ACCOUNT_SCREEN]: {
     fromOtherBank?: any;
     fromMobile?: boolean;
