@@ -7,12 +7,13 @@ import {
 } from 'services/apis/productsAPI/productsAPI';
 import { SelectDepositModal } from 'components/modals/SelectDepositModal/SelectDepositModal';
 import { ProductsStackScreenProps } from 'navigation/types';
-import { Currency, WalletAccount } from 'services/apis/productsAPI/productsAPI.types';
+import { WalletAccount } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setWalletData } from 'store/slices/teraWallet';
 import { DataType, FlatlistRef, ScrollViewRef } from './TeraWalletScreen.types';
 import { TERA_WALLET_PDF_SCREEN } from 'navigation/ScreenNames';
 import { CIRCULAR_ITEM_SIZE } from 'constants/common';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) =>
   const [activeIndex, setActiveIndex] = useState(0);
   const { data: teraWalletInfo } = useGetTeraWalletInfoQuery();
   const [selectedDeposit, setSelectedDeposit] = useState<WalletAccount | null>(null);
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('GEL');
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyEnum>(CurrencyEnum.GEL);
   const { data: accounts } = useGetAccountsByCustomerIdQuery();
 
   const amounts = useMemo(() => {

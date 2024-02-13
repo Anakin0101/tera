@@ -84,6 +84,9 @@ export const Calendar: FC<CalendarProps> = memo(
     hideExtraDays,
     disabledByDefault,
     disableAllTouchEventsForDisabledDays,
+    hideDayNames,
+    hideArrows,
+    customHeaderTitle,
   }) => {
     const styles = useStyles();
 
@@ -100,6 +103,9 @@ export const Calendar: FC<CalendarProps> = memo(
         hideExtraDays={hideExtraDays}
         disabledByDefault={disabledByDefault}
         disableAllTouchEventsForDisabledDays={disableAllTouchEventsForDisabledDays}
+        hideDayNames={hideDayNames}
+        hideArrows={hideArrows}
+        customHeaderTitle={customHeaderTitle}
       />
     );
   },

@@ -1,4 +1,5 @@
 import { Currency, TransactionType } from '../productsAPI/productsAPI.types';
+import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
 
 export type GetTemplatesResponseType = {
   templates: Template[];
@@ -22,7 +23,7 @@ export type OverdraftType = {
   startDate: string;
   endDate: string;
   overdraftLimit: number;
-  currency: Currency;
+  currency: CurrencyEnum;
   totalDebt: number;
   totalInterest: number;
   usedPrincipalAmount: number;
@@ -120,7 +121,7 @@ export type Asset = {
   amount: number;
   canCredit: boolean;
   canDebit: boolean;
-  currency: Currency;
+  currency: CurrencyEnum;
   depositId: number;
   depositName: string;
   depositNameEng: string;
@@ -158,7 +159,7 @@ export type LoanType = {
   creditIsOn: boolean;
   creditPeriodInMonths: number;
   creditStatus: CreditStatus;
-  currency: Currency;
+  currency: CurrencyEnum;
   defferdInterestAmount: number;
   defferdPrincipalAmount: number;
   endDate: string;
@@ -190,7 +191,7 @@ export type CreditCardType = {
   accountId: number;
   accountNumber: number;
   agreementNumber: string;
-  currency: Currency;
+  currency: CurrencyEnum;
   creditLimit: number;
   interestRate: number;
   creditStartDate: string;

@@ -19,6 +19,8 @@ import { TransferData, AccountData } from './TransferToAccountScreen.types';
 import { transactionTitles } from 'utils/transactionUtils';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
+import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
+
 export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { fromOtherBank, fromMobile, receiver } = params;
@@ -59,8 +61,16 @@ export const TransferToOtherBankAccountScreen = () => {
   }, [receiverInfo?.bankName, setOptions, receiverInfo?.bicCode]);
 
   const handleTextChange = (text: string) => {
-    dispatch(setSelectedPrice(text));
-    setIsButtonDisabled(!text || text.trim() === '');
+    const { isInvalidInput, processedText } = formatAndValidateText({
+      text: text,
+      decimalPlaces: 2,
+      inputRef: inputRef,
+    });
+
+    // Check for balance and update the button's disabled state
+
+    dispatch(setSelectedPrice(processedText));
+    setIsButtonDisabled(isInvalidInput);
   };
 
   useEffect(() => {

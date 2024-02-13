@@ -2,7 +2,11 @@ import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import {
   AuthorizationMethodsScreen,
+  AutomaticPaymentDetailsScreen,
+  AutomaticPaymentsScreen,
   CreatePasscodeScreen,
+  NewAutomaticPaymentDetailsScreen,
+  NewAutomaticPaymentScreen,
   NewPaymentScreen,
   PaymentDetailsScreen,
   PaymentSuccessScreen,
@@ -12,12 +16,17 @@ import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
 import {
   AUTHORIZATION_METHODS_SCREEN,
+  AUTOMATIC_PAYMENTS_SCREEN,
+  AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
   CHOOSE_MOBILE_PROVIDER_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
+  NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
+  NEW_AUTOMATIC_PAYMENT_SCREEN,
   NEW_PAYMENT_SCREEN,
   PAYMENT_DETAILS_SCREEN,
+  PAYMENT_ERROR_SCREEN,
   PAYMENT_SUCCESS_SCREEN,
   SETTINGS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
@@ -30,6 +39,7 @@ import { useTranslation } from 'react-i18next';
 import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen/ChoosePaymentProviderScreen';
 import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
 import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
+import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -115,12 +125,48 @@ export const ModalNavigator = () => {
         }}
       />
       <Screen
+        name={PAYMENT_ERROR_SCREEN}
+        component={PaymentErrorScreen}
+        options={{
+          title: '',
+          headerShadowVisible: true,
+          gestureEnabled: false,
+          headerShown: false,
+        }}
+      />
+      <Screen
         name={CHECK_PAYMENT_PROVIDER_SCREEN}
         component={CheckPaymentProviderScreen}
         options={{
           title: '',
           headerShadowVisible: true,
         }}
+      />
+      <Screen
+        name={AUTOMATIC_PAYMENTS_SCREEN}
+        component={AutomaticPaymentsScreen}
+        options={{
+          title: t('automaticPayments.title'),
+          headerStyle: { backgroundColor: Colors.white },
+        }}
+      />
+      <Screen
+        name={AUTOMATIC_PAYMENT_DETAILS_SCREEN}
+        component={AutomaticPaymentDetailsScreen}
+        options={{ title: t('automaticPayments.paymentDetails') }}
+      />
+      <Screen
+        name={NEW_AUTOMATIC_PAYMENT_SCREEN}
+        component={NewAutomaticPaymentScreen}
+        options={{
+          title: t('automaticPayments.newPayment'),
+          headerStyle: { backgroundColor: Colors.white },
+        }}
+      />
+      <Screen
+        name={NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN}
+        component={NewAutomaticPaymentDetailsScreen}
+        options={{ title: t('automaticPayments.paymentDetails') }}
       />
     </Navigator>
   );

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Alert, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { useStyles } from './ChoosePaymentsService.styles';
@@ -11,6 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import {
   CHOOSE_MOBILE_PROVIDER_SCREEN,
+  AUTOMATIC_PAYMENTS_SCREEN,
+  CHOOSE_PAYMENT_PROVIDER_SCREEN,
   MODAL_STACK,
   NEW_PAYMENT_SCREEN,
 } from 'navigation/ScreenNames';
@@ -19,6 +21,13 @@ export const ChoosePaymentsService = () => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+
+  const handleParkingAndFinesNavigation = useCallback(() => {
+    navigate(MODAL_STACK, {
+      screen: CHOOSE_PAYMENT_PROVIDER_SCREEN,
+      params: { isParkingAndFines: true },
+    });
+  }, [navigate]);
 
   const choosePaymentsList: Array<ChoosePaymentsListProps> = useMemo(
     () => [
@@ -38,16 +47,19 @@ export const ChoosePaymentsService = () => {
         id: '3',
         title: t('payments.automaticPayment'),
         icon: <AutomaticPayment />,
-        onPress: () => Alert.alert('ავტომატური გადახდები'),
+        onPress: () =>
+          navigate(MODAL_STACK, {
+            screen: AUTOMATIC_PAYMENTS_SCREEN,
+          }),
       },
       {
         id: '4',
         title: t('payments.parkingAndFines'),
         icon: <ParkingAndFines strokeWidth={1.8} />,
-        onPress: () => Alert.alert('პარკირება და ჯარიმები'),
+        onPress: handleParkingAndFinesNavigation,
       },
     ],
-    [navigate, t],
+    [handleParkingAndFinesNavigation, navigate, t],
   );
 
   const renderPaymentItem = useCallback(

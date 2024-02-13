@@ -14,6 +14,7 @@ export const SubscriberInfo: React.FC<SubscriberInfoProps> = ({
   feeRules,
   subscriberInputFieldsValue,
   setSubscriberInputFieldsValue,
+  isAutomaticPayment,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -66,6 +67,9 @@ export const SubscriberInfo: React.FC<SubscriberInfoProps> = ({
    * @returns {JSX.Element[]} An array of JSX elements representing TextInput components.
    */
   const renderInputs = useCallback(() => {
+    if (isAutomaticPayment) {
+      return null;
+    }
     return combinedServiceFields.map((item, index) => {
       const isRenderable = item?.required && item?.visible;
 
@@ -74,14 +78,14 @@ export const SubscriberInfo: React.FC<SubscriberInfoProps> = ({
           <TextInput
             key={item.id + index.toString()}
             label={item?.name}
-            value={subscriberInputFieldsValue.find(field => field.id === item.id)?.value || ''}
+            value={subscriberInputFieldsValue?.find(field => field.id === item.id)?.value || ''}
             onChangeText={(text: string) => {
               /**
                * Update the subscriberFieldsValue state with the new text for the specified id.
                *
                * @param {string} text - The new text value for the input field.
                */
-              setSubscriberInputFieldsValue(prev => {
+              setSubscriberInputFieldsValue?.(prev => {
                 const updatedFields = [...prev];
                 const fieldIndex = updatedFields.findIndex(field => field.id === item.id);
 
@@ -102,19 +106,28 @@ export const SubscriberInfo: React.FC<SubscriberInfoProps> = ({
       }
       return null;
     });
-  }, [combinedServiceFields, setSubscriberInputFieldsValue, subscriberInputFieldsValue]);
+  }, [
+    combinedServiceFields,
+    setSubscriberInputFieldsValue,
+    subscriberInputFieldsValue,
+    isAutomaticPayment,
+  ]);
 
   const getFeeValue = () => {
-    const sum = sumForSubscriberFieldsValue(subscriberInputFieldsValue);
-    return getFee(Number(sum), feeRules).toString();
+    if (subscriberInputFieldsValue) {
+      const sum = sumForSubscriberFieldsValue(subscriberInputFieldsValue);
+      return getFee(Number(sum), feeRules).toString();
+    }
   };
 
   return (
     <View>
-      {renderInputs()}
+      {!isAutomaticPayment && renderInputs()}
       <View style={styles.wrapper}>
         {renderContent()}
-        <SubscriberInfoItem name={t('checkPaymentProvider.commission')} value={getFeeValue()} />
+        {!isAutomaticPayment && (
+          <SubscriberInfoItem name={t('checkPaymentProvider.commission')} value={getFeeValue()} />
+        )}
       </View>
     </View>
   );

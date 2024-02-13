@@ -8,7 +8,6 @@ import { MyBalanceProps } from './MyBalance.types';
 import { ChooseBankAccountModal } from 'components/modals';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { formatMoney } from 'utils/formatMoney';
-import { getCurrencyIcon } from 'utils/currency';
 
 export const MyBalance: React.FC<MyBalanceProps> = ({ selectedAccount, selectAccountOnPress }) => {
   const styles = useStyles();
@@ -39,9 +38,7 @@ export const MyBalance: React.FC<MyBalanceProps> = ({ selectedAccount, selectAcc
             <Text style={styles.title}>{t('checkPaymentProvider.myFinancial')}</Text>
             <Text style={styles.desc}>
               {selectedAccount
-                ? `${formatMoney(selectedAccount?.availableBalance)} ${getCurrencyIcon(
-                    selectedAccount?.ccy,
-                  )}`
+                ? formatMoney(selectedAccount?.availableBalance, selectedAccount?.ccy)
                 : t('checkPaymentProvider.chooseAccount')}
             </Text>
           </View>

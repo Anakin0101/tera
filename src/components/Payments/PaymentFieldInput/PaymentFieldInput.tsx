@@ -1,6 +1,6 @@
 import React from 'react';
 import { ServiceFieldTypeEnum } from 'services/apis/paymentsAPI/paymentEnums';
-import { TextInput } from 'components/TextInput/TextInput';
+import { ControlledInput, TextInput } from 'components';
 import { PaymentFieldInputProps } from './PaymentFieldInput.types';
 import { PaymentDropDownFieldInput } from './PaymentDropDownFieldInput';
 
@@ -20,17 +20,28 @@ export const PaymentFieldInput: React.FC<PaymentFieldInputProps> = ({
   item,
   value,
   onChangeText,
+  control,
+  errors,
 }) => {
   switch (item.fieldType) {
     case ServiceFieldTypeEnum.Text:
       return (
-        <TextInput
+        <ControlledInput
+          control={control}
+          name={item.key}
           label={item.name}
-          value={value}
-          onChangeText={text => {
-            onChangeText(item.id, text);
-          }}
           marginTop={24}
+          errors={errors}
+          required={true}
+          rules={{
+            required: {
+              value: item.required,
+              message: 'common:form.is_required',
+            },
+          }}
+          handleChange={text => {
+            text && onChangeText(item.id, text);
+          }}
         />
       );
     case ServiceFieldTypeEnum.Date:

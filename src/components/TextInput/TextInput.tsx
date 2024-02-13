@@ -168,6 +168,7 @@ export const ControlledInput = <T extends FieldValues>({
   setSelectedRadio?: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const showErrorUI = !!errors?.[name];
+
   return (
     <>
       <Controller
@@ -205,7 +206,10 @@ export const ControlledInput = <T extends FieldValues>({
           return (
             <TextInput
               value={value}
-              onChangeText={onChange}
+              onChangeText={text => {
+                onChange(text);
+                handleChange?.(text);
+              }}
               label={label}
               showErrorUI={showErrorUI}
               {...props}

@@ -46,5 +46,9 @@ export const useStyles = () => {
       padding: Spacing.m,
       marginTop: 15,
     },
+    bottomStretchStyle: {
+      flexGrow: 1,
+      justifyContent: 'flex-end',
+    },
   });
 };

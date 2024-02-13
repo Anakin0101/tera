@@ -17,6 +17,8 @@ export const DetailsItem: FC<DetailsItemProps> = ({
   translateProp,
   marginTop,
   underline,
+  labelStyle,
+  valueStyle,
 }) => {
   const styles = useStyles();
   const blockedFundsSection = Array.isArray(value);
@@ -30,7 +32,12 @@ export const DetailsItem: FC<DetailsItemProps> = ({
     >
       <View style={styles.detailsWrapper}>
         <View>
-          <Text children={label} color={Colors.textBlack500} />
+          <Text
+            children={label}
+            color={Colors.textBlack500}
+            style={labelStyle}
+            letterSpacing={-0.28}
+          />
           {card && <Text children={card} />}
           {blockedFundsSection ? (
             <View style={styles.blockedAmountsContainer}>
@@ -42,7 +49,12 @@ export const DetailsItem: FC<DetailsItemProps> = ({
               ))}
             </View>
           ) : (
-            <Text children={value} translateProp={translateProp} />
+            <Text
+              children={value}
+              translateProp={translateProp}
+              style={valueStyle}
+              letterSpacing={-0.32}
+            />
           )}
           {iban && <Text children={iban} />}
         </View>

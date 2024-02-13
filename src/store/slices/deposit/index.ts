@@ -6,11 +6,12 @@ import {
   NewDepositStateProps,
   OfferDetailsPayload,
 } from './types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const initialState: NewDepositStateProps = {
   depositType: '',
   initialAmount: 0,
-  currency: 'GEL',
+  currency: CurrencyEnum.GEL,
   duration: 0,
   interestRate: 0,
   specialInterestRate: 0,
