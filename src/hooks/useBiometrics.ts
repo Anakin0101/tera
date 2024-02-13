@@ -72,9 +72,9 @@ export const useBiometrics = () => {
 
     if (available && biometryType) {
       const promptMessageMap = {
-        [BiometryTypes.Biometrics]: 'Please press your fingerprint for biometric authorization',
-        [BiometryTypes.TouchID]: 'Please press your fingerprint for biometric authorization',
-        [BiometryTypes.FaceID]: 'Please simply glance at the screen to activate Face ID',
+        [BiometryTypes.Biometrics]: 'Authorize with biometric information',
+        [BiometryTypes.TouchID]: 'Authorize with biometric information',
+        [BiometryTypes.FaceID]: 'Authorize with biometric information',
       };
 
       return {

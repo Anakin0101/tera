@@ -10,12 +10,20 @@ import {
   DebtVerifyRequestBody,
   PayResponse,
   PayRequestBody,
+  AutoPayments,
+  AutomPaymentRes,
+  AutoPaymentDetails,
+  AutoPaymentDetailsRes,
+  AutoPaymentDetailsReq,
+  AutoPaymentReq,
+  AutoPaymentCancelReq,
+  AddAutoPaymentRes,
 } from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
   reducerPath: 'paymentsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Payments'],
+  tagTypes: ['Payments', 'AutoPayments'],
   endpoints: builder => ({
     getPaymentServices: builder.query<GetPaymentsServiceResponse, GetPaymentsServiceParams>({
       query: ({ isAdult }) => ({
@@ -46,6 +54,38 @@ export const paymentsAPI = createApi({
         body,
       }),
     }),
+    getAutoPayments: builder.query<AutomPaymentRes[], AutoPayments>({
+      query: params => ({
+        url: URLS.getAutomPayments,
+        params,
+      }),
+      providesTags: ['AutoPayments'],
+    }),
+    getAutoPaymentDetails: builder.mutation<AutoPaymentDetails, AutoPaymentDetailsReq>({
+      query: body => ({
+        url: URLS.getAutomPaymentDetails,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: AutoPaymentDetailsRes) => response.autoPayment,
+    }),
+    addAutomaticPayment: builder.mutation<AddAutoPaymentRes, AutoPaymentReq>({
+      query: ({ headers, ...body }) => ({
+        url: URLS.addAutoPayment,
+        method: METHOD_NAMES.POST,
+        body,
+        headers,
+      }),
+      invalidatesTags: ['AutoPayments'],
+    }),
+    cancelAutoPayment: builder.mutation<Partial<AddAutoPaymentRes>, AutoPaymentCancelReq>({
+      query: body => ({
+        url: URLS.cancelAutoPayment,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['AutoPayments'],
+    }),
   }),
 });
 
@@ -54,4 +94,8 @@ export const {
   useGetDebtVerifyBasketMutation,
   useDebtVerifyResultsMutation,
   usePayServiceMutation,
+  useGetAutoPaymentsQuery,
+  useGetAutoPaymentDetailsMutation,
+  useAddAutomaticPaymentMutation,
+  useCancelAutoPaymentMutation,
 } = paymentsAPI;

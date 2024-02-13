@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { OpUnitType } from 'dayjs';
 import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
@@ -122,4 +122,33 @@ export const getAllDatesBetween = (startDate: string, endDate: string) => {
 
 export const getDate = (dateString: string, template = YYYY_MM_DD) => {
   return dayjs(dateString, template).date();
+};
+
+export const getCurrentDate = (template = YYYY_MM_DD) => {
+  return dayjs().format(template);
+};
+
+export const calcFutureDate = (dateString: string, days: number, template = YYYY_MM_DD) => {
+  return dayjs(dateString).add(days, 'day').format(template);
+};
+
+export const getDiff = (start: string, end: string, unit: OpUnitType = 'd') => {
+  const startDate = dayjs(start, YYYY_MM_DD);
+  const endDate = dayjs(end, YYYY_MM_DD);
+
+  return endDate.diff(startDate, unit);
+};
+
+export const isBefore = (start: string, end: string, template = YYYY_MM_DD) => {
+  const formatedStart = dayjs(start, template);
+  const formatedEnd = dayjs(end, template);
+  return formatedEnd.isBefore(formatedStart);
+};
+
+export const getFormattedDateFromISO = (dateString?: string, template = DD_MM_YYYY) => {
+  if (!dateString) {
+    return;
+  }
+  const date = dateString?.split('T')[0];
+  return dayjs(date).format(template);
 };

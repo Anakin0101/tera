@@ -1,15 +1,11 @@
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { useGetPaymentServicesQuery } from 'services/apis/paymentsAPI/paymentsAPI';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useGetPaymentServicesQuery } from 'services/apis';
 
 export const useNewPayment = () => {
   const { isAdult = false } = useAppSelector(state => state.profile?.userProfileInfo) || {};
 
-  const { data, isLoading, refetch, isFetching } = useGetPaymentServicesQuery({ isAdult });
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  const { data, isLoading, isFetching } = useGetPaymentServicesQuery({ isAdult });
 
   const sortedProvidersGroups = useMemo(() => {
     let newArray = data?.providersGroups || [];
@@ -20,8 +16,13 @@ export const useNewPayment = () => {
     }
   }, [data?.providersGroups]);
 
+  const parkingAndFinesProviderItem = useMemo(() => {
+    return sortedProvidersGroups.filter(item => item.id === 13)?.[0];
+  }, [sortedProvidersGroups]);
+
   return {
     providersGroups: sortedProvidersGroups,
     isLoading: isLoading || isFetching,
+    parkingAndFinesProviderItem,
   };
 };

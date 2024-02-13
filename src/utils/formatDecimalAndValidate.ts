@@ -17,6 +17,9 @@ export const formatAndValidateText = ({
 
   if (parts.length > 1) {
     processedText = parts[0] + '.' + parts.slice(1).join('').substring(0, decimalPlaces);
+  } else {
+    // New validation: Prevent digits from being added after a standalone zero in the integer part
+    processedText = parts[0].replace(/^0\d+/, '0');
   }
 
   if (inputRef?.current) {

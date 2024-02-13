@@ -13,3 +13,4 @@ export { CreateCodeModal } from './CreateCodeModal/CreateCodeModal';
 export { ChooseBankAccountModal } from './ChooseBankAccountModal/ChooseBankAccountModal';
 export { SelectPaymentFieldModal } from './SelectPaymentFieldModal/SelectPaymentFieldModal';
 export { CodeWordModal } from './CodeWordModal/CodeWordModal';
+export { AutomaticPaymentDateModal } from './AutomaticPaymentDateModal/AutomaticPaymentDateModal';

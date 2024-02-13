@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
   Button,
@@ -23,14 +22,24 @@ import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { DebtVerifyBasketResponse } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { MODAL_STACK, PAYMENT_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
+import { useKeyboard } from 'utils/useKeyboard';
+import { useForm } from 'react-hook-form';
 
 export const CheckPaymentProviderScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'CheckPaymentProviderScreen'>>();
-  const { providerItem } = params || {};
+  const { providerItem, isAutomaticPayment } = params || {};
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const { isKeyboardOpened } = useKeyboard();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const savedLanguage = getValue(SELECTED_LANGUAGE);
 
@@ -40,9 +49,10 @@ export const CheckPaymentProviderScreen = () => {
     getDebtVerifyResultsHandler,
     debtVerifyResults,
     isDebtVerifyLoading,
-  } = useCheckProviderInfo(providerItem?.id);
+    subscriberFieldsValue,
+    setSubscriberFieldsValue,
+  } = useCheckProviderInfo(providerItem);
 
-  const [subscriberFieldsValue, setSubscriberFieldsValue] = useState<SubscriberFieldsValue>([]);
   const [subscriberInputFieldsValue, setSubscriberInputFieldsValue] =
     useState<SubscriberFieldsValue>([]);
   const [selectedAccount, setSelectedAccount] = useState<Account>();
@@ -92,7 +102,7 @@ export const CheckPaymentProviderScreen = () => {
       // Set the state with the new array of subscriber fields
       setSubscriberFieldsValue(newSubscriberFieldsValue);
     }
-  }, [debtVerifyBasketInfo]);
+  }, [debtVerifyBasketInfo, setSubscriberFieldsValue]);
 
   /**
    * Render the correct input fields based on the items in debtVerifyBasketInfo.
@@ -122,9 +132,11 @@ export const CheckPaymentProviderScreen = () => {
           });
           setSubscriberInputFieldsValue([]);
         }}
+        control={control}
+        errors={errors}
       />
     ));
-  }, [debtVerifyBasketInfo, subscriberFieldsValue]);
+  }, [control, debtVerifyBasketInfo, errors, subscriberFieldsValue, setSubscriberFieldsValue]);
 
   const checkSubscriberInfo = useCallback(() => {
     /**
@@ -155,7 +167,7 @@ export const CheckPaymentProviderScreen = () => {
          * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
          */
 
-        getDebtVerifyResultsHandler(subscriberFieldsValue);
+        getDebtVerifyResultsHandler(subscriberFieldsValue, isAutomaticPayment);
       }
     }
   }, [
@@ -165,30 +177,43 @@ export const CheckPaymentProviderScreen = () => {
     selectedAccount,
     navigate,
     providerItem,
-    getDebtVerifyResultsHandler,
     debtVerifyBasketInfo,
+    getDebtVerifyResultsHandler,
+    isAutomaticPayment,
   ]);
 
   const selectAccountOnPress = useCallback((account: Account) => {
     setSelectedAccount(account);
   }, []);
 
+  const onSubmit = () => {
+    checkSubscriberInfo();
+  };
+
   if (isLoading) {
     return <LoadingView />;
   }
 
   return (
-    <KeyboardAwareScrollView
-      keyboardShouldPersistTaps="handled"
-      contentInsetAdjustmentBehavior="automatic"
-      extraScrollHeight={80}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container}
-    >
-      <View style={styles.wrapper}>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingScrollView
+        scrollEnabled={isKeyboardOpened}
+        containerStyle={styles.container}
+        contentContainerStyle={styles.wrapper}
+        stickyFooter={
+          <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
+            <Button.Primary
+              text="common.next"
+              onPress={handleSubmit(onSubmit)}
+              fullWidth
+              isLoading={isLoading || isDebtVerifyLoading}
+            />
+          </View>
+        }
+      >
         <Text style={styles.headerTitle}>{t('checkPaymentProvider.title')}</Text>
         {renderCorrectInput()}
-        {!!debtVerifyResults?.length && (
+        {!isAutomaticPayment && !!debtVerifyResults?.length && (
           <SubscriberInfo
             debtVerifyResults={debtVerifyResults}
             subscriberInputFieldsValue={subscriberInputFieldsValue}
@@ -196,18 +221,13 @@ export const CheckPaymentProviderScreen = () => {
             feeRules={providerItem?.feeRules || []}
           />
         )}
-      </View>
-      {!!debtVerifyResults?.length && (
-        <MyBalance selectedAccount={selectedAccount} selectAccountOnPress={selectAccountOnPress} />
-      )}
-      <View style={styles.nextButtonWrapper}>
-        <Button.Primary
-          text="common.next"
-          fullWidth
-          onPress={checkSubscriberInfo}
-          isLoading={isLoading || isDebtVerifyLoading}
-        />
-      </View>
-    </KeyboardAwareScrollView>
+        {!isAutomaticPayment && !!debtVerifyResults?.length && (
+          <MyBalance
+            selectedAccount={selectedAccount}
+            selectAccountOnPress={selectAccountOnPress}
+          />
+        )}
+      </KeyboardAvoidingScrollView>
+    </SafeAreaView>
   );
 };

@@ -19,8 +19,10 @@ import { TransferData, AccountData } from './TransferToAccountScreen.types';
 import { transactionTitles } from 'utils/transactionUtils';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
+import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
+
 export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { fromOtherBank, fromMobile, receiver } = params;
@@ -61,8 +63,16 @@ export const TransferToOtherBankAccountScreen = () => {
   }, [receiverInfo?.bankName, setOptions, receiverInfo?.bicCode]);
 
   const handleTextChange = (text: string) => {
-    dispatch(setSelectedPrice(text));
-    setIsButtonDisabled(!text || text.trim() === '');
+    const { isInvalidInput, processedText } = formatAndValidateText({
+      text: text,
+      decimalPlaces: 2,
+      inputRef: inputRef,
+    });
+
+    // Check for balance and update the button's disabled state
+
+    dispatch(setSelectedPrice(processedText));
+    setIsButtonDisabled(isInvalidInput);
   };
 
   useEffect(() => {
@@ -148,6 +158,10 @@ export const TransferToOtherBankAccountScreen = () => {
         });
 
         if (transferToSomeoneResult && 'data' in transferToSomeoneResult) {
+          if (accountFromData?.availableBalance < selectedPrice) {
+            openToast(`${t('transfers.balanceAvailable')}`, 'error');
+            return;
+          }
           dispatch(setOtpData(transferToSomeoneResult.data));
 
           navigate(TRANSFER_DETAIL_SCREEN, {
@@ -197,6 +211,7 @@ export const TransferToOtherBankAccountScreen = () => {
         accountFromData={accountFromData}
         accountToData={accountToData}
         receiver={receiver}
+        fromOtherBanks
       />
       <View style={styles.buttonView}>
         <Button.Primary

@@ -7,10 +7,13 @@ import {
 } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { PayRequestBody, PaymentFieldValue } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { openToast } from 'utils/toast';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
+import { PAYMENT_ERROR_SCREEN } from 'navigation/ScreenNames';
 
 export const usePayService = () => {
   const savedLanguage = getValue(SELECTED_LANGUAGE);
-
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const [getPaymentServices, { isLoading }] = usePayServiceMutation();
 
   const payService = async (
@@ -54,6 +57,7 @@ export const usePayService = () => {
       return response;
     } catch (err) {
       console.warn('error=> payService >>>', err);
+      navigate(PAYMENT_ERROR_SCREEN);
       return err;
     }
   };

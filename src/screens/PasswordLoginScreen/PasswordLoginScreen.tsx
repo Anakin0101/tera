@@ -71,7 +71,6 @@ const PasswordLoginScreenBase = () => {
           label="common:passAuth.username"
           marginTop={30}
           errors={errors}
-          required
           rules={{
             required: {
               value: true,
@@ -86,7 +85,6 @@ const PasswordLoginScreenBase = () => {
           marginTop={5}
           secureTextEntry
           errors={errors}
-          required
           rules={{
             required: {
               value: true,

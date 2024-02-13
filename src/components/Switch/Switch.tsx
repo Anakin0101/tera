@@ -1,13 +1,13 @@
 import useTheme from 'hooks/useTheme';
 import React, { forwardRef } from 'react';
 import { Switch, SwitchProps, View } from 'react-native';
+import { styles } from './Switch.styles';
 
 export const SwitchComponent = forwardRef<Switch, SwitchProps>((props, ref) => {
   const { Colors } = useTheme();
-  const scale = 0.6;
 
   return (
-    <View style={{ transform: [{ scaleX: scale }, { scaleY: scale }] }}>
+    <View style={styles.container}>
       <Switch
         {...props}
         ref={ref}

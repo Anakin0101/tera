@@ -160,3 +160,97 @@ export interface PaymentResult {
   saveIntoBasketSuccessed: boolean;
   saveIntoBasketError: any;
 }
+
+export interface AutoPayment {
+  userId: number;
+  culture: string;
+  name: string;
+  serviceId: number;
+  type: number;
+  fixedAmount: number | null;
+  maxAmount: number | null;
+  payDay: number;
+  startDate: string;
+  endDate: string;
+  debtVerifyFieldValues: PaymentFieldValue[];
+  accountId: number;
+  getAuthMethod: boolean;
+  sendOtp: boolean;
+  otp: string;
+  appHash: string;
+  headers: Record<string, string>;
+}
+
+export type AutoPaymentReq = Partial<AutoPayment>;
+
+export interface AutoPayments {
+  culture: string;
+}
+
+export interface AutomPaymentRes {
+  account: number;
+  altaClientId: number;
+  autoPaymentTypeEnum: number;
+  cardAccount: number;
+  customerNumber: string;
+  endDate: string;
+  fixedAmount: number;
+  id: number;
+  largeImageId: string;
+  lastPayAmount: number;
+  lastPayDate: string;
+  maxAmount: number;
+  name: string;
+  payDay: number;
+  serviceId: number;
+  smallImageId: string;
+  startDate: string;
+}
+
+export interface AutoPaymentDetailsReq {
+  culture: string;
+  id: number;
+}
+
+export interface AutoPaymentDetailsRes {
+  autoPayment: any;
+}
+
+export interface AutoPaymentDetails {
+  account: number;
+  customerNumber: string;
+  debtVerifyFields: Array<ServiceField>;
+  debtVerifyResponse: DebtVerifyInfoResponse;
+  endDate: string;
+  fixedAmount: number;
+  id: number;
+  lastPayAmount: number;
+  lastPayDate: string;
+  maxAmount: number;
+  name: string;
+  nextPayDate: string;
+  payDay: number;
+  serviceId: number;
+  startDate: string;
+  type: number;
+}
+
+export interface AutoPaymentCancelPayload {
+  culture: string;
+  autoPaymentId: number;
+  getAuthMethod: boolean;
+  sendOtp: boolean;
+  otp: string;
+}
+
+export type AutoPaymentCancelReq = Partial<AutoPaymentCancelPayload>;
+
+export interface AddAutoPaymentRes {
+  autoPaymentFee: number;
+  autoPaymentTariffFee: number;
+  channelData: any;
+  error: any;
+  otpRequired: boolean;
+  pending: boolean;
+  success: boolean;
+}

@@ -17,6 +17,8 @@ import { useRoute } from '@react-navigation/native';
 import { useTransferDetails } from 'screens/TransferDetailScreen/container';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
+import { openToast } from 'utils/toast';
+import { useTranslation } from 'react-i18next';
 
 interface AccountData {
   accountId: any;
@@ -30,6 +32,8 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const { handleTransferInfo } = useTransferDetails(false);
+  const { t } = useTranslation();
+
   const { accountFromData, accountToData, selectedData, selectedPrice } = useAppSelector(
     state => state.transfers,
   ) as unknown as {
@@ -110,7 +114,10 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
         receiverBankCode: null,
       });
     }
-
+    if (accountFromData?.availableBalance < selectedPrice) {
+      openToast(`${t('transfers.balanceAvailable')}`, 'error');
+      return;
+    }
     navigate(TRANSFER_DETAIL_SCREEN, {
       convertion: convertionValue,
       fromOtherBank: fromOtherBank,

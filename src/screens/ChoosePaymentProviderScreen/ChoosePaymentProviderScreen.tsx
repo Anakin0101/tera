@@ -3,21 +3,27 @@ import { FlatList, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { ChooseProviderItem, SearchComponent, Text } from 'components/index';
+import { ChooseProviderItem, LoadingView, SearchComponent, Text } from 'components/index';
 import { useStyles } from './ChoosePaymentProviderScreen.style';
 import { Provider } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { MainStackRouteProps } from 'navigation/types';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { getValue } from 'storage/index';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import { useNewPayment } from 'screens/NewPaymentScreen/container';
 
 export const ChoosePaymentProviderScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'ChoosePaymentProviderScreen'>>();
-  const { providerInfo } = params || {};
+  let { providerInfo, isAutomaticPayment, isParkingAndFines } = params || {};
   const savedLanguage = getValue(SELECTED_LANGUAGE);
+  const { isLoading, parkingAndFinesProviderItem } = useNewPayment();
+
+  if (isParkingAndFines) {
+    providerInfo = parkingAndFinesProviderItem;
+  }
 
   const [searchText, setSearchText] = useState<string>('');
 
@@ -45,7 +51,13 @@ export const ChoosePaymentProviderScreen = () => {
   // local search
   const providersList = useMemo(() => {
     // Initialize providerList with the list of providers from providerInfo or an empty array
-    let providerList = providerInfo?.providers || [];
+    let providerList: Provider[];
+    if (isAutomaticPayment) {
+      providerList = providerInfo?.providers?.filter(item => item.directDebitType !== 3) || [];
+    } else {
+      providerList = providerList = providerInfo?.providers || [];
+    }
+
     try {
       // Check if searchText is provided and the selected language is 'geo'
       if (searchText && savedLanguage === LanguageKeys.geo) {
@@ -64,13 +76,19 @@ export const ChoosePaymentProviderScreen = () => {
     }
     // Return the filtered providerList
     return providerList;
-  }, [providerInfo?.providers, savedLanguage, searchText]);
+  }, [isAutomaticPayment, providerInfo?.providers, savedLanguage, searchText]);
 
   const renderItem = useCallback(
     ({ item, index }: { item: Provider; index: number }) => {
-      return <ChooseProviderItem isLast={index === providersList?.length - 1} item={item} />;
+      return (
+        <ChooseProviderItem
+          isLast={index === providersList?.length - 1}
+          item={item}
+          isAutomaticPayment={isAutomaticPayment}
+        />
+      );
     },
-    [providersList?.length],
+    [isAutomaticPayment, providersList?.length],
   );
 
   const renderHeader = useCallback(() => {
@@ -80,6 +98,10 @@ export const ChoosePaymentProviderScreen = () => {
       </View>
     );
   }, [styles.headerTitle, t]);
+
+  if (isLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <View style={styles.container}>

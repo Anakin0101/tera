@@ -167,12 +167,13 @@ export const TransferDetailScreen = () => {
   const handleButtonPress = async () => {
     if (params?.convertion && !params?.fromOtherBank) {
       try {
-        const transferConvertion: TransferToOwnAccountResponseType = await handleExchangeAmount({
-          debitAmount: convertionData?.buyAmount.amountBuy,
-          creditAmount: convertionData?.buyAmount.amountSell,
-          creditAccountId: accountToData?.accountId,
-          debitAccountId: accountFromData?.accountId,
-        });
+        const transferConvertion: TransferToOwnAccountResponseType | undefined =
+          await handleExchangeAmount({
+            debitAmount: convertionData?.buyAmount.amountBuy,
+            creditAmount: convertionData?.buyAmount.amountSell,
+            creditAccountId: accountToData?.accountId,
+            debitAccountId: accountFromData?.accountId,
+          });
 
         dispatch(
           setTransferType({
@@ -210,11 +211,12 @@ export const TransferDetailScreen = () => {
       }
     } else {
       try {
-        const transferResult: TransferToOwnAccountResponseType = await handleTransferToOwnAccount({
-          amount: selectedItemFromStore.selectedPrice,
-          creditAccountId: accountToData?.accountId,
-          debitAccountId: accountFromData?.accountId,
-        });
+        const transferResult: TransferToOwnAccountResponseType | undefined =
+          await handleTransferToOwnAccount({
+            amount: selectedItemFromStore.selectedPrice,
+            creditAccountId: accountToData?.accountId,
+            debitAccountId: accountFromData?.accountId,
+          });
         dispatch(
           setTransferType({
             type: TransferTemplateTypeEnum.ToOwnAccount,

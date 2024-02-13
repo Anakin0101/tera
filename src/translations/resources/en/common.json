@@ -162,7 +162,8 @@
     "standardCourse": "standard course",
     "specificCourse": "your course",
     "transfer": "transfer",
-    "personalTransfer": "Personal transfer"
+    "personalTransfer": "Personal transfer",
+    "balanceAvailable": "Not enough funds on the account"
   },
   "products": {
     "accountsAndCards": "Accounts and Cards ({{value}})",
@@ -365,7 +366,10 @@
     "do_not_have": "I don't have ",
     "accept": "I accept to ",
     "terms_and_conditions": "terms and conditions",
-    "login": "Log in"
+    "login": "Log in",
+    "choose": "Choose",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "form": {
     "is_required": "is required",
@@ -619,6 +623,39 @@
     "successful_registration_title": "Registration completed successfully",
     "successful_registration_description": "Click on the button 'Login' and authorize",
     "enter_code_word": "Enter code word"
+  },
+  "automaticPayments": {
+    "title": "Automatic Payments",
+    "addPayment": "Add Payment",
+    "empty": "You have no automatic\npayments added",
+    "paymentDetails": "Payment Details",
+    "enterSubscriberInfo": "Enter subscriber information",
+    "subscriberNumber": "Subscriber number",
+    "paymentMethod": "Payment method",
+    "amount": "Amount",
+    "maxAmount": "Maximum amount",
+    "alert": "The system will try to pay within 3 days",
+    "alert_two": "Within 10 days of payment, the debt will no longer be available to the system",
+    "taskName": "Name of the task",
+    "startDate": "Start date",
+    "activeAllTime": "Active all the time",
+    "endDate": "Completion date",
+    "paymentDate": "Payment date",
+    "selectPaymentMethod": "Choose a payment method",
+    "selectStartDate": "Choose a start date",
+    "selectEndDate": "Choose an end date",
+    "selectPaymentDate": "Choose a payment date",
+    "fixedAmount": "Fixed amount",
+    "byDebt": "According to the debt",
+    "fixedDateByDebt": "In a fixed date",
+    "details": "Details",
+    "commission": "Commission",
+    "from": "From",
+    "pay": "Pay",
+    "paymentSchedule": "Payment schedule",
+    "lastPaymentDate": "Last payment date",
+    "amountTypeWarning": "The amount you entered is not valid. Please input a numeric value",
+    "newPayment": "New payment"
   },
   "passwordRecovery": {
     "choose_password_recovery_method": "Choose a password recovery method",

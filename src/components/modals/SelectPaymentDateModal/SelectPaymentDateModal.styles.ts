@@ -8,5 +8,8 @@ export const useStyles = () => {
       marginVertical: Spacing.ml,
       paddingVertical: 14,
     },
+    disabled: {
+      opacity: 0.5,
+    },
   });
 };
