@@ -57,7 +57,6 @@ const PasswordOnlyLoginScreenBase = () => {
         marginTop={5}
         secureTextEntry
         errors={errors}
-        required
         rules={{
           required: {
             value: true,

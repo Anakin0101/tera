@@ -49,7 +49,7 @@ export const useTransferDetails = (useP2pMutation: boolean = false) => {
       return response;
     } catch (error) {
       console.warn('Exchange Amount Error:', error);
-      throw error;
+      return;
     }
   };
 
@@ -60,7 +60,7 @@ export const useTransferDetails = (useP2pMutation: boolean = false) => {
       return response;
     } catch (error) {
       console.warn('Transfer to Own Account Error:', error);
-      throw error;
+      return;
     }
   };
 
@@ -71,7 +71,7 @@ export const useTransferDetails = (useP2pMutation: boolean = false) => {
       return response;
     } catch (error) {
       console.warn('Transfer to Someone Account Error:', error);
-      throw error;
+      return;
     }
   };
 

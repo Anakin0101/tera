@@ -3,21 +3,27 @@ import { FlatList, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { ChooseProviderItem, SearchComponent, Text } from 'components/index';
+import { ChooseProviderItem, LoadingView, SearchComponent, Text } from 'components/index';
 import { useStyles } from './ChoosePaymentProviderScreen.style';
 import { Provider } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { MainStackRouteProps } from 'navigation/types';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { getValue } from 'storage/index';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import { useNewPayment } from 'screens/NewPaymentScreen/container';
 
 export const ChoosePaymentProviderScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'ChoosePaymentProviderScreen'>>();
-  const { providerInfo, isAutomaticPayment } = params || {};
+  let { providerInfo, isAutomaticPayment, isParkingAndFines } = params || {};
   const savedLanguage = getValue(SELECTED_LANGUAGE);
+  const { isLoading, parkingAndFinesProviderItem } = useNewPayment();
+
+  if (isParkingAndFines) {
+    providerInfo = parkingAndFinesProviderItem;
+  }
 
   const [searchText, setSearchText] = useState<string>('');
 
@@ -92,6 +98,10 @@ export const ChoosePaymentProviderScreen = () => {
       </View>
     );
   }, [styles.headerTitle, t]);
+
+  if (isLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <View style={styles.container}>
