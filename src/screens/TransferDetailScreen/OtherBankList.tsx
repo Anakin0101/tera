@@ -5,6 +5,7 @@ import { maskIban } from 'utils/maskIban';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen.types';
 import { SelectedItemProp } from './TransferDetailScreen.types';
+import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
 
 export const OtherBankList = ({
   selectedItemFromStore,
@@ -42,8 +43,11 @@ export const OtherBankList = ({
             accountFromData.accountIban,
           )}
           {renderDetailsItem('transfers.where', `${receiver ? receiver : accountToData.name} `)}
-          {renderDetailsItem('personalNumber.Receiver', `${accountToData.iban}`)}
-          {renderDetailsItem('transactionDetails.amount', `${selectedPrice} ₾`)}
+          {renderDetailsItem('transactionDetails.receiverIban', `${accountToData.iban}`)}
+          {renderDetailsItem(
+            'transactionDetails.amount',
+            `${formatToTwoDecimalPlaces(selectedPrice)} ₾`,
+          )}
           {renderDetailsItem(
             'transfers.destination',
             selectedData ? selectedData : selectedOtherBankDataTitle,
