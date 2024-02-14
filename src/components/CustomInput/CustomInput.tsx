@@ -34,6 +34,7 @@ export const CustomTextInput = ({
       selectionColor="rgba(159, 29, 107, 1)"
       textAlign="right"
       placeholderTextColor="#000"
+      maxFontSizeMultiplier={1}
     />
   );
 };

@@ -94,6 +94,7 @@ export const TextInput = forwardRef<TextInputRefType, TextInputProps & { showErr
         <View style={styles.wrapper}>
           <RNTextInput
             ref={inputRef}
+            maxFontSizeMultiplier={1}
             value={value}
             hitSlop={HIT_SLOP}
             editable={editable}

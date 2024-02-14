@@ -110,6 +110,7 @@ export const ToAccountScreen = () => {
           onChangeText={setValue}
           style={styles.input}
           placeholder={t('transfers.search')}
+          maxFontSizeMultiplier={1}
         />
       </View>
 

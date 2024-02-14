@@ -64,6 +64,7 @@ export const NewDepositInitialAmountScreen = () => {
             autoComplete="off"
             placeholder="00.00"
             placeholderTextColor={Colors.inputBlack50}
+            maxFontSizeMultiplier={1}
           />
           <Text
             label

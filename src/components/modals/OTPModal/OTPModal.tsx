@@ -75,6 +75,7 @@ export const OTPModal = ({ onFinished }: { onFinished?: (code: string) => void }
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
+                maxFontSizeMultiplier={1}
                 ref={input => (inputRefs.current[num - 1] = input)}
                 style={styles.inputItem}
                 maxLength={1}
