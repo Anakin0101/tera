@@ -1,20 +1,18 @@
-import { useDefaultHeaderHeight, useTheme } from 'hooks';
+import { useTheme } from 'hooks';
 import { StyleSheet } from 'react-native';
 import { config } from 'utils/config';
 
 export const useStyles = () => {
   const { Layout, Spacing, FontSize, Colors } = useTheme();
-  const { headerHeight } = useDefaultHeaderHeight();
 
   return StyleSheet.create({
     wrapper: {
-      height: headerHeight,
+      ...Layout.justifyContentEnd,
     },
     container: {
       ...Layout.justifyContentEnd,
-      ...Layout.absolute,
-      height: headerHeight,
       width: config.mobileWidth,
+      paddingTop: Spacing.s,
     },
     innerContainer: {
       ...Layout.row,
@@ -38,7 +36,6 @@ export const useStyles = () => {
     },
     overlay: {
       ...Layout.absolute,
-      height: headerHeight,
       width: config.mobileWidth,
     },
     badge: {
