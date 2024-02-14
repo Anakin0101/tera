@@ -1,7 +1,8 @@
+import { Platform } from 'react-native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { RouteProp, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { StackNavigationOptions } from '@react-navigation/stack';
-import { Platform } from 'react-native';
+import StaticSafeAreaInsets from 'react-native-static-safe-area-insets';
 import { Colors, Spacing } from 'theme/Variables';
 import { TabParamList } from './types';
 import { tabHiddenRoutes } from './tabHiddenRoutes';
@@ -36,12 +37,14 @@ export const tabOptions = ({ route }: tabOptionsProps): BottomTabNavigationOptio
   tabBarActiveTintColor: Colors.primary,
   tabBarInactiveTintColor: Colors.inactiveTint,
   tabBarStyle: {
-    ...Platform.select({
-      android: {
-        paddingBottom: Spacing.s,
-        height: TAB_BAR_HEIGHT,
-      },
-    }),
+    height:
+      Platform.OS === 'android'
+        ? TAB_BAR_HEIGHT
+        : TAB_BAR_HEIGHT + StaticSafeAreaInsets.safeAreaInsetsBottom / 2,
+    paddingBottom:
+      Platform.OS === 'android'
+        ? Spacing.s
+        : Spacing.s + StaticSafeAreaInsets.safeAreaInsetsBottom / 2,
     paddingTop: Spacing.s,
     backgroundColor: Colors.white,
     display: displayTabBar(route),
