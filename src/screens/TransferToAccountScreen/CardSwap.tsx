@@ -9,13 +9,18 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrencyIcon } from 'utils/currency';
 import { formatMoney } from 'utils/formatMoney';
-import { MY_ACCOUNTS_SCREEN, TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+import {
+  MY_ACCOUNTS_SCREEN,
+  OTHER_BANK_TANSACTION_SCREEN,
+  TO_ACCOUNT_SCREEN,
+} from 'navigation/ScreenNames';
 
 export type cardProps = {
   accountFromData: any;
   accountToData: any;
   receiver?: string;
   fromBudget?: boolean;
+  fromOtherBanks?: boolean;
 };
 interface SelectedItem {
   selectedIban: number | null;
@@ -76,7 +81,13 @@ const CardItem = ({
   );
 };
 
-export const CardSwap = ({ accountFromData, accountToData, receiver, fromBudget }: cardProps) => {
+export const CardSwap = ({
+  accountFromData,
+  accountToData,
+  receiver,
+  fromBudget,
+  fromOtherBanks = false,
+}: cardProps) => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
@@ -89,12 +100,16 @@ export const CardSwap = ({ accountFromData, accountToData, receiver, fromBudget 
   const handlePress = useCallback(
     (arg: number) => {
       if (arg === 1) {
-        navigate(MY_ACCOUNTS_SCREEN, {});
+        navigate(MY_ACCOUNTS_SCREEN, { otherBanks: fromOtherBanks });
       } else {
-        navigate(TO_ACCOUNT_SCREEN, { selected: selectedIban });
+        if (fromOtherBanks) {
+          navigate(OTHER_BANK_TANSACTION_SCREEN);
+        } else {
+          navigate(TO_ACCOUNT_SCREEN, { selected: selectedIban });
+        }
       }
     },
-    [navigate, selectedIban],
+    [navigate, selectedIban, fromOtherBanks],
   );
 
   return (

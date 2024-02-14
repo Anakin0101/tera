@@ -114,7 +114,11 @@
     "fill": "შევსება",
     "savings": "დანაზოგი",
     "allPay": "ყველა გადახდა",
-    "noTransactions": "თქვენ არ გაქვთ შესრულებული ტრანზაქცია"
+    "noTransactions": "თქვენ არ გაქვთ შესრულებული ტრანზაქცია",
+    "trustedTemplate": "სანდო შაბლონი",
+    "template_trust_status": "შაბლონი წარმატებით {{status}}",
+    "untrusted": "გახდა არასანდო",
+    "trusted": "გასანდოვდა"
   },
 
   "profile": {
@@ -165,7 +169,8 @@
     "standardCourse": "სტანდარტული კურსი",
     "specificCourse": "შენი კურსი",
     "transfer": "გადარიცხვა",
-    "personalTransfer": "პირადი გადარიცხვა"
+    "personalTransfer": "პირადი გადარიცხვა",
+    "balanceAvailable": "ანგარიშზე არ არის საკმარისი თანხა"
   },
   "products": {
     "accountsAndCards": "ანგარიშები და ბარათები ({{value}})",
@@ -403,7 +408,13 @@
     "transferforSomeone": "ვისთვის რიცხავ თანხას",
     "chooseReceiver": "აირჩიე მიმღები",
     "chooseCity": "აირჩიე ქალაქი ან რეგიონი",
-    "choosePayment": "აირჩიე გადასახადი"
+    "choosePayment": "აირჩიე გადასახადი",
+    "searchTemplate": "მოძებნე შაბლონი",
+    "blockCard": "ნამდვილად გსურთ “ჩემი ბარათის”\nდაბლოკვა?",
+    "unblockCard": "ნამდვილად გსურთ “ჩემი ბარათის”\nგანბლოკვა?",
+    "trustedTemplate": "გახადე შაბლონი სანდო და 24 საათის შემდეგ შეასრულე 1 000 ლარამდე (ან ექვივალენტი ლარში) ოპერაციები დამატებით სმს/დიჯიპას კოდის გარეშე.",
+    "untrust": "გასანდოებიდან წაშლა",
+    "deleteTemplate": "ნამდვილად გსურთ შაბლონის წაშლა?"
   },
   "transactionDetails": {
     "to": "სად",

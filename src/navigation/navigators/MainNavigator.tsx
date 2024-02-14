@@ -14,7 +14,7 @@ import { useMainNavigator } from 'hooks';
 import { AllTransactionsScreen, TransactionDetailsScreen } from 'screens';
 import { Colors } from 'theme/Variables';
 import { TabNavigator } from './TabNavigator';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 
 const RootStack = createStackNavigator<MainStackParamsList>();

@@ -61,6 +61,7 @@ export const TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN = 'TransferToOtherBankAccount
 export const BUDGET_TRANSACTION_SCREEN = 'BudgetTransactionScreen';
 export const TRANSFER_TO_BUDGET = 'TransferToBudget';
 export const BUDGET_TRANSFER_DETAILS = 'BudgetTransferDetailsScreen';
+
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';

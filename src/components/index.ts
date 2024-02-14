@@ -66,4 +66,6 @@ export { RegistrationTitle } from './Registration/RegistrationTitle/Registration
 export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';
 export { Image } from './Image/Image';
 export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';
+export { BlockOrTrustTemplateModal } from './modals/BlockOrTrustTemplateModal/ BlockOrTrustTemplateModal';
+export { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 export { ActionSheet } from './ActionSheet/ActionSheet';

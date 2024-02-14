@@ -35,7 +35,7 @@ import {
 } from 'navigation/ScreenNames';
 import { VerifyEasyLoginScreen } from 'screens/VerifyEasyLoginScreen/VerifyEasyLoginScreen';
 import { Colors } from 'theme/Variables';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
 import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen/ChoosePaymentProviderScreen';
