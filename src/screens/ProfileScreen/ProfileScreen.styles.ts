@@ -28,7 +28,7 @@ export const useStyleTheme = () => {
     buildVersionWrapper: {
       marginTop: Spacing.xxxs,
       paddingHorizontal: Spacing.xl,
-      marginBottom: Spacing.xxxl,
+      marginBottom: Spacing.xlg,
       paddingVertical: Spacing.md,
     },
     buildVersionLabel: {
