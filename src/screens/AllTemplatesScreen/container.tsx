@@ -12,6 +12,7 @@ import { closeModal } from 'utils/modal';
 import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { openToast } from 'utils/toast';
 import { debounce } from 'utils/debounce';
+import { useTranslation } from 'react-i18next';
 export const useAllTemplates = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const [search, setSearch] = useState('');
@@ -26,6 +27,7 @@ export const useAllTemplates = () => {
   } = useGetTemplatesQuery({
     headers: { 'X-Bank-UserIp': userIp },
   });
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handler = debounce(() => {
@@ -85,7 +87,7 @@ export const useAllTemplates = () => {
           refetch();
           openToast('Template successfully deleted', 'success');
         })
-        .catch(err => console.error('Delete template failed:', err));
+        .catch(err => console.warn('Delete template failed:', err));
     } else {
       try {
         const response = await templateTrustFunction(!isDelete, data);
@@ -96,10 +98,14 @@ export const useAllTemplates = () => {
         } else {
           refetch();
           setIsTrustedTemplate(false);
-          openToast(`Template successfully ${isDelete ? 'untrusted' : 'trusted'}`, 'success');
+          openToast(
+            t('dashboard.template_trust_status', {
+              status: isDelete ? `${t('dashboard.untrusted')}` : `${t('dashboard.trusted')}`,
+            }),
+          );
         }
       } catch (err) {
-        console.error(`Failed to ${isDelete ? 'untrust' : 'trust'} template:`, err);
+        console.warn(`Failed to ${isDelete ? 'untrust' : 'trust'} template:`, err);
       }
     }
   };
@@ -134,7 +140,7 @@ export const useAllTemplates = () => {
 
   const filteredTemplates =
     templatesResponse?.templates.filter(template =>
-      template.name.toLowerCase().includes(debouncedValue.toLowerCase()),
+      template?.name?.toLowerCase()?.includes(debouncedValue?.toLowerCase()),
     ) || [];
 
   return {

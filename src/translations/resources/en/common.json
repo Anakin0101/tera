@@ -111,7 +111,10 @@
     "savings": "Savings",
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
-    "trustedTemplate": "Trusted Template"
+    "trustedTemplate": "Trusted Template",
+	"template_trust_status": "Template successfully {{status}}",
+	"untrusted": "untrusted",
+	"trusted": "trusted"
   },
 
   "profile": {

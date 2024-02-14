@@ -115,7 +115,10 @@
     "savings": "დანაზოგი",
     "allPay": "ყველა გადახდა",
     "noTransactions": "თქვენ არ გაქვთ შესრულებული ტრანზაქცია",
-    "trustedTemplate": "სანდო შაბლონი"
+    "trustedTemplate": "სანდო შაბლონი",
+	"template_trust_status": "შაბლონი წარმატებით {{status}}",
+	"untrusted": "გახდა არასანდო",
+	"trusted": "გასანდოვდა"
   },
 
   "profile": {
