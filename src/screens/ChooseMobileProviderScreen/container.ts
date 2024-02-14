@@ -1,9 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import {
   LanguageKeyForAPIEnum,
   LanguageKeys,
 } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import { CHOOSE_PAYMENT_ACCOUNT_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
 import { useEffect, useMemo } from 'react';
 import {
+  useDebtVerifyResultsMutation,
   useGetDebtVerifyBasketMutation,
   useGetPaymentServicesQuery,
   useGetTemplatesQuery,
@@ -17,6 +21,7 @@ const defaultProviderSeriviceId = 260; // გაერთიანებულ�
 export const useChooseMobileProviderScreen = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const savedLanguage = getValue(SELECTED_LANGUAGE);
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const { isAdult = false } = useAppSelector(state => state.profile?.userProfileInfo) || {};
 
@@ -26,6 +31,7 @@ export const useChooseMobileProviderScreen = () => {
   });
 
   const [getDebtVerifyBasket, { data: debtVerifyBasketInfo }] = useGetDebtVerifyBasketMutation();
+  const [getDebtVerifyResults] = useDebtVerifyResultsMutation();
 
   useEffect(() => {
     getDebtVerifyBasket({
@@ -40,31 +46,47 @@ export const useChooseMobileProviderScreen = () => {
     [data?.templates],
   );
 
-  // Use the find method to find the provider group
-  // const foundProviderGroup = providersGroups.find(group =>
-  //   group.providers.find(provider => provider.id === providerIdToFind),
-  // );
-
   const checkNumberDetails = (number: string) => {
-    // providersGroups
-    // console.log(providersGroupsResponse);
+    try {
+      const foundProviderGroup = providersGroupsResponse?.providersGroups?.find(group =>
+        group?.providers?.find(provider => provider.id === defaultProviderSeriviceId),
+      );
+      const foundProvider = foundProviderGroup?.providers?.find(
+        provider => provider.id === defaultProviderSeriviceId,
+      );
 
-    const foundProviderGroup = providersGroupsResponse?.providersGroups?.find(group =>
-      group?.providers?.find(provider => provider.id === defaultProviderSeriviceId),
-    );
-    const foundProvider = foundProviderGroup?.providers.find(
-      provider => provider.id === defaultProviderSeriviceId,
-    );
-
-    const params = {
-      fieldValues: [{ id: debtVerifyBasketInfo?.[0]?.id, value: number }],
-      serviceId: defaultProviderSeriviceId,
-      culture:
-        savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
-    };
-
-    console.log('foundProviderItem', foundProvider);
-    console.log('params', params);
+      if (foundProvider && debtVerifyBasketInfo?.[0]?.id) {
+        getDebtVerifyResults({
+          fieldValues: [{ id: debtVerifyBasketInfo?.[0]?.id, value: number }],
+          serviceId: defaultProviderSeriviceId,
+          culture:
+            savedLanguage === LanguageKeys.geo
+              ? LanguageKeyForAPIEnum.KA
+              : LanguageKeyForAPIEnum.EN,
+        })
+          .unwrap()
+          .then(res => {
+            if (res.debtVerifyResults?.length) {
+              const providerItem = foundProviderGroup?.providers?.find(
+                provider => provider.id === res.debtVerifyResults?.[0]?.serviceId,
+              );
+              if (providerItem) {
+                navigate(MODAL_STACK, {
+                  screen: CHOOSE_PAYMENT_ACCOUNT_SCREEN,
+                  params: {
+                    providerItem,
+                    debtVerifyBasketInfo,
+                    debtVerifyResults: res.debtVerifyResults,
+                    subscriberFieldsValue: [{ id: debtVerifyBasketInfo?.[0]?.id, value: number }],
+                  },
+                });
+              }
+            }
+          });
+      }
+    } catch (err) {
+      console.warn('checkNumberDetails', err);
+    }
   };
 
   return {

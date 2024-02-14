@@ -7,13 +7,13 @@ export const useStyles = () => {
 
   return StyleSheet.create({
     wrapper: {
-      marginTop: Spacing.lg,
       ...Layout.row,
       ...Layout.alignItemsCenter,
       ...Layout.justifyContentBetween,
       borderTopWidth: 1,
       borderTopColor: Colors.borderColor,
       paddingTop: Spacing.ml,
+      backgroundColor: Colors.white,
     },
     container: {
       marginLeft: Spacing.xl,

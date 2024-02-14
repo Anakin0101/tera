@@ -4,6 +4,7 @@ import {
   AuthorizationMethodsScreen,
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
+  ChoosePaymentAccountScreen,
   CreatePasscodeScreen,
   NewAutomaticPaymentDetailsScreen,
   NewAutomaticPaymentScreen,
@@ -20,6 +21,7 @@ import {
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
   CHOOSE_MOBILE_PROVIDER_SCREEN,
+  CHOOSE_PAYMENT_ACCOUNT_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -139,6 +141,14 @@ export const ModalNavigator = () => {
         component={CheckPaymentProviderScreen}
         options={{
           title: '',
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={CHOOSE_PAYMENT_ACCOUNT_SCREEN}
+        component={ChoosePaymentAccountScreen}
+        options={{
+          title: t('choosePaymentAccountScreen.title'),
           headerShadowVisible: true,
         }}
       />
