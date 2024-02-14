@@ -51,11 +51,11 @@ export const ChoosePaymentProviderScreen = () => {
   // local search
   const providersList = useMemo(() => {
     // Initialize providerList with the list of providers from providerInfo or an empty array
-    let providerList = [];
+    let providerList: Provider[];
     if (isAutomaticPayment) {
-      providerList = providerInfo?.providers?.filter(item => item.directDebitType !== 3);
+      providerList = providerInfo?.providers?.filter(item => item.directDebitType !== 3) || [];
     } else {
-      providerList = providerInfo?.providers;
+      providerList = providerList = providerInfo?.providers || [];
     }
 
     try {

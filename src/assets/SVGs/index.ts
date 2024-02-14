@@ -39,10 +39,10 @@ export { SmartPhoneChecked } from './SmartPhoneChecked';
 export { VerifiedPhoneIcon } from './VerifiedPhone';
 export { ResendIcon } from './Resend';
 export { TerraLogoIcon } from './TerraLogoIcon';
-
+export { TemplateAdd } from './TemplateAdd';
 export { FaceIdColoredSvg } from './FaceIdColored';
 export { LogoutIcon } from './Logout';
-
+export { TemplateDelete } from './TemplateDelete';
 export { Refreshing } from './Refreshing';
 export { Users } from './Users';
 export { UserArrowRight } from './UserArrowRight';
@@ -127,6 +127,9 @@ export { FailedSvg } from './Failed';
 export { Forward } from './Forward';
 export { LockIcon } from './LockIcon';
 export { ArrowDown } from './ArrowDown';
+export { TemplateDeleteTrust } from './TemplateDeleteTrust';
+export { PendingTemplate } from './PendingTemplate';
+export { SuccessTemplate } from './SuccessTemplate';
 export { CalendarLarge } from './CalendarLarge';
 export { AddPlus } from './AddPlus';
 export { More } from './More';

@@ -27,7 +27,7 @@ export const ConversionOrTranferDetails = ({
             <Text children="ტერაში გადარიცხვა" style={styles.textLabel} />
             <Text
               children={`${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(
-                accountFromData.ccy,
+                accountFromData?.ccy,
               )}`}
               style={styles.text}
             />
@@ -44,14 +44,14 @@ export const ConversionOrTranferDetails = ({
             {params?.convertion && (
               <View style={styles.buyWrapper}>
                 <Text
-                  children={`${formatToTwoDecimalPlaces(buyAmount.amountBuy)} ${getCurrencyIcon(
-                    buyAmount.currencyBuy,
+                  children={`${formatToTwoDecimalPlaces(buyAmount?.amountBuy)} ${getCurrencyIcon(
+                    buyAmount?.currencyBuy,
                   )} = `}
                   style={styles.textBuyAmount}
                 />
                 <Text
-                  children={`${formatToTwoDecimalPlaces(buyAmount.amountSell)} ${getCurrencyIcon(
-                    buyAmount.currencySell,
+                  children={`${formatToTwoDecimalPlaces(buyAmount?.amountSell)} ${getCurrencyIcon(
+                    buyAmount?.currencySell,
                   )} `}
                   style={styles.textBuyAmount}
                 />
@@ -62,18 +62,18 @@ export const ConversionOrTranferDetails = ({
                 children="transfers.yourCurrency"
                 style={styles.textYourCourse}
                 translateProp={{
-                  currency: `${getCurrencyIcon(buyAmount.currencyBuy)}`,
+                  currency: `${getCurrencyIcon(buyAmount?.currencyBuy)}`,
                   value: ` ${
                     specialRateUsed
                       ? formatToTwoDecimalPlaces(specialRate)
                       : formatToTwoDecimalPlaces(standardRate)
-                  } ${getCurrencyIcon(buyAmount.currencySell)}`,
+                  } ${getCurrencyIcon(buyAmount?.currencySell)}`,
                 }}
               />
             ) : (
               <Text
                 children={`${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(
-                  accountFromData.ccy,
+                  accountFromData?.ccy,
                 )}`}
                 style={styles.text}
               />

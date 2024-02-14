@@ -9,7 +9,7 @@ import { ChooseService } from 'components/index';
 import { TRANSACTIONS_SCREEN } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setSelectedData } from 'store/slices/transfers';
+import { setSelectedData, clearCurrentTransfer } from 'store/slices/transfers';
 import { TransactionsStackRouteProps } from 'navigation/types';
 import { useRoute } from '@react-navigation/native';
 import { getCurrencyIcon } from 'utils/currency';
@@ -25,7 +25,6 @@ interface SelectedItem {
 export const TransactionFinishedScreen = () => {
   const dispatch = useAppDispatch();
   const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
-
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );
@@ -52,6 +51,11 @@ export const TransactionFinishedScreen = () => {
     dispatch(setSelectedData(''));
   }, [dispatch]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearCurrentTransfer());
+    };
+  }, [dispatch]);
   const data = [
     {
       name: 'transfers.saveAsTemplate',
@@ -70,7 +74,7 @@ export const TransactionFinishedScreen = () => {
 
   return (
     <View style={styles.wrapper}>
-      <SuccessTransaction />
+      <SuccessTransaction width={88} height={88} />
       <View style={styles.textWrapper}>
         <Text children="transfers.success" style={styles.text} numberOfLines={2} />
         {!params?.convertion ? (
@@ -92,7 +96,7 @@ export const TransactionFinishedScreen = () => {
         )}
 
         <View style={styles.btnWrapper}>
-          <ChooseService fromTransaction serviceData={data} />
+          <ChooseService fromTransaction serviceData={data} transferParams={params} />
           <Button.Primary hitSlop={30} text={t('transfers.backToHome')} onPress={navigateToMain} />
         </View>
       </View>

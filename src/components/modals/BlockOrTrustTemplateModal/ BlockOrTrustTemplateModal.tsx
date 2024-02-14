@@ -2,10 +2,14 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'components';
 import { Colors } from 'theme/Variables';
-import { useStyles } from './BlockCardModal.styles';
-import { blockCardProps } from './BlockCardModal.types';
+import { useStyles } from './BlockOrTrustTemplateModal.styles';
+import { templateCardProps } from './BlockOrTrustTemplateModal.types';
 
-export const BlockCardModal: FC<blockCardProps> = ({ onPress, shouldBlock }) => {
+export const BlockOrTrustTemplateModal: FC<templateCardProps> = ({
+  onPress,
+  shouldBlock,
+  isDelete,
+}) => {
   const styles = useStyles();
 
   return (
@@ -13,7 +17,13 @@ export const BlockCardModal: FC<blockCardProps> = ({ onPress, shouldBlock }) => 
       <View style={styles.header}>
         <Text
           center
-          children={!shouldBlock ? 'transactions.unblockCard' : 'transactions.blockCard'}
+          children={
+            !shouldBlock && !isDelete
+              ? 'transactions.trustedTemplate'
+              : !shouldBlock && isDelete
+              ? 'transactions.untrust'
+              : 'transactions.deleteTemplate'
+          }
           color={Colors.textBlack500}
         />
       </View>

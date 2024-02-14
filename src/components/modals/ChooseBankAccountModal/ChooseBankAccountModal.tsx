@@ -3,7 +3,7 @@ import { FlatList, Modal, SafeAreaView, View } from 'react-native';
 import { SearchComponent, Text } from 'components';
 import { useStyles } from './ChooseBankAccountModal.styles';
 import { ChooseBankAccountModalProps } from './ChooseBankAccountModal.types';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { useTranslation } from 'react-i18next';
 import { useChooseBankAccount } from './container';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
