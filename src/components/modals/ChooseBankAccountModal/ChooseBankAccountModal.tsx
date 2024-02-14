@@ -9,6 +9,7 @@ import { useChooseBankAccount } from './container';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { ChooseBankAccountItem } from './ChooseBankAccountItem';
 import { LoadingInView } from 'components/LoadingView/LoadingInView';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
   confirm = () => {},
@@ -43,9 +44,19 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
     [selectedAccount, confirm],
   );
 
+  /**
+   * Filters only gel account
+   */
+  const getAccounts = useMemo(() => {
+    return groupedAccountsByIban.map(group => ({
+      ...group,
+      accounts: group.accounts.filter(account => account.ccy === CurrencyEnum.GEL),
+    }));
+  }, [groupedAccountsByIban]);
+
   // local search
   const groupedAccountsByIbanList = useMemo(() => {
-    let ibanList = groupedAccountsByIban || [];
+    let ibanList = getAccounts || [];
     try {
       if (searchText) {
         // Filter providers based on the Georgian name (name.ka)
@@ -58,7 +69,7 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
     }
     // Return the filtered ibanList
     return ibanList;
-  }, [groupedAccountsByIban, searchText]);
+  }, [getAccounts, searchText]);
 
   /**
    * Render the content based on the loading state and grouped accounts.

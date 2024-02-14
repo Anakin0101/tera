@@ -91,6 +91,10 @@
     "do_not_ask_again": "Do not ask again",
     "enable_from_settings": "For biometric authentication, you need to activate Face ID / Touch ID in the mobile settings “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
+  "resend": {
+    "text": "Please accept your phone number",
+    "label": "One time code has been sent to your phone"
+  },
   "dashboard": {
     "templates": "Templates",
     "template": "Template",
@@ -112,9 +116,9 @@
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
     "trustedTemplate": "Trusted Template",
-	"template_trust_status": "Template successfully {{status}}",
-	"untrusted": "untrusted",
-	"trusted": "trusted"
+    "template_trust_status": "Template successfully {{status}}",
+    "untrusted": "untrusted",
+    "trusted": "trusted"
   },
 
   "profile": {
