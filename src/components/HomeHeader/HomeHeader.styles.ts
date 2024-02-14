@@ -12,7 +12,7 @@ export const useStyles = () => {
     container: {
       ...Layout.justifyContentEnd,
       width: config.mobileWidth,
-      paddingTop: Spacing.s,
+      paddingTop: Spacing.m,
     },
     innerContainer: {
       ...Layout.row,

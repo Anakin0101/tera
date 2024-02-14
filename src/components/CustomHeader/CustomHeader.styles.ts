@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
 
 export const useStyleTheme = () => {
@@ -7,13 +7,17 @@ export const useStyleTheme = () => {
   return StyleSheet.create({
     wrapper: {
       ...Layout.justifyContentEnd,
+      marginBottom: Platform.select({
+        android: 0,
+        ios: -Spacing.m,
+      }),
     },
     container: {
       ...Layout.row,
       ...Layout.alignItemsEnd,
       ...Layout.justifyContentBetween,
       marginHorizontal: Spacing.xl,
-      paddingTop: Spacing.s,
+      paddingTop: Spacing.m,
     },
     iconContainer: {
       ...Layout.row,
