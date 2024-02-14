@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Button, LoadingView, PaymentFieldInput, SubscriberInfo, Text } from 'components/index';
 import { useStyles } from './CheckPaymentProviderScreen.style';
-import { MainStackRouteProps, MainStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { getValue } from 'storage/index';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
@@ -13,17 +13,14 @@ import { useCheckProviderInfo } from './container';
 import { DebtVerifyBasketResponse } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { CHOOSE_PAYMENT_ACCOUNT_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
-import { useKeyboard } from 'utils/useKeyboard';
+
 import { useForm } from 'react-hook-form';
 
 export const CheckPaymentProviderScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { setOptions } = useNavigation();
-  const { params } = useRoute<MainStackRouteProps<'CheckPaymentProviderScreen'>>();
-  const { providerItem, isAutomaticPayment } = params || {};
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
-  const { isKeyboardOpened } = useKeyboard();
 
   const {
     control,
@@ -41,7 +38,10 @@ export const CheckPaymentProviderScreen = () => {
     isDebtVerifyLoading,
     subscriberFieldsValue,
     setSubscriberFieldsValue,
-  } = useCheckProviderInfo(providerItem);
+    isKeyboardOpened,
+    providerItem,
+    isAutomaticPayment,
+  } = useCheckProviderInfo();
 
   const headerTitle = useMemo(() => {
     // Initialize title with an empty string
@@ -147,7 +147,7 @@ export const CheckPaymentProviderScreen = () => {
          * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
          * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
          */
-        getDebtVerifyResultsHandler(subscriberFieldsValue, isAutomaticPayment);
+        getDebtVerifyResultsHandler(subscriberFieldsValue);
       }
     }
   }, [
@@ -157,7 +157,6 @@ export const CheckPaymentProviderScreen = () => {
     providerItem,
     debtVerifyBasketInfo,
     getDebtVerifyResultsHandler,
-    isAutomaticPayment,
   ]);
 
   const onSubmit = () => {
