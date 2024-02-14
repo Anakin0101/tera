@@ -9,6 +9,7 @@ import { Contact } from 'assets/SVGs';
 import { checkContactsPermissions } from 'utils/persmissionChecker';
 import { useChooseMobileProviderScreen } from './container';
 import { useKeyboard } from 'utils/useKeyboard';
+import { Spacing } from 'theme/Variables';
 
 export const ChooseMobileProviderScreen = () => {
   const { t } = useTranslation();
@@ -36,6 +37,9 @@ export const ChooseMobileProviderScreen = () => {
     checkNumberDetails(mobileNumber);
   }, [checkNumberDetails, mobileNumber]);
 
+  {
+    /* შაბლონების ლისტისთვის არის დროებით და გამოვიყენებთ მალე, ველოდებით სერვისების ინტეგრაციას */
+  }
   // const renderItem = useCallback(() => {
   //   return <ChooseMobileTemplateItem />;
   // }, []);
@@ -70,6 +74,7 @@ export const ChooseMobileProviderScreen = () => {
       <Text style={styles.enterMobileNumber}>
         {t('chooseMobileProviderScreen.mobileTemplates')}
       </Text>
+      {/* შაბლონების ლისტისთვის არის დროებით და გამოვიყენებთ მალე */}
       {/* <FlatList
         showsVerticalScrollIndicator={false}
         keyboardDismissMode="on-drag"
@@ -79,7 +84,10 @@ export const ChooseMobileProviderScreen = () => {
       /> */}
       {mobileNumber?.length === 9 && (
         <View
-          style={[styles.nextButtonWrapper, isKeyboardOpened && { bottom: keyboardHeight + 10 }]}
+          style={[
+            styles.nextButtonWrapper,
+            isKeyboardOpened && { bottom: keyboardHeight + Spacing.md },
+          ]}
         >
           <Button.Primary text="common.next" fullWidth onPress={getMobileNumberDetails} />
         </View>
