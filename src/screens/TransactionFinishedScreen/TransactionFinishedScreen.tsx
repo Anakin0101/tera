@@ -14,6 +14,7 @@ import { TransactionsStackRouteProps } from 'navigation/types';
 import { useRoute } from '@react-navigation/native';
 import { getCurrencyIcon } from 'utils/currency';
 import { useTranslation } from 'react-i18next';
+import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
 
 interface SelectedItem {
   selectedPrice: any;
@@ -79,9 +80,9 @@ export const TransactionFinishedScreen = () => {
         <Text children="transfers.success" style={styles.text} numberOfLines={2} />
         {!params?.convertion ? (
           <Text
-            children={`${t('transactions.transAmount')}: ${selectedPrice} ${getCurrencyIcon(
-              accountFromData.ccy,
-            )}`}
+            children={`${t('transactions.transAmount')}: ${formatToTwoDecimalPlaces(
+              selectedPrice,
+            )} ${getCurrencyIcon(accountFromData?.ccy)}`}
             style={styles.amount}
           />
         ) : (
