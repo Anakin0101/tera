@@ -535,6 +535,9 @@
     "details": "Details",
     "pay": "Pay"
   },
+  "choosePaymentAccountScreen": {
+    "title": "Payment details"
+  },
   "chooseMobileProviderScreen": {
     "title": "Mobile top up",
     "enterMobileNumber": "Enter mobile number",

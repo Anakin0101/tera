@@ -533,6 +533,9 @@
     "details": "დეტალები",
     "pay": "გადახდა"
   },
+  "choosePaymentAccountScreen": {
+    "title": "გადახდის დეტალები"
+  },
   "chooseMobileProviderScreen": {
     "title": "მობილურის შევსება",
     "enterMobileNumber": "ჩაწერეთ მობილურის ნომერი",
