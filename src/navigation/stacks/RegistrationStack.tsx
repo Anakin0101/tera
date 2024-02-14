@@ -33,6 +33,7 @@ export const RegistrationNavigator = () => {
     <Navigator
       initialRouteName={REGISTRATION_METHOD_SCREEN}
       screenOptions={{
+        headerTitleAlign: 'center',
         headerLeft: HeaderBackArrow,
         headerTitleStyle: st.headerTitleStyle,
         title:
