@@ -6480,6 +6480,16 @@ react-native-calendars@1.1302.0:
   optionalDependencies:
     moment "^2.29.4"
 
+react-native-contact-pick@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-contact-pick/-/react-native-contact-pick-0.1.2.tgz#6be3c5b299b2a1067b7c3b344758f6b4413bf275"
+  integrity sha512-3Ep1bLyG4A8XnB86D8w+NFJgsnfsfmUHO91aJJ4qVTAQWeK2WV5EgxWGaf+95zQuyLdE3t+PwXGXkcxJOX+Ahg==
+
+react-native-contacts@^7.0.8:
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-7.0.8.tgz#485ba7a77653b30205c76f96494808d07b8e57b9"
+  integrity sha512-Zfkdpw1uQVRb8v1m+ogknzjyfEs9k63o2sPAYvxZ8ZJff31D45G8+uZb6VcM4tIe3ELH9EDvh93nd515kFvRYQ==
+
 react-native-device-info@^10.11.0:
   version "10.12.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.12.0.tgz#be4e71cbcc9a05e8643b1a419a4450d4cef9bbcc"
@@ -6561,6 +6571,11 @@ react-native-pdf@6.7.4:
   dependencies:
     crypto-js "4.2.0"
     deprecated-react-native-prop-types "^2.3.0"
+
+react-native-permissions@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-4.1.1.tgz#6c185f9ec45069fa14cf8992bed6b67fc8981478"
+  integrity sha512-wdIHMwmDZ6pRVsgAgF7mn/pJEuJd5wJDGENqvFDJs2lW4BSZeN++ZFsA6FgOqUs/2276Oj7rslQgVaxdOsi6yw==
 
 react-native-reanimated@3.6.1:
   version "3.6.1"

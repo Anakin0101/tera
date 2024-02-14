@@ -2,18 +2,14 @@ import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { useStyles } from './SubscriberInfo.styles';
 import { useTranslation } from 'react-i18next';
-import { TextInput } from 'components/TextInput/TextInput';
 import { SubscriberInfoItem } from './SubscriberInfoItem';
 import { ServiceField } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { getFee } from 'utils/paymentUtils';
 import { SubscriberInfoProps } from './SubscriberInfo.types';
-import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
 
 export const SubscriberInfo: React.FC<SubscriberInfoProps> = ({
   debtVerifyResults,
   feeRules,
-  subscriberInputFieldsValue,
-  setSubscriberInputFieldsValue,
   isAutomaticPayment,
 }) => {
   const styles = useStyles();
@@ -60,69 +56,12 @@ export const SubscriberInfo: React.FC<SubscriberInfoProps> = ({
     });
   }, [combinedServiceFields]);
 
-  /**
-   * Render input fields based on combinedServiceFields, considering visibility and requirement.
-   *
-   * @function
-   * @returns {JSX.Element[]} An array of JSX elements representing TextInput components.
-   */
-  const renderInputs = useCallback(() => {
-    if (isAutomaticPayment) {
-      return null;
-    }
-    return combinedServiceFields.map((item, index) => {
-      const isRenderable = item?.required && item?.visible;
-
-      if (isRenderable) {
-        return (
-          <TextInput
-            key={item.id + index.toString()}
-            label={item?.name}
-            value={subscriberInputFieldsValue?.find(field => field.id === item.id)?.value || ''}
-            onChangeText={(text: string) => {
-              /**
-               * Update the subscriberFieldsValue state with the new text for the specified id.
-               *
-               * @param {string} text - The new text value for the input field.
-               */
-              setSubscriberInputFieldsValue?.(prev => {
-                const updatedFields = [...prev];
-                const fieldIndex = updatedFields.findIndex(field => field.id === item.id);
-
-                if (fieldIndex !== -1) {
-                  // If the field with the specified id exists, update its value
-                  updatedFields[fieldIndex] = { id: item.id, value: text };
-                } else {
-                  // If the field doesn't exist, add a new field to the array
-                  updatedFields.push({ id: item.id, value: text });
-                }
-
-                return updatedFields;
-              });
-            }}
-            marginTop={24}
-          />
-        );
-      }
-      return null;
-    });
-  }, [
-    combinedServiceFields,
-    setSubscriberInputFieldsValue,
-    subscriberInputFieldsValue,
-    isAutomaticPayment,
-  ]);
-
   const getFeeValue = () => {
-    if (subscriberInputFieldsValue) {
-      const sum = sumForSubscriberFieldsValue(subscriberInputFieldsValue);
-      return getFee(Number(sum), feeRules).toString();
-    }
+    return getFee(0, feeRules).toString();
   };
 
   return (
     <View>
-      {!isAutomaticPayment && renderInputs()}
       <View style={styles.wrapper}>
         {renderContent()}
         {!isAutomaticPayment && (

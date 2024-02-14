@@ -4,6 +4,7 @@ import {
   AuthorizationMethodsScreen,
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
+  ChoosePaymentAccountScreen,
   CreatePasscodeScreen,
   NewAutomaticPaymentDetailsScreen,
   NewAutomaticPaymentScreen,
@@ -19,6 +20,8 @@ import {
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
+  CHOOSE_MOBILE_PROVIDER_SCREEN,
+  CHOOSE_PAYMENT_ACCOUNT_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -37,6 +40,7 @@ import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
 import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen/ChoosePaymentProviderScreen';
 import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
+import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
@@ -116,6 +120,13 @@ export const ModalNavigator = () => {
         }}
       />
       <Screen
+        name={CHOOSE_MOBILE_PROVIDER_SCREEN}
+        component={ChooseMobileProviderScreen}
+        options={{
+          title: t('chooseMobileProviderScreen.title'),
+        }}
+      />
+      <Screen
         name={PAYMENT_ERROR_SCREEN}
         component={PaymentErrorScreen}
         options={{
@@ -130,6 +141,14 @@ export const ModalNavigator = () => {
         component={CheckPaymentProviderScreen}
         options={{
           title: '',
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={CHOOSE_PAYMENT_ACCOUNT_SCREEN}
+        component={ChoosePaymentAccountScreen}
+        options={{
+          title: t('choosePaymentAccountScreen.title'),
           headerShadowVisible: true,
         }}
       />

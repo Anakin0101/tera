@@ -551,6 +551,21 @@
     "details": "Details",
     "pay": "Pay"
   },
+  "choosePaymentAccountScreen": {
+    "title": "Payment details"
+  },
+  "chooseMobileProviderScreen": {
+    "title": "Mobile top up",
+    "enterMobileNumber": "Enter mobile number",
+    "mobileNumber": "Mobile number",
+    "mobileTemplates": "Mobile templates",
+    "code": "Code",
+    "chooseFromContact": "Choose from contacts"
+  },
+  "permissions": {
+    "message": "Message",
+    "contactsPermissions": "Contacts access was not granted. Please go to your phone's settings and allow Cantacts access."
+  },
   "paymentSuccessScreen": {
     "title": "Pay\n Successfully executed",
     "money": "Money: ",

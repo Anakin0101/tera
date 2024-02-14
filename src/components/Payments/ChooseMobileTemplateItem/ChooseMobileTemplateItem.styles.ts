@@ -29,11 +29,12 @@ export const useStyles = () => {
       ...Layout.alignItemsCenter,
     },
     itemWrapperMargin: {
-      marginBottom: Spacing.m,
+      marginTop: Spacing.ml,
+      marginHorizontal: Spacing.xl,
     },
     itemIconWrapper: {
-      width: 56,
-      height: 56,
+      width: 48,
+      height: 48,
       ...Layout.justifyContentCenter,
       ...Layout.alignItemsCenter,
       borderRadius: 50,
@@ -52,19 +53,18 @@ export const useStyles = () => {
     },
     itemTitle: {
       fontSize: FontSize.small,
-      letterSpacing: -0.5,
+      letterSpacing: -0.2,
       color: Colors.textBlack,
       fontFamily: FontFamily.medium,
-      lineHeight: 16,
+      lineHeight: 24,
     },
     itemDesc: {
       fontSize: FontSize.tiny,
       lineHeight: 12,
       letterSpacing: -0.5,
       fontWeight: '400',
-      color: Colors.textBlack,
+      color: Colors.textBlack500,
       fontFamily: FontFamily.medium,
-      marginTop: Spacing.xxs,
     },
     allButton: {
       backgroundColor: Colors.white,
@@ -101,9 +101,10 @@ export const useStyles = () => {
       lineHeight: 20,
       fontFamily: FontFamily.medium,
     },
-    iconStyle: {
-      width: 24,
-      height: 24,
+    contentContainer: {
+      ...Layout.row,
+      ...Layout.fill,
+      ...Layout.center,
     },
   });
 };

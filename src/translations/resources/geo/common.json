@@ -544,6 +544,17 @@
     "details": "დეტალები",
     "pay": "გადახდა"
   },
+  "choosePaymentAccountScreen": {
+    "title": "გადახდის დეტალები"
+  },
+  "chooseMobileProviderScreen": {
+    "title": "მობილურის შევსება",
+    "enterMobileNumber": "ჩაწერეთ მობილურის ნომერი",
+    "mobileNumber": "მობილურის ნომერი",
+    "mobileTemplates": "მობილურის შაბლონები",
+    "code": "კოდი",
+    "chooseFromContact": "აირჩიე კონტაქტებიდან"
+  },
   "paymentSuccessScreen": {
     "title": "გადახდა\n წარმატებით შესრულდა",
     "money": "თანხა: ",
