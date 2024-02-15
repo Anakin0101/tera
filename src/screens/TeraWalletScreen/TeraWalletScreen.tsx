@@ -110,6 +110,7 @@ export const TeraWalletScreen = () => {
             style={styles.input}
             onBlur={onBlur}
             onFocus={onFocus}
+            maxFontSizeMultiplier={1}
           />
         </View>
       </View>

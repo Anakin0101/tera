@@ -116,6 +116,7 @@ export const LoanAmountScreen = () => {
               autoComplete="off"
               placeholder="00.00"
               placeholderTextColor={Colors.inputBlack50}
+              maxFontSizeMultiplier={1}
             />
             <Text
               label
@@ -174,6 +175,7 @@ export const LoanAmountScreen = () => {
               textAlign="center"
               keyboardType="number-pad"
               style={styles.periodInput}
+              maxFontSizeMultiplier={1}
             />
           </View>
         </View>

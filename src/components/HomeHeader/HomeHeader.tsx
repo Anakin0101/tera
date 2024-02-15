@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { SafeAreaView, TouchableWithoutFeedback, View } from 'react-native';
 import Animated, { SharedValue, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { IconComponent, Text } from '../index';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -54,25 +54,27 @@ export const HomeHeader: FC<IHomeHeaderProps> = ({ translateY }) => {
 
   return (
     <View style={styles.wrapper}>
-      <Animated.View style={[styles.container, zIndexHeader]} onTouchStart={onTouch}>
-        <Animated.View style={styles.innerContainer}>
-          <Text children="navigation.hello" style={styles.text} />
-          <View style={styles.iconContainer}>
-            <IconComponent
-              handler={() => {}}
-              IconJSX={Search}
-              customIconComponentStyles={styles.icon}
-            />
-            <IconComponent
-              handler={() => {}}
-              IconJSX={Chat}
-              customIconComponentStyles={styles.icon}
-            />
-          </View>
-          <Badge quantity={4} />
+      <SafeAreaView>
+        <Animated.View style={[styles.container, zIndexHeader]} onTouchStart={onTouch}>
+          <Animated.View style={styles.innerContainer}>
+            <Text children="navigation.hello" style={styles.text} />
+            <View style={styles.iconContainer}>
+              <IconComponent
+                handler={() => {}}
+                IconJSX={Search}
+                customIconComponentStyles={styles.icon}
+              />
+              <IconComponent
+                handler={() => {}}
+                IconJSX={Chat}
+                customIconComponentStyles={styles.icon}
+              />
+            </View>
+            <Badge quantity={4} />
+          </Animated.View>
         </Animated.View>
-      </Animated.View>
-      <BackDrop translateY={translateY} close={onTouch} />
+        <BackDrop translateY={translateY} close={onTouch} />
+      </SafeAreaView>
     </View>
   );
 };

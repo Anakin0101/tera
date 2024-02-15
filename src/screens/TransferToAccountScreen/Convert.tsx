@@ -179,6 +179,7 @@ export const Convert = ({
               placeholder={'00.00'}
               keyboardType="numeric"
               textAlign="right"
+              maxFontSizeMultiplier={1}
             />
             {renderIcon(accountFromData?.ccy)}
           </View>
@@ -193,6 +194,7 @@ export const Convert = ({
               placeholder={'00.00'}
               keyboardType="numeric"
               textAlign="right"
+              maxFontSizeMultiplier={1}
             />
             {renderIcon(accountToData?.ccy)}
           </View>
