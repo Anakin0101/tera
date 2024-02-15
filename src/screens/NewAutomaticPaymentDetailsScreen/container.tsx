@@ -6,18 +6,16 @@ import { useAddAutomaticPaymentMutation } from 'services/apis';
 import { closeModal, openModal } from 'utils/modal';
 import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
-import {
-  LanguageKeyForAPIEnum,
-  LanguageKeys,
-} from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { getISOString } from 'utils/formatDate';
 import { PAYMENT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 import { AutoPaymentReq } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
+import { useCulture } from 'hooks/index';
 
 const savedLanguage = getValue(SELECTED_LANGUAGE);
 
 export const useNewAutomaticPaymentDetails = () => {
+  const { culture } = useCulture();
   const { params } = useRoute<ModalStackRouteProps<'NewAutomaticPaymentDetailsScreen'>>();
   const { debtVerifyResults, providerItem, automaticPaymentForm, subscriberFieldsValue } =
     params || {};
@@ -38,8 +36,7 @@ export const useNewAutomaticPaymentDetails = () => {
       type: automaticPaymentForm.paymentMethod?.type,
       debtVerifyFieldValues: subscriberFieldsValue,
       accountId: automaticPaymentForm.account?.accountId,
-      culture:
-        savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
+      culture,
     };
 
     if (automaticPaymentForm.paymentDate) {
@@ -83,7 +80,14 @@ export const useNewAutomaticPaymentDetails = () => {
       disableDynamicSizing: true,
       disablePanning: true,
     });
-  }, [addAutoPayment, automaticPaymentForm, navigate, providerItem, subscriberFieldsValue]);
+  }, [
+    addAutoPayment,
+    automaticPaymentForm,
+    culture,
+    navigate,
+    providerItem,
+    subscriberFieldsValue,
+  ]);
 
   return {
     debtVerifyResults,

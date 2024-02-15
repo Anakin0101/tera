@@ -26,10 +26,7 @@ export const useGroupedAccountsByIban = () => {
         //  - Only currency is GEL
         //  - accountType must not be deposit
         const accs =
-          allAccounts?.filter(
-            ({ accountType, ccy }) =>
-              accountType !== AccountTypeEnum.Deposit && ccy === CurrencyEnum.GEL,
-          ) ?? [];
+          allAccounts?.filter(({ accountType }) => accountType !== AccountTypeEnum.Deposit) ?? [];
 
         const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(accs, 'accountIban');
         const balanceGEL = accs?.filter(acc => acc?.ccy === CurrencyEnum.GEL);

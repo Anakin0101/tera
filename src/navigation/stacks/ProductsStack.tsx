@@ -102,7 +102,10 @@ export const ProductsStack = () => {
       <Screen
         name={ALL_ACCOUNTS_AND_CARDS_SCREEN}
         component={AllAcountsAndCardsScreen}
-        options={{ title: t('products.allAccounts') }}
+        options={{
+          title: t('products.allAccounts'),
+          headerStyle: st.whiteHeader,
+        }}
       />
       <Screen
         name={ACCOUNT_DETAILS_SCREEN}
@@ -136,7 +139,7 @@ export const ProductsStack = () => {
       <Screen
         name={DEPOSITS_SCREEN}
         component={DepositsScreen}
-        options={{ title: t('products.allDeposits') }}
+        options={{ title: t('products.allDeposits'), headerStyle: st.whiteHeader }}
       />
       <Screen
         name={DEPOSIT_DETAILS_SCREEN}
