@@ -1,5 +1,5 @@
 import React, { FC, RefObject, useEffect, useRef, useState } from 'react';
-import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
+import { View, SectionList, SectionListRenderItem, Pressable, RefreshControl } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
   runOnJS,
@@ -94,10 +94,10 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    deposits,
+    assets,
     banker,
     customerOperationsLoading,
-    customerIdLoading,
+    loanCustomerIdLoading,
     assetsLoading,
     bankerLoading,
     overDraftLoading,
@@ -106,6 +106,12 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     bannersLoading,
     totalSavingLoading,
     totalSaving,
+    onRefresh,
+    refreshing,
+    profileLoading,
+    temlpatesLoading,
+    // deposits,
+    depositsLoading,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -180,7 +186,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
             creditCards={creditCards}
             overDraft={overDraft}
             getLoanCustomerId={getLoanCustomerId}
-            assets={deposits}
+            assets={assets}
           />
         );
       case 'offers':
@@ -255,13 +261,16 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
 
   if (
     customerOperationsLoading ||
-    customerIdLoading ||
+    loanCustomerIdLoading ||
     assetsLoading ||
     bankerLoading ||
     overDraftLoading ||
     creditCardsLoading ||
     bannersLoading ||
     totalSavingLoading ||
+    profileLoading ||
+    temlpatesLoading ||
+    depositsLoading ||
     (!isBannerDataFetched && banners?.data.length === 0)
   ) {
     return (
@@ -318,7 +327,6 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           ref={sectionListRef}
           sections={sections}
           renderItem={renderItem}
-          bounces={false}
           nestedScrollEnabled
           style={animPaddingTop}
           onScroll={scrollHandler}
@@ -326,6 +334,14 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={styles.sectionListContent}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={Colors.primary}
+              colors={[Colors.primary]}
+            />
+          }
         />
       </Animated.View>
     </View>

@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   useGetBannersQuery,
+  useGetDepositsQuery,
   useGetTotalSavingMutation,
   useGetUserProfileInfoQuery,
 } from 'services/apis';
@@ -10,7 +11,6 @@ import {
   useGetCreditCardsQuery,
   useGetOverDraftQuery,
   useGetLoanCustomerIdQuery,
-  useGetDepositsQuery,
   useGetBankerQuery,
 } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
@@ -25,15 +25,43 @@ export const useDashboardScreen = () => {
     getCustomerOperations,
     { data: customerOperations, isLoading: customerOperationsLoading },
   ] = useGetCustomerOperationsMutation();
-  const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
-  const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
-  const { data: getLoanCustomerId, isLoading: customerIdLoading } = useGetLoanCustomerIdQuery();
-  const { data: deposits, isLoading: assetsLoading } = useGetDepositsQuery();
-  const { data: banker, isLoading: bankerLoading } = useGetBankerQuery();
-  const { data: profile } = useGetUserProfileInfoQuery();
+  const {
+    data: creditCards,
+    isLoading: creditCardsLoading,
+    refetch: creditCardsRefetch,
+  } = useGetCreditCardsQuery();
+  const {
+    data: overDraft,
+    isLoading: overDraftLoading,
+    refetch: overDraftRefetch,
+  } = useGetOverDraftQuery();
+  const {
+    data: getLoanCustomerId,
+    isLoading: loanCustomerIdLoading,
+    refetch: loanCoustomerIdRefetch,
+  } = useGetLoanCustomerIdQuery();
+  const {
+    data: deposits,
+    isLoading: depositsLoading,
+    refetch: depositsRefetch,
+  } = useGetDepositsQuery();
+  const { data: banker, isLoading: bankerLoading, refetch: bankerRefetch } = useGetBankerQuery();
+  const { data: assets, isLoading: assetsLoading, refetch: assetsRefetch } = useGetAssetsQuery();
+
+  const {
+    data: profile,
+    isLoading: profileLoading,
+    refetch: profileRefetch,
+  } = useGetUserProfileInfoQuery();
+
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [getTotalSaving, { data: totalSaving, isLoading: totalSavingLoading }] =
     useGetTotalSavingMutation();
-  const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
+  const {
+    data: banners,
+    isLoading: bannersLoading,
+    refetch: bannersRefetch,
+  } = useGetBannersQuery({
     channel: 'internet-bank',
     language: 'ka',
     page: 'dashboard-main',
@@ -54,6 +82,27 @@ export const useDashboardScreen = () => {
     });
   }, [getCustomerOperations]);
 
+  const onRefresh = async () => {
+    try {
+      if (refreshing) {
+        return;
+      }
+      setRefreshing(true);
+      await creditCardsRefetch();
+      await overDraftRefetch();
+      await loanCoustomerIdRefetch();
+      await assetsRefetch();
+      await bankerRefetch();
+      await profileRefetch();
+      await bannersRefetch();
+      await depositsRefetch();
+      setRefreshing(false);
+    } catch (ex) {
+      console.warn('Error onRefresh', ex);
+      setRefreshing(false);
+    }
+  };
+
   const isDashboardMounted = useMemo(() => {
     const mounted =
       !!templates?.templates.length && !!deposits && !!banker && !!profile?.firstName && !!banners;
@@ -64,7 +113,7 @@ export const useDashboardScreen = () => {
     templates,
     temlpatesLoading,
     customerOperationsLoading,
-    customerIdLoading,
+    loanCustomerIdLoading,
     assetsLoading,
     bankerLoading,
     overDraftLoading,
@@ -73,12 +122,21 @@ export const useDashboardScreen = () => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    deposits,
+    assets,
     banker,
     isDashboardMounted,
     banners,
     bannersLoading,
     totalSavingLoading,
     totalSaving,
+    onRefresh,
+    refreshing,
+    profileLoading,
+    deposits,
+    depositsLoading,
+    depositsRefetch,
   };
 };
+function useGetAssetsQuery(): { data: any; isLoading: any; refetch: any } {
+  throw new Error('Function not implemented.');
+}
