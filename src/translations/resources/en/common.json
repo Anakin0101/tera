@@ -511,7 +511,11 @@
     "considerationNote": "Please note, in case of change, the amount deducted from the tariff package is not returned.",
     "finalizationInquiry": "Complete the tariff package change process?",
     "requestSuccess": "Request fulfilled",
-    "changePackageText": "Your package payment type has been changed"
+    "changePackageText": "Your package payment type has been changed",
+    "edit": "Edit",
+    "packageEdit": "Edit package",
+    "freeTariff": "free",
+    "withoutPackage": "Without Package"
   },
   "payments": {
     "totalDebt": "Total Debt",

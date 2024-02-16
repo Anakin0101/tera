@@ -59,7 +59,6 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.xl,
       borderTopLeftRadius: Spacing.xl,
       marginTop: Spacing.xlg,
-      paddingTop: Spacing.xxl,
     },
     regularItemStyle: {
       ...baseItemStyle,
@@ -135,6 +134,23 @@ export const useStyles = () => {
       color: Colors.greyText,
       fontSize: FontSize.small,
       fontFamily: FontFamily.medium,
+    },
+    linkContainer: {
+      ...Layout.rowHCenter,
+    },
+    chechboxContainer: {
+      ...Layout.rowHCenter,
+      marginBottom: Spacing.xl,
+    },
+    label: {
+      color: Colors.accountText500,
+      fontSize: FontSize.small,
+      fontFamily: FontFamily.medium,
+    },
+    price: {
+      color: Colors.tariffPrice,
+      fontFamily: FontFamily.medium,
+      fontSize: FontSize.small,
     },
   });
 };

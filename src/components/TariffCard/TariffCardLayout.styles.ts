@@ -4,6 +4,13 @@ import useTheme from 'hooks/useTheme';
 export const useStyles = () => {
   const { FontSize, Spacing, Layout, Colors, FontFamily } = useTheme();
 
+  const statusGeneralStyle = {
+    ...Layout.center,
+    height: 28,
+    width: 80,
+    borderRadius: Spacing.lg,
+  };
+
   return StyleSheet.create({
     cardContainer: {
       ...Layout.row,
@@ -37,11 +44,12 @@ export const useStyles = () => {
       fontFamily: FontFamily.medium,
     },
     statusWrapper: {
-      ...Layout.center,
-      height: 28,
-      width: 80,
+      ...statusGeneralStyle,
       backgroundColor: Colors.successToastTextColor,
-      borderRadius: Spacing.lg,
+    },
+    pandingWrapper: {
+      ...statusGeneralStyle,
+      backgroundColor: Colors.pandingYellow,
     },
     statusText: {
       color: Colors.white,

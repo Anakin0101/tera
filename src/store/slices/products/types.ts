@@ -27,6 +27,7 @@ export type ProductsStateProps = {
   selectedCardData: SelectedCardData | null;
   selectedIban: IbanInfo | null;
   selectedBranch: BranchInfo | null;
+  selectedPackage: PackageInfo | null;
 };
 export interface SelectedCardData {
   canUpdate: boolean | null;
@@ -52,4 +53,8 @@ export interface IbanInfo {
 export interface BranchInfo {
   id: number;
   branchName: string;
+}
+export interface PackageInfo {
+  packageId: string;
+  packageServiceId: string;
 }

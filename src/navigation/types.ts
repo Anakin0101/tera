@@ -99,10 +99,9 @@ import {
   DebtVerifyBasketResponse,
   // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
-import { Account } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
-import { TariffCardProps } from 'components/TariffCard/TariffCardLayout.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -233,7 +232,7 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
-  [TARIFF_PACKAGES_SINGLE_SCREEN]: TariffCardProps;
+  [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
 };
 
 export type TransactionsStackParamsList = {

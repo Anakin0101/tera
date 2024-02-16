@@ -9,9 +9,10 @@ import { ArrowRight } from 'assets/SVGs';
 export const TariffCardLayout: React.FC<TariffCardProps> = ({
   cardTypeName,
   commissionMnth,
+  status,
   commissionYr,
   icon,
-  status,
+  pending,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -22,9 +23,14 @@ export const TariffCardLayout: React.FC<TariffCardProps> = ({
         <View>
           <View style={styles.row}>
             <Text style={styles.cardName}>{cardTypeName}</Text>
-            {status?.length ? (
+            {status ? (
               <View style={styles.statusWrapper}>
-                <Text style={styles.statusText}>{status}</Text>
+                <Text style={styles.statusText}>აქტიური</Text>
+              </View>
+            ) : null}
+            {!status && pending ? (
+              <View style={styles.pandingWrapper}>
+                <Text style={styles.statusText}>მუშავდება</Text>
               </View>
             ) : null}
           </View>

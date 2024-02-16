@@ -1,115 +1,89 @@
 import React from 'react';
-import { FlatList, Pressable } from 'react-native';
-import { Button } from 'components';
+import { FlatList, View } from 'react-native';
+import { Button, DetailsItem } from 'components';
 import { useRoute } from '@react-navigation/native';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { TariffDescriptionSingle } from './TariffDescriptionSingle';
-import { TariffProductsProps } from 'components/TariffProducts/TariffProducts.types';
-import { TariffProductsLayout } from 'components/TariffProducts/TariffProductsLayout';
 import { useStyles } from './TariffDescriptionSingle.styles';
-import { CheckStatic } from 'assets/SVGs/CheckStatic';
 import { useTranslation } from 'react-i18next';
 import { openModal } from 'utils/modal';
 import { PackagesOption } from './PackagesOption';
+import { getCommissions } from 'screens/TariffPackagesListScreen/utilis';
+import { PackageProducts } from 'services/apis/productsAPI/productsAPI.types';
 
 export const TariffPackagesSingleScreen = () => {
   const { params } = useRoute<ProductsStackRouteProps<'TariffPackagesSingleScreen'>>();
+  const { packageProducts, packageServices, name, id, isActive, pending } = params;
+  const { commissionMnth, commissionYr } = getCommissions(packageServices);
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const Tariff_Products_Dummy_Data = [
-    {
-      id: '1',
-      title: 'მიმდინარე ანგარიშის გახსნა ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      status: 'აქტიური',
-      icon: <CheckStatic />,
-    },
-    {
-      id: '2',
-      title: 'მიმდინარე ანგარიშის მომსახურების საკომისიო ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      status: 'აქტიური',
-      icon: <CheckStatic />,
-    },
-    {
-      id: '3',
-      title: 'Visa Classic/MC Standard  ბარათი (ბარათის ვადა 2 წელი) ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      status: 'გაიაქტიურე',
-      icon: <CheckStatic />,
-    },
-    {
-      id: '4',
-      title: 'ინტერნეტბანკი/ტელეფონბანკი/მობაილბანკი ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      status: 'გაიაქტიურე',
-      icon: <CheckStatic />,
-    },
-    {
-      id: '5',
-      title: 'SMS ბანკი ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      status: 'გაიაქტიურე',
-      icon: <CheckStatic />,
-    },
-    {
-      id: '6',
-      title: 'ავტომატური გადახდები ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      status: 'გაიაქტიურე',
-      icon: <CheckStatic />,
-    },
-    {
-      id: '7',
-      title: 'მუდმივი საგადასახადო დავალება ',
-      priceTitle: 'უფასო',
-      price: '2.00 ₾',
-      icon: <CheckStatic />,
-    },
-  ];
+  const TariffDescriptionHeader = () => (
+    <TariffDescriptionSingle
+      cardTypeName={name}
+      icon={name}
+      id={id}
+      pending={pending}
+      status={isActive}
+      commissionMnth={commissionMnth}
+      commissionYr={commissionYr}
+    />
+  );
+
+  const SelectButton = () => (
+    <Button.Primary
+      onPress={onSelectPress}
+      fixedWidth
+      text={isActive ? t('newDeposit.edit') : t('common.select')}
+    />
+  );
 
   const onSelectPress = () => {
     openModal({
-      element: <PackagesOption />,
-      title: 'პაკეტის რედაქტირება',
+      element: (
+        <PackagesOption
+          id={id}
+          packageServices={packageServices}
+          name={name}
+          isActive={false}
+          nameEng={''}
+          packageProducts={[]}
+          packageServiceId={''}
+          pending={false}
+          status={''}
+        />
+      ),
+      title: t('newDeposit.packageEdit'),
       disablePanning: true,
     });
   };
 
-  const renderItem = ({ item, index }: { item: TariffProductsProps; index: number }) => {
+  const renderItem = ({ item, index }: { item: PackageProducts; index: number }) => {
     const isFirstItem = index === 0;
     const itemStyle = isFirstItem ? styles.firstItemStyle : styles.regularItemStyle;
 
     return (
-      <Pressable style={itemStyle}>
-        <TariffProductsLayout
-          id={item.id}
-          title={item.title}
-          priceTitle={item.priceTitle}
-          price={item.price}
-          status={item.status}
-          icon={item.icon}
+      <View style={itemStyle}>
+        <DetailsItem
+          label={`${item.name} - ${item.productPrice}`}
+          labelStyle={styles.label}
+          valueStyle={styles.price}
+          value={
+            item.productPrice !== item.standardPriceMonthly &&
+            ` ${t('newDeposit.withoutPackage')} ${item.standardPriceMonthly}`
+          }
         />
-      </Pressable>
+      </View>
     );
   };
 
   return (
     <FlatList
-      data={Tariff_Products_Dummy_Data}
-      ListHeaderComponent={<TariffDescriptionSingle {...params} />}
+      data={packageProducts}
+      ListHeaderComponent={<TariffDescriptionHeader />}
       renderItem={renderItem}
-      keyExtractor={item => item.id}
-      ListFooterComponent={
-        <Button.Primary onPress={onSelectPress} fixedWidth text={t('common.select')} />
-      }
+      keyExtractor={item => item.name}
+      ListFooterComponent={<SelectButton />}
     />
   );
 };

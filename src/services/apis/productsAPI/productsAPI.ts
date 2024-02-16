@@ -29,6 +29,7 @@ import {
   BranchesResponse,
   Branch,
   AddCardRequest,
+  ActivatePackage,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -222,6 +223,13 @@ export const productsAPI = createApi({
         body,
       }),
     }),
+    activatePackage: builder.mutation<void, ActivatePackage>({
+      query: body => ({
+        url: URLS.activatePackage,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -247,4 +255,5 @@ export const {
   useGetRequestForLoanConsentTextQuery,
   useGetBranchesMutation,
   useAddCardMutation,
+  useActivatePackageMutation,
 } = productsAPI;
