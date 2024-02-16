@@ -555,6 +555,17 @@
     "code": "კოდი",
     "chooseFromContact": "აირჩიე კონტაქტებიდან"
   },
+  "addCartScreen": {
+    "title": "ახალი კალათა",
+    "enterCartName": "ჩაწერეთ კალათის სახელი",
+    "cartName": "კალათის სახელი"
+  },
+  "cartListScreen": {
+    "title": "კალათები",
+    "emptyCarts": "თქენ არ გაქვთ დამატებული\n კალათა",
+    "addCart": "კალათის დამატება",
+    "template": "შაბლონი"
+  },
   "paymentSuccessScreen": {
     "title": "გადახდა\n წარმატებით შესრულდა",
     "money": "თანხა: ",

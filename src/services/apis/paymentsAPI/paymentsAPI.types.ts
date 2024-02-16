@@ -9,11 +9,6 @@ export interface GetPaymentsServiceParams {
   isAdult: boolean;
 }
 
-export interface Basket {
-  id: number;
-  name: string;
-}
-
 export interface ProvidersGroup {
   id: number;
   name: NameByLang;
@@ -253,4 +248,29 @@ export interface AddAutoPaymentRes {
   otpRequired: boolean;
   pending: boolean;
   success: boolean;
+}
+
+export interface GetBasketResponse {
+  baskets: Array<Basket>;
+}
+export interface Basket {
+  id: number;
+  name: string;
+  basketServices?: Array<BasketService>;
+}
+
+export interface BasketService {
+  customerNumber: string;
+  largeImage: string;
+  name: string;
+  servicesId: number;
+  smallImage: string;
+}
+
+export interface AddBasketResponse {
+  basketId: number;
+}
+
+export interface AddBasketRequest {
+  name: string;
 }

@@ -18,6 +18,9 @@ import {
   AutoPaymentReq,
   AutoPaymentCancelReq,
   AddAutoPaymentRes,
+  GetBasketResponse,
+  AddBasketResponse,
+  AddBasketRequest,
 } from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
@@ -86,6 +89,19 @@ export const paymentsAPI = createApi({
       }),
       invalidatesTags: ['AutoPayments'],
     }),
+    getBasketsServices: builder.query<GetBasketResponse, void>({
+      query: () => ({
+        url: URLS.getBaskets,
+        method: METHOD_NAMES.GET,
+      }),
+    }),
+    addBasketService: builder.mutation<AddBasketResponse, AddBasketRequest>({
+      query: ({ name }) => ({
+        url: URLS.addBasket,
+        method: METHOD_NAMES.POST,
+        params: { name },
+      }),
+    }),
   }),
 });
 
@@ -98,4 +114,6 @@ export const {
   useGetAutoPaymentDetailsMutation,
   useAddAutomaticPaymentMutation,
   useCancelAutoPaymentMutation,
+  useGetBasketsServicesQuery,
+  useAddBasketServiceMutation,
 } = paymentsAPI;

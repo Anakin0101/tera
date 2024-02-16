@@ -562,6 +562,17 @@
     "code": "Code",
     "chooseFromContact": "Choose from contacts"
   },
+  "addCartScreen": {
+    "title": "New Cart",
+    "enterCartName": "Enter the name of the cart",
+    "cartName": "Cart name"
+  },
+  "cartListScreen": {
+    "title": "Carts",
+    "emptyCarts": "You have no carts\n added",
+    "addCart": "Add to cart",
+    "template": "Template"
+  },
   "permissions": {
     "message": "Message",
     "contactsPermissions": "Contacts access was not granted. Please go to your phone's settings and allow Cantacts access."
