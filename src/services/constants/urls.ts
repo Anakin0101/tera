@@ -63,4 +63,5 @@ export const URLS = {
   getAutomPayments: 'Payment/GetAutoPayments',
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
+  activatePackage: 'Tariffs/ActivatePackage',
 };

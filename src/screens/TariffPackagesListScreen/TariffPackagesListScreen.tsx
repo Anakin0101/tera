@@ -1,45 +1,21 @@
 import React from 'react';
 import { FlatList, Pressable } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
-import { TariffCardProps } from 'components/TariffCard/TariffCardLayout.types';
-import Images from 'theme/Images';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { TARIFF_PACKAGES_SINGLE_SCREEN } from 'navigation/ScreenNames';
+import { useTariffPackages } from './container';
+import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
+import { LoadingInView } from 'components/LoadingView/LoadingInView';
+import { getCommissions } from './utilis';
 
 export const TariffPackagesListScreen = () => {
-  const { t } = useTranslation();
   const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
+  const { packagesList, packagesIsLoading } = useTariffPackages();
 
-  //dummy data until link API
-  const dummy_data_for_tariff = [
-    {
-      cardTypeName: 'CLASSIC',
-      commissionMnth: 2,
-      commissionYr: 25,
-      icon: Images().ClasicMedal,
-      status: t('newDeposit.cardStatus'),
-      id: '1',
-    },
-
-    {
-      cardTypeName: 'PLATINUM',
-      commissionMnth: 2,
-      commissionYr: 25,
-      icon: Images().PlatinumMedal,
-      id: '2',
-    },
-    {
-      cardTypeName: 'GOLD',
-      commissionMnth: 2,
-      commissionYr: 25,
-      icon: Images().GoldMedal,
-      id: '3',
-    },
-  ];
-  const renderItem = ({ item }: { item: TariffCardProps }) => {
+  const renderItem = ({ item }: { item: CustomerPackages }) => {
+    const { commissionMnth, commissionYr } = getCommissions(item?.packageServices);
     const onTariffSingleScreen = () => {
       navigate(TARIFF_PACKAGES_SINGLE_SCREEN, { ...item });
     };
@@ -47,23 +23,30 @@ export const TariffPackagesListScreen = () => {
     return (
       <Pressable onPress={onTariffSingleScreen}>
         <TariffCardLayout
-          cardTypeName={item.cardTypeName}
-          commissionMnth={item.commissionMnth}
-          commissionYr={item.commissionYr}
-          icon={item.icon}
+          cardTypeName={item.name}
           id={item.id}
-          status={item.status}
+          icon={item.name}
+          status={item.isActive}
+          pending={item.pending}
+          commissionMnth={commissionMnth}
+          commissionYr={commissionYr}
         />
       </Pressable>
     );
   };
 
   return (
-    <FlatList
-      data={dummy_data_for_tariff}
-      ListHeaderComponent={<TariffDescription />}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
+    <>
+      {!packagesIsLoading && packagesList ? (
+        <FlatList
+          data={packagesList.customerPackages}
+          ListHeaderComponent={<TariffDescription />}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <LoadingInView />
+      )}
+    </>
   );
 };

@@ -22,9 +22,9 @@ export const TariffDescriptionSingle: FC<TariffCardProps> = ({
           <IconComponent customIconComponentStyles={styles.iconWrapper} pngLocalIcon={icon} />
           <Text style={styles.cardName}>{cardTypeName}</Text>
         </View>
-        {status?.length ? (
+        {status ? (
           <View style={styles.statusWrapper}>
-            <Text style={styles.statusText}>{status}</Text>
+            <Text style={styles.statusText}>აქტიური</Text>
           </View>
         ) : null}
       </View>

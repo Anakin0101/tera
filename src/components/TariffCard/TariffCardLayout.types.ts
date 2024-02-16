@@ -1,8 +1,9 @@
 export interface TariffCardProps {
   cardTypeName: string;
-  commissionMnth: number;
-  commissionYr: number;
+  commissionMnth?: string;
+  commissionYr?: string;
   icon: string;
-  status?: string;
+  status?: boolean;
   id: string;
+  pending: boolean;
 }
