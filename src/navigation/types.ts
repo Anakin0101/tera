@@ -90,6 +90,8 @@ import {
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   PAYMENT_ERROR_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
+  ADD_CART_SCREEN,
+  CART_LIST_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -167,6 +169,8 @@ export type ModalStackParamsList = {
     automaticPaymentForm: AutomaticPaymentForm;
     subscriberFieldsValue: SubscriberFieldsValue;
   };
+  [ADD_CART_SCREEN]: undefined;
+  [CART_LIST_SCREEN]: undefined;
   [PAYMENT_ERROR_SCREEN]: undefined;
 };
 
