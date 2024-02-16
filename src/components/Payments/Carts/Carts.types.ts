@@ -1,10 +1,6 @@
-export interface CartListItemProps {
-  id: string;
-  title: string;
-  desc: string;
-}
+import { Basket } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
 export interface CartItemProps {
   isLast: boolean;
-  item: CartListItemProps;
+  item: Basket;
 }
