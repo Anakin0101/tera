@@ -517,7 +517,12 @@
     "edit": "Edit",
     "packageEdit": "Edit package",
     "freeTariff": "free",
-    "withoutPackage": "Without Package"
+    "withoutPackage": "Without Package",
+    "noTariff": "You have no tariff packages",
+    "active": "Active",
+    "packageError": "Error activating package",
+    "error": "An error occurred",
+    "pending": "Pending"
   },
   "payments": {
     "totalDebt": "Total Debt",

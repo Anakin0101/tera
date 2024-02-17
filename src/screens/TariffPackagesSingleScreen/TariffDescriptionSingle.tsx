@@ -24,18 +24,17 @@ export const TariffDescriptionSingle: FC<TariffCardProps> = ({
         </View>
         {status ? (
           <View style={styles.statusWrapper}>
-            <Text style={styles.statusText}>აქტიური</Text>
+            <Text style={styles.statusText}>{t('newDeposit.active')}</Text>
           </View>
         ) : null}
       </View>
       <View style={styles.cardNameMain}>
         <Text style={styles.commission}>{t('newDeposit.monthlyFee')}:</Text>
-        <Text style={styles.commission}>{commissionMnth} ₾</Text>
+        <Text style={styles.commission}>{`${commissionMnth} ₾`}</Text>
       </View>
-
       <View style={styles.cardNameMain}>
         <Text style={styles.commission}>{t('newDeposit.annualFee')}:</Text>
-        <Text style={styles.commission}>{commissionYr} ₾</Text>
+        <Text style={styles.commission}>{`${commissionYr} ₾`}</Text>
       </View>
     </View>
   );

@@ -9,6 +9,7 @@ import { useTariffPackages } from './container';
 import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { getCommissions } from './utilis';
+import { EmptyListMsg } from './EmptyListMsg';
 
 export const TariffPackagesListScreen = () => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
@@ -37,13 +38,17 @@ export const TariffPackagesListScreen = () => {
 
   return (
     <>
-      {!packagesIsLoading && packagesList ? (
-        <FlatList
-          data={packagesList.customerPackages}
-          ListHeaderComponent={<TariffDescription />}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
+      {!packagesIsLoading ? (
+        packagesList?.customerPackages && packagesList?.customerPackages?.length > 0 ? (
+          <FlatList
+            data={packagesList.customerPackages}
+            ListHeaderComponent={<TariffDescription />}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        ) : (
+          <EmptyListMsg />
+        )
       ) : (
         <LoadingInView />
       )}

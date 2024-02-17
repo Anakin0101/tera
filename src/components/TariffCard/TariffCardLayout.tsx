@@ -25,12 +25,12 @@ export const TariffCardLayout: React.FC<TariffCardProps> = ({
             <Text style={styles.cardName}>{cardTypeName}</Text>
             {status ? (
               <View style={styles.statusWrapper}>
-                <Text style={styles.statusText}>აქტიური</Text>
+                <Text style={styles.statusText}>{t('newDeposit.active')}</Text>
               </View>
             ) : null}
             {!status && pending ? (
               <View style={styles.pandingWrapper}>
-                <Text style={styles.statusText}>მუშავდება</Text>
+                <Text style={styles.statusText}>{t('newDeposit.pending')}</Text>
               </View>
             ) : null}
           </View>

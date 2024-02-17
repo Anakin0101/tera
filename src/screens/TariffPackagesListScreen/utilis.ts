@@ -1,4 +1,4 @@
-import { PackageService } from 'services/apis/productsAPI/productsAPI.types';
+import { PackageService, PackageServiceCode } from 'services/apis/productsAPI/productsAPI.types';
 
 type Commissions = {
   commissionMnth: string;
@@ -10,9 +10,9 @@ export const getCommissions = (packageServices: PackageService[]): Commissions =
   let commissionYr = '';
 
   packageServices.forEach(service => {
-    if (service.code === 'PackageServiceMonthly') {
+    if (service.code === PackageServiceCode.Monthly) {
       commissionMnth = `${service.price}`;
-    } else if (service.code === 'PackageServiceYearly') {
+    } else if (service.code === PackageServiceCode.Yearly) {
       commissionYr = `${service.price}`;
     }
   });

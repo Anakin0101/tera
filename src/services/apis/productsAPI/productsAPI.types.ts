@@ -389,6 +389,11 @@ type DepositProduct = {
   isCd: boolean;
 };
 
+export enum PackageServiceCode {
+  Monthly = 'PackageServiceMonthly',
+  Yearly = 'PackageServiceYearly',
+}
+
 export type PackageService = {
   id: string;
   name: string;
