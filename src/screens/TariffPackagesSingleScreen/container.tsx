@@ -8,12 +8,22 @@ import { OTPModal } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { SuccessModal } from './SuccessModal';
 import { openToast } from 'utils/toast';
+import { useTranslation } from 'react-i18next';
+import { getValue } from 'storage/index';
+import { SELECTED_LANGUAGE } from 'storage/constants';
+import {
+  LanguageKeyForAPIEnum,
+  LanguageKeys,
+} from 'components/LanguageSwitcher/LanguageSwitcher.types';
+
+const savedLanguage = getValue(SELECTED_LANGUAGE);
 
 export const useTariffPackagesSingle = () => {
   const { control, watch } = useForm<FormData>();
-  const checkboxValue = watch('save');
-  const [activatePackage] = useActivatePackageMutation();
+  const checkboxValue = watch('TariffPackagesSingleFormData');
+  const [activatePackage, { isLoading: activatePackageLoading }] = useActivatePackageMutation();
   const { selectedPackage } = useAppSelector(state => state.products);
+  const { t } = useTranslation();
 
   const handleRequestPackage = useCallback(() => {
     if (!checkboxValue) return;
@@ -22,8 +32,8 @@ export const useTariffPackagesSingle = () => {
     })
       .unwrap()
       .catch(error => {
-        console.error('Error sending OTP:', error);
-        openToast('Error sending OTP', 'error');
+        console.warn('Error sending OTP:', error);
+        openToast(t('newDeposit.error'), 'error');
       });
 
     openModal({
@@ -35,7 +45,10 @@ export const useTariffPackagesSingle = () => {
                 sendOtp: false,
                 packageId: selectedPackage?.packageId,
                 packageServiceId: selectedPackage?.packageServiceId,
-                culture: 'ka',
+                culture:
+                  savedLanguage === LanguageKeys.geo
+                    ? LanguageKeyForAPIEnum.KA
+                    : LanguageKeyForAPIEnum.EN,
                 timezoneOffset: -240,
                 otp: code,
               })
@@ -47,7 +60,7 @@ export const useTariffPackagesSingle = () => {
                 })
                 .catch(error => {
                   console.warn('Error activating package:', error);
-                  openToast('Error activating package', 'error');
+                  openToast(t('newDeposit.packageError'), 'error');
                   closeModal();
                 });
             }
@@ -56,11 +69,12 @@ export const useTariffPackagesSingle = () => {
       ),
       disablePanning: true,
     });
-  }, [selectedPackage, checkboxValue, activatePackage]);
+  }, [t, selectedPackage, checkboxValue, activatePackage]);
 
   return {
     control,
     handleRequestPackage,
     checkboxValue,
+    activatePackageLoading,
   };
 };

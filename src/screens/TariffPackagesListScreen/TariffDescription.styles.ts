@@ -39,5 +39,14 @@ export const useStyles = () => {
     itemText: {
       fontSize: 18,
     },
+    noDataWrapper: {
+      flex: 1,
+      ...Layout.center,
+    },
+    nodatatext: {
+      color: Colors.textBlack500,
+      fontFamily: FontFamily.medium,
+      fontSize: FontSize.small,
+    },
   });
 };

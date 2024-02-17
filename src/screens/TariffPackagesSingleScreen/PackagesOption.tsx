@@ -4,15 +4,15 @@ import { Button, ControlledInput, Text } from 'components';
 import { useStyles } from './TariffDescriptionSingle.styles';
 import { useTranslation } from 'react-i18next';
 import { openURL } from 'utils/openURL';
-import { TERMS_URL } from 'constants/TermsUrl';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedPackage } from 'store/slices/products';
 import { useTariffPackagesSingle } from './container';
-import { ScrollView } from 'react-native-gesture-handler';
-import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
+import { PackagesOptionType } from './TariffPackagesSingle.types';
+import { TERMS_URL } from 'constants/TestUrl';
 
-export const PackagesOption = ({ packageServices, name, id }: CustomerPackages) => {
-  const { handleRequestPackage, checkboxValue, control } = useTariffPackagesSingle();
+export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType) => {
+  const { handleRequestPackage, checkboxValue, control, activatePackageLoading } =
+    useTariffPackagesSingle();
   const [selectedId, setSelectedId] = useState<string>();
   const dispatch = useAppDispatch();
   const styles = useStyles();
@@ -30,7 +30,7 @@ export const PackagesOption = ({ packageServices, name, id }: CustomerPackages) 
   }, [selectedId, dispatch, id]);
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <>
       <Text style={styles.singleCardName}>{name}</Text>
       <View style={styles.paytypeWrapper}>
         <Text style={styles.text}>{t('newDeposit.selectPayType')}</Text>
@@ -53,18 +53,23 @@ export const PackagesOption = ({ packageServices, name, id }: CustomerPackages) 
         <Text style={[styles.text, styles.marginBottom]}>{t('newDeposit.confirmationText')}</Text>
       </View>
       <View style={styles.chechboxContainer}>
-        <ControlledInput control={control} type="checkbox" name="save" label="common.accept" />
+        <ControlledInput
+          control={control}
+          type="checkbox"
+          name="TariffPackagesSingleFormData"
+          label="common.accept"
+        />
         <Pressable style={styles.linkContainer} onPress={handleTermsAndConditions}>
           <Text children="common.terms_and_conditions" label special />
         </Pressable>
       </View>
-
       <Button.Primary
         onPress={handleRequestPackage}
         fullWidth
         text={t('common.confirm')}
         disabled={!checkboxValue}
+        isLoading={activatePackageLoading}
       />
-    </ScrollView>
+    </>
   );
 };

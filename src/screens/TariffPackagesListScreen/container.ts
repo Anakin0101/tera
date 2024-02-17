@@ -1,7 +1,8 @@
+import { OFFER_ID } from 'constants/OfferId';
 import { useGetOfferByIdQuery } from 'services/apis/productsAPI/productsAPI';
 
 export const useTariffPackages = () => {
-  const offerId = 34;
+  const offerId = OFFER_ID;
   const {
     data: packagesList,
     isSuccess: packagesSuccess,

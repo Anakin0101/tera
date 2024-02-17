@@ -18,41 +18,9 @@ export const TariffPackagesSingleScreen = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const TariffDescriptionHeader = () => (
-    <TariffDescriptionSingle
-      cardTypeName={name}
-      icon={name}
-      id={id}
-      pending={pending}
-      status={isActive}
-      commissionMnth={commissionMnth}
-      commissionYr={commissionYr}
-    />
-  );
-
-  const SelectButton = () => (
-    <Button.Primary
-      onPress={onSelectPress}
-      fixedWidth
-      text={isActive ? t('newDeposit.edit') : t('common.select')}
-    />
-  );
-
   const onSelectPress = () => {
     openModal({
-      element: (
-        <PackagesOption
-          id={id}
-          packageServices={packageServices}
-          name={name}
-          isActive={false}
-          nameEng={''}
-          packageProducts={[]}
-          packageServiceId={''}
-          pending={false}
-          status={''}
-        />
-      ),
+      element: <PackagesOption id={id} packageServices={packageServices} name={name} />,
       title: t('newDeposit.packageEdit'),
       disablePanning: true,
     });
@@ -80,10 +48,26 @@ export const TariffPackagesSingleScreen = () => {
   return (
     <FlatList
       data={packageProducts}
-      ListHeaderComponent={<TariffDescriptionHeader />}
+      ListHeaderComponent={
+        <TariffDescriptionSingle
+          cardTypeName={name}
+          icon={name}
+          id={id}
+          pending={pending}
+          status={isActive}
+          commissionMnth={commissionMnth}
+          commissionYr={commissionYr}
+        />
+      }
       renderItem={renderItem}
       keyExtractor={item => item.name}
-      ListFooterComponent={<SelectButton />}
+      ListFooterComponent={
+        <Button.Primary
+          onPress={onSelectPress}
+          fixedWidth
+          text={isActive ? t('newDeposit.edit') : t('common.select')}
+        />
+      }
     />
   );
 };
