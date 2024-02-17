@@ -27,6 +27,11 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
     }
   };
 
+  const handleCrashApp = () => {
+    // console.log(userDat);
+    throw new Error('Intentional crash for testing ErrorBoundary');
+  };
+
   const { Fonts } = useTheme();
   const { showEasyLoginPrompt, handleNavigateToAuthorizationMethodsScreeen } = useEasyLoginModal();
 
@@ -108,6 +113,9 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
       />
       <Pressable onPress={handleClearAllFromStorage}>
         <Text style={[Fonts.semiLarge]} children="Clear all from storage" />
+      </Pressable>
+      <Pressable onPress={handleCrashApp}>
+        <Text style={[Fonts.semiLarge]} children="Crash the app" />
       </Pressable>
     </View>
   );

@@ -12,3 +12,4 @@ export { useGuestNavigator } from './useGuestNavigator';
 export { useMainNavigator } from './useMainNavigator';
 export { useGroupedAccountsByIban } from './useGroupedAccountsByIban';
 export { useCulture } from './useCulture';
+export { useIsConnectionAlive } from './useIsConnectionAlive';

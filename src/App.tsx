@@ -9,12 +9,15 @@ import 'translations';
 import { saveToastRef } from 'utils/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Modal, Toast } from 'components';
+import { ErrorBoundary, Modal, Toast } from 'components';
 import { saveModalRef } from 'utils/modal';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { LogBox, Platform, StatusBar } from 'react-native';
 import { Colors } from 'theme/Variables';
+
+import { FallbackComponent } from 'components/ErrorBoundary/components/FallbackComponent';
+import { useIsConnectionAlive } from './hooks';
 
 const App = () => {
   //  We set statusbar custom color - only for android on the root level
@@ -27,22 +30,25 @@ const App = () => {
   }, []);
 
   LogBox.ignoreAllLogs();
+  useIsConnectionAlive();
 
   return (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <BottomSheetModalProvider>
-              <Navigation />
-              <Modal ref={saveModalRef} />
-              <Toast ref={saveToastRef} />
-            </BottomSheetModalProvider>
-          </PersistGate>
-        </Provider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary fallback={<FallbackComponent />}>
+      {/* eslint-disable-next-line react-native/no-inline-styles */}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <BottomSheetModalProvider>
+                <Navigation />
+                <Modal ref={saveModalRef} />
+                <Toast ref={saveToastRef} />
+              </BottomSheetModalProvider>
+            </PersistGate>
+          </Provider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 };
 

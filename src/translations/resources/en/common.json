@@ -376,7 +376,8 @@
     "login": "Log in",
     "choose": "Choose",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+	"no_internet_connection": "No internet, please check the connection"
   },
   "form": {
     "is_required": "is required",
