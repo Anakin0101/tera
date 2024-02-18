@@ -189,9 +189,19 @@ export const baseQueryWithInterceptor: BaseQueryFn<
     // handles network error
     if (result.error && result.error.status === 'FETCH_ERROR') {
       const fetchBaseQueryError: FetchBaseQueryError = {
-        status: 'CUSTOM_ERROR',
+        status: 'FETCH_ERROR',
         data: undefined,
-        error: i18next.t('network.no_internet_connection'),
+        error: i18next.t('network.network_error'),
+      };
+      openToast(fetchBaseQueryError.error, 'error');
+      return { error: fetchBaseQueryError };
+    }
+    // handles timeout error --- // TBD // DEA
+    if (result.error && result.error.status === 'TIMEOUT_ERROR') {
+      const fetchBaseQueryError: FetchBaseQueryError = {
+        status: 'TIMEOUT_ERROR',
+        data: undefined,
+        error: i18next.t('network.timeout_error'),
       };
       openToast(fetchBaseQueryError.error, 'error');
       return { error: fetchBaseQueryError };
