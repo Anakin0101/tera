@@ -1,9 +1,9 @@
 import {
   CreditCardType,
+  Currency,
   LoanType,
   OverdraftType,
-} from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+} from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface LoanSliderItemProps {
@@ -43,4 +43,11 @@ export interface OverdueContentProps {
   overdueInterestPenalty: number;
   defferdPrincipalAmount?: number;
   currency: CurrencyEnum;
+}
+
+export interface CreditCardDetailsProps {
+  creditCard: CreditCardType;
+}
+export interface OverdraftDetailsProps {
+  overdraft: OverdraftType;
 }

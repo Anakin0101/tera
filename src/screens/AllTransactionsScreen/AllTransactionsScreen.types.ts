@@ -1,5 +1,5 @@
-import { OpCategoryEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { Currency, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { OpCategoryEnum, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface TotalsProps {
   income: number;
@@ -10,7 +10,7 @@ export type TransactionFilters = {
   startDate: string;
   endDate: string;
   accountNumber: number | null;
-  currency: Currency | null;
+  currency: CurrencyEnum | null;
   category: OpCategoryEnum | null;
 };
 export interface HeaderProps {

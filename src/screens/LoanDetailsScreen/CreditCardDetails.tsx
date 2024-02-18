@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Collapsible } from 'components';
 import { formatDate, getFormattedDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 import { Header, Overdue, getLoanStatus } from './LoanDetails';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { CreditCardType } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { useStyles } from './LoanDetailsScreen.styles';
 
-export const CreditCardDetails = ({ creditCard }: { creditCard: CreditCardType }) => {
+import { useStyles } from './LoanDetailsScreen.styles';
+import { CreditCardDetailsProps } from './LoanDetailsScreen.types';
+
+export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) => {
   const styles = useStyles();
 
   const totalOverdue =

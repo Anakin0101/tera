@@ -1,9 +1,9 @@
 import {
+  CreditCardType,
+  DepositType,
   LoanType,
   OverdraftType,
-  CreditCardType,
-} from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { DepositType } from 'services/apis/productsAPI/productsAPI.types';
+} from 'services/apis/productsAPI/productsAPI.types';
 
 type Variant = 'deposit' | 'loan';
 

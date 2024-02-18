@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductsStateProps, IbanInfo, BranchInfo } from './types';
-import { dashboardAPI } from 'services/apis';
+import { productsAPI } from 'services/apis';
 
 const initialState: ProductsStateProps = {
   groupedAccountsByIban: [],
@@ -55,20 +55,20 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addMatcher(dashboardAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
+    builder.addMatcher(productsAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
       state.overdrafts = payload;
     });
-    builder.addMatcher(dashboardAPI.endpoints.getAssets.matchFulfilled, (state, { payload }) => {
+    builder.addMatcher(productsAPI.endpoints.getDeposits.matchFulfilled, (state, { payload }) => {
       state.deposits = payload;
     });
     builder.addMatcher(
-      dashboardAPI.endpoints.getLoanCustomerId.matchFulfilled,
+      productsAPI.endpoints.getLoanCustomerId.matchFulfilled,
       (state, { payload }) => {
         state.loans = payload;
       },
     );
     builder.addMatcher(
-      dashboardAPI.endpoints.getCreditCards.matchFulfilled,
+      productsAPI.endpoints.getCreditCards.matchFulfilled,
       (state, { payload }) => {
         state.creditCards = payload;
       },
