@@ -24,7 +24,6 @@ export const useOtherBanksContainer = (param: string) => {
       return response;
     } catch (error) {
       console.warn('Exchange Amount Error:', error);
-      return;
     }
   };
   const handlePersonalNumber = async (pin: string) => {
@@ -33,7 +32,6 @@ export const useOtherBanksContainer = (param: string) => {
       return response;
     } catch (error) {
       console.warn('Exchange Amount Error:', error);
-      return;
     }
   };
   const handleMobileNumber = async (mobile: string) => {
@@ -42,7 +40,6 @@ export const useOtherBanksContainer = (param: string) => {
       return response;
     } catch (error) {
       console.warn('Exchange Amount Error:', error);
-      return;
     }
   };
 

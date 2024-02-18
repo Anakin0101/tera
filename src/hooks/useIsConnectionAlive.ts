@@ -38,7 +38,7 @@ export const useIsConnectionAlive = () => {
         falseCountRef.current += 1;
         if (falseCountRef.current > 1) {
           setIsConnectionAlive(false);
-          openToast(t('common.no_internet_connection'), 'error');
+          openToast(t('network.no_internet_connection'), 'error');
         }
       }
     } else {

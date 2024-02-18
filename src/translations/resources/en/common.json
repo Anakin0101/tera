@@ -376,8 +376,7 @@
     "login": "Log in",
     "choose": "Choose",
     "edit": "Edit",
-    "delete": "Delete",
-	"no_internet_connection": "No internet, please check the connection"
+    "delete": "Delete"
   },
   "form": {
     "is_required": "is required",
@@ -704,5 +703,8 @@
   "passwordRecovery": {
     "choose_password_recovery_method": "Choose a password recovery method",
     "successful_password_recovery_title": "Password recovery finished successfully"
+  },
+  "network": {
+    "no_internet_connection": "No internet, please check the connection"
   }
 }

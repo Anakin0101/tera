@@ -52,7 +52,7 @@ export const useTransactionsScreen = () => {
         setInvoiceFile(selectedFileName.name);
       }
     } catch (err) {
-      console.warn(err);
+      console.warn('Error in handleFilePick: ', err);
     }
   };
 
