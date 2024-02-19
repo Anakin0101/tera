@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductsStateProps, IbanInfo, BranchInfo } from './types';
 import { productsAPI } from 'services/apis';
-import { AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
-import { groupAccountsByIban } from 'utils/groupData';
-import { calculateSum } from 'utils/calculateSum';
-import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const initialState: ProductsStateProps = {
   groupedAccountsByIban: [],
@@ -59,17 +55,6 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addMatcher(
-      productsAPI.endpoints.getAccountsByCustomerId.matchFulfilled,
-      (state, { payload }) => {
-        const accounts = payload?.filter(
-          ({ accountType }) => accountType !== AccountTypeEnum.Deposit,
-        );
-        const balanceGEL = accounts?.filter(account => account?.ccy === CurrencyEnum.GEL);
-        state.groupedAccountsByIban = groupAccountsByIban(accounts, 'accountIban');
-        state.totalAvailableBalanceGEL = calculateSum(balanceGEL, 'balance');
-      },
-    );
     builder.addMatcher(productsAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
       state.overdrafts = payload;
     });
