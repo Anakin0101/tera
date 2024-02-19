@@ -1,6 +1,7 @@
 import React from 'react';
 import { handleLogError } from './utils/handleLogError';
 import { ChildrenProps, StateProps } from './ErrorBoundary.types';
+import { FallbackComponent } from 'components/index';
 
 /**
  * React Error Boundary: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
@@ -12,8 +13,6 @@ export default class ErrorBoundary extends React.Component<ChildrenProps, StateP
     this.state = { hasError: false };
   }
 
-  readonly state = {} as StateProps;
-
   static getDerivedStateFromError() {
     return { hasError: true };
   }
@@ -24,9 +23,15 @@ export default class ErrorBoundary extends React.Component<ChildrenProps, StateP
     await handleLogError(error, info.componentStack);
   }
 
+  clearError = () => {
+    this.setState({
+      hasError: false,
+    });
+  };
+
   render() {
     if (this.state.hasError) {
-      return this.props.fallback;
+      return <FallbackComponent onRetry={this.clearError} />;
     }
     return this.props.children;
   }

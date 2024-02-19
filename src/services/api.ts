@@ -191,7 +191,7 @@ export const baseQueryWithInterceptor: BaseQueryFn<
       const fetchBaseQueryError: FetchBaseQueryError = {
         status: 'FETCH_ERROR',
         data: undefined,
-        error: i18next.t('network.network_error'),
+        error: i18next.t('error.network_error'),
       };
       openToast(fetchBaseQueryError.error, 'error');
       return { error: fetchBaseQueryError };
@@ -201,7 +201,7 @@ export const baseQueryWithInterceptor: BaseQueryFn<
       const fetchBaseQueryError: FetchBaseQueryError = {
         status: 'TIMEOUT_ERROR',
         data: undefined,
-        error: i18next.t('network.timeout_error'),
+        error: i18next.t('error.timeout_error'),
       };
       openToast(fetchBaseQueryError.error, 'error');
       return { error: fetchBaseQueryError };

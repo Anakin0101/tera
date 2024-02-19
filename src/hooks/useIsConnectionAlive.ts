@@ -38,7 +38,7 @@ export const useIsConnectionAlive = () => {
         falseCountRef.current += 1;
         if (falseCountRef.current > 1) {
           setIsConnectionAlive(false);
-          openToast(t('network.network_error'), 'error');
+          openToast(t('error.network_error'), 'error');
         }
       }
     } else {

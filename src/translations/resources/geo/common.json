@@ -370,7 +370,8 @@
     "login": "შესვლა",
     "choose": "აირჩიე",
     "edit": "რედაქტირება",
-    "delete": "წაშლა"
+    "delete": "წაშლა",
+    "try_again": "ცადე ხელახლა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",
@@ -693,8 +694,10 @@
     "choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",
     "successful_password_recovery_title": "პაროლის აღდგენა წარმატებით დასრულდა"
   },
-  "network": {
+  "error": {
     "network_error": "ინტერნეტთან წვდომა არ ფიქსირდება, გთხოვთ შეამოწმოთ კავშირი",
-    "timeout_error": "დაფიქსირდა შეცდომა"
+    "timeout_error": "დაფიქსირდა შეცდომა",
+    "component_title": "შეცდომა",
+    "component_description": "დაფიქსირდა შეცდომა, გთხოვთ ხელახლა სცადოთ"
   }
 }

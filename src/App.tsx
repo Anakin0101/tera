@@ -13,11 +13,10 @@ import { ErrorBoundary, Modal, Toast } from 'components';
 import { saveModalRef } from 'utils/modal';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { LogBox, Platform, StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 import { Colors } from 'theme/Variables';
 
-import { FallbackComponent } from 'components/ErrorBoundary/components/FallbackComponent';
-import { useIsConnectionAlive } from './hooks';
+import { useIsConnectionAlive } from 'hooks';
 
 const App = () => {
   //  We set statusbar custom color - only for android on the root level
@@ -29,11 +28,10 @@ const App = () => {
     }
   }, []);
 
-  LogBox.ignoreAllLogs();
   useIsConnectionAlive();
 
   return (
-    <ErrorBoundary fallback={<FallbackComponent />}>
+    <ErrorBoundary>
       {/* eslint-disable-next-line react-native/no-inline-styles */}
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider>

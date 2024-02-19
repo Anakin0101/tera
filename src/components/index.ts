@@ -71,3 +71,4 @@ export { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 export { ActionSheet } from './ActionSheet/ActionSheet';
 export { LoadingInView } from './LoadingView/LoadingInView';
 export { default as ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
+export { FallbackComponent } from './ErrorBoundary/components/FallbackComponent';
