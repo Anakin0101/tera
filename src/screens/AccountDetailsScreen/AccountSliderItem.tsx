@@ -3,10 +3,10 @@ import { ImageBackground, Pressable, View } from 'react-native';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
+import { PUBLIC_IMAGE_URL } from 'services/api';
 import { ChevronUp, ChevronDown, Star, FullStar } from 'assets/SVGs';
 import { AccountSliderItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { PUBLIC_IMAGE_URL } from 'services/api';
 
 const DEFAULT_CARD = require('assets/images/DefaultCard.png');
 
@@ -15,10 +15,11 @@ export const AccountSliderItem: FC<AccountSliderItemProps> = memo(({ item }) => 
   const [index, setIndex] = useState(0);
 
   const imageId = useMemo(() => {
-    const accWithCards = item.accounts?.find(acc => !!acc?.cards?.length);
+    const accWithCards = item?.accounts?.find(acc => !!acc?.cards?.length);
     if (accWithCards) {
       return accWithCards?.cards?.[0]?.cardLargeImageId;
     }
+    return '';
   }, [item.accounts]);
 
   const getAmounts = useCallback(() => {
