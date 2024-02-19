@@ -13,10 +13,7 @@ export const AutomaticPaymentsScreen = () => {
   const { handleItemPress, automaticPayments, isLoading } = useAutomaticPayments();
 
   const renderItem: RenderItem = useCallback(
-    ({ item }) => {
-      const onPress = () => handleItemPress(item.id, item.largeImageId);
-      return <Item item={item} onPress={onPress} />;
-    },
+    ({ item }) => <Item item={item} onPress={handleItemPress} />,
     [handleItemPress],
   );
 

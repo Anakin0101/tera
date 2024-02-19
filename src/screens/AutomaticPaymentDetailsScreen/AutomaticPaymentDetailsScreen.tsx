@@ -60,7 +60,7 @@ export const AutomaticPaymentDetailsScreen = () => {
   const renderPaymendDetails = useCallback(() => {
     return combined?.map(item => {
       if (item?.readonly && item?.visible) {
-        return <DetailsItem label={item.name} value={item.value} />;
+        return <DetailsItem label={item.name} value={item.value} key={item.key} />;
       }
       return null;
     });

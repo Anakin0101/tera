@@ -9,8 +9,12 @@ import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 export const Item: FC<ItemProps> = memo(({ item, onPress }) => {
   const styles = useStyles();
 
+  const handlePress = () => {
+    onPress(item.id, item.largeImageId);
+  };
+
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={handlePress}>
       <View style={styles.itemContainer}>
         <IconComponent imageId={item?.largeImageId} customImageIDStyle={styles.icon} />
         <View style={styles.info}>
