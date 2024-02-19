@@ -39,7 +39,7 @@ const IbanTransaction = () => {
   );
   const { copyToClipboard } = useCopyToClipboard();
 
-  const { selectedTransactionType } = selectedItemFromStore;
+  const { selectedTransactionType, accountFromData } = selectedItemFromStore;
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
   const [receiver, setReceiver] = useState<string>('');
@@ -143,13 +143,18 @@ const IbanTransaction = () => {
         });
       }
     } else {
-      if (isSuccess && data.ibanIsValid && selectedTransactionType.name && receiver) {
+      if (
+        isSuccess &&
+        data.ibanIsValid &&
+        (accountFromData.ccy === 'GEL' ? selectedTransactionType.name : true) &&
+        receiver
+      ) {
         navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
           fromOtherBank: true,
           fromIban: true,
           receiver: receiver,
         });
-      } else if (!selectedTransactionType.name) {
+      } else if (!selectedTransactionType.name && accountFromData.ccy === 'GEL') {
         openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');
       } else if (!receiver) {
         openToast(`${t('transactionDetails.validRecieverPrompt')}`, 'error');
@@ -200,33 +205,41 @@ const IbanTransaction = () => {
                 marginTop={32}
                 autoFocus
               />
-              <Pressable
-                onPress={() =>
-                  openModal({
-                    element: <TransactionModal />,
-                    title: 'transactions.details',
-                    titlePosition: 'center',
-                    disablePanning: true,
-                  })
-                }
-              >
-                <View style={styles.chevron}>
-                  <Text children="transactionDetails.type" size={12} demiBold />
-                  <ChevronDown color={Colors.black700} />
-                </View>
-                <Text children={selectedTransactionType.name} size={12} />
-              </Pressable>
-              {selectedTransactionType.name === 'transactions.standard' ? (
-                <View style={styles.fastPayment}>
-                  <Error />
-                  <Text children="transactions.standardText" size={12} color={Colors.textBlack} />
-                </View>
-              ) : selectedTransactionType.name ? (
-                <View style={styles.fastPayment}>
-                  <Error />
-                  <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
-                </View>
-              ) : null}
+              {accountFromData.ccy === 'GEL' && (
+                <>
+                  <Pressable
+                    onPress={() =>
+                      openModal({
+                        element: <TransactionModal />,
+                        title: 'transactions.details',
+                        titlePosition: 'center',
+                        disablePanning: true,
+                      })
+                    }
+                  >
+                    <View style={styles.chevron}>
+                      <Text children="transactionDetails.type" size={12} demiBold />
+                      <ChevronDown color={Colors.black700} />
+                    </View>
+                    <Text children={selectedTransactionType.name} size={12} />
+                  </Pressable>
+                  {selectedTransactionType.name === 'transactions.standard' ? (
+                    <View style={styles.fastPayment}>
+                      <Error />
+                      <Text
+                        children="transactions.standardText"
+                        size={12}
+                        color={Colors.textBlack}
+                      />
+                    </View>
+                  ) : selectedTransactionType.name ? (
+                    <View style={styles.fastPayment}>
+                      <Error />
+                      <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
+                    </View>
+                  ) : null}
+                </>
+              )}
             </>
           )}
         </View>
