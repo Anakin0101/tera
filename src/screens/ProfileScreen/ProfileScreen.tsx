@@ -3,10 +3,11 @@ import { SafeAreaView, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import { useStyleTheme } from './ProfileScreen.styles';
-import { CustomHeader, LoadingView, Logout, UserInfoBlock } from 'components/index';
+import { CustomHeader, LoadingView, Logout, Text, UserInfoBlock } from 'components/index';
 import { ProfileCards, ProfileList } from 'components/Profile';
 import { useTranslation } from 'react-i18next';
 import { useProfileScreen } from './container';
+import { getBuildNumber, getVersion } from 'react-native-device-info';
 
 export const ProfileScreen = () => {
   const styles = useStyleTheme();
@@ -34,6 +35,11 @@ export const ProfileScreen = () => {
           <ProfileCards />
           <ProfileList />
           <Logout />
+          <View style={styles.buildVersionWrapper}>
+            <Text
+              style={styles.buildVersionLabel}
+            >{`Build version: ${getVersion()} (${getBuildNumber()})`}</Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </View>

@@ -42,7 +42,7 @@ export const useStyles = () => {
       marginRight: Spacing.m,
     },
     contentWrapper: {
-      flex: 1,
+      ...Layout.fill,
     },
     contentBorder: {
       borderBottomWidth: 1,

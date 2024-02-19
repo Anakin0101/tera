@@ -91,6 +91,10 @@
     "do_not_ask_again": "Do not ask again",
     "enable_from_settings": "For biometric authentication, you need to activate Face ID / Touch ID in the mobile settings “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
+  "resend": {
+    "text": "Please accept your phone number",
+    "label": "One time code has been sent to your phone"
+  },
   "dashboard": {
     "templates": "Templates",
     "template": "Template",
@@ -110,7 +114,11 @@
     "fill": "Top up",
     "savings": "Savings",
     "allPay": "All payments",
-    "noTransactions": "You don't have transactions"
+    "noTransactions": "You don't have transactions",
+    "trustedTemplate": "Trusted Template",
+    "template_trust_status": "Template successfully {{status}}",
+    "untrusted": "untrusted",
+    "trusted": "trusted"
   },
 
   "profile": {
@@ -376,6 +384,7 @@
     "9_digits_required": "must consist of 9 digits",
     "invalid_email": "format is incorrect"
   },
+
   "transactions": {
     "title": "Transactions",
     "searchTransaction": "Search for a transaction",
@@ -388,8 +397,8 @@
     "details": "Transaction Details",
     "standard": "standard payment",
     "fast": "fast payment",
-    "fastText": "თუ გადარიცხვა სამუშაო დღის (ორშაბათი-პარასკევი) 10:00-დან 17:35 საათამდე შესრულდება, მიმღებს თანხა ანგარიშზე იმავე დღესვე დაუჯდება. ოპერაცია 15 წუთის განმავლობაში შესრულდება. არასამუშაო დროს შესრულებული გადარიცხვა აისახება მომდევნო სამუშაო დღეს. სწრაფი გადარიცხვის საკომისიო: 5 000 ლარამდე გადარიცხვისას: ფიქსირებული 1 ლარი. 5 000 ლარიდან - ფიქსირებული 2 ლარი.",
-    "standardText": "თუ გადარიცხვა სამუშაო დღის (ორშაბათი-პარასკევი) 10:00-დან 17:35 საათამდე შესრულდება, მიმღებს თანხა ანგარიშზე იმავე დღესვე დაუჯდება. არასამუშაო დროს შესრულებული გადარიცხვა აისახება მომდევნო სამუშაო დღეს",
+    "fastText": "If the transfer is made on a working day (Monday-Friday) from 10:00 to 17:35, the recipient will receive the amount in their account on the same day. The transaction will be completed within 15 minutes. Transfers made outside of working hours will be reflected on the next working day. Fast transfer commission: For transfers up to 5,000 GEL, the fee is a fixed 1 GEL. For transfers above 5,000 GEL, the fee is a fixed 2 GEL.",
+    "standardText": "If the transfer is made on a working day (Monday-Friday) from 10:00 to 17:35, the recipient will receive the amount in their account on the same day. Transfers made outside of working hours will be reflected on the next working day.",
     "transDetails": "Transaction Details",
     "transAmount": "Transaction amount",
     "fromMobile": "I transfer money with mobile",
@@ -399,14 +408,20 @@
     "next": "Next",
     "createCode": "create code",
     "transferToBudget": "Transfer to budget",
-    "budgetTitle": "სახაზინო კოდი",
-    "inBudget": "ბიუჯეტში გადარიცხვა",
-    "forMe": "ჩემთვის",
-    "forOthers": "სხვისთვის",
-    "transferforSomeone": "ვისთვის რიცხავ თანხას",
-    "chooseReceiver": "აირჩიე მიმღები",
-    "chooseCity": "აირჩიე ქალაქი ან რეგიონი",
-    "choosePayment": "აირჩიე გადასახადი"
+    "budgetTitle": "Budget code",
+    "inBudget": "Transfer to budget",
+    "forMe": "For me",
+    "forOthers": "For others",
+    "transferforSomeone": "Whom are you transferring money to?",
+    "chooseReceiver": "Choose the recipient",
+    "chooseCity": "Choose city or region",
+    "choosePayment": "Choose payment",
+    "searchTemplate": "Search for a template",
+    "blockCard": "Do you really want to block 'My Card'?",
+    "unblockCard": "Do you really want to unblock 'My Card'?",
+    "trustedTemplate": "Make template trusted and after 24 hours perform operations up to 1,000 GEL (or equivalent in GEL) without additional SMS/Digipass code.",
+    "untrust": "untrust template",
+    "deleteTemplate": "Do you really want to delete the template?"
   },
   "transactionDetails": {
     "to": "To",
@@ -535,6 +550,21 @@
     "title": "Payment Details",
     "details": "Details",
     "pay": "Pay"
+  },
+  "choosePaymentAccountScreen": {
+    "title": "Payment details"
+  },
+  "chooseMobileProviderScreen": {
+    "title": "Mobile top up",
+    "enterMobileNumber": "Enter mobile number",
+    "mobileNumber": "Mobile number",
+    "mobileTemplates": "Mobile templates",
+    "code": "Code",
+    "chooseFromContact": "Choose from contacts"
+  },
+  "permissions": {
+    "message": "Message",
+    "contactsPermissions": "Contacts access was not granted. Please go to your phone's settings and allow Cantacts access."
   },
   "paymentSuccessScreen": {
     "title": "Pay\n Successfully executed",

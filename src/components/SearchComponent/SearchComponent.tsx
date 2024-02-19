@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { View, Pressable } from 'react-native';
+import { View, Pressable, TextInput } from 'react-native';
 import { SearchProps } from './SearchComponent.types';
 import { useStyleTheme } from './SearchComponent.styles';
 import { ClearSearch, Search } from 'assets/SVGs';
-import { TextInput } from 'react-native-gesture-handler';
 import { Colors } from 'theme/Variables';
 
 export const SearchComponent: FC<SearchProps> = ({
@@ -36,6 +35,7 @@ export const SearchComponent: FC<SearchProps> = ({
           onSubmitEditing={onSubmitEditing}
           autoFocus={autoFocus}
           spellCheck={true}
+          maxFontSizeMultiplier={1}
         />
         {!!value && (
           <Pressable

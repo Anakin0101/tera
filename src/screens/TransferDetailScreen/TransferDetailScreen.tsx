@@ -4,7 +4,7 @@ import { Button } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useStyleTheme } from './TransferDetailScreen.styles';
 import { useNavigation } from '@react-navigation/native';
-import { SelectedItemProp } from './TransferDetailScreen.types';
+import { SelectedItemProp, paramsTypes } from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
@@ -15,11 +15,15 @@ import { OtherBankList } from './OtherBankList';
 import { openModal, closeModal } from 'utils/modal';
 import { OTPModal } from 'components';
 import {
+  TRANSFER_TYPE,
   TransferToOwnAccountResponseType,
   TransferToSomeoneResultResponseType,
 } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
 import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setTransferType, setSpecificTransferData } from 'store/slices/transfers';
+import { TransferTemplateTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { CustomBackendError } from 'services/types';
 
 export const TransferDetailScreen = () => {
@@ -33,6 +37,7 @@ export const TransferDetailScreen = () => {
     useTransferDetails(!!params?.mobileTransaction);
 
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const dispatch = useAppDispatch();
   const {
     accountFromData,
     accountToData,
@@ -44,12 +49,15 @@ export const TransferDetailScreen = () => {
     accountIban,
     selectedTransactionType,
     selectedOtherBankDataTitle,
+    isInternal,
   } = selectedItemFromStore;
 
-  const transferWithOTP = async (code: any, params: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const transferWithOTP = async (params: paramsTypes, code?: string) => {
     let headers: { [key: string]: string } = {
       'X-Bank-Isstrongauthrequest': 'true',
       'Content-Type': 'multipart/form-data',
+      ...(code !== undefined && { 'X-Bank-Otp': code }),
     };
 
     if (!params?.mobileTransaction) {
@@ -73,15 +81,34 @@ export const TransferDetailScreen = () => {
       formData.append('fastPayment', 'false');
       formData.append('bankCode', receiverInfo.bicCode);
       formData.append('bankName', receiverInfo.bankName);
-      if (code !== false) {
-        headers['X-Bank-Otp'] = code;
-      }
 
       const transferToSomeoneResult: TransferToSomeoneResultResponseType = await transferToSomeone({
         headers: headers,
         body: formData,
       });
+      dispatch(
+        setTransferType({
+          type: isInternal
+            ? TransferTemplateTypeEnum.ToSomeoneInsideBank
+            : TransferTemplateTypeEnum.ToSomeoneInGeorgia,
+        }),
+      );
 
+      dispatch(
+        setSpecificTransferData({
+          transferType: isInternal ? TRANSFER_TYPE.bankInternal : TRANSFER_TYPE.bankExternal,
+          data: {
+            personalId: null,
+            debitIban: accountFromData.accountIban,
+            creditIban: accountToData.accountIban || accountToData.iban,
+            currency: accountFromData.ccy,
+            amount: selectedItemFromStore.selectedPrice,
+            description: selectedData ? selectedData : PERSONAL_TRANSACTION,
+            extraDescription: '',
+            isTrusted: false,
+          },
+        }),
+      );
       closeModal();
 
       if (transferToSomeoneResult?.error) {
@@ -90,7 +117,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN);
+        navigate(TRANSACTION_FINISHED_SCREEN, { fromIban: true });
       }
     } else {
       headers['Content-Type'] = 'application/json';
@@ -107,7 +134,7 @@ export const TransferDetailScreen = () => {
         bankName: receiverInfo.bankName,
       };
 
-      if (code !== false) {
+      if (code !== undefined) {
         requestBody.otp = code;
       }
 
@@ -138,7 +165,7 @@ export const TransferDetailScreen = () => {
     }
   };
   const handleButtonPress = async () => {
-    if (params.convertion && !params.fromOtherBank) {
+    if (params?.convertion && !params?.fromOtherBank) {
       try {
         const transferConvertion: TransferToOwnAccountResponseType | undefined =
           await handleExchangeAmount({
@@ -147,6 +174,24 @@ export const TransferDetailScreen = () => {
             creditAccountId: accountToData?.accountId,
             debitAccountId: accountFromData?.accountId,
           });
+
+        dispatch(
+          setTransferType({
+            type: TransferTemplateTypeEnum.Exchange,
+          }),
+        );
+
+        dispatch(
+          setSpecificTransferData({
+            transferType: 'conversion',
+            data: {
+              debitIban: accountFromData.accountIban,
+              debitCurrency: accountFromData.ccy,
+              creditIban: accountToData.accountIban || accountToData.iban,
+              creditCurrency: accountToData.ccy,
+            },
+          }),
+        );
         if (transferConvertion?.error) {
           handleTransferError(transferConvertion.error);
         } else {
@@ -158,11 +203,11 @@ export const TransferDetailScreen = () => {
     } else if (params.fromOtherBank) {
       if (otpData.otpRequired) {
         openModal({
-          element: <OTPModal onFinished={code => transferWithOTP(code, params)} />,
+          element: <OTPModal onFinished={code => transferWithOTP(params, code)} />,
           withKeyboard: true,
         });
       } else {
-        await transferWithOTP(false, params);
+        await transferWithOTP(params);
       }
     } else {
       try {
@@ -172,11 +217,28 @@ export const TransferDetailScreen = () => {
             creditAccountId: accountToData?.accountId,
             debitAccountId: accountFromData?.accountId,
           });
+        dispatch(
+          setTransferType({
+            type: TransferTemplateTypeEnum.ToOwnAccount,
+          }),
+        );
+
+        dispatch(
+          setSpecificTransferData({
+            transferType: TRANSFER_TYPE.internal,
+            data: {
+              debitIban: accountFromData.accountIban,
+              currency: accountFromData.ccy,
+              creditIban: accountToData.accountIban || accountToData.iban,
+              amount: selectedItemFromStore.selectedPrice,
+            },
+          }),
+        );
 
         if (transferResult?.error) {
           handleTransferError(transferResult.error);
         } else {
-          navigate(TRANSACTION_FINISHED_SCREEN);
+          navigate(TRANSACTION_FINISHED_SCREEN, { internal: true });
         }
       } catch (error) {
         console.warn('Transfer to Own Account Error:', error);
@@ -188,40 +250,44 @@ export const TransferDetailScreen = () => {
   const { buyAmount } = selectedItemFromStore?.convertionData || {};
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.containerWrapper}>
-        <ConversionOrTranferDetails
-          buyAmount={buyAmount}
-          accountFromData={accountFromData}
-          params={params}
-          selectedPrice={selectedPrice}
-        />
-      </View>
-      <View style={styles.details}>
-        <View style={styles.wrapper}>
-          {params.fromOtherBank ? (
-            <OtherBankList
-              selectedItemFromStore={selectedItemFromStore}
-              receiver={params.receiver}
-            />
-          ) : (
-            <TransferDetailsList
-              selectedItemFromStore={selectedItemFromStore}
-              convertion={params.convertion}
-            />
-          )}
+    <ScrollView bounces={false} contentContainerStyle={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.containerWrapper}>
+          <ConversionOrTranferDetails
+            buyAmount={buyAmount}
+            accountFromData={accountFromData}
+            params={params}
+            selectedPrice={selectedPrice}
+          />
         </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button.Primary
-          text={t('transfers.transfer')}
-          hitSlop={30}
-          fixedWidth
-          onPress={() => {
-            handleButtonPress();
-          }}
-          isLoading={isLoading}
-        />
+        <View style={styles.container}>
+          <View style={styles.wrapper}>
+            <View style={styles.inner}>
+              {params?.fromOtherBank ? (
+                <OtherBankList
+                  selectedItemFromStore={selectedItemFromStore}
+                  receiver={params?.receiver}
+                />
+              ) : (
+                <TransferDetailsList
+                  selectedItemFromStore={selectedItemFromStore}
+                  convertion={params?.convertion}
+                />
+              )}
+            </View>
+          </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button.Primary
+            text={t('transfers.transfer')}
+            hitSlop={30}
+            fixedWidth
+            onPress={() => {
+              handleButtonPress();
+            }}
+            isLoading={isLoading}
+          />
+        </View>
       </View>
     </ScrollView>
   );

@@ -144,7 +144,7 @@ const IbanTransaction = () => {
   return (
     <ScrollView style={styles.scroll} contentContainerStyle={styles.bottomStretchStyle}>
       <Text children="personalNumber.Recepient" size={18} demiBold />
-      {apiCallInitiated && data ? (
+      {apiCallInitiated && data && data?.ibanIsValid ? (
         <View>
           <View style={styles.wrapper}>
             <DetailsItem

@@ -26,7 +26,7 @@ import { useTranslation } from 'react-i18next';
 export const TransferToOtherBankAccountScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { fromOtherBank, fromMobile, receiver } = params;
-
+  const { t } = useTranslation();
   const { navigate, setOptions } =
     useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
@@ -55,7 +55,6 @@ export const TransferToOtherBankAccountScreen = () => {
   const dispatch = useDispatch();
   const inputRef = useRef<TextInput>(null);
   const isFocused = useIsFocused();
-  const { t } = useTranslation();
 
   useEffect(() => {
     const navigationOptions =
@@ -131,6 +130,8 @@ export const TransferToOtherBankAccountScreen = () => {
             mobileTransaction: true,
             receiver: receiver,
           });
+        } else {
+          openToast(t('authErrors.tryAgain'), 'error');
         }
       } else {
         await handleTransferInfo({
@@ -168,6 +169,8 @@ export const TransferToOtherBankAccountScreen = () => {
             fromOtherBank: fromOtherBank,
             receiver: receiver,
           });
+        } else {
+          openToast(t('authErrors.tryAgain'), 'error');
         }
       }
     } catch (error) {

@@ -1,4 +1,4 @@
-export const getCurrencyIcon = (currency: string) => {
+export const getCurrencyIcon = (currency?: string) => {
   switch (currency) {
     case 'GEL':
       return '₾';

@@ -41,6 +41,7 @@ export const Text = forwardRef<RNText, TextProps>(
     return (
       <RNText
         ref={ref}
+        maxFontSizeMultiplier={1}
         style={[
           withoutLineHeight ? styles.withoutLineHeight : styles.default,
           label && styles.label,

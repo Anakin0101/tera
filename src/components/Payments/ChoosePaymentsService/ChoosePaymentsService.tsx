@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Alert, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { useStyles } from './ChoosePaymentsService.styles';
@@ -10,6 +10,7 @@ import { PaymentItem } from './PaymentItem';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import {
+  CHOOSE_MOBILE_PROVIDER_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   MODAL_STACK,
@@ -40,7 +41,7 @@ export const ChoosePaymentsService = () => {
         id: '2',
         title: t('payments.mobilePayment'),
         icon: <MobilePayment />,
-        onPress: () => Alert.alert('მობილურის შევსება'),
+        onPress: () => navigate(MODAL_STACK, { screen: CHOOSE_MOBILE_PROVIDER_SCREEN }),
       },
       {
         id: '3',

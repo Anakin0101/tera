@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, SafeAreaView, View } from 'react-native';
 
 import { useStyleTheme } from './CustomHeader.styles';
 import { CustomHeaderOptions } from './CustomHeader.types';
@@ -23,26 +23,28 @@ export const CustomHeader: FC<Partial<CustomHeaderOptions>> = ({
 
   return (
     <View style={styles.wrapper}>
-      <View style={[styles.container, customHeaderContainerStyle]}>
-        <Text children={title} style={styles.text} />
-        <View style={styles.iconContainer}>
-          <IconComponent
-            handler={handleSearch}
-            IconJSX={Search}
-            customIconComponentStyles={styles.icon}
-          />
-          <View>
+      <SafeAreaView>
+        <View style={[styles.container, customHeaderContainerStyle]}>
+          <Text children={title} style={styles.text} />
+          <View style={styles.iconContainer}>
             <IconComponent
-              handler={handleMessagesPress}
-              IconJSX={Chat}
+              handler={handleSearch}
+              IconJSX={Search}
               customIconComponentStyles={styles.icon}
             />
-            <View style={styles.badge}>
-              <Text style={styles.badgeLabel}>{4}</Text>
+            <View>
+              <IconComponent
+                handler={handleMessagesPress}
+                IconJSX={Chat}
+                customIconComponentStyles={styles.icon}
+              />
+              <View style={styles.badge}>
+                <Text style={styles.badgeLabel}>{4}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     </View>
   );
 };

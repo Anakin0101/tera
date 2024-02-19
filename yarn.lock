@@ -6480,6 +6480,16 @@ react-native-calendars@1.1302.0:
   optionalDependencies:
     moment "^2.29.4"
 
+react-native-contact-pick@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-contact-pick/-/react-native-contact-pick-0.1.2.tgz#6be3c5b299b2a1067b7c3b344758f6b4413bf275"
+  integrity sha512-3Ep1bLyG4A8XnB86D8w+NFJgsnfsfmUHO91aJJ4qVTAQWeK2WV5EgxWGaf+95zQuyLdE3t+PwXGXkcxJOX+Ahg==
+
+react-native-contacts@^7.0.8:
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-7.0.8.tgz#485ba7a77653b30205c76f96494808d07b8e57b9"
+  integrity sha512-Zfkdpw1uQVRb8v1m+ogknzjyfEs9k63o2sPAYvxZ8ZJff31D45G8+uZb6VcM4tIe3ELH9EDvh93nd515kFvRYQ==
+
 react-native-device-info@^10.11.0:
   version "10.12.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.12.0.tgz#be4e71cbcc9a05e8643b1a419a4450d4cef9bbcc"
@@ -6541,7 +6551,7 @@ react-native-mmkv@^2.10.0:
   resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.11.0.tgz#51b9985f6a5c09fe9c16d8c1861cc2901856ace1"
   integrity sha512-28PdUHjZJmAw3q+8zJDAAdohnZMpDC7WgRUJxACOMkcmJeqS3u5cKS/lSq2bhf1CvaeIiHYHUWiyatUjMRCDQQ==
 
-react-native-modal@13.0.1:
+react-native-modal@^13.0.1:
   version "13.0.1"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-13.0.1.tgz#691f1e646abb96fa82c1788bf18a16d585da37cd"
   integrity sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==
@@ -6561,6 +6571,11 @@ react-native-pdf@6.7.4:
   dependencies:
     crypto-js "4.2.0"
     deprecated-react-native-prop-types "^2.3.0"
+
+react-native-permissions@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-4.1.1.tgz#6c185f9ec45069fa14cf8992bed6b67fc8981478"
+  integrity sha512-wdIHMwmDZ6pRVsgAgF7mn/pJEuJd5wJDGENqvFDJs2lW4BSZeN++ZFsA6FgOqUs/2276Oj7rslQgVaxdOsi6yw==
 
 react-native-reanimated@3.6.1:
   version "3.6.1"
@@ -6589,6 +6604,11 @@ react-native-skeleton-placeholder@^5.2.4:
   version "5.2.4"
   resolved "https://registry.npmjs.org/react-native-skeleton-placeholder/-/react-native-skeleton-placeholder-5.2.4.tgz"
   integrity sha512-OZntVq1hU1UX33FltxK2ezT2v9vHIhV8YnEbnMWUCvxT0N9OsgD1qxiHm6qb9YRJVgq2o5z3S7dNPsPnDF/jNg==
+
+react-native-static-safe-area-insets@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-static-safe-area-insets/-/react-native-static-safe-area-insets-2.2.0.tgz#dd86b6a38f43964fac8df8c0e6bc8e062527786c"
+  integrity sha512-TLTW2e2kRK3COSK8gMZzwp4wHguFCtcO18itDLn5av/xQblXt9ylu84o+qD9aKJCBfvtNzGOvqqTKqC5GJRZ/g==
 
 react-native-svg@14.0.0:
   version "14.0.0"

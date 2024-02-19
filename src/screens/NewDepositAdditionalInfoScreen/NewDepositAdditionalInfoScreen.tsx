@@ -139,6 +139,7 @@ export const NewDepositAdditionalInfoScreen = () => {
                     keyboardType="number-pad"
                     style={styles.input}
                     onBlur={onBlur}
+                    maxFontSizeMultiplier={1}
                   />
                 </View>
                 <Text children="newDeposit.completionDate" secondary center marginTop={24} />
