@@ -2,11 +2,10 @@ import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Image, Pressable, View } from 'react-native';
 import { Divider, IconComponent, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import { useStyles } from './CardsAndAccounts.styles';
-import { AccountProps, CurrencyMap } from './CardsAndAccounts.types';
 import { useTheme } from 'hooks';
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
-import { CurrencySignMap } from 'utils/CurrencySignMap';
+import { AccountProps, CurrencyMap } from './CardsAndAccounts.types';
+import { useStyles } from './CardsAndAccounts.styles';
 
 const currencies: CurrencyMap[] = [
   {
@@ -32,12 +31,14 @@ const DEFAULT_CARD = require('assets/images/DefaultCard.png');
 export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(item.accounts[0].ccy);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(item?.accounts?.[0]?.ccy);
 
-  const currency = item.accounts?.find(account => account.ccy === selectedCurrency);
+  const currency = useMemo(() => {
+    return item?.accounts?.find(account => account?.ccy === selectedCurrency);
+  }, [item?.accounts, selectedCurrency]);
 
   const imageId = useMemo(() => {
-    const accWithCards = item.accounts?.find(acc => !!acc?.cards?.length);
+    const accWithCards = item?.accounts?.find(acc => !!acc?.cards?.length);
     if (accWithCards) {
       return accWithCards?.cards?.[0].cardLargeImageId;
     }
@@ -54,9 +55,31 @@ export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
     setSelectedCurrency(selectedCur);
   };
 
-  if (!currency) {
-    return null;
-  }
+  const getCurrencies = useCallback(() => {
+    return currencies?.map(({ cur, sign }) => {
+      const index = item?.accounts?.findIndex(acc => acc?.ccy === cur);
+      if (index === -1) {
+        return null;
+      }
+      return (
+        <Pressable
+          style={styles.currencySignContainer}
+          onPress={() => handleCurrencyPress(cur)}
+          key={cur}
+        >
+          <Text label color={selectedCurrency === cur ? Colors.textBlack : Colors.textBlack400}>
+            {sign}
+          </Text>
+        </Pressable>
+      );
+    });
+  }, [
+    selectedCurrency,
+    item?.accounts,
+    Colors.textBlack,
+    Colors.textBlack400,
+    styles.currencySignContainer,
+  ]);
 
   return (
     <Pressable onPress={handlePress} style={styles.account}>
@@ -67,30 +90,9 @@ export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
         </View>
         <View style={styles.balanceContainer}>
           <Text size={16} demiBold>
-            {formatMoney(currency?.balance || 0)} {CurrencySignMap[currency.ccy]}
+            {formatMoney(currency?.balance, currency?.ccy)}
           </Text>
-          <View style={styles.currencyWrapper}>
-            {currencies.map(({ cur, sign }) => {
-              const x = item?.accounts?.findIndex(acc => acc.ccy === cur);
-              if (x === -1) {
-                return null;
-              }
-              return (
-                <Pressable
-                  style={styles.currencySignContainer}
-                  onPress={() => handleCurrencyPress(cur)}
-                  key={cur}
-                >
-                  <Text
-                    label
-                    color={selectedCurrency === cur ? Colors.textBlack : Colors.textBlack400}
-                  >
-                    {sign}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
+          <View style={styles.currencyWrapper}>{getCurrencies()}</View>
         </View>
         {!isLast && <Divider height={1} marginTop={18} width="100%" />}
       </View>
