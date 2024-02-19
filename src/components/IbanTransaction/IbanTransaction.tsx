@@ -134,7 +134,7 @@ const IbanTransaction = () => {
   }, [setApiCallInitiated]);
 
   const navigateToTransferScreen = () => {
-    if (isSuccess && data.ibanIsValid && selectedTransactionType.name) {
+    if (isSuccess && data.ibanIsValid && selectedTransactionType.name && receiver) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
         fromIban: true,
@@ -142,6 +142,8 @@ const IbanTransaction = () => {
       });
     } else if (!selectedTransactionType.name) {
       openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');
+    } else if (!receiver) {
+      openToast(`${t('transactionDetails.validRecieverPrompt')}`, 'error');
     }
   };
 
