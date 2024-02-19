@@ -20,6 +20,7 @@ export const OtherBankList = ({
     selectedData,
     selectedPrice,
     selectedOtherBankDataTitle,
+    selectedTransactionType,
   } = selectedItemFromStore;
 
   const styles = useStyleTheme();
@@ -52,6 +53,11 @@ export const OtherBankList = ({
             'transfers.destination',
             selectedData ? selectedData : selectedOtherBankDataTitle,
           )}
+          {selectedTransactionType.name &&
+            renderDetailsItem(
+              'transactionDetails.type',
+              selectedTransactionType.name && selectedTransactionType.name,
+            )}
         </View>
       </View>
     );
