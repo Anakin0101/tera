@@ -115,8 +115,6 @@ export type RoutesList = {
 export type MainStackParamsList = {
   [INITIAL_STACK]: NavigatorScreenParams<TabParamList>;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
-  [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
-  [TRANSACTION_DETAILS_SCREEN]: undefined;
 };
 
 export type ModalStackParamsList = {
@@ -168,6 +166,8 @@ export type ModalStackParamsList = {
     subscriberFieldsValue: SubscriberFieldsValue;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
+  [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
+  [TRANSACTION_DETAILS_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

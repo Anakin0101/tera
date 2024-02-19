@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { View, SectionList, ActivityIndicator, SectionListRenderItem } from 'react-native';
+import React, { FC, useCallback } from 'react';
+import { View, SectionList, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'components';
 import { formatDate } from 'utils/formatDate';
@@ -7,40 +7,52 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedTransaction } from 'store/slices/products';
 import LastTransactionItem from 'components/LastTransactions/LastTransactionItem';
 import {
-  ISections,
+  RenderItem,
   FooterProps,
   KeyExtractor,
   RenderSectionHeader,
 } from './AllTransactionsScreen.types';
+import { MODAL_STACK, TRANSACTION_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { MainStackScreenProps } from 'navigation/types';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './AllTransactionsScreen.styles';
 
 export const Sections: FC<FooterProps> = ({ sections }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<MainStackScreenProps<'TransactionDetailsScreen'>>();
   const dispatch = useAppDispatch();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  const onTransactionPress = (item: TransactionType) => {
-    dispatch(setSelectedTransaction(item));
-    navigate('TransactionDetailsScreen');
-  };
+  const onTransactionPress = useCallback(
+    (item: TransactionType) => {
+      dispatch(setSelectedTransaction(item));
+      navigate(MODAL_STACK, {
+        screen: TRANSACTION_DETAILS_SCREEN,
+      });
+    },
+    [dispatch, navigate],
+  );
 
-  const renderItem: SectionListRenderItem<TransactionType, ISections> = ({ item }) => {
-    return (
-      <View style={styles.itemWrapper}>
-        <LastTransactionItem item={item} onPress={() => onTransactionPress(item)} />
-      </View>
-    );
-  };
+  const renderItem: RenderItem = useCallback(
+    ({ item }) => {
+      return (
+        <View style={styles.itemWrapper}>
+          <LastTransactionItem item={item} onPress={onTransactionPress} />
+        </View>
+      );
+    },
+    [onTransactionPress, styles.itemWrapper],
+  );
 
-  const renderSectionHeader: RenderSectionHeader = ({ section }) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text children={formatDate(section.title, ' YYYY')} size={16} medium />
-      </View>
-    );
-  };
+  const renderSectionHeader: RenderSectionHeader = useCallback(
+    ({ section }) => {
+      return (
+        <View style={styles.sectionHeader}>
+          <Text children={formatDate(section.title, ' YYYY')} size={16} medium />
+        </View>
+      );
+    },
+    [styles.sectionHeader],
+  );
 
   const keyExtractor: KeyExtractor = item => String(item.id);
 

@@ -1,3 +1,4 @@
+import { SectionListRenderItem } from 'react-native';
 import { OpCategoryEnum, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
@@ -36,3 +37,5 @@ type SectionHeaderProps = {
 export type RenderSectionHeader = (section: { section: SectionHeaderProps }) => JSX.Element;
 
 export type KeyExtractor = (item: TransactionType, index: number) => string;
+
+export type RenderItem = SectionListRenderItem<TransactionType, ISections>;

@@ -106,7 +106,7 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
   return (
     <View style={styles.listContainer}>
       <FlatList
-        data={seeAll ? data : data.slice(0, 3)}
+        data={seeAll ? data : data?.slice(0, 3)}
         renderItem={renderItem}
         ListFooterComponent={!seeAll ? <ListFooter variant={variant} /> : null}
         ListHeaderComponent={
