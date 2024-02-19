@@ -30,7 +30,7 @@ import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetai
 import { TransactionFinishedScreen } from 'screens/TransactionFinishedScreen/TransactionFinishedScreen';
 import { OtherBankTransactionScreen } from 'screens/OtherBanksTransactionScreen/OtherBankTransactionScreen';
 import { TransferToOtherBankAccountScreen } from 'screens/TransferToAccountScreen/TransferToOtherBankAccountScreen';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
@@ -120,6 +120,7 @@ export const TransactionsStack = () => {
         component={TransactionFinishedScreen}
         options={{
           title: '',
+          gestureEnabled: false,
           headerLeft: () => null,
         }}
       />

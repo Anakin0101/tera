@@ -29,3 +29,14 @@ export const getTextForIndex = (activeIndex: createBudgetEnum): string => {
       return 'transactions.chooseReceiver';
   }
 };
+
+export const sectionKeys = [
+  'conversion',
+  'p2pTransfers',
+  'bankExternal',
+  'mobilePayment',
+  'bankInternal',
+  'budget',
+  'internal',
+];
+export const trustedTransactions = ['bankExternal', 'bankInternal', 'budget'];

@@ -99,6 +99,7 @@ export const ListHeader: FC<HeaderProps> = ({
           onChangeText={onChangeText}
           style={styles.input}
           placeholder={t('transactions.searchTransaction')}
+          maxFontSizeMultiplier={1}
         />
       </View>
       <ScrollView

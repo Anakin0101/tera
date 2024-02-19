@@ -86,8 +86,10 @@ import {
   PAYMENT_DETAILS_SCREEN,
   PAYMENT_SUCCESS_SCREEN,
   PAYMENTS_SCREEN,
+  CHOOSE_MOBILE_PROVIDER_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   PAYMENT_ERROR_SCREEN,
+  CHOOSE_PAYMENT_ACCOUNT_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -137,10 +139,17 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
   };
+  [CHOOSE_MOBILE_PROVIDER_SCREEN]: undefined;
   [PAYMENT_SUCCESS_SCREEN]: {
     providerItem: Provider;
     subscriberInputFieldsValue?: SubscriberFieldsValue;
     amount?: number;
+  };
+  [CHOOSE_PAYMENT_ACCOUNT_SCREEN]: {
+    providerItem: Provider;
+    debtVerifyResults: Array<DebtVerifyResult>;
+    subscriberFieldsValue: SubscriberFieldsValue;
+    debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
   };
   [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
   [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
@@ -261,7 +270,9 @@ export type TransactionsStackParamsList = {
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined
     | {
-        convertion?: any;
+        convertion?: boolean;
+        internal?: boolean;
+        fromIban?: boolean;
       };
 
   [TRANSFER_TO_BUDGET]: undefined;

@@ -6,50 +6,50 @@ export type DefaultHeadersRequestType = {
   headers?: Record<string, any>;
 };
 
-export type Template = {
-  id: number;
-  name: string;
-  type: number;
-  imageUrl: string | null;
-  conversion: unknown | null;
-  internal: InternalTransaction | null;
-  bankInternal: BankInternalTransaction | null;
-  budget: unknown | null;
-  bankExternal: BankExternalTransaction | null;
-  mobilePayment: unknown | null;
-  p2pTransfer: unknown | null;
+type Conversion = {
+  debitIban: string;
+  debitCurrency: string;
+  creditIban: string;
+  creditCurrency: string;
 };
 
-export type Transactions = {
-  opId: number;
-  opUId: string;
+type BudgetTransaction = {
+  debitIban: string;
+  treasuryCode: string;
   amount: number;
-  balance: number;
-  balanceStart: number;
+  payerCode: string;
+  payerName: string;
   description: string;
-  docDate: string;
-  isIncome: boolean;
-  id: number;
-  currency: string;
+  extraDescription: string;
+  isTrusted: boolean;
+  trustedAddDate: string;
 };
 
+type MobilePaymentTransaction = {
+  customerNumber: string;
+  debitAccountId: number;
+  serviceId: number;
+  serviceSubType: string;
+  amount: number;
+  isTrusted?: null;
+};
+
+type P2PTransfer = {
+  mobile: string;
+  email: string;
+  receiverName: string;
+  debitIban: string;
+  currency: string;
+  amount: number;
+  description: string;
+  extraDescription: string;
+  isTrusted?: null;
+};
 type InternalTransaction = {
   debitIban: string;
   creditIban: string;
   currency: string;
   amount: number;
-};
-
-type BankInternalTransaction = {
-  personalId: string | null;
-  debitIban: string;
-  creditIban: string;
-  currency: string;
-  amount: number;
-  description: string;
-  extraDescription: string | null;
-  isTrusted: boolean;
-  trustedAddDate: string | null;
 };
 
 type BankExternalTransaction = {
@@ -68,6 +68,53 @@ type BankExternalTransaction = {
   insured: boolean;
   isTrusted: boolean;
   trustedAddDate: string | null;
+  otpRequired?: boolean;
+};
+
+type BankInternalTransaction = {
+  personalId: string | null;
+  debitIban: string;
+  creditIban: string;
+  currency: string;
+  amount: number;
+  description: string;
+  extraDescription: string | null;
+  isTrusted: boolean;
+  trustedAddDate: string | null;
+};
+
+export type Template = {
+  id: number;
+  name: string;
+  type: number;
+  icon: any;
+  internalIban: any;
+  internalAmount: any;
+  currency: any;
+  imageUrl?: string | null;
+  conversion: Conversion | null;
+  internal: InternalTransaction | null;
+  bankInternal: BankInternalTransaction | null;
+  budget: BudgetTransaction | null;
+  bankExternal: BankExternalTransaction | null;
+  mobilePayment: MobilePaymentTransaction | null;
+  p2pTransfers: P2PTransfer | null;
+  [key: string]: any;
+};
+
+// ... (other types remain unchanged)
+
+export type Transactions = {
+  opId: number;
+  opUId: string;
+  amount: number;
+  balance: number;
+  balanceStart: number;
+  description: string;
+  docDate: string;
+  isIncome: boolean;
+  id: number;
+  currency: string;
 };
 
 export type GetBankerAPIResponseType = {

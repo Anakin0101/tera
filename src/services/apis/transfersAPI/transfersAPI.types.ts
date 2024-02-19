@@ -38,6 +38,9 @@ export type convertAmountBuyRequestType = {
   currencySell?: string;
   shouldCallApi?: unknown;
 };
+export interface SaveTemplateResponseData {
+  data: { id: number; otpRequired: boolean; authMethod: string; authorized: boolean };
+}
 
 export type convertAmountSellRequestType = {
   amountSell?: number;
@@ -115,6 +118,7 @@ export type TreasuryApiResponse = {
   data?: sendTreasuryRes;
   error?: FetchBaseQueryError | SerializedError;
 };
+
 export type sendTreasuryReq = {
   body: {
     amount: string;
@@ -182,6 +186,11 @@ export enum CurrencyEnum {
   EUR = 'EUR',
   GBP = 'GBP',
 }
+export enum TRANSFER_TYPE {
+  bankInternal = 'bankInternal',
+  bankExternal = 'bankExternal',
+  internal = 'internal',
+}
 
 export enum FinancialTransferTypeEnum {
   ToOwnAccount = 1,
@@ -191,6 +200,25 @@ export enum FinancialTransferTypeEnum {
   ToSomeoneOutOfGeorgia = 5,
   ToTreasury = 6,
   P2pTransfer = 7,
+}
+export enum TransferTemplateTypeEnum {
+  Exchange = 1,
+
+  ToOwnAccount = 2,
+
+  ToSomeoneInsideBank = 3,
+
+  ToSomeoneInGeorgiaGEL = 4,
+
+  ToSomeoneInGeorgia = 5,
+
+  ToTreasury = 6,
+
+  ToSomeoneOutOfGeorgia = 7,
+
+  MobilePayment = 8,
+
+  P2p = 17,
 }
 export enum OtherBanksTransactionsTabsEnum {
   PERSONAL_TRANSACTION = 1,

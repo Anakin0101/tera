@@ -40,4 +40,10 @@ export interface SelectedItemProp {
   selectedTransactionType: any;
   selectedOtherBankDataTitle: string;
   setBudgetPerson: budget;
+  isInternal: boolean;
+}
+export interface paramsTypes {
+  convertion?: boolean;
+  fromOtherBank?: boolean;
+  mobileTransaction?: boolean;
 }

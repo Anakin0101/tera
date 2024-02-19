@@ -73,7 +73,7 @@ import { LoansScreen } from 'screens/LoansScreen/LoansScreen';
 import { Colors } from 'theme/Variables';
 import { SelectDepositScreen } from 'screens/SelectDepositScreen/SelectDepositScreen';
 import { guestNavOptions, hideHeader } from 'navigation/config';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { TariffPackagesListScreen } from 'screens/TariffPackagesListScreen/TariffPackagesListScreen';
 

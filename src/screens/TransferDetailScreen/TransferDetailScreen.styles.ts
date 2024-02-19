@@ -1,21 +1,18 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 import { FontSize } from 'theme/Variables';
-import { verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
   const { Spacing, Layout, Colors } = useTheme();
   return StyleSheet.create({
     container: {
-      backgroundColor: Colors.white,
-      height: '100%',
+      ...Layout.growfull,
     },
     containerWrapper: {
-      backgroundColor: Colors.defaultBackground,
-      width: '100%',
-      height: 150,
-      ...Layout.alignItemsCenter,
-      ...Layout.justifyContentCenter,
+      backgroundColor: Colors.white,
+      marginTop: Spacing.xlg,
+      borderRadius: Spacing.m,
+      marginHorizontal: Spacing.xl,
     },
     card: {
       ...Layout.row,
@@ -30,12 +27,15 @@ export const useStyleTheme = () => {
       backgroundColor: Colors.defaultBackground,
     },
     wrapper: {
-      borderTopLeftRadius: Spacing.ml,
-      borderTopRightRadius: Spacing.ml,
-      paddingLeft: Spacing.xl,
-      width: '100%',
+      flex: 1,
       backgroundColor: Colors.white,
-      marginTop: 30,
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
+      marginTop: Spacing.xlg,
+    },
+    inner: {
+      paddingHorizontal: Spacing.xl,
+      paddingVertical: Spacing.m,
     },
     customIconComponentStyles: {
       width: 48,
@@ -62,7 +62,9 @@ export const useStyleTheme = () => {
     textBuyAmount: { fontSize: FontSize.regular },
     textYourCourse: { fontSize: FontSize.regular, fontWeight: 'bold', color: Colors.primary },
     buttonContainer: {
-      marginTop: verticalScale(30),
+      paddingBottom: Spacing.ml,
+      paddingHorizontal: Spacing.xl,
+      backgroundColor: Colors.white,
     },
   });
 };

@@ -52,6 +52,7 @@ export { SearchComponent } from './SearchComponent/SearchComponent';
 export { ChoosePaymentItem } from './Payments/ChoosePaymentItem/ChoosePaymentItem';
 export { SubscriberInfo } from './Payments/SubscriberInfo/SubscriberInfo';
 export { PaymentDetails } from './Payments/PaymentDetails/PaymentDetails';
+export { ChooseMobileTemplateItem } from './Payments/ChooseMobileTemplateItem/ChooseMobileTemplateItem';
 export { MyBalance } from './Payments/MyBalance/MyBalance';
 export { PaymentFieldInput } from './Payments/PaymentFieldInput/PaymentFieldInput';
 export { Collapsible } from './Collapsible/Collapsible';
@@ -65,4 +66,6 @@ export { RegistrationTitle } from './Registration/RegistrationTitle/Registration
 export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';
 export { Image } from './Image/Image';
 export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';
+export { BlockOrTrustTemplateModal } from './modals/BlockOrTrustTemplateModal/ BlockOrTrustTemplateModal';
+export { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 export { ActionSheet } from './ActionSheet/ActionSheet';

@@ -13,18 +13,12 @@ export const BlockCardModal: FC<blockCardProps> = ({ onPress, shouldBlock }) => 
       <View style={styles.header}>
         <Text
           center
-          children={
-            !shouldBlock
-              ? 'ნამდვილად გსურთ “ჩემი ბარათის”\nგანბლოკვა?'
-              : 'ნამდვილად გსურთ “ჩემი ბარათის”\nდაბლოკვა?'
-          }
+          children={!shouldBlock ? 'transactions.unblockCard' : 'transactions.blockCard'}
           color={Colors.textBlack500}
         />
       </View>
       <Button.Primary
-        onPress={() => {
-          onPress();
-        }}
+        onPress={onPress}
         fixedWidth
         text="common.confirm"
         customWrapperStyle={styles.button}

@@ -5,7 +5,7 @@ import { PROFILE_SCREEN } from 'navigation/ScreenNames';
 
 import { ProfileStackParamsList } from 'navigation/types';
 import { Colors } from 'theme/Variables';
-import { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
+import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 
 const ProfileStack = createStackNavigator<ProfileStackParamsList>();
