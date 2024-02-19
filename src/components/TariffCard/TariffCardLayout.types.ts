@@ -4,6 +4,8 @@ export interface TariffCardProps {
   commissionYr?: string;
   icon: string;
   status?: boolean;
-  id: string;
-  pending: boolean;
+  id?: string;
+  pending?: boolean;
+  noData?: boolean;
+  applyOverlay?: boolean;
 }

@@ -13,13 +13,21 @@ export const TariffCardLayout: React.FC<TariffCardProps> = ({
   commissionYr,
   icon,
   pending,
+  noData,
+  applyOverlay,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+
   return (
     <View style={styles.cardContainer}>
+      {applyOverlay && <View style={styles.overlay} />}
       <View style={styles.row}>
-        <IconComponent customIconComponentStyles={styles.iconWrapper} pngLocalIcon={icon} />
+        <IconComponent
+          customIconComponentStyles={styles.iconWrapper}
+          pngLocalIconCustomStyle={noData && styles.locationIcon}
+          pngLocalIcon={icon}
+        />
         <View>
           <View style={styles.row}>
             <Text style={styles.cardName}>{cardTypeName}</Text>
@@ -34,12 +42,20 @@ export const TariffCardLayout: React.FC<TariffCardProps> = ({
               </View>
             ) : null}
           </View>
-          <Text style={styles.commission}>
-            {t('newDeposit.monthlyFee')}: <Text style={styles.cardName}>{commissionMnth} ₾</Text>
-          </Text>
-          <Text style={styles.commission}>
-            {t('newDeposit.annualFee')}: <Text style={styles.cardName}>{commissionYr} ₾</Text>
-          </Text>
+          {!noData ? (
+            <>
+              <Text style={styles.commission}>
+                {t('newDeposit.monthlyFee')}:{' '}
+                <Text style={styles.cardName}>{`${commissionMnth} ₾`}</Text>
+              </Text>
+              <Text style={styles.commission}>
+                {t('newDeposit.annualFee')}:{' '}
+                <Text style={styles.cardName}>{`${commissionYr} ₾`}</Text>
+              </Text>
+            </>
+          ) : (
+            <Text style={styles.commission}>{t('newDeposit.seeOffices')}</Text>
+          )}
         </View>
       </View>
       <IconComponent hasBorder={false} customIconSize={24} IconJSX={ArrowRight} />

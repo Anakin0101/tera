@@ -39,5 +39,6 @@ export default function () {
     GoldMedal: require('assets/images/medalGold.png'),
     ClasicMedal: require('assets/images/ClassicMedal.png'),
     PlatinumMedal: require('assets/images/PlatinumMedal.png'),
+    Location: require('assets/images/location.png'),
   };
 }

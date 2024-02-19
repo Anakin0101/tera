@@ -64,3 +64,11 @@ export const URLS = {
   cancelAutoPayment: 'Payment/CancelAutoPayment',
   activatePackage: 'Tariffs/ActivatePackage',
 };
+
+export const PROD_URLS = {
+  TERMS_URL: 'https://terabank.ge/standterms ',
+};
+
+export const STAGING_URLS = {
+  TEST_BASE_URL_FOR_BANNERS: 'https://staging.banners-delivery.optio.ai/api/banners ',
+};

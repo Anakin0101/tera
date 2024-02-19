@@ -8,7 +8,7 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedPackage } from 'store/slices/products';
 import { useTariffPackagesSingle } from './container';
 import { PackagesOptionType } from './TariffPackagesSingle.types';
-import { TERMS_URL } from 'constants/TestUrl';
+import { PROD_URLS } from 'services/constants/urls';
 
 export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType) => {
   const { handleRequestPackage, checkboxValue, control, activatePackageLoading } =
@@ -18,7 +18,7 @@ export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const handleTermsAndConditions = () => openURL(TERMS_URL);
+  const handleTermsAndConditions = () => openURL(PROD_URLS.TERMS_URL);
 
   const handleButtonClick = (packageService: string | any) => {
     setSelectedId(packageService.id);
@@ -53,12 +53,7 @@ export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType
         <Text style={[styles.text, styles.marginBottom]}>{t('newDeposit.confirmationText')}</Text>
       </View>
       <View style={styles.chechboxContainer}>
-        <ControlledInput
-          control={control}
-          type="checkbox"
-          name="TariffPackagesSingleFormData"
-          label="common.accept"
-        />
+        <ControlledInput control={control} type="checkbox" name="agree" label="common.accept" />
         <Pressable style={styles.linkContainer} onPress={handleTermsAndConditions}>
           <Text children="common.terms_and_conditions" label special />
         </Pressable>
