@@ -42,6 +42,8 @@ const PersonalNumberTransaction = () => {
     PERSONAL_NUMBER_LENGTH,
     toggleCheckIcon,
     chosenAccount,
+    chosenIBANAccount,
+    setChosenIBANAccount,
   } = useTransactionsScreen();
 
   const { debouncedHandleChange } = useBankIcons(
@@ -70,11 +72,11 @@ const PersonalNumberTransaction = () => {
     dispatch(
       setAccountToData({
         name: data?.customerName,
-        iban: selectedData || typedAccountName,
+        iban: chosenIBANAccount?.accountIban || typedAccountName,
       }),
     );
     dispatch(setReceiverInfo(data));
-  }, [data, dispatch, selectedData, typedAccountName]);
+  }, [data, dispatch, selectedData, typedAccountName, chosenIBANAccount]);
 
   const handleChange = (value: string) => {
     const uppercaseValue = value.toUpperCase();
@@ -132,6 +134,7 @@ const PersonalNumberTransaction = () => {
                 style={styles.accountIban}
                 onPress={() => {
                   toggleCheckIcon(item);
+                  setChosenIBANAccount(item);
                 }}
               >
                 <Text
