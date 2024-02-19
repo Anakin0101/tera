@@ -1,25 +1,25 @@
 import React, { FC } from 'react';
 import { FlatList, ListRenderItem, Pressable, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'hooks';
 import { ListItem } from './ListItem';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import { useStyles } from './DepositsAndLoans.styles';
 import {
-  DepositsAndLoansProps,
   FooterProps,
   HeaderProps,
   RenderItemType,
+  DepositsAndLoansProps,
 } from './DepositsAndLoans.types';
-import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
 import {
-  DEPOSITS_SCREEN,
-  DEPOSIT_DETAILS_SCREEN,
   LOANS_SCREEN,
+  DEPOSITS_SCREEN,
   LOAN_DETAILS_SCREEN,
+  DEPOSIT_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import Images from 'theme/Images';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { useStyles } from './DepositsAndLoans.styles';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
   const styles = useStyles(seeAll);
@@ -106,7 +106,7 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
   return (
     <View style={styles.listContainer}>
       <FlatList
-        data={seeAll ? data : data.slice(0, variant === 'deposit' ? 2 : 4)}
+        data={seeAll ? data : data.slice(0, 3)}
         renderItem={renderItem}
         ListFooterComponent={!seeAll ? <ListFooter variant={variant} /> : null}
         ListHeaderComponent={
