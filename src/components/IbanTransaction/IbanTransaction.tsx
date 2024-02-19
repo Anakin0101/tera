@@ -1,5 +1,5 @@
-import { View, Image, ScrollView, Pressable } from 'react-native';
-import React, { useEffect, useCallback, useMemo, useState } from 'react';
+import { View, Image, ScrollView, Pressable, TextInput as RNInput } from 'react-native';
+import React, { useEffect, useCallback, useMemo, useState, useRef } from 'react';
 import { Text } from 'components';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
@@ -39,6 +39,8 @@ const IbanTransaction = () => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
   const [receiver, setReceiver] = useState<string>('');
+  const inputRef = useRef<RNInput>(null);
+
   const {
     templates,
     temlpatesLoading,
@@ -114,6 +116,12 @@ const IbanTransaction = () => {
   useEffect(() => {
     setApiCallInitiated(false);
   }, [setApiCallInitiated]);
+
+  useEffect(() => {
+    if (typedAccountName) {
+      inputRef?.current?.focus();
+    }
+  }, [typedAccountName]);
 
   const navigateToTransferScreen = () => {
     if (isSuccess && data.ibanIsValid) {
@@ -201,6 +209,7 @@ const IbanTransaction = () => {
       ) : (
         <>
           <TextInput
+            ref={inputRef}
             inputStyle={styles.inputStyle}
             label="personalNumber.Receiver"
             value={typedAccountName}
