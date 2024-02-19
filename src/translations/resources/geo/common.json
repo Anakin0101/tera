@@ -435,7 +435,9 @@
     "mobile": "მობილურით",
     "personal": "პირადობით",
     "iban": "ანგარიშით",
-    "validIbanPrompt": "გთხოვთ მიუთითო სწორი IBAN"
+    "validIbanPrompt": "გთხოვთ მიუთითო სწორი IBAN",
+    "validTransactionPrompt": "გთხოვთ, აირჩიეთ ტრანზაქციის ტიპი გაგრძელებამდე."
+
   },
   "filters": {
     "income": "ჩარიცხვა / თანხის შეტანა",

@@ -442,7 +442,8 @@
     "mobile": "mobile",
     "personal": "personal",
     "iban": "iban",
-    "validIbanPrompt": "Please enter a valid IBAN"
+    "validIbanPrompt": "Please enter a valid IBAN",
+    "validTransactionPrompt": "Please select a transaction type before proceeding."
   },
   "filters": {
     "income": "Income",

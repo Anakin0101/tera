@@ -4,12 +4,16 @@ import { Text } from 'components';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setAccountToData, setReceiverInfo } from 'store/slices/transfers';
+import {
+  setAccountToData,
+  setReceiverInfo,
+  setSelectedTransactionType,
+} from 'store/slices/transfers';
 import { useStyles } from './IbanTransaction.styles';
 import { TransactionModal } from 'components/modals';
 import { openModal } from 'utils/modal';
@@ -79,6 +83,20 @@ const IbanTransaction = () => {
     }
   }, [data, t]);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (data?.bicCode !== TERRA_BANK_CODE) {
+        dispatch(
+          setSelectedTransactionType({
+            name: '',
+            isFast: null,
+            selected: null,
+          }),
+        );
+      }
+    }, [dispatch, data?.bicCode]),
+  );
+
   useEffect(() => {
     dispatch(
       setAccountToData({ name: data?.customerName, iban: selectedData || typedAccountName }),
@@ -116,12 +134,14 @@ const IbanTransaction = () => {
   }, [setApiCallInitiated]);
 
   const navigateToTransferScreen = () => {
-    if (isSuccess && data.ibanIsValid) {
+    if (isSuccess && data.ibanIsValid && selectedTransactionType.name) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
         fromOtherBank: true,
         fromIban: true,
         receiver: receiver,
       });
+    } else if (!selectedTransactionType.name) {
+      openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');
     }
   };
 
@@ -189,12 +209,12 @@ const IbanTransaction = () => {
                   <Error />
                   <Text children="transactions.standardText" size={12} color={Colors.textBlack} />
                 </View>
-              ) : (
+              ) : selectedTransactionType.name ? (
                 <View style={styles.fastPayment}>
                   <Error />
                   <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
                 </View>
-              )}
+              ) : null}
             </>
           )}
         </View>
