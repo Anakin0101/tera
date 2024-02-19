@@ -40,8 +40,9 @@ export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
   const imageId = useMemo(() => {
     const accWithCards = item?.accounts?.find(acc => !!acc?.cards?.length);
     if (accWithCards) {
-      return accWithCards?.cards?.[0].cardLargeImageId;
+      return accWithCards?.cards?.[0]?.cardLargeImageId;
     }
+    return '';
   }, [item.accounts]);
 
   const renderIcon = useCallback(() => {
