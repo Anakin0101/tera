@@ -522,7 +522,9 @@
     "active": "Active",
     "packageError": "Error activating package",
     "error": "An error occurred",
-    "pending": "Pending"
+    "pending": "Pending",
+    "offices": "offices",
+    "seeOffices": "See the list of offices here"
   },
   "payments": {
     "totalDebt": "Total Debt",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useActivatePackageMutation } from 'services/apis/productsAPI/productsAPI';
-import { FormData } from './TariffPackagesSingle.types';
+import { TariffPackagesSingleFormData } from './TariffPackagesSingle.types';
 import { useCallback } from 'react';
 import { closeModal, openModal } from 'utils/modal';
 import { OTPModal } from 'components';
@@ -19,8 +19,8 @@ import {
 const savedLanguage = getValue(SELECTED_LANGUAGE);
 
 export const useTariffPackagesSingle = () => {
-  const { control, watch } = useForm<FormData>();
-  const checkboxValue = watch('TariffPackagesSingleFormData');
+  const { control, watch } = useForm<TariffPackagesSingleFormData>();
+  const checkboxValue = watch('agree');
   const [activatePackage, { isLoading: activatePackageLoading }] = useActivatePackageMutation();
   const { selectedPackage } = useAppSelector(state => state.products);
   const { t } = useTranslation();

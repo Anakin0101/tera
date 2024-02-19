@@ -57,5 +57,15 @@ export const useStyles = () => {
       lineHeight: Spacing.lg,
       fontFamily: FontFamily.medium,
     },
+    locationIcon: {
+      width: 48,
+      height: 48,
+    },
+    overlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: Colors.packagesOverlay,
+      ...Layout.center,
+      zIndex: Spacing.xxxs,
+    },
   });
 };

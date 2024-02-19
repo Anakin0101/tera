@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList, Pressable, ScrollView } from 'react-native';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
 import { useNavigation } from '@react-navigation/native';
@@ -9,11 +9,22 @@ import { useTariffPackages } from './container';
 import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { getCommissions } from './utilis';
-import { EmptyListMsg } from './EmptyListMsg';
+import Images from 'theme/Images';
+import { useTranslation } from 'react-i18next';
 
 export const TariffPackagesListScreen = () => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
   const { packagesList, packagesIsLoading } = useTariffPackages();
+  const hasStatusOrPending = packagesList?.customerPackages?.some(
+    item => item.isActive || item.pending,
+  );
+
+  const { t } = useTranslation();
+
+  const onLocationsPress = () => {
+    //todo
+    //if true - navigate specific screen
+  };
 
   const renderItem = ({ item }: { item: CustomerPackages }) => {
     const { commissionMnth, commissionYr } = getCommissions(item?.packageServices);
@@ -22,7 +33,7 @@ export const TariffPackagesListScreen = () => {
     };
 
     return (
-      <Pressable onPress={onTariffSingleScreen}>
+      <Pressable onPress={!hasStatusOrPending ? onTariffSingleScreen : undefined}>
         <TariffCardLayout
           cardTypeName={item.name}
           id={item.id}
@@ -31,27 +42,34 @@ export const TariffPackagesListScreen = () => {
           pending={item.pending}
           commissionMnth={commissionMnth}
           commissionYr={commissionYr}
+          applyOverlay={hasStatusOrPending}
         />
       </Pressable>
     );
   };
 
+  if (packagesIsLoading) {
+    return <LoadingInView />;
+  }
+
   return (
-    <>
-      {!packagesIsLoading ? (
-        packagesList?.customerPackages && packagesList?.customerPackages?.length > 0 ? (
-          <FlatList
-            data={packagesList.customerPackages}
-            ListHeaderComponent={<TariffDescription />}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        ) : (
-          <EmptyListMsg />
-        )
+    <ScrollView>
+      <TariffDescription />
+      {packagesList?.customerPackages && packagesList?.customerPackages.length > 0 ? (
+        <FlatList
+          data={packagesList?.customerPackages}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
       ) : (
-        <LoadingInView />
+        <Pressable onPress={onLocationsPress}>
+          <TariffCardLayout
+            cardTypeName={t('newDeposit.offices')}
+            icon={Images().Location}
+            noData={true}
+          />
+        </Pressable>
       )}
-    </>
+    </ScrollView>
   );
 };
