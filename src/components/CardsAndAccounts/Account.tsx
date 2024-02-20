@@ -6,22 +6,23 @@ import { useTheme } from 'hooks';
 import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 import { AccountProps, CurrencyMap } from './CardsAndAccounts.types';
 import { useStyles } from './CardsAndAccounts.styles';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const currencies: CurrencyMap[] = [
   {
-    cur: 'GEL',
+    cur: CurrencyEnum.GEL,
     sign: '₾',
   },
   {
-    cur: 'USD',
+    cur: CurrencyEnum.USD,
     sign: '$',
   },
   {
-    cur: 'EUR',
+    cur: CurrencyEnum.EUR,
     sign: '€',
   },
   {
-    cur: 'GBP',
+    cur: CurrencyEnum.GBP,
     sign: '£',
   },
 ];

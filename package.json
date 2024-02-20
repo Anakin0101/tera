@@ -22,6 +22,7 @@
     "reinstall": "rm -rf node_modules && yarn install && yarn reinstall:pods",
     "reinstall:pods": "cd ios && rm -rf Pods && pod install",
     "verify": "yarn type-check && yarn prettier && yarn lint",
+	"force:clean": "yarn cache clean && cd ios && pod cache clean --all && cd .. && rm -rf ~/Library/Developer/Xcode/DerivedData && cd android && ./gradlew clean && cd ..",
     "prepare": "husky install",
     "postinstall": "patch-package"
   },
@@ -104,7 +105,6 @@
     "@types/react-native": "^0.72.2",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
-    "babel-plugin-inline-dotenv": "^1.7.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-root-import": "^6.6.0",
     "dotenv": "^16.3.1",
@@ -115,6 +115,7 @@
     "lint-staged": "^14.0.1",
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "2.8.8",
+    "react-native-dotenv": "^3.4.10",
     "react-native-flipper": "^0.212.0",
     "react-test-renderer": "18.2.0",
     "redux-flipper": "^2.0.2",

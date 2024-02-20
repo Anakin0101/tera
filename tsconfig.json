@@ -4,7 +4,7 @@
     "esModuleInterop": true,
     "jsx": "react",
     "types": ["react-native", "jest", "node"],
-    "typeRoots": ["src/types", "./node_modules/@types"],
+    "typeRoots": ["src/types", "./node_modules/@types", "src/types/declarations"],
     "baseUrl": "./src/",
     "paths": {
       "components/*": ["components/*"],

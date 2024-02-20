@@ -3,7 +3,7 @@ import { useStyles } from './EnterUsernameScreen.styles';
 import { Button, ControlledInput, OTPModal, RegistrationTitle, Text } from 'components/index';
 import { useNavigation } from '@react-navigation/native';
 import { RegistrationStackScreenProps } from 'navigation/types';
-import { Alert, Pressable, SafeAreaView, View } from 'react-native';
+import { Pressable, SafeAreaView, View } from 'react-native';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { closeModal, openModal } from 'utils/modal';
 import { REGISTRATION_FINISH_SCREEN } from 'navigation/ScreenNames';
@@ -13,6 +13,8 @@ import { EnterUsernameFormData } from './EnterUsernameScreen.types';
 import { useUserRegister } from 'hooks/useUserRegister';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useRecoverPassword } from 'hooks/useRecoverPasswory';
+import { openURL } from 'utils/openURL';
+import { PROD_URLS } from 'services/constants/urls';
 
 export const EnterUsernameScreen = () => {
   const styles = useStyles();
@@ -76,7 +78,7 @@ export const EnterUsernameScreen = () => {
   };
 
   const handleTermsAndConditions = () => {
-    Alert.alert('Navigate to Terms and conditions page');
+    openURL(PROD_URLS.TERMS_URL);
   };
   const { isKeyboardOpened } = useKeyboard();
 
