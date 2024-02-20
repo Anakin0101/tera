@@ -29,6 +29,7 @@ import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
 import { useCopyToClipboard } from 'hooks';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
@@ -146,7 +147,7 @@ const IbanTransaction = () => {
       if (
         isSuccess &&
         data.ibanIsValid &&
-        (accountFromData.ccy === 'GEL' ? selectedTransactionType.name : true) &&
+        (accountFromData.ccy === CurrencyEnum.GEL ? selectedTransactionType.name : true) &&
         receiver
       ) {
         navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
@@ -154,7 +155,7 @@ const IbanTransaction = () => {
           fromIban: true,
           receiver: receiver,
         });
-      } else if (!selectedTransactionType.name && accountFromData.ccy === 'GEL') {
+      } else if (!selectedTransactionType.name && accountFromData.ccy === CurrencyEnum.GEL) {
         openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');
       } else if (!receiver) {
         openToast(`${t('transactionDetails.validRecieverPrompt')}`, 'error');
@@ -205,7 +206,7 @@ const IbanTransaction = () => {
                 marginTop={32}
                 autoFocus
               />
-              {accountFromData.ccy === 'GEL' && (
+              {accountFromData.ccy === CurrencyEnum.GEL && (
                 <>
                   <Pressable
                     onPress={() =>
