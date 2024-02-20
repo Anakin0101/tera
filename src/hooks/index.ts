@@ -13,3 +13,4 @@ export { useMainNavigator } from './useMainNavigator';
 export { useGroupedAccountsByIban } from './useGroupedAccountsByIban';
 export { useCulture } from './useCulture';
 export { useIsConnectionAlive } from './useIsConnectionAlive';
+export { useAsyncError } from './useAsyncError';

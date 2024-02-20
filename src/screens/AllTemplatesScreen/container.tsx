@@ -13,6 +13,7 @@ import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { openToast } from 'utils/toast';
 import { debounce } from 'utils/debounce';
 import { useTranslation } from 'react-i18next';
+import { useAsyncError } from 'hooks';
 export const useAllTemplates = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const [search, setSearch] = useState('');
@@ -28,6 +29,7 @@ export const useAllTemplates = () => {
     headers: { 'X-Bank-UserIp': userIp },
   });
   const { t } = useTranslation();
+  const throwError = useAsyncError();
 
   useEffect(() => {
     const handler = debounce(() => {
@@ -87,7 +89,10 @@ export const useAllTemplates = () => {
           refetch();
           openToast('Template successfully deleted', 'success');
         })
-        .catch(err => console.warn('Delete template failed:', err));
+        .catch(err => {
+          console.warn('Delete template failed:', err);
+          throwError(String(err));
+        });
     } else {
       try {
         const response = await templateTrustFunction(!isDelete, data);
