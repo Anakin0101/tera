@@ -22,6 +22,7 @@ export const useTransactionsScreen = () => {
   const [apiCallInitiated, setApiCallInitiated] = useState(false);
   const [invoiceFile, setInvoiceFile] = useState<any>(null);
   const [chosenAccount, setChosenAccount] = useState<PersonalNumberAccount | null>(null);
+  const [chosenIBANAccount, setChosenIBANAccount] = useState<PersonalNumberAccount | null>(null);
 
   const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery({
     headers: { 'X-Bank-UserIp': userIp },
@@ -75,5 +76,7 @@ export const useTransactionsScreen = () => {
     toggleCheckIcon,
     MOBILE_NUMBER_LENGTH,
     chosenAccount,
+    chosenIBANAccount,
+    setChosenIBANAccount,
   };
 };
