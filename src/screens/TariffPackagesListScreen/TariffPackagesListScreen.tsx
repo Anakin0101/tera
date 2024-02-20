@@ -22,7 +22,7 @@ export const TariffPackagesListScreen = () => {
   const { t } = useTranslation();
 
   const onLocationsPress = () => {
-    //todo
+    // TODO-  DEA
     //if true - navigate specific screen
   };
 
