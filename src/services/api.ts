@@ -10,13 +10,16 @@ import {
 import { Mutex } from 'async-mutex';
 
 import { RootState } from 'store/index';
-import { METHOD_NAMES, URLS } from './constants';
+import { METHOD_NAMES, TIMEOUT_DURATION, URLS } from './constants';
 import { setAccessToken, setPostponeEasyLogin, setRefreshToken } from 'store/slices/userInfo';
 import { RefreshTokenAPIResponse } from './apis/authAPI/authAPI.types';
 import { resetUserProfileInfo } from 'store/slices/profile';
 import { NavigationRef } from 'navigation/index';
 import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
 import { StackActions } from '@react-navigation/native';
+import i18next from 'i18next';
+import { openToast } from 'utils/toast';
+import { setApplicationError } from 'store/slices/applicationState';
 
 // ---- SWAGGER DOCUMENTATION ----
 // http://10.213.0.136:4040/swagger/index.html
@@ -62,6 +65,8 @@ const defaultHeaders = (
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   prepareHeaders: defaultHeaders,
+  // timeout prop forces result.error.status to be'TIMEOUT_ERROR'. Otherwise, it returns FETCH_ERROR
+  timeout: TIMEOUT_DURATION,
 });
 
 export const baseQueryWithInterceptor: BaseQueryFn<
@@ -103,80 +108,127 @@ export const baseQueryWithInterceptor: BaseQueryFn<
   };
 
   await mutex.waitForUnlock();
-  let result = await baseQuery(enhancedArgs, api, extraOptions);
 
-  if (result.error && result.error.status === 401) {
-    if (!mutex.isLocked()) {
-      const release = await mutex.acquire();
-      try {
-        const userIp = state.deviceInfo.userIp || '1';
-        const deviceToken = state.deviceInfo.deviceToken || '1';
-        const refreshToken = state.userInfo.refreshToken;
+  try {
+    let result = await baseQuery(enhancedArgs, api, extraOptions);
 
-        const refreshResult = await baseQuery(
-          {
-            method: METHOD_NAMES.POST,
-            url: URLS.refreshToken,
-            headers: { 'X-Bank-UserIp': userIp },
-            body: { refreshToken },
-          },
-          api,
-          extraOptions,
-        );
+    if (result.error && result.error.status === 401) {
+      if (!mutex.isLocked()) {
+        const release = await mutex.acquire();
+        try {
+          const userIp = state.deviceInfo.userIp || '1';
+          const deviceToken = state.deviceInfo.deviceToken || '1';
+          const refreshToken = state.userInfo.refreshToken;
 
-        if (
-          refreshResult.data &&
-          typeof refreshResult.data === 'object' &&
-          'accessToken' in refreshResult.data &&
-          !!refreshResult.data.accessToken &&
-          'refreshToken' in refreshResult.data &&
-          !!refreshResult.data.refreshToken &&
-          'success' in refreshResult.data &&
-          !!refreshResult.data.success
-        ) {
-          const data = refreshResult.data as RefreshTokenAPIResponse;
-          api.dispatch(setRefreshToken(data.refreshToken));
-          api.dispatch(setAccessToken(data.accessToken));
+          const refreshResult = await baseQuery(
+            {
+              method: METHOD_NAMES.POST,
+              url: URLS.refreshToken,
+              headers: { 'X-Bank-UserIp': userIp },
+              body: { refreshToken },
+            },
+            api,
+            extraOptions,
+          );
 
-          const updatedHeaders = defaultHeaders(new Headers(customHeaders), api, data.accessToken);
-          const updatedArgs = {
-            ...enhancedArgs,
-            headers: updatedHeaders,
-          };
+          if (
+            refreshResult.data &&
+            typeof refreshResult.data === 'object' &&
+            'accessToken' in refreshResult.data &&
+            !!refreshResult.data.accessToken &&
+            'refreshToken' in refreshResult.data &&
+            !!refreshResult.data.refreshToken &&
+            'success' in refreshResult.data &&
+            !!refreshResult.data.success
+          ) {
+            const data = refreshResult.data as RefreshTokenAPIResponse;
+            api.dispatch(setRefreshToken(data.refreshToken));
+            api.dispatch(setAccessToken(data.accessToken));
 
-          result = await baseQuery(updatedArgs, api, extraOptions);
-        } else {
-          try {
-            baseQuery(
-              {
-                url: URLS.logout,
-                method: METHOD_NAMES.POST,
-                headers: {
-                  'X-Bank-UserIp': userIp,
-                  'X-Bank-DeviceToken': deviceToken,
-                },
-              },
+            const updatedHeaders = defaultHeaders(
+              new Headers(customHeaders),
               api,
-              {},
+              data.accessToken,
             );
-          } catch (error) {
-            console.warn('Error during logout:', error);
-          } finally {
-            api.dispatch(setPostponeEasyLogin(false));
-            api.dispatch(setAccessToken(''));
-            api.dispatch(resetUserProfileInfo());
-            if (NavigationRef.current) {
-              NavigationRef.current.dispatch(StackActions.replace(GUEST_NAVIGATOR));
+            const updatedArgs = {
+              ...enhancedArgs,
+              headers: updatedHeaders,
+            };
+
+            result = await baseQuery(updatedArgs, api, extraOptions);
+          } else {
+            try {
+              baseQuery(
+                {
+                  url: URLS.logout,
+                  method: METHOD_NAMES.POST,
+                  headers: {
+                    'X-Bank-UserIp': userIp,
+                    'X-Bank-DeviceToken': deviceToken,
+                  },
+                },
+                api,
+                {},
+              );
+            } catch (error) {
+              console.warn('Error during logout:', error);
+            } finally {
+              api.dispatch(setPostponeEasyLogin(false));
+              api.dispatch(setAccessToken(''));
+              api.dispatch(resetUserProfileInfo());
+              if (NavigationRef.current) {
+                NavigationRef.current.dispatch(StackActions.replace(GUEST_NAVIGATOR));
+              }
             }
           }
+        } finally {
+          release();
         }
-      } finally {
-        release();
+      } else {
+        await mutex.waitForUnlock();
+        result = await baseQuery(enhancedArgs, api, extraOptions);
       }
-    } else {
-      await mutex.waitForUnlock();
-      result = await baseQuery(args, api, extraOptions);
     }
+    // handles network error
+    if (result.error && result.error.status === 'FETCH_ERROR') {
+      // Additional check for timeout error
+      if (result.error.error === 'TypeError: Network request timed out') {
+        // Handle the timeout specifically
+        const fetchBaseQueryError: FetchBaseQueryError = {
+          status: 'TIMEOUT_ERROR',
+          data: undefined,
+          error: i18next.t('error.timeout_error'),
+        };
+        api.dispatch(setApplicationError({ isErrorFallback: true, ...fetchBaseQueryError }));
+        return { error: fetchBaseQueryError };
+      }
+
+      const fetchBaseQueryError: FetchBaseQueryError = {
+        status: 'FETCH_ERROR',
+        data: undefined,
+        error: i18next.t('error.network_error'),
+      };
+      openToast(fetchBaseQueryError.error, 'error');
+      return { error: fetchBaseQueryError };
+    }
+    // handles timeout error --- // TBD // DEA
+    if (result.error && result.error.status === 'TIMEOUT_ERROR') {
+      const fetchBaseQueryError: FetchBaseQueryError = {
+        status: 'TIMEOUT_ERROR',
+        data: undefined,
+        error: i18next.t('error.timeout_error'),
+      };
+      api.dispatch(setApplicationError({ isErrorFallback: true, ...fetchBaseQueryError }));
+      return { error: fetchBaseQueryError };
+    }
+    return result;
+  } catch (error) {
+    console.warn('Error in baseQueryWithInterceptor: ', error);
+    const customError: FetchBaseQueryError = {
+      status: 'CUSTOM_ERROR',
+      data: undefined,
+      error: 'Error in baseQueryWithInterceptor',
+    };
+    return { error: customError };
   }
-  return result;
 };

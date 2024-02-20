@@ -370,7 +370,8 @@
     "login": "შესვლა",
     "choose": "აირჩიე",
     "edit": "რედაქტირება",
-    "delete": "წაშლა"
+    "delete": "წაშლა",
+    "try_again": "ცადე ხელახლა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",
@@ -692,5 +693,11 @@
   "passwordRecovery": {
     "choose_password_recovery_method": "აირჩიე პაროლის აღდგენის მეთოდი",
     "successful_password_recovery_title": "პაროლის აღდგენა წარმატებით დასრულდა"
+  },
+  "error": {
+    "network_error": "ტერაბანკთან კავშირი შეუძლებელია ინტერნეტ კავშირის არარსებობის გამო. გთხოვთ დაუკავშირდეთ Wi-Fi-ის ან ჩართოთ მობილური ინტერნეტი.",
+    "timeout_error": "დაფიქსირდა შეცდომა",
+    "component_title": "შეცდომა",
+    "component_description": "დაფიქსირდა შეცდომა, გთხოვთ ხელახლა სცადოთ"
   }
 }

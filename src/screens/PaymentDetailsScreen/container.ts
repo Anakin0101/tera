@@ -58,7 +58,6 @@ export const usePayService = () => {
     } catch (err) {
       console.warn('error=> payService >>>', err);
       navigate(PAYMENT_ERROR_SCREEN);
-      return err;
     }
   };
 

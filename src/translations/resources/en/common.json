@@ -376,7 +376,8 @@
     "login": "Log in",
     "choose": "Choose",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "try_again": "Try again"
   },
   "form": {
     "is_required": "is required",
@@ -703,5 +704,11 @@
   "passwordRecovery": {
     "choose_password_recovery_method": "Choose a password recovery method",
     "successful_password_recovery_title": "Password recovery finished successfully"
+  },
+  "error": {
+    "network_error": "[en] ტერაბანკთან კავშირი შეუძლებელია ინტერნეტ კავშირის არარსებობის გამო. გთხოვთ დაუკავშირდეთ Wi-Fi-ის ან ჩართოთ მობილური ინტერნეტი.",
+    "timeout_error": "An error occured",
+    "component_title": "Error",
+    "component_description": "Something went wrong, please try again"
   }
 }
