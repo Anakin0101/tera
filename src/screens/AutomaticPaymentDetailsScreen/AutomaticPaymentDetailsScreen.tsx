@@ -1,10 +1,9 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
-import { ActionSheet, DetailsItem, Divider, IconComponent, Text } from 'components';
+import { ActionSheet, DetailsItem, Divider, IconComponent, Text, LoadingInView } from 'components';
 import { More } from 'assets/SVGs';
 import { formatMoney } from 'utils/formatMoney';
 import { useAutomaticPaymentDetails } from './container';
-import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { HeaderProps } from './AutomaticPaymentDetailsScreen.types';
 import { useStyles } from './AutomaticPaymentDetailsScreen.styles';
 import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
