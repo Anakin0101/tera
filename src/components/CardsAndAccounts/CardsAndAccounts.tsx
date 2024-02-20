@@ -1,20 +1,16 @@
-import React, { FC } from 'react';
-import { FlatList, ListRenderItem, Pressable, View } from 'react-native';
+import React, { FC, useCallback } from 'react';
+import { FlatList, Pressable, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'hooks';
 import { Account } from './Account';
-import { Divider, Text } from '../index';
 import { Settings } from 'assets/SVGs';
+import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import {
-  CardsAndAccountsProps,
-  HeaderProps,
-  IGroupedAccountsByIban,
-} from './CardsAndAccounts.types';
-import { useStyles } from './CardsAndAccounts.styles';
-import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { ACCOUNT_DETAILS_SCREEN, ALL_ACCOUNTS_AND_CARDS_SCREEN } from 'navigation/ScreenNames';
+import { CardsAndAccountsProps, HeaderProps, RenderItem } from './CardsAndAccounts.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { useStyles } from './CardsAndAccounts.styles';
 
 const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance }) => {
   const styles = useStyles();
@@ -57,7 +53,7 @@ const ListFooter = () => {
 };
 
 export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
-  accounts,
+  accounts = [],
   showTitle = true,
   showFooter = true,
   showDivider = false,
@@ -67,31 +63,35 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   const styles = useStyles();
   const { navigate } = useNavigation<ProductsStackScreenProps<'AccountDetailsScreen'>>();
 
-  const handlePress = (iban: string, index: number) => {
-    navigate(ACCOUNT_DETAILS_SCREEN, {
-      iban,
-      index,
-    });
-  };
+  const handlePress = useCallback(
+    (iban: string, index: number) => {
+      navigate(ACCOUNT_DETAILS_SCREEN, {
+        iban,
+        index,
+      });
+    },
+    [navigate],
+  );
 
-  if (!accounts) {
-    return null;
-  }
-
-  const renderItem: ListRenderItem<IGroupedAccountsByIban> = ({ item, index }) => {
-    return (
+  const renderItem: RenderItem = useCallback(
+    ({ item, index }) => (
       <Account
         item={item}
-        isLast={index === accounts.length - 1}
-        handlePress={() => handlePress(item.iban, index)}
+        isLast={index === accounts?.length - 1}
+        handlePress={() => handlePress(item?.iban, index)}
       />
-    );
-  };
+    ),
+    [accounts?.length, handlePress],
+  );
+
+  if (!accounts?.length) {
+    return <View />;
+  }
 
   return (
     <View style={styles.listContainer}>
       <FlatList
-        data={seeAllAccounts ? accounts : accounts.slice(0, 3)}
+        data={seeAllAccounts ? accounts : accounts?.slice(0, 3)}
         renderItem={renderItem}
         ListHeaderComponent={
           <ListHeader

@@ -5,6 +5,7 @@ import { useStyles } from './AllAcountsAndCardsScreen.styles';
 import { Plus } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import { useAllAcounts } from './container';
+import { LoadingInView } from 'components/LoadingView/LoadingInView';
 
 const sections = [
   { title: 'accounts', data: [{}] },
@@ -27,7 +28,8 @@ const ListFooter = () => {
 
 export const AllAcountsAndCardsScreen = () => {
   const styles = useStyles();
-  const { groupedAccountsByIban, totalAvailableBalanceGEL, offers } = useAllAcounts();
+  const { groupedAccountsByIban, totalAvailableBalanceGEL, banners, bannersLoading } =
+    useAllAcounts();
 
   const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
     switch (section.title) {
@@ -37,17 +39,21 @@ export const AllAcountsAndCardsScreen = () => {
             accounts={groupedAccountsByIban}
             showTitle={false}
             showFooter={false}
-            showDivider={!!offers?.length}
+            showDivider={!!banners?.length}
             totalAvailableBalance={totalAvailableBalanceGEL}
             seeAllAccounts
           />
         );
       case 'offers':
-        return <Offers data={offers} />;
+        return <Offers data={banners} showAll={false} />;
       default:
         return null;
     }
   };
+
+  if (bannersLoading) {
+    return <LoadingInView />;
+  }
 
   return (
     <SectionList

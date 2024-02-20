@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Pressable, View } from 'react-native';
 import { useTheme } from 'hooks';
-import { Badge, Divider, Text } from 'components';
+import { Badge, Divider, IconComponent, Text } from 'components';
 import { CheckShieldSmall, ChevronRight, Visa, MasterCard, Lock, Alert } from 'assets/SVGs';
 import { CardItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
@@ -15,7 +15,7 @@ export const CardItem: FC<CardItemProps> = ({ item, isLast, onPress }) => {
     <Pressable onPress={onPress}>
       <View style={styles.cardItemContainer}>
         <View style={styles.cardContainer}>
-          <View style={styles.smallCard} />
+          <IconComponent imageId={item.cardLargeImageId} customImageIDStyle={styles.smallCard} />
         </View>
         <View style={Layout.fill}>
           <View style={styles.cardDetailsContainer}>

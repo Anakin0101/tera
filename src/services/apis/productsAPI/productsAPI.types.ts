@@ -13,9 +13,9 @@ export type CardType = {
   cardHolder: string;
   cardImageId: number;
   cardImageUrl: string;
-  cardLargeImageUrl: string;
+  cardLargeImageId: string;
   cardProductName: string;
-  cardSmallImageUrl: string;
+  cardSmallImageId: string;
   endDate: string;
   id: number;
   isCreditCard: boolean;
