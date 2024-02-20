@@ -80,7 +80,7 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
           </View>
         </View>
       </View>
-      {data && data?.length > 0 && (
+      {data && data.length > 0 && (
         <Button.Outline fixedWidth text="dashboard.all" onPress={handlePress} />
       )}
     </View>
