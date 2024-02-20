@@ -10,7 +10,7 @@ import {
   useGetCreditCardsQuery,
   useGetOverDraftQuery,
   useGetLoanCustomerIdQuery,
-  useGetAssetsQuery,
+  useGetDepositsQuery,
   useGetBankerQuery,
 } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
@@ -28,7 +28,7 @@ export const useDashboardScreen = () => {
   const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
   const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
   const { data: getLoanCustomerId, isLoading: customerIdLoading } = useGetLoanCustomerIdQuery();
-  const { data: assets, isLoading: assetsLoading } = useGetAssetsQuery();
+  const { data: deposits, isLoading: assetsLoading } = useGetDepositsQuery();
   const { data: banker, isLoading: bankerLoading } = useGetBankerQuery();
   const { data: profile } = useGetUserProfileInfoQuery();
   const [getTotalSaving, { data: totalSaving, isLoading: totalSavingLoading }] =
@@ -51,15 +51,14 @@ export const useDashboardScreen = () => {
       count: 4,
       endDate: getCurrentDateISO(),
       startDate: getDateThreeMonthAgeISO(),
-      accountNumber: null,
     });
   }, [getCustomerOperations]);
 
   const isDashboardMounted = useMemo(() => {
     const mounted =
-      !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName && !!banners;
+      !!templates?.templates.length && !!deposits && !!banker && !!profile?.firstName && !!banners;
     return mounted;
-  }, [assets, banker, profile?.firstName, templates?.templates.length, banners]);
+  }, [deposits, banker, profile?.firstName, templates?.templates.length, banners]);
 
   return {
     templates,
@@ -74,7 +73,7 @@ export const useDashboardScreen = () => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
+    deposits,
     banker,
     isDashboardMounted,
     banners,

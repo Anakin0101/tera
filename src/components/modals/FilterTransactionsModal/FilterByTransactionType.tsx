@@ -5,7 +5,7 @@ import { useStyles } from './FilterTransactionsModal.styles';
 import { Text } from 'components';
 import { Buttons } from './Buttons';
 import { closeModal } from 'utils/modal';
-import { OpCategoryEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { OpCategoryEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 const types = [
   {

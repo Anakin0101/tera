@@ -7,7 +7,7 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { setCards, setLastTransactions } from 'store/slices/products';
 import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
-import { useGetLastTransactionsByAccNumberMutation } from 'services/apis/productsAPI/productsAPI';
+import { useGetCustomerOperationsMutation } from 'services/apis/productsAPI/productsAPI';
 import { RequestStatusModal } from 'components/modals/RequestStatusModal/RequestStatusModal';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
@@ -20,8 +20,7 @@ export const useAccountDetails = (iban: string, index: number) => {
     return groupedAccountsByIban[activeIndex];
   }, [groupedAccountsByIban, activeIndex]);
 
-  const [getLastTransactions, { data: lastTransactions }] =
-    useGetLastTransactionsByAccNumberMutation();
+  const [getLastTransactions, { data: lastTransactions }] = useGetCustomerOperationsMutation();
 
   useEffect(() => {
     if (account) {

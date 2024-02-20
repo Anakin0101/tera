@@ -9,7 +9,7 @@ import { formatDate } from 'utils/formatDate';
 import { FilterByDate } from 'components/modals/FilterTransactionsModal/FilterByDate';
 import { FilterTransactionsByAccModal } from 'components/modals/FilterTransactionsModal/FilterByAccount';
 import { FilterByTransactionType } from 'components/modals/FilterTransactionsModal/FilterByTransactionType';
-import { OpCategoryEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { OpCategoryEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { HeaderProps } from './AllTransactionsScreen.types';
 import { useStyles } from './AllTransactionsScreen.styles';
 

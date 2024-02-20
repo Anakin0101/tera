@@ -94,7 +94,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
+    deposits,
     banker,
     customerOperationsLoading,
     customerIdLoading,
@@ -180,7 +180,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
             creditCards={creditCards}
             overDraft={overDraft}
             getLoanCustomerId={getLoanCustomerId}
-            assets={assets}
+            assets={deposits}
           />
         );
       case 'offers':

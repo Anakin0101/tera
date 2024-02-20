@@ -1,10 +1,10 @@
 import React from 'react';
 import { useMemo, useState } from 'react';
-import { useAppSelector } from 'store/hooks/useAppSelector';
-import { Add, Card, Note, Swap } from 'assets/SVGs';
-import { DepositTypeEnum } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { useTranslation } from 'react-i18next';
 import { useCopyToClipboard } from 'hooks';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { Add, Card, Note, Swap } from 'assets/SVGs';
+import { DepositTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useDepositDetails = (index: number) => {
   const { t } = useTranslation();

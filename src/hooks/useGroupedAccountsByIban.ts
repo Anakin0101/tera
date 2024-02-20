@@ -13,18 +13,19 @@ export const useGroupedAccountsByIban = () => {
   const dispatch = useAppDispatch();
 
   const { groupedAccountsByIban } = useAppSelector(state => state.products);
+
   const {
     data: accounts,
     isLoading: isLoadingAccounts,
     refetch,
-  } = useGetAccountsByCustomerIdQuery(undefined, { skip: false });
+  } = useGetAccountsByCustomerIdQuery();
 
   const saveAccounts = useCallback(
     (allAccounts?: Account[]) => {
       try {
-        // filter accounts where:
-        //  - Only currency is GEL
-        //  - accountType must not be deposit
+        if (!allAccounts) {
+          return;
+        }
         const accs =
           allAccounts?.filter(({ accountType }) => accountType !== AccountTypeEnum.Deposit) ?? [];
 
