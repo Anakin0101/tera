@@ -247,6 +247,12 @@ export enum PackageServiceCode {
   Yearly = 'PackageServiceYearly',
 }
 
+export enum PackageServiceNames {
+  classic = 'Classic Package',
+  gold = 'Gold Package',
+  platinum = 'Platinium Package',
+}
+
 export type PackageService = {
   id: string;
   name: string;
