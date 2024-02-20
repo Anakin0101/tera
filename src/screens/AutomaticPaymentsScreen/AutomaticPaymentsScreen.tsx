@@ -6,7 +6,7 @@ import { EmptyComponent } from './EmptyComponent';
 import { useAutomaticPayments } from './container';
 import { RenderItem } from './AutomaticPaymentsScreen.types';
 import { useStyles } from './AutomaticPaymentsScreen.styles';
-import { LoadingInView } from 'components/LoadingView/LoadingInView';
+import { LoadingInView } from 'components';
 
 export const AutomaticPaymentsScreen = () => {
   const styles = useStyles();

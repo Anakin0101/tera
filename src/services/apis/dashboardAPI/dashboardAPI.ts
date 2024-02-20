@@ -7,7 +7,7 @@ import {
   BannerDataResponse,
 } from './dashboardAPI.types';
 import { METHOD_NAMES, URLS } from 'services/constants';
-import { TEST_BASE_URL_FOR_BANNERS } from 'constants/TestUrl';
+import { STAGING_URLS } from 'services/constants/urls';
 
 export const dashboardAPI = createApi({
   reducerPath: 'dashboardAPI',
@@ -23,7 +23,7 @@ export const dashboardAPI = createApi({
     }),
     getBanners: builder.query<BannerDataResponse, any>({
       query: ({ channel, language, page, isCorporate }) => ({
-        url: TEST_BASE_URL_FOR_BANNERS,
+        url: STAGING_URLS.TEST_BASE_URL_FOR_BANNERS,
         method: METHOD_NAMES.GET,
         params: { channel, language, page, isCorporate },
       }),

@@ -17,6 +17,7 @@ const initialState: ProductsStateProps = {
   selectedCardData: null,
   selectedIban: null,
   selectedBranch: null,
+  selectedPackage: null,
 };
 
 const productsSlice = createSlice({
@@ -53,6 +54,9 @@ const productsSlice = createSlice({
     saveBranch: (state, { payload }: { payload: BranchInfo }) => {
       state.selectedBranch = payload;
     },
+    setSelectedPackage: (state, { payload }) => {
+      state.selectedPackage = payload;
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(productsAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
@@ -87,5 +91,6 @@ export const {
   setSelectedCardData,
   saveIban,
   saveBranch,
+  setSelectedPackage,
 } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;

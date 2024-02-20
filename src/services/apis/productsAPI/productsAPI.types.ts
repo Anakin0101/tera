@@ -389,6 +389,44 @@ type DepositProduct = {
   isCd: boolean;
 };
 
+export enum PackageServiceCode {
+  Monthly = 'PackageServiceMonthly',
+  Yearly = 'PackageServiceYearly',
+}
+
+export type PackageService = {
+  id: string;
+  name: string;
+  code: string;
+  price: number;
+  currency: string;
+};
+
+export type PackageProducts = {
+  code?: string;
+  name: string;
+  nameEng?: string;
+  productPrice: string;
+  productPriceENG?: string;
+  standardPriceMonthly?: string;
+  standardPriceMonthlyEng?: string;
+  standardPriceYearly?: string;
+  standardPriceYearlyEng?: string;
+  status?: number;
+};
+
+export type CustomerPackages = {
+  id: string;
+  isActive: boolean;
+  name: string;
+  nameEng: string;
+  packageProducts: PackageProducts[];
+  packageServiceId: string;
+  packageServices: PackageService[];
+  pending: boolean;
+  status: string;
+};
+
 export type OfferDetails = {
   id: number;
   type: OfferTypeEnum;
@@ -398,6 +436,7 @@ export type OfferDetails = {
   descriptionEn: string;
   depositProducts: DepositProduct[];
   cardProducts: CardProduct[];
+  customerPackages?: CustomerPackages[];
 };
 
 export type InterestRatesReq = {
@@ -581,4 +620,12 @@ export interface AddCardRequest {
   sendOtp: boolean;
   timezoneOffset: number;
   updateReason: number;
+}
+export interface ActivatePackage {
+  packageId?: string;
+  packageServiceId?: string;
+  otp?: string;
+  sendOtp?: boolean;
+  culture?: string;
+  timezoneOffset?: number;
 }
