@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { AUTHORIZATION_METHODS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 import { MainStackScreenProps } from 'navigation/types';
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { setIsClosed } from 'store/slices/userInfo';
 import { closeModal } from 'utils/modal';
 
 /**
@@ -17,12 +19,17 @@ export const useEasyLoginModal = () => {
 
   const { ignoreEasyLogin, postponeEasyLogin } = useAppSelector(state => state.userInfo);
   const { isPasscodeSet, isBiometricSet } = useAppSelector(state => state.userInfo);
+  const dispatch = useAppDispatch();
 
   const easyLoginActivated = isPasscodeSet === true || isBiometricSet === true;
 
   const showEasyLoginPrompt = useMemo(() => {
     return !ignoreEasyLogin && !postponeEasyLogin && !easyLoginActivated;
   }, [ignoreEasyLogin, postponeEasyLogin, easyLoginActivated]);
+
+  useLayoutEffect(() => {
+    dispatch(setIsClosed(true));
+  }, [dispatch]);
 
   /**
    * handles navigation to "AuthorizationMethodsScreen", when "activate" is pressed on the EasyLoginModal

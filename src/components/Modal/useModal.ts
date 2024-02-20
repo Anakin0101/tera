@@ -4,6 +4,9 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Keyboard, Platform } from 'react-native';
 import { ModalConfig } from 'constants/index';
 import { debounce } from 'utils/debounce';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setIsClosed, setPostponeEasyLogin } from 'store/slices/userInfo';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 
 const useModal = (ref: Ref<ModalHandler>) => {
   const initial_snapPoints =
@@ -20,6 +23,9 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [snapPoints, setSnapPoints] = useState<(string | number)[]>([initial_snapPoints]);
   const [hideHandle, setHideHandle] = useState(false);
   const [hideCloseButton, setHideCloseButton] = useState(false);
+  const { isClosed } = useAppSelector(state => state.userInfo);
+
+  const dispatch = useAppDispatch();
 
   const open = (options: ConfigureModal) => {
     setElement(options.element);
@@ -47,6 +53,10 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const handleModalClose = () => {
     if (Keyboard.isVisible()) {
       Keyboard.dismiss();
+    }
+    if (isClosed) {
+      dispatch(setPostponeEasyLogin(true));
+      dispatch(setIsClosed(false));
     }
     if (Platform.OS === 'ios') {
       handleClose();

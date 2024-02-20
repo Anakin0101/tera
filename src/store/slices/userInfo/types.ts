@@ -14,6 +14,7 @@ export type UserInfoStateProps = {
   passcodeTries: number;
   isBiometricBeingSet: boolean | undefined;
   shouldSaveUsername: boolean | undefined;
+  isClosed: boolean;
 };
 
 export type SupportedAuthMethodsType = {

@@ -16,6 +16,7 @@ const initialState: UserInfoStateProps = {
   passcodeTries: 0,
   isBiometricBeingSet: undefined,
   shouldSaveUsername: undefined,
+  isClosed: false,
 };
 
 const userInfoSlice = createSlice({
@@ -63,6 +64,9 @@ const userInfoSlice = createSlice({
     setShouldSaveUsername: (state, { payload }) => {
       state.shouldSaveUsername = payload;
     },
+    setIsClosed: (state, { payload }) => {
+      state.isClosed = payload;
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(authAPI.endpoints.logoutUser.matchFulfilled, (state, { payload }) => {
@@ -85,5 +89,6 @@ export const {
   setAccessToken,
   setRefreshToken,
   setShouldSaveUsername,
+  setIsClosed,
 } = userInfoSlice.actions;
 export const userInfoReducer = userInfoSlice.reducer;
