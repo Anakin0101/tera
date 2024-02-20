@@ -4,12 +4,16 @@ import { Text } from 'components';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setAccountToData, setReceiverInfo } from 'store/slices/transfers';
+import {
+  setAccountToData,
+  setReceiverInfo,
+  setSelectedTransactionType,
+} from 'store/slices/transfers';
 import { useStyles } from './IbanTransaction.styles';
 import { TransactionModal } from 'components/modals';
 import { openModal } from 'utils/modal';
@@ -25,6 +29,7 @@ import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
 import { useCopyToClipboard } from 'hooks';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +40,7 @@ const IbanTransaction = () => {
   );
   const { copyToClipboard } = useCopyToClipboard();
 
-  const { selectedTransactionType } = selectedItemFromStore;
+  const { selectedTransactionType, accountFromData } = selectedItemFromStore;
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
   const [receiver, setReceiver] = useState<string>('');
@@ -79,6 +84,20 @@ const IbanTransaction = () => {
     }
   }, [data, t]);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (data?.bicCode !== TERRA_BANK_CODE) {
+        dispatch(
+          setSelectedTransactionType({
+            name: '',
+            isFast: null,
+            selected: null,
+          }),
+        );
+      }
+    }, [dispatch, data?.bicCode]),
+  );
+
   useEffect(() => {
     dispatch(
       setAccountToData({ name: data?.customerName, iban: selectedData || typedAccountName }),
@@ -116,12 +135,31 @@ const IbanTransaction = () => {
   }, [setApiCallInitiated]);
 
   const navigateToTransferScreen = () => {
-    if (isSuccess && data.ibanIsValid) {
-      navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
-        fromOtherBank: true,
-        fromIban: true,
-        receiver: receiver,
-      });
+    if (data?.bicCode === TERRA_BANK_CODE) {
+      if (isSuccess && data.ibanIsValid) {
+        navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
+          fromOtherBank: true,
+          fromIban: true,
+          receiver: receiver,
+        });
+      }
+    } else {
+      if (
+        isSuccess &&
+        data.ibanIsValid &&
+        (accountFromData.ccy === CurrencyEnum.GEL ? selectedTransactionType.name : true) &&
+        receiver
+      ) {
+        navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
+          fromOtherBank: true,
+          fromIban: true,
+          receiver: receiver,
+        });
+      } else if (!selectedTransactionType.name && accountFromData.ccy === CurrencyEnum.GEL) {
+        openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');
+      } else if (!receiver) {
+        openToast(`${t('transactionDetails.validRecieverPrompt')}`, 'error');
+      }
     }
   };
 
@@ -168,32 +206,40 @@ const IbanTransaction = () => {
                 marginTop={32}
                 autoFocus
               />
-              <Pressable
-                onPress={() =>
-                  openModal({
-                    element: <TransactionModal />,
-                    title: 'transactions.details',
-                    titlePosition: 'center',
-                    disablePanning: true,
-                  })
-                }
-              >
-                <View style={styles.chevron}>
-                  <Text children="transactionDetails.type" size={12} demiBold />
-                  <ChevronDown color={Colors.black700} />
-                </View>
-                <Text children={selectedTransactionType.name} size={12} />
-              </Pressable>
-              {selectedTransactionType.name === 'transactions.standard' ? (
-                <View style={styles.fastPayment}>
-                  <Error />
-                  <Text children="transactions.standardText" size={12} color={Colors.textBlack} />
-                </View>
-              ) : (
-                <View style={styles.fastPayment}>
-                  <Error />
-                  <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
-                </View>
+              {accountFromData.ccy === CurrencyEnum.GEL && (
+                <>
+                  <Pressable
+                    onPress={() =>
+                      openModal({
+                        element: <TransactionModal />,
+                        title: 'transactions.details',
+                        titlePosition: 'center',
+                        disablePanning: true,
+                      })
+                    }
+                  >
+                    <View style={styles.chevron}>
+                      <Text children="transactionDetails.type" size={12} demiBold />
+                      <ChevronDown color={Colors.black700} />
+                    </View>
+                    <Text children={selectedTransactionType.name} size={12} />
+                  </Pressable>
+                  {selectedTransactionType.name === 'transactions.standard' ? (
+                    <View style={styles.fastPayment}>
+                      <Error />
+                      <Text
+                        children="transactions.standardText"
+                        size={12}
+                        color={Colors.textBlack}
+                      />
+                    </View>
+                  ) : selectedTransactionType.name ? (
+                    <View style={styles.fastPayment}>
+                      <Error />
+                      <Text children="transactions.fastText" size={12} color={Colors.textBlack} />
+                    </View>
+                  ) : null}
+                </>
               )}
             </>
           )}

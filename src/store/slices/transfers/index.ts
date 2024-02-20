@@ -14,9 +14,9 @@ const initialState = {
   savedTemplateForIban: null,
   accountIban: null,
   selectedTransactionType: {
-    name: 'სტანდარტული გადარიცხვა',
-    isFast: false,
-    selected: 1,
+    name: '',
+    isFast: null,
+    selected: null,
   },
   setBudgetPerson: {
     payerCode: '',
