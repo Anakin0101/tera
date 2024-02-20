@@ -17,6 +17,7 @@ import { Platform, StatusBar } from 'react-native';
 import { Colors } from 'theme/Variables';
 
 import { useIsConnectionAlive } from 'hooks';
+import { ApplicationErrorWrapper } from 'components';
 
 const App = () => {
   //  We set statusbar custom color - only for android on the root level
@@ -37,11 +38,13 @@ const App = () => {
         <SafeAreaProvider>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <BottomSheetModalProvider>
-                <Navigation />
-                <Modal ref={saveModalRef} />
-                <Toast ref={saveToastRef} />
-              </BottomSheetModalProvider>
+              <ApplicationErrorWrapper>
+                <BottomSheetModalProvider>
+                  <Navigation />
+                  <Modal ref={saveModalRef} />
+                  <Toast ref={saveToastRef} />
+                </BottomSheetModalProvider>
+              </ApplicationErrorWrapper>
             </PersistGate>
           </Provider>
         </SafeAreaProvider>

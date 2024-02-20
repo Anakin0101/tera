@@ -10,7 +10,7 @@ import {
 import { Mutex } from 'async-mutex';
 
 import { RootState } from 'store/index';
-import { METHOD_NAMES, URLS } from './constants';
+import { METHOD_NAMES, TIMEOUT_DURATION, URLS } from './constants';
 import { setAccessToken, setPostponeEasyLogin, setRefreshToken } from 'store/slices/userInfo';
 import { RefreshTokenAPIResponse } from './apis/authAPI/authAPI.types';
 import { resetUserProfileInfo } from 'store/slices/profile';
@@ -19,6 +19,7 @@ import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
 import { StackActions } from '@react-navigation/native';
 import i18next from 'i18next';
 import { openToast } from 'utils/toast';
+import { setApplicationError } from 'store/slices/applicationState';
 
 // ---- SWAGGER DOCUMENTATION ----
 // http://10.213.0.136:4040/swagger/index.html
@@ -64,6 +65,8 @@ const defaultHeaders = (
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   prepareHeaders: defaultHeaders,
+  // timeout prop forces result.error.status to be'TIMEOUT_ERROR'. Otherwise, it returns FETCH_ERROR
+  timeout: TIMEOUT_DURATION,
 });
 
 export const baseQueryWithInterceptor: BaseQueryFn<
@@ -188,6 +191,18 @@ export const baseQueryWithInterceptor: BaseQueryFn<
     }
     // handles network error
     if (result.error && result.error.status === 'FETCH_ERROR') {
+      // Additional check for timeout error
+      if (result.error.error === 'TypeError: Network request timed out') {
+        // Handle the timeout specifically
+        const fetchBaseQueryError: FetchBaseQueryError = {
+          status: 'TIMEOUT_ERROR',
+          data: undefined,
+          error: i18next.t('error.timeout_error'),
+        };
+        api.dispatch(setApplicationError({ isErrorFallback: true, ...fetchBaseQueryError }));
+        return { error: fetchBaseQueryError };
+      }
+
       const fetchBaseQueryError: FetchBaseQueryError = {
         status: 'FETCH_ERROR',
         data: undefined,
@@ -203,7 +218,7 @@ export const baseQueryWithInterceptor: BaseQueryFn<
         data: undefined,
         error: i18next.t('error.timeout_error'),
       };
-      openToast(fetchBaseQueryError.error, 'error');
+      api.dispatch(setApplicationError({ isErrorFallback: true, ...fetchBaseQueryError }));
       return { error: fetchBaseQueryError };
     }
     return result;
