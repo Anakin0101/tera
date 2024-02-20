@@ -8,9 +8,9 @@ import { ProfileCards, ProfileList } from 'components/Profile';
 import { useTranslation } from 'react-i18next';
 import { useProfileScreen } from './container';
 import { getBuildNumber, getVersion } from 'react-native-device-info';
-import { useAsyncError } from 'components/ErrorBoundary/hooks/asyncError';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { storage, storageKeys } from 'storage/index';
+import { useAsyncError } from 'hooks';
 
 export const ProfileScreen = () => {
   const styles = useStyleTheme();
