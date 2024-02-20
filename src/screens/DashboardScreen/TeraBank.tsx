@@ -94,11 +94,11 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
+    deposits,
     banker,
     customerOperationsLoading,
     loanCustomerIdLoading,
-    assetsLoading,
+    depositsLoading,
     bankerLoading,
     overDraftLoading,
     creditCardsLoading,
@@ -110,8 +110,6 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     refreshing,
     profileLoading,
     temlpatesLoading,
-    // deposits,
-    depositsLoading,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -186,7 +184,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
             creditCards={creditCards}
             overDraft={overDraft}
             getLoanCustomerId={getLoanCustomerId}
-            assets={assets}
+            assets={deposits}
           />
         );
       case 'offers':
@@ -262,7 +260,6 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   if (
     customerOperationsLoading ||
     loanCustomerIdLoading ||
-    assetsLoading ||
     bankerLoading ||
     overDraftLoading ||
     creditCardsLoading ||

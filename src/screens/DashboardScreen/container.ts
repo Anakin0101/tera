@@ -46,7 +46,6 @@ export const useDashboardScreen = () => {
     refetch: depositsRefetch,
   } = useGetDepositsQuery();
   const { data: banker, isLoading: bankerLoading, refetch: bankerRefetch } = useGetBankerQuery();
-  const { data: assets, isLoading: assetsLoading, refetch: assetsRefetch } = useGetAssetsQuery();
 
   const {
     data: profile,
@@ -91,7 +90,6 @@ export const useDashboardScreen = () => {
       await creditCardsRefetch();
       await overDraftRefetch();
       await loanCoustomerIdRefetch();
-      await assetsRefetch();
       await bankerRefetch();
       await profileRefetch();
       await bannersRefetch();
@@ -114,7 +112,6 @@ export const useDashboardScreen = () => {
     temlpatesLoading,
     customerOperationsLoading,
     loanCustomerIdLoading,
-    assetsLoading,
     bankerLoading,
     overDraftLoading,
     creditCardsLoading,
@@ -122,7 +119,6 @@ export const useDashboardScreen = () => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
     banker,
     isDashboardMounted,
     banners,
@@ -137,6 +133,3 @@ export const useDashboardScreen = () => {
     depositsRefetch,
   };
 };
-function useGetAssetsQuery(): { data: any; isLoading: any; refetch: any } {
-  throw new Error('Function not implemented.');
-}
