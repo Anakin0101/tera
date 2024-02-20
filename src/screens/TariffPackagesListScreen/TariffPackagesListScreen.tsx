@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Pressable, ScrollView } from 'react-native';
+import { FlatList, Pressable, ScrollView, View } from 'react-native';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
 import { useNavigation } from '@react-navigation/native';
@@ -7,10 +7,10 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { TARIFF_PACKAGES_SINGLE_SCREEN } from 'navigation/ScreenNames';
 import { useTariffPackages } from './container';
 import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
-import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { getCommissions } from './utilis';
 import Images from 'theme/Images';
 import { useTranslation } from 'react-i18next';
+import { Text, LoadingInView } from 'components';
 
 export const TariffPackagesListScreen = () => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
@@ -50,6 +50,14 @@ export const TariffPackagesListScreen = () => {
 
   if (packagesIsLoading) {
     return <LoadingInView />;
+  }
+
+  if (!packagesList) {
+    return (
+      <View>
+        <Text children={'პაკეტი არ მოიძებნა, დიზაინერთან და ბიზნესთან იქნება გასავლელი'} />
+      </View>
+    );
   }
 
   return (

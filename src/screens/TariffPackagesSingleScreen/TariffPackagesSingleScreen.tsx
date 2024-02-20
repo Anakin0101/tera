@@ -13,6 +13,7 @@ import { PackageProducts } from 'services/apis/productsAPI/productsAPI.types';
 
 export const TariffPackagesSingleScreen = () => {
   const { params } = useRoute<ProductsStackRouteProps<'TariffPackagesSingleScreen'>>();
+  //   TODO // TBD - too much route params. probably better to move it to redux
   const { packageProducts, packageServices, name, id, isActive, pending } = params;
   const { commissionMnth, commissionYr } = getCommissions(packageServices);
   const styles = useStyles();

@@ -69,3 +69,4 @@ export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';
 export { BlockOrTrustTemplateModal } from './modals/BlockOrTrustTemplateModal/ BlockOrTrustTemplateModal';
 export { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 export { ActionSheet } from './ActionSheet/ActionSheet';
+export { LoadingInView } from './LoadingView/LoadingInView';
