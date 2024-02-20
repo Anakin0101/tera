@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Badge, Text } from 'components';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { formatDate, getDaysDifference, getFormattedDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
-import { Alert, Copy, Note } from 'assets/SVGs';
+import { Alert, Copy } from 'assets/SVGs';
 import { DepositDetailsProps } from './DepositDetailsScreen.types';
 import { useStyles } from './DepositDetailsScreen.styles';
 
@@ -50,12 +50,6 @@ export const DepositDetails: FC<DepositDetailsProps> = ({ deposit, copyToClipboa
         value={formatMoney(deposit.totalAccrualPercent)}
       />
       <DetailsItem label="deposits.utilizedBenefits" value={formatMoney(deposit.nominalAmount)} />
-      <Pressable style={styles.agreementButton}>
-        <View style={styles.innerContainer}>
-          <Note />
-          <Text children="deposits.agreementDoc" special />
-        </View>
-      </Pressable>
     </View>
   );
 };
