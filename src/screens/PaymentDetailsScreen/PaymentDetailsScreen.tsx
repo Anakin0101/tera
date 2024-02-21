@@ -63,7 +63,6 @@ export const PaymentDetailsScreen = () => {
     // Return the calculated title
     return title;
   }, [providerItem?.name?.en, providerItem?.name?.ka, savedLanguage]);
-  // console.log(providerInfo, 'providerInfo');
 
   /**
    * Memoized calculation for the latest payment value based on the sum, fee rules, and formatting.
