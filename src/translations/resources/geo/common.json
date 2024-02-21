@@ -120,7 +120,6 @@
     "untrusted": "გახდა არასანდო",
     "trusted": "გასანდოვდა"
   },
-
   "profile": {
     "edit_settings": "პარამეტრების ცვლილება",
     "logout": "გასვლა",
@@ -369,6 +368,11 @@
     "terms_and_conditions": "წესებს და პირობებს",
     "login": "შესვლა",
     "choose": "აირჩიე",
+    "add": "დამატება",
+    "update": "განახლება",
+    "no": "არა",
+    "yes": "დიახ",
+    "successfullyOperation": "ოპერაცია წარმატებით შესრულდა",
     "edit": "რედაქტირება",
     "delete": "წაშლა"
   },
@@ -537,7 +541,8 @@
     "commission": "საკომისიო",
     "searchAccount": "მოძებნე ანგარიში",
     "chooseAccount": "აირჩიე ანგარიში",
-    "fromWhere": "საიდან"
+    "fromWhere": "საიდან",
+    "add": "დამატება"
   },
   "paymentDetailsScreen": {
     "title": "გადახდის დეტალები",
@@ -564,7 +569,13 @@
     "title": "კალათები",
     "emptyCarts": "თქენ არ გაქვთ დამატებული\n კალათა",
     "addCart": "კალათის დამატება",
-    "template": "შაბლონი"
+    "template": "შაბლონი",
+    "searchCart": "მოძებნე კალათა",
+    "deleteCartMessage": "ნამდვილად გსურთ კალათის წაშლა?"
+  },
+  "cartPaymentListScreen": {
+    "emptyCartPayments": "თქენ არ გაქვთ დამატებული\n გადახდები",
+    "addPayment": "გადახდის დამატება"
   },
   "paymentSuccessScreen": {
     "title": "გადახდა\n წარმატებით შესრულდა",
@@ -572,7 +583,8 @@
     "saveAsToTemplate": "შაბლონად შენახვა",
     "automaticPay": "ავტომატური გადახდა",
     "receiptShare": "ქვითრის გაზიარება",
-    "mainPage": "მთავარზე დაბრუნება"
+    "mainPage": "მთავარზე დაბრუნება",
+    "basketTitle": "გადახდა წარმატებით\n დაემატა"
   },
   "teraWallet": {
     "collectMoney": "დააგროვე თანხა მარტივად",

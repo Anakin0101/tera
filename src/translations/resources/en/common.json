@@ -375,6 +375,11 @@
     "terms_and_conditions": "terms and conditions",
     "login": "Log in",
     "choose": "Choose",
+    "add": "Add",
+    "update": "Update",
+    "no": "No",
+    "yes": "Yes",
+    "successfullyOperation": "The operation was successfully performed",
     "edit": "Edit",
     "delete": "Delete"
   },
@@ -544,7 +549,8 @@
     "commission": "Commission",
     "searchAccount": "Search Account",
     "chooseAccount": "Choose Account",
-    "fromWhere": "From where"
+    "fromWhere": "From where",
+    "add": "Add"
   },
   "paymentDetailsScreen": {
     "title": "Payment Details",
@@ -571,7 +577,13 @@
     "title": "Carts",
     "emptyCarts": "You have no carts\n added",
     "addCart": "Add to cart",
-    "template": "Template"
+    "template": "Template",
+    "searchCart": "Search cart",
+    "deleteCartMessage": "Are you sure you want to delete the cart?"
+  },
+  "cartPaymentListScreen": {
+    "emptyCartPayments": "You have no added\n payments",
+    "addPayment": "Add payment"
   },
   "permissions": {
     "message": "Message",
@@ -583,7 +595,8 @@
     "saveAsToTemplate": "Save as to template",
     "automaticPay": "Automatic pay",
     "receiptShare": "Receipt share",
-    "mainPage": "Return to main page"
+    "mainPage": "Return to main page",
+    "basketTitle": "Payment successfully was\n added"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
