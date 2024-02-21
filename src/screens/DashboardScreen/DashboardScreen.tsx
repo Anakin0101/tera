@@ -15,9 +15,12 @@ import { closeModal, openModal } from 'utils/modal';
 import { debounce } from 'utils/debounce';
 import { useStyleTheme } from './DashboardScreen.style';
 import { DashboardScreenProps } from './DashboardScreen.types';
+import { setPostponeEasyLogin } from 'store/slices/userInfo';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
 
 export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
   const styles = useStyleTheme();
+  const dispatch = useAppDispatch();
 
   const handleClearAllFromStorage = async () => {
     const res = await resetKeychainValues();
@@ -29,6 +32,9 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
 
   const { Fonts } = useTheme();
   const { showEasyLoginPrompt, handleNavigateToAuthorizationMethodsScreeen } = useEasyLoginModal();
+  const handleCancelButtonPress = () => {
+    dispatch(setPostponeEasyLogin(true));
+  };
 
   //  TODO -  temporary solution
   const debouncedOpenModal = debounce(() => {
@@ -39,6 +45,7 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
           handlePress={handleNavigateToAuthorizationMethodsScreeen}
         />
       ),
+      onCloseCallback: handleCancelButtonPress,
     });
   }, 1000);
 

@@ -6,7 +6,6 @@ import { ModalConfig } from 'constants/index';
 import { debounce } from 'utils/debounce';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setIsClosed, setPostponeEasyLogin } from 'store/slices/userInfo';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 
 const useModal = (ref: Ref<ModalHandler>) => {
   const initial_snapPoints =
@@ -23,7 +22,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [snapPoints, setSnapPoints] = useState<(string | number)[]>([initial_snapPoints]);
   const [hideHandle, setHideHandle] = useState(false);
   const [hideCloseButton, setHideCloseButton] = useState(false);
-  const { isClosed } = useAppSelector(state => state.userInfo);
+  const [onCloseCallback, setOnCloseCallback] = useState<() => void | undefined>();
 
   const dispatch = useAppDispatch();
 
@@ -44,6 +43,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.hideHandle && setHideHandle(options.hideHandle);
     options.hideCloseButton && setHideCloseButton(options.hideCloseButton);
     modalRef?.current?.present();
+    setOnCloseCallback(() => options.onCloseCallback);
   };
 
   const close = () => {
@@ -54,7 +54,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     if (Keyboard.isVisible()) {
       Keyboard.dismiss();
     }
-    if (isClosed) {
+    if (onCloseCallback) {
       dispatch(setPostponeEasyLogin(true));
       dispatch(setIsClosed(false));
     }
