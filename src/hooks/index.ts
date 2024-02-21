@@ -11,6 +11,7 @@ export { useCopyToClipboard } from './useCopyToClipboard';
 export { useGuestNavigator } from './useGuestNavigator';
 export { useMainNavigator } from './useMainNavigator';
 export { useGroupedAccountsByIban } from './useGroupedAccountsByIban';
+export { useAccounts } from './useAccounts';
 export { useCulture } from './useCulture';
 export { useIsConnectionAlive } from './useIsConnectionAlive';
 export { useAsyncError } from './useAsyncError';

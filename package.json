@@ -56,6 +56,7 @@
     "react-i18next": "^13.0.1",
     "react-native": "0.73.4",
     "react-native-animatable": "^1.4.0",
+    "react-native-autocomplete-input": "^5.4.0",
     "react-native-biometrics": "^3.0.1",
     "react-native-blob-util": "0.19.4",
     "react-native-calendars": "1.1302.0",

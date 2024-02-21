@@ -108,7 +108,7 @@ const MobileTransaction = () => {
 
   return (
     <ScrollView style={styles.scroll}>
-      <Text children="personalNumber.Recepient" size={18} demiBold />
+      <Text children="personalNumber.Iban" size={18} demiBold />
       {apiCallInitiated && data ? (
         <View>
           <DetailsItem label="personalNumber.mobile" value={typedAccountName} underline />
@@ -118,7 +118,7 @@ const MobileTransaction = () => {
         <>
           <TextInput
             inputStyle={styles.inputStyle}
-            label="personalNumber.Recepient"
+            label="personalNumber.mobile"
             value={typedAccountName}
             maxLength={22}
             onChangeText={value => handleChange(value)}

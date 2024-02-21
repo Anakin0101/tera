@@ -8,12 +8,14 @@ import { OTPModal } from 'components/modals';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { TreasuryApiResponse } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { TRANSACTION_FAILED_SCREEN, TRANSACTION_FINISHED_SCREEN } from 'navigation/ScreenNames';
-import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 
 export const useBudgetTransferDetail = () => {
   const { handleTransferInfo } = useTransferDetails(false);
+  const { t } = useTranslation();
+  const PERSONAL_TRANSACTION = t('transactions.defaultTitle');
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,

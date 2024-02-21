@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { config, horizontalScale } from 'utils/config';
-import { MetricsSizes } from 'theme/Variables';
 
 export const useStyles = () => {
   const { Colors, Layout, Spacing } = useTheme();
@@ -16,7 +15,15 @@ export const useStyles = () => {
       width: config.mobileWidth,
       paddingHorizontal: Spacing.xl,
       backgroundColor: Colors.white,
-      height: '100%',
+    },
+    inputView: { paddingVertical: 120 },
+    autocompleteContainer: {
+      flex: 1,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 1,
     },
     inputStyle: { width: horizontalScale(250) },
     sectionListContent: {
@@ -26,16 +33,15 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.ml,
       backgroundColor: Colors.white,
     },
-    template: {
-      paddingVertical: Spacing.lg,
-    },
+    template: { paddingVertical: Spacing.lg },
     wrapper: {
-      ...Layout.absolute,
+      position: 'absolute',
       right: 0,
-      top: MetricsSizes.small,
+      bottom: 0,
       ...Layout.row,
       ...Layout.alignItemsCenter,
       ...Layout.justifyContentBetween,
+      marginTop: Spacing.md,
     },
     btn: { marginVertical: Spacing.xlm },
     image: { width: 40, height: 40 },
@@ -53,18 +59,7 @@ export const useStyles = () => {
     },
     bottomStretchStyle: {
       flexGrow: 1,
-      justifyContent: 'flex-end',
-    },
-    ctaWrapper: {
-      paddingHorizontal: Spacing.xl,
-      marginTop: Spacing.ml,
-    },
-    keyboardContainer: {
-      ...Layout.fill,
-    },
-
-    ctaOpenWrapper: {
-      paddingVertical: Spacing.md,
+      ...Layout.justifyContentEnd,
     },
   });
 };

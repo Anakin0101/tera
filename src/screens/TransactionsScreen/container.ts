@@ -15,7 +15,7 @@ export const useTransactionsScreen = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
 
-  const [selectedData, setSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState('');
   const [typedAccountName, setTypedAccountName] = useState('');
   const [debouncedAccountName, setDebouncedAccountName] = useState('');
   const [previousAccountName, setPreviousAccountName] = useState('');

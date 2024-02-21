@@ -62,6 +62,7 @@ export const URLS = {
   getAutomPayments: 'Payment/GetAutoPayments',
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
+  getBankInfo: 'Transfers/GetBankInfo',
   activatePackage: 'Tariffs/ActivatePackage',
   printLoanSchedules: 'Loan/PrintLoanSchedules',
   printLoanPayments: 'Loan/PrintLoanPayments',

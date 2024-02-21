@@ -1,12 +1,8 @@
 import { createBudgetEnum } from 'components/modals/CreateCodeModal/CreateModal.types';
-
 export const transactionTitles = {
   fromMobile: 'transactions.fromMobile',
   defaultTitle: 'transactions.defaultTitle',
 };
-
-export const PERSONAL_TRANSACTION = 'transactions.defaultTitle';
-
 export const budgetReceiverUser = [
   { id: 1, name: 'transactions.forMe' },
   { id: 2, name: 'transactions.forOthers' },

@@ -13,4 +13,5 @@ export interface ITemplateProps {
   selectedData?: string | null;
   fromPin?: boolean;
   setSelectedData: (iban: string) => void;
+  setChosenTemplateIban?: (chosenTemplate: string) => void;
 }

@@ -17,6 +17,7 @@ const initialState: ProductsStateProps = {
   selectedCardData: null,
   selectedIban: null,
   selectedBranch: null,
+  transferAccounts: [],
   selectedPackage: null,
 };
 
@@ -24,6 +25,10 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    setTransferAccounts: (state, { payload }) => {
+      state.transferAccounts = payload;
+    },
+
     setAccounts: (state, { payload }) => {
       state.groupedAccountsByIban = payload;
     },
@@ -91,6 +96,7 @@ export const {
   setSelectedCardData,
   saveIban,
   saveBranch,
+  setTransferAccounts,
   setSelectedPackage,
 } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;
