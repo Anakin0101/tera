@@ -5,7 +5,7 @@ import { Search } from 'assets/SVGs';
 import { Text, LoadingView } from 'components';
 import { useStyles } from './ToAccountScreen.styles';
 import { DynamicAccount } from 'components';
-import { useTeraProducts } from 'screens/ProductsScreen/teraProductsContainer';
+import { useAccounts } from 'hooks';
 import { useRoute } from '@react-navigation/native';
 import { TransactionsStackRouteProps } from 'navigation/types';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -34,7 +34,7 @@ export const ToAccountScreen = () => {
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
-  const { groupedAccountsByIban, isLoadingAccounts, refetch } = useTeraProducts();
+  const { transferAccounts, isLoadingAccounts, refetch } = useAccounts();
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
 
@@ -60,16 +60,18 @@ export const ToAccountScreen = () => {
   }, [sections, value]);
 
   useEffect(() => {
-    if (groupedAccountsByIban) {
-      const filteredAccounts = groupedAccountsByIban.map(group => {
+    if (transferAccounts) {
+      const filteredAccounts = transferAccounts.map(group => {
         return {
           title: group.accountName,
-          data: group.accounts.filter(account => account.accountId !== selected),
+          data: group.accounts.filter(
+            account => account.isCredit && account.accountId !== selected,
+          ),
         };
       });
       setSections(filteredAccounts);
     }
-  }, [groupedAccountsByIban, selected]);
+  }, [transferAccounts, selected]);
 
   const handleAccountSelection = (accountId: number, item: any) => {
     if (!isLoading) {

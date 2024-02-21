@@ -25,6 +25,7 @@ export type ProductsStateProps = {
   selectedCardData: SelectedCardData | null;
   selectedIban: IbanInfo | null;
   selectedBranch: BranchInfo | null;
+  transferAccounts: IGroupedAccountsByIban[];
   selectedPackage: PackageInfo | null;
 };
 export interface SelectedCardData {

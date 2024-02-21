@@ -19,6 +19,7 @@ export const OtherBankList = ({
     accountToData,
     selectedData,
     selectedPrice,
+    accountIban,
     selectedOtherBankDataTitle,
     selectedTransactionType,
   } = selectedItemFromStore;
@@ -44,7 +45,10 @@ export const OtherBankList = ({
             accountFromData.accountIban,
           )}
           {renderDetailsItem('transfers.where', `${receiver ? receiver : accountToData.name} `)}
-          {renderDetailsItem('transactionDetails.receiverIban', `${accountToData.iban}`)}
+          {renderDetailsItem(
+            'personalNumber.RecepientIban',
+            `${maskIban(accountIban?.accountIbanId) || maskIban(accountToData.iban)}`,
+          )}
           {renderDetailsItem(
             'transactionDetails.amount',
             `${formatToTwoDecimalPlaces(selectedPrice)} ₾`,

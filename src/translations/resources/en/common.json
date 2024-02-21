@@ -382,6 +382,7 @@
   "form": {
     "is_required": "is required",
     "11_digits_required": "must consist of 11 digits",
+    "22_digits_required": "must consist of 22 digits",
     "9_digits_required": "must consist of 9 digits",
     "invalid_email": "format is incorrect"
   },
@@ -444,6 +445,7 @@
     "personal": "personal",
     "iban": "iban",
     "validIbanPrompt": "Please enter a valid IBAN",
+    "validIbanPromptForeign": "please choose valid account",
     "validTransactionPrompt": "Please select a transaction type before proceeding.",
     "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen."
   },
@@ -607,6 +609,9 @@
   "personalNumber": {
     "Recepient": "Recipient details",
     "RecepientNumber": "Recepient Personal Number",
+    "Iban": "Iban",
+    "RecepientIban": "Recipient Iban",
+    "name": "name surname",
     "Address": "address",
     "Receiver": "Choose receiver Iban",
     "Invoice": "Upload Invoice",

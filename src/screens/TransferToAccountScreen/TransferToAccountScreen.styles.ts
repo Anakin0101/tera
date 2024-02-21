@@ -4,6 +4,19 @@ import { StyleSheet } from 'react-native';
 export const useStyleTheme = () => {
   const { Spacing, Colors, FontSize, Layout } = useTheme();
   return StyleSheet.create({
+    keyboardContainer: {
+      ...Layout.fill,
+    },
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
+    },
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
+    },
+    wrapper: {
+      paddingHorizontal: Spacing.xl,
+    },
     container: {
       ...Layout.center,
     },
@@ -62,7 +75,7 @@ export const useStyleTheme = () => {
       ...Layout.row,
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
-      width: '90%',
+      width: '100%',
     },
     buttonCard: {
       ...Layout.row,

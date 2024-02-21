@@ -1,10 +1,8 @@
-import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
-
+import { useAccounts } from 'hooks';
 export const useTeraTransfers = () => {
-  const { groupedAccountsByIban, isLoadingAccounts, refetch } = useGroupedAccountsByIban();
-
+  const { isLoadingAccounts, refetch, transferAccounts } = useAccounts();
   return {
-    groupedAccountsByIban,
+    transferAccounts,
     isLoadingAccounts,
     refetch,
   };

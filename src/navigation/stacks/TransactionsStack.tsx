@@ -24,6 +24,7 @@ import {
   BUDGET_TRANSACTION_SCREEN,
   TRANSFER_TO_BUDGET,
   BUDGET_TRANSFER_DETAILS,
+  FOREIGN_IBAN_SCREEN,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
@@ -34,6 +35,7 @@ import { HeaderBackArrow } from 'components/index';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
+// import ForeignIbanScreen from 'screens/ForeignIbanScreen/ForeignIbanScreen';
 
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
@@ -49,6 +51,7 @@ export type TransactionsStackParamList = {
   [BUDGET_TRANSACTION_SCREEN]: undefined;
   [TRANSFER_TO_BUDGET]: undefined;
   [BUDGET_TRANSFER_DETAILS]: undefined;
+  [FOREIGN_IBAN_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -105,7 +108,7 @@ export const TransactionsStack = () => {
         name={PRIVATE_TRANSACTION_SCREEN}
         component={PrivateTransactionScreen}
         options={{
-          title: t('transfers.toOwnAccount'),
+          title: t('transfers.otherBanks'),
         }}
       />
       <Screen
@@ -166,6 +169,13 @@ export const TransactionsStack = () => {
           title: t('transactions.details'),
         }}
       />
+      {/* <Screen
+        name={FOREIGN_IBAN_SCREEN}
+        component={ForeignIbanScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      /> */}
     </Navigator>
   );
 };

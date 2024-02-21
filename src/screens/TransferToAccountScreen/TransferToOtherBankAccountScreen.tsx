@@ -16,21 +16,28 @@ import { useTransferDetails } from 'screens/TransferDetailScreen/container';
 import { clearSelectedData } from 'store/slices/transfers';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { TransferData, AccountData } from './TransferToAccountScreen.types';
-import { transactionTitles } from 'utils/transactionUtils';
-import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
 import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
+import { useKeyboard } from 'utils/useKeyboard';
 
 export const TransferToOtherBankAccountScreen = () => {
+  const { isKeyboardOpened } = useKeyboard();
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { fromOtherBank, fromMobile, receiver } = params;
   const { t } = useTranslation();
+
+  const PERSONAL_TRANSACTION = t('transactions.defaultTitle');
   const { navigate, setOptions } =
     useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
 
+  const transactionTitles = {
+    fromMobile: t('transactions.fromMobile'),
+    defaultTitle: t('transactions.defaultTitle'),
+  };
   const formattedTransactionTitle = transactionTitles[fromMobile ? 'fromMobile' : 'defaultTitle'];
 
   const {
@@ -41,6 +48,8 @@ export const TransferToOtherBankAccountScreen = () => {
     selectedPrice,
     invoiceData,
     selectedTransactionType,
+    accountIban,
+    receiverName,
   } = useAppSelector(state => state.transfers) as unknown as {
     accountFromData: AccountData;
     accountToData: AccountData;
@@ -49,6 +58,10 @@ export const TransferToOtherBankAccountScreen = () => {
     selectedPrice: any;
     invoiceData: any;
     selectedTransactionType: any;
+    accountIban: {
+      accountIbanId: string;
+    };
+    receiverName: string;
   };
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -68,8 +81,6 @@ export const TransferToOtherBankAccountScreen = () => {
       decimalPlaces: 2,
       inputRef: inputRef,
     });
-
-    // Check for balance and update the button's disabled state
 
     dispatch(setSelectedPrice(processedText));
     setIsButtonDisabled(isInvalidInput);
@@ -92,15 +103,15 @@ export const TransferToOtherBankAccountScreen = () => {
     try {
       const transferType = fromMobile
         ? FinancialTransferTypeEnum.ToSomeoneInsideBank
-        : receiverInfo.ibanIsValid
+        : receiverInfo.ibanIsValid && receiverInfo.ibanisInternal
         ? FinancialTransferTypeEnum.ToSomeoneInsideBank
-        : FinancialTransferTypeEnum.Exchange;
+        : FinancialTransferTypeEnum.ToSomeoneInGeorgia;
 
       const transferData: TransferData = {
         debitAccountId: accountFromData.accountId,
-        receiverIban: accountToData.iban,
+        receiverIban: accountIban ? accountIban.accountIbanId : accountToData.iban,
         amount: selectedPrice,
-        receiverName: receiverInfo?.customerName || receiverInfo,
+        receiverName: receiverInfo?.customerName || receiverName,
         purpose: selectedData.length > 0 ? selectedData : PERSONAL_TRANSACTION,
         extraPurpose: '',
         otp: '',
@@ -197,30 +208,39 @@ export const TransferToOtherBankAccountScreen = () => {
   const styles = useStyleTheme();
 
   return (
-    <View style={styles.container}>
-      <Transfer
-        accountFromData={accountFromData}
-        selectedData={selectedData}
-        fromOtherBanks
-        onTextChange={handleTextChange}
-        inputRef={inputRef}
-        openTransferScreen={openTransferScreen}
-        transactionTitle={formattedTransactionTitle as keyof typeof transactionTitles}
-      />
-      <CardSwap
-        accountFromData={accountFromData}
-        accountToData={accountToData}
-        receiver={receiver}
-        fromOtherBanks
-      />
-      <View style={styles.buttonView}>
-        <Button.Primary
-          text="onboarding.next"
-          fullWidth
-          disabled={isButtonDisabled}
-          onPress={navigateToTransferDetails}
+    <KeyboardAvoidingScrollView
+      scrollEnabled={isKeyboardOpened}
+      containerStyle={styles.keyboardContainer}
+      contentContainerStyle={styles.wrapper}
+      stickyFooter={
+        <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
+          <Button.Primary
+            text="onboarding.next"
+            fullWidth
+            disabled={isButtonDisabled}
+            hitSlop={15}
+            onPress={navigateToTransferDetails}
+          />
+        </View>
+      }
+    >
+      <View style={styles.container}>
+        <Transfer
+          accountFromData={accountFromData}
+          selectedData={selectedData}
+          fromOtherBanks
+          onTextChange={handleTextChange}
+          inputRef={inputRef}
+          openTransferScreen={openTransferScreen}
+          transactionTitle={formattedTransactionTitle as keyof typeof transactionTitles}
+        />
+        <CardSwap
+          accountFromData={accountFromData}
+          accountToData={accountToData}
+          receiver={receiver}
+          fromOtherBanks
         />
       </View>
-    </View>
+    </KeyboardAvoidingScrollView>
   );
 };

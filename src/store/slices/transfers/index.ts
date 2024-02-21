@@ -8,6 +8,7 @@ const initialState = {
   selectedOtherBankDataTitle: '',
   selectedPrice: 0,
   receiverInfo: null,
+  receiverName: '',
   otpData: null,
   selectedIban: null,
   invoiceData: null,
@@ -91,6 +92,9 @@ const transfersSlice = createSlice({
     },
     setReceiverInfo: (state, action) => {
       state.receiverInfo = action.payload;
+    },
+    setReceiverName: (state, action) => {
+      state.receiverName = action.payload;
     },
     setInvoiceData: (state, action) => {
       state.invoiceData = action.payload;
@@ -177,5 +181,6 @@ export const {
   setSpecificTransferData,
   clearCurrentTransfer,
   setIsInternal,
+  setReceiverName,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;
