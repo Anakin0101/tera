@@ -1,3 +1,4 @@
+import { ListRenderItem } from 'react-native';
 import { LoanHistory, LoanSchedule } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface LoanScheduleProps {
@@ -12,4 +13,7 @@ export interface ScheduleItemProps {
 export interface HeaderProps {
   total: number;
   showHistory?: boolean;
+  downloadPdf: () => void;
 }
+
+export type RenderItem = ListRenderItem<LoanSchedule | LoanHistory>;

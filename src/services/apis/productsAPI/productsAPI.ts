@@ -34,6 +34,8 @@ import {
   LoanType,
   Deposit,
   ActivatePackage,
+  PrintLoanSchedulesReq,
+  PrintLoanSchedulesRes,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -255,6 +257,22 @@ export const productsAPI = createApi({
         body,
       }),
     }),
+    printLoanSchedules: builder.mutation<string, PrintLoanSchedulesReq>({
+      query: body => ({
+        url: URLS.printLoanSchedules,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: PrintLoanSchedulesRes) => response.fileId,
+    }),
+    printLoanPayments: builder.mutation<string, PrintLoanSchedulesReq>({
+      query: body => ({
+        url: URLS.printLoanPayments,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: PrintLoanSchedulesRes) => response.fileId,
+    }),
   }),
 });
 
@@ -285,4 +303,6 @@ export const {
   useGetLoanCustomerIdQuery,
   useGetDepositsQuery,
   useActivatePackageMutation,
+  usePrintLoanSchedulesMutation,
+  usePrintLoanPaymentsMutation,
 } = productsAPI;

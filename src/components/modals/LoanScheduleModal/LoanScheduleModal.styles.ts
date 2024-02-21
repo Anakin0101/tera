@@ -37,5 +37,8 @@ export const useStyles = () => {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
     },
+    loader: {
+      ...Layout.fullHeight,
+    },
   });
 };

@@ -63,6 +63,8 @@ export const URLS = {
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
   activatePackage: 'Tariffs/ActivatePackage',
+  printLoanSchedules: 'Loan/PrintLoanSchedules',
+  printLoanPayments: 'Loan/PrintLoanPayments',
 };
 
 export const PROD_URLS = {
