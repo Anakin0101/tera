@@ -17,7 +17,6 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       height: '100%',
     },
-    inputView: { paddingVertical: 120 },
     inputStyle: { width: horizontalScale(250) },
     sectionListContent: {
       ...Layout.overflowHidden,
@@ -26,7 +25,7 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.ml,
       backgroundColor: Colors.white,
     },
-    template: { paddingVertical: Spacing.lg, marginLeft: -23 },
+    template: { paddingVertical: Spacing.lg },
     accountIban: {
       ...Layout.row,
       ...Layout.justifyContentBetween,

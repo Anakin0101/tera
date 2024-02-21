@@ -14,7 +14,7 @@ export const URLS = {
   getOverdraft: 'Loan/GetOverDraft',
   getLoanCustomerId: 'Loan/GetLoanByCustomerId',
   getCustomperOps: 'Transaction/GetCustomerOps',
-  getAssets: 'Deposit/GetDepositByClientId',
+  getDepositByClientId: 'Deposit/GetDepositByClientId',
   getPensions: 'Pensions/GetTotalSaving',
   getBankerInfo: 'Customers/GetBankerInfo',
   getAccountsByCustomerId: 'Account/GetAccountsByCustomerId',
@@ -62,6 +62,7 @@ export const URLS = {
   getAutomPayments: 'Payment/GetAutoPayments',
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
+  getBankInfo: 'Transfers/GetBankInfo',
   activatePackage: 'Tariffs/ActivatePackage',
 };
 

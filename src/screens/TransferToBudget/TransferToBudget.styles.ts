@@ -14,5 +14,18 @@ export const useStyleTheme = () => {
       ...Layout.justifyContentBetween,
       ...Layout.alignItemsCenter,
     },
+    keyboardContainer: {
+      ...Layout.fill,
+    },
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
+    },
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
+    },
+    wrapper: {
+      paddingHorizontal: Spacing.xl,
+    },
   });
 };

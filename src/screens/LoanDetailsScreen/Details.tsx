@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Text } from 'components';
-import { Note } from 'assets/SVGs';
 import { LoanDetails } from './LoanDetails';
 import { OverdraftDetails } from './OverdraftDetails';
 import { DetailsProps } from './LoanDetailsScreen.types';
@@ -29,12 +28,6 @@ export const Details: FC<DetailsProps> = ({ data }) => {
     <View style={styles.details}>
       <Text children="products.details" size={18} medium />
       {renderDetails()}
-      <Pressable style={styles.agreementButton}>
-        <View style={styles.innerContainer}>
-          <Note />
-          <Text children="deposits.agreementDoc" special />
-        </View>
-      </Pressable>
     </View>
   );
 };

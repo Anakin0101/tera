@@ -39,7 +39,7 @@ export const MyAccounts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
 
-  const { groupedAccountsByIban, isLoadingAccounts, refetch } = useTeraTransfers();
+  const { transferAccounts, isLoadingAccounts, refetch } = useTeraTransfers();
   const [sections, setSections] = useState<Section[]>([]);
   const [filteredSections, setFilteredSections] = useState<Section[]>([]);
 
@@ -50,8 +50,8 @@ export const MyAccounts = () => {
   }, [isFocused, refetch]);
 
   useEffect(() => {
-    if (groupedAccountsByIban) {
-      const formattedSections = groupedAccountsByIban.map(group => {
+    if (transferAccounts) {
+      const formattedSections = transferAccounts.map(group => {
         const filteredAccounts = group.accounts.filter(account => account.isDebit === true);
         return {
           title: group.accountName,
@@ -61,7 +61,7 @@ export const MyAccounts = () => {
 
       setSections(formattedSections);
     }
-  }, [groupedAccountsByIban]);
+  }, [transferAccounts]);
 
   useEffect(() => {
     if (sections && sections.length > 0) {

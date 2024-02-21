@@ -1,15 +1,13 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import {
-  CreditCardType,
-  LoanType,
-  OverdraftType,
-} from 'services/apis/dashboardAPI/dashboardAPI.types';
-import {
-  CardProcessingCondition,
   CardType,
+  LoanType,
   DepositType,
-  ProductServiceCondition,
+  OverdraftType,
+  CreditCardType,
   TransactionType,
+  ProductServiceCondition,
+  CardProcessingCondition,
 } from 'services/apis/productsAPI/productsAPI.types';
 
 export type ProductsStateProps = {
@@ -27,6 +25,7 @@ export type ProductsStateProps = {
   selectedCardData: SelectedCardData | null;
   selectedIban: IbanInfo | null;
   selectedBranch: BranchInfo | null;
+  transferAccounts: IGroupedAccountsByIban[];
   selectedPackage: PackageInfo | null;
 };
 export interface SelectedCardData {

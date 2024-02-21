@@ -47,3 +47,8 @@ export const registerUserPersistConfig = {
   storage: reduxStorage,
   whitelist: [],
 };
+export const applicationStatePersistConfig = {
+  key: 'applicationState',
+  storage: reduxStorage,
+  whitelist: [],
+};

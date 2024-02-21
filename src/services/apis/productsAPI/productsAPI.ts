@@ -10,8 +10,6 @@ import {
   InterestRate,
   InterestRatesReq,
   InterestRatesRes,
-  LastTransactionReq,
-  LastTransactionRes,
   LmsProduct,
   LoanConfigRes,
   LoanHistory,
@@ -29,6 +27,12 @@ import {
   BranchesResponse,
   Branch,
   AddCardRequest,
+  CustomerOperationsReq,
+  CustomerOperationsRes,
+  CreditCardType,
+  OverdraftType,
+  LoanType,
+  Deposit,
   ActivatePackage,
 } from './productsAPI.types';
 import { store } from 'store/index';
@@ -37,31 +41,52 @@ import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Products', 'Transaction', 'Loan'],
+  tagTypes: ['Products', 'Transactions', 'Loans', 'Offers', 'Accounts', 'Deposits'],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
       query: () => ({
         url: URLS.getAccountsByCustomerId,
-        method: METHOD_NAMES.GET,
       }),
+      providesTags: ['Accounts'],
     }),
     getOffers: builder.query<OfferType[], void>({
       query: () => ({
         url: URLS.getOffers,
       }),
+      providesTags: ['Offers'],
     }),
-    getLastTransactionsByAccNumber: builder.mutation<TransactionType[], LastTransactionReq>({
-      query: ({ accountNumber, count, startDate, endDate }) => ({
-        url: URLS.getCustomerOps,
+    getCustomerOperations: builder.mutation<TransactionType[], CustomerOperationsReq>({
+      query: operations => ({
+        url: URLS.getCustomperOps,
         method: METHOD_NAMES.POST,
-        body: {
-          accountNumber,
-          count,
-          startDate,
-          endDate,
-        },
+        body: operations,
       }),
-      transformResponse: (response: LastTransactionRes) => response.ops,
+      transformResponse: (response: CustomerOperationsRes) => response.ops,
+      invalidatesTags: ['Transactions'],
+    }),
+    getCreditCards: builder.query<CreditCardType[], void>({
+      query: () => ({
+        url: URLS.getCreditCard,
+      }),
+      providesTags: ['Loans'],
+    }),
+    getOverDraft: builder.query<OverdraftType[], void>({
+      query: () => ({
+        url: URLS.getOverdraft,
+      }),
+      providesTags: ['Loans'],
+    }),
+    getLoanCustomerId: builder.query<LoanType[], void>({
+      query: () => ({
+        url: URLS.getLoanCustomerId,
+      }),
+      providesTags: ['Loans'],
+    }),
+    getDeposits: builder.query<Deposit[], void>({
+      query: () => ({
+        url: URLS.getDepositByClientId,
+      }),
+      providesTags: ['Deposits'],
     }),
     updateAccountName: builder.mutation<any, UpdateAccountNameReq>({
       query: ({ userId, customerId, channelId, culture, accountId, accountName }) => ({
@@ -149,12 +174,12 @@ export const productsAPI = createApi({
         method: METHOD_NAMES.POST,
         body,
       }),
+      invalidatesTags: ['Deposits'],
     }),
 
     getTeraWalletInfo: builder.query<TeraWalletRes, void>({
       query: () => ({
         url: URLS.getTeraWalletInfo,
-        method: METHOD_NAMES.GET,
       }),
     }),
 
@@ -236,7 +261,6 @@ export const productsAPI = createApi({
 export const {
   useGetAccountsByCustomerIdQuery,
   useGetOffersQuery,
-  useGetLastTransactionsByAccNumberMutation,
   useUpdateAccountNameMutation,
   useGetLoanScheduleQuery,
   useGetLoanHistoryQuery,
@@ -255,5 +279,10 @@ export const {
   useGetRequestForLoanConsentTextQuery,
   useGetBranchesMutation,
   useAddCardMutation,
+  useGetCustomerOperationsMutation,
+  useGetCreditCardsQuery,
+  useGetOverDraftQuery,
+  useGetLoanCustomerIdQuery,
+  useGetDepositsQuery,
   useActivatePackageMutation,
 } = productsAPI;

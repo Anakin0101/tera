@@ -9,12 +9,15 @@ import 'translations';
 import { saveToastRef } from 'utils/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Modal, Toast } from 'components';
+import { ErrorBoundary, Modal, Toast } from 'components';
 import { saveModalRef } from 'utils/modal';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { LogBox, Platform, StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 import { Colors } from 'theme/Variables';
+
+import { useIsConnectionAlive } from 'hooks';
+import { ApplicationErrorWrapper } from 'components';
 
 const App = () => {
   //  We set statusbar custom color - only for android on the root level
@@ -26,23 +29,27 @@ const App = () => {
     }
   }, []);
 
-  LogBox.ignoreAllLogs();
+  useIsConnectionAlive();
 
   return (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <BottomSheetModalProvider>
-              <Navigation />
-              <Modal ref={saveModalRef} />
-              <Toast ref={saveToastRef} />
-            </BottomSheetModalProvider>
-          </PersistGate>
-        </Provider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      {/* eslint-disable-next-line react-native/no-inline-styles */}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <ApplicationErrorWrapper>
+                <BottomSheetModalProvider>
+                  <Navigation />
+                  <Modal ref={saveModalRef} />
+                  <Toast ref={saveToastRef} />
+                </BottomSheetModalProvider>
+              </ApplicationErrorWrapper>
+            </PersistGate>
+          </Provider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 };
 

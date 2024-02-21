@@ -19,7 +19,7 @@ export const useStyleTheme = () => {
       right: Spacing.l,
     },
     toastText: {
-      paddingHorizontal: Spacing.ml,
+      paddingHorizontal: Spacing.l,
     },
     errorText: {
       ...Layout.fill,

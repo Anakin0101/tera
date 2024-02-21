@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { MainStackRouteProps } from 'navigation/types';
 import { groupTransactionsByDate } from 'utils/groupData';
@@ -6,6 +6,7 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useGetCustomerOperationsMutation } from 'services/apis';
 import { getCurrentDateISO, getDateThreeMonthAgeISO, getISOString } from 'utils/formatDate';
 import { TransactionFilters } from './AllTransactionsScreen.types';
+import { CustomerOperationsReq } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useAllTransactions = () => {
   const { params } = useRoute<MainStackRouteProps<'AllTransactionsScreen'>>();
@@ -31,18 +32,39 @@ export const useAllTransactions = () => {
     };
   }, [search]);
 
-  useEffect(() => {
+  const getCustomerOps = useCallback(() => {
+    const request: CustomerOperationsReq = {
+      count: 20,
+      startDate: filters.startDate ? getISOString(filters.startDate) : getDateThreeMonthAgeISO(),
+      endDate: filters.endDate ? getISOString(filters.endDate) : getCurrentDateISO(),
+      searchWords: debouncedValue,
+      splitOps: true,
+    };
+
+    if (filters?.currency) {
+      request.currency = filters.currency;
+    }
+
+    if (filters?.category) {
+      request.opCategory = filters.category;
+    }
+
+    if (filters.accountNumber || params?.accountNumber) {
+      request.accountNumber = filters.accountNumber || params?.accountNumber;
+    }
+
     getCustomerOperations({
       count: 20,
       startDate: filters.startDate ? getISOString(filters.startDate) : getDateThreeMonthAgeISO(),
       endDate: filters.endDate ? getISOString(filters.endDate) : getCurrentDateISO(),
-      accountNumber: filters.accountNumber || params?.accountNumber,
-      opCategory: filters.category,
-      currency: filters.currency,
       searchWords: debouncedValue,
       splitOps: true,
     });
-  }, [filters, debouncedValue, getCustomerOperations, params?.accountNumber]);
+  }, [debouncedValue, filters, params?.accountNumber, getCustomerOperations]);
+
+  useEffect(() => {
+    getCustomerOps();
+  }, [getCustomerOps]);
 
   const sections = useMemo(() => {
     if (!customerOperations) {

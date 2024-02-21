@@ -10,8 +10,15 @@ import {
 } from 'services/apis/productsAPI/productsAPI';
 import { RegisterDepositReq } from 'services/apis/productsAPI/productsAPI.types';
 import { DEPOSIT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
+import { getValue } from 'storage/index';
+import { SELECTED_LANGUAGE } from 'storage/constants';
+import {
+  LanguageKeyForAPIEnum,
+  LanguageKeys,
+} from 'components/LanguageSwitcher/LanguageSwitcher.types';
 
 export const useNewDepositSummary = () => {
+  const savedLanguage = getValue(SELECTED_LANGUAGE);
   const [isAgree, setIsAgree] = useState(false);
   const { navigate } = useNavigation<ProductsStackScreenProps<'DepositSuccessScreen'>>();
   const newDeposit = useAppSelector(state => state.deposit);
@@ -70,6 +77,8 @@ export const useNewDepositSummary = () => {
       amount: initialAmount,
       creditAccountId: creditAccount.id,
       debitAccountId: debitAccount.id,
+      culture:
+        savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
     };
 
     if (!isSingleOption) {

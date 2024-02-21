@@ -11,6 +11,16 @@ export const useStyles = () => {
       backgroundColor: Colors.headerBackground,
       width: config.mobileWidth,
     },
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
+    },
+    keyboardContainer: {
+      ...Layout.fill,
+    },
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
+    },
     scroll: {
       width: config.mobileWidth,
       paddingHorizontal: Spacing.xl,
@@ -26,7 +36,7 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.ml,
       backgroundColor: Colors.white,
     },
-    template: { paddingVertical: Spacing.lg, marginLeft: -23 },
+    template: { paddingVertical: Spacing.lg },
     accountIban: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
@@ -39,5 +49,6 @@ export const useStyles = () => {
     },
     accountsCard: { marginTop: Spacing.md },
     receiver: { paddingVertical: Spacing.md },
+    image: { width: 40, height: 40 },
   });
 };

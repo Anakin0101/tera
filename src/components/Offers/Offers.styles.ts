@@ -22,9 +22,6 @@ export const useStyles = (padding: number) => {
     },
     title: {
       margin: Spacing.xl,
-      ...Fonts.textBold,
-      fontSize: FontSize.regular,
-      fontWeight: '400',
     },
     offer: {
       ...generaWrapperlStyle,

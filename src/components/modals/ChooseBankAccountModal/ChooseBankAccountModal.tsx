@@ -1,14 +1,12 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { FlatList, Modal, SafeAreaView, View } from 'react-native';
-import { SearchComponent, Text } from 'components';
+import { SearchComponent, Text, LoadingInView, HeaderBackArrow } from 'components';
 import { useStyles } from './ChooseBankAccountModal.styles';
 import { ChooseBankAccountModalProps } from './ChooseBankAccountModal.types';
-import { HeaderBackArrow } from 'components/index';
 import { useTranslation } from 'react-i18next';
 import { useChooseBankAccount } from './container';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { ChooseBankAccountItem } from './ChooseBankAccountItem';
-import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
