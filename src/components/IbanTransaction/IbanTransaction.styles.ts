@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { config, horizontalScale } from 'utils/config';
+import { MetricsSizes } from 'theme/Variables';
 
 export const useStyles = () => {
   const { Colors, Layout, Spacing } = useTheme();
@@ -17,7 +18,6 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       height: '100%',
     },
-    inputView: { paddingVertical: 120 },
     inputStyle: { width: horizontalScale(250) },
     sectionListContent: {
       ...Layout.overflowHidden,
@@ -26,8 +26,13 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.ml,
       backgroundColor: Colors.white,
     },
-    template: { paddingVertical: Spacing.lg, marginLeft: -23 },
+    template: {
+      paddingVertical: Spacing.lg,
+    },
     wrapper: {
+      ...Layout.absolute,
+      right: 0,
+      top: MetricsSizes.small,
       ...Layout.row,
       ...Layout.alignItemsCenter,
       ...Layout.justifyContentBetween,
@@ -44,11 +49,22 @@ export const useStyles = () => {
       backgroundColor: Colors.error100,
       borderRadius: Spacing.m,
       padding: Spacing.m,
-      marginTop: 15,
+      marginTop: Spacing.md,
     },
     bottomStretchStyle: {
       flexGrow: 1,
       justifyContent: 'flex-end',
+    },
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginTop: Spacing.ml,
+    },
+    keyboardContainer: {
+      ...Layout.fill,
+    },
+
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
     },
   });
 };

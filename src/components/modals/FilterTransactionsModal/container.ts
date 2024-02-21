@@ -1,10 +1,10 @@
-import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 import { useState } from 'react';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useFilterTransactionsByAcc = () => {
   const [accountNumber, setAccountNumber] = useState<number | null>(null);
-  const [currency, setCurrency] = useState<Currency | null>(null);
+  const [currency, setCurrency] = useState<CurrencyEnum | null>(null);
   const [modalTitle, setModalTitle] = useState('transactions.account');
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const [accountSelected, setAccountSelected] = useState(false);

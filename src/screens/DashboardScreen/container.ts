@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   useGetBannersQuery,
+  useGetDepositsQuery,
   useGetTotalSavingMutation,
   useGetUserProfileInfoQuery,
 } from 'services/apis';
@@ -10,7 +11,6 @@ import {
   useGetCreditCardsQuery,
   useGetOverDraftQuery,
   useGetLoanCustomerIdQuery,
-  useGetAssetsQuery,
   useGetBankerQuery,
 } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
@@ -25,15 +25,42 @@ export const useDashboardScreen = () => {
     getCustomerOperations,
     { data: customerOperations, isLoading: customerOperationsLoading },
   ] = useGetCustomerOperationsMutation();
-  const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
-  const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
-  const { data: getLoanCustomerId, isLoading: customerIdLoading } = useGetLoanCustomerIdQuery();
-  const { data: assets, isLoading: assetsLoading } = useGetAssetsQuery();
-  const { data: banker, isLoading: bankerLoading } = useGetBankerQuery();
-  const { data: profile } = useGetUserProfileInfoQuery();
+  const {
+    data: creditCards,
+    isLoading: creditCardsLoading,
+    refetch: creditCardsRefetch,
+  } = useGetCreditCardsQuery();
+  const {
+    data: overDraft,
+    isLoading: overDraftLoading,
+    refetch: overDraftRefetch,
+  } = useGetOverDraftQuery();
+  const {
+    data: getLoanCustomerId,
+    isLoading: loanCustomerIdLoading,
+    refetch: loanCoustomerIdRefetch,
+  } = useGetLoanCustomerIdQuery();
+  const {
+    data: deposits,
+    isLoading: depositsLoading,
+    refetch: depositsRefetch,
+  } = useGetDepositsQuery();
+  const { data: banker, isLoading: bankerLoading, refetch: bankerRefetch } = useGetBankerQuery();
+
+  const {
+    data: profile,
+    isLoading: profileLoading,
+    refetch: profileRefetch,
+  } = useGetUserProfileInfoQuery();
+
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [getTotalSaving, { data: totalSaving, isLoading: totalSavingLoading }] =
     useGetTotalSavingMutation();
-  const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
+  const {
+    data: banners,
+    isLoading: bannersLoading,
+    refetch: bannersRefetch,
+  } = useGetBannersQuery({
     channel: 'internet-bank',
     language: 'ka',
     page: 'dashboard-main',
@@ -51,22 +78,40 @@ export const useDashboardScreen = () => {
       count: 4,
       endDate: getCurrentDateISO(),
       startDate: getDateThreeMonthAgeISO(),
-      accountNumber: null,
     });
   }, [getCustomerOperations]);
 
+  const onRefresh = async () => {
+    try {
+      if (refreshing) {
+        return;
+      }
+      setRefreshing(true);
+      await creditCardsRefetch();
+      await overDraftRefetch();
+      await loanCoustomerIdRefetch();
+      await bankerRefetch();
+      await profileRefetch();
+      await bannersRefetch();
+      await depositsRefetch();
+      setRefreshing(false);
+    } catch (ex) {
+      console.warn('Error onRefresh', ex);
+      setRefreshing(false);
+    }
+  };
+
   const isDashboardMounted = useMemo(() => {
     const mounted =
-      !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName && !!banners;
+      !!templates?.templates.length && !!deposits && !!banker && !!profile?.firstName && !!banners;
     return mounted;
-  }, [assets, banker, profile?.firstName, templates?.templates.length, banners]);
+  }, [deposits, banker, profile?.firstName, templates?.templates.length, banners]);
 
   return {
     templates,
     temlpatesLoading,
     customerOperationsLoading,
-    customerIdLoading,
-    assetsLoading,
+    loanCustomerIdLoading,
     bankerLoading,
     overDraftLoading,
     creditCardsLoading,
@@ -74,12 +119,17 @@ export const useDashboardScreen = () => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
     banker,
     isDashboardMounted,
     banners,
     bannersLoading,
     totalSavingLoading,
     totalSaving,
+    onRefresh,
+    refreshing,
+    profileLoading,
+    deposits,
+    depositsLoading,
+    depositsRefetch,
   };
 };

@@ -181,7 +181,7 @@
     "new": "New Product",
     "history": "განცხადებების ისტორია",
     "allAccounts": "Accounts and Cards",
-    "Offers": "Offers",
+    "offers": "Offers",
     "more": "Learn more",
     "newAccount": "New Account/Card",
     "accountDetails": "Account Details",
@@ -376,11 +376,13 @@
     "login": "Log in",
     "choose": "Choose",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "try_again": "Try again"
   },
   "form": {
     "is_required": "is required",
     "11_digits_required": "must consist of 11 digits",
+    "22_digits_required": "must consist of 22 digits",
     "9_digits_required": "must consist of 9 digits",
     "invalid_email": "format is incorrect"
   },
@@ -442,7 +444,10 @@
     "mobile": "mobile",
     "personal": "personal",
     "iban": "iban",
-    "validIbanPrompt": "Please enter a valid IBAN"
+    "validIbanPrompt": "Please enter a valid IBAN",
+    "validIbanPromptForeign": "please choose valid account",
+    "validTransactionPrompt": "Please select a transaction type before proceeding.",
+    "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen."
   },
   "filters": {
     "income": "Income",
@@ -503,7 +508,26 @@
     "selectTariff": "Choose the tariff packages tailored to your wishes",
     "monthlyFee": "Monthly fee",
     "annualFee": "Annual fee",
-    "cardStatus": "Active"
+    "cardStatus": "Active",
+    "monthly": "Monthly {{value}}",
+    "annual": "Annual {{value}}",
+    "selectPayType": "Select Payment Type",
+    "confirmationText": "In case of confirmation, you will be changed to the terms of the current tariff package and the fee will be deducted from your account.",
+    "considerationNote": "Please note, in case of change, the amount deducted from the tariff package is not returned.",
+    "finalizationInquiry": "Complete the tariff package change process?",
+    "requestSuccess": "Request fulfilled",
+    "changePackageText": "Your package payment type has been changed",
+    "edit": "Edit",
+    "packageEdit": "Edit package",
+    "freeTariff": "free",
+    "withoutPackage": "Without Package",
+    "noTariff": "You have no tariff packages",
+    "active": "Active",
+    "packageError": "Error activating package",
+    "error": "An error occurred",
+    "pending": "Pending",
+    "offices": "offices",
+    "seeOffices": "See the list of offices here"
   },
   "payments": {
     "totalDebt": "Total Debt",
@@ -585,6 +609,9 @@
   "personalNumber": {
     "Recepient": "Recipient details",
     "RecepientNumber": "Recepient Personal Number",
+    "Iban": "Iban",
+    "RecepientIban": "Recipient Iban",
+    "name": "name surname",
     "Address": "address",
     "Receiver": "Choose receiver Iban",
     "Invoice": "Upload Invoice",
@@ -682,5 +709,11 @@
   "passwordRecovery": {
     "choose_password_recovery_method": "Choose a password recovery method",
     "successful_password_recovery_title": "Password recovery finished successfully"
+  },
+  "error": {
+    "network_error": "[en] ტერაბანკთან კავშირი შეუძლებელია ინტერნეტ კავშირის არარსებობის გამო. გთხოვთ დაუკავშირდეთ Wi-Fi-ის ან ჩართოთ მობილური ინტერნეტი.",
+    "timeout_error": "An error occured",
+    "component_title": "Error",
+    "component_description": "Something went wrong, please try again"
   }
 }

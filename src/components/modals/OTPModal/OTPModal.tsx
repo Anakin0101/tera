@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { SafeAreaView, TextInput, View } from 'react-native';
+import { SafeAreaView, TextInput, View, Platform } from 'react-native';
 import { Text } from 'components';
 import { ResendIcon } from 'assets/SVGs';
 import { useStyleTheme } from './OTPModal.styles';
@@ -104,6 +104,7 @@ export const OTPModal = ({ onFinished }: { onFinished?: (code: string) => void }
                 autoFocus={num === 1}
                 placeholder={num > 1 && inputRefs.current[num - 1] ? '*' : ''}
                 textContentType="oneTimeCode"
+                autoComplete={Platform.OS === 'android' ? 'sms-otp' : 'one-time-code'}
               />
             )}
             name={`input${num}` as any}

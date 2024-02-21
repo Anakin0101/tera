@@ -12,8 +12,11 @@ import CardSwap from 'screens/TransferToAccountScreen/CardSwap';
 import { useNavigation } from '@react-navigation/native';
 import { TransactionsStackScreenProps } from 'navigation/types';
 import { BUDGET_TRANSFER_DETAILS, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
+import { useKeyboard } from 'utils/useKeyboard';
 
 export const TransferToBudget = () => {
+  const { isKeyboardOpened } = useKeyboard();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransferDetailsScreen'>>();
   const navigateToTransferDetails = () => {
     navigate(BUDGET_TRANSFER_DETAILS);
@@ -44,24 +47,32 @@ export const TransferToBudget = () => {
 
   //this screen is not finished
   return (
-    <View style={styles.container}>
-      <Transfer
-        accountFromData={accountFromData}
-        selectedData={selectedData}
-        onTextChange={handleTextChange}
-        inputRef={inputRef}
-        openTransferScreen={openTransferScreen}
-      />
-      <CardSwap accountFromData={accountFromData} accountToData={accountToData} fromBudget />
-      <View style={styles.buttonsContainer}>
-        <Button.Primary
-          text="onboarding.next"
-          fixedWidth
-          disabled={isButtonDisabled}
-          hitSlop={30}
-          onPress={navigateToTransferDetails}
+    <KeyboardAvoidingScrollView
+      scrollEnabled={isKeyboardOpened}
+      containerStyle={styles.keyboardContainer}
+      contentContainerStyle={styles.wrapper}
+      stickyFooter={
+        <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
+          <Button.Primary
+            text="onboarding.next"
+            fullWidth
+            disabled={isButtonDisabled}
+            hitSlop={15}
+            onPress={navigateToTransferDetails}
+          />
+        </View>
+      }
+    >
+      <View style={styles.container}>
+        <Transfer
+          accountFromData={accountFromData}
+          selectedData={selectedData}
+          onTextChange={handleTextChange}
+          inputRef={inputRef}
+          openTransferScreen={openTransferScreen}
         />
+        <CardSwap accountFromData={accountFromData} accountToData={accountToData} fromBudget />
       </View>
-    </View>
+    </KeyboardAvoidingScrollView>
   );
 };

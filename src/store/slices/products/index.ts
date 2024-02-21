@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductsStateProps, IbanInfo, BranchInfo } from './types';
-import { dashboardAPI } from 'services/apis';
+import { productsAPI } from 'services/apis';
 
 const initialState: ProductsStateProps = {
   groupedAccountsByIban: [],
@@ -17,12 +17,18 @@ const initialState: ProductsStateProps = {
   selectedCardData: null,
   selectedIban: null,
   selectedBranch: null,
+  transferAccounts: [],
+  selectedPackage: null,
 };
 
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    setTransferAccounts: (state, { payload }) => {
+      state.transferAccounts = payload;
+    },
+
     setAccounts: (state, { payload }) => {
       state.groupedAccountsByIban = payload;
     },
@@ -53,22 +59,25 @@ const productsSlice = createSlice({
     saveBranch: (state, { payload }: { payload: BranchInfo }) => {
       state.selectedBranch = payload;
     },
+    setSelectedPackage: (state, { payload }) => {
+      state.selectedPackage = payload;
+    },
   },
   extraReducers: builder => {
-    builder.addMatcher(dashboardAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
+    builder.addMatcher(productsAPI.endpoints.getOverDraft.matchFulfilled, (state, { payload }) => {
       state.overdrafts = payload;
     });
-    builder.addMatcher(dashboardAPI.endpoints.getAssets.matchFulfilled, (state, { payload }) => {
+    builder.addMatcher(productsAPI.endpoints.getDeposits.matchFulfilled, (state, { payload }) => {
       state.deposits = payload;
     });
     builder.addMatcher(
-      dashboardAPI.endpoints.getLoanCustomerId.matchFulfilled,
+      productsAPI.endpoints.getLoanCustomerId.matchFulfilled,
       (state, { payload }) => {
         state.loans = payload;
       },
     );
     builder.addMatcher(
-      dashboardAPI.endpoints.getCreditCards.matchFulfilled,
+      productsAPI.endpoints.getCreditCards.matchFulfilled,
       (state, { payload }) => {
         state.creditCards = payload;
       },
@@ -87,5 +96,7 @@ export const {
   setSelectedCardData,
   saveIban,
   saveBranch,
+  setTransferAccounts,
+  setSelectedPackage,
 } = productsSlice.actions;
 export const productsReducer = productsSlice.reducer;

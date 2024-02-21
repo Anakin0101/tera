@@ -89,7 +89,9 @@ import {
   CHOOSE_MOBILE_PROVIDER_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   PAYMENT_ERROR_SCREEN,
+  FOREIGN_IBAN_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
+  TARIFF_PACKAGES_SINGLE_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -98,7 +100,7 @@ import {
   DebtVerifyBasketResponse,
   // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
-import { Account } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 
@@ -115,8 +117,6 @@ export type RoutesList = {
 export type MainStackParamsList = {
   [INITIAL_STACK]: NavigatorScreenParams<TabParamList>;
   [MODAL_STACK]: NavigatorScreenParams<ModalStackParamsList>;
-  [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
-  [TRANSACTION_DETAILS_SCREEN]: undefined;
 };
 
 export type ModalStackParamsList = {
@@ -168,6 +168,8 @@ export type ModalStackParamsList = {
     subscriberFieldsValue: SubscriberFieldsValue;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
+  [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
+  [TRANSACTION_DETAILS_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {
@@ -231,6 +233,7 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
 };
 
 export type TransactionsStackParamsList = {
@@ -277,6 +280,7 @@ export type TransactionsStackParamsList = {
 
   [TRANSFER_TO_BUDGET]: undefined;
   [BUDGET_TRANSFER_DETAILS]: undefined;
+  [FOREIGN_IBAN_SCREEN]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;

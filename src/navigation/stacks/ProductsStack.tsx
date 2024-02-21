@@ -66,6 +66,7 @@ import {
   CARD_ORDER_CHOOSE_ADDRESS_SCREEN,
   CARD_ORDER_DETAILS_SCREEN,
   TARIFF_PACKAGES_SCREEN,
+  TARIFF_PACKAGES_SINGLE_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
@@ -76,6 +77,7 @@ import { guestNavOptions, hideHeader } from 'navigation/config';
 import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { TariffPackagesListScreen } from 'screens/TariffPackagesListScreen/TariffPackagesListScreen';
+import { TariffPackagesSingleScreen } from 'screens/TariffPackagesSingleScreen/TariffPackagesSingleScreen';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -102,7 +104,10 @@ export const ProductsStack = () => {
       <Screen
         name={ALL_ACCOUNTS_AND_CARDS_SCREEN}
         component={AllAcountsAndCardsScreen}
-        options={{ title: t('products.allAccounts') }}
+        options={{
+          title: t('products.allAccounts'),
+          headerStyle: st.whiteHeader,
+        }}
       />
       <Screen
         name={ACCOUNT_DETAILS_SCREEN}
@@ -136,7 +141,7 @@ export const ProductsStack = () => {
       <Screen
         name={DEPOSITS_SCREEN}
         component={DepositsScreen}
-        options={{ title: t('products.allDeposits') }}
+        options={{ title: t('products.allDeposits'), headerStyle: st.whiteHeader }}
       />
       <Screen
         name={DEPOSIT_DETAILS_SCREEN}
@@ -295,6 +300,11 @@ export const ProductsStack = () => {
       <Screen
         name={TARIFF_PACKAGES_SCREEN}
         component={TariffPackagesListScreen}
+        options={{ title: t('newDeposit.tariffPackages') }}
+      />
+      <Screen
+        name={TARIFF_PACKAGES_SINGLE_SCREEN}
+        component={TariffPackagesSingleScreen}
         options={{ title: t('newDeposit.tariffPackages') }}
       />
     </Navigator>

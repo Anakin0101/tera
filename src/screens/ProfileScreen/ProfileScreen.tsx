@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { Alert, Pressable, SafeAreaView, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import { useStyleTheme } from './ProfileScreen.styles';
@@ -8,13 +8,29 @@ import { ProfileCards, ProfileList } from 'components/Profile';
 import { useTranslation } from 'react-i18next';
 import { useProfileScreen } from './container';
 import { getBuildNumber, getVersion } from 'react-native-device-info';
+import { resetKeychainValues } from 'utils/logKeychainValues';
+import { storage, storageKeys } from 'storage/index';
+import { useAsyncError } from 'hooks';
 
 export const ProfileScreen = () => {
   const styles = useStyleTheme();
   const { t } = useTranslation();
+  const throwError = useAsyncError();
 
   const { setOptions } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { GetUserProfileInfo, profileScreenLoading } = useProfileScreen();
+
+  const handleCrashApp = () => {
+    throwError('Intentional crash for testing ErrorBoundary');
+  };
+
+  const handleClearAllFromStorage = async () => {
+    const res = await resetKeychainValues();
+    storage.clearAll();
+    if (res) {
+      Alert.alert(JSON.stringify(storageKeys()));
+    }
+  };
 
   useEffect(() => {
     GetUserProfileInfo();
@@ -35,6 +51,15 @@ export const ProfileScreen = () => {
           <ProfileCards />
           <ProfileList />
           <Logout />
+          {/* Temporary - will be removed soon */}
+          <View style={styles.buildVersionWrapper}>
+            <Pressable onPress={handleCrashApp}>
+              <Text children="Crash the app" />
+            </Pressable>
+            <Pressable onPress={handleClearAllFromStorage}>
+              <Text children="Clear all from storage" />
+            </Pressable>
+          </View>
           <View style={styles.buildVersionWrapper}>
             <Text
               style={styles.buildVersionLabel}

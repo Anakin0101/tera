@@ -1,39 +1,40 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
-import { CardType, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { CARD_ACCOUNT } from 'constants/common';
+import { Account, CardType, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
-export const groupCardsByPan = (data: any[] = [], property: string): CardType[] => {
+export const groupCardsByPan = (data: CardType[] = [], property: keyof CardType): CardType[] => {
   return Object.values(
-    data.reduce((result, currentObject) => {
-      const key = currentObject[property];
-      if (!result[key]) {
-        result[key] = currentObject;
-      }
+    data.reduce((result, card) => {
+      const pan = card[property] as string;
 
+      if (!result[pan]) {
+        result[pan] = card;
+      }
       return result;
-    }, {}),
+    }, {} as { [key: string]: CardType }),
   );
 };
 
 export const groupAccountsByIban = (
-  data: any[] = [],
-  propery: string,
+  accounts: Account[] = [],
+  propery: keyof Account,
 ): IGroupedAccountsByIban[] => {
   return Object.values(
-    data.reduce((result, currentObject) => {
-      const key = currentObject[propery];
+    accounts.reduce((result, account) => {
+      const iban = account[propery] as string;
 
-      if (!result[key]) {
-        result[key] = {
-          iban: key,
+      if (!result[iban]) {
+        result[iban] = {
+          iban,
           accounts: [],
-          accountName: currentObject.accountName,
-          accountNumber: currentObject.accountNumber,
-          isCardAccount: currentObject.accountNameLat === 'Card Account',
+          accountName: account.accountName,
+          accountNumber: account.accountNumber,
+          isCardAccount: account.accountNameLat === CARD_ACCOUNT,
         };
       }
-      result[key].accounts.push(currentObject);
+      result[iban].accounts.push(account);
       return result;
-    }, {}),
+    }, {} as { [key: string]: IGroupedAccountsByIban }),
   );
 };
 

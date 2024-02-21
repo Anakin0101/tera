@@ -98,7 +98,7 @@ export const TransactionFinishedScreen = () => {
 
         <View style={styles.btnWrapper}>
           <ChooseService fromTransaction serviceData={data} transferParams={params} />
-          <Button.Primary hitSlop={30} text={t('transfers.backToHome')} onPress={navigateToMain} />
+          <Button.Primary hitSlop={15} text={t('transfers.backToHome')} onPress={navigateToMain} />
         </View>
       </View>
     </View>

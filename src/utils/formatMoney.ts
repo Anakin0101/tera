@@ -1,7 +1,7 @@
 import { CurrencySignMap } from './CurrencySignMap';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
-export const formatMoney = (value: number, currency?: CurrencyEnum) => {
+export const formatMoney = (value: number = 0, currency?: CurrencyEnum) => {
   const formatted = value?.toLocaleString('en-US', {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,

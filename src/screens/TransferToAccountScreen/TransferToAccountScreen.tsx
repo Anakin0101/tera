@@ -19,7 +19,8 @@ import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersA
 import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
-
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
+import { useKeyboard } from 'utils/useKeyboard';
 interface AccountData {
   accountId: any;
   availableBalance: number;
@@ -29,6 +30,7 @@ interface AccountData {
 interface TransferToAccountScreenProps {}
 
 export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
+  const { isKeyboardOpened } = useKeyboard();
   const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
   const { handleTransferInfo } = useTransferDetails(false);
@@ -147,36 +149,44 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   }
 
   return (
-    <View style={styles.container}>
-      {accountFromData?.ccy !== accountToData?.ccy && !fromOtherBank ? (
-        <Convert
-          accountFromData={accountFromData}
-          accountToData={accountToData}
-          selectedData={selectedData}
-          setIsButtonDisabled={setIsButtonDisabled}
-          convertAmount={buyAmount}
-          openTransferScreen={openTransferScreen}
-        />
-      ) : (
-        <Transfer
-          accountFromData={accountFromData}
-          selectedData={selectedData}
-          onTextChange={handleTextChange}
-          inputRef={inputRef}
-          openTransferScreen={openTransferScreen}
-        />
-      )}
+    <KeyboardAvoidingScrollView
+      scrollEnabled={isKeyboardOpened}
+      containerStyle={styles.keyboardContainer}
+      contentContainerStyle={styles.wrapper}
+      stickyFooter={
+        <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
+          <Button.Primary
+            text="onboarding.next"
+            fullWidth
+            disabled={isButtonDisabled}
+            hitSlop={15}
+            onPress={navigateToTransferDetails}
+          />
+        </View>
+      }
+    >
+      <View style={styles.container}>
+        {accountFromData?.ccy !== accountToData?.ccy && !fromOtherBank ? (
+          <Convert
+            accountFromData={accountFromData}
+            accountToData={accountToData}
+            selectedData={selectedData}
+            setIsButtonDisabled={setIsButtonDisabled}
+            convertAmount={buyAmount}
+            openTransferScreen={openTransferScreen}
+          />
+        ) : (
+          <Transfer
+            accountFromData={accountFromData}
+            selectedData={selectedData}
+            onTextChange={handleTextChange}
+            inputRef={inputRef}
+            openTransferScreen={openTransferScreen}
+          />
+        )}
 
-      <CardSwap accountFromData={accountFromData} accountToData={accountToData} />
-      <View style={styles.buttonView}>
-        <Button.Primary
-          text="onboarding.next"
-          fullWidth
-          disabled={isButtonDisabled}
-          hitSlop={30}
-          onPress={navigateToTransferDetails}
-        />
+        <CardSwap accountFromData={accountFromData} accountToData={accountToData} />
       </View>
-    </View>
+    </KeyboardAvoidingScrollView>
   );
 };

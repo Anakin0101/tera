@@ -1,14 +1,10 @@
 import React, { useRef, useEffect, FC } from 'react';
-import { Alert, FlatList, ListRenderItem, Text, View } from 'react-native';
+import { FlatList, ListRenderItem, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { DashboardTabBar, HomeHeader } from 'components';
 import TeraBank from './TeraBank';
 import OtherBanks from './OtherBanks';
 import { config } from 'utils/config';
-import { Pressable } from 'react-native';
-import useTheme from 'hooks/useTheme';
-import { storage, storageKeys } from 'storage/index';
-import { resetKeychainValues } from 'utils/logKeychainValues';
 import { useEasyLoginModal } from 'components/modals/EasyLoginModal/hooks/useEasyLoginModal';
 import { EasyLoginModal } from 'components/modals';
 import { closeModal, openModal } from 'utils/modal';
@@ -21,16 +17,6 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
   const styles = useStyleTheme();
   const dispatch = useAppDispatch();
-
-  const handleClearAllFromStorage = async () => {
-    const res = await resetKeychainValues();
-    storage.clearAll();
-    if (res) {
-      Alert.alert(JSON.stringify(storageKeys()));
-    }
-  };
-
-  const { Fonts } = useTheme();
   const { showEasyLoginPrompt, handleNavigateToAuthorizationMethodsScreeen } = useEasyLoginModal();
   const handleCancelButtonPress = () => {
     dispatch(setPostponeEasyLogin(true));
@@ -113,9 +99,6 @@ export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
         data={['terabank', 'otherbanks']}
         showsHorizontalScrollIndicator={false}
       />
-      <Pressable onPress={handleClearAllFromStorage}>
-        <Text style={[Fonts.semiLarge]} children="Clear all from storage" />
-      </Pressable>
     </View>
   );
 };

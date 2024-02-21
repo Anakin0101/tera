@@ -6,7 +6,7 @@ export const useStyleTheme = () => {
   const { Spacing, Layout } = useTheme();
   return StyleSheet.create({
     textWrapper: { height: 400, ...Layout.alignItemsCenter, paddingVertical: Spacing.xlm },
-    text: { fontSize: FontSize.large, textAlign: 'center' },
+    text: { fontSize: FontSize.large, textAlign: 'center', lineHeight: 35, letterSpacing: -0.5 },
     amount: { fontSize: FontSize.small, paddingVertical: Spacing.lg },
     btnWrapper: { ...Layout.alignItemsCenter, height: 200 },
     wrapper: {

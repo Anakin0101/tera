@@ -61,6 +61,7 @@ export const TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN = 'TransferToOtherBankAccount
 export const BUDGET_TRANSACTION_SCREEN = 'BudgetTransactionScreen';
 export const TRANSFER_TO_BUDGET = 'TransferToBudget';
 export const BUDGET_TRANSFER_DETAILS = 'BudgetTransferDetailsScreen';
+export const FOREIGN_IBAN_SCREEN = 'ForeignIbanScreen';
 
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
@@ -95,6 +96,7 @@ export const CARD_ORDER_CHOOSE_IBAN_SCREEN = 'CardOrderChooseIbanScreen';
 export const CARD_ORDER_CHOOSE_ADDRESS_SCREEN = 'CardOrderChooseAddressScreen';
 export const CARD_ORDER_DETAILS_SCREEN = 'CardOrderDetailsScreen';
 export const TARIFF_PACKAGES_SCREEN = 'TariffPackagesListScreen';
+export const TARIFF_PACKAGES_SINGLE_SCREEN = 'TariffPackagesSingleScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

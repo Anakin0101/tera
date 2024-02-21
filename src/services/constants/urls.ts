@@ -14,7 +14,7 @@ export const URLS = {
   getOverdraft: 'Loan/GetOverDraft',
   getLoanCustomerId: 'Loan/GetLoanByCustomerId',
   getCustomperOps: 'Transaction/GetCustomerOps',
-  getAssets: 'Deposit/GetDepositByClientId',
+  getDepositByClientId: 'Deposit/GetDepositByClientId',
   getPensions: 'Pensions/GetTotalSaving',
   getBankerInfo: 'Customers/GetBankerInfo',
   getAccountsByCustomerId: 'Account/GetAccountsByCustomerId',
@@ -62,4 +62,14 @@ export const URLS = {
   getAutomPayments: 'Payment/GetAutoPayments',
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
+  getBankInfo: 'Transfers/GetBankInfo',
+  activatePackage: 'Tariffs/ActivatePackage',
+};
+
+export const PROD_URLS = {
+  TERMS_URL: 'https://terabank.ge/standterms ',
+};
+
+export const STAGING_URLS = {
+  TEST_BASE_URL_FOR_BANNERS: 'https://staging.banners-delivery.optio.ai/api/banners ',
 };

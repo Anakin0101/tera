@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import {
+  AllTransactionsScreen,
   AuthorizationMethodsScreen,
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
@@ -12,10 +13,12 @@ import {
   PaymentDetailsScreen,
   PaymentSuccessScreen,
   SettingsScreen,
+  TransactionDetailsScreen,
 } from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
 import {
+  ALL_TRANSACTIONS_SCREEN,
   AUTHORIZATION_METHODS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -31,6 +34,7 @@ import {
   PAYMENT_ERROR_SCREEN,
   PAYMENT_SUCCESS_SCREEN,
   SETTINGS_SCREEN,
+  TRANSACTION_DETAILS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
 } from 'navigation/ScreenNames';
 import { VerifyEasyLoginScreen } from 'screens/VerifyEasyLoginScreen/VerifyEasyLoginScreen';
@@ -177,6 +181,16 @@ export const ModalNavigator = () => {
         name={NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN}
         component={NewAutomaticPaymentDetailsScreen}
         options={{ title: t('automaticPayments.paymentDetails') }}
+      />
+      <Screen
+        name={ALL_TRANSACTIONS_SCREEN}
+        component={AllTransactionsScreen}
+        options={{ title: t('transactions.title') }}
+      />
+      <Screen
+        name={TRANSACTION_DETAILS_SCREEN}
+        component={TransactionDetailsScreen}
+        options={{ title: t('transactions.details') }}
       />
     </Navigator>
   );

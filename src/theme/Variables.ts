@@ -69,8 +69,12 @@ export const Colors = {
   textLightBlue: 'rgba(143, 160, 204, 0.1)',
   actionSheetBg: 'rgb(219,219,219)',
   actionSheetBorder: 'rgb(167,167,167)',
-  blue: '#1D5AF2',
-  lightBlue: '#F3F5FF',
+  blue: 'rgba(29, 90, 242, 1)',
+  lightBlue: 'rgba(243, 245, 255, 1)',
+  tariffPrice: 'rgba(183, 183, 183, 0.98)',
+  greyText: 'rgba(29, 29, 29, 0.40)',
+  pandingYellow: 'rgb(204, 189, 49)',
+  packagesOverlay: 'rgba(245, 245, 245, 0.6)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
