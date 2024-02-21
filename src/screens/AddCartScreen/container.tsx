@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { MainStackScreenProps } from 'navigation/types';
 import { useKeyboard } from 'utils/useKeyboard';
-import { useAddBasketServiceMutation } from 'services/apis';
+import { useAddBasketServiceMutation, useRenameBasketMutation } from 'services/apis';
 import { openToast } from 'utils/toast';
 
 export const useAddCart = () => {
@@ -14,6 +14,7 @@ export const useAddCart = () => {
   const [isSending, setIsSending] = useState<boolean>(false);
 
   const [addBaskeetService] = useAddBasketServiceMutation();
+  const [updateBasketService] = useRenameBasketMutation();
 
   const addBaskeetServiceOnPress = useCallback(() => {
     try {
@@ -41,10 +42,41 @@ export const useAddCart = () => {
     }
   }, [addBaskeetService, cartName, goBack, isSending]);
 
+  const updateBasketServiceOnPress = useCallback(
+    (basketId: number) => {
+      try {
+        if (isSending) return;
+        setIsSending(true);
+        updateBasketService({
+          name: cartName,
+          basketId,
+        })
+          .unwrap()
+          .then(res => {
+            setIsSending(false);
+            if (res) {
+              goBack();
+            }
+          })
+          .catch(ex => {
+            setIsSending(false);
+            if ('data' in ex && ex?.data?.detail) {
+              openToast(ex.data.detail, 'error');
+            }
+          });
+      } catch (ex) {
+        console.warn(ex);
+        setIsSending(false);
+      }
+    },
+    [cartName, goBack, isSending, updateBasketService],
+  );
+
   return {
     isKeyboardOpened,
     setCartName,
     addBaskeetServiceOnPress,
     isSending,
+    updateBasketServiceOnPress,
   };
 };

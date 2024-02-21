@@ -38,6 +38,7 @@ export { PaymentDetailsScreen } from './PaymentDetailsScreen/PaymentDetailsScree
 export { ChoosePaymentAccountScreen } from './ChoosePaymentAccountScreen/ChoosePaymentAccountScreen';
 export { AddCartScreen } from './AddCartScreen/AddCartScreen';
 export { CartListScreen } from './CartListScreen/CartListScreen';
+export { CartPaymentListScreen } from './CartPaymentListScreen/CartPaymentListScreen';
 export { PaymentSuccessScreen } from './PaymentSuccessScreen/PaymentSuccessScreen';
 export { TeraWalletSuccess } from './TeraWalletScreen/TeraWalletSuccess';
 export { LoanRequestScreen } from './LoanRequestScreen/LoanRequestScreen';

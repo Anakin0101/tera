@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Button, EmptyCartList, LoadingView } from 'components/index';
+import { Button, EmptyCartList, LoadingView, SearchComponent } from 'components/index';
 import { useStyles } from './CartListScreen.style';
 import { useCartList } from './container';
-import { CartItem } from 'components/Payments/Carts/CartItem';
+import { CartItem } from 'components/Payments/CartItem/CartItem';
 import useTheme from 'hooks/useTheme';
 import { Plus } from 'assets/SVGs';
 import { Basket } from 'services/apis/paymentsAPI/paymentsAPI.types';
@@ -18,15 +18,22 @@ const LeftIcon = () => {
 export const CartListScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const [searchText, setSearchText] = useState<string>('');
 
   const { data, isLoading, addCartOnPress } = useCartList();
 
   const renderPaymentItem = useCallback(
     ({ item, index }: { item: Basket; index: number }) => {
-      return <CartItem item={item} isLast={index + 1 === data.length} />;
+      return <CartItem item={item} index={index} isLast={index + 1 === data.length} />;
     },
     [data],
   );
+
+  const filteredData = useMemo(() => {
+    return data.filter(item =>
+      item.name?.toLocaleLowerCase()?.includes(searchText?.toLocaleLowerCase()),
+    );
+  }, [data, searchText]);
 
   const renderContent = useCallback(() => {
     if (!isLoading && data?.length === 0) {
@@ -34,8 +41,13 @@ export const CartListScreen = () => {
     } else {
       return (
         <>
+          <SearchComponent
+            placeholder={t('cartListScreen.searchCart')}
+            value={searchText}
+            onChangeText={setSearchText}
+          />
           <FlatList
-            data={data}
+            data={filteredData}
             renderItem={renderPaymentItem}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.listWrapper}
@@ -54,9 +66,11 @@ export const CartListScreen = () => {
     }
   }, [
     addCartOnPress,
-    data,
+    data?.length,
+    filteredData,
     isLoading,
     renderPaymentItem,
+    searchText,
     styles.buttonContainer,
     styles.buttonText,
     styles.listWrapper,

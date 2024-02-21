@@ -23,6 +23,7 @@ export const useStyles = () => {
       lineHeight: 22,
     },
     listWrapper: {
+      paddingHorizontal: Spacing.xl,
       paddingTop: Spacing.xl,
       paddingBottom: 120,
     },

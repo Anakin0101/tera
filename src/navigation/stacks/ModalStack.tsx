@@ -6,6 +6,7 @@ import {
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
   CartListScreen,
+  CartPaymentListScreen,
   ChoosePaymentAccountScreen,
   CreatePasscodeScreen,
   NewAutomaticPaymentDetailsScreen,
@@ -23,6 +24,7 @@ import {
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   CART_LIST_SCREEN,
+  CART_PAYMENT_LIST_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
   CHOOSE_MOBILE_PROVIDER_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
@@ -193,6 +195,17 @@ export const ModalNavigator = () => {
         component={CartListScreen}
         options={{
           title: t('cartListScreen.title'),
+          headerShadowVisible: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+          },
+        }}
+      />
+      <Screen
+        name={CART_PAYMENT_LIST_SCREEN}
+        component={CartPaymentListScreen}
+        options={{
+          title: '',
           headerShadowVisible: true,
           headerStyle: {
             backgroundColor: Colors.white,

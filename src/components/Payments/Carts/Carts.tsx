@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useStyles } from './Carts.styles';
 import { Text } from 'components/Text/Text';
-import { CartItem } from './CartItem';
+import { CartItem } from '../CartItem/CartItem';
 import { Button } from 'components/Button/Button';
 import { Plus } from 'assets/SVGs';
 import { Basket } from 'services/apis/paymentsAPI/paymentsAPI.types';
@@ -17,7 +17,7 @@ export const Carts = () => {
 
   const renderPaymentItem = useCallback(
     ({ item, index }: { item: Basket; index: number }) => {
-      return <CartItem item={item} isLast={index + 1 === data.length} />;
+      return <CartItem item={item} index={index} isLast={index + 1 === data.length} />;
     },
     [data.length],
   );

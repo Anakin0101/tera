@@ -7,21 +7,36 @@ import { useForm } from 'react-hook-form';
 import { Button, ControlledInput, Text } from 'components/index';
 import { useStyles } from './AddCartScreen.style';
 import { useAddCart } from './container';
+import { MainStackRouteProps } from 'navigation/types';
+import { useRoute } from '@react-navigation/native';
 
 export const AddCartScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const { params } = useRoute<MainStackRouteProps<'AddCartScreen'>>();
+
+  const { basket } = params || {};
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: { cartName: basket?.name } });
 
-  const { isKeyboardOpened, setCartName, addBaskeetServiceOnPress, isSending } = useAddCart();
+  const {
+    isKeyboardOpened,
+    setCartName,
+    addBaskeetServiceOnPress,
+    isSending,
+    updateBasketServiceOnPress,
+  } = useAddCart();
 
   const onSubmit = () => {
-    addBaskeetServiceOnPress();
+    if (basket?.id) {
+      updateBasketServiceOnPress(basket.id);
+    } else {
+      addBaskeetServiceOnPress();
+    }
   };
 
   return (
@@ -31,7 +46,7 @@ export const AddCartScreen = () => {
       stickyFooter={
         <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
           <Button.Primary
-            text="common.next"
+            text={basket?.id ? 'common.update' : 'common.add'}
             onPress={handleSubmit(onSubmit)}
             fullWidth
             isLoading={isSending}

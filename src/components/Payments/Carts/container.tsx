@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { MainStackScreenProps } from 'navigation/types';
 import { useKeyboard } from 'utils/useKeyboard';
@@ -9,14 +9,8 @@ import { ADD_CART_SCREEN, CART_LIST_SCREEN, MODAL_STACK } from 'navigation/Scree
 export const useCarts = () => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  const { data, isLoading, refetch } = useGetBasketsServicesQuery();
+  const { data, isLoading } = useGetBasketsServicesQuery();
   const { isKeyboardOpened } = useKeyboard();
-
-  useFocusEffect(
-    useCallback(() => {
-      refetch();
-    }, [refetch]),
-  );
 
   const addCartOnPress = useCallback(() => {
     navigate(MODAL_STACK, {

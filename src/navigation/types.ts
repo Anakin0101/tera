@@ -92,12 +92,14 @@ import {
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
   ADD_CART_SCREEN,
   CART_LIST_SCREEN,
+  CART_PAYMENT_LIST_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
   Provider,
   DebtVerifyResult,
   DebtVerifyBasketResponse,
+  Basket,
   // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
@@ -126,12 +128,17 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
-  [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean };
-  [CHECK_PAYMENT_PROVIDER_SCREEN]: { providerItem: Provider; isAutomaticPayment?: boolean };
+  [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean; basket?: Basket };
+  [CHECK_PAYMENT_PROVIDER_SCREEN]: {
+    providerItem: Provider;
+    isAutomaticPayment?: boolean;
+    basket?: Basket;
+  };
   [CHOOSE_PAYMENT_PROVIDER_SCREEN]: {
     providerInfo?: ProvidersGroup;
     isAutomaticPayment?: boolean;
     isParkingAndFines?: boolean;
+    basket?: Basket;
   };
   [PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -143,9 +150,10 @@ export type ModalStackParamsList = {
   };
   [CHOOSE_MOBILE_PROVIDER_SCREEN]: undefined;
   [PAYMENT_SUCCESS_SCREEN]: {
-    providerItem: Provider;
+    providerItem?: Provider;
     subscriberInputFieldsValue?: SubscriberFieldsValue;
     amount?: number;
+    isBasketMode?: boolean;
   };
   [CHOOSE_PAYMENT_ACCOUNT_SCREEN]: {
     providerItem: Provider;
@@ -169,8 +177,11 @@ export type ModalStackParamsList = {
     automaticPaymentForm: AutomaticPaymentForm;
     subscriberFieldsValue: SubscriberFieldsValue;
   };
-  [ADD_CART_SCREEN]: undefined;
+  [ADD_CART_SCREEN]: undefined | { basket: Basket };
   [CART_LIST_SCREEN]: undefined;
+  [CART_PAYMENT_LIST_SCREEN]: {
+    basket: Basket;
+  };
   [PAYMENT_ERROR_SCREEN]: undefined;
 };
 
