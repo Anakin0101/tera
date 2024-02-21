@@ -274,3 +274,60 @@ export interface AddBasketResponse {
 export interface AddBasketRequest {
   name: string;
 }
+
+export interface BasketItemsResponse {
+  basketItems: Array<BasketItem>;
+}
+export interface BasketItem {
+  id: number;
+  name: any;
+  serviceId: number;
+  customerNumber: string;
+  description: any;
+  fieldValues: Array<FieldValue>;
+  provider?: any; // ეს ინტერფეისები ვებიდან არის და ამ ფილდებზე არ ვიცი ზუსტად რა მოდელი ბრუნდება // TODO გავაკეთოთ აღწერა
+  debtVerifyResult?: any; // ეს ინტერფეისები ვებიდან არის და ამ ფილდებზე არ ვიცი ზუსტად რა მოდელი ბრუნდება // TODO გავაკეთოთ აღწერა
+  amount?: number;
+  fee?: number;
+  payFieldValues?: any; // ეს ინტერფეისები ვებიდან არის და ამ ფილდებზე არ ვიცი ზუსტად რა მოდელი ბრუნდება // TODO გავაკეთოთ აღწერა
+  isItemChecked?: boolean;
+}
+
+export interface FieldValue {
+  id: number;
+  value: string;
+}
+
+export interface GetBasketItemsRequestParams {
+  basketId: number;
+  culture: string;
+}
+
+export interface AddBasketItemRequestParams {
+  name: string;
+  basketId: number;
+  serviceId: number | null;
+  debitAccountId: number | null;
+  description: string;
+  fieldValues: Array<PaymentFieldValue>;
+  culture: string;
+}
+
+export interface AddBasketItemRequestResponse {
+  error?: {
+    data?: {
+      detail?: string;
+      title?: string;
+    };
+  };
+}
+
+export interface EditBasketRequestParams {
+  basketId: number;
+  name: string;
+}
+
+export interface DeleteBasketRequestBody {
+  basketIds: Array<number>;
+  culture: string;
+}

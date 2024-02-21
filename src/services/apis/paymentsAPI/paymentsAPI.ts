@@ -21,12 +21,18 @@ import {
   GetBasketResponse,
   AddBasketResponse,
   AddBasketRequest,
+  BasketItemsResponse,
+  GetBasketItemsRequestParams,
+  AddBasketItemRequestParams,
+  AddBasketItemRequestResponse,
+  EditBasketRequestParams,
+  DeleteBasketRequestBody,
 } from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
   reducerPath: 'paymentsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Payments', 'AutoPayments'],
+  tagTypes: ['Payments', 'AutoPayments', 'Baskets'],
   endpoints: builder => ({
     getPaymentServices: builder.query<GetPaymentsServiceResponse, GetPaymentsServiceParams>({
       query: ({ isAdult }) => ({
@@ -94,6 +100,7 @@ export const paymentsAPI = createApi({
         url: URLS.getBaskets,
         method: METHOD_NAMES.GET,
       }),
+      providesTags: ['Baskets'],
     }),
     addBasketService: builder.mutation<AddBasketResponse, AddBasketRequest>({
       query: ({ name }) => ({
@@ -101,6 +108,38 @@ export const paymentsAPI = createApi({
         method: METHOD_NAMES.POST,
         params: { name },
       }),
+      invalidatesTags: ['Baskets'],
+    }),
+    getBasketItems: builder.query<BasketItemsResponse, GetBasketItemsRequestParams>({
+      query: params => ({
+        url: URLS.getBasketItems,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
+    addBasketItem: builder.mutation<AddBasketItemRequestResponse, AddBasketItemRequestParams>({
+      query: body => ({
+        url: URLS.addBasketItem,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
+    renameBasket: builder.mutation<AddBasketItemRequestResponse, EditBasketRequestParams>({
+      query: params => ({
+        url: URLS.renameBasket,
+        method: METHOD_NAMES.POST,
+        params,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
+    deleteBasket: builder.mutation<AddBasketItemRequestResponse, DeleteBasketRequestBody>({
+      query: body => ({
+        url: URLS.deleteBasket,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Baskets'],
     }),
   }),
 });
@@ -116,4 +155,8 @@ export const {
   useCancelAutoPaymentMutation,
   useGetBasketsServicesQuery,
   useAddBasketServiceMutation,
+  useGetBasketItemsQuery,
+  useAddBasketItemMutation,
+  useRenameBasketMutation,
+  useDeleteBasketMutation,
 } = paymentsAPI;
