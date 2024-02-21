@@ -119,7 +119,9 @@ const IbanTransaction = () => {
 
   useEffect(() => {
     if (typedAccountName) {
-      inputRef?.current?.focus();
+      setTimeout(() => {
+        inputRef?.current?.focus();
+      }, 300);
     }
   }, [typedAccountName]);
 
