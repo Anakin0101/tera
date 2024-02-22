@@ -40,5 +40,11 @@ export const useStyles = () => {
     loader: {
       ...Layout.fullHeight,
     },
+    amountView: {
+      ...Layout.rowHCenter,
+    },
+    amount: {
+      marginRight: Spacing.xs,
+    },
   });
 };

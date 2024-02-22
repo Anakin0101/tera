@@ -5,8 +5,9 @@ import { formatDateFullMonth } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 import { ScheduleItemProps } from './LoanScheduleModal.types';
 import { useStyles } from './LoanScheduleModal.styles';
+import { getCurrencyIcon } from 'utils/currency';
 
-export const ScheduleItem: FC<ScheduleItemProps> = ({ item }) => {
+export const ScheduleItem: FC<ScheduleItemProps> = ({ item, currency }) => {
   const styles = useStyles();
 
   const isSchedule = 'totalDebt' in item;
@@ -23,23 +24,42 @@ export const ScheduleItem: FC<ScheduleItemProps> = ({ item }) => {
               !isSchedule ? 'DD/MM/YYYY' : undefined,
             )}
           />
-          <Text children={formatMoney(isSchedule ? item.totalDebt : item.total)} />
+          <View style={styles.amountView}>
+            <Text
+              style={styles.amount}
+              children={formatMoney(isSchedule ? item.totalDebt : item.total)}
+            />
+            <Text>{getCurrencyIcon(currency)}</Text>
+          </View>
         </View>
       }
       renderContent={
         <View>
-          <Text
-            children="loanSchedule.principal"
-            translateProp={{ value: formatMoney(item.principal) }}
-          />
-          <Text
-            children="loanSchedule.interest"
-            translateProp={{ value: formatMoney(item.interest) }}
-          />
-          <Text
-            children="loanSchedule.commission"
-            translateProp={{ value: formatMoney(isSchedule ? item.insurance : item.fee) }}
-          />
+          <View style={styles.amountView}>
+            <Text
+              style={styles.amount}
+              children="loanSchedule.principal"
+              translateProp={{ value: formatMoney(item.principal) }}
+            />
+            <Text>{getCurrencyIcon(currency)}</Text>
+          </View>
+          <View style={styles.amountView}>
+            <Text
+              style={styles.amount}
+              children="loanSchedule.interest"
+              translateProp={{ value: formatMoney(item.interest) }}
+            />
+            <Text>{getCurrencyIcon(currency)}</Text>
+          </View>
+
+          <View style={styles.amountView}>
+            <Text
+              style={styles.amount}
+              children="loanSchedule.commission"
+              translateProp={{ value: formatMoney(isSchedule ? item.insurance : item.fee) }}
+            />
+            <Text>{getCurrencyIcon(currency)}</Text>
+          </View>
         </View>
       }
       headerWrapperStyle={styles.headerWrapper}

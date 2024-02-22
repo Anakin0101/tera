@@ -8,8 +8,9 @@ import { Colors } from 'theme/Variables';
 import { Note } from 'assets/SVGs';
 import { HeaderProps, LoanScheduleProps, RenderItem } from './LoanScheduleModal.types';
 import { useStyles } from './LoanScheduleModal.styles';
+import { getCurrencyIcon } from 'utils/currency';
 
-const Header: FC<HeaderProps> = ({ showHistory, downloadPdf, total = 0 }) => {
+const Header: FC<HeaderProps> = ({ showHistory, downloadPdf, total = 0, currency }) => {
   const styles = useStyles();
 
   return (
@@ -21,6 +22,18 @@ const Header: FC<HeaderProps> = ({ showHistory, downloadPdf, total = 0 }) => {
       />
       <View style={styles.total}>
         <Text children={formatMoney(total)} size={30} lineHeight={36} marginTop={5} />
+        <View style={styles.amountView}>
+          <Text
+            style={styles.amount}
+            children={formatMoney(total)}
+            size={30}
+            lineHeight={36}
+            marginTop={5}
+          />
+          <Text size={30} lineHeight={36} marginTop={5}>
+            {getCurrencyIcon(currency)}
+          </Text>
+        </View>
         <Pressable style={styles.pdf} onPress={downloadPdf}>
           <Note />
           <Text children="PDF" special />
@@ -31,7 +44,7 @@ const Header: FC<HeaderProps> = ({ showHistory, downloadPdf, total = 0 }) => {
   );
 };
 
-export const LoanScheduleModal: FC<LoanScheduleProps> = ({ creditId, showHistory }) => {
+export const LoanScheduleModal: FC<LoanScheduleProps> = ({ creditId, showHistory, currency }) => {
   const styles = useStyles();
   const { data, total, downloadLoanSchedules } = useLoanSchedules(creditId, showHistory);
 
@@ -53,7 +66,12 @@ export const LoanScheduleModal: FC<LoanScheduleProps> = ({ creditId, showHistory
         data={data}
         renderItem={renderItem}
         ListHeaderComponent={
-          <Header total={total} showHistory={showHistory} downloadPdf={downloadLoanSchedules} />
+          <Header
+            total={total}
+            showHistory={showHistory}
+            downloadPdf={downloadLoanSchedules}
+            currency={currency}
+          />
         }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.contentContainer}
