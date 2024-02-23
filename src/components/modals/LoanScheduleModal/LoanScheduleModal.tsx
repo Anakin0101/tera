@@ -1,16 +1,15 @@
-import React, { FC } from 'react';
-import { ActivityIndicator, FlatList, ListRenderItem, Pressable, View } from 'react-native';
-import { Divider, Text } from 'components';
-import { Note } from 'assets/SVGs';
+import React, { FC, useCallback } from 'react';
+import { FlatList, Pressable, View } from 'react-native';
+import { Divider, LoadingInView, Text } from 'components';
 import { useLoanSchedules } from './container';
 import { ScheduleItem } from './ScheduleItem';
-import { useStyles } from './LoanScheduleModal.styles';
-import { LoanHistory, LoanSchedule } from 'services/apis/productsAPI/productsAPI.types';
-import { HeaderProps, LoanScheduleProps } from './LoanScheduleModal.types';
 import { formatMoney } from 'utils/formatMoney';
 import { Colors } from 'theme/Variables';
+import { Note } from 'assets/SVGs';
+import { HeaderProps, LoanScheduleProps, RenderItem } from './LoanScheduleModal.types';
+import { useStyles } from './LoanScheduleModal.styles';
 
-const Header: FC<HeaderProps> = ({ showHistory, total = 0 }) => {
+const Header: FC<HeaderProps> = ({ showHistory, downloadPdf, total = 0 }) => {
   const styles = useStyles();
 
   return (
@@ -22,7 +21,7 @@ const Header: FC<HeaderProps> = ({ showHistory, total = 0 }) => {
       />
       <View style={styles.total}>
         <Text children={formatMoney(total)} size={30} lineHeight={36} marginTop={5} />
-        <Pressable style={styles.pdf}>
+        <Pressable style={styles.pdf} onPress={downloadPdf}>
           <Note />
           <Text children="PDF" special />
         </Pressable>
@@ -34,14 +33,18 @@ const Header: FC<HeaderProps> = ({ showHistory, total = 0 }) => {
 
 export const LoanScheduleModal: FC<LoanScheduleProps> = ({ creditId, showHistory }) => {
   const styles = useStyles();
-  const { data, total } = useLoanSchedules(creditId, showHistory);
+  const { data, total, downloadLoanSchedules } = useLoanSchedules(creditId, showHistory);
 
-  const renderItem: ListRenderItem<LoanSchedule | LoanHistory> = ({ item }) => {
+  const renderItem: RenderItem = useCallback(({ item }) => {
     return <ScheduleItem item={item} />;
-  };
+  }, []);
 
   if (!data?.length) {
-    return <ActivityIndicator />;
+    return (
+      <View style={styles.loader}>
+        <LoadingInView />
+      </View>
+    );
   }
 
   return (
@@ -49,7 +52,9 @@ export const LoanScheduleModal: FC<LoanScheduleProps> = ({ creditId, showHistory
       <FlatList
         data={data}
         renderItem={renderItem}
-        ListHeaderComponent={<Header total={total} showHistory={showHistory} />}
+        ListHeaderComponent={
+          <Header total={total} showHistory={showHistory} downloadPdf={downloadLoanSchedules} />
+        }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.contentContainer}
       />

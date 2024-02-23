@@ -629,3 +629,17 @@ export interface ActivatePackage {
   culture?: string;
   timezoneOffset?: number;
 }
+
+export enum FileFormatEnum {
+  Excel = 1,
+  Pdf = 2,
+}
+
+export interface PrintLoanSchedulesReq {
+  culture: string;
+  loanId: number;
+  fileFormat: FileFormatEnum;
+}
+export interface PrintLoanSchedulesRes {
+  fileId: string;
+}
