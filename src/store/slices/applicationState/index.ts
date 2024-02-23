@@ -1,9 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ApplicationErrors, ApplicationStateProps } from './types';
+import { ApplicationErrors, ApplicationStateProps, ModalStateProps } from './types';
 
 const initialState: ApplicationStateProps = {
   applicationError: {
     isErrorFallback: false,
+  },
+  modalState: {
+    isClosed: false,
   },
 };
 
@@ -21,9 +24,23 @@ const applicationStateSlice = createSlice({
     clearApplicationError: state => {
       state.applicationError = initialState.applicationError;
     },
+    setIsModalClosedState: (state, action: PayloadAction<ModalStateProps>) => {
+      state.modalState = {
+        ...state.modalState,
+        ...action.payload,
+      };
+    },
+    resetModalState: state => {
+      state.modalState = initialState.modalState;
+    },
   },
 });
 
-export const { resetApplicationState, setApplicationError, clearApplicationError } =
-  applicationStateSlice.actions;
+export const {
+  resetApplicationState,
+  setApplicationError,
+  clearApplicationError,
+  setIsModalClosedState,
+  resetModalState,
+} = applicationStateSlice.actions;
 export const applicationStateReducer = applicationStateSlice.reducer;

@@ -4,7 +4,7 @@ import { MainStackScreenProps } from 'navigation/types';
 import { useLayoutEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { setIsClosed } from 'store/slices/userInfo';
+import { setIsModalClosedState } from 'store/slices/applicationState';
 import { closeModal } from 'utils/modal';
 
 /**
@@ -28,7 +28,7 @@ export const useEasyLoginModal = () => {
   }, [ignoreEasyLogin, postponeEasyLogin, easyLoginActivated]);
 
   useLayoutEffect(() => {
-    dispatch(setIsClosed(true));
+    dispatch(setIsModalClosedState({ isClosed: true }));
   }, [dispatch]);
 
   /**

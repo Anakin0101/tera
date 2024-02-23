@@ -4,8 +4,6 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { Keyboard, Platform } from 'react-native';
 import { ModalConfig } from 'constants/index';
 import { debounce } from 'utils/debounce';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setIsClosed, setPostponeEasyLogin } from 'store/slices/userInfo';
 
 const useModal = (ref: Ref<ModalHandler>) => {
   const initial_snapPoints =
@@ -24,8 +22,6 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [hideCloseButton, setHideCloseButton] = useState(false);
   const [onCloseCallback, setOnCloseCallback] = useState<() => void | undefined>();
 
-  const dispatch = useAppDispatch();
-
   const open = (options: ConfigureModal) => {
     setElement(options.element);
     setTitle(options.title);
@@ -43,7 +39,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.hideHandle && setHideHandle(options.hideHandle);
     options.hideCloseButton && setHideCloseButton(options.hideCloseButton);
     modalRef?.current?.present();
-    setOnCloseCallback(() => options.onCloseCallback);
+    setOnCloseCallback(options.onCloseCallback);
   };
 
   const close = () => {
@@ -55,8 +51,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
       Keyboard.dismiss();
     }
     if (onCloseCallback) {
-      dispatch(setPostponeEasyLogin(true));
-      dispatch(setIsClosed(false));
+      onCloseCallback();
     }
     if (Platform.OS === 'ios') {
       handleClose();

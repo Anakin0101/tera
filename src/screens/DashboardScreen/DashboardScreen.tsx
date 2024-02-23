@@ -13,13 +13,16 @@ import { useStyleTheme } from './DashboardScreen.style';
 import { DashboardScreenProps } from './DashboardScreen.types';
 import { setPostponeEasyLogin } from 'store/slices/userInfo';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setIsModalClosedState } from 'store/slices/applicationState';
 
 export const DashboardScreen: FC<DashboardScreenProps> = ({ navigation }) => {
   const styles = useStyleTheme();
   const dispatch = useAppDispatch();
   const { showEasyLoginPrompt, handleNavigateToAuthorizationMethodsScreeen } = useEasyLoginModal();
+
   const handleCancelButtonPress = () => {
     dispatch(setPostponeEasyLogin(true));
+    dispatch(setIsModalClosedState({ isClosed: false }));
   };
 
   //  TODO -  temporary solution
