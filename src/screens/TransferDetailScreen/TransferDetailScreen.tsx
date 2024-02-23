@@ -152,7 +152,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN);
+        navigate(TRANSACTION_FINISHED_SCREEN, { mobileTransaction: true });
       }
     }
   };
@@ -269,6 +269,7 @@ export const TransferDetailScreen = () => {
                 <OtherBankList
                   selectedItemFromStore={selectedItemFromStore}
                   receiver={params?.receiver}
+                  mobileTransaction={params?.mobileTransaction}
                 />
               ) : (
                 <TransferDetailsList

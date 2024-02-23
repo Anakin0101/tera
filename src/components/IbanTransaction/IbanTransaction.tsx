@@ -1,7 +1,7 @@
 import { Image, Text } from 'components';
 import React, { useEffect, useCallback, useMemo, useState, useRef } from 'react';
 import { View, ScrollView, Pressable, TextInput as RNInput } from 'react-native';
-import { Button, TextInput, TransferTemplates, LoadingView, ControlledInput } from 'components';
+import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -31,9 +31,9 @@ import { useTranslation } from 'react-i18next';
 import { TERRA_BANK_CODE } from 'constants/BankCodes';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
-import { useForm } from 'react-hook-form';
-import { REGEX } from 'constants/index';
-import { RecepientNumberType } from 'components/PersonalNumberTransaction/PersonalNumberTransaction.types';
+// import { useForm } from 'react-hook-form';
+// import { REGEX } from 'constants/index';
+// import { RecepientNumberType } from 'components/PersonalNumberTransaction/PersonalNumberTransaction.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useIsFocused } from '@react-navigation/native';
 const IbanTransaction = () => {
@@ -52,15 +52,15 @@ const IbanTransaction = () => {
   const [receiver, setReceiver] = useState<string>('');
   const inputRef = useRef<RNInput>(null);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RecepientNumberType>({
-    defaultValues: {
-      RecepientNumber: '',
-    },
-  });
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<RecepientNumberType>({
+  //   defaultValues: {
+  //     RecepientNumber: '',
+  //   },
+  // });
 
   const {
     templates,
@@ -152,9 +152,6 @@ const IbanTransaction = () => {
       setTypedAccountName(uppercaseValue);
       debouncedHandleChange(uppercaseValue);
     }
-    if (stringValue.length <= INPUT_LENGTH) {
-      debouncedHandleChange(uppercaseValue);
-    }
     if (stringValue.length < INPUT_LENGTH) {
       resetUI();
     }
@@ -243,7 +240,7 @@ const IbanTransaction = () => {
             fullWidth
             disabled={data?.bicCode !== TERRA_BANK_CODE && !receiver}
             hitSlop={15}
-            onPress={handleSubmit(navigateToTransferScreen)}
+            onPress={navigateToTransferScreen}
           />
         </View>
       }
@@ -251,9 +248,10 @@ const IbanTransaction = () => {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.bottomStretchStyle}>
         <Text children="personalNumber.Iban" size={18} demiBold />
         <View>
-          <ControlledInput
+          {/* <ControlledInput
             control={control}
             value={typedAccountName}
+            autoFocus
             name="RecepientNumber"
             label="personalNumber.Receiver"
             maxLength={22}
@@ -271,7 +269,18 @@ const IbanTransaction = () => {
               },
             }}
             handleChange={(value: string | null | undefined) => handleChange(value)}
+          /> */}
+          <TextInput
+            inputStyle={styles.inputStyle}
+            label="personalNumber.Receiver"
+            value={typedAccountName}
+            maxLength={22}
+            onChangeText={(value: string | null | undefined) => handleChange(value)}
+            marginTop={32}
+            ref={inputRef}
+            autoFocus
           />
+
           <View style={styles.wrapper}>
             {apiCallInitiated && data?.ibanIsValid && bankIcon && (
               <Image source={bankIcon} style={styles.image} />

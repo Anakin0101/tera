@@ -10,9 +10,11 @@ import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
 export const OtherBankList = ({
   selectedItemFromStore,
   receiver,
+  mobileTransaction,
 }: {
   selectedItemFromStore: SelectedItemProp;
   receiver?: string;
+  mobileTransaction?: boolean;
 }) => {
   const {
     accountFromData,
@@ -45,10 +47,15 @@ export const OtherBankList = ({
             accountFromData.accountIban,
           )}
           {renderDetailsItem('transfers.where', `${receiver ? receiver : accountToData.name} `)}
-          {renderDetailsItem(
-            'personalNumber.RecepientIban',
-            `${maskIban(accountIban?.accountIbanId) || maskIban(accountToData.iban)}`,
-          )}
+          {mobileTransaction
+            ? renderDetailsItem(
+                'personalNumber.mobile',
+                `${maskIban(accountIban?.accountIbanId) || accountToData.iban}`,
+              )
+            : renderDetailsItem(
+                'personalNumber.RecepientIban',
+                `${maskIban(accountIban?.accountIbanId) || maskIban(accountToData.iban)}`,
+              )}
           {renderDetailsItem(
             'transactionDetails.amount',
             `${formatToTwoDecimalPlaces(selectedPrice)} ₾`,

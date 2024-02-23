@@ -57,15 +57,20 @@ export const TransactionFinishedScreen = () => {
       dispatch(clearCurrentTransfer());
     };
   }, [dispatch]);
+
   const data = [
     {
       name: 'transfers.saveAsTemplate',
       icon: <Plus />,
     },
-    {
-      name: 'transfers.automatic',
-      icon: <Calendar />,
-    },
+    ...(!params.mobileTransaction
+      ? [
+          {
+            name: 'transfers.automatic',
+            icon: <Calendar />,
+          },
+        ]
+      : []),
     {
       name: 'transfers.shareCheck',
       icon: <Share />,
@@ -77,7 +82,11 @@ export const TransactionFinishedScreen = () => {
     <View style={styles.wrapper}>
       <SuccessTransaction width={88} height={88} />
       <View style={styles.textWrapper}>
-        <Text children="transfers.success" style={styles.text} numberOfLines={2} />
+        <Text
+          children={params.mobileTransaction ? 'transfers.task' : 'transfers.success'}
+          style={styles.text}
+          numberOfLines={2}
+        />
         {!params?.convertion ? (
           <Text
             children={`${t('transactions.transAmount')}: ${formatToTwoDecimalPlaces(

@@ -154,6 +154,7 @@
     "shareCheck": "Share check",
     "automaticPay": "Automatic Payment",
     "success": "Transaction Finished",
+    "task": "Task Completed",
     "Failed": "Transaction Failed",
     "backToHome": "Back to home page",
     "fromWhere": "fromWhere",
@@ -445,6 +446,7 @@
     "personal": "personal",
     "iban": "iban",
     "validIbanPrompt": "Please enter a valid IBAN",
+    "validContact": "Add from contacts failed",
     "validIbanPromptForeign": "please choose valid account",
     "validTransactionPrompt": "Please select a transaction type before proceeding.",
     "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen."

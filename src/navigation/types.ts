@@ -276,6 +276,7 @@ export type TransactionsStackParamsList = {
         convertion?: boolean;
         internal?: boolean;
         fromIban?: boolean;
+        mobileTransaction?: boolean;
       };
 
   [TRANSFER_TO_BUDGET]: undefined;
