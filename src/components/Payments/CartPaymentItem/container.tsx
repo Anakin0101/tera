@@ -1,44 +1,37 @@
-import { useCallback, useMemo } from 'react';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useMemo } from 'react';
 
-import { MainStackScreenProps } from 'navigation/types';
-import { useKeyboard } from 'utils/useKeyboard';
-import { useGetBasketsServicesQuery } from 'services/apis';
-import { ADD_CART_SCREEN, CART_LIST_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { useDebtVerifyBasketMutation } from 'services/apis';
+import { getValue } from 'storage/index';
+import { SELECTED_LANGUAGE } from 'storage/constants';
+import {
+  LanguageKeyForAPIEnum,
+  LanguageKeys,
+} from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import { BasketItem } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
-export const useCartPayment = () => {
-  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+export const useCartPaymentItem = (basket: BasketItem) => {
+  const savedLanguage = getValue(SELECTED_LANGUAGE);
 
-  const { data, isLoading, refetch } = useGetBasketsServicesQuery();
-  const { isKeyboardOpened } = useKeyboard();
+  const [debtVerifyBasket, { data, isLoading, isSuccess }] = useDebtVerifyBasketMutation();
 
-  useFocusEffect(
-    useCallback(() => {
-      refetch();
-    }, [refetch]),
-  );
+  const getDebtVerifyBasket = useCallback(() => {
+    try {
+      debtVerifyBasket({
+        serviceId: basket.serviceId,
+        fieldValues: basket.fieldValues || [],
+        culture:
+          savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
+      });
+    } catch (ex) {
+      console.warn('addBaskeetServiceOnPress', ex);
+    }
+  }, [basket.fieldValues, basket.serviceId, debtVerifyBasket, savedLanguage]);
 
-  const addCartOnPress = useCallback(() => {
-    navigate(MODAL_STACK, {
-      screen: ADD_CART_SCREEN,
-    });
-  }, [navigate]);
+  useEffect(() => {
+    getDebtVerifyBasket();
+  }, [getDebtVerifyBasket]);
 
-  const openAllCartsOnPress = useCallback(() => {
-    navigate(MODAL_STACK, {
-      screen: CART_LIST_SCREEN,
-    });
-  }, [navigate]);
+  const debtVerifyResult = useMemo(() => data?.debtVerifyResults?.[0], [data?.debtVerifyResults]);
 
-  const basketList = useMemo(() => {
-    return data?.baskets?.slice(0, 4) || [];
-  }, [data?.baskets]);
-
-  return {
-    isKeyboardOpened,
-    data: basketList,
-    isLoading,
-    addCartOnPress,
-    openAllCartsOnPress,
-  };
+  return { debtVerifyResult, isLoading, isSuccess };
 };

@@ -2,13 +2,7 @@ import React, { memo } from 'react';
 import { View, Animated, Pressable } from 'react-native';
 import { DeleteIcon, EditIcon } from 'assets/SVGs';
 import { useStyles } from './CartItem.styles';
-
-export interface SwipeButtonsActionsProps {
-  trans: Animated.AnimatedInterpolation<number>;
-  disableButtons: boolean;
-  deleteOnPress: () => void;
-  editOnPress: () => void;
-}
+import { SwipeButtonsActionsProps } from './CartItem.types';
 
 export const SwipeButtonsActions: React.FC<SwipeButtonsActionsProps> = memo(
   ({ trans, disableButtons, deleteOnPress = () => {}, editOnPress = () => {} }) => {
@@ -20,6 +14,7 @@ export const SwipeButtonsActions: React.FC<SwipeButtonsActionsProps> = memo(
           <Animated.View
             style={[
               styles.swipeableButton,
+              styles.swipeableButtonMargin,
               {
                 transform: [{ translateX: trans }],
               },

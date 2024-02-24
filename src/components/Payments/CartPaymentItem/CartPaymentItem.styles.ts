@@ -6,29 +6,31 @@ export const useStyles = () => {
   const { Colors, Layout, Spacing } = useTheme();
 
   return StyleSheet.create({
-    wrapper: {
-      backgroundColor: Colors.white,
-      marginTop: Spacing.xxs,
-      borderTopRightRadius: Spacing.m,
-      borderTopLeftRadius: Spacing.m,
-      paddingVertical: Spacing.xl,
-    },
-    mainTitle: {
-      fontSize: FontSize.regularPlus,
-      color: Colors.black,
-      letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
-    },
-    listWrapper: {
+    swipeableWrapper: {
       paddingHorizontal: Spacing.xl,
-      marginTop: Spacing.xlm,
+      backgroundColor: Colors.white,
     },
     itemWrapper: {
       ...Layout.row,
       ...Layout.alignItemsCenter,
+      marginLeft: Spacing.m,
     },
-    itemWrapperMargin: {
-      marginBottom: Spacing.m,
+    _itemWrapperContainer: {
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+      ...Layout.alignItemsCenter,
+    },
+    get itemWrapperContainer() {
+      return this._itemWrapperContainer;
+    },
+    set itemWrapperContainer(value) {
+      this._itemWrapperContainer = value;
+    },
+    itemContainer: {
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
+      marginRight: Spacing.xl,
+      flex: 0.8,
     },
     itemIconWrapper: {
       width: 56,
@@ -47,7 +49,8 @@ export const useStyles = () => {
       borderBottomWidth: 1,
       borderColor: Colors.borderColor,
       marginTop: Spacing.m,
-      marginLeft: 68,
+      marginHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
     },
     itemTitle: {
       fontSize: FontSize.small,
@@ -99,6 +102,49 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       lineHeight: 20,
       fontFamily: FontFamily.medium,
+    },
+    swipeableButtonsWrapper: {
+      ...Layout.row,
+    },
+    swipeableButton: {
+      width: 40,
+      height: 40,
+      ...Layout.center,
+      borderWidth: 1,
+      borderRadius: 40,
+      borderColor: Colors.borderColor,
+      marginLeft: Spacing.xl,
+      marginTop: Spacing.s,
+    },
+    editBtnWrapper: {
+      marginRight: Spacing.xl,
+    },
+    priceInputWrapper: {
+      flex: 0.2,
+    },
+    inputStyle: {
+      paddingVertical: Spacing.s,
+      borderWidth: 1,
+      borderColor: Colors.borderColor,
+      borderRadius: 12,
+      textAlign: 'center',
+    },
+    itemPrice: {
+      fontSize: FontSize.small,
+      lineHeight: 16,
+      letterSpacing: -0.5,
+      color: Colors.error,
+      fontFamily: FontFamily.medium,
+      marginTop: Spacing.xxs,
+    },
+    loaderWrapper: {
+      paddingVertical: Spacing.xl,
+    },
+    inputContainerStyle: {
+      borderBottomWidth: 0,
+    },
+    inputColor: {
+      color: Colors.error,
     },
   });
 };

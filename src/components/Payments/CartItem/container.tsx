@@ -93,5 +93,5 @@ export const useCartItem = () => {
     ]);
   };
 
-  return { openCartDetailsScreen, editOnPress, deleteBaskeetServiceOnPress };
+  return { openCartDetailsScreen, editOnPress, deleteBaskeetServiceOnPress, isSending };
 };

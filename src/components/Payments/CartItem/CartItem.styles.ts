@@ -65,8 +65,11 @@ export const useStyles = () => {
       borderWidth: 1,
       borderRadius: 40,
       borderColor: Colors.borderColor,
-      marginLeft: Spacing.xl,
+      marginRight: Spacing.xl,
       marginTop: Spacing.s,
+    },
+    swipeableButtonMargin: {
+      marginLeft: Spacing.xxs,
     },
     editBtnWrapper: {
       marginRight: Spacing.xl,

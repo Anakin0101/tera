@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { Pressable, View, Animated } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Swipeable } from 'react-native-gesture-handler';
 
 import { useStyles } from './CartItem.styles';
 import { Text } from 'components/Text/Text';
@@ -17,7 +17,8 @@ export const CartItem: React.FC<CartItemProps> = memo(({ item, isLast = false, i
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { openCartDetailsScreen, editOnPress, deleteBaskeetServiceOnPress } = useCartItem();
+  const { openCartDetailsScreen, editOnPress, deleteBaskeetServiceOnPress, isSending } =
+    useCartItem();
 
   /**
    * Closes the swipeable row at the specified index.
@@ -32,12 +33,13 @@ export const CartItem: React.FC<CartItemProps> = memo(({ item, isLast = false, i
 
   const editCartOnPress = useCallback(() => {
     try {
+      if (isSending) return;
       prevOpenedRow?.close();
       editOnPress(item);
     } catch (ex) {
       console.warn('Error in editCartOnPress', ex);
     }
-  }, [editOnPress, item]);
+  }, [editOnPress, isSending, item]);
 
   const deleteBasketOnPress = useCallback(() => {
     try {
@@ -63,13 +65,13 @@ export const CartItem: React.FC<CartItemProps> = memo(({ item, isLast = false, i
       return (
         <SwipeButtonsActions
           trans={trans}
-          disableButtons={false}
+          disableButtons={isSending}
           deleteOnPress={deleteBasketOnPress}
           editOnPress={editCartOnPress}
         />
       );
     },
-    [deleteBasketOnPress, editCartOnPress],
+    [deleteBasketOnPress, editCartOnPress, isSending],
   );
 
   return (
