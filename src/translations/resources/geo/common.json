@@ -372,6 +372,8 @@
     "update": "განახლება",
     "no": "არა",
     "yes": "დიახ",
+    "addPayment": "გადახდის დამატება",
+    "editName": "სახელის ცვლილება",
     "successfullyOperation": "ოპერაცია წარმატებით შესრულდა",
     "edit": "რედაქტირება",
     "delete": "წაშლა"
@@ -575,7 +577,10 @@
   },
   "cartPaymentListScreen": {
     "emptyCartPayments": "თქენ არ გაქვთ დამატებული\n გადახდები",
-    "addPayment": "გადახდის დამატება"
+    "addPayment": "გადახდის დამატება",
+    "totalTax": "ჯამური გადასახადი",
+    "fee": "საკომისიო",
+    "deleteCartItemMessage": "ნამდვილად გსურთ წაშლა?"
   },
   "paymentSuccessScreen": {
     "title": "გადახდა\n წარმატებით შესრულდა",

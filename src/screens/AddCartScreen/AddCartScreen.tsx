@@ -15,7 +15,7 @@ export const AddCartScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<MainStackRouteProps<'AddCartScreen'>>();
 
-  const { basket } = params || {};
+  const { basket, fromBasketDetails = false } = params || {};
 
   const {
     control,
@@ -33,7 +33,7 @@ export const AddCartScreen = () => {
 
   const onSubmit = () => {
     if (basket?.id) {
-      updateBasketServiceOnPress(basket.id);
+      updateBasketServiceOnPress(basket.id, fromBasketDetails);
     } else {
       addBaskeetServiceOnPress();
     }

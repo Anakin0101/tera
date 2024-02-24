@@ -5,9 +5,10 @@ import { MainStackScreenProps } from 'navigation/types';
 import { useKeyboard } from 'utils/useKeyboard';
 import { useAddBasketServiceMutation, useRenameBasketMutation } from 'services/apis';
 import { openToast } from 'utils/toast';
+import { PAYMENTS_SCREEN } from 'navigation/ScreenNames';
 
 export const useAddCart = () => {
-  const { goBack } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const { goBack, navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { isKeyboardOpened } = useKeyboard();
 
   const [cartName, setCartName] = useState<string>('');
@@ -43,7 +44,7 @@ export const useAddCart = () => {
   }, [addBaskeetService, cartName, goBack, isSending]);
 
   const updateBasketServiceOnPress = useCallback(
-    (basketId: number) => {
+    (basketId: number, fromBasketDetails: boolean) => {
       try {
         if (isSending) return;
         setIsSending(true);
@@ -55,7 +56,11 @@ export const useAddCart = () => {
           .then(res => {
             setIsSending(false);
             if (res) {
-              goBack();
+              if (fromBasketDetails) {
+                navigate(PAYMENTS_SCREEN);
+              } else {
+                goBack();
+              }
             }
           })
           .catch(ex => {
@@ -69,7 +74,7 @@ export const useAddCart = () => {
         setIsSending(false);
       }
     },
-    [cartName, goBack, isSending, updateBasketService],
+    [cartName, goBack, isSending, navigate, updateBasketService],
   );
 
   return {

@@ -27,6 +27,7 @@ import {
   AddBasketItemRequestResponse,
   EditBasketRequestParams,
   DeleteBasketRequestBody,
+  DeleteBasketItemRequestParams,
 } from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
@@ -116,6 +117,7 @@ export const paymentsAPI = createApi({
         method: METHOD_NAMES.GET,
         params,
       }),
+      providesTags: ['Baskets'],
     }),
     addBasketItem: builder.mutation<AddBasketItemRequestResponse, AddBasketItemRequestParams>({
       query: body => ({
@@ -141,6 +143,21 @@ export const paymentsAPI = createApi({
       }),
       invalidatesTags: ['Baskets'],
     }),
+    debtVerifyBasket: builder.mutation<DebtVerifyInfoResponse, DebtVerifyRequestBody>({
+      query: body => ({
+        url: URLS.debtVerifyBasket,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+    deleteBasketItems: builder.mutation<DebtVerifyInfoResponse, DeleteBasketItemRequestParams>({
+      query: body => ({
+        url: URLS.deleteBasketItems,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
   }),
 });
 
@@ -159,4 +176,6 @@ export const {
   useAddBasketItemMutation,
   useRenameBasketMutation,
   useDeleteBasketMutation,
+  useDebtVerifyBasketMutation,
+  useDeleteBasketItemsMutation,
 } = paymentsAPI;

@@ -260,9 +260,12 @@ export interface Basket {
 }
 
 export interface BasketService {
-  customerNumber: string;
+  customerNumbers: Array<FieldValue>;
   largeImage: string;
-  name: string;
+  name: {
+    en: string;
+    ka: string;
+  };
   servicesId: number;
   smallImage: string;
 }
@@ -329,5 +332,10 @@ export interface EditBasketRequestParams {
 
 export interface DeleteBasketRequestBody {
   basketIds: Array<number>;
+  culture: string;
+}
+
+export interface DeleteBasketItemRequestParams {
+  itemsIds: Array<string>;
   culture: string;
 }

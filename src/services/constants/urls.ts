@@ -64,6 +64,8 @@ export const URLS = {
   addBasketItem: 'Payment/AddBasketItem',
   renameBasket: 'Payment/RenameBasket',
   deleteBasket: 'Payment/DeleteBasket',
+  debtVerifyBasket: 'Payment/DebtVerifyBasket',
+  deleteBasketItems: 'Payment/DeleteBasketItems',
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
   getBaskets: 'Payment/GetBaskets',

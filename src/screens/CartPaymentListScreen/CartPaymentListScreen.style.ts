@@ -11,28 +11,9 @@ export const useStyles = () => {
       ...Layout.fill,
       backgroundColor: Colors.white,
     },
-    wrapper: {
-      paddingHorizontal: Spacing.xl,
-    },
-    headerTitle: {
-      marginTop: Spacing.xlm,
-      fontSize: FontSize.regularPlus,
-      letterSpacing: -0.5,
-      color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
-      lineHeight: 22,
-    },
     listWrapper: {
-      paddingHorizontal: Spacing.xl,
       paddingTop: Spacing.xl,
       paddingBottom: 120,
-    },
-    ctaWrapper: {
-      paddingHorizontal: Spacing.xl,
-      marginBottom: Spacing.ml,
-    },
-    ctaOpenWrapper: {
-      paddingVertical: Spacing.md,
     },
     buttonText: {
       fontSize: FontSize.regular,
@@ -43,10 +24,48 @@ export const useStyles = () => {
     },
     buttonContainer: {
       zIndex: 2,
-      paddingHorizontal: Spacing.xl,
       position: 'absolute',
       width: '100%',
       bottom: Spacing.s + StaticSafeAreaInsets.safeAreaInsetsBottom,
+    },
+    btnContainer: {
+      marginHorizontal: Spacing.xl,
+      marginTop: Spacing.lg,
+    },
+    detailsWrapper: {
+      marginTop: Spacing.s,
+    },
+    detailsContainer: {
+      ...Layout.row,
+      marginHorizontal: Spacing.xl,
+      ...Layout.justifyContentBetween,
+      marginTop: Spacing.s,
+    },
+    detailsTitle: {
+      fontSize: FontSize.small,
+      lineHeight: 16,
+      letterSpacing: -0.2,
+      color: Colors.textBlack500,
+      fontFamily: FontFamily.medium,
+      fontWeight: '400',
+    },
+    detailsValue: {
+      fontSize: FontSize.small,
+      lineHeight: 16,
+      letterSpacing: -0.2,
+      color: Colors.textBlack,
+      fontFamily: FontFamily.medium,
+    },
+    headerButton: {
+      width: 40,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: Spacing.xl,
+      borderWidth: 1,
+      borderRadius: 40,
+      borderColor: Colors.borderColor,
+      marginBottom: Spacing.md,
     },
   });
 };

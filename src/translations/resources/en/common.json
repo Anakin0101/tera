@@ -379,6 +379,8 @@
     "update": "Update",
     "no": "No",
     "yes": "Yes",
+    "addPayment": "Add Payment",
+    "editName": "Edit Name",
     "successfullyOperation": "The operation was successfully performed",
     "edit": "Edit",
     "delete": "Delete"
@@ -583,7 +585,10 @@
   },
   "cartPaymentListScreen": {
     "emptyCartPayments": "You have no added\n payments",
-    "addPayment": "Add payment"
+    "addPayment": "Add payment",
+    "totalTax": "Total tax",
+    "fee": "Fee",
+    "deleteCartItemMessage": "Are you sure you want to delete the payment?"
   },
   "permissions": {
     "message": "Message",

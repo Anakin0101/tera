@@ -177,7 +177,7 @@ export type ModalStackParamsList = {
     automaticPaymentForm: AutomaticPaymentForm;
     subscriberFieldsValue: SubscriberFieldsValue;
   };
-  [ADD_CART_SCREEN]: undefined | { basket: Basket };
+  [ADD_CART_SCREEN]: undefined | { basket: Basket; fromBasketDetails?: boolean };
   [CART_LIST_SCREEN]: undefined;
   [CART_PAYMENT_LIST_SCREEN]: {
     basket: Basket;
