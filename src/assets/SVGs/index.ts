@@ -115,6 +115,7 @@ export { DeleteIcon } from './DeleteIcon';
 export { EditIcon } from './EditIcon';
 export { EmptyPayments } from './EmptyPayments';
 export { MobilePayment } from './MobilePayment';
+export { MoreIcon } from './MoreIcon';
 export { AutomaticPayment } from './AutomaticPayment';
 export { ParkingAndFines } from './ParkingAndFines';
 export { CartIcon } from './Cart';
