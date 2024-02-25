@@ -1,6 +1,7 @@
 import {
   BasketItem,
   PaymentFieldValue,
+  ProviderItemProps,
   ProvidersGroup,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
@@ -16,4 +17,5 @@ export interface CartPaymentItemProps {
   addToSelectedItemFee: (id: number, fee: number) => void;
   addServiceFieldsByid: (id: number, fields: Array<PaymentFieldValue>) => void;
   deleteBasketService: (id: string) => void;
+  setProviderItems: React.Dispatch<React.SetStateAction<ProviderItemProps[]>>;
 }

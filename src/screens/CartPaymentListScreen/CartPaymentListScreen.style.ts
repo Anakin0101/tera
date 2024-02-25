@@ -13,7 +13,7 @@ export const useStyles = () => {
     },
     listWrapper: {
       paddingTop: Spacing.xl,
-      paddingBottom: 120,
+      paddingBottom: 170,
     },
     buttonText: {
       fontSize: FontSize.regular,

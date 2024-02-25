@@ -33,6 +33,7 @@ export const CartPaymentItem: React.FC<CartPaymentItemProps> = memo(
     addToSelectedItemFee,
     addServiceFieldsByid,
     deleteBasketService,
+    setProviderItems,
   }) => {
     const styles = useStyles();
     const savedLanguage = getValue(SELECTED_LANGUAGE);
@@ -174,6 +175,23 @@ export const CartPaymentItem: React.FC<CartPaymentItemProps> = memo(
       },
       [amountObj?.id, isSelected, item.id, onChangeText, selectCartOnPress, unSelectCartOnPress],
     );
+
+    useEffect(() => {
+      if (item.id && foundProvider && debtVerifyResult && savedLanguage) {
+        setProviderItems(prev => [
+          ...prev.filter(el => el.id !== item.id.toString()),
+          {
+            id: item.id.toString(),
+            name:
+              savedLanguage === LanguageKeys.geo
+                ? foundProvider?.name?.ka
+                : foundProvider?.name?.en,
+            desc: debtVerifyResult?.customerName,
+            imageURL: foundProvider?.largeImageId || foundProvider?.smallImageId,
+          },
+        ]);
+      }
+    }, [debtVerifyResult, foundProvider, item?.id, savedLanguage, setProviderItems]);
 
     if (isLoading) {
       return (

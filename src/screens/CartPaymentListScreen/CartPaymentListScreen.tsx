@@ -50,6 +50,7 @@ export const CartPaymentListScreen = () => {
     actionItems,
     isActionSheetVisible,
     toggleActionSheet,
+    setProviderItems,
   } = useCartPaymentList();
 
   const unSelectCartOnPress = useCallback(
@@ -118,10 +119,12 @@ export const CartPaymentListScreen = () => {
           addToSelectedItemFee={addToSelectedItemFee}
           addServiceFieldsByid={addServiceFieldsByid}
           deleteBasketService={deleteBasketService}
+          setProviderItems={setProviderItems}
         />
       );
     },
     [
+      setProviderItems,
       providersGroups,
       unSelectCartOnPress,
       selectedCartItemIds,
@@ -148,7 +151,20 @@ export const CartPaymentListScreen = () => {
     }
   }, [selectedCartItemIds, subscriberFieldsValue]);
 
-  const payServiceOnPress = useCallback(async () => {
+  const calculateTotalFee = useMemo(() => {
+    try {
+      const totalFee = Object.values(selectedCartFeeValue).reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0,
+      );
+      return totalFee;
+    } catch (ex) {
+      console.warn('Error in calculateTotalFee', ex);
+      return 0;
+    }
+  }, [selectedCartFeeValue]);
+
+  const payServiceOnPress = useCallback(() => {
     try {
       if (selectedAccount) {
         const payments: Array<Payment> = [];
@@ -173,41 +189,21 @@ export const CartPaymentListScreen = () => {
           }
         });
 
-        const resp = await payService(selectedAccount.accountId, payments);
-        if (resp) {
-          // navigate(MODAL_STACK, {
-          //   screen: PAYMENT_SUCCESS_SCREEN,
-          //   params: {
-          //     providerItem,
-          //     subscriberInputFieldsValue,
-          //   },
-          // });
-        }
+        payService(selectedAccount.accountId, payments, Number(calculateTotalFee) + Number(sum));
       }
     } catch (ex) {
       console.warn('payServiceOnPress', ex);
     }
   }, [
+    calculateTotalFee,
     data,
     payService,
     selectedAccount,
     selectedCartItemIds,
     serviceFieldsById,
     subscriberFieldsValue,
+    sum,
   ]);
-
-  const calculateTotalFee = useMemo(() => {
-    try {
-      const totalFee = Object.values(selectedCartFeeValue).reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0,
-      );
-      return totalFee;
-    } catch (ex) {
-      console.warn('Error in calculateTotalFee', ex);
-      return 0;
-    }
-  }, [selectedCartFeeValue]);
 
   const selectAccountOnPress = useCallback((account: Account) => {
     setSelectedAccount(account);

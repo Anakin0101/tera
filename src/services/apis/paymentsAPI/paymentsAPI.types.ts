@@ -154,6 +154,8 @@ export interface PaymentResult {
   fee: number;
   saveIntoBasketSuccessed: boolean;
   saveIntoBasketError: any;
+  success: boolean;
+  error: any; // აქ ღმერთმა უწყის რა ბრუნდება // TODO
 }
 
 export interface AutoPayment {
@@ -338,4 +340,11 @@ export interface DeleteBasketRequestBody {
 export interface DeleteBasketItemRequestParams {
   itemsIds: Array<string>;
   culture: string;
+}
+
+export interface ProviderItemProps {
+  id: string;
+  name: string;
+  desc: string;
+  imageURL: string;
 }

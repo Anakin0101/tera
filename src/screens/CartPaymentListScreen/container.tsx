@@ -7,6 +7,7 @@ import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useKeyboard } from 'utils/useKeyboard';
 import {
   ADD_CART_SCREEN,
+  CART_PAYMENT_SUCCESS_SCREEN,
   MODAL_STACK,
   NEW_PAYMENT_SCREEN,
   PAYMENT_ERROR_SCREEN,
@@ -27,7 +28,11 @@ import {
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { SubscriberFieldValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { MoreIcon } from 'assets/SVGs';
-import { PayRequestBody, Payment } from 'services/apis/paymentsAPI/paymentsAPI.types';
+import {
+  PayRequestBody,
+  Payment,
+  ProviderItemProps,
+} from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { openToast } from 'utils/toast';
 import { Colors } from 'theme/Variables';
 import { useStyles } from './CartPaymentListScreen.style';
@@ -47,6 +52,7 @@ export const useCartPaymentList = () => {
   }>({});
   const [isSending, setIsSending] = useState<boolean>(false);
   const [isActionSheetVisible, setIsActionSheetVisible] = useState<boolean>(false);
+  const [providerItems, setProviderItems] = useState<Array<ProviderItemProps>>([]);
 
   const [getPaymentServices, { isLoading: payIsLoading }] = usePayServiceMutation();
   const [deleteBasketItemService] = useDeleteBasketItemsMutation();
@@ -57,7 +63,7 @@ export const useCartPaymentList = () => {
   }, []);
 
   const payService = useCallback(
-    async (accountId: number, payments: Array<Payment>) => {
+    async (accountId: number, payments: Array<Payment>, sum: number) => {
       try {
         const request: PayRequestBody = {
           otp: null,
@@ -84,15 +90,23 @@ export const useCartPaymentList = () => {
             }
             return;
           }
+        } else if ('data' in response && response.data.paymentResults) {
+          navigate(MODAL_STACK, {
+            screen: CART_PAYMENT_SUCCESS_SCREEN,
+            params: {
+              paymentResults: response.data.paymentResults,
+              sum,
+              providerItems,
+            },
+          });
         }
-        return response;
       } catch (err) {
         console.warn('error=> payService >>>', err);
         navigate(PAYMENT_ERROR_SCREEN);
         return err;
       }
     },
-    [getPaymentServices, navigate, savedLanguage],
+    [getPaymentServices, navigate, savedLanguage, providerItems],
   );
 
   const { data: getPaymentResponse, isLoading: isPaymentServiceLoading } =
@@ -248,5 +262,6 @@ export const useCartPaymentList = () => {
     actionItems,
     isActionSheetVisible,
     toggleActionSheet,
+    setProviderItems,
   };
 };
