@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import {
   useGetBannersQuery,
+  useGetDepositsQuery,
   useGetTotalSavingMutation,
   useGetUserProfileInfoQuery,
 } from 'services/apis';
@@ -10,7 +11,6 @@ import {
   useGetCreditCardsQuery,
   useGetOverDraftQuery,
   useGetLoanCustomerIdQuery,
-  useGetAssetsQuery,
   useGetBankerQuery,
 } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
@@ -27,10 +27,10 @@ export const useDashboardScreen = () => {
   ] = useGetCustomerOperationsMutation();
   const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
   const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
-  const { data: getLoanCustomerId, isLoading: customerIdLoading } = useGetLoanCustomerIdQuery();
-  const { data: assets, isLoading: assetsLoading } = useGetAssetsQuery();
+  const { data: getLoanCustomerId, isLoading: loanCustomerIdLoading } = useGetLoanCustomerIdQuery();
+  const { data: deposits, isLoading: depositsLoading } = useGetDepositsQuery();
   const { data: banker, isLoading: bankerLoading } = useGetBankerQuery();
-  const { data: profile } = useGetUserProfileInfoQuery();
+  const { data: profile, isLoading: profileLoading } = useGetUserProfileInfoQuery();
   const [getTotalSaving, { data: totalSaving, isLoading: totalSavingLoading }] =
     useGetTotalSavingMutation();
   const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
@@ -51,22 +51,46 @@ export const useDashboardScreen = () => {
       count: 4,
       endDate: getCurrentDateISO(),
       startDate: getDateThreeMonthAgeISO(),
-      accountNumber: null,
     });
   }, [getCustomerOperations]);
 
   const isDashboardMounted = useMemo(() => {
     const mounted =
-      !!templates?.templates.length && !!assets && !!banker && !!profile?.firstName && !!banners;
+      !!templates?.templates.length && !!deposits && !!banker && !!profile?.firstName && !!banners;
     return mounted;
-  }, [assets, banker, profile?.firstName, templates?.templates.length, banners]);
+  }, [deposits, banker, profile?.firstName, templates?.templates.length, banners]);
+
+  const isLoading = useMemo(() => {
+    return (
+      customerOperationsLoading ||
+      loanCustomerIdLoading ||
+      bankerLoading ||
+      overDraftLoading ||
+      creditCardsLoading ||
+      bannersLoading ||
+      totalSavingLoading ||
+      profileLoading ||
+      temlpatesLoading ||
+      depositsLoading
+    );
+  }, [
+    bankerLoading,
+    bannersLoading,
+    creditCardsLoading,
+    customerOperationsLoading,
+    depositsLoading,
+    loanCustomerIdLoading,
+    overDraftLoading,
+    profileLoading,
+    temlpatesLoading,
+    totalSavingLoading,
+  ]);
 
   return {
     templates,
     temlpatesLoading,
     customerOperationsLoading,
-    customerIdLoading,
-    assetsLoading,
+    loanCustomerIdLoading,
     bankerLoading,
     overDraftLoading,
     creditCardsLoading,
@@ -74,12 +98,15 @@ export const useDashboardScreen = () => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
     banker,
     isDashboardMounted,
     banners,
     bannersLoading,
     totalSavingLoading,
     totalSaving,
+    profileLoading,
+    deposits,
+    depositsLoading,
+    isLoading,
   };
 };

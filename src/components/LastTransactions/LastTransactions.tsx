@@ -1,14 +1,20 @@
-import React, { FC } from 'react';
-import { FlatList, ListRenderItem, Pressable, View } from 'react-native';
+import React, { FC, useCallback } from 'react';
+import { FlatList, View } from 'react-native';
 import { Text } from '../index';
-import { useStyles } from './LastTransactions.styles';
+import { Footer } from './Footer';
 import LastTransactionItem from './LastTransactionItem';
-import { LastTransactionsProps } from './LastTransaction.types';
-import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedTransaction } from 'store/slices/products';
+import {
+  ALL_TRANSACTIONS_SCREEN,
+  MODAL_STACK,
+  TRANSACTION_DETAILS_SCREEN,
+} from 'navigation/ScreenNames';
+import { LastTransactionsProps, RenderItem } from './LastTransaction.types';
+import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { useStyles } from './LastTransactions.styles';
 
 export const LastTransactions: FC<LastTransactionsProps> = ({
   data,
@@ -21,47 +27,46 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const styles = useStyles();
-  const { navigate } = useNavigation<MainStackScreenProps<'AllTransactionsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  const pressHandler = () => {
-    navigate('AllTransactionsScreen', {
-      accountNumber,
+  const pressHandler = useCallback(() => {
+    navigate(MODAL_STACK, {
+      screen: ALL_TRANSACTIONS_SCREEN,
+      params: { accountNumber },
     });
-  };
+  }, [accountNumber, navigate]);
 
-  const onTransactionPress = (item: TransactionType) => {
-    dispatch(setSelectedTransaction(item));
-    navigate('TransactionDetailsScreen');
-  };
+  const onTransactionPress = useCallback(
+    (item: TransactionType) => {
+      dispatch(setSelectedTransaction(item));
+      navigate(MODAL_STACK, {
+        screen: TRANSACTION_DETAILS_SCREEN,
+      });
+    },
+    [dispatch, navigate],
+  );
 
-  const renderItem: ListRenderItem<TransactionType> = ({ item }) => {
-    return <LastTransactionItem item={item} onPress={() => onTransactionPress(item)} />;
-  };
+  const renderItem: RenderItem = useCallback(
+    ({ item }) => <LastTransactionItem item={item} onPress={onTransactionPress} />,
+    [onTransactionPress],
+  );
 
-  const footer = () => {
-    return (
-      <Pressable style={styles.seeAll} onPress={pressHandler}>
-        <Text children="transfers.all" special size={14} lineHeight={20} />
-      </Pressable>
-    );
-  };
+  if (!data?.length) {
+    return <View />;
+  }
 
   return (
-    <>
-      {data?.length ? (
-        <>
-          <View style={[styles.header, headerContaienrStyle]}>
-            <Text children={sectionTitle} style={headerLabelStyle} />
-          </View>
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            showsHorizontalScrollIndicator={false}
-            ListFooterComponent={showFooter ? footer : null}
-            style={[styles.list, style]}
-          />
-        </>
-      ) : null}
-    </>
+    <View>
+      <View style={[styles.header, headerContaienrStyle]}>
+        <Text children={sectionTitle} style={headerLabelStyle} />
+      </View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        showsHorizontalScrollIndicator={false}
+        ListFooterComponent={<Footer onPress={pressHandler} showFooter={showFooter} />}
+        style={[styles.list, style]}
+      />
+    </View>
   );
 };

@@ -15,13 +15,14 @@ export const useTransactionsScreen = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
 
-  const [selectedData, setSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState('');
   const [typedAccountName, setTypedAccountName] = useState('');
   const [debouncedAccountName, setDebouncedAccountName] = useState('');
   const [previousAccountName, setPreviousAccountName] = useState('');
   const [apiCallInitiated, setApiCallInitiated] = useState(false);
   const [invoiceFile, setInvoiceFile] = useState<any>(null);
   const [chosenAccount, setChosenAccount] = useState<PersonalNumberAccount | null>(null);
+  const [chosenIBANAccount, setChosenIBANAccount] = useState<PersonalNumberAccount | null>(null);
 
   const { data: templates, isLoading: temlpatesLoading } = useGetTemplatesQuery({
     headers: { 'X-Bank-UserIp': userIp },
@@ -51,7 +52,7 @@ export const useTransactionsScreen = () => {
         setInvoiceFile(selectedFileName.name);
       }
     } catch (err) {
-      console.warn(err);
+      console.warn('Error in handleFilePick: ', err);
     }
   };
 
@@ -75,5 +76,7 @@ export const useTransactionsScreen = () => {
     toggleCheckIcon,
     MOBILE_NUMBER_LENGTH,
     chosenAccount,
+    chosenIBANAccount,
+    setChosenIBANAccount,
   };
 };

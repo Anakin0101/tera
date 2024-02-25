@@ -55,7 +55,7 @@ export const ChoosePaymentProviderScreen = () => {
     if (isAutomaticPayment) {
       providerList = providerInfo?.providers?.filter(item => item.directDebitType !== 3) || [];
     } else {
-      providerList = providerList = providerInfo?.providers || [];
+      providerList = providerInfo?.providers || [];
     }
 
     try {

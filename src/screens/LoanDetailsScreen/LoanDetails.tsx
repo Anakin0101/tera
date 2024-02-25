@@ -11,7 +11,7 @@ import {
   TotalDebtContentProps,
   CollapsibleHeaderProps,
 } from './LoanDetailsScreen.types';
-import { CreditStatus } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { CreditStatus } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 
 export const getLoanStatus = (status: CreditStatus) => {

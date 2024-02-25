@@ -11,7 +11,7 @@ import { IMAGE_COVER } from 'constants/Images';
 
 const padding = config.mobileWidth - horizontalScale(320) - 24;
 
-export const Offers: FC<OffersProps> = ({ data }) => {
+export const Offers: FC<OffersProps> = ({ data, showAll = true }) => {
   const styles = useStyles(padding);
   const translateX = useSharedValue(0);
   const { Colors } = useTheme();
@@ -33,8 +33,14 @@ export const Offers: FC<OffersProps> = ({ data }) => {
       {data?.length ? (
         <View style={styles.offersWrapper}>
           <View style={styles.headerWrapper}>
-            <Text children="products.Offers" demiBold style={styles.title} />
-            {data?.length > 1 ? (
+            <Text
+              children="products.offers"
+              demiBold
+              size={18}
+              lineHeight={22}
+              style={styles.title}
+            />
+            {showAll && data?.length > 1 ? (
               <Pressable>
                 <Text
                   children={'dashboard.all'}

@@ -1,59 +1,83 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { FlatList, Pressable, ScrollView, View } from 'react-native';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
-import { TariffCardCardProps } from 'components/TariffCard/TariffCardLayout.types';
+import { useNavigation } from '@react-navigation/native';
+import { ProductsStackScreenProps } from 'navigation/types';
+import { TARIFF_PACKAGES_SINGLE_SCREEN } from 'navigation/ScreenNames';
+import { useTariffPackages } from './container';
+import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
+import { getCommissions } from './utilis';
 import Images from 'theme/Images';
+import { useTranslation } from 'react-i18next';
+import { Text, LoadingInView } from 'components';
 
 export const TariffPackagesListScreen = () => {
+  const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
+  const { packagesList, packagesIsLoading } = useTariffPackages();
+  const hasStatusOrPending = packagesList?.customerPackages?.some(
+    item => item.isActive || item.pending,
+  );
+
   const { t } = useTranslation();
 
-  //dummy data until link API
-  const dummy_data_for_tariff = [
-    {
-      cardTypeName: 'CLASSIC',
-      commissionMnth: 2,
-      commissionYr: 25,
-      icon: Images().ClasicMedal,
-      status: t('newDeposit.cardStatus'),
-      id: '1',
-    },
+  const onLocationsPress = () => {
+    // TODO-  DEA
+    //if true - navigate specific screen
+  };
 
-    {
-      cardTypeName: 'PLATINUM',
-      commissionMnth: 2,
-      commissionYr: 25,
-      icon: Images().PlatinumMedal,
-      id: '2',
-    },
-    {
-      cardTypeName: 'GOLD',
-      commissionMnth: 2,
-      commissionYr: 25,
-      icon: Images().GoldMedal,
-      id: '3',
-    },
-  ];
-  const renderItem = ({ item }: { item: TariffCardCardProps }) => {
+  const renderItem = ({ item }: { item: CustomerPackages }) => {
+    const { commissionMnth, commissionYr } = getCommissions(item?.packageServices);
+    const onTariffSingleScreen = () => {
+      navigate(TARIFF_PACKAGES_SINGLE_SCREEN, { ...item });
+    };
+
     return (
-      <TariffCardLayout
-        cardTypeName={item.cardTypeName}
-        commissionMnth={item.commissionMnth}
-        commissionYr={item.commissionYr}
-        icon={item.icon}
-        id={item.id}
-        status={item.status}
-      />
+      <Pressable onPress={!hasStatusOrPending ? onTariffSingleScreen : undefined}>
+        <TariffCardLayout
+          cardTypeName={item.name}
+          id={item.id}
+          icon={item.name}
+          status={item.isActive}
+          pending={item.pending}
+          commissionMnth={commissionMnth}
+          commissionYr={commissionYr}
+          applyOverlay={hasStatusOrPending}
+        />
+      </Pressable>
     );
   };
 
+  if (packagesIsLoading) {
+    return <LoadingInView />;
+  }
+
+  if (!packagesList) {
+    return (
+      <View>
+        <Text children={'პაკეტი არ მოიძებნა, დიზაინერთან და ბიზნესთან იქნება გასავლელი'} />
+      </View>
+    );
+  }
+
   return (
-    <FlatList
-      data={dummy_data_for_tariff}
-      ListHeaderComponent={<TariffDescription />}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
+    <ScrollView>
+      <TariffDescription />
+      {packagesList?.customerPackages && packagesList?.customerPackages.length > 0 ? (
+        <FlatList
+          data={packagesList?.customerPackages}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <Pressable onPress={onLocationsPress}>
+          <TariffCardLayout
+            cardTypeName={t('newDeposit.offices')}
+            icon={Images().Location}
+            noData={true}
+          />
+        </Pressable>
+      )}
+    </ScrollView>
   );
 };

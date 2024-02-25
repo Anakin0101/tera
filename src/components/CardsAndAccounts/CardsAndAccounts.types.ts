@@ -1,3 +1,4 @@
+import { ListRenderItem } from 'react-native';
 import { Account, Currency } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface IGroupedAccountsByIban {
@@ -34,3 +35,5 @@ export type CurrencyMap = {
   cur: Currency;
   sign: string;
 };
+
+export type RenderItem = ListRenderItem<IGroupedAccountsByIban>;

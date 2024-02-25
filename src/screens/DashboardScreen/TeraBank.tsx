@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useEffect, useRef, useState } from 'react';
+import React, { FC, RefObject, useEffect, useRef } from 'react';
 import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
@@ -86,7 +86,6 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const cardsOffset = useSharedValue(0);
-  const [isBannerDataFetched, setIsBannerDataFetched] = useState<boolean>(false);
 
   const {
     templates,
@@ -94,18 +93,11 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     creditCards,
     overDraft,
     getLoanCustomerId,
-    assets,
+    deposits,
     banker,
-    customerOperationsLoading,
-    customerIdLoading,
-    assetsLoading,
-    bankerLoading,
-    overDraftLoading,
-    creditCardsLoading,
     banners,
-    bannersLoading,
-    totalSavingLoading,
     totalSaving,
+    isLoading,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -180,7 +172,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
             creditCards={creditCards}
             overDraft={overDraft}
             getLoanCustomerId={getLoanCustomerId}
-            assets={assets}
+            assets={deposits}
           />
         );
       case 'offers':
@@ -195,12 +187,6 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
         return null;
     }
   };
-
-  useEffect(() => {
-    if (banners) {
-      setIsBannerDataFetched(true);
-    }
-  }, [banners]);
 
   const openCards = (index: number) => {
     if (!index) {
@@ -253,17 +239,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       ? EMPTY_SPACE - 20
       : 0;
 
-  if (
-    customerOperationsLoading ||
-    customerIdLoading ||
-    assetsLoading ||
-    bankerLoading ||
-    overDraftLoading ||
-    creditCardsLoading ||
-    bannersLoading ||
-    totalSavingLoading ||
-    (!isBannerDataFetched && banners?.data.length === 0)
-  ) {
+  if (isLoading) {
     return (
       <View style={styles.LoaderContenr}>
         <View style={styles.loader}>
@@ -316,9 +292,9 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       <Animated.View style={[styles.sectionList, borderColor]}>
         <AnimatedSectionList
           ref={sectionListRef}
+          bounces={false}
           sections={sections}
           renderItem={renderItem}
-          bounces={false}
           nestedScrollEnabled
           style={animPaddingTop}
           onScroll={scrollHandler}

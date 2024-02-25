@@ -20,7 +20,7 @@ import {
   TransferToSomeoneResultResponseType,
 } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useTranslation } from 'react-i18next';
-import { PERSONAL_TRANSACTION } from 'utils/transactionUtils';
+
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setTransferType, setSpecificTransferData } from 'store/slices/transfers';
 import { TransferTemplateTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
@@ -28,6 +28,8 @@ import { CustomBackendError } from 'services/types';
 
 export const TransferDetailScreen = () => {
   const { t } = useTranslation();
+
+  const PERSONAL_TRANSACTION = t('transactions.defaultTitle');
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
   );
@@ -65,7 +67,7 @@ export const TransferDetailScreen = () => {
       formData.append('debitAccountId', accountFromData.accountId);
       formData.append(
         'receiverIban',
-        accountIban?.accountIbanId?.accountIban || accountToData?.iban,
+        accountIban ? accountIban?.accountIbanId : accountToData?.iban,
       );
       formData.append('amount', selectedPrice);
       formData.append('receiverName', receiverInfo.customerName);
@@ -150,7 +152,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN);
+        navigate(TRANSACTION_FINISHED_SCREEN, { mobileTransaction: true });
       }
     }
   };
@@ -267,6 +269,7 @@ export const TransferDetailScreen = () => {
                 <OtherBankList
                   selectedItemFromStore={selectedItemFromStore}
                   receiver={params?.receiver}
+                  mobileTransaction={params?.mobileTransaction}
                 />
               ) : (
                 <TransferDetailsList
@@ -280,7 +283,7 @@ export const TransferDetailScreen = () => {
         <View style={styles.buttonContainer}>
           <Button.Primary
             text={t('transfers.transfer')}
-            hitSlop={30}
+            hitSlop={15}
             fixedWidth
             onPress={() => {
               handleButtonPress();

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { OverdraftType } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import { formatDate } from 'utils/formatDate';
 import { formatMoney } from 'utils/formatMoney';
 import { getLoanStatus } from './LoanDetails';
+import { OverdraftDetailsProps } from './LoanDetailsScreen.types';
 
-export const OverdraftDetails = ({ overdraft }: { overdraft: OverdraftType }) => {
+export const OverdraftDetails: FC<OverdraftDetailsProps> = ({ overdraft }) => {
   return (
     <View>
       <DetailsItem label="loans.agreementNum" value={overdraft.agreementNumber} />

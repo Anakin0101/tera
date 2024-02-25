@@ -37,5 +37,14 @@ export const useStyles = () => {
       ...Layout.rowHCenter,
       ...Layout.justifyContentBetween,
     },
+    loader: {
+      ...Layout.fullHeight,
+    },
+    amountView: {
+      ...Layout.rowHCenter,
+    },
+    amount: {
+      marginRight: Spacing.xs,
+    },
   });
 };

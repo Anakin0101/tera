@@ -25,7 +25,7 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
         <View style={styles.header}>
           <View style={styles.iconContainer} />
           <View style={styles.titleContainer}>
-            <Text numberOfLines={1} children={item.productName} color={Colors.inactiveTint} />
+            <Text numberOfLines={2} children={item.productName} color={Colors.inactiveTint} />
             <Text size={30} medium lineHeight={34}>
               {formatMoney(
                 isOverdraft

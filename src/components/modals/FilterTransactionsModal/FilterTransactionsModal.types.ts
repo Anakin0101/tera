@@ -1,7 +1,7 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { Dispatch, SetStateAction } from 'react';
 import { TransactionFilters } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface TransactionByAccModalProps {
   setFilters: Dispatch<SetStateAction<TransactionFilters>>;
@@ -15,8 +15,8 @@ export interface ButtonsProps {
 export interface SelectCurrencyProps {
   accountNumber: number | null;
   groupedAccountsByIban: IGroupedAccountsByIban[];
-  setCurrency: Dispatch<SetStateAction<Currency | null>>;
-  currency: Currency | null;
+  setCurrency: Dispatch<SetStateAction<CurrencyEnum | null>>;
+  currency: CurrencyEnum | null;
 }
 
 export interface AccountProps {

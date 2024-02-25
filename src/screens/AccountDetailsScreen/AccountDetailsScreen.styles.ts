@@ -37,7 +37,6 @@ export const useStyles = () => {
       width: 26,
       height: Spacing.l,
       borderRadius: Spacing.xxs,
-      backgroundColor: Colors.textBlack,
     },
     cardsListHeader: {
       padding: Spacing.xl,
@@ -125,16 +124,17 @@ export const useStyles = () => {
     card: {
       ...Layout.justifyContentBetween,
       padding: 26,
-      borderRadius: Spacing.m,
-      backgroundColor: Colors.titleBlack,
       width: horizontalScale(340),
       height: 200,
+    },
+    content: {
+      ...Layout.selfCenter,
     },
     balance: {
       ...Layout.row,
     },
     arrowContainer: {
-      marginTop: Spacing.m,
+      marginTop: 7,
       marginLeft: Spacing.s,
     },
     starContainer: {
@@ -148,13 +148,15 @@ export const useStyles = () => {
       right: Spacing.ml,
     },
     currencies: {
+      width: '90%',
       ...Layout.row,
       ...Layout.flexWrap,
       gap: Spacing.xs,
     },
     currency: {
       backgroundColor: Colors.currencyBackground,
-      padding: Spacing.xs,
+      paddingHorizontal: Spacing.xs,
+      paddingVertical: Spacing.xxs,
       borderRadius: 80,
     },
     actionButtons: {

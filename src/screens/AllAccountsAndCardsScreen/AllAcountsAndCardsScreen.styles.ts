@@ -19,5 +19,14 @@ export const useStyles = () => {
       marginTop: 70,
       marginBottom: 30,
     },
+    iconContainer: {
+      ...Layout.center,
+      width: 40,
+      height: 40,
+      borderWidth: 1,
+      borderRadius: 20,
+      borderColor: Colors.inputBlack50,
+      marginRight: Spacing.lg,
+    },
   });
 };

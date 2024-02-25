@@ -42,7 +42,7 @@ export const useStyles = (seeAll?: boolean) => {
     },
     detailsWrapper: {
       ...Layout.fill,
-      marginLeft: Spacing.m,
+      marginLeft: Spacing.s,
     },
     details: {
       ...Layout.row,
@@ -62,6 +62,7 @@ export const useStyles = (seeAll?: boolean) => {
     },
     textContainer: {
       ...Layout.fill,
+      marginRight: Spacing.md,
     },
   });
 };

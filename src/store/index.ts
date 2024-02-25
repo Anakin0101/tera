@@ -15,6 +15,7 @@ import { RESET_STATE_ACTION_TYPE } from './actions/reset';
 import { userInfoReducer } from './slices/userInfo';
 import { registerUserReducer } from './slices/registerUser';
 import {
+  applicationStatePersistConfig,
   dashboardPersistConfig,
   deviceInfoPersistConfig,
   paymentPersistConfig,
@@ -43,6 +44,7 @@ import { paymentsReducer } from './slices/payments';
 import { loanReducer } from './slices/loan';
 import { clearStorageExceptKeys } from 'storage/index';
 import { APP_LAUNCHED, SELECTED_LANGUAGE } from 'storage/constants';
+import { applicationStateReducer } from './slices/applicationState';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -53,6 +55,10 @@ const persistedDashboard = persistReducer(dashboardPersistConfig, dashboardReduc
 const persistedProfile = persistReducer(profilePersistConfig, profileReducer);
 const persistedPayments = persistReducer(paymentPersistConfig, paymentsReducer);
 const persistedUserRegister = persistReducer(registerUserPersistConfig, registerUserReducer);
+const persistedApplicationStateReducer = persistReducer(
+  applicationStatePersistConfig,
+  applicationStateReducer,
+);
 
 const reducers = combineReducers({
   theme: persistedTheme,
@@ -67,6 +73,7 @@ const reducers = combineReducers({
   teraWallet: teraWalletReducer,
   loan: loanReducer,
   registerUser: persistedUserRegister,
+  applicationState: persistedApplicationStateReducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [dashboardAPI.reducerPath]: dashboardAPI.reducer,
   [productsAPI.reducerPath]: productsAPI.reducer,

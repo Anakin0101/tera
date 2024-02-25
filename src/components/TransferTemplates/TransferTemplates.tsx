@@ -12,6 +12,7 @@ export const TransferTemplates = ({
   selectedData,
   setSelectedData,
   fromPin,
+  setChosenTemplateIban,
 }: any) => {
   const styles = useStyles();
 
@@ -26,6 +27,7 @@ export const TransferTemplates = ({
             fromOtherBanks={fromOtherBanks}
             selectedData={selectedData}
             setSelectedData={setSelectedData}
+            setChosenTemplateIban={setChosenTemplateIban}
           />
         ) : (
           <Template

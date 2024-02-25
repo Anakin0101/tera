@@ -5,5 +5,5 @@ export type RenderItem = ListRenderItem<AutomPaymentRes>;
 
 export type ItemProps = {
   item: AutomPaymentRes;
-  onPress: () => void;
+  onPress: (id: number, imageId: string) => void;
 };

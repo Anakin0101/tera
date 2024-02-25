@@ -200,6 +200,7 @@ export enum FinancialTransferTypeEnum {
   ToSomeoneOutOfGeorgia = 5,
   ToTreasury = 6,
   P2pTransfer = 7,
+  P2p = 17,
 }
 export enum TransferTemplateTypeEnum {
   Exchange = 1,

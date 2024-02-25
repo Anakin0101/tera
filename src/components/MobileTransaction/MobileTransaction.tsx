@@ -1,5 +1,5 @@
-import { View, ScrollView } from 'react-native';
-import React, { useCallback, useEffect } from 'react';
+import { View, ScrollView, Pressable, TextInput as RNInput } from 'react-native';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { TextInput, Text, Button, TransferTemplates, LoadingView } from 'components';
 import { useStyles } from './MobileTransaction.styles';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
@@ -13,14 +13,36 @@ import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { MOBILE, mobileNumberRegex } from 'constants/transactionConstants';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import useBankIcons from 'components/IbanTransaction/useIban';
-import { getMobileNumberWithPrefix } from 'utils/transactionUtils/getMobileNumberWithPrefix';
-
+import { useTranslation } from 'react-i18next';
+// import { useForm } from 'react-hook-form';
+// import { RecepientNumberType } from './MobileTransaction.types';
+// import { REGEX } from 'constants/index';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
+import { useKeyboard } from 'utils/useKeyboard';
+import { Contact } from 'assets/SVGs';
+import { checkContactsPermissions } from 'utils/persmissionChecker';
+import { pickContact } from 'react-native-contact-pick';
+import { useIsFocused } from '@react-navigation/native';
+import { openToast } from 'utils/toast';
 const MobileTransaction = () => {
+  const { t } = useTranslation();
+  const inputRef = useRef<RNInput>(null);
+  const isFocused = useIsFocused();
   const { navigate } =
     useNavigation<TransactionsStackScreenProps<'TransferToOtherBankAccountScreen'>>();
   const dispatch = useAppDispatch();
 
   const styles = useStyles();
+  const { isKeyboardOpened } = useKeyboard();
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<RecepientNumberType>({
+  //   defaultValues: {
+  //     number: '',
+  //   },
+  // });
 
   const {
     templates,
@@ -46,10 +68,10 @@ const MobileTransaction = () => {
     MOBILE_NUMBER_LENGTH,
   );
   const selectTemplate = useCallback(
-    (pin: any) => {
+    (pin: string) => {
       setSelectedData(pin);
       setTypedAccountName(pin);
-      handleMobileNumber(getMobileNumberWithPrefix(pin));
+      handleMobileNumber(pin);
       setApiCallInitiated(true);
       dispatch(setAccountToData({ pin: pin }));
       dispatch(setTemplateForIban(pin));
@@ -57,23 +79,38 @@ const MobileTransaction = () => {
     [setSelectedData, setTypedAccountName, handleMobileNumber, setApiCallInitiated, dispatch],
   );
 
-  useEffect(() => {
-    dispatch(
-      setAccountToData({
-        name: data?.customerName,
-        iban: selectedData || typedAccountName,
-      }),
-    );
-    dispatch(setReceiverInfo(data));
-  }, [data, dispatch, selectedData, typedAccountName]);
+  const resetUI = useCallback(() => {
+    setSelectedData('');
+    setApiCallInitiated(false);
+    dispatch(setAccountToData({ pin: '' }));
+  }, [setSelectedData, setApiCallInitiated, dispatch]);
 
-  const handleChange = (value: string) => {
-    const uppercaseValue = value.toUpperCase();
-    if (value.length <= MOBILE_NUMBER_LENGTH) {
-      setTypedAccountName(uppercaseValue);
-      debouncedHandleChange(uppercaseValue);
+  useEffect(() => {
+    if (apiCallInitiated) {
+      dispatch(
+        setAccountToData({
+          name: data?.customerName,
+          iban: selectedData || typedAccountName,
+        }),
+      );
+      dispatch(setReceiverInfo(data));
     }
-  };
+  }, [data, dispatch, selectedData, typedAccountName, apiCallInitiated]);
+
+  const handleChange = useCallback(
+    (value: string | null | undefined) => {
+      const stringValue = value ?? '';
+
+      if (stringValue.length <= MOBILE_NUMBER_LENGTH) {
+        setTypedAccountName(stringValue);
+        debouncedHandleChange(stringValue);
+      }
+      if (stringValue.length < MOBILE_NUMBER_LENGTH) {
+        resetUI();
+      }
+    },
+    [resetUI, setTypedAccountName, debouncedHandleChange, MOBILE_NUMBER_LENGTH],
+  );
 
   useEffect(() => {
     if (
@@ -89,10 +126,9 @@ const MobileTransaction = () => {
   }, [debouncedAccountName, handleMobileNumber, previousAccountName]);
 
   const filteredTemplates = templates?.templates.filter(
-    item =>
-      item.type === FinancialTransferTypeEnum.ToSomeoneInsideBank &&
-      item.bankInternal?.personalId !== null,
+    item => item.type === FinancialTransferTypeEnum.P2p,
   );
+
   const navigateToTransferScreen = () => {
     if (isSuccess) {
       navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
@@ -101,48 +137,107 @@ const MobileTransaction = () => {
       });
     }
   };
+  useEffect(() => {
+    if (isFocused) {
+      setTimeout(() => {
+        inputRef?.current?.focus();
+      }, 300);
+    }
+  }, [isFocused]);
+
+  const getContactList = useCallback(async () => {
+    try {
+      const checkPermission = await checkContactsPermissions();
+      if (checkPermission) {
+        const res = await pickContact();
+        const mobileNumber = res?.phoneNumbers?.find(p => p.type === 'mobile')?.number;
+        if (mobileNumber) {
+          const formattedNumber = mobileNumber.replace(/\D/g, '');
+          handleChange(formattedNumber);
+        }
+      }
+    } catch (ex) {
+      console.warn(ex);
+      openToast(`${t('transactionDetails.validContact')}`, 'error');
+    }
+  }, [handleChange, t]);
 
   if (temlpatesLoading) {
     return <LoadingView />;
   }
 
   return (
-    <ScrollView style={styles.scroll}>
-      <Text children="personalNumber.Recepient" size={18} demiBold />
-      {apiCallInitiated && data ? (
-        <View>
-          <DetailsItem label="personalNumber.mobile" value={typedAccountName} underline />
-          <DetailsItem label="personalNumber.Address" value={data.customerName} underline />
+    <KeyboardAvoidingScrollView
+      scrollEnabled={isKeyboardOpened}
+      containerStyle={styles.keyboardContainer}
+      stickyFooter={
+        <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
+          <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
         </View>
-      ) : (
-        <>
-          <TextInput
-            inputStyle={styles.inputStyle}
-            label="personalNumber.Recepient"
-            value={typedAccountName}
-            maxLength={22}
-            onChangeText={value => handleChange(value)}
-            marginTop={32}
-            autoFocus
-          />
-          {isError && <Text children={isError} />}
-          <View style={styles.template}>
-            <TransferTemplates
-              fromOtherBanks
-              setTypedAccountName={setTypedAccountName}
-              selectedData={selectedData}
-              setSelectedData={selectTemplate}
-              templates={filteredTemplates}
-              temlpatesLoading={temlpatesLoading}
-              fromPin
-            />
+      }
+    >
+      <ScrollView style={styles.scroll}>
+        <Text children="personalNumber.Iban" size={18} demiBold />
+        {/* <ControlledInput
+          control={control}
+          value={typedAccountName}
+          name="number"
+          label="personalNumber.RecepientNumber"
+          maxLength={22}
+          marginTop={24}
+          errors={errors}
+          autoFocus
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+            pattern: {
+              value: REGEX.MAX_LENGTH_9,
+              message: 'common:form.9_digits_required',
+            },
+          }}
+          handleChange={(value: string | null | undefined) => handleChange(value)}
+        /> */}
+        <TextInput
+          inputStyle={styles.inputStyle}
+          label="personalNumber.mobile"
+          value={typedAccountName}
+          maxLength={22}
+          ref={inputRef}
+          onChangeText={(value: string | null | undefined) => handleChange(value)}
+          marginTop={32}
+          autoFocus
+        />
+
+        {apiCallInitiated && data ? (
+          <View>
+            <DetailsItem label="personalNumber.Address" value={data.customerName} underline />
           </View>
-        </>
-      )}
-      <View>
-        <Button.Primary text="personalNumber.next" onPress={navigateToTransferScreen} fullWidth />
-      </View>
-    </ScrollView>
+        ) : (
+          <>
+            <Pressable style={styles.chooseFromContactWrapper} onPress={getContactList}>
+              <Contact />
+              <Text
+                style={styles.chooseFromLabel}
+                children="chooseMobileProviderScreen.chooseFromContact"
+              />
+            </Pressable>
+            {isError && <Text children={isError} />}
+            <View style={styles.template}>
+              <TransferTemplates
+                fromOtherBanks
+                setTypedAccountName={handleChange}
+                selectedData={selectedData}
+                setSelectedData={selectTemplate}
+                templates={filteredTemplates}
+                temlpatesLoading={temlpatesLoading}
+              />
+            </View>
+          </>
+        )}
+      </ScrollView>
+    </KeyboardAvoidingScrollView>
   );
 };
 

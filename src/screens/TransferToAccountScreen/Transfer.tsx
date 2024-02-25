@@ -30,7 +30,7 @@ export const Transfer = ({
       <Text children="transfers.amount" />
       <View style={styles.inputWrapper}>
         <Text
-          children={getCurrencyIcon(accountFromData.ccy)}
+          children={getCurrencyIcon(accountFromData?.ccy)}
           style={styles.inputText}
           size={50}
           withoutLineHeight={true}

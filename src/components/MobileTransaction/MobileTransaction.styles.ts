@@ -3,7 +3,7 @@ import { useTheme } from 'hooks';
 import { config, horizontalScale } from 'utils/config';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing } = useTheme();
+  const { Colors, Layout, Spacing, FontSize, FontFamily } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -17,7 +17,52 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       height: '100%',
     },
-    inputView: { paddingVertical: 120 },
+    chooseFromContactWrapper: {
+      marginTop: Spacing.md,
+      ...Layout.rowHCenter,
+    },
+    chooseFromLabel: {
+      fontSize: FontSize.tiny,
+      lineHeight: 16,
+      letterSpacing: -0.2,
+      color: 'rgba(161, 35, 111, 1)',
+      fontFamily: FontFamily.medium,
+      marginLeft: Spacing.md,
+    },
+    inputContainer: {
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
+    },
+    inputWrapper: {
+      marginHorizontal: Spacing.xl,
+      flex: 0.7,
+    },
+    codeWrapper: {
+      bottom: -Spacing.xxs,
+    },
+    codeBorder: {
+      borderBottomColor: Colors.borderColor,
+      borderBottomWidth: 1,
+      paddingTop: Spacing.xl,
+    },
+    codeTitle: {
+      bottom: -Spacing.xl,
+      fontSize: FontSize.tiny,
+      lineHeight: 16,
+      letterSpacing: -0.2,
+      color: Colors.textGray400,
+      fontFamily: FontFamily.medium,
+      fontWeight: '400',
+    },
+    codeValue: {
+      bottom: -Spacing.xl,
+      fontSize: FontSize.regular,
+      lineHeight: 24,
+      letterSpacing: -0.2,
+      color: Colors.pinColor,
+      fontFamily: FontFamily.medium,
+      fontWeight: '400',
+    },
     inputStyle: { width: horizontalScale(250) },
     sectionListContent: {
       ...Layout.overflowHidden,
@@ -26,7 +71,7 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.ml,
       backgroundColor: Colors.white,
     },
-    template: { paddingVertical: Spacing.lg, marginLeft: -23 },
+    template: { paddingVertical: Spacing.lg },
     accountIban: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
@@ -36,6 +81,16 @@ export const useStyles = () => {
       borderBottomWidth: 1,
       paddingVertical: 5,
       borderBottomColor: Colors.inputBlack50,
+    },
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginBottom: Spacing.ml,
+    },
+    keyboardContainer: {
+      ...Layout.fill,
+    },
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
     },
   });
 };

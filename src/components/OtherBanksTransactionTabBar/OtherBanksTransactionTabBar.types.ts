@@ -33,8 +33,8 @@ export interface SelectedItem {
   accountIban: string | null;
   selectedTransactionType: {
     name: string;
-    isFast: boolean;
-    selected: number;
+    isFast: boolean | null;
+    selected: number | null;
   };
   setBudgetPerson: {
     payerCode: string;

@@ -30,10 +30,14 @@ export const Slider = <ItemT,>({
   const ref = useRef<FlatList>(null);
 
   const scrollTo = (idx: number) => {
-    ref?.current?.scrollToOffset({
-      offset: interval * idx,
-      animated: true,
-    });
+    try {
+      ref?.current?.scrollToOffset({
+        offset: interval * idx,
+        animated: false,
+      });
+    } catch (err) {
+      console.warn('Error in Slider method: scrollTo', err);
+    }
   };
 
   useEffect(() => {
@@ -79,6 +83,7 @@ export const Slider = <ItemT,>({
           contentContainerStyle={styles.contentContainer}
           onViewableItemsChanged={onViewableItemsChanged}
           viewabilityConfig={viewabilityConfig}
+          initialNumToRender={data?.length}
         />
       </View>
       <ActionButtons actions={actions} actionButtonsContainer={actionButtonsContainer} />
