@@ -93,6 +93,7 @@ import {
   ADD_CART_SCREEN,
   CART_LIST_SCREEN,
   CART_PAYMENT_LIST_SCREEN,
+  CART_PAYMENT_SUCCESS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -100,6 +101,8 @@ import {
   DebtVerifyResult,
   DebtVerifyBasketResponse,
   Basket,
+  PaymentResult,
+  ProviderItemProps,
   // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
@@ -181,6 +184,11 @@ export type ModalStackParamsList = {
   [CART_LIST_SCREEN]: undefined;
   [CART_PAYMENT_LIST_SCREEN]: {
     basket: Basket;
+  };
+  [CART_PAYMENT_SUCCESS_SCREEN]: {
+    paymentResults: Array<PaymentResult>;
+    sum: number;
+    providerItems: Array<ProviderItemProps>;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
 };

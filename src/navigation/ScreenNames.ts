@@ -41,6 +41,7 @@ export const CHOOSE_PAYMENT_PROVIDER_SCREEN = 'ChoosePaymentProviderScreen';
 export const CHECK_PAYMENT_PROVIDER_SCREEN = 'CheckPaymentProviderScreen';
 export const PAYMENT_DETAILS_SCREEN = 'PaymentDetailsScreen';
 export const PAYMENT_SUCCESS_SCREEN = 'PaymentSuccessScreen';
+export const CART_PAYMENT_SUCCESS_SCREEN = 'CartPaymentSuccessScreen';
 export const CHOOSE_PAYMENT_ACCOUNT_SCREEN = 'ChoosePaymentAccountScreen';
 export const CHOOSE_MOBILE_PROVIDER_SCREEN = 'ChooseMobileProviderScreen';
 export const ADD_CART_SCREEN = 'AddCartScreen';

@@ -25,6 +25,7 @@ import {
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   CART_LIST_SCREEN,
   CART_PAYMENT_LIST_SCREEN,
+  CART_PAYMENT_SUCCESS_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
   CHOOSE_MOBILE_PROVIDER_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
@@ -48,6 +49,7 @@ import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen
 import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
 import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
+import { CartPaymentSuccessScreen } from 'screens/CartPaymentSuccessScreen/CartPaymentSuccessScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -210,6 +212,15 @@ export const ModalNavigator = () => {
           headerStyle: {
             backgroundColor: Colors.white,
           },
+        }}
+      />
+      <Screen
+        name={CART_PAYMENT_SUCCESS_SCREEN}
+        component={CartPaymentSuccessScreen}
+        options={{
+          title: '',
+          headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Screen
