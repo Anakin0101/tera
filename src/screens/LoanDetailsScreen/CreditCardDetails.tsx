@@ -8,6 +8,7 @@ import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 
 import { useStyles } from './LoanDetailsScreen.styles';
 import { CreditCardDetailsProps } from './LoanDetailsScreen.types';
+import { DD_MM_YYYY_SLASH } from 'constants/DateTemplates';
 
 export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) => {
   const styles = useStyles();
@@ -64,7 +65,7 @@ export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) =>
       />
       <DetailsItem
         label="loans.paymentDeadline"
-        value={getFormattedDate(creditCard.paymentEndDate, 'DD/MM/YYYY')}
+        value={getFormattedDate(creditCard.paymentEndDate, DD_MM_YYYY_SLASH)}
       />
       <DetailsItem
         label="loans.totalPenalty"

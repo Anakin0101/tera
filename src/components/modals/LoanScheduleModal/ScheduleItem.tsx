@@ -6,7 +6,7 @@ import { formatMoney } from 'utils/formatMoney';
 import { ScheduleItemProps } from './LoanScheduleModal.types';
 import { useStyles } from './LoanScheduleModal.styles';
 import { getCurrencyIcon } from 'utils/currency';
-import { SEPARATED_BY_SLASH } from 'constants/DateTemplates';
+import { DD_MM_YYYY_SLASH } from 'constants/DateTemplates';
 
 export const ScheduleItem: FC<ScheduleItemProps> = ({ item, currency }) => {
   const styles = useStyles();
@@ -22,7 +22,7 @@ export const ScheduleItem: FC<ScheduleItemProps> = ({ item, currency }) => {
           <Text
             children={formatDateFullMonth(
               isSchedule ? item.nextPaymentDay : item.paymentDate,
-              !isSchedule ? SEPARATED_BY_SLASH : undefined,
+              !isSchedule ? DD_MM_YYYY_SLASH : undefined,
             )}
           />
           <View style={styles.amountView}>

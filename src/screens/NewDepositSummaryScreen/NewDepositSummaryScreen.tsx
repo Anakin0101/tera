@@ -7,6 +7,7 @@ import { getDateMonthsLater } from 'utils/formatDate';
 import { useStyles } from './NewDepositSummaryScreen.styles';
 import { Income, Percent, Timer } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
+import { DD_MM_YYYY_SLASH } from 'constants/DateTemplates';
 
 export const NewDepositSummaryScreen = () => {
   const styles = useStyles();
@@ -104,7 +105,7 @@ export const NewDepositSummaryScreen = () => {
             {!isSingleOption && (
               <DetailsItem
                 label="newDeposit.completionDate"
-                value={getDateMonthsLater(newDeposit?.duration, 'DD/MM/YYYY')}
+                value={getDateMonthsLater(newDeposit?.duration, DD_MM_YYYY_SLASH)}
               />
             )}
             {!isSingleOption && (
