@@ -20,6 +20,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [snapPoints, setSnapPoints] = useState<(string | number)[]>([initial_snapPoints]);
   const [hideHandle, setHideHandle] = useState(false);
   const [hideCloseButton, setHideCloseButton] = useState(false);
+  const [onCloseCallback, setOnCloseCallback] = useState<() => void | undefined>();
 
   const open = (options: ConfigureModal) => {
     setElement(options.element);
@@ -38,6 +39,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.hideHandle && setHideHandle(options.hideHandle);
     options.hideCloseButton && setHideCloseButton(options.hideCloseButton);
     modalRef?.current?.present();
+    setOnCloseCallback(options.onCloseCallback);
   };
 
   const close = () => {
@@ -47,6 +49,9 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const handleModalClose = () => {
     if (Keyboard.isVisible()) {
       Keyboard.dismiss();
+    }
+    if (onCloseCallback) {
+      onCloseCallback();
     }
     if (Platform.OS === 'ios') {
       handleClose();
