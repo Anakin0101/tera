@@ -189,7 +189,12 @@ export const CartPaymentListScreen = () => {
           }
         });
 
-        payService(selectedAccount.accountId, payments, Number(calculateTotalFee) + Number(sum));
+        payService(
+          selectedAccount.accountId,
+          payments,
+          Number(calculateTotalFee) + Number(sum),
+          selectedCartItemIds,
+        );
       }
     } catch (ex) {
       console.warn('payServiceOnPress', ex);

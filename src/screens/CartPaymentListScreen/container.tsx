@@ -63,7 +63,12 @@ export const useCartPaymentList = () => {
   }, []);
 
   const payService = useCallback(
-    async (accountId: number, payments: Array<Payment>, sum: number) => {
+    async (
+      accountId: number,
+      payments: Array<Payment>,
+      sum: number,
+      selectedCartItemIds: Array<string>,
+    ) => {
       try {
         const request: PayRequestBody = {
           otp: null,
@@ -91,12 +96,16 @@ export const useCartPaymentList = () => {
             return;
           }
         } else if ('data' in response && response.data.paymentResults) {
+          const newProviderItems = providerItems?.filter(el =>
+            selectedCartItemIds.includes(el?.id),
+          );
+
           navigate(MODAL_STACK, {
             screen: CART_PAYMENT_SUCCESS_SCREEN,
             params: {
               paymentResults: response.data.paymentResults,
               sum,
-              providerItems,
+              providerItems: newProviderItems,
             },
           });
         }
