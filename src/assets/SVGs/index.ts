@@ -129,6 +129,8 @@ export { Gambling } from './Gambling';
 export { Other } from './Other';
 export { Contact } from './Contact';
 export { Timer } from './Timer';
+export { ClearWhite } from './ClearWhite';
+export { Warning } from './Warning';
 export { Percent } from './Percent';
 export { FailedSvg } from './Failed';
 export { Forward } from './Forward';
