@@ -381,6 +381,8 @@
     "yes": "Yes",
     "addPayment": "Add Payment",
     "editName": "Edit Name",
+    "payed": "Payed",
+    "rejected": "Rejected",
     "successfullyOperation": "The operation was successfully performed",
     "edit": "Edit",
     "delete": "Delete"
@@ -601,7 +603,8 @@
     "automaticPay": "Automatic pay",
     "receiptShare": "Receipt share",
     "mainPage": "Return to main page",
-    "basketTitle": "Payment successfully was\n added"
+    "basketTitle": "Payment successfully was\n added",
+    "someItemRejected": "All templates could not be paid"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
