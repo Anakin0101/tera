@@ -78,3 +78,5 @@ Gemfile.lock
 
 # environment variables
 .env
+# Except for .env.local
+!.env.local
