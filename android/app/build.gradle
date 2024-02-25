@@ -1,3 +1,6 @@
+import java.util.regex.Pattern
+import java.util.regex.Matcher
+
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
@@ -79,7 +82,7 @@ android {
         applicationId "com.teramobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 17
+        versionCode 19
         versionName "1.0.0"
     }
     signingConfigs {
@@ -104,6 +107,22 @@ android {
     }
 }
 
+// auto increment for versionCode, when generating signed bundle APK
+task incrementVersionCode {
+    doLast {
+        File buildGradleFile = file("build.gradle")
+        String buildGradleContent = buildGradleFile.text
+        Matcher matcher = Pattern.compile('versionCode (\\d+)').matcher(buildGradleContent)
+        
+        if (matcher.find()) {
+            String updatedContent = matcher.replaceAll({ m ->
+                "versionCode " + (Integer.parseInt(m.group(1)) + 1).toString()
+            })
+            buildGradleFile.text = updatedContent
+        }
+    }
+}
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
@@ -115,5 +134,7 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+preBuild.dependsOn(incrementVersionCode)
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
