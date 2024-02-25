@@ -70,6 +70,7 @@ export const Colors = {
   actionSheetBg: 'rgb(219,219,219)',
   actionSheetBorder: 'rgb(167,167,167)',
   blue: '#1D5AF2',
+  lightGreen: 'rgba(128, 195, 66, 0.08)',
   lightBlue: '#F3F5FF',
 };
 
