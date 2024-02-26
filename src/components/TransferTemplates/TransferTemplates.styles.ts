@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-
+import { config } from 'utils/config';
 export const useStyles = () => {
   const { Layout, Spacing, Colors } = useTheme();
 
@@ -36,6 +36,12 @@ export const useStyles = () => {
     details: {
       ...Layout.fill,
       marginLeft: Spacing.m,
+    },
+    scroll: {
+      width: config.mobileWidth,
+      paddingHorizontal: Spacing.xl,
+      backgroundColor: Colors.white,
+      height: '100%',
     },
     seeAll: {
       borderWidth: 1,

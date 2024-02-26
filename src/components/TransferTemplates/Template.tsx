@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'hooks';
 import { Divider, Text } from '../index';
 import { useStyles } from './TransferTemplates.styles';
@@ -16,16 +16,21 @@ const Template: FC<ITemplateProps> = ({
   const styles = useStyles();
   const { Colors } = useTheme();
 
-  const bankData = item.bankExternal || item.bankInternal || item.internal;
-
+  const bankData = item.bankExternal || item.bankInternal || item.internal || item.p2pTransfer;
   const choseTemplate = () => {
     if (fromPin && setChosenTemplateIban) {
       setChosenTemplateIban(bankData?.creditIban);
     }
-    setSelectedData(fromPin ? bankData?.personalId : bankData?.creditIban || bankData?.debitIban);
+    setSelectedData(
+      fromPin
+        ? bankData?.personalId
+        : bankData.mobile
+        ? bankData.mobile
+        : bankData?.creditIban || bankData?.debitIban,
+    );
   };
   return (
-    <>
+    <ScrollView contentContainerStyle={styles.scroll} showsHorizontalScrollIndicator={false}>
       {!fromOtherBanks ? (
         <>
           <View style={styles.templateWrapper}>
@@ -51,7 +56,7 @@ const Template: FC<ITemplateProps> = ({
           </View>
         </TouchableOpacity>
       )}
-    </>
+    </ScrollView>
   );
 };
 

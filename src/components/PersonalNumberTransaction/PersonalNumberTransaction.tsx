@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
-import { ControlledInput, Text, Button, TransferTemplates, LoadingView, Image } from 'components';
+import { TextInput, Text, Button, TransferTemplates, LoadingView, Image } from 'components';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useStyles } from './PersonalNumberTransaction.styles';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
@@ -21,22 +21,22 @@ import { SelectedItemProp } from 'screens/TransferDetailScreen/TransferDetailScr
 import { maskIban } from 'utils/maskIban';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
-import { useForm } from 'react-hook-form';
-import { RecepientNumberType } from './PersonalNumberTransaction.types';
-import { REGEX } from 'constants/index';
+// import { useForm } from 'react-hook-form';
+// import { RecepientNumberType } from './PersonalNumberTransaction.types';
+// import { REGEX } from 'constants/index';
 
 const PersonalNumberTransaction = () => {
   const { isKeyboardOpened } = useKeyboard();
   const [chosenTemplateIban, setChosenTemplateIban] = useState('');
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RecepientNumberType>({
-    defaultValues: {
-      RecepientNumber: '',
-    },
-  });
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<RecepientNumberType>({
+  //   defaultValues: {
+  //     RecepientNumber: '',
+  //   },
+  // });
   const { navigate } =
     useNavigation<TransactionsStackScreenProps<'TransferToOtherBankAccountScreen'>>();
   const dispatch = useAppDispatch();
@@ -197,14 +197,14 @@ const PersonalNumberTransaction = () => {
             fullWidth
             disabled={!chosenAccount}
             hitSlop={15}
-            onPress={handleSubmit(navigateToTransferScreen)}
+            onPress={navigateToTransferScreen}
           />
         </View>
       }
     >
       <ScrollView style={styles.scroll}>
         <Text children="personalNumber.Recepient" size={18} demiBold />
-        <ControlledInput
+        {/* <ControlledInput
           control={control}
           value={typedAccountName}
           name="RecepientNumber"
@@ -224,6 +224,15 @@ const PersonalNumberTransaction = () => {
             },
           }}
           handleChange={(value: string | null | undefined) => handleChange(value)}
+        /> */}
+        <TextInput
+          inputStyle={styles.inputStyle}
+          label="personalNumber.RecepientNumber"
+          value={typedAccountName}
+          maxLength={22}
+          onChangeText={(value: string | null | undefined) => handleChange(value)}
+          marginTop={32}
+          autoFocus
         />
         {apiCallInitiated && data ? (
           <View>

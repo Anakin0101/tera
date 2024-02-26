@@ -1,6 +1,6 @@
-import { KeyboardTypeOptions, StyleProp, TextStyle } from 'react-native';
+import { KeyboardTypeOptions, StyleProp, TextStyle, TextInput as RNTextInput } from 'react-native';
 import { FieldErrors, FieldValues, UseControllerProps } from 'react-hook-form';
-
+import { RefObject } from 'react';
 export type TextInputProps = {
   value?: string;
   label?: string;
@@ -22,6 +22,7 @@ export type TextInputProps = {
   onChangeText?: (value: string) => void;
   errorMessage?: string;
   showErrorUI?: boolean;
+  ef?: RefObject<RNTextInput>;
 };
 
 type ControlledInputType = {

@@ -23,7 +23,7 @@ export const useLoanDetails = (index: number) => {
   const onSchedulePress = useCallback(() => {
     if ('creditId' in loan) {
       openModal({
-        element: <LoanScheduleModal creditId={loan.creditId} />,
+        element: <LoanScheduleModal creditId={loan.creditId} currency={loan.currency} />,
         title: 'loans.schedule',
         hideHandle: true,
         disableDynamicSizing: true,
@@ -35,7 +35,9 @@ export const useLoanDetails = (index: number) => {
   const onHistoryPress = useCallback(() => {
     if ('creditId' in loan) {
       openModal({
-        element: <LoanScheduleModal creditId={loan.creditId} showHistory />,
+        element: (
+          <LoanScheduleModal creditId={loan.creditId} showHistory currency={loan.currency} />
+        ),
         title: 'loans.history',
         hideHandle: true,
         disableDynamicSizing: true,
