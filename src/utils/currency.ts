@@ -1,12 +1,14 @@
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+
 export const getCurrencyIcon = (currency?: string) => {
   switch (currency) {
-    case 'GEL':
+    case CurrencyEnum.GEL:
       return '₾';
-    case 'USD':
+    case CurrencyEnum.USD:
       return '$';
-    case 'EUR':
+    case CurrencyEnum.EUR:
       return '€';
-    case 'GBP':
+    case CurrencyEnum.GBP:
       return '£';
 
     default:

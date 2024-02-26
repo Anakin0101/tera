@@ -15,6 +15,7 @@ import {
   CARD_ORDER_TYPE_SCREEN,
   TARIFF_PACKAGES_SCREEN,
 } from 'navigation/ScreenNames';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -29,14 +30,14 @@ export const useTeraProducts = () => {
     if (!deposits) {
       return 0;
     }
-    const filtered = deposits.filter(deposit => deposit.currency === 'GEL');
+    const filtered = deposits.filter(deposit => deposit.currency === CurrencyEnum.GEL);
     return calculateSum(filtered, 'amount');
   }, [deposits]);
 
   const totalLoans = useMemo(() => {
-    const loansInGEL = loans.filter(loan => loan.currency === 'GEL');
-    const overdraftsInGEL = overdrafts.filter(overdraft => overdraft.currency === 'GEL');
-    const creditCardGEL = creditCards.filter(cc => cc.currency === 'GEL');
+    const loansInGEL = loans.filter(loan => loan.currency === CurrencyEnum.GEL);
+    const overdraftsInGEL = overdrafts.filter(overdraft => overdraft.currency === CurrencyEnum.GEL);
+    const creditCardGEL = creditCards.filter(cc => cc.currency === CurrencyEnum.GEL);
 
     const loansSum = calculateSum(loansInGEL, 'totalDebt');
     const overdraftsSum = calculateSum(overdraftsInGEL, 'totalDebt');

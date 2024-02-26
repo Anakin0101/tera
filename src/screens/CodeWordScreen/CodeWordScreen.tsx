@@ -78,6 +78,7 @@ export const CodeWordScreen = () => {
           name="secretWord"
           label="registration.code_word"
           errors={errors}
+          secureTextEntry
           keyboardType={'default'}
           rules={{
             required: {

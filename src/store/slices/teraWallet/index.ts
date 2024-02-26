@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TeraWalletStateProps, WalletDataPayload } from './types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const initialState: TeraWalletStateProps = {
   accountId: null,
   amountId: null,
-  currency: 'GEL',
+  currency: CurrencyEnum.GEL,
 };
 
 const teraWalletSlice = createSlice({

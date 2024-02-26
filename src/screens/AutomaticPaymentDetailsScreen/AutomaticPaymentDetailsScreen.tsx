@@ -8,7 +8,7 @@ import { HeaderProps } from './AutomaticPaymentDetailsScreen.types';
 import { useStyles } from './AutomaticPaymentDetailsScreen.styles';
 import { AutoPaymentTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { getFormattedDate, getFormattedDateFromISO } from 'utils/formatDate';
-import { SEPARATED_BY_SLASH } from 'constants/DateTemplates';
+import { DD_MM_YYYY_SLASH } from 'constants/DateTemplates';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const Header: FC<HeaderProps> = ({ onPress, name, amount = 0, imageId }) => {
@@ -93,20 +93,20 @@ export const AutomaticPaymentDetailsScreen = () => {
         )}
         <DetailsItem
           label="automaticPayments.startDate"
-          value={getFormattedDateFromISO(paymentDetails?.startDate, SEPARATED_BY_SLASH)}
+          value={getFormattedDateFromISO(paymentDetails?.startDate, DD_MM_YYYY_SLASH)}
           valueStyle={styles.text}
         />
         {!!paymentDetails?.endDate && (
           <DetailsItem
             label="automaticPayments.endDate"
-            value={getFormattedDateFromISO(paymentDetails?.endDate, SEPARATED_BY_SLASH)}
+            value={getFormattedDateFromISO(paymentDetails?.endDate, DD_MM_YYYY_SLASH)}
             valueStyle={styles.text}
           />
         )}
         {!!paymentDetails?.lastPayDate && (
           <DetailsItem
             label="automaticPayments.lastPaymenDate"
-            value={getFormattedDate(paymentDetails?.lastPayDate, SEPARATED_BY_SLASH)}
+            value={getFormattedDate(paymentDetails?.lastPayDate, DD_MM_YYYY_SLASH)}
             valueStyle={styles.text}
           />
         )}
