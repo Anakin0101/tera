@@ -7,3 +7,4 @@ export const D = 'D';
 export const DD = 'DD';
 export const MMM = 'MMM';
 export const SEPARATED_BY_SLASH = 'DD/MM/YYYY';
+export const SPACED_YEAR = ' YYYY';

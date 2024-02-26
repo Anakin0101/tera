@@ -2,36 +2,37 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Divider, Text } from 'components';
 import { Colors } from 'theme/Variables';
-import { CurrencySignMap } from 'utils/CurrencySignMap';
 import { NextPaymentProps } from './LoanDetailsScreen.types';
 import { useStyles } from './LoanDetailsScreen.styles';
+import { formatMoney } from 'utils/formatMoney';
 
 export const NextPayment: FC<NextPaymentProps> = ({
   currency,
   nextPaymentAmount,
   nextPaymentDate,
+  isCreditCardOrOverdraft,
 }) => {
   const styles = useStyles();
 
+  if (isCreditCardOrOverdraft) {
+    return null;
+  }
+
   return (
-    <>
+    <View>
       <View style={styles.nextPaymentWrapper}>
         <View style={styles.nextPaymentContainer}>
           <View style={styles.nextIcon} />
           <View>
             <Text children="loans.next" color={Colors.textBlack500} />
             <View style={styles.nextPaymentDate}>
-              <Text
-                children={`${CurrencySignMap[currency]}${nextPaymentAmount}`}
-                size={16}
-                medium
-              />
+              <Text children={formatMoney(nextPaymentAmount, currency)} size={16} medium />
               <Text label children={nextPaymentDate} special />
             </View>
           </View>
         </View>
       </View>
       <Divider />
-    </>
+    </View>
   );
 };

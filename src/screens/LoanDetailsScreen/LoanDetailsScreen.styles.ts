@@ -60,6 +60,10 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.xl,
       paddingVertical: Spacing.xlg,
     },
+    borderTopRadius: {
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
+    },
     agreementButton: {
       borderWidth: 1,
       borderRadius: 52,
@@ -106,7 +110,7 @@ export const useStyles = () => {
       ...Layout.justifyContentBetween,
     },
     titleContainer: {
-      ...Layout.fill,
+      ...Layout.center,
     },
     collapsibleHeaderWrapper: {
       height: 60,
@@ -131,6 +135,12 @@ export const useStyles = () => {
     },
     actionButtons: {
       ...Layout.justifyContentBetween,
+    },
+    alignEnd: {
+      ...Layout.alignSelfEnd,
+    },
+    fill: {
+      ...Layout.fill,
     },
   });
 };

@@ -27,15 +27,13 @@ export const useStyles = () => {
     },
     pdf: {
       ...Layout.rowHCenter,
+      ...Layout.alignSelfEnd,
       backgroundColor: Colors.pink,
       gap: Spacing.xs,
       paddingHorizontal: 14,
       paddingVertical: Spacing.s,
       borderRadius: Spacing.xlm,
-    },
-    total: {
-      ...Layout.rowHCenter,
-      ...Layout.justifyContentBetween,
+      marginTop: Spacing.l,
     },
     loader: {
       ...Layout.fullHeight,

@@ -23,7 +23,7 @@ export const useLoanDetails = (index: number) => {
   const onSchedulePress = useCallback(() => {
     if ('creditId' in loan) {
       openModal({
-        element: <LoanScheduleModal creditId={loan.creditId} />,
+        element: <LoanScheduleModal creditId={loan.creditId} currency={loan.currency} />,
         title: 'loans.schedule',
         hideHandle: true,
         disableDynamicSizing: true,
@@ -35,7 +35,9 @@ export const useLoanDetails = (index: number) => {
   const onHistoryPress = useCallback(() => {
     if ('creditId' in loan) {
       openModal({
-        element: <LoanScheduleModal creditId={loan.creditId} showHistory />,
+        element: (
+          <LoanScheduleModal creditId={loan.creditId} currency={loan.currency} showHistory />
+        ),
         title: 'loans.history',
         hideHandle: true,
         disableDynamicSizing: true,
@@ -123,6 +125,10 @@ export const useLoanDetails = (index: number) => {
     ];
   }, [loan, onHistoryPress, onSchedulePress]);
 
+  const isCreditCardOrOverdraft = useMemo(() => {
+    return 'overdraftLimit' in loan || 'creditLimit' in loan;
+  }, [loan]);
+
   return {
     loans,
     activeIndex,
@@ -130,5 +136,6 @@ export const useLoanDetails = (index: number) => {
     actions,
     loan,
     data,
+    isCreditCardOrOverdraft,
   };
 };

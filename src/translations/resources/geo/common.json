@@ -302,7 +302,7 @@
     "period": "ვადა",
     "restCreditPeriod": "დარჩენილი გადახდები",
     "startDate": "გაცემის თარიღი",
-    "endDate": "დასრულების დარიღი",
+    "endDate": "დასრულების თარიღი",
     "status": "სესხის სტატუსი",
     "usedAmount": "ათვისებული თანხა",
     "notUsedAmount": "აუთვისებელი თანხა",
@@ -317,6 +317,7 @@
     "overdueInterestAmount": "ვადაგადაცილებული პროცენტი",
     "overdueInterestPenalty": "ჯარიმა ვადაგადაცილებულ პროცენტზე",
     "defferdPrincipalAmount": "გადავადებული ძირი",
+    "defferdInterestAmount": "გადავადებული პროცენტი",
     "allDebt": "ჯამური დავალიანება",
     "creditPeriod": "{{value}} თვე",
     "billingDay": "დაანგარიშების რიცხვი",
@@ -330,21 +331,26 @@
     "operations": "ოპერაციები",
     "cover": "დაფარვა",
     "prepayment": "წინსწრებით დაფარვა",
-    "iban": "სესხის მომსახურე ანგარიში"
+    "iban": "სესხის მომსახურე ანგარიში",
+    "accountName": "ანგარიშის სახელი",
+    "accNumber": "ანგარიშის ნომერი",
+    "accType": "ანგარიშის ტიპი",
+    "cardAcc": "საბარათე"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
     "totalPaid": "სულ გადახდილი",
     "principal": "ძირი: {{value}}",
     "interest": "პროცენტი: {{value}}",
-    "commission": "საკომისიო: {{value}}"
+    "commission": "განარტიის საკომისიო: {{value}}"
   },
   "creditStatus": {
     "current": "აქტიური",
     "late": "დაგვიანებული",
     "overdue": "ვადაგადაცილებული",
     "writtenOff": "ჩამოწერილი",
-    "Closed": "დასრულებული"
+    "Closed": "დასრულებული",
+    "expired": "ვადაგასული"
   },
   "common": {
     "save": "დამახსოვრება",
