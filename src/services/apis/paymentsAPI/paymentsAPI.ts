@@ -18,12 +18,22 @@ import {
   AutoPaymentReq,
   AutoPaymentCancelReq,
   AddAutoPaymentRes,
+  GetBasketResponse,
+  AddBasketResponse,
+  AddBasketRequest,
+  BasketItemsResponse,
+  GetBasketItemsRequestParams,
+  AddBasketItemRequestParams,
+  AddBasketItemRequestResponse,
+  EditBasketRequestParams,
+  DeleteBasketRequestBody,
+  DeleteBasketItemRequestParams,
 } from './paymentsAPI.types';
 
 export const paymentsAPI = createApi({
   reducerPath: 'paymentsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Payments', 'AutoPayments'],
+  tagTypes: ['Payments', 'AutoPayments', 'Baskets'],
   endpoints: builder => ({
     getPaymentServices: builder.query<GetPaymentsServiceResponse, GetPaymentsServiceParams>({
       query: ({ isAdult }) => ({
@@ -86,6 +96,68 @@ export const paymentsAPI = createApi({
       }),
       invalidatesTags: ['AutoPayments'],
     }),
+    getBasketsServices: builder.query<GetBasketResponse, void>({
+      query: () => ({
+        url: URLS.getBaskets,
+        method: METHOD_NAMES.GET,
+      }),
+      providesTags: ['Baskets'],
+    }),
+    addBasketService: builder.mutation<AddBasketResponse, AddBasketRequest>({
+      query: ({ name }) => ({
+        url: URLS.addBasket,
+        method: METHOD_NAMES.POST,
+        params: { name },
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
+    getBasketItems: builder.query<BasketItemsResponse, GetBasketItemsRequestParams>({
+      query: params => ({
+        url: URLS.getBasketItems,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+      providesTags: ['Baskets'],
+    }),
+    addBasketItem: builder.mutation<AddBasketItemRequestResponse, AddBasketItemRequestParams>({
+      query: body => ({
+        url: URLS.addBasketItem,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
+    renameBasket: builder.mutation<AddBasketItemRequestResponse, EditBasketRequestParams>({
+      query: params => ({
+        url: URLS.renameBasket,
+        method: METHOD_NAMES.POST,
+        params,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
+    deleteBasket: builder.mutation<AddBasketItemRequestResponse, DeleteBasketRequestBody>({
+      query: body => ({
+        url: URLS.deleteBasket,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
+    debtVerifyBasket: builder.mutation<DebtVerifyInfoResponse, DebtVerifyRequestBody>({
+      query: body => ({
+        url: URLS.debtVerifyBasket,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+    deleteBasketItems: builder.mutation<DebtVerifyInfoResponse, DeleteBasketItemRequestParams>({
+      query: body => ({
+        url: URLS.deleteBasketItems,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Baskets'],
+    }),
   }),
 });
 
@@ -98,4 +170,12 @@ export const {
   useGetAutoPaymentDetailsMutation,
   useAddAutomaticPaymentMutation,
   useCancelAutoPaymentMutation,
+  useGetBasketsServicesQuery,
+  useAddBasketServiceMutation,
+  useGetBasketItemsQuery,
+  useAddBasketItemMutation,
+  useRenameBasketMutation,
+  useDeleteBasketMutation,
+  useDebtVerifyBasketMutation,
+  useDeleteBasketItemsMutation,
 } = paymentsAPI;

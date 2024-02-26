@@ -74,6 +74,7 @@ export const Colors = {
   tariffPrice: 'rgba(183, 183, 183, 0.98)',
   greyText: 'rgba(29, 29, 29, 0.40)',
   pandingYellow: 'rgb(204, 189, 49)',
+  lightGreen: 'rgba(128, 195, 66, 0.08)',
   packagesOverlay: 'rgba(245, 245, 245, 0.6)',
 };
 

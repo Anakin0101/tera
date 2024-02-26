@@ -20,7 +20,6 @@ export const useStyles = () => {
       fontFamily: FontFamily.medium,
     },
     listWrapper: {
-      paddingHorizontal: Spacing.xl,
       marginTop: Spacing.xlm,
     },
     itemWrapper: {

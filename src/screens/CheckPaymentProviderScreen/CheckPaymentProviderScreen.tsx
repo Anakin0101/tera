@@ -1,17 +1,11 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 
 import { Button, LoadingView, PaymentFieldInput, SubscriberInfo, Text } from 'components/index';
 import { useStyles } from './CheckPaymentProviderScreen.style';
-import { MainStackScreenProps } from 'navigation/types';
-import { SELECTED_LANGUAGE } from 'storage/constants';
-import { getValue } from 'storage/index';
-import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { useCheckProviderInfo } from './container';
 import { DebtVerifyBasketResponse } from 'services/apis/paymentsAPI/paymentsAPI.types';
-import { CHOOSE_PAYMENT_ACCOUNT_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 
 import { useForm } from 'react-hook-form';
@@ -19,16 +13,12 @@ import { useForm } from 'react-hook-form';
 export const CheckPaymentProviderScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { setOptions } = useNavigation();
-  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const savedLanguage = getValue(SELECTED_LANGUAGE);
 
   const {
     debtVerifyBasketInfo,
@@ -41,28 +31,11 @@ export const CheckPaymentProviderScreen = () => {
     isKeyboardOpened,
     providerItem,
     isAutomaticPayment,
+    openChoosePaymentAccountScreenOnPress,
+    basket,
+    isAddBasketItemLoading,
+    clearDebtVerifyInfo,
   } = useCheckProviderInfo();
-
-  const headerTitle = useMemo(() => {
-    // Initialize title with an empty string
-    let title = '';
-    // Check if the selected language is 'geo'
-    if (savedLanguage === LanguageKeys.geo) {
-      // Use the Georgian name if available, otherwise use an empty string
-      title = providerItem?.name?.ka || '';
-    } else {
-      // Use the English name if available, otherwise use an empty string
-      title = providerItem?.name?.en || '';
-    }
-    // Return the calculated title
-    return title;
-  }, [providerItem?.name?.en, providerItem?.name?.ka, savedLanguage]);
-
-  useLayoutEffect(() => {
-    setOptions({
-      title: headerTitle,
-    });
-  }, [setOptions, headerTitle]);
 
   /**
    * React hook to update the subscriberFieldsValue based on the debtVerifyBasketInfo.
@@ -101,6 +74,8 @@ export const CheckPaymentProviderScreen = () => {
         item={item}
         value={subscriberFieldsValue.find(field => field.id === item.id)?.value || ''}
         onChangeText={(id, text) => {
+          // clear old debt verify info
+          clearDebtVerifyInfo();
           // Update the subscriberFieldsValue state with the new text for the specified id.
           setSubscriberFieldsValue(prev => {
             const updatedFields = [...prev];
@@ -121,7 +96,14 @@ export const CheckPaymentProviderScreen = () => {
         errors={errors}
       />
     ));
-  }, [control, debtVerifyBasketInfo, errors, subscriberFieldsValue, setSubscriberFieldsValue]);
+  }, [
+    debtVerifyBasketInfo,
+    subscriberFieldsValue,
+    control,
+    errors,
+    clearDebtVerifyInfo,
+    setSubscriberFieldsValue,
+  ]);
 
   const checkSubscriberInfo = useCallback(() => {
     /**
@@ -133,15 +115,11 @@ export const CheckPaymentProviderScreen = () => {
     // If any field has an empty value, return early without invoking getDebtVerifyResultsHandler.
     if (areAllNonEmpty) {
       if (debtVerifyResults?.length) {
-        navigate(MODAL_STACK, {
-          screen: CHOOSE_PAYMENT_ACCOUNT_SCREEN,
-          params: {
-            providerItem,
-            debtVerifyBasketInfo,
-            debtVerifyResults,
-            subscriberFieldsValue,
-          },
-        });
+        /**
+         * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
+         * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
+         */
+        openChoosePaymentAccountScreenOnPress(subscriberFieldsValue);
       } else {
         /**
          * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
@@ -152,10 +130,8 @@ export const CheckPaymentProviderScreen = () => {
     }
   }, [
     subscriberFieldsValue,
-    debtVerifyResults,
-    navigate,
-    providerItem,
-    debtVerifyBasketInfo,
+    debtVerifyResults?.length,
+    openChoosePaymentAccountScreenOnPress,
     getDebtVerifyResultsHandler,
   ]);
 
@@ -174,10 +150,10 @@ export const CheckPaymentProviderScreen = () => {
       stickyFooter={
         <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
           <Button.Primary
-            text="common.next"
+            text={basket && debtVerifyResults?.length ? 'checkPaymentProvider.add' : 'common.next'}
             onPress={handleSubmit(onSubmit)}
             fullWidth
-            isLoading={isLoading || isDebtVerifyLoading}
+            isLoading={isLoading || isDebtVerifyLoading || isAddBasketItemLoading}
           />
         </View>
       }
