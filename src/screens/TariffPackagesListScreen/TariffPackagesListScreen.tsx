@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { TARIFF_PACKAGES_SINGLE_SCREEN } from 'navigation/ScreenNames';
 import { useTariffPackages } from './container';
-import { CustomerPackages, PackageServiceNames } from 'services/apis/productsAPI/productsAPI.types';
+import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { getCommissions, getIcon } from './utilis';
 import Images from 'theme/Images';
@@ -34,7 +34,7 @@ export const TariffPackagesListScreen = () => {
         <TariffCardLayout
           cardTypeName={item.name}
           id={item.id}
-          icon={getIcon(item.name as PackageServiceNames)}
+          icon={getIcon(item.name)}
           status={item.isActive}
           pending={item.pending}
           commissionMnth={commissionMnth}

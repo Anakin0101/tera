@@ -10,10 +10,6 @@ export const SuccessModal = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const onClose = () => {
-    closeModal();
-  };
-
   return (
     <View style={styles.centredView}>
       <SuccessTransaction width={64} height={64} />
@@ -23,7 +19,7 @@ export const SuccessModal = () => {
       <View style={styles.changeTextView}>
         <Text style={styles.changeText}>{t('newDeposit.changePackageText')}</Text>
       </View>
-      <Button.Primary fullWidth text={t('common.thankyou')} onPress={onClose} />
+      <Button.Primary fullWidth text={t('common.thankyou')} onPress={closeModal} />
     </View>
   );
 };

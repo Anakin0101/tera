@@ -410,7 +410,7 @@ export type PackageService = {
 
 export type PackageProducts = {
   code?: string;
-  name: string;
+  name: PackageServiceNames;
   nameEng?: string;
   productPrice: string;
   productPriceENG?: string;
@@ -424,7 +424,7 @@ export type PackageProducts = {
 export type CustomerPackages = {
   id: string;
   isActive: boolean;
-  name: string;
+  name: PackageServiceNames;
   nameEng: string;
   packageProducts: PackageProducts[];
   packageServiceId: string;

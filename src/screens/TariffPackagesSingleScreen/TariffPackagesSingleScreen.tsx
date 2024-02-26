@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { openModal } from 'utils/modal';
 import { PackagesOption } from './PackagesOption';
 import { getCommissions, getIcon } from 'screens/TariffPackagesListScreen/utilis';
-import { PackageProducts, PackageServiceNames } from 'services/apis/productsAPI/productsAPI.types';
+import { PackageProducts } from 'services/apis/productsAPI/productsAPI.types';
 
 export const TariffPackagesSingleScreen = () => {
   const { params } = useRoute<ProductsStackRouteProps<'TariffPackagesSingleScreen'>>();
@@ -51,7 +51,7 @@ export const TariffPackagesSingleScreen = () => {
       ListHeaderComponent={
         <TariffDescriptionSingle
           cardTypeName={name}
-          icon={getIcon(name as PackageServiceNames)}
+          icon={getIcon(name)}
           id={id}
           pending={pending}
           status={isActive}
