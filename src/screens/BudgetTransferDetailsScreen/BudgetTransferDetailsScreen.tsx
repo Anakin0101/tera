@@ -13,6 +13,7 @@ import { budgeTenum, budgetReceiverUser } from 'utils/transactionUtils';
 import { useBudgetTransferDetail } from './Container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setBudgetPerson } from 'store/slices/transfers';
+import { debounce } from 'utils/debounce';
 
 export const BudgetTransferDetailsScreen = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,8 @@ export const BudgetTransferDetailsScreen = () => {
   const [selectedItem, setSelectedItem] = useState<number>(1);
   const [selectPersonalId, setSelectPersonalId] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
+  //   TODO - refactor TextInput to react-hook-form and make sure disabled state comes from there
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
@@ -28,12 +31,28 @@ export const BudgetTransferDetailsScreen = () => {
   const { accountFromData, selectedPrice } = selectedItemFromStore;
 
   const styles = useStyleTheme();
+  const updateButtonState = debounce(() => {
+    if (userName.length === 0 || selectPersonalId.length === 0) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+  }, 300);
+
+  useEffect(() => {
+    updateButtonState();
+    return () => {
+      updateButtonState.cancel();
+    };
+  }, [userName, selectPersonalId, updateButtonState]);
 
   const onTextChange = (text: string) => {
+    setIsButtonDisabled(false);
     setSelectPersonalId(text);
     dispatch(setBudgetPerson({ payerCode: text }));
   };
   const onTextChangeUserName = (text: string) => {
+    setIsButtonDisabled(false);
     setUserName(text);
     dispatch(setBudgetPerson({ payerName: text }));
   };
@@ -89,6 +108,7 @@ export const BudgetTransferDetailsScreen = () => {
           fixedWidth
           isLoading={isTreasuryLoading}
           onPress={() => navigateToTransferScreen()}
+          disabled={selectedItem === budgeTenum.FOR_OTHERS ? isButtonDisabled : false}
         />
       </View>
     </ScrollView>

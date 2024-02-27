@@ -34,6 +34,12 @@ export const useStyleTheme = () => {
     },
     wrapCard: { marginLeft: Spacing.md },
     textAccount: { fontSize: FontSize.tiny, width: 90 },
+    textAccountMobile: {
+      fontSize: FontSize.tiny,
+    },
+    textAccFromBudget: {
+      fontSize: FontSize.tiny,
+    },
     label: {
       fontSize: FontSize.small,
       marginBottom: 50,
@@ -98,7 +104,7 @@ export const useStyleTheme = () => {
       borderRadius: 4,
       backgroundColor: Colors.textBlack,
     },
-    text: { fontSize: FontSize.small, color: Colors.primary },
+    text: { fontSize: FontSize.small, color: Colors.primary, paddingHorizontal: Spacing.ml },
     inputText: {
       fontSize: FontSize.xxxl,
     },
@@ -109,7 +115,7 @@ export const useStyleTheme = () => {
       ...Layout.alignItemsCenter,
       ...Layout.justifyContentCenter,
       borderRadius: 40,
-      paddingHorizontal: Spacing.ml,
+      paddingHorizontal: Spacing.xl,
       paddingVertical: Spacing.m,
       marginTop: Spacing.xl,
       backgroundColor: Colors.primaryActionButton,

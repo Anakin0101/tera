@@ -40,7 +40,7 @@ export const TransferToBudget = () => {
       params: { from: 'other' },
     });
   };
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
@@ -50,6 +50,9 @@ export const TransferToBudget = () => {
   const inputRef = useRef(null);
 
   const handleTextChange = (text: string) => {
+    if (!text) {
+      setIsButtonDisabled(true);
+    }
     const { isInvalidInput, processedText } = formatAndValidateText({
       text: text,
       decimalPlaces: 2,
