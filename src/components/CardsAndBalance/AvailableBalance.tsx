@@ -12,27 +12,23 @@ import { formatMoney } from 'utils/formatMoney';
 import { Dots, Eye, EyeSlash, Tera } from 'assets/SVGs';
 import { AvailableBalanceProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
-const Balance = 1024850;
-const Terabytes = 24;
-
-const AvailableBalance: FC<AvailableBalanceProps> = ({ progress }) => {
+const AvailableBalance: FC<AvailableBalanceProps> = ({ progress, terabytes = 0 }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
   const balanceScale = useSharedValue(0);
+  const { totalAvailableBalanceGEL } = useAppSelector(state => state.products);
 
   const balanceStyle = useAnimatedStyle(() => {
     const opacity = interpolate(balanceScale.value, [0, 1], [1, 0]);
-    return {
-      opacity,
-    };
+    return { opacity };
   });
 
   const dotsStyle = useAnimatedStyle(() => {
     const opacity = interpolate(balanceScale.value, [0, 1], [0, 1]);
-    return {
-      opacity,
-    };
+    return { opacity };
   });
 
   const animStyleBalance = useAnimatedStyle(() => {
@@ -67,7 +63,7 @@ const AvailableBalance: FC<AvailableBalanceProps> = ({ progress }) => {
       </View>
       <Animated.View style={[styles.balance, balanceStyle]}>
         <Text size={28} lineHeight={36}>
-          ₾{formatMoney(Balance)}
+          {formatMoney(totalAvailableBalanceGEL, CurrencyEnum.GEL)}
         </Text>
       </Animated.View>
       <Animated.View style={[styles.dots, dotsStyle]}>
@@ -76,7 +72,7 @@ const AvailableBalance: FC<AvailableBalanceProps> = ({ progress }) => {
       <Pressable onPress={() => {}}>
         <View style={styles.terabytes}>
           <Tera />
-          <Text children="dashboard.terabytes" translateProp={{ value: Terabytes }} label special />
+          <Text children="dashboard.terabytes" translateProp={{ value: terabytes }} label special />
         </View>
       </Pressable>
     </Animated.View>

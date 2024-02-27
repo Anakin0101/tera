@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useEffect, useRef } from 'react';
+import React, { FC, RefObject, useEffect, useMemo, useRef } from 'react';
 import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
@@ -29,12 +29,12 @@ import { useDashboardScreen } from './container';
 import { Banker } from 'components';
 import { Offers } from 'components';
 import { DashboardPensionFund } from 'components/DashboardPensionFund/DashboardPensionFund';
-import { config } from 'utils/config';
 import AvailableBalance from 'components/CardsAndBalance/AvailableBalance';
 import { OPEN_CARD_WIDTH } from 'constants/index';
 import { Card } from 'components/CardsAndBalance/Card';
 import { ActionButtons } from 'components/CardsAndBalance/ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
+import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 
 const sections = [
   { title: 'templates', data: [{}] },
@@ -47,33 +47,7 @@ const sections = [
 ];
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
-
 const CARD_WIDTH_WITHOUT_PADDING = OPEN_CARD_WIDTH + 24;
-const EMPTY_SPACE = (config.mobileWidth - OPEN_CARD_WIDTH) / 2;
-
-const data = [
-  {
-    color: '#922a69',
-  },
-  {
-    color: '#1F1E24',
-  },
-  {
-    color: '#922a69',
-  },
-  {
-    color: '#922a69',
-  },
-  {
-    color: '#922a69',
-  },
-  {
-    color: '#922a69',
-  },
-  {
-    color: '#922a69',
-  },
-];
 
 const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   const styles = useStyleTheme();
@@ -98,6 +72,8 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     banners,
     totalSaving,
     isLoading,
+    groupedAccountsByIban,
+    terabytes,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -230,14 +206,12 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     };
   });
 
-  const additionalPadding =
-    data.length === 2
-      ? EMPTY_SPACE - 5
-      : data.length === 3
-      ? EMPTY_SPACE - 15
-      : data.length === 4
-      ? EMPTY_SPACE - 20
-      : 0;
+  const cards = useMemo(() => {
+    return [
+      {} as IGroupedAccountsByIban, // temp
+      ...groupedAccountsByIban,
+    ];
+  }, [groupedAccountsByIban]);
 
   if (isLoading) {
     return (
@@ -267,11 +241,11 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
             contentContainerStyle={[
               styles.content,
               {
-                width: data.length * CARD_WIDTH_WITHOUT_PADDING + additionalPadding,
+                width: cards?.length * CARD_WIDTH_WITHOUT_PADDING,
               },
             ]}
           >
-            {data.map((card, index) => (
+            {cards?.map((card, index) => (
               <Card
                 key={index}
                 item={card}
@@ -284,9 +258,9 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           </Animated.ScrollView>
         </Pressable>
         <ActionButtons progress={cardsOffset} onSpacePress={closeCards}>
-          <Indicator data={data} translateX={translateX} />
+          <Indicator data={cards} translateX={translateX} />
         </ActionButtons>
-        <AvailableBalance progress={cardsOffset} />
+        <AvailableBalance progress={cardsOffset} terabytes={terabytes?.teraBytes} />
       </Animated.View>
       <Animated.View style={[styles.backdrop, backDropAnimation]} />
       <Animated.View style={[styles.sectionList, borderColor]}>

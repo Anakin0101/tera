@@ -1,7 +1,9 @@
+import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 import { useEffect, useMemo } from 'react';
 import {
   useGetBannersQuery,
   useGetDepositsQuery,
+  useGetTerabyteQuery,
   useGetTotalSavingMutation,
   useGetUserProfileInfoQuery,
 } from 'services/apis';
@@ -39,6 +41,8 @@ export const useDashboardScreen = () => {
     page: 'dashboard-main',
     isCorporate: false,
   });
+  const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
+  const { data: terabytes, isLoading: terabyteLoading } = useGetTerabyteQuery();
 
   useEffect(() => {
     getTotalSaving({
@@ -71,7 +75,9 @@ export const useDashboardScreen = () => {
       totalSavingLoading ||
       profileLoading ||
       temlpatesLoading ||
-      depositsLoading
+      depositsLoading ||
+      isLoadingAccounts ||
+      terabyteLoading
     );
   }, [
     bankerLoading,
@@ -84,6 +90,8 @@ export const useDashboardScreen = () => {
     profileLoading,
     temlpatesLoading,
     totalSavingLoading,
+    isLoadingAccounts,
+    terabyteLoading,
   ]);
 
   return {
@@ -108,5 +116,7 @@ export const useDashboardScreen = () => {
     deposits,
     depositsLoading,
     isLoading,
+    groupedAccountsByIban,
+    terabytes,
   };
 };

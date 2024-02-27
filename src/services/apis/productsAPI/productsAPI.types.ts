@@ -643,3 +643,8 @@ export interface PrintLoanSchedulesReq {
 export interface PrintLoanSchedulesRes {
   fileId: string;
 }
+
+export interface TerabytesRes {
+  teraBytes: number;
+  teraBytesInGel: number;
+}

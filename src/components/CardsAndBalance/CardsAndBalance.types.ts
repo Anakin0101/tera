@@ -1,14 +1,9 @@
+import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { SharedValue } from 'react-native-reanimated';
-
-export interface ICardsAndBalanceProps {
-  anim: SharedValue<number>;
-  translateY: SharedValue<number>;
-  // zIndex: SharedValue<number>;
-  // isOpened: SharedValue<boolean>;
-}
 
 export interface AvailableBalanceProps {
   progress: SharedValue<number>;
+  terabytes?: number;
 }
 
 export interface ActionButtonsProps {
@@ -36,17 +31,12 @@ export interface IButton {
   onPress: () => void;
 }
 
-export type Item = {
-  color: string;
-};
-
 export interface CardProps {
-  item: Item;
+  item: IGroupedAccountsByIban;
   index: number;
   onCardPress: () => void;
   progress: SharedValue<number>;
   translateX: SharedValue<number>;
-  // zIndex: SharedValue<number>;
 }
 
 export interface IndicatorProps {

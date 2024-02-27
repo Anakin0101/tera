@@ -6,7 +6,7 @@ import { OPEN_CARD_WIDTH } from 'constants/index';
 const { mobileWidth } = config;
 
 const useStyles = () => {
-  const { Colors, Layout, MetricsSizes, Spacing, Fonts } = useTheme();
+  const { Colors, Layout, MetricsSizes, Spacing } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -30,11 +30,16 @@ const useStyles = () => {
     },
     card: {
       borderRadius: Spacing.m,
-      padding: Spacing.xl,
+      padding: Spacing.s,
+    },
+    image: {
+      ...Layout.fullWidth,
+      ...Layout.fullHeight,
+      borderRadius: Spacing.m,
     },
     cardHeader: {
-      ...Layout.row,
-      ...Layout.justifyContentBetween,
+      ...Layout.selfCenter,
+      marginLeft: Spacing.xxs,
     },
     currencyWrapper: {
       ...Layout.row,
@@ -46,12 +51,10 @@ const useStyles = () => {
       borderRadius: Spacing.ml,
     },
     currency: {
-      color: Colors.currency,
+      color: Colors.white,
     },
     text: {
-      ...Fonts.textBold,
-      color: Colors.inactiveTint,
-      fontSize: 10,
+      color: Colors.white,
     },
     wrapper: {
       ...Layout.row,
