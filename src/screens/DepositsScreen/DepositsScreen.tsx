@@ -1,10 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { SectionList, SectionListRenderItem } from 'react-native';
-import {
-  Button,
-  DepositsAndLoans,
-  //  Offers
-} from 'components';
+import { Button, DepositsAndLoans, LoadingInView, Offers } from 'components';
 import { useDepositsScreen } from './container';
 import { Plus } from 'assets/SVGs';
 import { useStyles } from './DepositsScreen.styles';
@@ -35,25 +31,34 @@ const ListFooter: FC<FooterProps> = ({ onPress }) => {
 
 export const DepositsScreen = () => {
   const styles = useStyles();
-  const { deposits, totalDepositsGEL, handleNewDepositPress } = useDepositsScreen();
+  const { deposits, totalDepositsGEL, handleNewDepositPress, banners, bannersLoading } =
+    useDepositsScreen();
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
-    switch (section.title) {
-      case 'deposits':
-        return (
-          <DepositsAndLoans
-            seeAll
-            data={deposits}
-            variant="deposit"
-            totalAmount={totalDepositsGEL}
-          />
-        );
-      //   case 'offers':
-      //     return <Offers data={offers} />;
-      default:
-        return null;
-    }
-  };
+  const renderItem: SectionListRenderItem<any, any> = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'deposits':
+          return (
+            <DepositsAndLoans
+              seeAll
+              data={deposits}
+              variant="deposit"
+              totalAmount={totalDepositsGEL}
+              displayDivider={!!banners?.length}
+            />
+          );
+        case 'offers':
+          return <Offers data={banners} showAll={false} />;
+        default:
+          return null;
+      }
+    },
+    [banners, deposits, totalDepositsGEL],
+  );
+
+  if (bannersLoading) {
+    return <LoadingInView />;
+  }
 
   return (
     <SectionList

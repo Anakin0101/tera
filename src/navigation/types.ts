@@ -227,6 +227,7 @@ export type ProductsStackParamsList = {
   [DEPOSITS_SCREEN]: undefined;
   [DEPOSIT_DETAILS_SCREEN]: {
     index: number;
+    id?: number;
   };
   [LOANS_SCREEN]: undefined;
   [LOAN_DETAILS_SCREEN]: {

@@ -75,6 +75,7 @@ export const URLS = {
   activatePackage: 'Tariffs/ActivatePackage',
   printLoanSchedules: 'Loan/PrintLoanSchedules',
   printLoanPayments: 'Loan/PrintLoanPayments',
+  getDepositById: 'Deposit/GetDepositById',
 };
 
 export const PROD_URLS = {

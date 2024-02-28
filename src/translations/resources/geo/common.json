@@ -275,11 +275,13 @@
     "accruedBenefit": "დარიცხული სარგებელი",
     "utilizedBenefits": "ათვისებული სარგებელი",
     "agreementDoc": "ხელშეკრულების დოკუმენტი",
-    "addMoney": "თანხის დამატება",
+    "addMoney": "თანხის\nდამატება",
     "extraction": "ამონაწერი",
     "agreementNumCopied": "ხელშეკრულების ნომერი დაკოპირებულია",
     "endDate": "ანაბრის ვადა",
-    "willBeCancelled": "გაუქმდება {{value}} დღეში"
+    "willBeCancelled": "გაუქმდება {{value}} დღეში",
+    "months": "{{value}} თვე",
+    "lifetime": "უვადო"
   },
   "loans": {
     "title": "სესხები",

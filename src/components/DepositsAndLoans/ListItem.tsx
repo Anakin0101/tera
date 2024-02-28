@@ -2,18 +2,15 @@ import React, { FC, useMemo } from 'react';
 import { Pressable, View } from 'react-native';
 import { Divider, IconComponent, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import { useTheme } from 'hooks';
-import { getValue } from 'storage/index';
-import { SELECTED_LANGUAGE } from 'storage/constants';
-import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import { useCulture, useTheme } from 'hooks';
+import { LanguageKeyForAPIEnum } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { ListItemProps } from './DepositsAndLoans.types';
 import { useStyles } from './DepositsAndLoans.styles';
-
-const lng = getValue(SELECTED_LANGUAGE) || LanguageKeys.geo;
 
 export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
+  const { culture } = useCulture();
 
   const isDeposit = 'depositId' in item;
 
@@ -23,11 +20,14 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
 
   const title = useMemo(() => {
     if (isDeposit) {
-      return lng === 'geo' ? item.depositType : item.depositTypeEng;
+      if (item?.depositName) {
+        return culture === LanguageKeyForAPIEnum.KA ? item?.depositName : item?.depositNameEng;
+      }
+      return culture === LanguageKeyForAPIEnum.KA ? item?.depositType : item?.depositTypeEng;
     } else {
-      return item.productName;
+      return item?.productName;
     }
-  }, [isDeposit, item]);
+  }, [isDeposit, item, culture]);
 
   return (
     <Pressable onPress={onPress} style={styles.account}>
@@ -44,8 +44,12 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
             />
             <Text size={16}>
               {formatMoney(
-                isOverdraft ? item.overdraftLimit : isCreditCard ? item.creditLimit : item.amount,
-                item.currency,
+                isOverdraft
+                  ? item?.overdraftLimit
+                  : isCreditCard
+                  ? item?.creditLimit
+                  : item?.amount,
+                item?.currency,
               )}
             </Text>
           </View>
@@ -53,17 +57,17 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
             <View style={styles.interest}>
               <Text children="products.interest" label color={Colors.textBlack500} />
               <Text label color={Colors.success}>
-                +{formatMoney(item.totalInterest, item.currency)}
+                +{formatMoney(item?.totalInterest, item?.currency)}
               </Text>
             </View>
           )}
-          {!isDeposit && item.nextPaymentAmount ? (
+          {!isDeposit && item?.nextPaymentAmount ? (
             <View style={styles.fee}>
               <Text children="products.fee" label color={Colors.textBlack500} />
               <Text
                 label
                 color={Colors.error}
-                children={formatMoney(item.nextPaymentAmount, item.currency)}
+                children={formatMoney(item?.nextPaymentAmount, item?.currency)}
               />
             </View>
           ) : null}

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { FlatList, ListRenderItem, Pressable, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'hooks';
@@ -65,7 +65,7 @@ const ListFooter: FC<FooterProps> = ({ variant }) => {
 };
 
 export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
-  data,
+  data = [],
   totalAmount,
   variant,
   seeAll = false,
@@ -74,34 +74,47 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
   const styles = useStyles();
   const { navigate } = useNavigation<ProductsStackScreenProps<'DepositDetailsScreen'>>();
 
+  const navigateToDepositDetails = useCallback(
+    (index: number, id: number) => {
+      navigate(DEPOSIT_DETAILS_SCREEN, {
+        index,
+        id,
+      });
+    },
+    [navigate],
+  );
+
+  const navigateToLoanDetails = useCallback(
+    (index: number) => {
+      navigate(LOAN_DETAILS_SCREEN, {
+        index,
+      });
+    },
+    [navigate],
+  );
+
+  const renderItem: ListRenderItem<RenderItemType> = useCallback(
+    ({ item, index }) => {
+      const isDeposit = 'depositId' in item;
+      return (
+        <ListItem
+          item={item}
+          icon={isDeposit ? Images().AssetsIcon : Images().LiabilitiesIcon}
+          onPress={() =>
+            isDeposit
+              ? navigateToDepositDetails(index, item?.depositId)
+              : navigateToLoanDetails(index)
+          }
+          isLast={index === data?.length - 1}
+        />
+      );
+    },
+    [data?.length, navigateToDepositDetails, navigateToLoanDetails],
+  );
+
   if (!data?.length) {
     return null;
   }
-
-  const navigateToDepositDetails = (index: number) => {
-    navigate(DEPOSIT_DETAILS_SCREEN, {
-      index,
-    });
-  };
-
-  const navigateToLoanDetails = (index: number) => {
-    navigate(LOAN_DETAILS_SCREEN, {
-      index,
-    });
-  };
-
-  const renderItem: ListRenderItem<RenderItemType> = ({ item, index }) => {
-    return (
-      <ListItem
-        item={item}
-        icon={variant === 'deposit' ? Images().AssetsIcon : Images().LiabilitiesIcon}
-        onPress={() =>
-          variant === 'deposit' ? navigateToDepositDetails(index) : navigateToLoanDetails(index)
-        }
-        isLast={index === data.length - 1}
-      />
-    );
-  };
 
   return (
     <View style={styles.listContainer}>

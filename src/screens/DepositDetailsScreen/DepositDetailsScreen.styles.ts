@@ -46,8 +46,7 @@ export const useStyles = () => {
       padding: Spacing.xlg,
     },
     header: {
-      ...Layout.rowHCenter,
-      gap: 14,
+      ...Layout.alignItemsCenter,
     },
     iconContainer: {
       width: 48,
