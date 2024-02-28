@@ -8,6 +8,7 @@ import { HeaderBackArrow } from 'components/index';
 import { Colors } from 'theme/Variables';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
+import { withActivityTimeout } from 'components/HOC';
 const Stack = createStackNavigator<DashboardStackParamsList>();
 
 export const DashboardStack = () => {
@@ -31,12 +32,12 @@ export const DashboardStack = () => {
     >
       <Screen
         name={DASHBOARD_SCREEN}
-        component={DashboardScreen}
+        component={withActivityTimeout(DashboardScreen)}
         options={{ headerShown: false }}
       />
       <Screen
         name={ALL_TEMPLATES_SCREEN}
-        component={AllTemplatesScreen}
+        component={withActivityTimeout(AllTemplatesScreen)}
         options={{
           title: t('onboarding.templates'),
           headerShadowVisible: true,

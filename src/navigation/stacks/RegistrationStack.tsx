@@ -21,6 +21,7 @@ import {
 } from 'screens/index';
 import { EnterUsernameScreen } from 'screens/EnterUsernameScreen/EnterUsernameScreen';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { withActivityTimeout } from 'components/HOC';
 
 const RegistrationStack = createStackNavigator<RegistrationStackParamsList>();
 
@@ -46,13 +47,19 @@ export const RegistrationNavigator = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      <Screen name={REGISTRATION_METHOD_SCREEN} component={RegistrationMethodScreen} />
-      <Screen name={VERIFICATION_TYPE_SCREEN} component={VerificationTypeScreen} />
-      <Screen name={CODE_WORD_SCREEN} component={CodeWordScreen} />
-      <Screen name={ENTER_USERNAME_SCREEN} component={EnterUsernameScreen} />
+      <Screen
+        name={REGISTRATION_METHOD_SCREEN}
+        component={withActivityTimeout(RegistrationMethodScreen)}
+      />
+      <Screen
+        name={VERIFICATION_TYPE_SCREEN}
+        component={withActivityTimeout(VerificationTypeScreen)}
+      />
+      <Screen name={CODE_WORD_SCREEN} component={withActivityTimeout(CodeWordScreen)} />
+      <Screen name={ENTER_USERNAME_SCREEN} component={withActivityTimeout(EnterUsernameScreen)} />
       <Screen
         name={REGISTRATION_FINISH_SCREEN}
-        component={RegistrationFinishScreen}
+        component={withActivityTimeout(RegistrationFinishScreen)}
         options={{
           headerShown: false,
         }}

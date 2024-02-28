@@ -78,6 +78,7 @@ import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { TariffPackagesListScreen } from 'screens/TariffPackagesListScreen/TariffPackagesListScreen';
 import { TariffPackagesSingleScreen } from 'screens/TariffPackagesSingleScreen/TariffPackagesSingleScreen';
+import { withActivityTimeout } from 'components/HOC';
 
 const Stack = createStackNavigator<ProductsStackParamsList>();
 
@@ -100,10 +101,14 @@ export const ProductsStack = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      <Screen name={PRODUCTS_SCREEN} component={ProductsScreen} options={hideHeader} />
+      <Screen
+        name={PRODUCTS_SCREEN}
+        component={withActivityTimeout(ProductsScreen)}
+        options={hideHeader}
+      />
       <Screen
         name={ALL_ACCOUNTS_AND_CARDS_SCREEN}
-        component={AllAcountsAndCardsScreen}
+        component={withActivityTimeout(AllAcountsAndCardsScreen)}
         options={{
           title: t('products.allAccounts'),
           headerStyle: st.whiteHeader,
@@ -111,12 +116,12 @@ export const ProductsStack = () => {
       />
       <Screen
         name={ACCOUNT_DETAILS_SCREEN}
-        component={AccountDetailsScreen}
+        component={withActivityTimeout(AccountDetailsScreen)}
         options={{ title: t('products.accountDetails') }}
       />
       <Screen
         name={MY_ACCOUNT_SCROLLABLE_SCREEN}
-        component={MyAccountsScrollableScreen}
+        component={withActivityTimeout(MyAccountsScrollableScreen)}
         options={
           {
             // TODO - add translation
@@ -125,38 +130,38 @@ export const ProductsStack = () => {
       />
       <Screen
         name={CARD_DETAILS_SCREEN}
-        component={CardDetailsScreen}
+        component={withActivityTimeout(CardDetailsScreen)}
         options={{ title: t('products.cardDetails') }}
       />
       <Screen
         name={CARD_INSURANCE}
-        component={CardInsuranceScreen}
+        component={withActivityTimeout(CardInsuranceScreen)}
         options={{ title: t('products.cardInsurance') }}
       />
       <Screen
         name={INSURANCE_PACKAGE_DETAILS}
-        component={InsurancePackageDetails}
+        component={withActivityTimeout(InsurancePackageDetails)}
         options={{ title: t('products.insurancePackageDetails') }}
       />
       <Screen
         name={DEPOSITS_SCREEN}
-        component={DepositsScreen}
+        component={withActivityTimeout(DepositsScreen)}
         options={{ title: t('products.allDeposits'), headerStyle: st.whiteHeader }}
       />
       <Screen
         name={DEPOSIT_DETAILS_SCREEN}
-        component={DepositDetailsScreen}
+        component={withActivityTimeout(DepositDetailsScreen)}
         options={{ title: t('products.depositDetails') }}
       />
       <Screen name={LOANS_SCREEN} component={LoansScreen} options={{ title: t('loans.title') }} />
       <Screen
         name={LOAN_DETAILS_SCREEN}
-        component={LoanDetailsScreen}
+        component={withActivityTimeout(LoanDetailsScreen)}
         options={{ title: t('loans.details') }}
       />
       <Screen
         name={SELECT_DEPOSIT_SCREEN}
-        component={SelectDepositScreen}
+        component={withActivityTimeout(SelectDepositScreen)}
         options={{
           title: t('newDeposit.activateDeposit'),
           headerStyle: st.whiteHeader,
@@ -164,7 +169,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={NEW_DEPOSIT_DETAILS_SCREEN}
-        component={NewDepositDetailsScreen}
+        component={withActivityTimeout(NewDepositDetailsScreen)}
         options={{
           title: t('newDeposit.activateDeposit'),
           headerStyle: st.whiteHeader,
@@ -173,7 +178,7 @@ export const ProductsStack = () => {
 
       <Screen
         name={NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN}
-        component={NewDepositInitialAmountScreen}
+        component={withActivityTimeout(NewDepositInitialAmountScreen)}
         options={{
           title: t('newDeposit.initialAmount'),
           headerStyle: st.whiteHeader,
@@ -181,36 +186,40 @@ export const ProductsStack = () => {
       />
       <Screen
         name={NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN}
-        component={NewDepositAdditionalInfoScreen}
+        component={withActivityTimeout(NewDepositAdditionalInfoScreen)}
         options={{ title: t('newDeposit.additionalInfo') }}
       />
       <Screen
         name={NEW_DEPOSIT_SUMMARY_SCREEN}
-        component={NewDepositSummaryScreen}
+        component={withActivityTimeout(NewDepositSummaryScreen)}
         options={{ title: t('newDeposit.details') }}
       />
       <Screen
         name={DEPOSIT_SUCCESS_SCREEN}
-        component={DepositSuccessScreen}
+        component={withActivityTimeout(DepositSuccessScreen)}
         options={guestNavOptions}
       />
       <Screen
         name={TERA_WALLET_SCREEN}
-        component={TeraWalletScreen}
+        component={withActivityTimeout(TeraWalletScreen)}
         options={{
           title: t('newDeposit.teraWallet'),
           headerStyle: st.whiteHeader,
         }}
       />
-      <Screen name={TERA_WALLET_PDF_SCREEN} component={TeraWalletPDFScreen} options={hideHeader} />
+      <Screen
+        name={TERA_WALLET_PDF_SCREEN}
+        component={withActivityTimeout(TeraWalletPDFScreen)}
+        options={hideHeader}
+      />
       <Screen
         name={TERA_WALLET_SUCCESS_SCREEN}
-        component={TeraWalletSuccess}
+        component={withActivityTimeout(TeraWalletSuccess)}
         options={guestNavOptions}
       />
       <Screen
         name={LOAN_REQUEST_SCREEN}
-        component={LoanRequestScreen}
+        component={withActivityTimeout(LoanRequestScreen)}
         options={{
           title: t('loanRequest.creditProducts'),
           headerStyle: st.whiteHeader,
@@ -218,7 +227,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={LOAN_AMOUNT_SCREEN}
-        component={LoanAmountScreen}
+        component={withActivityTimeout(LoanAmountScreen)}
         options={{
           title: t('loanRequest.amount'),
           headerStyle: st.whiteHeader,
@@ -226,7 +235,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={LOAN_REQUEST_TERMS_SCREEN}
-        component={LoanRequestTermsScreen}
+        component={withActivityTimeout(LoanRequestTermsScreen)}
         options={{
           title: t('loanRequest.readTerms'),
           headerStyle: st.whiteHeader,
@@ -234,7 +243,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={LOAN_REQUEST_ADDITIONAL_INFO_SCREEN}
-        component={LoanRequestAdditionalInfo}
+        component={withActivityTimeout(LoanRequestAdditionalInfo)}
         options={{
           title: t('loanRequest.additional'),
           headerStyle: st.whiteHeader,
@@ -242,17 +251,17 @@ export const ProductsStack = () => {
       />
       <Screen
         name={NEW_LOAN_DETAILS_SCREEN}
-        component={NewLoanDetailsScreen}
+        component={withActivityTimeout(NewLoanDetailsScreen)}
         options={{ title: t('loanRequest.details') }}
       />
       <Screen
         name={LOAN_REQUEST_ACCEPTED_SCREEN}
-        component={LoanRequestAcceptedScreen}
+        component={withActivityTimeout(LoanRequestAcceptedScreen)}
         options={guestNavOptions}
       />
       <Screen
         name={CARD_ORDER_TYPE_SCREEN}
-        component={CardOrderTypeScreen}
+        component={withActivityTimeout(CardOrderTypeScreen)}
         options={{
           title: t('products.type'),
           headerStyle: st.whiteHeader,
@@ -260,7 +269,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={CARD_ORDER_CHOOSE_CARD_SCREEN}
-        component={CardOrderChooseCardScreen}
+        component={withActivityTimeout(CardOrderChooseCardScreen)}
         options={{
           title: t('products.plasticCard'),
           headerStyle: st.whiteHeader,
@@ -268,14 +277,14 @@ export const ProductsStack = () => {
       />
       <Screen
         name={CARD_ORDER_CHOSEN_CARD_SCREEN}
-        component={CardOrderChosenCardScreen}
+        component={withActivityTimeout(CardOrderChosenCardScreen)}
         options={{
           headerStyle: st.whiteHeader,
         }}
       />
       <Screen
         name={CARD_ORDER_CHOOSE_IBAN_SCREEN}
-        component={CardOrderChooseIbanScreen}
+        component={withActivityTimeout(CardOrderChooseIbanScreen)}
         options={{
           title: t('products.account'),
           headerStyle: st.whiteHeader,
@@ -283,7 +292,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={CARD_ORDER_CHOOSE_ADDRESS_SCREEN}
-        component={CardOrderChooseAddressScreen}
+        component={withActivityTimeout(CardOrderChooseAddressScreen)}
         options={{
           title: t('products.branch'),
           headerStyle: st.whiteHeader,
@@ -291,7 +300,7 @@ export const ProductsStack = () => {
       />
       <Screen
         name={CARD_ORDER_DETAILS_SCREEN}
-        component={CardOrderDetailsScreen}
+        component={withActivityTimeout(CardOrderDetailsScreen)}
         options={{
           title: t('products.cardDetails'),
           headerStyle: st.whiteHeader,
@@ -299,12 +308,12 @@ export const ProductsStack = () => {
       />
       <Screen
         name={TARIFF_PACKAGES_SCREEN}
-        component={TariffPackagesListScreen}
+        component={withActivityTimeout(TariffPackagesListScreen)}
         options={{ title: t('newDeposit.tariffPackages') }}
       />
       <Screen
         name={TARIFF_PACKAGES_SINGLE_SCREEN}
-        component={TariffPackagesSingleScreen}
+        component={withActivityTimeout(TariffPackagesSingleScreen)}
         options={{ title: t('newDeposit.tariffPackages') }}
       />
     </Navigator>
