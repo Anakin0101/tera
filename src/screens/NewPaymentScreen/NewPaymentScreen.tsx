@@ -13,7 +13,7 @@ export const NewPaymentScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { params } = useRoute<ModalStackRouteProps<'NewPaymentScreen'>>();
-  const { isAutomaticPayment } = params || {};
+  const { isAutomaticPayment, basket } = params || {};
 
   const { providersGroups, isLoading } = useNewPayment();
 
@@ -26,10 +26,11 @@ export const NewPaymentScreen = () => {
           isLast={index === providersGroups?.length - 1}
           item={item}
           isAutomaticPayment={isAutomaticPayment}
+          basket={basket}
         />
       );
     },
-    [isAutomaticPayment, providersGroups?.length],
+    [basket, isAutomaticPayment, providersGroups?.length],
   );
 
   const renderHeader = useCallback(() => {

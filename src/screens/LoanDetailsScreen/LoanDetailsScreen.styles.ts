@@ -23,6 +23,7 @@ export const useStyles = () => {
     },
     nextPaymentContainer: {
       ...Layout.row,
+      ...Layout.alignItemsCenter,
       backgroundColor: Colors.dashboardBackground,
       borderRadius: Spacing.m,
       paddingVertical: Spacing.lg,
@@ -33,8 +34,9 @@ export const useStyles = () => {
       ...Layout.center,
       width: moderateScale(48),
       height: moderateScale(48),
-      borderRadius: Spacing.xl,
       backgroundColor: Colors.white,
+      borderRadius: Spacing.xl,
+      borderColor: Colors.white,
     },
     nextPaymentDate: {
       ...Layout.row,

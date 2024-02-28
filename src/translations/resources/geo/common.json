@@ -120,7 +120,6 @@
     "untrusted": "გახდა არასანდო",
     "trusted": "გასანდოვდა"
   },
-
   "profile": {
     "edit_settings": "პარამეტრების ცვლილება",
     "logout": "გასვლა",
@@ -335,7 +334,9 @@
     "accountName": "ანგარიშის სახელი",
     "accNumber": "ანგარიშის ნომერი",
     "accType": "ანგარიშის ტიპი",
-    "cardAcc": "საბარათე"
+    "cardAcc": "საბარათე",
+    "deposit": "დეპოზიტი",
+    "current": "მიმდინარე"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
@@ -376,6 +377,15 @@
     "terms_and_conditions": "წესებს და პირობებს",
     "login": "შესვლა",
     "choose": "აირჩიე",
+    "add": "დამატება",
+    "update": "განახლება",
+    "no": "არა",
+    "yes": "დიახ",
+    "addPayment": "გადახდის დამატება",
+    "editName": "სახელის ცვლილება",
+    "payed": "გადახდილია",
+    "rejected": "უარყოფილია",
+    "successfullyOperation": "ოპერაცია წარმატებით შესრულდა",
     "edit": "რედაქტირება",
     "delete": "წაშლა",
     "try_again": "ცადე ხელახლა"
@@ -569,7 +579,8 @@
     "commission": "საკომისიო",
     "searchAccount": "მოძებნე ანგარიში",
     "chooseAccount": "აირჩიე ანგარიში",
-    "fromWhere": "საიდან"
+    "fromWhere": "საიდან",
+    "add": "დამატება"
   },
   "paymentDetailsScreen": {
     "title": "გადახდის დეტალები",
@@ -587,13 +598,35 @@
     "code": "კოდი",
     "chooseFromContact": "აირჩიე კონტაქტებიდან"
   },
+  "addCartScreen": {
+    "title": "ახალი კალათა",
+    "enterCartName": "ჩაწერეთ კალათის სახელი",
+    "cartName": "კალათის სახელი"
+  },
+  "cartListScreen": {
+    "title": "კალათები",
+    "emptyCarts": "თქენ არ გაქვთ დამატებული\n კალათა",
+    "addCart": "კალათის დამატება",
+    "template": "შაბლონი",
+    "searchCart": "მოძებნე კალათა",
+    "deleteCartMessage": "ნამდვილად გსურთ კალათის წაშლა?"
+  },
+  "cartPaymentListScreen": {
+    "emptyCartPayments": "თქენ არ გაქვთ დამატებული\n გადახდები",
+    "addPayment": "გადახდის დამატება",
+    "totalTax": "ჯამური გადასახადი",
+    "fee": "საკომისიო",
+    "deleteCartItemMessage": "ნამდვილად გსურთ წაშლა?"
+  },
   "paymentSuccessScreen": {
     "title": "გადახდა\n წარმატებით შესრულდა",
     "money": "თანხა: ",
     "saveAsToTemplate": "შაბლონად შენახვა",
     "automaticPay": "ავტომატური გადახდა",
     "receiptShare": "ქვითრის გაზიარება",
-    "mainPage": "მთავარზე დაბრუნება"
+    "mainPage": "მთავარზე დაბრუნება",
+    "basketTitle": "გადახდა წარმატებით\n დაემატა",
+    "someItemRejected": "ყველა შაბლონის გადახდა ვერ მოხერხდა"
   },
   "teraWallet": {
     "collectMoney": "დააგროვე თანხა მარტივად",

@@ -17,7 +17,7 @@ export const ChoosePaymentProviderScreen = () => {
   const styles = useStyles();
   const { setOptions } = useNavigation();
   const { params } = useRoute<MainStackRouteProps<'ChoosePaymentProviderScreen'>>();
-  let { providerInfo, isAutomaticPayment, isParkingAndFines } = params || {};
+  let { providerInfo, isAutomaticPayment, isParkingAndFines, basket } = params || {};
   const savedLanguage = getValue(SELECTED_LANGUAGE);
   const { isLoading, parkingAndFinesProviderItem } = useNewPayment();
 
@@ -85,10 +85,11 @@ export const ChoosePaymentProviderScreen = () => {
           isLast={index === providersList?.length - 1}
           item={item}
           isAutomaticPayment={isAutomaticPayment}
+          basket={basket}
         />
       );
     },
-    [isAutomaticPayment, providersList?.length],
+    [basket, isAutomaticPayment, providersList?.length],
   );
 
   const renderHeader = useCallback(() => {

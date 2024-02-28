@@ -75,3 +75,8 @@ Gemfile.lock
 # Android APKs
 *.apk
 /android/app/release/*.apk
+
+# environment variables
+.env
+# Except for .env.local
+!.env.local

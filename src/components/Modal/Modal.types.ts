@@ -16,5 +16,6 @@ export interface ConfigureModal {
   enablePadding?: boolean | undefined;
   hideCloseButton?: boolean;
   withKeyboard?: boolean;
+  onCloseCallback?: () => void;
 }
 export type TitlePos = 'center' | 'left';

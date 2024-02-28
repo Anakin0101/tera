@@ -10,29 +10,30 @@ import { InsurancePackage, PackagesProps } from './CardInsuranceScreen.types';
 import { useStyles } from './CardInsuranceScreen.styles';
 import { useNavigation } from '@react-navigation/native';
 import { ProductsStackScreenProps } from 'navigation/types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const data: InsurancePackage[] = [
   {
     id: 1,
     name: 'სტანდარტი',
     commission: 5,
-    commissionCcy: 'GEL',
+    commissionCcy: CurrencyEnum.GEL,
     isSelected: false,
     terms: [
       {
         name: 'ჩიპიან ბარათებზე პინის ან ჩიპის გარეშე ჩატარებული  ტრანზაქცია (40 ლარის ზევით)',
         limit: 200,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
       {
         name: 'ინტერნეტით ჩატარებული ტრანზაქცია',
         limit: 500,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
       {
         name: 'უავტორიზაციო ტრანზაქცია',
         limit: 200,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
     ],
   },
@@ -40,23 +41,23 @@ const data: InsurancePackage[] = [
     id: 2,
     name: 'მედიუმი',
     commission: 10,
-    commissionCcy: 'GEL',
+    commissionCcy: CurrencyEnum.GEL,
     isSelected: false,
     terms: [
       {
         name: 'ჩიპიან ბარათებზე პინის ან ჩიპის გარეშე ჩატარებული  ტრანზაქცია (40 ლარის ზევით)',
         limit: 400,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
       {
         name: 'ინტერნეტით ჩატარებული ტრანზაქცია',
         limit: 1000,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
       {
         name: 'უავტორიზაციო ტრანზაქცია',
         limit: 500,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
     ],
   },
@@ -64,23 +65,23 @@ const data: InsurancePackage[] = [
     id: 3,
     name: 'პრემიუმი',
     commission: 15,
-    commissionCcy: 'GEL',
+    commissionCcy: CurrencyEnum.GEL,
     isSelected: false,
     terms: [
       {
         name: 'ჩიპიან ბარათებზე პინის ან ჩიპის გარეშე ჩატარებული  ტრანზაქცია (40 ლარის ზევით)',
         limit: 600,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
       {
         name: 'ინტერნეტით ჩატარებული ტრანზაქცია',
         limit: 1500,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
       {
         name: 'უავტორიზაციო ტრანზაქცია',
         limit: 1000,
-        ccy: 'GEL',
+        ccy: CurrencyEnum.GEL,
       },
     ],
   },

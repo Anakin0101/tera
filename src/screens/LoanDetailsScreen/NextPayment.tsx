@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import { Divider, Text } from 'components';
+import { Divider, IconComponent, Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { NextPaymentProps } from './LoanDetailsScreen.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 import { formatMoney } from 'utils/formatMoney';
+import Images from 'theme/Images';
 
 export const NextPayment: FC<NextPaymentProps> = ({
   currency,
@@ -22,7 +23,10 @@ export const NextPayment: FC<NextPaymentProps> = ({
     <View>
       <View style={styles.nextPaymentWrapper}>
         <View style={styles.nextPaymentContainer}>
-          <View style={styles.nextIcon} />
+          <IconComponent
+            customIconComponentStyles={styles.nextIcon}
+            pngLocalIcon={Images().LiabilitiesIcon}
+          />
           <View>
             <Text children="loans.next" color={Colors.textBlack500} />
             <View style={styles.nextPaymentDate}>

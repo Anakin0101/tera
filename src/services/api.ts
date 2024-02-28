@@ -1,3 +1,4 @@
+import { API_URL } from '@env';
 import { Platform } from 'react-native';
 import {
   BaseQueryApi,
@@ -21,16 +22,8 @@ import i18next from 'i18next';
 import { openToast } from 'utils/toast';
 import { setApplicationError } from 'store/slices/applicationState';
 
-// ---- SWAGGER DOCUMENTATION ----
-// http://10.213.0.136:4040/swagger/index.html
-// https://middleware-tst.terabank.ge/swagger/index.html
-
-// ---- API URL ----
-// const BASE_URL = 'http://10.213.0.136:4040/api/';
-export const BASE_URL = 'https://middleware-tst.terabank.ge/api/v1/';
-
 // Everything other than: Banker / Conversations / Documents require /api/v1/Files/GetSecuredFileById
-export const PUBLIC_IMAGE_URL = `${BASE_URL}${URLS.getFileByID}?FileId=`;
+export const PUBLIC_IMAGE_URL = `${API_URL}${URLS.getFileByID}?FileId=`;
 
 const mutex = new Mutex();
 
@@ -63,7 +56,7 @@ const defaultHeaders = (
 };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_URL,
+  baseUrl: API_URL,
   prepareHeaders: defaultHeaders,
   // timeout prop forces result.error.status to be'TIMEOUT_ERROR'. Otherwise, it returns FETCH_ERROR
   timeout: TIMEOUT_DURATION,

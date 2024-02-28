@@ -64,7 +64,7 @@ export const withButton = (buttonType: ButtonType) => {
     const rightIconComponent = renderIcon(rightIcon);
 
     return (
-      <Pressable {...props} style={wrapperStyle} disabled={isLoading}>
+      <Pressable {...props} style={wrapperStyle} disabled={isLoading || disabled}>
         {isLoading ? (
           <ButtonLoader />
         ) : (

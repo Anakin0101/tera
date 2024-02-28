@@ -9,11 +9,6 @@ export interface GetPaymentsServiceParams {
   isAdult: boolean;
 }
 
-export interface Basket {
-  id: number;
-  name: string;
-}
-
 export interface ProvidersGroup {
   id: number;
   name: NameByLang;
@@ -159,6 +154,8 @@ export interface PaymentResult {
   fee: number;
   saveIntoBasketSuccessed: boolean;
   saveIntoBasketError: any;
+  success: boolean;
+  error: any; // აქ ღმერთმა უწყის რა ბრუნდება // TODO
 }
 
 export interface AutoPayment {
@@ -253,4 +250,101 @@ export interface AddAutoPaymentRes {
   otpRequired: boolean;
   pending: boolean;
   success: boolean;
+}
+
+export interface GetBasketResponse {
+  baskets: Array<Basket>;
+}
+export interface Basket {
+  id: number;
+  name: string;
+  basketServices?: Array<BasketService>;
+}
+
+export interface BasketService {
+  customerNumbers: Array<FieldValue>;
+  largeImage: string;
+  name: {
+    en: string;
+    ka: string;
+  };
+  servicesId: number;
+  smallImage: string;
+}
+
+export interface AddBasketResponse {
+  basketId: number;
+}
+
+export interface AddBasketRequest {
+  name: string;
+}
+
+export interface BasketItemsResponse {
+  basketItems: Array<BasketItem>;
+}
+export interface BasketItem {
+  id: number;
+  name: any;
+  serviceId: number;
+  customerNumber: string;
+  description: any;
+  fieldValues: Array<FieldValue>;
+  provider?: any; // ეს ინტერფეისები ვებიდან არის და ამ ფილდებზე არ ვიცი ზუსტად რა მოდელი ბრუნდება // TODO გავაკეთოთ აღწერა
+  debtVerifyResult?: any; // ეს ინტერფეისები ვებიდან არის და ამ ფილდებზე არ ვიცი ზუსტად რა მოდელი ბრუნდება // TODO გავაკეთოთ აღწერა
+  amount?: number;
+  fee?: number;
+  payFieldValues?: any; // ეს ინტერფეისები ვებიდან არის და ამ ფილდებზე არ ვიცი ზუსტად რა მოდელი ბრუნდება // TODO გავაკეთოთ აღწერა
+  isItemChecked?: boolean;
+}
+
+export interface FieldValue {
+  id: number;
+  value: string;
+}
+
+export interface GetBasketItemsRequestParams {
+  basketId: number;
+  culture: string;
+}
+
+export interface AddBasketItemRequestParams {
+  name: string;
+  basketId: number;
+  serviceId: number | null;
+  debitAccountId: number | null;
+  description: string;
+  fieldValues: Array<PaymentFieldValue>;
+  culture: string;
+}
+
+export interface AddBasketItemRequestResponse {
+  error?: {
+    data?: {
+      detail?: string;
+      title?: string;
+    };
+  };
+}
+
+export interface EditBasketRequestParams {
+  basketId: number;
+  name: string;
+}
+
+export interface DeleteBasketRequestBody {
+  basketIds: Array<number>;
+  culture: string;
+}
+
+export interface DeleteBasketItemRequestParams {
+  itemsIds: Array<string>;
+  culture: string;
+}
+
+export interface ProviderItemProps {
+  id: string;
+  name: string;
+  desc: string;
+  imageURL: string;
 }

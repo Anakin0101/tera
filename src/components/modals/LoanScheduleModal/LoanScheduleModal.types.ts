@@ -16,6 +16,7 @@ export interface ScheduleItemProps {
 
 export interface HeaderProps {
   downloadPdf: () => void;
+  currency?: string;
 }
 
 export type RenderItem = ListRenderItem<LoanSchedule | LoanHistory>;

@@ -16,7 +16,7 @@ export const PaymentSuccessScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { params } = useRoute<MainStackRouteProps<'PaymentSuccessScreen'>>();
-  const { providerItem, subscriberInputFieldsValue, amount } = params || {};
+  const { providerItem, subscriberInputFieldsValue, amount, isBasketMode } = params || {};
 
   const { navigate } = useNavigation<MainStackScreenProps<'PaymentSuccessScreen'>>();
 
@@ -58,7 +58,7 @@ export const PaymentSuccessScreen = () => {
      */
     () => {
       // Calculate the fee using the sum and fee rules
-      const fee = getFee(Number(sum), providerItem?.feeRules).toString();
+      const fee = getFee(Number(sum), providerItem?.feeRules || []).toString();
       // Return the formatted sum plus the fee
       return formatMoney(Number(sum) + Number(fee));
     },
@@ -72,34 +72,41 @@ export const PaymentSuccessScreen = () => {
   return (
     <View style={styles.container}>
       <SuccessTransaction width={80} height={80} />
-      <Text style={styles.headerTitle}>{t('paymentSuccessScreen.title')}</Text>
-      <View style={styles.moneyWrapper}>
-        <Text style={styles.moneyLabel}>{t('paymentSuccessScreen.money')}</Text>
-        <Text style={[styles.moneyLabel, styles.moneyLabelBlack]}>{latestPaymentValue} ₾</Text>
-      </View>
-
-      <View style={styles.actionButtonsWrapper}>
-        <View style={styles.actionContainer}>
-          <View style={styles.actionButton}>
-            <Plus />
-          </View>
-          <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.saveAsToTemplate')}</Text>
+      <Text style={styles.headerTitle}>
+        {isBasketMode ? t('paymentSuccessScreen.basketTitle') : t('paymentSuccessScreen.title')}
+      </Text>
+      {!isBasketMode && (
+        <View style={styles.moneyWrapper}>
+          <Text style={styles.moneyLabel}>{t('paymentSuccessScreen.money')}</Text>
+          <Text style={[styles.moneyLabel, styles.moneyLabelBlack]}>{latestPaymentValue} ₾</Text>
         </View>
-        {!amount && (
+      )}
+      {!isBasketMode && (
+        <View style={styles.actionButtonsWrapper}>
           <View style={styles.actionContainer}>
             <View style={styles.actionButton}>
-              <AutomaticPayment />
+              <Plus />
             </View>
-            <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.automaticPay')}</Text>
+            <Text style={styles.actionButtonLabel}>
+              {t('paymentSuccessScreen.saveAsToTemplate')}
+            </Text>
           </View>
-        )}
-        <View style={styles.actionContainer}>
-          <View style={styles.actionButton}>
-            <Share />
+          {!amount && (
+            <View style={styles.actionContainer}>
+              <View style={styles.actionButton}>
+                <AutomaticPayment />
+              </View>
+              <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.automaticPay')}</Text>
+            </View>
+          )}
+          <View style={styles.actionContainer}>
+            <View style={styles.actionButton}>
+              <Share />
+            </View>
+            <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.receiptShare')}</Text>
           </View>
-          <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.receiptShare')}</Text>
         </View>
-      </View>
+      )}
 
       <View style={styles.nextButtonWrapper}>
         <Button.Primary

@@ -341,7 +341,9 @@
     "accountName": "Account name",
     "accNumber": "Account number",
     "accType": "Account type",
-    "cardAcc": "Card account"
+    "cardAcc": "Card account",
+    "deposit": "Deposit",
+    "current": "Current"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",
@@ -382,6 +384,15 @@
     "terms_and_conditions": "terms and conditions",
     "login": "Log in",
     "choose": "Choose",
+    "add": "Add",
+    "update": "Update",
+    "no": "No",
+    "yes": "Yes",
+    "addPayment": "Add Payment",
+    "editName": "Edit Name",
+    "payed": "Payed",
+    "rejected": "Rejected",
+    "successfullyOperation": "The operation was successfully performed",
     "edit": "Edit",
     "delete": "Delete",
     "try_again": "Try again"
@@ -576,7 +587,8 @@
     "commission": "Commission",
     "searchAccount": "Search Account",
     "chooseAccount": "Choose Account",
-    "fromWhere": "From where"
+    "fromWhere": "From where",
+    "add": "Add"
   },
   "paymentDetailsScreen": {
     "title": "Payment Details",
@@ -594,6 +606,26 @@
     "code": "Code",
     "chooseFromContact": "Choose from contacts"
   },
+  "addCartScreen": {
+    "title": "New Cart",
+    "enterCartName": "Enter the name of the cart",
+    "cartName": "Cart name"
+  },
+  "cartListScreen": {
+    "title": "Carts",
+    "emptyCarts": "You have no carts\n added",
+    "addCart": "Add to cart",
+    "template": "Template",
+    "searchCart": "Search cart",
+    "deleteCartMessage": "Are you sure you want to delete the cart?"
+  },
+  "cartPaymentListScreen": {
+    "emptyCartPayments": "You have no added\n payments",
+    "addPayment": "Add payment",
+    "totalTax": "Total tax",
+    "fee": "Fee",
+    "deleteCartItemMessage": "Are you sure you want to delete the payment?"
+  },
   "permissions": {
     "message": "Message",
     "contactsPermissions": "Contacts access was not granted. Please go to your phone's settings and allow Cantacts access."
@@ -604,7 +636,9 @@
     "saveAsToTemplate": "Save as to template",
     "automaticPay": "Automatic pay",
     "receiptShare": "Receipt share",
-    "mainPage": "Return to main page"
+    "mainPage": "Return to main page",
+    "basketTitle": "Payment successfully was\n added",
+    "someItemRejected": "All templates could not be paid"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",

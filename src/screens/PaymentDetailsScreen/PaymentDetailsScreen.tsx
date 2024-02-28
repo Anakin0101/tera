@@ -12,7 +12,7 @@ import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
 import { formatMoney } from 'utils/formatMoney';
-import { getFee } from 'utils/paymentUtils';
+import { getFee, updateArrayValuesById } from 'utils/paymentUtils';
 import { usePayService } from './container';
 import { PaymentFieldValue } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { MODAL_STACK, PAYMENT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
@@ -63,7 +63,6 @@ export const PaymentDetailsScreen = () => {
     // Return the calculated title
     return title;
   }, [providerItem?.name?.en, providerItem?.name?.ka, savedLanguage]);
-  // console.log(providerInfo, 'providerInfo');
 
   /**
    * Memoized calculation for the latest payment value based on the sum, fee rules, and formatting.
@@ -99,33 +98,6 @@ export const PaymentDetailsScreen = () => {
     return debtVerifyResults.flatMap(result =>
       (result.serviceFields || []).map(field => ({ id: field.id, value: field.value })),
     );
-  };
-
-  /**
-   * Update values in array1 based on values from array2 using 'id'.
-   * Append objects from array2 to array1 when there is no matching 'id' in array1.
-   *
-   * @param {Array} array1 - The array to be updated.
-   * @param {Array} array2 - The array containing new values.
-   * @returns {Array} The updated array1.
-   */
-  const updateArrayValuesById = (
-    array1: Array<PaymentFieldValue>,
-    array2: Array<PaymentFieldValue>,
-  ) => {
-    array2.forEach(({ id, value }) => {
-      const index = array1.findIndex(obj => obj.id === id);
-
-      if (index !== -1) {
-        // If a matching object is found, update its value with the new value from array2
-        array1[index].value = value;
-      } else {
-        // If no matching object is found, append the object from array2 to array1
-        array1.push({ id, value });
-      }
-    });
-
-    return array1;
   };
 
   const payServiceOnPress = async () => {

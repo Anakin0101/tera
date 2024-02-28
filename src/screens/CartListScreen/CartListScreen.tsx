@@ -1,0 +1,85 @@
+import React, { useCallback, useMemo, useState } from 'react';
+import { View, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
+import { Button, EmptyCartList, LoadingView, SearchComponent } from 'components/index';
+import { useStyles } from './CartListScreen.style';
+import { useCartList } from './container';
+import { CartItem } from 'components/Payments/CartItem/CartItem';
+import useTheme from 'hooks/useTheme';
+import { Plus } from 'assets/SVGs';
+import { Basket } from 'services/apis/paymentsAPI/paymentsAPI.types';
+
+const LeftIcon = () => {
+  const { Colors } = useTheme();
+  return <Plus color={Colors.white} width={24} height={24} />;
+};
+
+export const CartListScreen = () => {
+  const { t } = useTranslation();
+  const styles = useStyles();
+  const [searchText, setSearchText] = useState<string>('');
+
+  const { data, isLoading, addCartOnPress } = useCartList();
+
+  const renderPaymentItem = useCallback(
+    ({ item, index }: { item: Basket; index: number }) => {
+      return <CartItem item={item} index={index} isLast={index + 1 === data.length} />;
+    },
+    [data],
+  );
+
+  const filteredData = useMemo(() => {
+    return data.filter(item =>
+      item.name?.toLocaleLowerCase()?.includes(searchText?.toLocaleLowerCase()),
+    );
+  }, [data, searchText]);
+
+  const renderContent = useCallback(() => {
+    if (!isLoading && data?.length === 0) {
+      return <EmptyCartList />;
+    } else {
+      return (
+        <>
+          <SearchComponent
+            placeholder={t('cartListScreen.searchCart')}
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+          <FlatList
+            data={filteredData}
+            renderItem={renderPaymentItem}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.listWrapper}
+          />
+          <View style={styles.buttonContainer}>
+            <Button.Primary
+              fullWidth
+              text={t('cartListScreen.addCart')}
+              customTextStyle={styles.buttonText}
+              onPress={addCartOnPress}
+              leftIcon={LeftIcon}
+            />
+          </View>
+        </>
+      );
+    }
+  }, [
+    addCartOnPress,
+    data?.length,
+    filteredData,
+    isLoading,
+    renderPaymentItem,
+    searchText,
+    styles.buttonContainer,
+    styles.buttonText,
+    styles.listWrapper,
+    t,
+  ]);
+
+  if (isLoading) {
+    return <LoadingView />;
+  }
+
+  return <View style={styles.container}>{renderContent()}</View>;
+};

@@ -8,3 +8,4 @@ export const DD = 'DD';
 export const MMM = 'MMM';
 export const SEPARATED_BY_SLASH = 'DD/MM/YYYY';
 export const SPACED_YEAR = ' YYYY';
+export const DD_MM_YYYY_SLASH = 'DD/MM/YYYY';

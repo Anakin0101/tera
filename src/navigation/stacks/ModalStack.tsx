@@ -1,10 +1,13 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import {
+  AddCartScreen,
   AllTransactionsScreen,
   AuthorizationMethodsScreen,
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
+  CartListScreen,
+  CartPaymentListScreen,
   ChoosePaymentAccountScreen,
   CreatePasscodeScreen,
   NewAutomaticPaymentDetailsScreen,
@@ -18,10 +21,14 @@ import {
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
 import {
+  ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
   AUTHORIZATION_METHODS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
+  CART_LIST_SCREEN,
+  CART_PAYMENT_LIST_SCREEN,
+  CART_PAYMENT_SUCCESS_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
   CHOOSE_MOBILE_PROVIDER_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
@@ -46,6 +53,7 @@ import { ChoosePaymentProviderScreen } from 'screens/ChoosePaymentProviderScreen
 import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen';
 import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
+import { CartPaymentSuccessScreen } from 'screens/CartPaymentSuccessScreen/CartPaymentSuccessScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -175,6 +183,48 @@ export const ModalNavigator = () => {
         options={{
           title: t('automaticPayments.newPayment'),
           headerStyle: { backgroundColor: Colors.white },
+        }}
+      />
+      <Screen
+        name={ADD_CART_SCREEN}
+        component={AddCartScreen}
+        options={{
+          title: t('addCartScreen.title'),
+          headerShadowVisible: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+          },
+        }}
+      />
+      <Screen
+        name={CART_LIST_SCREEN}
+        component={CartListScreen}
+        options={{
+          title: t('cartListScreen.title'),
+          headerShadowVisible: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+          },
+        }}
+      />
+      <Screen
+        name={CART_PAYMENT_LIST_SCREEN}
+        component={CartPaymentListScreen}
+        options={{
+          title: '',
+          headerShadowVisible: true,
+          headerStyle: {
+            backgroundColor: Colors.white,
+          },
+        }}
+      />
+      <Screen
+        name={CART_PAYMENT_SUCCESS_SCREEN}
+        component={CartPaymentSuccessScreen}
+        options={{
+          title: '',
+          headerShown: false,
+          gestureEnabled: false,
         }}
       />
       <Screen

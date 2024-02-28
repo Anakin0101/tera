@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { View } from 'react-native';
 import { Collapsible, Text } from 'components';
 import { formatDate, getFormattedDate } from 'utils/formatDate';
@@ -10,6 +10,20 @@ import { useStyles } from './LoanDetailsScreen.styles';
 import { Colors } from 'theme/Variables';
 import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 import { SEPARATED_BY_SLASH, SPACED_YEAR } from 'constants/DateTemplates';
+import { Copy } from 'assets/SVGs';
+import { useCopyToClipboard } from 'hooks';
+import { AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
+
+const getAccountType = (type: AccountTypeEnum) => {
+  switch (type) {
+    case AccountTypeEnum.Card:
+      return 'loans.cardAcc';
+    case AccountTypeEnum.Current:
+      return 'loans.current';
+    case AccountTypeEnum.Deposit:
+      return 'loans.deposit';
+  }
+};
 
 const CollapsibleItem: FC<CollapsibleItemProps> = ({ label, value, currency }) => {
   const styles = useStyles();
@@ -25,6 +39,7 @@ const CollapsibleItem: FC<CollapsibleItemProps> = ({ label, value, currency }) =
 export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) => {
   const styles = useStyles();
   const { groupedAccountsByIban } = useGroupedAccountsByIban();
+  const { copyToClipboard } = useCopyToClipboard();
 
   const accNumber = useMemo(() => {
     const acc = groupedAccountsByIban?.find(
@@ -36,6 +51,21 @@ export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) =>
     return creditCard?.accountNumber;
   }, [creditCard?.accountNumber, groupedAccountsByIban]);
 
+  const accType = useMemo(() => {
+    const account = groupedAccountsByIban
+      ?.flatMap(grouped => grouped?.accounts)
+      ?.find(acc => acc?.accountId === creditCard?.accountId);
+
+    if (account) {
+      return getAccountType(account?.accountType);
+    }
+    return '';
+  }, [creditCard.accountId, groupedAccountsByIban]);
+
+  const onCopyToClipboardPress = useCallback(() => {
+    copyToClipboard(String(accNumber), 'products.clipboard');
+  }, [accNumber, copyToClipboard]);
+
   const totalOverdue = creditCard?.overduePrincipalAmount + creditCard?.overdueInterestAmount;
 
   const totalPenalty = creditCard?.overduePrincipalPenalty + creditCard?.overdueInterestPenalty;
@@ -43,8 +73,13 @@ export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) =>
   return (
     <View>
       <DetailsItem label="loans.accountName" value={creditCard?.productName} />
-      <DetailsItem label="loans.accNumber" value={accNumber} />
-      <DetailsItem label="loans.accType" value="loans.cardAcc" />
+      <DetailsItem
+        label="loans.accNumber"
+        value={accNumber}
+        icon={<Copy />}
+        onPress={onCopyToClipboardPress}
+      />
+      {accType && <DetailsItem label="loans.accType" value={accType} />}
       <DetailsItem label="loans.ccy" value={creditCard?.currency} />
       <DetailsItem label="loans.agreementNum" value={creditCard?.agreementNumber} />
       <DetailsItem label="loans.interestRate" value={`${creditCard?.interestRate}%`} />

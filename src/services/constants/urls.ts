@@ -1,3 +1,5 @@
+import { OPTIO_BANNERS, PROD_URL } from '@env';
+
 export const URLS = {
   refreshToken: 'Auth/RefreshToken',
   login: 'Auth/Login',
@@ -52,16 +54,23 @@ export const URLS = {
   requestForLoan: 'Loan/RequestForLoan',
   getRequestForLoanConsentTexts: 'Loan/GetRequestForLoanConsentTexts',
   treasury: 'Transfers/GetTreasuryCodeParts',
-  testBaseUrlBanners: 'https://staging.banners-delivery.optio.ai/api/banners',
   getBranches: 'Catalogs/GetBranches',
   addCard: 'Account/AddCard',
   sendTreasury: 'Transfers/TransferToTreasury',
-  saveTemplate: '/templates/SaveTemplate',
+  saveTemplate: 'templates/SaveTemplate',
   deleteTemplate: 'templates/DeleteTemplate',
   addAutoPayment: 'Payment/AddAutoPayment',
   getAutomPayments: 'Payment/GetAutoPayments',
+  getBasketItems: 'Payment/GetBasketItems',
+  addBasketItem: 'Payment/AddBasketItem',
+  renameBasket: 'Payment/RenameBasket',
+  deleteBasket: 'Payment/DeleteBasket',
+  debtVerifyBasket: 'Payment/DebtVerifyBasket',
+  deleteBasketItems: 'Payment/DeleteBasketItems',
   getAutomPaymentDetails: 'Payment/getAutoPaymentDetails',
   cancelAutoPayment: 'Payment/CancelAutoPayment',
+  getBaskets: 'Payment/GetBaskets',
+  addBasket: 'Payment/AddBasket',
   getBankInfo: 'Transfers/GetBankInfo',
   activatePackage: 'Tariffs/ActivatePackage',
   printLoanSchedules: 'Loan/PrintLoanSchedules',
@@ -69,9 +78,9 @@ export const URLS = {
 };
 
 export const PROD_URLS = {
-  TERMS_URL: 'https://terabank.ge/standterms ',
+  TERMS_URL: `${PROD_URL}standterms`,
 };
 
 export const STAGING_URLS = {
-  TEST_BASE_URL_FOR_BANNERS: 'https://staging.banners-delivery.optio.ai/api/banners ',
+  TEST_BASE_URL_FOR_BANNERS: `${OPTIO_BANNERS}banners`,
 };
