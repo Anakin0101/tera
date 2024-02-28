@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, SectionListRenderItem, View } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Cards } from './Cards';
 import { Details } from './Details';
@@ -9,6 +9,7 @@ import { Slider, LastTransactions } from 'components';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { AccountSliderItem } from './AccountSliderItem';
+import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -37,7 +38,7 @@ export const AccountDetailsScreen = () => {
     return null;
   }
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'main':
         return (

@@ -1,11 +1,12 @@
 import React, { FC, useCallback } from 'react';
-import { SectionList, SectionListRenderItem } from 'react-native';
+import { SectionList } from 'react-native';
 import { Button, DepositsAndLoans, LoadingInView, Offers } from 'components';
 import { useDepositsScreen } from './container';
 import { Plus } from 'assets/SVGs';
 import { useStyles } from './DepositsScreen.styles';
 import { Colors } from 'theme/Variables';
 import { FooterProps } from './DepositScreen.types';
+import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'deposits', data: [{}] },
@@ -34,7 +35,7 @@ export const DepositsScreen = () => {
   const { deposits, totalDepositsGEL, handleNewDepositPress, banners, bannersLoading } =
     useDepositsScreen();
 
-  const renderItem: SectionListRenderItem<any, any> = useCallback(
+  const renderItem: SectionListRenderItemT = useCallback(
     ({ section }) => {
       switch (section.title) {
         case 'deposits':

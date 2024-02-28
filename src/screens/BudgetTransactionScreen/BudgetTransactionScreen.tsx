@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SectionList, SectionListRenderItem } from 'react-native';
+import { SectionList } from 'react-native';
 import { Button } from 'components';
 import { useStyles } from './BudgetTransactionScreen.styles';
 import { Budget } from 'components/Budget/Budget';
@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TRANSFER_TO_BUDGET } from 'navigation/ScreenNames';
 import { setClearTreasuryFromCode, setClearWrappedCode } from 'store/slices/transfers';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { SectionListRenderItemT } from 'screens/types';
 const sections = [{ title: 'budget', data: [{}] }];
 
 const ListFooter = (treasury: treasuryRes, clickedCreateCode: boolean) => {
@@ -47,7 +48,7 @@ export const BudgetTransactionScreen = () => {
     };
   }, [dispatch]);
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'budget':
         return (
