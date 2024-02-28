@@ -16,7 +16,7 @@ import useBankIcons from 'components/IbanTransaction/useIban';
 import { useTranslation } from 'react-i18next';
 // import { useForm } from 'react-hook-form';
 // import { RecepientNumberType } from './MobileTransaction.types';
-// import { REGEX } from 'constants/index';
+import { REGEX } from 'constants/index';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { Contact } from 'assets/SVGs';
@@ -101,12 +101,13 @@ const MobileTransaction = () => {
     (value: string | null | undefined) => {
       const stringValue = value ?? '';
 
-      if (stringValue.length <= MOBILE_NUMBER_LENGTH) {
+      if (REGEX.PHONE.test(stringValue)) {
         setTypedAccountName(stringValue);
-        debouncedHandleChange(stringValue);
-      }
-      if (stringValue.length < MOBILE_NUMBER_LENGTH) {
-        resetUI();
+        if (stringValue.length === MOBILE_NUMBER_LENGTH) {
+          debouncedHandleChange(stringValue);
+        } else {
+          resetUI();
+        }
       }
     },
     [resetUI, setTypedAccountName, debouncedHandleChange, MOBILE_NUMBER_LENGTH],
