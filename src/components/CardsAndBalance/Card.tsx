@@ -10,10 +10,9 @@ import {
 import { formatMoney } from 'utils/formatMoney';
 import { PUBLIC_IMAGE_URL } from 'services/api';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
+import Images from 'theme/Images';
 import { CardProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
-
-const DEFAULT_CARD = require('assets/images/DefaultCard.png');
 
 export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
   const styles = useStyles();
@@ -129,7 +128,7 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
         style={[styles.card, index === 1 && firstCardPos, index === 2 && secondCardPos, animScale]}
       >
         <ImageBackground
-          source={imageId ? { uri: `${PUBLIC_IMAGE_URL}${imageId}` } : DEFAULT_CARD}
+          source={imageId ? { uri: `${PUBLIC_IMAGE_URL}${imageId}` } : Images().DefaultCardImage}
           style={styles.image}
         >
           <View style={[styles.contentWrapper, hasJuniorOrNextCard && styles.darkBlur]}>

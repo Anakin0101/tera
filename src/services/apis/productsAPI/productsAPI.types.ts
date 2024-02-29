@@ -644,7 +644,7 @@ export interface PrintLoanSchedulesRes {
   fileId: string;
 }
 
-export interface TerabytesRes {
+export type TerabytesRes = {
   teraBytes: number;
   teraBytesInGel: number;
-}
+};
