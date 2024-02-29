@@ -307,7 +307,7 @@ const IbanTransaction = () => {
                       onPress={() =>
                         openModal({
                           element: <TransactionModal />,
-                          title: 'transactions.details',
+                          title: 'transactions.type',
                           titlePosition: 'center',
                           disablePanning: true,
                         })
