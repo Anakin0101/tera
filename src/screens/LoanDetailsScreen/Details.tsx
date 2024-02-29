@@ -7,7 +7,7 @@ import { DetailsProps } from './LoanDetailsScreen.types';
 import { useStyles } from './LoanDetailsScreen.styles';
 import { CreditCardDetails } from './CreditCardDetails';
 
-export const Details: FC<DetailsProps> = ({ data }) => {
+export const Details: FC<DetailsProps> = ({ data, isCreditCardOrOverdraft }) => {
   const styles = useStyles();
 
   const renderDetails = () => {
@@ -25,7 +25,7 @@ export const Details: FC<DetailsProps> = ({ data }) => {
   };
 
   return (
-    <View style={styles.details}>
+    <View style={[styles.details, isCreditCardOrOverdraft && styles.borderTopRadius]}>
       <Text children="products.details" size={18} medium />
       {renderDetails()}
     </View>

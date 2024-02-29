@@ -7,6 +7,7 @@ import { formatMoney } from 'utils/formatMoney';
 import { Alert, Copy } from 'assets/SVGs';
 import { DepositDetailsProps } from './DepositDetailsScreen.types';
 import { useStyles } from './DepositDetailsScreen.styles';
+import { SPACED_YEAR } from 'constants/DateTemplates';
 
 export const DepositDetails: FC<DepositDetailsProps> = ({ deposit, copyToClipboard }) => {
   const styles = useStyles();
@@ -17,7 +18,7 @@ export const DepositDetails: FC<DepositDetailsProps> = ({ deposit, copyToClipboa
       <Text children="products.details" size={18} medium />
       {diff > 0 && diff <= 10 ? (
         <View style={styles.durationContainer}>
-          <DetailsItem label="deposits.endDate" value={formatDate(deposit.endDate, ' YYYY')} />
+          <DetailsItem label="deposits.endDate" value={formatDate(deposit.endDate, SPACED_YEAR)} />
           <Badge
             icon={<Alert />}
             label="deposits.willBeCancelled"
