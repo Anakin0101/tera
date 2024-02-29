@@ -19,9 +19,11 @@ export const useStyles = () => {
       borderRadius: Spacing.m,
       paddingHorizontal: Spacing.lg,
       paddingVertical: Spacing.ml,
+      flex: 1,
     },
     budgetData: {
       ...Fonts.titleTiny,
+      maxWidth: horizontalScale(250),
     },
     button: {
       marginTop: Spacing.lg,

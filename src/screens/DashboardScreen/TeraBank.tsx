@@ -1,5 +1,5 @@
 import React, { FC, RefObject, useEffect, useMemo, useRef } from 'react';
-import { View, SectionList, SectionListRenderItem, Pressable } from 'react-native';
+import { View, SectionList, Pressable, SectionListProps } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
   runOnJS,
@@ -35,6 +35,7 @@ import { Card } from 'components/CardsAndBalance/Card';
 import { ActionButtons } from 'components/CardsAndBalance/ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
+import { ISections, SectionDataT, SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'templates', data: [{}] },
@@ -46,7 +47,9 @@ const sections = [
   { title: 'transactions', data: [{}] },
 ];
 
-const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
+const AnimatedSectionList =
+  Animated.createAnimatedComponent<SectionListProps<SectionDataT, ISections>>(SectionList);
+
 const CARD_WIDTH_WITHOUT_PADDING = OPEN_CARD_WIDTH + 24;
 
 const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
@@ -135,7 +138,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     };
   });
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'templates':
         return <DashboardTemplates data={templates} />;

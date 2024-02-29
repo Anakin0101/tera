@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FunctionComponent } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Text } from 'components/Text/Text';
@@ -28,16 +28,20 @@ const BudgetRenderItem: FunctionComponent<RenderItemProps> = ({
   showUnderline,
   showAboveLine,
 }) => {
+  const [isPressed, setIsPressed] = useState(false);
   const debouncedCloseModal = debounce(() => {
     closeModal();
   }, 500);
   const handlePress = () => {
-    setChosenItem(item.id);
-    onChangeBudgetCode(item.id);
-    showHideComponent();
+    if (!isPressed) {
+      setChosenItem(item.id);
+      onChangeBudgetCode(item.id);
+      showHideComponent();
+      setIsPressed(true);
 
-    if (activeIndex >= createBudgetEnum.THIRD_VIEW) {
-      debouncedCloseModal();
+      if (activeIndex >= createBudgetEnum.THIRD_VIEW) {
+        debouncedCloseModal();
+      }
     }
   };
 

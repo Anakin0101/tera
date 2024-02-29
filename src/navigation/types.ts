@@ -227,6 +227,7 @@ export type ProductsStackParamsList = {
   [DEPOSITS_SCREEN]: undefined;
   [DEPOSIT_DETAILS_SCREEN]: {
     index: number;
+    id?: number;
   };
   [LOANS_SCREEN]: undefined;
   [LOAN_DETAILS_SCREEN]: {
@@ -291,6 +292,7 @@ export type TransactionsStackParamsList = {
     convertion?: boolean;
     fromOtherBank?: boolean;
     mobileTransaction?: boolean;
+    budgetTransaction?: boolean;
     receiver?: string;
   };
   [TRANSACTION_FINISHED_SCREEN]:
@@ -300,9 +302,20 @@ export type TransactionsStackParamsList = {
         internal?: boolean;
         fromIban?: boolean;
         mobileTransaction?: boolean;
+        budgetTransaction?: boolean;
       };
 
-  [TRANSFER_TO_BUDGET]: undefined;
+  [TRANSFER_TO_BUDGET]:
+    | undefined
+    | {
+        treasury?: {
+          a: string;
+          b: string;
+          c: string;
+        };
+      }
+    | { budgetCode: string };
+
   [BUDGET_TRANSFER_DETAILS]: undefined;
   [FOREIGN_IBAN_SCREEN]: undefined;
 
@@ -384,10 +397,8 @@ export type ProductsStackRouteProps<T extends keyof ProductsStackParamsList> = R
 export type TransactionsStackScreenProps<T extends keyof TransactionsStackParamsList> =
   StackNavigationProp<TransactionsStackParamsList, T>;
 
-export type TransactionsStackRouteProps<T extends keyof TransactionsStackParamsList> = RouteProp<
-  TransactionsStackParamsList,
-  T
->;
+export type TransactionsStackRouteProps<RouteName extends keyof TransactionsStackParamsList> =
+  RouteProp<TransactionsStackParamsList, RouteName>;
 
 // PAYMENTS stack intellisense
 export type PaymentsStackScreenProps<T extends keyof PaymentsStackParamsList> = StackNavigationProp<

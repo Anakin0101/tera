@@ -14,9 +14,16 @@ import { TransactionsStackScreenProps } from 'navigation/types';
 import { BUDGET_TRANSFER_DETAILS, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
-
+import { useRoute } from '@react-navigation/native';
 export const TransferToBudget = () => {
   const { isKeyboardOpened } = useKeyboard();
+  const { params } = useRoute<any>();
+  // const { params } = useRoute<TransactionsStackRouteProps<'BudgetTransferDetailsScreen'>>(); << didn't work as expected so I used any for now
+
+  const createdWrappedCode = params.treasury
+    ? `${params.treasury.a ?? ''}${params.treasury.b ?? ''}${params.treasury.c ?? ''}`
+    : params.budgetCode;
+
   const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransferDetailsScreen'>>();
   const navigateToTransferDetails = () => {
     navigate(BUDGET_TRANSFER_DETAILS);
@@ -31,7 +38,7 @@ export const TransferToBudget = () => {
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
   );
-  const { accountFromData, selectedData, accountToData } = selectedItemFromStore;
+  const { accountFromData, accountToData } = selectedItemFromStore;
   const styles = useStyleTheme();
   const inputRef = useRef(null);
 
@@ -66,7 +73,7 @@ export const TransferToBudget = () => {
       <View style={styles.container}>
         <Transfer
           accountFromData={accountFromData}
-          selectedData={selectedData}
+          selectedData={createdWrappedCode}
           onTextChange={handleTextChange}
           inputRef={inputRef}
           openTransferScreen={openTransferScreen}

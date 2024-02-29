@@ -45,7 +45,10 @@ export const Transfer = ({
       </View>
       {fromOtherBanks ? (
         <TouchableOpacity style={styles.button} onPress={openTransferScreen}>
-          <Text children={selectedData ? selectedData : transactionTitle} style={styles.text} />
+          <Text
+            children={selectedData?.iban ? selectedData.iban : selectedData || transactionTitle}
+            style={styles.text}
+          />
           <EditSvg style={styles.icon} />
         </TouchableOpacity>
       ) : (

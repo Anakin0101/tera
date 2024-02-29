@@ -1,6 +1,5 @@
 import {
   CreditCardType,
-  Currency,
   LoanType,
   OverdraftType,
 } from 'services/apis/productsAPI/productsAPI.types';
@@ -13,7 +12,8 @@ export interface LoanSliderItemProps {
 export interface NextPaymentProps {
   nextPaymentAmount: number;
   nextPaymentDate: string;
-  currency: Currency;
+  currency: CurrencyEnum;
+  isCreditCardOrOverdraft: boolean;
 }
 
 export interface LoanDetailsProps {
@@ -22,6 +22,7 @@ export interface LoanDetailsProps {
 
 export interface DetailsProps {
   data: OverdraftType | LoanType | CreditCardType;
+  isCreditCardOrOverdraft: boolean;
 }
 
 export interface CollapsibleHeaderProps {
@@ -41,7 +42,8 @@ export interface OverdueContentProps {
   overduePrincipalPenalty: number;
   overdueInterestAmount: number;
   overdueInterestPenalty: number;
-  defferdPrincipalAmount?: number;
+  defferdPrincipalAmount: number;
+  defferdInterestAmount: number;
   currency: CurrencyEnum;
 }
 
@@ -51,3 +53,9 @@ export interface CreditCardDetailsProps {
 export interface OverdraftDetailsProps {
   overdraft: OverdraftType;
 }
+
+export type CollapsibleItemProps = {
+  label: string;
+  value: number;
+  currency: CurrencyEnum;
+};

@@ -1,11 +1,12 @@
 import React from 'react';
-import { SectionList, SectionListRenderItem } from 'react-native';
+import { SectionList } from 'react-native';
 import { Button, CardsAndAccounts, Offers } from 'components';
 import { useStyles } from './AllAcountsAndCardsScreen.styles';
 import { Plus } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import { useAllAcounts } from './container';
 import { LoadingInView } from 'components/LoadingView/LoadingInView';
+import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'accounts', data: [{}] },
@@ -31,7 +32,7 @@ export const AllAcountsAndCardsScreen = () => {
   const { groupedAccountsByIban, totalAvailableBalanceGEL, banners, bannersLoading } =
     useAllAcounts();
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'accounts':
         return (

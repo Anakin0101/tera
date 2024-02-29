@@ -119,7 +119,7 @@ const IbanTransaction = () => {
         dispatch(
           setSelectedTransactionType({
             name: '',
-            isFast: null,
+            isFast: false,
             selected: null,
           }),
         );

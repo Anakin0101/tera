@@ -37,6 +37,8 @@ import {
   PrintLoanSchedulesReq,
   PrintLoanSchedulesRes,
   TerabytesRes,
+  DepositByIdReq,
+  DepositByIdRes,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -280,6 +282,15 @@ export const productsAPI = createApi({
         url: URLS.getTerabyte,
       }),
     }),
+    getDepositById: builder.query<DepositByIdRes, DepositByIdReq>({
+      query: ({ culture, depositId }) => ({
+        url: URLS.getDepositById,
+        params: {
+          depositId,
+          culture,
+        },
+      }),
+    }),
   }),
 });
 
@@ -313,4 +324,5 @@ export const {
   usePrintLoanSchedulesMutation,
   usePrintLoanPaymentsMutation,
   useGetTerabyteQuery,
+  useGetDepositByIdQuery,
 } = productsAPI;

@@ -1,10 +1,11 @@
 import React from 'react';
-import { SectionList, SectionListRenderItem } from 'react-native';
+import { SectionList } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { General } from './General';
 import { Packages } from './Packages';
 import { ProductsStackRouteProps } from 'navigation/types';
 import { useStyles } from './CardInsuranceScreen.styles';
+import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'general', data: [{}] },
@@ -15,7 +16,7 @@ export const CardInsuranceScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'CardInsuranceScreen'>>();
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'general':
         return <General />;

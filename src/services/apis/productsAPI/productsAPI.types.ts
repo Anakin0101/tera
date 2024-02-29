@@ -206,7 +206,7 @@ export type CreditCardType = {
   creditStartDate: string;
   creditEndDate: string;
   billingDay: number;
-  creditStatus: number;
+  creditStatus: CreditStatus;
   creditIsOn: true;
   usedPrincipalAmount: number;
   notUsedPrincipalAmount: number;
@@ -344,6 +344,9 @@ export type LoanSchedule = {
   balance: number;
   totalDebt: number;
   insurance: number;
+  id: number;
+  insuranceTotal: number;
+  subsidizedInterest: number;
 };
 
 export type LoanHistory = {
@@ -355,6 +358,9 @@ export type LoanHistory = {
   penalty: number;
   fee: number;
   total: number;
+  id: number;
+  lifeInsurance: number;
+  subsidizedInterest: number;
 };
 
 export enum OfferTypeEnum {
@@ -647,4 +653,57 @@ export interface PrintLoanSchedulesRes {
 export type TerabytesRes = {
   teraBytes: number;
   teraBytesInGel: number;
+};
+export type DepositByIdReq = {
+  culture: string;
+  depositId?: number;
+};
+
+export type CancelationCondition = {
+  description: string;
+  value: string;
+};
+
+export type DepositByIdRes = {
+  additional: {
+    additionalText: string[];
+    currency: CurrencyEnum;
+    maturityDate: string;
+    maturityDateText: string;
+    minimalAccrualAmount: number;
+    minimalAccrualAmountText: string;
+    monthlyMinTranshAmount: number;
+    monthlyMinTranshAmountText: string;
+    openAmount: number;
+    openAmountText: string;
+    percentEnrolmentPeriod: string;
+    percentType: string;
+    startDateText: string;
+  };
+  cancelationConditions: {
+    conditions: CancelationCondition[];
+  };
+  depositNumber: string;
+  financialData: {
+    openFee: number;
+    openFeeText: string;
+    percentWithdrawalFee: number;
+    percentWithdrawalFeeText: string;
+    serviceFee: number;
+    serviceFeeText: string;
+    withdrawalFee: number;
+    withdrawalFeeText: string;
+  };
+  headLine: {
+    name: string;
+    productName: string;
+  };
+  isCD: boolean;
+  percentData: {
+    efectPercentText: string;
+    efectPercentValText: string;
+    percentByCurrency: any[];
+    percentScaleDatas: any;
+    percentText: string;
+  };
 };

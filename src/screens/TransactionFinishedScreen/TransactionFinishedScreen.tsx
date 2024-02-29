@@ -63,7 +63,7 @@ export const TransactionFinishedScreen = () => {
       name: 'transfers.saveAsTemplate',
       icon: <Plus />,
     },
-    ...(!params.mobileTransaction
+    ...(!params?.mobileTransaction && !params?.budgetTransaction
       ? [
           {
             name: 'transfers.automatic',
@@ -83,7 +83,7 @@ export const TransactionFinishedScreen = () => {
       <SuccessTransaction width={88} height={88} />
       <View style={styles.textWrapper}>
         <Text
-          children={params.mobileTransaction ? 'transfers.task' : 'transfers.success'}
+          children={params?.mobileTransaction ? 'transfers.task' : 'transfers.success'}
           style={styles.text}
           numberOfLines={2}
         />
