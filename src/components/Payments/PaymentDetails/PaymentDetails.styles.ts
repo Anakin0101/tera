@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Spacing } = useTheme();
+  const { Colors, Spacing, Fonts, FontSize } = useTheme();
 
   return StyleSheet.create({
     wrapper: {
@@ -18,14 +17,14 @@ export const useStyles = () => {
       fontSize: FontSize.regularPlus,
       lineHeight: 22,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       letterSpacing: -0.2,
     },
     headerTitleStyle: {
       fontSize: FontSize.small,
       lineHeight: 16,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       color: Colors.textBlack500,
       marginTop: Spacing.xl,
     },
@@ -33,7 +32,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       lineHeight: 16,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       color: Colors.textBlack500,
       marginTop: Spacing.xxs,
     },
@@ -41,7 +40,7 @@ export const useStyles = () => {
       fontSize: FontSize.regular,
       lineHeight: 24,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       color: Colors.black,
       marginTop: Spacing.xxs,
     },

@@ -2,7 +2,7 @@ import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 
 export const useStyles = () => {
-  const { Spacing, Layout, FontFamily } = useTheme();
+  const { Spacing, Layout, Fonts } = useTheme();
   return StyleSheet.create({
     header: {
       ...Layout.center,
@@ -13,7 +13,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.m,
     },
     buttonText: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
   });
 };

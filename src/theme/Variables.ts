@@ -152,12 +152,7 @@ export const MetricsSizes = {
 };
 
 export const FontFamily = {
-  medium: 'TB-Public-2022Sans-Medium',
-  Black: 'TB-Public-2022Sans-Black',
-  DemiBold: 'TB-Public-2022Sans-DemiBold',
-  Light: 'TB-Public-2022Sans-Light',
-  LightItalic: 'TB-Public-2022Sans-LightItalic',
-  Regular: 'TB-Public-2022Sans-Regular',
+  main: 'TB-PublicSans-Medium',
 };
 
 export default {

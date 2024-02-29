@@ -4,7 +4,7 @@
 import { StyleSheet } from 'react-native';
 import { ThemeVariables } from 'types/declarations/theme';
 
-export default function ({ FontSize, Colors }: ThemeVariables) {
+export default function ({ FontSize, Colors, FontFamily }: ThemeVariables) {
   return StyleSheet.create({
     textTiny: {
       fontSize: FontSize.tiny,
@@ -92,6 +92,18 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textLobster: {
       fontFamily: 'lobster',
       fontWeight: 'normal',
+    },
+    regular: {
+      fontFamily: FontFamily.main,
+      fontWeight: '400',
+    },
+    medium: {
+      fontFamily: FontFamily.main,
+      fontWeight: '500',
+    },
+    semiBold: {
+      fontFamily: FontFamily.main,
+      fontWeight: '600',
     },
   });
 }

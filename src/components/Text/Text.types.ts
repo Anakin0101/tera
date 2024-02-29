@@ -17,10 +17,7 @@ export type TextProps = {
   marginTop?: number;
   translateProp?: TOptions;
   bold?: boolean;
-  black?: boolean;
   demiBold?: boolean;
-  light?: boolean;
-  lightItalic?: boolean;
   regular?: boolean;
   medium?: boolean;
   letterSpacing?: number;

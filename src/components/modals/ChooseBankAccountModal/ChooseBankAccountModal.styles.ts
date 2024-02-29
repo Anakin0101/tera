@@ -1,9 +1,8 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import { Colors, FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Spacing, Layout } = useTheme();
+  const { Spacing, Layout, Fonts, FontSize, Colors } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.fill,
@@ -13,7 +12,7 @@ export const useStyles = () => {
       fontSize: FontSize.regular,
       lineHeight: 24,
       letterSpacing: 0.2,
-      fontFamily: FontFamily.DemiBold,
+      ...Fonts.semiBold,
       color: Colors.black700,
       marginLeft: -44,
     },
@@ -37,7 +36,7 @@ export const useStyles = () => {
       fontSize: FontSize.regular,
       lineHeight: 24,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.DemiBold,
+      ...Fonts.semiBold,
       color: Colors.black700,
       marginLeft: Spacing.xl,
       marginBottom: Spacing.ml,
@@ -75,7 +74,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       lineHeight: 16,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       color: Colors.textBlack500,
     },
     moneyLabel: {
@@ -83,7 +82,7 @@ export const useStyles = () => {
       fontSize: FontSize.regular,
       lineHeight: 24,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       color: Colors.black,
     },
     selectedWrapper: {

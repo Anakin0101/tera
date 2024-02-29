@@ -44,7 +44,7 @@ export const useCardOrderChooseIban = () => {
         navigate(CARD_ORDER_CHOOSE_ADDRESS_SCREEN);
       }
     } catch (error) {
-      console.error('Error navigating to choose address screen:', error);
+      console.warn('Error navigating to choose address screen:', error);
     }
   };
 

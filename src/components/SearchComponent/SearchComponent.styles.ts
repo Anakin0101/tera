@@ -1,9 +1,8 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import { Colors, FontFamily } from 'theme/Variables';
 
 export const useStyleTheme = () => {
-  const { FontSize, Spacing, Layout } = useTheme();
+  const { FontSize, Spacing, Layout, Fonts, Colors } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.alignItemsCenter,
@@ -26,7 +25,7 @@ export const useStyleTheme = () => {
       marginLeft: Spacing.xxs,
       color: Colors.textBlack,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontWeight: '400',
       padding: 0,
       letterSpacing: -0.25,

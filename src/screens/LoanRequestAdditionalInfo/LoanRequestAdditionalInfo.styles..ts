@@ -3,7 +3,7 @@ import { useTheme } from 'hooks';
 import { FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Layout, Colors, FontFamily, Spacing } = useTheme();
+  const { Layout, Colors, Fonts, Spacing } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -20,7 +20,7 @@ export const useStyles = () => {
     },
     input: {
       fontSize: FontSize.regular,
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
       marginTop: Spacing.xxxs,
     },
     arrowContainer: {

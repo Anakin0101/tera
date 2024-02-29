@@ -6,7 +6,7 @@ import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 const ITEM_SPACING = (config.mobileWidth - CIRCULAR_ITEM_SIZE) / 2;
 
 export const useStyles = () => {
-  const { Layout, Spacing, Colors, FontFamily } = useTheme();
+  const { Layout, Spacing, Colors, Fonts } = useTheme();
 
   return StyleSheet.create({
     wrapper: {
@@ -122,7 +122,7 @@ export const useStyles = () => {
     itemText: {
       textAlign: 'center',
       fontSize: Spacing.ml,
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
     },
     disabled: {
       opacity: 0.5,

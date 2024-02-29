@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
-import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
   const { Layout, Fonts, Spacing, FontSize, Colors } = useTheme();
@@ -37,7 +36,7 @@ export const useStyles = () => {
     },
     noTransactionsText: {
       color: Colors.textBlack500,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontSize: FontSize.small,
       marginTop: Spacing.xlm,
     },

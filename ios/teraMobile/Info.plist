@@ -39,13 +39,9 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>TB-Public-2022Sans-Black.otf</string>
-		<string>TB-Public-2022Sans-Bold.otf</string>
-		<string>TB-Public-2022Sans-DemiBold.otf</string>
-		<string>TB-Public-2022Sans-Light.otf</string>
-		<string>TB-Public-2022Sans-LightItalic.otf</string>
-		<string>TB-Public-2022Sans-Medium.otf</string>
-		<string>TB-Public-2022Sans-Regular.otf</string>
+		<string>TB-PublicSans-Medium.woff2</string>
+		<string>TB-PublicSans-Medium.woff</string>
+		<string>TB-PublicSans-Medium.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

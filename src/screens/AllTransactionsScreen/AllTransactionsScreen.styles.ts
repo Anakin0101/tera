@@ -3,7 +3,7 @@ import { useDefaultHeaderHeight, useTheme } from 'hooks';
 import { config, moderateScale } from 'utils/config';
 
 export const useStyles = () => {
-  const { Layout, Spacing, Colors, FontFamily } = useTheme();
+  const { Layout, Spacing, Colors, Fonts } = useTheme();
   const { headerHeight } = useDefaultHeaderHeight();
 
   return StyleSheet.create({
@@ -19,7 +19,7 @@ export const useStyles = () => {
     },
     input: {
       marginHorizontal: Spacing.s,
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
     },
     scrollView: {
       marginTop: Spacing.xl,
@@ -80,7 +80,7 @@ export const useStyles = () => {
       paddingVertical: moderateScale(16),
     },
     buttonLabel: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     outline: {
       width: Spacing.lg,
