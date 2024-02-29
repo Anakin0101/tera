@@ -43,8 +43,22 @@ export const VerificationTypeScreen = () => {
   const onSubmit: SubmitHandler<VerificationTypeScreenFormData> = data => {
     const { email, personalId, mobile } = data;
     flow === 'registration'
-      ? handleUserRegister({ email, personalId, mobile }, handleNavigation)
-      : handleRecoverPassword({ email, pin: personalId, mobile }, handleNavigation);
+      ? handleUserRegister(
+          {
+            email: selectedRadio === RADIO_VALUES.withEmail ? email : null,
+            personalId,
+            mobile: selectedRadio === RADIO_VALUES.withPhone ? mobile : null,
+          },
+          handleNavigation,
+        )
+      : handleRecoverPassword(
+          {
+            email: selectedRadio === RADIO_VALUES.withEmail ? email : null,
+            pin: personalId,
+            mobile: selectedRadio === RADIO_VALUES.withPhone ? mobile : null,
+          },
+          handleNavigation,
+        );
   };
 
   return (
