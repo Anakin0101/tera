@@ -9,7 +9,7 @@ import { MainStackRouteProps, MainStackScreenProps } from 'navigation/types';
 import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
 import { formatMoney } from 'utils/formatMoney';
 import { getFee } from 'utils/paymentUtils';
-import { AutomaticPayment, Plus, Share, SuccessTransaction } from 'assets/SVGs';
+import { SuccessTransaction } from 'assets/SVGs';
 import { DASHBOARD_SCREEN } from 'navigation/ScreenNames';
 
 export const PaymentSuccessScreen = () => {
@@ -81,7 +81,9 @@ export const PaymentSuccessScreen = () => {
           <Text style={[styles.moneyLabel, styles.moneyLabelBlack]}>{latestPaymentValue} ₾</Text>
         </View>
       )}
-      {!isBasketMode && (
+
+      {/* ეს დროებით ჩაითიშება, ეტაპობრივად დაემატება */}
+      {/* {!isBasketMode && (
         <View style={styles.actionButtonsWrapper}>
           <View style={styles.actionContainer}>
             <View style={styles.actionButton}>
@@ -106,7 +108,7 @@ export const PaymentSuccessScreen = () => {
             <Text style={styles.actionButtonLabel}>{t('paymentSuccessScreen.receiptShare')}</Text>
           </View>
         </View>
-      )}
+      )} */}
 
       <View style={styles.nextButtonWrapper}>
         <Button.Primary

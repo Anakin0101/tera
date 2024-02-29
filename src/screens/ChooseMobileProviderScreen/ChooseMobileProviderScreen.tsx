@@ -71,9 +71,9 @@ export const ChooseMobileProviderScreen = () => {
           {t('chooseMobileProviderScreen.chooseFromContact')}
         </Text>
       </Pressable>
-      <Text style={styles.enterMobileNumber}>
+      {/* <Text style={styles.enterMobileNumber}>
         {t('chooseMobileProviderScreen.mobileTemplates')}
-      </Text>
+      </Text> */}
       {/* შაბლონების ლისტისთვის არის დროებით და გამოვიყენებთ მალე */}
       {/* <FlatList
         showsVerticalScrollIndicator={false}

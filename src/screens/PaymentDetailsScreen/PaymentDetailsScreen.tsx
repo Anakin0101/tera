@@ -1,37 +1,32 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Button, IconComponent, PaymentDetails, Text } from 'components/index';
 import { useStyles } from './PaymentDetailsScreen.style';
-import { MainStackRouteProps, MainStackScreenProps } from 'navigation/types';
 import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { sumForSubscriberFieldsValue } from 'utils/sumForSubscriberFieldsValue';
 import { formatMoney } from 'utils/formatMoney';
-import { getFee, updateArrayValuesById } from 'utils/paymentUtils';
+import { getFee } from 'utils/paymentUtils';
 import { usePayService } from './container';
-import { PaymentFieldValue } from 'services/apis/paymentsAPI/paymentsAPI.types';
-import { MODAL_STACK, PAYMENT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 
 export const PaymentDetailsScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
-  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
-  const { params } = useRoute<MainStackRouteProps<'PaymentDetailsScreen'>>();
+
   const {
+    payService,
+    isLoading,
     providerItem,
     debtVerifyResults,
     selectedAccount,
     subscriberFieldsValue,
     subscriberInputFieldsValue,
     debtVerifyBasketInfo,
-  } = params || {};
-
-  const { payService, isLoading } = usePayService();
+  } = usePayService();
   const savedLanguage = getValue(SELECTED_LANGUAGE);
   /**
    * Memoized sum calculation for the values in subscriberInputFieldsValue.
@@ -85,37 +80,9 @@ export const PaymentDetailsScreen = () => {
     [providerItem?.feeRules, sum],
   );
 
-  /**
-   * Generate an array of PaymentFieldValue based on debtVerifyResults, subscriberFieldsValue, and subscriberInputFieldsValue.
-   *
-   * @function
-   * @param {Array<DebtVerifyResult>} debtVerifyResults - The array of debt verification results.
-   * @param {SubscriberFieldsValue} subscriberFieldsValue - The array of subscriber fields' values.
-   * @param {SubscriberFieldsValue} subscriberInputFieldsValue - The array of subscriber input fields' values.
-   * @returns {Array<PaymentFieldValue>} The array of PaymentFieldValue with updated values.
-   */
-  const generatePaymentFieldValues = () => {
-    return debtVerifyResults.flatMap(result =>
-      (result.serviceFields || []).map(field => ({ id: field.id, value: field.value })),
-    );
-  };
-
-  const payServiceOnPress = async () => {
+  const payServiceOnPress = () => {
     try {
-      const filedValue: Array<PaymentFieldValue> = generatePaymentFieldValues();
-      const resultArray = updateArrayValuesById(filedValue, subscriberFieldsValue);
-      const newArr = updateArrayValuesById(resultArray, subscriberInputFieldsValue);
-
-      const resp = await payService(selectedAccount.accountId, providerItem.id, newArr);
-      if (resp) {
-        navigate(MODAL_STACK, {
-          screen: PAYMENT_SUCCESS_SCREEN,
-          params: {
-            providerItem,
-            subscriberInputFieldsValue,
-          },
-        });
-      }
+      payService();
     } catch (ex) {
       console.warn('payServiceOnPress', ex);
     }
