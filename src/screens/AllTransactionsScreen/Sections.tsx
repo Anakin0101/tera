@@ -16,6 +16,7 @@ import { MODAL_STACK, TRANSACTION_DETAILS_SCREEN } from 'navigation/ScreenNames'
 import { MainStackScreenProps } from 'navigation/types';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './AllTransactionsScreen.styles';
+import { SPACED_YEAR } from 'constants/DateTemplates';
 
 export const Sections: FC<FooterProps> = ({ sections }) => {
   const styles = useStyles();
@@ -47,7 +48,7 @@ export const Sections: FC<FooterProps> = ({ sections }) => {
     ({ section }) => {
       return (
         <View style={styles.sectionHeader}>
-          <Text children={formatDate(section.title, ' YYYY')} size={16} medium />
+          <Text children={formatDate(section.title, SPACED_YEAR)} size={16} medium />
         </View>
       );
     },

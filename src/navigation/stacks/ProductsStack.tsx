@@ -148,7 +148,11 @@ export const ProductsStack = () => {
         component={DepositDetailsScreen}
         options={{ title: t('products.depositDetails') }}
       />
-      <Screen name={LOANS_SCREEN} component={LoansScreen} options={{ title: t('loans.title') }} />
+      <Screen
+        name={LOANS_SCREEN}
+        component={LoansScreen}
+        options={{ title: t('loans.title'), headerStyle: st.whiteHeader }}
+      />
       <Screen
         name={LOAN_DETAILS_SCREEN}
         component={LoanDetailsScreen}

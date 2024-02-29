@@ -10,6 +10,7 @@ import { NextPayment } from './NextPayment';
 import { formatDate } from 'utils/formatDate';
 import { Details } from './Details';
 import { SectionListRenderItemT } from 'screens/types';
+import { SPACED_YEAR } from 'constants/DateTemplates';
 
 const sections = [
   { title: 'slider', data: [{}] },
@@ -20,7 +21,8 @@ const sections = [
 export const LoanDetailsScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<ProductsStackRouteProps<'LoanDetailsScreen'>>();
-  const { activeIndex, setActiveIndex, actions, loan, data } = useLoanDetails(params.index);
+  const { activeIndex, setActiveIndex, actions, loan, data, isCreditCardOrOverdraft } =
+    useLoanDetails(params.index);
 
   const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
@@ -42,11 +44,12 @@ export const LoanDetailsScreen = () => {
           <NextPayment
             currency={loan.currency}
             nextPaymentAmount={loan.nextPaymentAmount}
-            nextPaymentDate={formatDate(loan.nextPaymentDate, ' YYYY')}
+            nextPaymentDate={formatDate(loan.nextPaymentDate, SPACED_YEAR)}
+            isCreditCardOrOverdraft={isCreditCardOrOverdraft}
           />
         );
       case 'details':
-        return <Details data={loan} />;
+        return <Details data={loan} isCreditCardOrOverdraft={isCreditCardOrOverdraft} />;
       default:
         return null;
     }

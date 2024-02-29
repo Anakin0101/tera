@@ -23,6 +23,7 @@ export const useStyles = () => {
     },
     nextPaymentContainer: {
       ...Layout.row,
+      ...Layout.alignItemsCenter,
       backgroundColor: Colors.dashboardBackground,
       borderRadius: Spacing.m,
       paddingVertical: Spacing.lg,
@@ -33,8 +34,9 @@ export const useStyles = () => {
       ...Layout.center,
       width: moderateScale(48),
       height: moderateScale(48),
-      borderRadius: Spacing.xl,
       backgroundColor: Colors.white,
+      borderRadius: Spacing.xl,
+      borderColor: Colors.white,
     },
     nextPaymentDate: {
       ...Layout.row,
@@ -59,6 +61,10 @@ export const useStyles = () => {
       backgroundColor: Colors.white,
       paddingHorizontal: Spacing.xl,
       paddingVertical: Spacing.xlg,
+    },
+    borderTopRadius: {
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
     },
     agreementButton: {
       borderWidth: 1,
@@ -106,7 +112,7 @@ export const useStyles = () => {
       ...Layout.justifyContentBetween,
     },
     titleContainer: {
-      ...Layout.fill,
+      ...Layout.center,
     },
     collapsibleHeaderWrapper: {
       height: 60,
@@ -131,6 +137,12 @@ export const useStyles = () => {
     },
     actionButtons: {
       ...Layout.justifyContentBetween,
+    },
+    alignEnd: {
+      ...Layout.alignSelfEnd,
+    },
+    fill: {
+      ...Layout.fill,
     },
   });
 };

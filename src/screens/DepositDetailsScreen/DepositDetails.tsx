@@ -7,6 +7,7 @@ import { formatMoney } from 'utils/formatMoney';
 import { Alert, Copy } from 'assets/SVGs';
 import { DepositDetailsProps } from './DepositDetailsScreen.types';
 import { useStyles } from './DepositDetailsScreen.styles';
+import { SPACED_YEAR } from 'constants/DateTemplates';
 
 export const DepositDetails: FC<DepositDetailsProps> = ({
   deposit,
@@ -21,7 +22,7 @@ export const DepositDetails: FC<DepositDetailsProps> = ({
       <Text children="products.details" size={18} medium />
       {deposit?.endDate && (
         <View style={styles.durationContainer}>
-          <DetailsItem label="deposits.endDate" value={formatDate(deposit?.endDate, ' YYYY')} />
+          <DetailsItem label="deposits.endDate" value={formatDate(deposit?.endDate, SPACED_YEAR)} />
           {diff > 0 && diff <= 10 ? (
             <Badge
               icon={<Alert />}

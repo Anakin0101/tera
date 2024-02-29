@@ -6,4 +6,5 @@ export const MMMM = 'MMMM';
 export const D = 'D';
 export const DD = 'DD';
 export const MMM = 'MMM';
+export const SPACED_YEAR = ' YYYY';
 export const DD_MM_YYYY_SLASH = 'DD/MM/YYYY';

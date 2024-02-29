@@ -206,7 +206,7 @@ export type CreditCardType = {
   creditStartDate: string;
   creditEndDate: string;
   billingDay: number;
-  creditStatus: number;
+  creditStatus: CreditStatus;
   creditIsOn: true;
   usedPrincipalAmount: number;
   notUsedPrincipalAmount: number;
@@ -344,6 +344,9 @@ export type LoanSchedule = {
   balance: number;
   totalDebt: number;
   insurance: number;
+  id: number;
+  insuranceTotal: number;
+  subsidizedInterest: number;
 };
 
 export type LoanHistory = {
@@ -355,6 +358,9 @@ export type LoanHistory = {
   penalty: number;
   fee: number;
   total: number;
+  id: number;
+  lifeInsurance: number;
+  subsidizedInterest: number;
 };
 
 export enum OfferTypeEnum {

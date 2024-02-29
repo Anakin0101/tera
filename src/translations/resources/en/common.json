@@ -326,6 +326,7 @@
     "overdueInterestAmount": "Overdue Interest Amount",
     "overdueInterestPenalty": "Overdue Interest Penalty",
     "defferdPrincipalAmount": "Defferd Principal Amount",
+    "defferdInterestAmount": "Defferd Interest Amount",
     "allDebt": "Total Debt",
     "creditPeriod": "{{value}} Month(s)",
     "billingDay": "Billing Day",
@@ -339,7 +340,13 @@
     "operations": "Operations",
     "cover": "Cover",
     "prepayment": "Pre-payment",
-    "iban": "Loan servicing account"
+    "iban": "Loan servicing account",
+    "accountName": "Account name",
+    "accNumber": "Account number",
+    "accType": "Account type",
+    "cardAcc": "Card account",
+    "deposit": "Deposit",
+    "current": "Current"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",
@@ -353,7 +360,8 @@
     "late": "Late",
     "overdue": "Overdues",
     "writtenOff": "Written Off",
-    "Closed": "Closed"
+    "Closed": "Closed",
+    "expired": "Expired"
   },
   "common": {
     "save": "Save",
