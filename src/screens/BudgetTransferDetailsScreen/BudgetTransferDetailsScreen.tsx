@@ -73,8 +73,7 @@ export const BudgetTransferDetailsScreen = () => {
               <TextInput
                 inputStyle={styles.input}
                 value={userName}
-                keyboardType="numeric"
-                label="სახელი"
+                label="checkPaymentProvider.name"
                 onChangeText={onTextChangeUserName}
               />
             </View>

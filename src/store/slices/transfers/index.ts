@@ -16,7 +16,7 @@ const initialState = {
   accountIban: null,
   selectedTransactionType: {
     name: '',
-    isFast: null,
+    isFast: false,
     selected: null,
   },
   setBudgetPerson: {

@@ -5,5 +5,6 @@ export const REGEX = {
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   COMMA_OR_PERIOD: /[.,]/g,
   MATCH_ID: /id:(\d+)/,
+  BUDGET: /^\d{8,}$/,
   PHONE: /^5\d{0,8}$/,
 };

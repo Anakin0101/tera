@@ -10,22 +10,35 @@ import { useNavigation } from '@react-navigation/native';
 import { TRANSFER_TO_BUDGET } from 'navigation/ScreenNames';
 import { setClearTreasuryFromCode, setClearWrappedCode } from 'store/slices/transfers';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { useAppSelector } from 'store/hooks/useAppSelector';
+import { SelectedItem } from 'components/OtherBanksTransactionTabBar/OtherBanksTransactionTabBar.types';
+import { wrappedCodeTypes } from './BudgetTransactionScreen.types';
+import { LoadingView } from 'components';
+import { REGEX } from 'constants/index';
 const sections = [{ title: 'budget', data: [{}] }];
 
-const ListFooter = (treasury: treasuryRes, clickedCreateCode: boolean) => {
+const ListFooter = (
+  treasury: treasuryRes,
+  clickedCreateCode: boolean,
+  wrappedCode: wrappedCodeTypes,
+  budgetCode: string,
+) => {
   const styles = useStyles();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransactionScreen'>>();
 
   const navigateToTransferBudget = () => {
-    if (treasury || clickedCreateCode) {
-      navigate(TRANSFER_TO_BUDGET);
+    const isValidBudgetCode = REGEX.BUDGET.test(budgetCode);
+    if (!clickedCreateCode && isValidBudgetCode) {
+      navigate(TRANSFER_TO_BUDGET, { budgetCode: budgetCode });
+    } else if (clickedCreateCode && (treasury || clickedCreateCode)) {
+      navigate(TRANSFER_TO_BUDGET, { treasury: wrappedCode });
     }
   };
 
   return (
     <Button.Primary
       fullWidth
-      disabled={!treasury && !clickedCreateCode}
+      // disabled={!treasury && !clickedCreateCode}
       onPress={navigateToTransferBudget}
       text="transactions.next"
       customWrapperStyle={styles.button}
@@ -35,8 +48,13 @@ const ListFooter = (treasury: treasuryRes, clickedCreateCode: boolean) => {
 };
 
 export const BudgetTransactionScreen = () => {
-  const { budgetCode, onChangeBudgetCode, treasury } = useBudget(false);
+  const { budgetCode, onChangeBudgetCode, treasury, isLoading } = useBudget(false);
   const [clickedCreateCode, setClickedCreateCode] = useState(false);
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: SelectedItem }) => state.transfers,
+  );
+
+  const { wrappedCode } = selectedItemFromStore;
   const dispatch = useAppDispatch();
   const styles = useStyles();
 
@@ -63,12 +81,15 @@ export const BudgetTransactionScreen = () => {
         return null;
     }
   };
+  if (isLoading) {
+    return <LoadingView />;
+  }
 
   return (
     <SectionList
       sections={sections}
       renderItem={renderItem}
-      ListFooterComponent={() => ListFooter(treasury, clickedCreateCode)}
+      ListFooterComponent={() => ListFooter(treasury, clickedCreateCode, wrappedCode, budgetCode)}
       style={styles.list}
       ListFooterComponentStyle={styles.footer}
       contentContainerStyle={styles.contentContainer}

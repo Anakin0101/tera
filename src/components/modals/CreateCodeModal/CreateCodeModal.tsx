@@ -25,13 +25,14 @@ export const CreateCodeModal = memo(() => {
     if (activeCompIndex === createBudgetEnum.FIRST_VIEW) {
       closeModal();
     } else {
-      setActiveCompIndex(activeCompIndex - 1);
+      setActiveCompIndex(prevActiveCompIndex => prevActiveCompIndex - 1);
+
       setChosenItems(prevChosenItems => {
-        prevChosenItems[activeCompIndex - 1] = null;
-        return [...prevChosenItems];
+        const newChosenItems = prevChosenItems.slice(0, activeCompIndex - 1);
+        return newChosenItems;
       });
 
-      onChangeBudgetCode('', String.fromCharCode('a'.charCodeAt(0) + activeCompIndex - 1));
+      onChangeBudgetCode('', String.fromCharCode('a'.charCodeAt(0) + activeCompIndex - 2));
     }
   }, [activeCompIndex, onChangeBudgetCode]);
 

@@ -10,7 +10,12 @@ export const useBudget = (withoutQuery: boolean) => {
   const [queryParams, setQueryParams] = useState({});
   const [wrapCode, setWrapCode] = useState({ a: '', b: '', c: '' });
 
-  const { data: treasury, refetch } = useGetTreasuryCodeQuery(queryParams, {
+  const {
+    data: treasury,
+    refetch,
+    isSuccess,
+    isLoading,
+  } = useGetTreasuryCodeQuery(queryParams, {
     skip: !withoutQuery && budgetCode.length === 0,
   });
 
@@ -18,13 +23,14 @@ export const useBudget = (withoutQuery: boolean) => {
     if (budgetCode.length > 0) {
       refetch();
     }
-  }, [budgetCode, refetch]);
+  }, [budgetCode, refetch, wrapCode]);
 
   const onChangeBudgetCode = useCallback(
     (code: string, wrap?: string) => {
+      const sanitizedCode = code.replace(/\D/g, '').slice(0, 9);
       const { a, b } = {
-        a: code.toString().charAt(0),
-        b: code.toString().slice(1, 5),
+        a: sanitizedCode.charAt(0),
+        b: sanitizedCode.slice(1, 5),
       };
 
       let queryParamsNew = {};
@@ -42,8 +48,8 @@ export const useBudget = (withoutQuery: boolean) => {
         }`;
         dispatch(setAccountToData({ iban: createdWrappedCode, name: 'transactions.budgetTitle' }));
       } else {
-        setBudgetCode(code.toString());
-        dispatch(setAccountToData({ iban: code.toString(), name: 'transactions.budgetTitle' }));
+        setBudgetCode(code);
+        dispatch(setAccountToData({ iban: sanitizedCode, name: 'transactions.budgetTitle' }));
       }
       setQueryParams(queryParamsNew);
       dispatch(setWrappedCode(queryParamsNew));
@@ -51,11 +57,12 @@ export const useBudget = (withoutQuery: boolean) => {
     },
     [dispatch, wrapCode, treasury],
   );
-
   return {
     budgetCode,
     setBudgetCode,
     onChangeBudgetCode,
     treasury,
+    isSuccess,
+    isLoading,
   };
 };
