@@ -139,12 +139,12 @@ const MobileTransaction = () => {
     }
   };
   useEffect(() => {
-    if (isFocused) {
+    if (typedAccountName || isFocused) {
       setTimeout(() => {
         inputRef?.current?.focus();
       }, 300);
     }
-  }, [isFocused]);
+  }, [isFocused, typedAccountName]);
 
   const getContactList = useCallback(async () => {
     try {
@@ -155,6 +155,9 @@ const MobileTransaction = () => {
         if (mobileNumber) {
           const formattedNumber = mobileNumber.replace(/\D/g, '');
           handleChange(formattedNumber);
+          setTimeout(() => {
+            inputRef.current?.focus();
+          }, 100);
         }
       }
     } catch (ex) {
@@ -208,7 +211,6 @@ const MobileTransaction = () => {
           ref={inputRef}
           onChangeText={(value: string | null | undefined) => handleChange(value)}
           marginTop={32}
-          autoFocus
         />
 
         {apiCallInitiated && data ? (

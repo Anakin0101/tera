@@ -152,7 +152,7 @@ export const TransactionsStack = () => {
         name={BUDGET_TRANSACTION_SCREEN}
         component={BudgetTransactionScreen}
         options={{
-          title: t('transactions.budgetCode'),
+          title: t('transfers.where'),
         }}
       />
       <Screen
