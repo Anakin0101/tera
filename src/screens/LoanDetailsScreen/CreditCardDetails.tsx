@@ -9,7 +9,7 @@ import { CollapsibleItemProps, CreditCardDetailsProps } from './LoanDetailsScree
 import { useStyles } from './LoanDetailsScreen.styles';
 import { Colors } from 'theme/Variables';
 import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
-import { SEPARATED_BY_SLASH, SPACED_YEAR } from 'constants/DateTemplates';
+import { DD_MM_YYYY_SLASH, SPACED_YEAR } from 'constants/DateTemplates';
 import { Copy } from 'assets/SVGs';
 import { useCopyToClipboard } from 'hooks';
 import { AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
@@ -131,7 +131,7 @@ export const CreditCardDetails: FC<CreditCardDetailsProps> = ({ creditCard }) =>
       />
       <DetailsItem
         label="loans.paymentDeadline"
-        value={getFormattedDate(creditCard?.paymentEndDate, SEPARATED_BY_SLASH)}
+        value={getFormattedDate(creditCard?.paymentEndDate, DD_MM_YYYY_SLASH)}
       />
       <DetailsItem
         label="loans.totalPenalty"

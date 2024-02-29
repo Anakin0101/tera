@@ -6,7 +6,7 @@ import { formatMoney } from 'utils/formatMoney';
 import { ScheduleItemProps } from './LoanScheduleModal.types';
 import { useStyles } from './LoanScheduleModal.styles';
 import { Colors } from 'theme/Variables';
-import { SEPARATED_BY_SLASH } from 'constants/DateTemplates';
+import { DD_MM_YYYY_SLASH } from 'constants/DateTemplates';
 
 export const ScheduleItem: FC<ScheduleItemProps> = ({ item, currency, currentId }) => {
   const styles = useStyles();
@@ -22,7 +22,7 @@ export const ScheduleItem: FC<ScheduleItemProps> = ({ item, currency, currentId 
           <Text
             children={formatDateFullMonth(
               isSchedule ? item?.nextPaymentDay : item?.paymentDate,
-              !isSchedule ? SEPARATED_BY_SLASH : undefined,
+              !isSchedule ? DD_MM_YYYY_SLASH : undefined,
             )}
             color={isSchedule && item?.id === currentId ? Colors.primary : Colors.textBlack}
             demiBold={isSchedule && item?.id === currentId}
