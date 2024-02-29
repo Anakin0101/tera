@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, SectionListRenderItem, View } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Slider } from 'components';
 import { useLoanDetails } from './container';
@@ -9,6 +9,7 @@ import { useStyles } from './LoanDetailsScreen.styles';
 import { NextPayment } from './NextPayment';
 import { formatDate } from 'utils/formatDate';
 import { Details } from './Details';
+import { SectionListRenderItemT } from 'screens/types';
 import { SPACED_YEAR } from 'constants/DateTemplates';
 
 const sections = [
@@ -23,7 +24,7 @@ export const LoanDetailsScreen = () => {
   const { activeIndex, setActiveIndex, actions, loan, data, isCreditCardOrOverdraft } =
     useLoanDetails(params.index);
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'slider':
         return (

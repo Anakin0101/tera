@@ -276,10 +276,13 @@
     "accruedBenefit": "Accrued Benefit",
     "utilizedBenefits": "Utilized Benefit",
     "agreementDoc": "Agreement Document",
+    "addMoney": "Add\nmoney",
     "extraction": "Extraction",
     "agreementNumCopied": "Agreement number has been copied",
     "endDate": "End Date",
-    "willBeCancelled": "will be cancelled in {{value}} days"
+    "willBeCancelled": "will be cancelled in {{value}} days",
+    "months": "{{value}} months",
+    "lifetime": "Lifetime"
   },
   "loans": {
     "title": "Loans",

@@ -649,3 +649,57 @@ export interface PrintLoanSchedulesReq {
 export interface PrintLoanSchedulesRes {
   fileId: string;
 }
+
+export interface DepositByIdReq {
+  culture: string;
+  depositId?: number;
+}
+
+export interface CancelationCondition {
+  description: string;
+  value: string;
+}
+
+export interface DepositByIdRes {
+  additional: {
+    additionalText: string[];
+    currency: CurrencyEnum;
+    maturityDate: string;
+    maturityDateText: string;
+    minimalAccrualAmount: number;
+    minimalAccrualAmountText: string;
+    monthlyMinTranshAmount: number;
+    monthlyMinTranshAmountText: string;
+    openAmount: number;
+    openAmountText: string;
+    percentEnrolmentPeriod: string;
+    percentType: string;
+    startDateText: string;
+  };
+  cancelationConditions: {
+    conditions: CancelationCondition[];
+  };
+  depositNumber: string;
+  financialData: {
+    openFee: number;
+    openFeeText: string;
+    percentWithdrawalFee: number;
+    percentWithdrawalFeeText: string;
+    serviceFee: number;
+    serviceFeeText: string;
+    withdrawalFee: number;
+    withdrawalFeeText: string;
+  };
+  headLine: {
+    name: string;
+    productName: string;
+  };
+  isCD: boolean;
+  percentData: {
+    efectPercentText: string;
+    efectPercentValText: string;
+    percentByCurrency: any[];
+    percentScaleDatas: any;
+    percentText: string;
+  };
+}

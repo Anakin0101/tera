@@ -1,16 +1,23 @@
 import React from 'react';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useCopyToClipboard } from 'hooks';
+import { useRoute } from '@react-navigation/native';
+import { useCopyToClipboard, useCulture } from 'hooks';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { ProductsStackRouteProps } from 'navigation/types';
+import { useGetDepositByIdQuery } from 'services/apis';
 import { Add, Card, Note, Swap } from 'assets/SVGs';
 import { DepositTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
-export const useDepositDetails = (index: number) => {
+export const useDepositDetails = () => {
   const { t } = useTranslation();
+  const { culture } = useCulture();
+  const { params } = useRoute<ProductsStackRouteProps<'DepositDetailsScreen'>>();
+  const { index, id } = params || {};
   const { deposits } = useAppSelector(state => state.products);
   const [activeIndex, setActiveIndex] = useState(index);
   const { copyToClipboard } = useCopyToClipboard();
+  const { data: depositDetails } = useGetDepositByIdQuery({ culture, depositId: id });
 
   const deposit = useMemo(() => {
     return deposits[activeIndex];
@@ -76,5 +83,6 @@ export const useDepositDetails = (index: number) => {
     setActiveIndex,
     actions,
     copyToClipboard,
+    depositDetails,
   };
 };

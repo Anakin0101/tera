@@ -7,7 +7,6 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 export const useLoans = () => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'LoanRequestScreen'>>();
   const { loans, totalDebtGEL, overdrafts, creditCards } = useAppSelector(state => state.products);
-
   const data = [...overdrafts, ...creditCards, ...loans];
 
   const handleNewLoanPress = useCallback(() => {

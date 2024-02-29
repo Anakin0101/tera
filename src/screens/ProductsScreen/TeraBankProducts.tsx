@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { SectionList, SectionListRenderItem, View } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { useTheme } from 'hooks';
 import { useTeraProducts } from './teraProductsContainer';
 import { useIsFocused } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { Button, CardsAndAccounts, DepositsAndLoans, Divider } from 'components'
 import { useStyles } from './ProductsScreen.styles';
 import { Plus } from 'assets/SVGs';
 import { FooterProps } from './ProductsScreen.types';
+import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'accounts', data: [{}] },
@@ -59,7 +60,7 @@ const TeraBankProducts = () => {
     }
   }, [isFocused, refetch]);
 
-  const renderSectionListItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderSectionListItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
       case 'accounts':
         return (
