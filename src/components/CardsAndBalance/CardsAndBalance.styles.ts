@@ -35,11 +35,16 @@ const useStyles = () => {
     image: {
       ...Layout.fullWidth,
       ...Layout.fullHeight,
+      ...Layout.overflowHidden,
       borderRadius: Spacing.m,
     },
-    cardHeader: {
-      ...Layout.selfCenter,
-      marginLeft: Spacing.xxs,
+    contentWrapper: {
+      ...Layout.fullSize,
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.cardBlurLight,
+    },
+    darkBlur: {
+      backgroundColor: Colors.cardBlurDark,
     },
     currencyWrapper: {
       ...Layout.row,

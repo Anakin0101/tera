@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { ImageBackground, Pressable } from 'react-native';
+import { ImageBackground, Pressable, View } from 'react-native';
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import {
   CLOSE_CARD_HEIGHT,
@@ -50,8 +50,9 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
   });
 
   const cardHeader = useAnimatedStyle(() => {
-    const marginTop = interpolate(progress.value, [0, 1], [15, 30], Extrapolation.CLAMP);
-    return { marginTop };
+    const marginLeft = interpolate(progress.value, [0, 1], [15, 25], Extrapolation.CLAMP);
+    const marginTop = interpolate(progress.value, [0, 1], [40, 70], Extrapolation.CLAMP);
+    return { marginTop, marginLeft };
   });
 
   const titleTextSize = useAnimatedStyle(() => {
@@ -60,13 +61,13 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
   });
 
   const balance = useAnimatedStyle(() => {
-    const fontSize = interpolate(progress.value, [0, 1], [16, 30], Extrapolation.CLAMP);
+    const fontSize = interpolate(progress.value, [0, 1], [14, 30], Extrapolation.CLAMP);
     return { fontSize };
   });
 
   const currencyWrapper = useAnimatedStyle(() => {
     const marginLeft = interpolate(progress.value, [0, 1], [15, 25], Extrapolation.CLAMP);
-    const marginTop = interpolate(progress.value, [0, 1], [25, 50], Extrapolation.CLAMP);
+    const marginTop = interpolate(progress.value, [0, 1], [7, 15], Extrapolation.CLAMP);
 
     return {
       marginLeft,
@@ -108,6 +109,16 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
     ));
   }, [currency, currencyContainer, item?.accounts, styles.currency, styles.currencyContainer]);
 
+  const hasJuniorOrNextCard = useMemo(() => {
+    return !!item?.accounts
+      ?.flatMap(account => account?.cards)
+      ?.filter(
+        card =>
+          card?.cardProductName?.toLowerCase()?.includes('junior') ||
+          card?.cardProductName?.toLowerCase()?.includes('next'),
+      )?.length;
+  }, [item?.accounts]);
+
   if (!index) {
     return <Animated.View style={[styles.card, animScale]} />;
   }
@@ -120,20 +131,23 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
         <ImageBackground
           source={imageId ? { uri: `${PUBLIC_IMAGE_URL}${imageId}` } : DEFAULT_CARD}
           style={styles.image}
-          resizeMode="contain"
         >
-          <Animated.View style={[styles.cardHeader, cardHeader]}>
-            <Animated.Text style={[styles.text, titleTextSize]}>{item?.accountName}</Animated.Text>
-            <Animated.Text style={[styles.amount, balance]}>
-              {formatMoney(
-                item?.accounts?.[currentIndex]?.balance,
-                item?.accounts?.[currentIndex]?.ccy,
-              )}
-            </Animated.Text>
-          </Animated.View>
-          <Animated.View style={[styles.currencyWrapper, currencyWrapper]}>
-            {getCurrencies()}
-          </Animated.View>
+          <View style={[styles.contentWrapper, hasJuniorOrNextCard && styles.darkBlur]}>
+            <Animated.View style={cardHeader}>
+              <Animated.Text style={[styles.text, titleTextSize]}>
+                {item?.accountName}
+              </Animated.Text>
+              <Animated.Text style={[styles.amount, balance]}>
+                {formatMoney(
+                  item?.accounts?.[currentIndex]?.balance,
+                  item?.accounts?.[currentIndex]?.ccy,
+                )}
+              </Animated.Text>
+            </Animated.View>
+            <Animated.View style={[styles.currencyWrapper, currencyWrapper]}>
+              {getCurrencies()}
+            </Animated.View>
+          </View>
         </ImageBackground>
       </Animated.View>
     </Pressable>
