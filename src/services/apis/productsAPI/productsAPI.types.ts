@@ -650,17 +650,21 @@ export interface PrintLoanSchedulesRes {
   fileId: string;
 }
 
-export interface DepositByIdReq {
+export type TerabytesRes = {
+  teraBytes: number;
+  teraBytesInGel: number;
+};
+export type DepositByIdReq = {
   culture: string;
   depositId?: number;
-}
+};
 
-export interface CancelationCondition {
+export type CancelationCondition = {
   description: string;
   value: string;
-}
+};
 
-export interface DepositByIdRes {
+export type DepositByIdRes = {
   additional: {
     additionalText: string[];
     currency: CurrencyEnum;
@@ -702,4 +706,4 @@ export interface DepositByIdRes {
     percentScaleDatas: any;
     percentText: string;
   };
-}
+};

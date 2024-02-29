@@ -76,6 +76,8 @@ export const Colors = {
   pandingYellow: 'rgb(204, 189, 49)',
   lightGreen: 'rgba(128, 195, 66, 0.08)',
   packagesOverlay: 'rgba(245, 245, 245, 0.6)',
+  cardBlurLight: 'rgba(0,0,0,0.3)',
+  cardBlurDark: 'rgba(0,0,0,0.5)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

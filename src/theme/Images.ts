@@ -41,5 +41,6 @@ export default function () {
     PlatinumMedal: require('assets/images/PlatinumMedal.png'),
     Location: require('assets/images/location.png'),
     FallbackComponentImage: require('assets/images/FallbackComponentImage.png'),
+    DefaultCardImage: require('assets/images/DefaultCard.png'),
   };
 }

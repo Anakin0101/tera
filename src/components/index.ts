@@ -15,7 +15,6 @@ export { DynamicAccount } from './DynamicAccount/DynamicAccount';
 export { TrustDeviceModal } from './modals/index';
 export { DashboardTabBar } from './DashboardTabBar/DashboardTabBar';
 export { HomeHeader } from './HomeHeader/HomeHeader';
-export { CardsAndBalance } from './CardsAndBalance/CardsAndBalance';
 export { OTPModal } from './modals/index';
 export { TemplateCard } from './TemplateCard/TemplateCard';
 export { DashboardTemplates } from './DashboardTemplates/DashboardTemplates';

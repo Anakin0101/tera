@@ -36,6 +36,7 @@ import {
   ActivatePackage,
   PrintLoanSchedulesReq,
   PrintLoanSchedulesRes,
+  TerabytesRes,
   DepositByIdReq,
   DepositByIdRes,
 } from './productsAPI.types';
@@ -275,6 +276,12 @@ export const productsAPI = createApi({
       }),
       transformResponse: (response: PrintLoanSchedulesRes) => response.fileId,
     }),
+
+    getTerabyte: builder.query<TerabytesRes, void>({
+      query: () => ({
+        url: URLS.getTerabyte,
+      }),
+    }),
     getDepositById: builder.query<DepositByIdRes, DepositByIdReq>({
       query: ({ culture, depositId }) => ({
         url: URLS.getDepositById,
@@ -316,5 +323,6 @@ export const {
   useActivatePackageMutation,
   usePrintLoanSchedulesMutation,
   usePrintLoanPaymentsMutation,
+  useGetTerabyteQuery,
   useGetDepositByIdQuery,
 } = productsAPI;
