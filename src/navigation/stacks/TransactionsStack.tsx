@@ -35,7 +35,6 @@ import { HeaderBackArrow } from 'components/index';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
-import { withActivityTimeout } from 'components/HOC';
 // import ForeignIbanScreen from 'screens/ForeignIbanScreen/ForeignIbanScreen';
 
 export type TransactionsStackParamList = {
@@ -61,6 +60,7 @@ export const TransactionsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={TRANSACTIONS_SCREEN}
@@ -78,14 +78,14 @@ export const TransactionsStack = () => {
     >
       <Screen
         name={TRANSACTIONS_SCREEN}
-        component={withActivityTimeout(TransactionsScreen)}
+        component={TransactionsScreen}
         options={{
           headerShown: false,
         }}
       />
       <Screen
         name={MY_ACCOUNTS_SCREEN}
-        component={withActivityTimeout(MyAccounts)}
+        component={MyAccounts}
         options={{
           title: t('transfers.fromWhere'),
         }}
@@ -93,35 +93,35 @@ export const TransactionsStack = () => {
 
       <Screen
         name={TO_ACCOUNT_SCREEN}
-        component={withActivityTimeout(ToAccountScreen)}
+        component={ToAccountScreen}
         options={{
           title: t('transfers.where'),
         }}
       />
       <Screen
         name={TRANSFER_TO_ACCOUNT_SCREEN}
-        component={withActivityTimeout(TransferToAccountScreen)}
+        component={TransferToAccountScreen}
         options={{
           title: t('transfers.toOwnAccount'),
         }}
       />
       <Screen
         name={PRIVATE_TRANSACTION_SCREEN}
-        component={withActivityTimeout(PrivateTransactionScreen)}
+        component={PrivateTransactionScreen}
         options={{
           title: t('transfers.otherBanks'),
         }}
       />
       <Screen
         name={TRANSFER_DETAIL_SCREEN}
-        component={withActivityTimeout(TransferDetailScreen)}
+        component={TransferDetailScreen}
         options={{
           title: t('transactions.transDetails'),
         }}
       />
       <Screen
         name={TRANSACTION_FINISHED_SCREEN}
-        component={withActivityTimeout(TransactionFinishedScreen)}
+        component={TransactionFinishedScreen}
         options={{
           title: '',
           gestureEnabled: false,
@@ -130,42 +130,42 @@ export const TransactionsStack = () => {
       />
       <Screen
         name={TRANSACTION_FAILED_SCREEN}
-        component={withActivityTimeout(TransactionFailedScreen)}
+        component={TransactionFailedScreen}
         options={{
           title: '',
         }}
       />
       <Screen
         name={OTHER_BANK_TANSACTION_SCREEN}
-        component={withActivityTimeout(OtherBankTransactionScreen)}
+        component={OtherBankTransactionScreen}
         options={{
           title: t('transfers.where'),
         }}
       />
       <Screen
         name={TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN}
-        component={withActivityTimeout(TransferToOtherBankAccountScreen)}
+        component={TransferToOtherBankAccountScreen}
         options={{
           title: '',
         }}
       />
       <Screen
         name={BUDGET_TRANSACTION_SCREEN}
-        component={withActivityTimeout(BudgetTransactionScreen)}
+        component={BudgetTransactionScreen}
         options={{
           title: t('transactions.budgetCode'),
         }}
       />
       <Screen
         name={TRANSFER_TO_BUDGET}
-        component={withActivityTimeout(TransferToBudget)}
+        component={TransferToBudget}
         options={{
           title: t('transactions.transferToBudget'),
         }}
       />
       <Screen
         name={BUDGET_TRANSFER_DETAILS}
-        component={withActivityTimeout(BudgetTransferDetailsScreen)}
+        component={BudgetTransferDetailsScreen}
         options={{
           title: t('transactions.details'),
         }}

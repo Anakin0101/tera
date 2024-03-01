@@ -7,13 +7,13 @@ import { ProfileStackParamsList } from 'navigation/types';
 import { Colors } from 'theme/Variables';
 import { HeaderBackArrow } from 'components/index';
 import { useStyleTheme } from 'navigation/Navigation.styles';
-import { withActivityTimeout } from 'components/HOC';
 
 const ProfileStack = createStackNavigator<ProfileStackParamsList>();
 
 export const ProfileNavigator = () => {
   const { Navigator, Screen } = ProfileStack;
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={PROFILE_SCREEN}
@@ -31,7 +31,7 @@ export const ProfileNavigator = () => {
     >
       <Screen
         name={PROFILE_SCREEN}
-        component={withActivityTimeout(ProfileScreen)}
+        component={ProfileScreen}
         options={{
           headerShown: false,
         }}

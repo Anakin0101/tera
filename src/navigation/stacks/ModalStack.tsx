@@ -54,7 +54,6 @@ import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/C
 import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
 import { CartPaymentSuccessScreen } from 'screens/CartPaymentSuccessScreen/CartPaymentSuccessScreen';
-import { withActivityTimeout } from 'components/HOC';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -62,6 +61,7 @@ export const ModalNavigator = () => {
   const { Navigator, Screen } = ModalStack;
   const st = useStyleTheme();
   const { t } = useTranslation();
+
   return (
     <Navigator
       initialRouteName={SETTINGS_SCREEN}
@@ -80,27 +80,27 @@ export const ModalNavigator = () => {
     >
       <Screen
         name={SETTINGS_SCREEN}
-        component={withActivityTimeout(SettingsScreen)}
+        component={SettingsScreen}
         options={{ title: t('navigation.settings') }}
       />
       <Screen
         name={AUTHORIZATION_METHODS_SCREEN}
-        component={withActivityTimeout(AuthorizationMethodsScreen)}
+        component={AuthorizationMethodsScreen}
         options={{ title: t('settings.choose_authorization_method') }}
       />
       <Screen
         name={VERIFY_EASY_LOGIN_SCREEN}
-        component={withActivityTimeout(VerifyEasyLoginScreen)}
+        component={VerifyEasyLoginScreen}
         options={hideHeader}
       />
       <Screen
         name={CREATE_PASSCODE_SCREEN}
-        component={withActivityTimeout(CreatePasscodeScreen)}
+        component={CreatePasscodeScreen}
         options={{ title: t('passcode.headerTitle') }}
       />
       <Screen
         name={NEW_PAYMENT_SCREEN}
-        component={withActivityTimeout(NewPaymentScreen)}
+        component={NewPaymentScreen}
         options={{
           title: t('newPayment.title'),
           headerShadowVisible: true,
@@ -108,7 +108,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CHOOSE_PAYMENT_PROVIDER_SCREEN}
-        component={withActivityTimeout(ChoosePaymentProviderScreen)}
+        component={ChoosePaymentProviderScreen}
         options={{
           title: '',
           headerShadowVisible: true,
@@ -116,7 +116,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={PAYMENT_DETAILS_SCREEN}
-        component={withActivityTimeout(PaymentDetailsScreen)}
+        component={PaymentDetailsScreen}
         options={{
           title: t('paymentDetailsScreen.title'),
           headerShadowVisible: true,
@@ -124,7 +124,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={PAYMENT_SUCCESS_SCREEN}
-        component={withActivityTimeout(PaymentSuccessScreen)}
+        component={PaymentSuccessScreen}
         options={{
           title: '',
           headerShadowVisible: true,
@@ -134,14 +134,14 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CHOOSE_MOBILE_PROVIDER_SCREEN}
-        component={withActivityTimeout(ChooseMobileProviderScreen)}
+        component={ChooseMobileProviderScreen}
         options={{
           title: t('chooseMobileProviderScreen.title'),
         }}
       />
       <Screen
         name={PAYMENT_ERROR_SCREEN}
-        component={withActivityTimeout(PaymentErrorScreen)}
+        component={PaymentErrorScreen}
         options={{
           title: '',
           headerShadowVisible: true,
@@ -151,7 +151,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CHECK_PAYMENT_PROVIDER_SCREEN}
-        component={withActivityTimeout(CheckPaymentProviderScreen)}
+        component={CheckPaymentProviderScreen}
         options={{
           title: '',
           headerShadowVisible: true,
@@ -159,7 +159,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CHOOSE_PAYMENT_ACCOUNT_SCREEN}
-        component={withActivityTimeout(ChoosePaymentAccountScreen)}
+        component={ChoosePaymentAccountScreen}
         options={{
           title: t('choosePaymentAccountScreen.title'),
           headerShadowVisible: true,
@@ -167,7 +167,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={AUTOMATIC_PAYMENTS_SCREEN}
-        component={withActivityTimeout(AutomaticPaymentsScreen)}
+        component={AutomaticPaymentsScreen}
         options={{
           title: t('automaticPayments.title'),
           headerStyle: { backgroundColor: Colors.white },
@@ -175,12 +175,12 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={AUTOMATIC_PAYMENT_DETAILS_SCREEN}
-        component={withActivityTimeout(AutomaticPaymentDetailsScreen)}
+        component={AutomaticPaymentDetailsScreen}
         options={{ title: t('automaticPayments.paymentDetails') }}
       />
       <Screen
         name={NEW_AUTOMATIC_PAYMENT_SCREEN}
-        component={withActivityTimeout(NewAutomaticPaymentScreen)}
+        component={NewAutomaticPaymentScreen}
         options={{
           title: t('automaticPayments.newPayment'),
           headerStyle: { backgroundColor: Colors.white },
@@ -188,7 +188,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={ADD_CART_SCREEN}
-        component={withActivityTimeout(AddCartScreen)}
+        component={AddCartScreen}
         options={{
           title: t('addCartScreen.title'),
           headerShadowVisible: true,
@@ -199,7 +199,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CART_LIST_SCREEN}
-        component={withActivityTimeout(CartListScreen)}
+        component={CartListScreen}
         options={{
           title: t('cartListScreen.title'),
           headerShadowVisible: true,
@@ -210,7 +210,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CART_PAYMENT_LIST_SCREEN}
-        component={withActivityTimeout(CartPaymentListScreen)}
+        component={CartPaymentListScreen}
         options={{
           title: '',
           headerShadowVisible: true,
@@ -221,7 +221,7 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={CART_PAYMENT_SUCCESS_SCREEN}
-        component={withActivityTimeout(CartPaymentSuccessScreen)}
+        component={CartPaymentSuccessScreen}
         options={{
           title: '',
           headerShown: false,
@@ -230,17 +230,17 @@ export const ModalNavigator = () => {
       />
       <Screen
         name={NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN}
-        component={withActivityTimeout(NewAutomaticPaymentDetailsScreen)}
+        component={NewAutomaticPaymentDetailsScreen}
         options={{ title: t('automaticPayments.paymentDetails') }}
       />
       <Screen
         name={ALL_TRANSACTIONS_SCREEN}
-        component={withActivityTimeout(AllTransactionsScreen)}
+        component={AllTransactionsScreen}
         options={{ title: t('transactions.title') }}
       />
       <Screen
         name={TRANSACTION_DETAILS_SCREEN}
-        component={withActivityTimeout(TransactionDetailsScreen)}
+        component={TransactionDetailsScreen}
         options={{ title: t('transactions.details') }}
       />
     </Navigator>

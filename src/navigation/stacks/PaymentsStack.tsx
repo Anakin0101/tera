@@ -7,7 +7,6 @@ import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
 import { PaymentsStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
-import { withActivityTimeout } from 'components/HOC';
 
 const Stack = createStackNavigator<PaymentsStackParamsList>();
 
@@ -30,11 +29,7 @@ export const PaymentsStack = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      <Screen
-        name={PAYMENTS_SCREEN}
-        component={withActivityTimeout(PaymentsScreen)}
-        options={hideHeader}
-      />
+      <Screen name={PAYMENTS_SCREEN} component={PaymentsScreen} options={hideHeader} />
     </Navigator>
   );
 };
