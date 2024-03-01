@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 
 export const useStyles = () => {
-  const { Spacing, FontFamily, Colors, Layout } = useTheme();
+  const { Spacing, Fonts, Colors, Layout } = useTheme();
   return StyleSheet.create({
     button: {
       marginTop: 70,
@@ -10,7 +10,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.ml,
     },
     buttonText: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     list: {
       backgroundColor: Colors.white,

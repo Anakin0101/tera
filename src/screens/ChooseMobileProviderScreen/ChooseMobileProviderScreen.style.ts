@@ -1,9 +1,8 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Spacing, Layout } = useTheme();
+  const { Colors, Spacing, Layout, Fonts, FontSize } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -15,7 +14,7 @@ export const useStyles = () => {
       fontSize: FontSize.regularPlus,
       letterSpacing: -0.5,
       color: Colors.pinColor,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       lineHeight: 22,
       fontWeight: '400',
     },
@@ -47,7 +46,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.2,
       color: Colors.textGray400,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontWeight: '400',
     },
     codeValue: {
@@ -56,7 +55,7 @@ export const useStyles = () => {
       lineHeight: 24,
       letterSpacing: -0.2,
       color: Colors.pinColor,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontWeight: '400',
     },
     chooseFromContactWrapper: {
@@ -69,7 +68,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.2,
       color: 'rgba(161, 35, 111, 1)',
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginLeft: Spacing.md,
     },
     nextButtonWrapper: {

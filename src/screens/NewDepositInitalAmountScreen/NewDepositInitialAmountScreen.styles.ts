@@ -4,7 +4,7 @@ import { moderateScale } from 'utils/config';
 import { Platform } from 'react-native';
 
 export const useStyles = () => {
-  const { Layout, Spacing, Colors, FontFamily } = useTheme();
+  const { Layout, Spacing, Colors, Fonts } = useTheme();
 
   return StyleSheet.create({
     wrapper: {
@@ -25,7 +25,7 @@ export const useStyles = () => {
     input: {
       fontSize: 40,
       height: 65,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginRight: Spacing.xxs,
     },
     currency: {

@@ -1,10 +1,9 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 import StaticSafeAreaInsets from 'react-native-static-safe-area-insets';
-import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Spacing, Layout } = useTheme();
+  const { Colors, Spacing, Layout, Fonts, FontSize } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -19,7 +18,7 @@ export const useStyles = () => {
       fontSize: FontSize.regular,
       lineHeight: 20,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       paddingVertical: Spacing.xxs,
     },
     buttonContainer: {
@@ -46,7 +45,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.2,
       color: Colors.textBlack500,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontWeight: '400',
     },
     detailsValue: {
@@ -54,7 +53,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.2,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     headerButton: {
       width: 40,

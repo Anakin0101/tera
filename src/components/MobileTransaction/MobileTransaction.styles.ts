@@ -3,7 +3,7 @@ import { useTheme } from 'hooks';
 import { config, horizontalScale } from 'utils/config';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing, FontSize, FontFamily } = useTheme();
+  const { Colors, Layout, Spacing, FontSize, Fonts } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -26,7 +26,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.2,
       color: 'rgba(161, 35, 111, 1)',
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginLeft: Spacing.md,
     },
     inputContainer: {
@@ -51,7 +51,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.2,
       color: Colors.textGray400,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontWeight: '400',
     },
     codeValue: {
@@ -60,7 +60,7 @@ export const useStyles = () => {
       lineHeight: 24,
       letterSpacing: -0.2,
       color: Colors.pinColor,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontWeight: '400',
     },
     inputStyle: { width: horizontalScale(250) },

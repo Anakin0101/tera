@@ -6,7 +6,7 @@ import { moderateScale } from 'utils/config';
 
 export const useStyles = () => {
   const { headerHeight } = useDefaultHeaderHeight();
-  const { Layout, Colors, Spacing, FontFamily } = useTheme();
+  const { Layout, Colors, Spacing, Fonts } = useTheme();
   return StyleSheet.create({
     headerContainer: {
       marginBottom: Spacing.ml,
@@ -26,7 +26,7 @@ export const useStyles = () => {
     },
     input: {
       marginHorizontal: Spacing.s,
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
     },
     cardContainer: {
       ...Layout.center,

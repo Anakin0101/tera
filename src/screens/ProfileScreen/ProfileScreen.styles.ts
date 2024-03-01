@@ -1,9 +1,8 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyleTheme = () => {
-  const { Spacing, Layout, Fonts, Colors } = useTheme();
+  const { Spacing, Layout, Fonts, Colors, FontSize } = useTheme();
   //   TODO - need to create a HOC which will hold all screens with borderTopLeft and right radius
   return StyleSheet.create({
     wrapper: {
@@ -34,7 +33,7 @@ export const useStyleTheme = () => {
     buildVersionLabel: {
       fontSize: FontSize.regular,
       lineHeight: 18,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       color: Colors.textGray200,
       fontWeight: '500',
       textAlign: 'right',

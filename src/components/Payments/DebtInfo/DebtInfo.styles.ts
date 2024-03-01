@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily, FontSize } from 'theme/Variables';
+import { FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing } = useTheme();
+  const { Colors, Layout, Spacing, Fonts } = useTheme();
 
   return StyleSheet.create({
     wrapper: {
@@ -33,17 +33,17 @@ export const useStyles = () => {
     counterText: {
       fontSize: FontSize.semiLarge,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     deptTitle: {
       fontSize: FontSize.small,
       color: Colors.accountText500,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     deptValue: {
       fontSize: FontSize.regular,
       color: Colors.error,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
   });
 };
