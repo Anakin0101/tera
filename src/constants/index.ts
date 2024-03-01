@@ -9,3 +9,4 @@ export {
 } from './Dashboard';
 export { REGEX } from './regex';
 export { MOBILE_CODE } from './common';
+export { TIMER } from './timer';

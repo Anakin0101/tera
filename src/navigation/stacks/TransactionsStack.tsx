@@ -60,6 +60,7 @@ export const TransactionsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={TRANSACTIONS_SCREEN}

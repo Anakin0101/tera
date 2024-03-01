@@ -85,6 +85,7 @@ export const ProductsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={PRODUCTS_SCREEN}

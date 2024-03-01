@@ -61,6 +61,7 @@ export const ModalNavigator = () => {
   const { Navigator, Screen } = ModalStack;
   const st = useStyleTheme();
   const { t } = useTranslation();
+
   return (
     <Navigator
       initialRouteName={SETTINGS_SCREEN}
