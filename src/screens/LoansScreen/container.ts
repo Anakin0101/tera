@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { LOAN_REQUEST_SCREEN } from 'navigation/ScreenNames';
+import { APPROVED_LOAN_DETAILS_SCREEN, LOAN_REQUEST_SCREEN } from 'navigation/ScreenNames';
 import { ProductsStackScreenProps } from 'navigation/types';
 import { useCallback } from 'react';
 import { useAppSelector } from 'store/hooks/useAppSelector';
@@ -13,10 +13,15 @@ export const useLoans = () => {
     navigate(LOAN_REQUEST_SCREEN);
   }, [navigate]);
 
+  const handleActivateLoanPress = useCallback(() => {
+    navigate(APPROVED_LOAN_DETAILS_SCREEN);
+  }, [navigate]);
+
   return {
     loans,
     totalDebtGEL,
     data,
     handleNewLoanPress,
+    handleActivateLoanPress,
   };
 };

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SectionList } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { Button, DepositsAndLoans } from 'components';
 import { Colors } from 'theme/Variables';
 import { useLoans } from './container';
@@ -15,24 +15,32 @@ const sections = [
 
 const LeftIcon = () => <Plus color={Colors.white} />;
 
-const ListFooter: FC<FooterProps> = ({ onPress }) => {
+const ListFooter: FC<FooterProps> = ({ onPress, handleActivateLoanPress }) => {
   const styles = useStyles();
 
   return (
-    <Button.Primary
-      fullWidth
-      text="loans.new"
-      leftIcon={LeftIcon}
-      onPress={onPress}
-      customWrapperStyle={styles.button}
-      customTextStyle={styles.buttonText}
-    />
+    <View>
+      <Button.Primary
+        fullWidth
+        text="loans.new"
+        leftIcon={LeftIcon}
+        onPress={onPress}
+        customWrapperStyle={styles.button}
+        customTextStyle={styles.buttonText}
+      />
+      <Button.Secondary
+        fullWidth
+        text="სესხის გააქტიურება"
+        onPress={handleActivateLoanPress}
+        customTextStyle={styles.buttonText}
+      />
+    </View>
   );
 };
 
 export const LoansScreen = () => {
   const styles = useStyles();
-  const { totalDebtGEL, data, handleNewLoanPress } = useLoans();
+  const { totalDebtGEL, data, handleNewLoanPress, handleActivateLoanPress } = useLoans();
 
   const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
@@ -49,7 +57,12 @@ export const LoansScreen = () => {
     <SectionList
       sections={sections}
       renderItem={renderItem}
-      ListFooterComponent={<ListFooter onPress={handleNewLoanPress} />}
+      ListFooterComponent={
+        <ListFooter
+          onPress={handleNewLoanPress}
+          handleActivateLoanPress={handleActivateLoanPress}
+        />
+      }
       style={styles.list}
       ListFooterComponentStyle={styles.footer}
       contentContainerStyle={styles.contentContainer}

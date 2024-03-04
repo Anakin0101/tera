@@ -30,6 +30,7 @@ import {
   CardOrderChooseIbanScreen,
   CardOrderChooseAddressScreen,
   CardOrderDetailsScreen,
+  ApprovedLoanDetailsScreen,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import {
@@ -67,6 +68,7 @@ import {
   CARD_ORDER_DETAILS_SCREEN,
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  APPROVED_LOAN_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { ProductsStackParamsList } from 'navigation/types';
 import { CardInsuranceScreen } from 'screens/CardInsuranceScreen/CardInsuranceScreen';
@@ -310,6 +312,11 @@ export const ProductsStack = () => {
         name={TARIFF_PACKAGES_SINGLE_SCREEN}
         component={TariffPackagesSingleScreen}
         options={{ title: t('newDeposit.tariffPackages') }}
+      />
+      <Screen
+        name={APPROVED_LOAN_DETAILS_SCREEN}
+        component={ApprovedLoanDetailsScreen}
+        options={{ title: t('loans.details') }}
       />
     </Navigator>
   );

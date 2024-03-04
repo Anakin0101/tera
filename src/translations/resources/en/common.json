@@ -760,5 +760,17 @@
     "timeout_error": "An error occured",
     "component_title": "Error",
     "component_description": "Something went wrong, please try again"
+  },
+  "approvedLoan": {
+    "amount": "Loan amount",
+    "annualInterestRate": "Annual Interest Rate",
+    "effectiveInterestRate": "Effective Interest Rate",
+    "term": "Term",
+    "monthlyContribution": "Monthly Contribution",
+    "issuingCommission": "Loan Issuing Commission",
+    "prepaymentFee": "Prepayment Fee",
+    "validPeriod": "Period during which the offer is valid",
+    "agreeToTermsAndConditions": "Agree to the terms of the agreement",
+    "accepted": "Request received"
   }
 }

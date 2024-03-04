@@ -96,6 +96,9 @@ import {
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  APPROVED_LOAN_DETAILS_SCREEN,
+  APPROVED_LOAN_PDF_SCREEN,
+  ACTIVATE_LOAN_SUCCESS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -193,6 +196,8 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
+  [APPROVED_LOAN_PDF_SCREEN]: { isLastStep: boolean } | undefined;
+  [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {
@@ -258,6 +263,7 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
   [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
+  [APPROVED_LOAN_DETAILS_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

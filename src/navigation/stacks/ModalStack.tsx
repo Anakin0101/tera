@@ -3,6 +3,7 @@ import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/
 import {
   AddCartScreen,
   AllTransactionsScreen,
+  ApprovedLoanPdfScreen,
   AuthorizationMethodsScreen,
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
@@ -21,8 +22,10 @@ import {
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
 import {
+  ACTIVATE_LOAN_SUCCESS_SCREEN,
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
+  APPROVED_LOAN_PDF_SCREEN,
   AUTHORIZATION_METHODS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -54,6 +57,7 @@ import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/C
 import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
 import { CartPaymentSuccessScreen } from 'screens/CartPaymentSuccessScreen/CartPaymentSuccessScreen';
+import { ActivateLoanSuccessScreen } from 'screens/ActivateLoanSuccessScreen/ActivateLoanSuccessScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -241,6 +245,16 @@ export const ModalNavigator = () => {
         name={TRANSACTION_DETAILS_SCREEN}
         component={TransactionDetailsScreen}
         options={{ title: t('transactions.details') }}
+      />
+      <Screen
+        name={APPROVED_LOAN_PDF_SCREEN}
+        component={ApprovedLoanPdfScreen}
+        options={hideHeader}
+      />
+      <Screen
+        name={ACTIVATE_LOAN_SUCCESS_SCREEN}
+        component={ActivateLoanSuccessScreen}
+        options={hideHeader}
       />
     </Navigator>
   );

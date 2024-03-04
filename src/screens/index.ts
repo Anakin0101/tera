@@ -63,3 +63,5 @@ export { CardOrderChooseIbanScreen } from './CardOrderChooseIbanScreen/CardOrder
 export { CardOrderChooseAddressScreen } from './CardOrderChooseAddressScreen/CardOrderChooseAddressScreen';
 export { CardOrderDetailsScreen } from './CardOrderDetailsScreen/CardOrderDetailsScreen';
 export { NewAutomaticPaymentDetailsScreen } from './NewAutomaticPaymentDetailsScreen/NewAutomaticPaymentDetailsScreen';
+export { ApprovedLoanDetailsScreen } from './ApprovedLoanDetailsScreen/ApprovedLoanDetailsScreen';
+export { ApprovedLoanPdfScreen } from './ApprovedLoanPdfScreen/ApprovedLoanPdfScreen';

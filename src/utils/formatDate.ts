@@ -43,7 +43,7 @@ const georgianMonthsFull = {
   December: 'დეკემბერი',
 };
 
-export const formatDate = (dateString: string, template = 'YYYY,HH:mm') => {
+export const formatDate = (dateString: string, template = ' YYYY, HH:mm') => {
   if (!dateString) {
     return '';
   }
