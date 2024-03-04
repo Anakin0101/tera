@@ -11,7 +11,7 @@ const Button: FC<IButton> = ({ icon, label, onPress }) => {
   return (
     <Pressable onPress={onPress} style={styles.actionButton}>
       <View style={styles.actionButtonIconContainer}>{icon}</View>
-      <Text children={label} label marginTop={10} />
+      <Text children={label} center label marginTop={10} />
     </Pressable>
   );
 };
@@ -34,9 +34,10 @@ export const ActionButtons: FC<ActionButtonsProps> = ({ children, progress, onSp
     <Pressable onPress={onSpacePress}>
       <Animated.View style={[actionButtons]}>
         <View style={styles.actionButtonContainer}>
-          <Button label="dashboard.transfer" icon={<Swap />} onPress={() => {}} />
-          <Button label="dashboard.pay" icon={<CreditCard />} onPress={() => {}} />
-          <Button label="dashboard.fill" icon={<Smartphone />} onPress={() => {}} />
+          <Button label="dashboard.transferToOwnAcc" icon={<Swap />} onPress={() => {}} />
+          <Button label="dashboard.transferToSomeone" icon={<Swap />} onPress={() => {}} />
+          <Button label="dashboard.payments" icon={<CreditCard />} onPress={() => {}} />
+          <Button label="dashboard.extraction" icon={<Smartphone />} onPress={() => {}} />
         </View>
         {children}
       </Animated.View>

@@ -1,5 +1,6 @@
+import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   useGetBannersQuery,
   useGetDepositsQuery,
@@ -43,6 +44,7 @@ export const useDashboardScreen = () => {
   });
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const { data: terabytes, isLoading: terabyteLoading } = useGetTerabyteQuery();
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   useEffect(() => {
     getTotalSaving({
@@ -63,6 +65,17 @@ export const useDashboardScreen = () => {
       !!templates?.templates.length && !!deposits && !!banker && !!profile?.firstName && !!banners;
     return mounted;
   }, [deposits, banker, profile?.firstName, templates?.templates.length, banners]);
+
+  const cards = useMemo(() => {
+    return [
+      {} as IGroupedAccountsByIban, // temp
+      ...groupedAccountsByIban,
+    ];
+  }, [groupedAccountsByIban]);
+
+  const activeCard = useMemo(() => {
+    return cards[activeCardIndex];
+  }, [activeCardIndex, cards]);
 
   const isLoading = useMemo(() => {
     return (
@@ -118,5 +131,8 @@ export const useDashboardScreen = () => {
     isLoading,
     groupedAccountsByIban,
     terabytes,
+    cards,
+    setActiveCardIndex,
+    activeCard,
   };
 };
