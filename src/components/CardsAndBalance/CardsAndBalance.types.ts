@@ -1,6 +1,8 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { SharedValue } from 'react-native-reanimated';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
 
+export type SelectedAccountFromCard = Account | undefined;
 export interface AvailableBalanceProps {
   progress: SharedValue<number>;
   terabytes?: number;
@@ -10,6 +12,7 @@ export interface ActionButtonsProps {
   children: React.ReactNode;
   progress: SharedValue<number>;
   onSpacePress: () => void;
+  selectedAccountFromCard?: SelectedAccountFromCard;
 }
 
 export interface ActionButtonProps {
@@ -37,6 +40,8 @@ export interface CardProps {
   onCardPress: () => void;
   progress: SharedValue<number>;
   translateX: SharedValue<number>;
+  activeCardIndex: number;
+  setSelectedAccountFromCard: React.Dispatch<React.SetStateAction<SelectedAccountFromCard>>;
 }
 
 export interface IndicatorProps {

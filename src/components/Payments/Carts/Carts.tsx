@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
@@ -9,17 +9,25 @@ import { Button } from 'components/Button/Button';
 import { Plus } from 'assets/SVGs';
 import { Basket } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { useCarts } from './container';
+import { CartsProps } from './Carts.types';
 
-export const Carts = () => {
+export const Carts: FC<CartsProps> = ({ selectedAccountFromCard }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { data, addCartOnPress, openAllCartsOnPress } = useCarts();
 
   const renderPaymentItem = useCallback(
     ({ item, index }: { item: Basket; index: number }) => {
-      return <CartItem item={item} index={index} isLast={index + 1 === data.length} />;
+      return (
+        <CartItem
+          item={item}
+          index={index}
+          isLast={index + 1 === data.length}
+          selectedAccountFromCard={selectedAccountFromCard}
+        />
+      );
     },
-    [data.length],
+    [data.length, selectedAccountFromCard],
   );
 
   const renderFooter = useCallback(() => {

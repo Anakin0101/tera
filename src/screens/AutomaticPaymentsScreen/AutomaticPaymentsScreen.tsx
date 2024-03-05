@@ -10,7 +10,8 @@ import { LoadingInView } from 'components';
 
 export const AutomaticPaymentsScreen = () => {
   const styles = useStyles();
-  const { handleItemPress, automaticPayments, isLoading } = useAutomaticPayments();
+  const { handleItemPress, automaticPayments, isLoading, selectedAccountFromCard } =
+    useAutomaticPayments();
 
   const renderItem: RenderItem = useCallback(
     ({ item }) => <Item item={item} onPress={handleItemPress} />,
@@ -26,7 +27,11 @@ export const AutomaticPaymentsScreen = () => {
       <FlatList
         data={automaticPayments}
         renderItem={renderItem}
-        ListEmptyComponent={EmptyComponent}
+        ListEmptyComponent={
+          <EmptyComponent>
+            <AddNewPayment selectedAccountFromCard={selectedAccountFromCard} />
+          </EmptyComponent>
+        }
         ListFooterComponentStyle={styles.footer}
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}

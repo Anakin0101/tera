@@ -110,6 +110,7 @@ import {
 import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
+import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -131,17 +132,25 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
-  [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean; basket?: Basket };
+  [NEW_PAYMENT_SCREEN]:
+    | undefined
+    | {
+        isAutomaticPayment?: boolean;
+        basket?: Basket;
+        selectedAccountFromCard?: SelectedAccountFromCard;
+      };
   [CHECK_PAYMENT_PROVIDER_SCREEN]: {
     providerItem: Provider;
     isAutomaticPayment?: boolean;
     basket?: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [CHOOSE_PAYMENT_PROVIDER_SCREEN]: {
     providerInfo?: ProvidersGroup;
     isAutomaticPayment?: boolean;
     isParkingAndFines?: boolean;
     basket?: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -151,7 +160,9 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
   };
-  [CHOOSE_MOBILE_PROVIDER_SCREEN]: undefined;
+  [CHOOSE_MOBILE_PROVIDER_SCREEN]:
+    | { selectedAccountFromCard?: SelectedAccountFromCard }
+    | undefined;
   [PAYMENT_SUCCESS_SCREEN]: {
     providerItem?: Provider;
     subscriberInputFieldsValue?: SubscriberFieldsValue;
@@ -163,8 +174,9 @@ export type ModalStackParamsList = {
     debtVerifyResults: Array<DebtVerifyResult>;
     subscriberFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
-  [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
+  [AUTOMATIC_PAYMENTS_SCREEN]: { selectedAccountFromCard: SelectedAccountFromCard } | undefined;
   [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
     id: number;
     imageId: string;
@@ -173,6 +185,7 @@ export type ModalStackParamsList = {
     providerItem: Provider;
     debtVerifyResults: Array<DebtVerifyResult>;
     subscriberFieldsValue: SubscriberFieldsValue;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -184,6 +197,7 @@ export type ModalStackParamsList = {
   [CART_LIST_SCREEN]: undefined;
   [CART_PAYMENT_LIST_SCREEN]: {
     basket: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [CART_PAYMENT_SUCCESS_SCREEN]: {
     paymentResults: Array<PaymentResult>;
@@ -329,7 +343,7 @@ export type TransactionsStackParamsList = {
 };
 
 export type PaymentsStackParamsList = {
-  [PAYMENTS_SCREEN]: undefined;
+  [PAYMENTS_SCREEN]: { selectedAccountFromCard?: Account } | undefined;
 };
 
 export type ProfileStackParamsList = {

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ImageBackground, Pressable, View } from 'react-native';
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import {
@@ -13,10 +13,27 @@ import { CurrencySignMap } from 'utils/CurrencySignMap';
 import Images from 'theme/Images';
 import { CardProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
+import { CARD_DETAILS_SCREEN, PRODUCTS_STACK } from 'navigation/ScreenNames';
 
-export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
+export const Card = ({
+  item,
+  index,
+  onCardPress,
+  progress,
+  activeCardIndex,
+  setSelectedAccountFromCard,
+}: CardProps) => {
   const styles = useStyles();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { navigate } = useNavigation<MainStackScreenProps<'ProductsStack'>>();
+
+  useEffect(() => {
+    if (activeCardIndex === index) {
+      setSelectedAccountFromCard(item?.accounts?.[currentIndex]);
+    }
+  }, [activeCardIndex, currentIndex, index, item?.accounts, setSelectedAccountFromCard]);
 
   const animScale = useAnimatedStyle(() => {
     const height = interpolate(
@@ -118,12 +135,27 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
       )?.length;
   }, [item?.accounts]);
 
+  const handlePress = useCallback(() => {
+    if (progress.value === 1) {
+      navigate(PRODUCTS_STACK, {
+        screen: CARD_DETAILS_SCREEN,
+        params: {
+          iban: item.iban,
+          item,
+          index: 0,
+        },
+      });
+    } else {
+      onCardPress();
+    }
+  }, [item, navigate, onCardPress, progress.value]);
+
   if (!index) {
     return <Animated.View style={[styles.card, animScale]} />;
   }
 
   return (
-    <Pressable onPress={onCardPress}>
+    <Pressable onPress={handlePress}>
       <Animated.View
         style={[styles.card, index === 1 && firstCardPos, index === 2 && secondCardPos, animScale]}
       >

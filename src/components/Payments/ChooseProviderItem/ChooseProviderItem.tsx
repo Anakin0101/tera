@@ -13,7 +13,7 @@ import { MainStackScreenProps } from 'navigation/types';
 import { CHECK_PAYMENT_PROVIDER_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 
 export const ChooseProviderItem: React.FC<ChooseProviderItemProps> = memo(
-  ({ item, isLast = false, isAutomaticPayment, basket }) => {
+  ({ item, isLast = false, isAutomaticPayment, basket, selectedAccountFromCard }) => {
     const styles = useStyles();
     const savedLanguage = getValue(SELECTED_LANGUAGE);
     const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
@@ -29,9 +29,9 @@ export const ChooseProviderItem: React.FC<ChooseProviderItemProps> = memo(
     const openChoosePaymentProviderScreen = useCallback(() => {
       navigate(MODAL_STACK, {
         screen: CHECK_PAYMENT_PROVIDER_SCREEN,
-        params: { providerItem: item, isAutomaticPayment, basket },
+        params: { providerItem: item, isAutomaticPayment, basket, selectedAccountFromCard },
       });
-    }, [isAutomaticPayment, item, navigate, basket]);
+    }, [isAutomaticPayment, item, navigate, basket, selectedAccountFromCard]);
 
     return (
       <Pressable

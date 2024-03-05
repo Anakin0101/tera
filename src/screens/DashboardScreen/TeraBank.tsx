@@ -77,6 +77,9 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     terabytes,
     cards,
     setActiveCardIndex,
+    activeCardIndex,
+    selectedAccountFromCard,
+    setSelectedAccountFromCard,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -257,11 +260,17 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
                 progress={cardsOffset}
                 translateX={translateX}
                 onCardPress={() => openCards(index)}
+                activeCardIndex={activeCardIndex}
+                setSelectedAccountFromCard={setSelectedAccountFromCard}
               />
             ))}
           </Animated.ScrollView>
         </Pressable>
-        <ActionButtons progress={cardsOffset} onSpacePress={closeCards}>
+        <ActionButtons
+          progress={cardsOffset}
+          onSpacePress={closeCards}
+          selectedAccountFromCard={selectedAccountFromCard}
+        >
           <Indicator data={cards} translateX={translateX} />
         </ActionButtons>
         <AvailableBalance progress={cardsOffset} terabytes={terabytes?.teraBytes} />

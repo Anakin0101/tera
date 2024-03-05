@@ -23,6 +23,7 @@ import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
 import { NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { MAX_DAYS_IN_MONTH, MAX_SELECTABLE_DATE } from 'constants/common';
 import { openToast } from 'utils/toast';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 const minDate = getCurrentDate();
 
@@ -50,7 +51,8 @@ export const useNewAutomaticPayment = () => {
   const [shouldBlurEndDate, setShouldBlurEndDate] = useState(false);
   const { navigate } = useNavigation<ModalStackScreenProps<'NewAutomaticPaymentDetailsScreen'>>();
   const { params } = useRoute<ModalStackRouteProps<'NewAutomaticPaymentScreen'>>();
-  const { debtVerifyResults, providerItem, subscriberFieldsValue } = params || {};
+  const { debtVerifyResults, providerItem, subscriberFieldsValue, selectedAccountFromCard } =
+    params || {};
   const [startDate, endDate, paymentDate, account, activeAllTime, paymentMethod, amount] = watch([
     'startDate',
     'endDate',
@@ -68,6 +70,28 @@ export const useNewAutomaticPayment = () => {
       setAdjustResize();
     };
   }, []);
+
+  const selectAccount = useCallback(
+    (acc: Account) => {
+      setValue('account', acc);
+    },
+    [setValue],
+  );
+
+  const setAccountFromCard = useCallback(() => {
+    if (!selectedAccountFromCard) {
+      return;
+    }
+    const isGelAccount = selectedAccountFromCard?.ccy === CurrencyEnum.GEL;
+
+    if (isGelAccount) {
+      selectAccount(selectedAccountFromCard);
+    }
+  }, [selectAccount, selectedAccountFromCard]);
+
+  useEffect(() => {
+    setAccountFromCard();
+  }, [setAccountFromCard]);
 
   useEffect(() => {
     if (debtVerifyResults?.[0]?.customerNumber) {
@@ -304,13 +328,6 @@ export const useNewAutomaticPayment = () => {
   const toggleCheckbox = useCallback(
     (value: boolean) => {
       setValue('agreed', value);
-    },
-    [setValue],
-  );
-
-  const selectAccount = useCallback(
-    (acc: Account) => {
-      setValue('account', acc);
     },
     [setValue],
   );

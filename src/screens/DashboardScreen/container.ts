@@ -16,6 +16,7 @@ import {
   useGetLoanCustomerIdQuery,
   useGetBankerQuery,
 } from 'services/apis';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
@@ -45,6 +46,7 @@ export const useDashboardScreen = () => {
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const { data: terabytes, isLoading: terabyteLoading } = useGetTerabyteQuery();
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [selectedAccountFromCard, setSelectedAccountFromCard] = useState<Account>();
 
   useEffect(() => {
     getTotalSaving({
@@ -72,10 +74,6 @@ export const useDashboardScreen = () => {
       ...groupedAccountsByIban,
     ];
   }, [groupedAccountsByIban]);
-
-  const activeCard = useMemo(() => {
-    return cards[activeCardIndex];
-  }, [activeCardIndex, cards]);
 
   const isLoading = useMemo(() => {
     return (
@@ -133,6 +131,8 @@ export const useDashboardScreen = () => {
     terabytes,
     cards,
     setActiveCardIndex,
-    activeCard,
+    activeCardIndex,
+    selectedAccountFromCard,
+    setSelectedAccountFromCard,
   };
 };
