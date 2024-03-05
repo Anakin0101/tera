@@ -135,7 +135,8 @@
     "statement_history": "Statement history",
     "choose_authorization_method": "Choose authorization method",
     "switch_to_language": "Switch to {{ language }}",
-    "confidentiality_policy": "Confidentiality policy"
+    "confidentiality_policy": "Confidentiality policy",
+    "atms_and_branches": "ATMs & branches"
   },
   "transfers": {
     "toOwnAccount": "Transfer to Own Account",
@@ -767,5 +768,14 @@
     "timeout_error": "An error occured",
     "component_title": "Error",
     "component_description": "Something went wrong, please try again"
+  },
+  "atmsAndBranches": {
+    "branch": "Branch",
+    "atm": "ATM",
+    "title": "Enable location services",
+    "description": "To access closest atms/branches, please enable location services from your settings",
+    "primaryCTA": "Settings",
+    "secondaryCTA": "Cancel",
+    "near": "Close to me"
   }
 }

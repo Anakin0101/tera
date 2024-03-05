@@ -80,3 +80,4 @@ export { CheckPaymentProviderScreen } from './CheckPaymentProviderScreen/CheckPa
 export { ChooseMobileProviderScreen } from './ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 export { PaymentErrorScreen } from './PaymentErrorScreen/PaymentErrorScreen';
 export { CartPaymentSuccessScreen } from './CartPaymentSuccessScreen/CartPaymentSuccessScreen';
+export { AtmsAndBranchesScreen } from './AtmsAndBranchesScreen/AtmsAndBranchesScreen';

@@ -73,10 +73,12 @@ import {
   ChooseMobileProviderScreen,
   PaymentErrorScreen,
   CartPaymentSuccessScreen,
+  AtmsAndBranchesScreen,
 } from 'screens';
 import {
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
+  ATMS_AND_BRANCHES_SCREEN,
   AUTHORIZATION_METHODS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -341,6 +343,11 @@ export const ModalNavigator = () => {
         }}
       />
 
+      <Screen
+        name={ATMS_AND_BRANCHES_SCREEN}
+        component={AtmsAndBranchesScreen}
+        options={{ title: t('profile.atms_and_branches') }}
+      />
       <Screen
         name={TO_ACCOUNT_SCREEN}
         component={ToAccountScreen}

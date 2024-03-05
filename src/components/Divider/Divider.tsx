@@ -17,12 +17,12 @@ export const Divider: FC<IDividerProps> = ({
     <View
       style={[
         styles.container,
-        height ? { height } : null,
-        width ? { width } : null,
-        color ? { backgroundColor: color } : null,
-        marginTop ? { marginTop } : null,
-        marginBottom ? { marginBottom } : null,
-        marginLeft ? { marginLeft } : null,
+        height ? { height } : undefined,
+        width ? { width } : undefined,
+        color ? { backgroundColor: color } : undefined,
+        marginTop ? { marginTop } : undefined,
+        marginBottom ? { marginBottom } : undefined,
+        marginLeft ? { marginLeft } : undefined,
         style,
       ]}
     />

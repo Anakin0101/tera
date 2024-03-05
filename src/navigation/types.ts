@@ -95,6 +95,7 @@ import {
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  ATMS_AND_BRANCHES_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -206,6 +207,7 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
+  [ATMS_AND_BRANCHES_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: {
     otherBanks?: boolean;
     budget?: boolean;
