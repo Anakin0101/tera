@@ -17,7 +17,7 @@ export const useAccountDetails = (iban: string, index: number) => {
   const { groupedAccountsByIban, overdrafts } = useAppSelector(state => state.products);
 
   const account = useMemo(() => {
-    return groupedAccountsByIban[activeIndex];
+    return groupedAccountsByIban?.[activeIndex];
   }, [groupedAccountsByIban, activeIndex]);
 
   const [getLastTransactions, { data: lastTransactions }] = useGetCustomerOperationsMutation();
@@ -84,12 +84,12 @@ export const useAccountDetails = (iban: string, index: number) => {
   const actions = useMemo(() => {
     return [
       {
-        title: 'products.transfer',
+        title: 'dashboard.transferToOwnAcc',
         icon: <Swap />,
         handlePress: () => {},
       },
       {
-        title: 'products.payments',
+        title: 'dashboard.transferToSomeone',
         icon: <Card />,
         handlePress: handlePayments,
       },
@@ -99,7 +99,7 @@ export const useAccountDetails = (iban: string, index: number) => {
         handlePress: handleRequisites,
       },
       {
-        title: 'products.share',
+        title: 'dashboard.extraction',
         icon: <Share />,
         handlePress: () => {},
       },

@@ -7,9 +7,13 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button } from 'components';
 import { setSelectedPrice, setOtpData } from 'store/slices/transfers';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
-import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
+import {
+  TRANSFER_DETAIL_SCREEN,
+  PRIVATE_TRANSACTION_SCREEN,
+  MODAL_STACK,
+} from 'navigation/ScreenNames';
 import { OTHER_BANK, TRANSFER_TERA } from 'constants/transactionConstants';
 import { useRoute } from '@react-navigation/native';
 import { useTransferDetails } from 'screens/TransferDetailScreen/container';
@@ -25,13 +29,12 @@ import { useKeyboard } from 'utils/useKeyboard';
 
 export const TransferToOtherBankAccountScreen = () => {
   const { isKeyboardOpened } = useKeyboard();
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TransferToAccountScreen'>>();
   const { fromOtherBank, fromMobile, receiver } = params;
   const { t } = useTranslation();
 
   const PERSONAL_TRANSACTION = t('transactions.defaultTitle');
-  const { navigate, setOptions } =
-    useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { navigate, setOptions } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { handleTransferInfo, transferToSomeone } = useTransferDetails(!!fromMobile);
 
   const transactionTitles = {
@@ -92,8 +95,9 @@ export const TransferToOtherBankAccountScreen = () => {
     };
   }, [dispatch]);
   const openTransferScreen = () => {
-    navigate(PRIVATE_TRANSACTION_SCREEN, {
-      from: 'other',
+    navigate(MODAL_STACK, {
+      screen: PRIVATE_TRANSACTION_SCREEN,
+      params: { from: 'other' },
     });
   };
   const navigateToTransferDetails = async () => {
@@ -135,11 +139,14 @@ export const TransferToOtherBankAccountScreen = () => {
         if (transferToSomeoneResult && 'data' in transferToSomeoneResult) {
           dispatch(setOtpData(transferToSomeoneResult.data));
 
-          navigate(TRANSFER_DETAIL_SCREEN, {
-            convertion: false,
-            fromOtherBank: fromOtherBank,
-            mobileTransaction: true,
-            receiver: receiver,
+          navigate(MODAL_STACK, {
+            screen: TRANSFER_DETAIL_SCREEN,
+            params: {
+              convertion: false,
+              fromOtherBank: fromOtherBank,
+              mobileTransaction: true,
+              receiver: receiver,
+            },
           });
         } else {
           openToast(t('authErrors.tryAgain'), 'error');
@@ -175,10 +182,13 @@ export const TransferToOtherBankAccountScreen = () => {
           }
           dispatch(setOtpData(transferToSomeoneResult.data));
 
-          navigate(TRANSFER_DETAIL_SCREEN, {
-            convertion: false,
-            fromOtherBank: fromOtherBank,
-            receiver: receiver,
+          navigate(MODAL_STACK, {
+            screen: TRANSFER_DETAIL_SCREEN,
+            params: {
+              convertion: false,
+              fromOtherBank: fromOtherBank,
+              receiver: receiver,
+            },
           });
         } else {
           openToast(t('authErrors.tryAgain'), 'error');

@@ -5,7 +5,7 @@ import {
   AllAcountsAndCardsScreen,
   MyAccountsScrollableScreen,
   ProductsScreen,
-  CardDetailsScreen,
+  // CardDetailsScreen,
   InsurancePackageDetails,
   DepositsScreen,
   DepositDetailsScreen,
@@ -35,7 +35,7 @@ import { useTranslation } from 'react-i18next';
 import {
   ACCOUNT_DETAILS_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
-  CARD_DETAILS_SCREEN,
+  // CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
   DEPOSITS_SCREEN,
   DEPOSIT_DETAILS_SCREEN,
@@ -124,11 +124,11 @@ export const ProductsStack = () => {
           }
         }
       />
-      <Screen
+      {/* <Screen
         name={CARD_DETAILS_SCREEN}
         component={CardDetailsScreen}
         options={{ title: t('products.cardDetails') }}
-      />
+      /> */}
       <Screen
         name={CARD_INSURANCE}
         component={CardInsuranceScreen}

@@ -207,6 +207,75 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
+  [CARD_DETAILS_SCREEN]: {
+    iban: string;
+    index: number;
+    item: any;
+  };
+  [MY_ACCOUNTS_SCREEN]: {
+    otherBanks?: boolean;
+    budget?: boolean;
+  };
+  [TRANSACTION_FAILED_SCREEN]: undefined;
+  [TO_ACCOUNT_SCREEN]: {
+    selected?: any;
+    otherBanks?: any;
+  };
+  [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
+  [OTHER_BANK_TANSACTION_SCREEN]?:
+    | {
+        otherBanks?: boolean;
+      }
+    | undefined;
+  [TRANSFER_TO_ACCOUNT_SCREEN]: {
+    fromOtherBank?: any;
+    fromMobile?: boolean;
+    receiver?: string;
+    fromIban?: boolean;
+    fromPersonal?: boolean;
+  };
+  [PRIVATE_TRANSACTION_SCREEN]: {
+    from: any;
+    transactionParam?: string;
+  };
+  [TRANSFER_DETAIL_SCREEN]: {
+    convertion?: boolean;
+    fromOtherBank?: boolean;
+    mobileTransaction?: boolean;
+    budgetTransaction?: boolean;
+    receiver?: string;
+  };
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: boolean;
+        internal?: boolean;
+        fromIban?: boolean;
+        mobileTransaction?: boolean;
+        budgetTransaction?: boolean;
+      };
+
+  [TRANSFER_TO_BUDGET]:
+    | undefined
+    | {
+        treasury?: {
+          a: string;
+          b: string;
+          c: string;
+        };
+      }
+    | { budgetCode: string };
+
+  [BUDGET_TRANSFER_DETAILS]: undefined;
+  [FOREIGN_IBAN_SCREEN]: undefined;
+
+  [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
+    fromOtherBank?: boolean;
+    fromMobile?: boolean;
+    receiver?: string;
+    fromIban?: boolean;
+    fromPersonal?: boolean;
+  };
 };
 
 export type DashboardStackParamsList = {
@@ -276,70 +345,6 @@ export type ProductsStackParamsList = {
 
 export type TransactionsStackParamsList = {
   [TRANSACTIONS_SCREEN]: undefined;
-  [MY_ACCOUNTS_SCREEN]: {
-    otherBanks?: boolean;
-    budget?: boolean;
-  };
-  [TRANSACTION_FAILED_SCREEN]: undefined;
-  [TO_ACCOUNT_SCREEN]: {
-    selected?: any;
-    otherBanks?: any;
-  };
-  [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
-  [OTHER_BANK_TANSACTION_SCREEN]?:
-    | {
-        otherBanks?: boolean;
-      }
-    | undefined;
-  [TRANSFER_TO_ACCOUNT_SCREEN]: {
-    fromOtherBank?: any;
-    fromMobile?: boolean;
-    receiver?: string;
-    fromIban?: boolean;
-    fromPersonal?: boolean;
-  };
-  [PRIVATE_TRANSACTION_SCREEN]: {
-    from: any;
-    transactionParam?: string;
-  };
-  [TRANSFER_DETAIL_SCREEN]: {
-    convertion?: boolean;
-    fromOtherBank?: boolean;
-    mobileTransaction?: boolean;
-    budgetTransaction?: boolean;
-    receiver?: string;
-  };
-  [TRANSACTION_FINISHED_SCREEN]:
-    | undefined
-    | {
-        convertion?: boolean;
-        internal?: boolean;
-        fromIban?: boolean;
-        mobileTransaction?: boolean;
-        budgetTransaction?: boolean;
-      };
-
-  [TRANSFER_TO_BUDGET]:
-    | undefined
-    | {
-        treasury?: {
-          a: string;
-          b: string;
-          c: string;
-        };
-      }
-    | { budgetCode: string };
-
-  [BUDGET_TRANSFER_DETAILS]: undefined;
-  [FOREIGN_IBAN_SCREEN]: undefined;
-
-  [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
-    fromOtherBank?: boolean;
-    fromMobile?: boolean;
-    receiver?: string;
-    fromIban?: boolean;
-    fromPersonal?: boolean;
-  };
 };
 
 export type PaymentsStackParamsList = {

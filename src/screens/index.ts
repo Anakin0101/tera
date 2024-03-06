@@ -63,3 +63,9 @@ export { CardOrderChooseIbanScreen } from './CardOrderChooseIbanScreen/CardOrder
 export { CardOrderChooseAddressScreen } from './CardOrderChooseAddressScreen/CardOrderChooseAddressScreen';
 export { CardOrderDetailsScreen } from './CardOrderDetailsScreen/CardOrderDetailsScreen';
 export { NewAutomaticPaymentDetailsScreen } from './NewAutomaticPaymentDetailsScreen/NewAutomaticPaymentDetailsScreen';
+export { PrivateTransactionScreen } from './PrivateTransactionScreen/PrivateTransactionScreen';
+export { TransferDetailScreen } from './TransferDetailScreen/TransferDetailScreen';
+export { TransactionFinishedScreen } from './TransactionFinishedScreen/TransactionFinishedScreen';
+export { OtherBankTransactionScreen } from './OtherBanksTransactionScreen/OtherBankTransactionScreen';
+export { TransferToOtherBankAccountScreen } from './TransferToAccountScreen/TransferToOtherBankAccountScreen';
+export { TransactionFailedScreen } from './TransactionDeclinedScreen/TransactionDeclined';

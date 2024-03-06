@@ -5,8 +5,12 @@ import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
-import { FOREIGN_IBAN_SCREEN, TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import {
+  FOREIGN_IBAN_SCREEN,
+  MODAL_STACK,
+  TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+} from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import {
@@ -47,7 +51,7 @@ const IbanTransaction = () => {
 
   const { isKeyboardOpened } = useKeyboard();
   const { selectedTransactionType, accountFromData } = selectedItemFromStore;
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
   const [receiver, setReceiver] = useState<string>('');
   const inputRef = useRef<RNInput>(null);
@@ -102,7 +106,9 @@ const IbanTransaction = () => {
       if (!checkGeorgianIban(debouncedAccountName) && accountFromData.ccy === CurrencyEnum.GEL) {
         openToast(`${t('transactionDetails.validIbanPromptForeign')}`, 'error');
       } else if (!checkGeorgianIban(debouncedAccountName)) {
-        navigate(FOREIGN_IBAN_SCREEN);
+        navigate(MODAL_STACK, {
+          screen: FOREIGN_IBAN_SCREEN,
+        });
       }
     }
   }, [INPUT_LENGTH, debouncedAccountName, navigate, data, accountFromData.ccy, t]);
@@ -191,10 +197,13 @@ const IbanTransaction = () => {
     }
     if (data?.bicCode === TERRA_BANK_CODE) {
       if (isSuccess && data.ibanIsValid) {
-        navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
-          fromOtherBank: true,
-          fromIban: true,
-          receiver: receiver,
+        navigate(MODAL_STACK, {
+          screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+          params: {
+            fromOtherBank: true,
+            fromIban: true,
+            receiver: receiver,
+          },
         });
       }
     } else {
@@ -204,10 +213,13 @@ const IbanTransaction = () => {
         (accountFromData.ccy === CurrencyEnum.GEL ? selectedTransactionType.name : true) &&
         receiver
       ) {
-        navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
-          fromOtherBank: true,
-          fromIban: true,
-          receiver: receiver,
+        navigate(MODAL_STACK, {
+          screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+          params: {
+            fromOtherBank: true,
+            fromIban: true,
+            receiver: receiver,
+          },
         });
       } else if (!selectedTransactionType.name && accountFromData.ccy === CurrencyEnum.GEL) {
         openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');

@@ -15,7 +15,10 @@ import { CardProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import { CARD_DETAILS_SCREEN, PRODUCTS_STACK } from 'navigation/ScreenNames';
+import { CARD_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { groupCardsByPan } from 'utils/groupData';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setCards } from 'store/slices/products';
 
 export const Card = ({
   item,
@@ -27,7 +30,8 @@ export const Card = ({
 }: CardProps) => {
   const styles = useStyles();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { navigate } = useNavigation<MainStackScreenProps<'ProductsStack'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (activeCardIndex === index) {
@@ -137,18 +141,28 @@ export const Card = ({
 
   const handlePress = useCallback(() => {
     if (progress.value === 1) {
-      navigate(PRODUCTS_STACK, {
+      const cardsAttachedToAccount = item?.accounts
+        ?.filter(acc => acc?.cards)
+        ?.flatMap(acc => acc?.cards);
+
+      if (!cardsAttachedToAccount?.length) {
+        return;
+      }
+      const groupedCardsByPan = groupCardsByPan(cardsAttachedToAccount, 'pan');
+      dispatch(setCards(groupedCardsByPan));
+
+      navigate(MODAL_STACK, {
         screen: CARD_DETAILS_SCREEN,
         params: {
-          iban: item.iban,
-          item,
+          iban: item?.iban,
+          item: groupedCardsByPan?.[0],
           index: 0,
         },
       });
     } else {
       onCardPress();
     }
-  }, [item, navigate, onCardPress, progress.value]);
+  }, [progress.value, item?.accounts, item?.iban, navigate, dispatch, onCardPress]);
 
   if (!index) {
     return <Animated.View style={[styles.card, animScale]} />;

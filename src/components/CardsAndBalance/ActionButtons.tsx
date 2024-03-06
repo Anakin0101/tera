@@ -8,11 +8,11 @@ import useStyles from './CardsAndBalance.styles';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import {
+  MODAL_STACK,
   OTHER_BANK_TANSACTION_SCREEN,
   PAYMENTS_SCREEN,
   PAYMENTS_STACK,
   TO_ACCOUNT_SCREEN,
-  TRANSACTIONS_STACK,
 } from 'navigation/ScreenNames';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setAccountFromData } from 'store/slices/transfers';
@@ -35,7 +35,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
 }) => {
   const styles = useStyles();
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<MainStackScreenProps<'PaymentsStack'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const actionButtons = useAnimatedStyle(() => {
     const value = interpolate(progress.value, [0.5, 1], [0, 1], Extrapolation.CLAMP);
@@ -50,7 +50,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
 
   const transferToOwnAccount = useCallback(() => {
     dispatch(setAccountFromData(selectedAccountFromCard));
-    navigate(TRANSACTIONS_STACK, {
+    navigate(MODAL_STACK, {
       screen: TO_ACCOUNT_SCREEN,
       params: { selected: selectedAccountFromCard?.accountId },
     });
@@ -58,7 +58,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
 
   const transferToSomeone = useCallback(() => {
     dispatch(setAccountFromData(selectedAccountFromCard));
-    navigate(TRANSACTIONS_STACK, {
+    navigate(MODAL_STACK, {
       screen: OTHER_BANK_TANSACTION_SCREEN,
       params: { otherBanks: true },
     });

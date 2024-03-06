@@ -17,6 +17,19 @@ import {
   PaymentSuccessScreen,
   SettingsScreen,
   TransactionDetailsScreen,
+  CardDetailsScreen,
+  MyAccounts,
+  ToAccountScreen,
+  TransferToAccountScreen,
+  BudgetTransactionScreen,
+  TransferToBudget,
+  BudgetTransferDetailsScreen,
+  PrivateTransactionScreen,
+  TransferDetailScreen,
+  TransactionFinishedScreen,
+  OtherBankTransactionScreen,
+  TransferToOtherBankAccountScreen,
+  TransactionFailedScreen,
 } from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
@@ -43,6 +56,19 @@ import {
   SETTINGS_SCREEN,
   TRANSACTION_DETAILS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
+  CARD_DETAILS_SCREEN,
+  MY_ACCOUNTS_SCREEN,
+  TO_ACCOUNT_SCREEN,
+  TRANSFER_TO_ACCOUNT_SCREEN,
+  PRIVATE_TRANSACTION_SCREEN,
+  TRANSFER_DETAIL_SCREEN,
+  TRANSACTION_FINISHED_SCREEN,
+  OTHER_BANK_TANSACTION_SCREEN,
+  TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+  TRANSACTION_FAILED_SCREEN,
+  BUDGET_TRANSACTION_SCREEN,
+  TRANSFER_TO_BUDGET,
+  BUDGET_TRANSFER_DETAILS,
 } from 'navigation/ScreenNames';
 import { VerifyEasyLoginScreen } from 'screens/VerifyEasyLoginScreen/VerifyEasyLoginScreen';
 import { Colors } from 'theme/Variables';
@@ -242,6 +268,98 @@ export const ModalNavigator = () => {
         name={TRANSACTION_DETAILS_SCREEN}
         component={TransactionDetailsScreen}
         options={{ title: t('transactions.details') }}
+      />
+      <Screen
+        name={CARD_DETAILS_SCREEN}
+        component={CardDetailsScreen}
+        options={{ title: t('products.cardDetails') }}
+      />
+      <Screen
+        name={MY_ACCOUNTS_SCREEN}
+        component={MyAccounts}
+        options={{
+          title: t('transfers.fromWhere'),
+        }}
+      />
+
+      <Screen
+        name={TO_ACCOUNT_SCREEN}
+        component={ToAccountScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_ACCOUNT_SCREEN}
+        component={TransferToAccountScreen}
+        options={{
+          title: t('transfers.toOwnAccount'),
+        }}
+      />
+      <Screen
+        name={PRIVATE_TRANSACTION_SCREEN}
+        component={PrivateTransactionScreen}
+        options={{
+          title: t('transfers.otherBanks'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_DETAIL_SCREEN}
+        component={TransferDetailScreen}
+        options={{
+          title: t('transactions.transDetails'),
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FINISHED_SCREEN}
+        component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FAILED_SCREEN}
+        component={TransactionFailedScreen}
+        options={{
+          title: '',
+        }}
+      />
+      <Screen
+        name={OTHER_BANK_TANSACTION_SCREEN}
+        component={OtherBankTransactionScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN}
+        component={TransferToOtherBankAccountScreen}
+        options={{
+          title: '',
+        }}
+      />
+      <Screen
+        name={BUDGET_TRANSACTION_SCREEN}
+        component={BudgetTransactionScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_BUDGET}
+        component={TransferToBudget}
+        options={{
+          title: t('transactions.transferToBudget'),
+        }}
+      />
+      <Screen
+        name={BUDGET_TRANSFER_DETAILS}
+        component={BudgetTransferDetailsScreen}
+        options={{
+          title: t('transactions.details'),
+        }}
       />
     </Navigator>
   );
