@@ -65,6 +65,7 @@ export const Colors = {
   creditCardBg: '#571538',
   warningSolid: '#FFC423',
   primaryActionButton: 'rgba(160, 34, 109, 0.1)',
+  tabBarDefaultColor: '#1D1D1D66', //rgba ას აქ ვერ გამოვიყენებ ანიმაციის სპეციფიკიდან გამომდინარე
   paleGray: '#D5D5D5',
   textLightBlue: 'rgba(143, 160, 204, 0.1)',
   actionSheetBg: 'rgb(219,219,219)',

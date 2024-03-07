@@ -142,6 +142,7 @@
     "automatic": "ავტომატური გადარიცხვა",
     "chooseService": "აირჩიე სერვისი",
     "templates": "შაბლონები",
+    "moneyTransfers": "გზავნილები",
     "add": "დამატება",
     "all": "ყველა",
     "lastTransactions": "ბოლო გადარიცხვები",
@@ -359,6 +360,11 @@
     "clear": "გასუფთავება",
     "currency": "ვალუტა",
     "from": "საიდან",
+    "send": "გაგზავნა",
+    "sent": "გაგზავნილი",
+    "receive": "მიღება",
+    "accepted": "მიღებული",
+    "date": "თარიღი",
     "to": "სადამდე",
     "next": "შემდეგი",
     "returnToMain": "მთავარზე დაბრუნება",
@@ -370,6 +376,7 @@
     "login": "შესვლა",
     "choose": "აირჩიე",
     "add": "დამატება",
+    "check": "შემოწმება",
     "update": "განახლება",
     "no": "არა",
     "yes": "დიახ",
@@ -619,6 +626,25 @@
     "mainPage": "მთავარზე დაბრუნება",
     "basketTitle": "გადახდა წარმატებით\n დაემატა",
     "someItemRejected": "ყველა შაბლონის გადახდა ვერ მოხერხდა"
+  },
+  "moneyTransfersScreen": {
+    "title": "გზავნილები",
+    "transfersHistory": "გზავნილების ისტორია"
+  },
+  "moneyTransferReceiveScreen": {
+    "title": "გზავნილის განაღდება",
+    "chooseProvider": "აირჩიე პროვაიდერი",
+    "searchProvider": "მოძებნე პროვაიდერი",
+    "Contact": "კონტაქტი",
+    "IntelExpress": "ინტელ ექსპრესი",
+    "MoneyGram": "მანიგრამი",
+    "Ria": "რია",
+    "RicoGram": "რიკო გრამი",
+    "Unistream": "იუნისტრიმი"
+  },
+  "checkMoneyTransferProviderScreen": {
+    "enterSenderInfo": "შეიყვანეთ გზავნილის ინფორმაცია",
+    "transferCode": "გზავნილის კოდი"
   },
   "teraWallet": {
     "collectMoney": "დააგროვე თანხა მარტივად",

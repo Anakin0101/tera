@@ -143,6 +143,7 @@
     "automatic": "Automatic Transfer",
     "chooseService": "Choose Service",
     "templates": "Templates",
+    "moneyTransfers": "Money Transfers",
     "add": "Add",
     "all": "See all",
     "lastTransactions": "Last Transactions",
@@ -366,6 +367,11 @@
     "clear": "Clear",
     "currency": "Currency",
     "from": "From",
+    "send": "Send",
+    "sent": "Sent",
+    "accepted": "Accepted",
+    "date": "Date",
+    "receive": "Receive",
     "to": "To",
     "next": "Next",
     "returnToMain": "Return to Main",
@@ -377,6 +383,7 @@
     "login": "Log in",
     "choose": "Choose",
     "add": "Add",
+    "check": "Check",
     "update": "Update",
     "no": "No",
     "yes": "Yes",
@@ -631,6 +638,25 @@
     "mainPage": "Return to main page",
     "basketTitle": "Payment successfully was\n added",
     "someItemRejected": "All templates could not be paid"
+  },
+  "moneyTransfersScreen": {
+    "title": "Money transfers",
+    "transfersHistory": "Transfers History"
+  },
+  "moneyTransferReceiveScreen": {
+    "title": "Receive Money",
+    "chooseProvider": "Choose Provider",
+    "searchProvider": "Search Provider",
+    "Contact": "Contact",
+    "IntelExpress": "IntelExpress",
+    "MoneyGram": "MoneyGram",
+    "Ria": "Ria",
+    "RicoGram": "RicoGram",
+    "Unistream": "Unistream"
+  },
+  "checkMoneyTransferProviderScreen": {
+    "enterSenderInfo": "Enter the sender's information",
+    "transferCode": "Transfer code"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
