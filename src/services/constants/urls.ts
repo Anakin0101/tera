@@ -49,6 +49,8 @@ export const URLS = {
   getDebtVerifyBasket: 'Payment/GetDebtVerifyBasket',
   checkDebtVerifyBasket: 'Payment/DebtVerifyBasket',
   payService: 'Payment/Pay',
+  getTwrMTSystems: 'MoneyTransfer/GetTwrMTSystems?channelCode=DigitalChannel',
+  findTransfer: 'MoneyTransfer/FindTransfer',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
   requestForLoan: 'Loan/RequestForLoan',

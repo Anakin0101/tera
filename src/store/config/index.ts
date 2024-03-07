@@ -42,6 +42,11 @@ export const paymentPersistConfig = {
   storage: reduxStorage,
 };
 
+export const moneyTransfersPersistConfig = {
+  key: 'moneyTransfers',
+  storage: reduxStorage,
+};
+
 export const registerUserPersistConfig = {
   key: 'registerUser',
   storage: reduxStorage,
