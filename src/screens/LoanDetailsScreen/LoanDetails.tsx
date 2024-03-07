@@ -13,6 +13,7 @@ import {
 } from './LoanDetailsScreen.types';
 import { CreditStatus } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './LoanDetailsScreen.styles';
+import { SPACED_YEAR } from 'constants/DateTemplates';
 
 export const getLoanStatus = (status: CreditStatus) => {
   switch (status) {
@@ -55,7 +56,7 @@ const TotalDebtContent: FC<TotalDebtContentProps> = ({
         <Text children={formatMoney(totalPrincipalPayable, currency)} />
       </View>
       <View style={styles.nextPaymentDetails}>
-        <Text size={13} children="loans.interest" color={Colors.textBlack500} />
+        <Text size={13} children="loans.accruedInterest" color={Colors.textBlack500} />
         <Text children={formatMoney(totalInterestPayable, currency)} />
       </View>
       <View style={styles.nextPaymentDetails}>
@@ -72,6 +73,7 @@ export const Overdue: FC<OverdueContentProps> = ({
   overdueInterestAmount,
   overdueInterestPenalty,
   defferdPrincipalAmount,
+  defferdInterestAmount,
   currency,
 }) => {
   const styles = useStyles();
@@ -93,12 +95,14 @@ export const Overdue: FC<OverdueContentProps> = ({
         <Text size={13} children="loans.overdueInterestPenalty" color={Colors.textBlack500} />
         <Text children={formatMoney(overdueInterestPenalty, currency)} />
       </View>
-      {defferdPrincipalAmount ? (
-        <View style={styles.nextPaymentDetails}>
-          <Text size={13} children="loans.defferdPrincipalAmount" color={Colors.textBlack500} />
-          <Text children={formatMoney(defferdPrincipalAmount, currency)} />
-        </View>
-      ) : null}
+      <View style={styles.nextPaymentDetails}>
+        <Text size={13} children="loans.defferdPrincipalAmount" color={Colors.textBlack500} />
+        <Text children={formatMoney(defferdPrincipalAmount, currency)} />
+      </View>
+      <View style={styles.nextPaymentDetails}>
+        <Text size={13} children="loans.defferdInterestAmount" color={Colors.textBlack500} />
+        <Text children={formatMoney(defferdInterestAmount, currency)} />
+      </View>
     </View>
   );
 };
@@ -107,76 +111,78 @@ export const LoanDetails: FC<LoanDetailsProps> = ({ loan }) => {
   const styles = useStyles();
 
   const totalOverdue =
-    loan.overduePrincipalAmount +
-    loan.overduePrincipalPenalty +
-    loan.overdueInterestAmount +
-    loan.overdueInterestPenalty +
-    loan.defferdPrincipalAmount;
+    loan?.overduePrincipalAmount +
+    loan?.overduePrincipalPenalty +
+    loan?.overdueInterestAmount +
+    loan?.overdueInterestPenalty +
+    loan?.defferdPrincipalAmount +
+    loan?.defferdInterestAmount;
 
   return (
     <View>
-      <DetailsItem label="loans.agreementNum" value={loan.agreementNumber} />
-      <DetailsItem label="loans.type" value={loan.productName} />
-      <DetailsItem label="loans.interestRate" value={`${loan.interestRate}%`} />
+      <DetailsItem label="loans.agreementNum" value={loan?.agreementNumber} />
+      <DetailsItem label="loans.type" value={loan?.productName} />
+      <DetailsItem label="loans.interestRate" value={`${loan?.interestRate}%`} />
       <DetailsItem
         label="loans.period"
         value="loans.creditPeriod"
-        translateProp={{ value: loan.creditPeriodInMonths }}
+        translateProp={{ value: loan?.creditPeriodInMonths }}
       />
-      <DetailsItem label="loans.restCreditPeriod" value={String(loan.restCreditPeriodInMonths)} />
-      <DetailsItem label="loans.startDate" value={formatDate(loan.startDate, ' YYYY')} />
-      <DetailsItem label="loans.endDate" value={formatDate(loan.endDate, ' YYYY')} />
-      <DetailsItem label="loans.status" value={getLoanStatus(loan.creditStatus)} />
+      <DetailsItem label="loans.restCreditPeriod" value={String(loan?.restCreditPeriodInMonths)} />
+      <DetailsItem label="loans.startDate" value={formatDate(loan?.startDate, SPACED_YEAR)} />
+      <DetailsItem label="loans.endDate" value={formatDate(loan?.endDate, SPACED_YEAR)} />
+      <DetailsItem label="loans.status" value={getLoanStatus(loan?.creditStatus)} />
       <DetailsItem
         label="loans.usedAmount"
-        value={formatMoney(loan.usedPrincipalAmount, loan.currency)}
+        value={formatMoney(loan?.usedPrincipalAmount, loan?.currency)}
       />
       <DetailsItem
         label="loans.notUsedAmount"
-        value={formatMoney(loan.notUsedPrincipalAmount, loan.currency)}
+        value={formatMoney(loan?.notUsedPrincipalAmount, loan?.currency)}
       />
       <DetailsItem
-        label="loans.accruedInterest"
-        value={formatMoney(loan.accruedInterest, loan.currency)}
+        label="loans.interest"
+        value={formatMoney(loan?.accruedInterest, loan?.currency)}
       />
       <DetailsItem
         label="loans.totalPayable"
-        value={formatMoney(loan.totalPayable, loan.currency)}
+        value={formatMoney(loan?.totalPayable, loan?.currency)}
       />
       <DetailsItem
         label="loans.totalPrincipalPayable"
-        value={formatMoney(loan.totalPrincipalPayable, loan.currency)}
+        value={formatMoney(loan?.totalPrincipalPayable, loan?.currency)}
       />
       <Collapsible
         headerHeight={60}
         contentHeight={110}
         renderHeader={
-          <Header title="loans.totalDebt" total={loan.totalDebt} currency={loan.currency} />
+          <Header title="loans.totalDebt" total={loan?.totalDebt} currency={loan?.currency} />
         }
         renderContent={
           <TotalDebtContent
-            totalPrincipalPayable={loan.totalPrincipalPayable}
-            totalInterestPayable={loan.totalInterestPayable}
-            totalPenalty={loan.totalPenalty}
-            currency={loan.currency}
+            totalPrincipalPayable={loan?.totalPrincipalPayable}
+            totalInterestPayable={loan?.totalInterestPayable}
+            totalPenalty={loan?.totalPenalty}
+            currency={loan?.currency}
           />
         }
         containerStyle={styles.collapsibleContent}
       />
       <Collapsible
         headerHeight={60}
-        contentHeight={160}
+        contentHeight={200}
         renderHeader={
-          <Header title="loans.overdueAmount" total={totalOverdue} currency={loan.currency} />
+          <Header title="loans.overdueAmount" total={totalOverdue} currency={loan?.currency} />
         }
         renderContent={
           <Overdue
-            overduePrincipalAmount={loan.overduePrincipalAmount}
-            overduePrincipalPenalty={loan.overduePrincipalPenalty}
-            overdueInterestAmount={loan.overdueInterestAmount}
-            overdueInterestPenalty={loan.overdueInterestPenalty}
-            defferdPrincipalAmount={loan.defferdPrincipalAmount}
-            currency={loan.currency}
+            overduePrincipalAmount={loan?.overduePrincipalAmount}
+            overduePrincipalPenalty={loan?.overduePrincipalPenalty}
+            overdueInterestAmount={loan?.overdueInterestAmount}
+            overdueInterestPenalty={loan?.overdueInterestPenalty}
+            defferdPrincipalAmount={loan?.defferdPrincipalAmount}
+            defferdInterestAmount={loan?.defferdInterestAmount}
+            currency={loan?.currency}
           />
         }
         containerStyle={styles.collapsibleContent}

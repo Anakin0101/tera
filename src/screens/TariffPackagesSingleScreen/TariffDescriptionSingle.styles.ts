@@ -2,7 +2,7 @@ import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 
 export const useStyles = () => {
-  const { Spacing, Layout, FontSize, FontFamily, Colors } = useTheme();
+  const { Spacing, Layout, FontSize, Colors, Fonts } = useTheme();
   const baseItemStyle = {
     backgroundColor: Colors.white,
     paddingHorizontal: Spacing.xl,
@@ -41,18 +41,18 @@ export const useStyles = () => {
       color: Colors.white,
       fontSize: FontSize.tiny,
       lineHeight: Spacing.lg,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     cardName: {
       color: Colors.textBlack,
       fontSize: FontSize.regular,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginRight: Spacing.s,
     },
     commission: {
       color: Colors.accountText500,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     firstItemStyle: {
       ...baseItemStyle,
@@ -84,7 +84,7 @@ export const useStyles = () => {
     },
     buttonText: {
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     buttonActiveText: {
       color: Colors.primary,
@@ -95,12 +95,12 @@ export const useStyles = () => {
     singleCardName: {
       color: Colors.textBlack500,
       fontSize: FontSize.regular,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     text: {
       color: Colors.textBlack500,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     marginBottom: {
       marginBottom: Spacing.l,
@@ -126,14 +126,14 @@ export const useStyles = () => {
     successText: {
       color: Colors.textBlack,
       fontSize: FontSize.large,
-      fontFamily: FontFamily.DemiBold,
+      ...Fonts.semiBold,
       textAlign: 'center',
       lineHeight: 34,
     },
     changeText: {
       color: Colors.greyText,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     linkContainer: {
       ...Layout.rowHCenter,
@@ -145,11 +145,11 @@ export const useStyles = () => {
     label: {
       color: Colors.accountText500,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     price: {
       color: Colors.tariffPrice,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontSize: FontSize.small,
     },
   });

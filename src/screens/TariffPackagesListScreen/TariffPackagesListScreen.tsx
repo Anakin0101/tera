@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Pressable, ScrollView, View } from 'react-native';
+import { Alert, FlatList, Pressable } from 'react-native';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
 import { useNavigation } from '@react-navigation/native';
@@ -7,23 +7,20 @@ import { ProductsStackScreenProps } from 'navigation/types';
 import { TARIFF_PACKAGES_SINGLE_SCREEN } from 'navigation/ScreenNames';
 import { useTariffPackages } from './container';
 import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
-import { getCommissions } from './utilis';
+import { LoadingInView } from 'components/LoadingView/LoadingInView';
+import { getCommissions, getIcon } from './utilis';
 import Images from 'theme/Images';
 import { useTranslation } from 'react-i18next';
-import { Text, LoadingInView } from 'components';
 
 export const TariffPackagesListScreen = () => {
   const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
   const { packagesList, packagesIsLoading } = useTariffPackages();
-  const hasStatusOrPending = packagesList?.customerPackages?.some(
-    item => item.isActive || item.pending,
-  );
+  const hasStatusOrPending = packagesList?.customerPackages?.some(item => item.pending);
 
   const { t } = useTranslation();
 
   const onLocationsPress = () => {
-    // TODO-  DEA
-    //if true - navigate specific screen
+    Alert.alert('navigate to offices screen');
   };
 
   const renderItem = ({ item }: { item: CustomerPackages }) => {
@@ -37,7 +34,7 @@ export const TariffPackagesListScreen = () => {
         <TariffCardLayout
           cardTypeName={item.name}
           id={item.id}
-          icon={item.name}
+          icon={getIcon(item.name)}
           status={item.isActive}
           pending={item.pending}
           commissionMnth={commissionMnth}
@@ -52,16 +49,8 @@ export const TariffPackagesListScreen = () => {
     return <LoadingInView />;
   }
 
-  if (!packagesList) {
-    return (
-      <View>
-        <Text children={'პაკეტი არ მოიძებნა, დიზაინერთან და ბიზნესთან იქნება გასავლელი'} />
-      </View>
-    );
-  }
-
   return (
-    <ScrollView>
+    <>
       <TariffDescription />
       {packagesList?.customerPackages && packagesList?.customerPackages.length > 0 ? (
         <FlatList
@@ -78,6 +67,6 @@ export const TariffPackagesListScreen = () => {
           />
         </Pressable>
       )}
-    </ScrollView>
+    </>
   );
 };

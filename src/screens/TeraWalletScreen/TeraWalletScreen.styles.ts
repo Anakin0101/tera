@@ -6,7 +6,7 @@ import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 const ITEM_SPACING = (config.mobileWidth - CIRCULAR_ITEM_SIZE) / 2;
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontFamily } = useTheme();
+  const { Layout, Colors, Spacing, Fonts } = useTheme();
 
   return StyleSheet.create({
     scrollView: {
@@ -50,7 +50,7 @@ export const useStyles = () => {
     itemText: {
       textAlign: 'center',
       fontSize: Spacing.ml,
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
     },
     inputContainer: {
       ...Layout.row,

@@ -85,6 +85,7 @@ export const ProductsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={PRODUCTS_SCREEN}
@@ -148,7 +149,11 @@ export const ProductsStack = () => {
         component={DepositDetailsScreen}
         options={{ title: t('products.depositDetails') }}
       />
-      <Screen name={LOANS_SCREEN} component={LoansScreen} options={{ title: t('loans.title') }} />
+      <Screen
+        name={LOANS_SCREEN}
+        component={LoansScreen}
+        options={{ title: t('loans.title'), headerStyle: st.whiteHeader }}
+      />
       <Screen
         name={LOAN_DETAILS_SCREEN}
         component={LoanDetailsScreen}

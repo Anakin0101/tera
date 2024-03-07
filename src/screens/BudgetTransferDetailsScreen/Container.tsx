@@ -66,7 +66,7 @@ export const useBudgetTransferDetail = () => {
       }
       const CheckedResponse = await handleTreasuryTransfer(false);
       if (CheckedResponse) {
-        navigate(TRANSACTION_FINISHED_SCREEN);
+        navigate(TRANSACTION_FINISHED_SCREEN, { budgetTransaction: true });
       } else {
         navigate(TRANSACTION_FAILED_SCREEN);
       }

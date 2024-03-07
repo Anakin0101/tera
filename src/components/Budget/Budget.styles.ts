@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { horizontalScale, verticalScale } from 'utils/config';
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontFamily, Fonts, FontSize } = useTheme();
+  const { Layout, Colors, Spacing, Fonts, FontSize } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.fill,
@@ -19,9 +19,11 @@ export const useStyles = () => {
       borderRadius: Spacing.m,
       paddingHorizontal: Spacing.lg,
       paddingVertical: Spacing.ml,
+      flex: 1,
     },
     budgetData: {
       ...Fonts.titleTiny,
+      maxWidth: horizontalScale(250),
     },
     button: {
       marginTop: Spacing.lg,
@@ -29,7 +31,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.ml,
     },
     buttonText: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
 
     containerWrapper: {

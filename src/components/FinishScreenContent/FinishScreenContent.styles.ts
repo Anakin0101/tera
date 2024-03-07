@@ -1,10 +1,9 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import { Spacing } from 'theme/Variables';
 import { horizontalScale, verticalScale } from 'utils/config';
 
 export const useStyleTheme = () => {
-  const { Layout, Fonts } = useTheme();
+  const { Layout, Fonts, Spacing } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.fill,

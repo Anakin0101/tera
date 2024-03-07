@@ -2,7 +2,7 @@ import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
 
 export const useStyles = () => {
-  const { Spacing, Layout, FontSize, FontFamily, Colors } = useTheme();
+  const { Spacing, Layout, FontSize, Fonts, Colors } = useTheme();
   return StyleSheet.create({
     mainCard: {
       ...Layout.center,
@@ -22,14 +22,14 @@ export const useStyles = () => {
     title: {
       color: Colors.textBlack,
       fontSize: FontSize.regularPlus,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginBottom: Spacing.ml,
     },
     descriptionText: {
       textAlign: 'center',
       color: Colors.accountText500,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     item: {
       padding: 10,
@@ -45,7 +45,7 @@ export const useStyles = () => {
     },
     nodatatext: {
       color: Colors.textBlack500,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       fontSize: FontSize.small,
     },
   });

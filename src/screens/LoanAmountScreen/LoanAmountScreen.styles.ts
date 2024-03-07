@@ -6,7 +6,7 @@ import { CIRCULAR_ITEM_SIZE } from 'constants/common';
 const ITEM_SPACING = (config.mobileWidth - CIRCULAR_ITEM_SIZE) / 2;
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontFamily } = useTheme();
+  const { Layout, Colors, Spacing, Fonts } = useTheme();
 
   return StyleSheet.create({
     container: {
@@ -33,7 +33,7 @@ export const useStyles = () => {
     input: {
       fontSize: 40,
       height: 65,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginRight: Spacing.xxs,
     },
     currencies: {

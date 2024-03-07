@@ -60,6 +60,7 @@ export const TransactionsStack = () => {
   const { Navigator, Screen } = Stack;
   const { t } = useTranslation();
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={TRANSACTIONS_SCREEN}
@@ -152,7 +153,7 @@ export const TransactionsStack = () => {
         name={BUDGET_TRANSACTION_SCREEN}
         component={BudgetTransactionScreen}
         options={{
-          title: t('transactions.budgetCode'),
+          title: t('transfers.where'),
         }}
       />
       <Screen

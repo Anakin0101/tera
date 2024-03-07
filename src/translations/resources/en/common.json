@@ -92,8 +92,9 @@
     "enable_from_settings": "For biometric authentication, you need to activate Face ID / Touch ID in the mobile settings “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "resend": {
-    "text": "Please accept your phone number",
-    "label": "One time code has been sent to your phone"
+    "title": "Please accept your phone number",
+    "label": "One time code has been sent to your phone",
+    "text": "Resend"
   },
   "dashboard": {
     "templates": "Templates",
@@ -277,10 +278,13 @@
     "accruedBenefit": "Accrued Benefit",
     "utilizedBenefits": "Utilized Benefit",
     "agreementDoc": "Agreement Document",
+    "addMoney": "Add\nmoney",
     "extraction": "Extraction",
     "agreementNumCopied": "Agreement number has been copied",
     "endDate": "End Date",
-    "willBeCancelled": "will be cancelled in {{value}} days"
+    "willBeCancelled": "will be cancelled in {{value}} days",
+    "months": "{{value}} months",
+    "lifetime": "Lifetime"
   },
   "loans": {
     "title": "Loans",
@@ -324,6 +328,7 @@
     "overdueInterestAmount": "Overdue Interest Amount",
     "overdueInterestPenalty": "Overdue Interest Penalty",
     "defferdPrincipalAmount": "Defferd Principal Amount",
+    "defferdInterestAmount": "Defferd Interest Amount",
     "allDebt": "Total Debt",
     "creditPeriod": "{{value}} Month(s)",
     "billingDay": "Billing Day",
@@ -337,7 +342,13 @@
     "operations": "Operations",
     "cover": "Cover",
     "prepayment": "Pre-payment",
-    "iban": "Loan servicing account"
+    "iban": "Loan servicing account",
+    "accountName": "Account name",
+    "accNumber": "Account number",
+    "accType": "Account type",
+    "cardAcc": "Card account",
+    "deposit": "Deposit",
+    "current": "Current"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",
@@ -351,7 +362,8 @@
     "late": "Late",
     "overdue": "Overdues",
     "writtenOff": "Written Off",
-    "Closed": "Closed"
+    "Closed": "Closed",
+    "expired": "Expired"
   },
   "common": {
     "save": "Save",

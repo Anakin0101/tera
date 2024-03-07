@@ -5,7 +5,7 @@ import { config, horizontalScale } from 'utils/config';
 const PROGRESS_WIDTH = config.mobileWidth - 48 - 12 - 48;
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontSize, FontFamily, BorderRadius } = useTheme();
+  const { Layout, Colors, Spacing, FontSize, BorderRadius, Fonts } = useTheme();
 
   return StyleSheet.create({
     sectionList: {
@@ -190,7 +190,7 @@ export const useStyles = () => {
     },
     headerLabelStyle: {
       fontSize: FontSize.regularPlus,
-      fontFamily: FontFamily.DemiBold,
+      ...Fonts.semiBold,
     },
     headerNav: {
       ...Layout.row,
@@ -209,12 +209,12 @@ export const useStyles = () => {
     pressedItem: {
       fontSize: FontSize.tiny,
       color: Colors.primary,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     item: {
       fontSize: FontSize.tiny,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     transactionsContainer: {
       backgroundColor: Colors.white,

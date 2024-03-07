@@ -1,20 +1,17 @@
-import { useNavigation } from '@react-navigation/native';
-import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
-import { RoutesGenericProp } from 'navigation/types';
 import { useLogoutUserMutation } from 'services/apis';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { resetUserProfileInfo } from 'store/slices/profile';
 import { setAccessToken, setPostponeEasyLogin } from 'store/slices/userInfo';
-import { useGuestNavigator } from './useGuestNavigator';
 import { useCallback } from 'react';
+import { NavigationRef } from 'navigation/index';
+import { GUEST_NAVIGATOR } from 'navigation/ScreenNames';
+import { CommonActions } from '@react-navigation/native';
 
 export const useLogout = () => {
   const [logoutUser] = useLogoutUserMutation();
   const { userIp, deviceToken } = useAppSelector(state => state.deviceInfo);
   const dispatch = useAppDispatch();
-  const { replace } = useNavigation<RoutesGenericProp<'guestNavigator'>>();
-  const { initialRoute } = useGuestNavigator();
 
   const handleLogout = useCallback(async () => {
     try {
@@ -30,9 +27,16 @@ export const useLogout = () => {
       dispatch(setPostponeEasyLogin(false));
       dispatch(setAccessToken(''));
       dispatch(resetUserProfileInfo());
-      replace(GUEST_NAVIGATOR, { screen: initialRoute });
+      if (NavigationRef?.current) {
+        NavigationRef.current.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: GUEST_NAVIGATOR }],
+          }),
+        );
+      }
     }
-  }, [logoutUser, userIp, deviceToken, dispatch, replace, initialRoute]);
+  }, [logoutUser, userIp, deviceToken, dispatch]);
 
   return { handleLogout };
 };

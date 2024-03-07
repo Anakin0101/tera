@@ -8,12 +8,11 @@ import { useStyles } from './TariffDescriptionSingle.styles';
 import { useTranslation } from 'react-i18next';
 import { openModal } from 'utils/modal';
 import { PackagesOption } from './PackagesOption';
-import { getCommissions } from 'screens/TariffPackagesListScreen/utilis';
+import { getCommissions, getIcon } from 'screens/TariffPackagesListScreen/utilis';
 import { PackageProducts } from 'services/apis/productsAPI/productsAPI.types';
 
 export const TariffPackagesSingleScreen = () => {
   const { params } = useRoute<ProductsStackRouteProps<'TariffPackagesSingleScreen'>>();
-  //   TODO // TBD - too much route params. probably better to move it to redux
   const { packageProducts, packageServices, name, id, isActive, pending } = params;
   const { commissionMnth, commissionYr } = getCommissions(packageServices);
   const styles = useStyles();
@@ -52,7 +51,7 @@ export const TariffPackagesSingleScreen = () => {
       ListHeaderComponent={
         <TariffDescriptionSingle
           cardTypeName={name}
-          icon={name}
+          icon={getIcon(name)}
           id={id}
           pending={pending}
           status={isActive}
@@ -63,11 +62,9 @@ export const TariffPackagesSingleScreen = () => {
       renderItem={renderItem}
       keyExtractor={item => item.name}
       ListFooterComponent={
-        <Button.Primary
-          onPress={onSelectPress}
-          fixedWidth
-          text={isActive ? t('newDeposit.edit') : t('common.select')}
-        />
+        !isActive ? (
+          <Button.Primary onPress={onSelectPress} fixedWidth text={t('common.select')} />
+        ) : null
       }
     />
   );

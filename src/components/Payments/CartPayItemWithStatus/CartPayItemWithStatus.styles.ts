@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing } = useTheme();
+  const { Colors, Layout, Spacing, Fonts, FontSize } = useTheme();
 
   return StyleSheet.create({
     swipeableWrapper: {
@@ -50,16 +49,15 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       lineHeight: 16,
     },
     itemDesc: {
       fontSize: FontSize.tiny,
       lineHeight: 12,
       letterSpacing: -0.5,
-      fontWeight: '400',
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.regular,
       marginTop: Spacing.xxs,
     },
     swipeableButton: {
@@ -87,7 +85,7 @@ export const useStyles = () => {
       fontSize: FontSize.tiny,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       lineHeight: 20,
       marginLeft: Spacing.xs,
     },

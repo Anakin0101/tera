@@ -9,7 +9,7 @@ import { TransactionByAccModalProps } from './FilterTransactionsModal.types';
 import { useStyles } from './FilterTransactionsModal.styles';
 import { closeModal } from 'utils/modal';
 import dayjs from 'dayjs';
-import { YYYY_MM_DD } from 'constants/DateTemplates';
+import { SPACED_YEAR, YYYY_MM_DD } from 'constants/DateTemplates';
 import i18next from 'i18next';
 
 const templates = [
@@ -125,14 +125,16 @@ export const FilterByDate: FC<TransactionByAccModalProps> = ({ setFilters }) => 
           <Text children="common.from" label color={Colors.textBlack400} />
           <Pressable onPress={() => selectDate('start')}>
             <Text
-              children={startDate ? formatDate(startDate, ' YYYY') : 'transactions.selectDate'}
+              children={startDate ? formatDate(startDate, SPACED_YEAR) : 'transactions.selectDate'}
             />
           </Pressable>
         </View>
         <View style={styles.date}>
           <Text children="common.to" label color={Colors.textBlack400} />
           <Pressable onPress={() => selectDate('end')}>
-            <Text children={endDate ? formatDate(endDate, ' YYYY') : 'transactions.selectDate'} />
+            <Text
+              children={endDate ? formatDate(endDate, SPACED_YEAR) : 'transactions.selectDate'}
+            />
           </Pressable>
         </View>
       </View>

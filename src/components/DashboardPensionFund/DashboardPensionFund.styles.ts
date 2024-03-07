@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
-import { Spacing } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Layout, Fonts, FontSize, Colors } = useTheme();
+  const { Layout, Fonts, FontSize, Colors, Spacing } = useTheme();
 
   return StyleSheet.create({
     dashboardTemplatesContainer: {

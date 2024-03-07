@@ -12,6 +12,7 @@ import { FilterByTransactionType } from 'components/modals/FilterTransactionsMod
 import { OpCategoryEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { HeaderProps } from './AllTransactionsScreen.types';
 import { useStyles } from './AllTransactionsScreen.styles';
+import { SPACED_YEAR } from 'constants/DateTemplates';
 
 export const getTransactionTypeNameByEnum = (id: OpCategoryEnum) => {
   switch (id) {
@@ -120,7 +121,7 @@ export const ListHeader: FC<HeaderProps> = ({
                 special
                 numberOfLines={1}
                 style={styles.text}
-                children={formatDate(filters.startDate, ' YYYY')}
+                children={formatDate(filters.startDate, SPACED_YEAR)}
               />
               <Pressable onPress={onClearDates}>
                 <Clear />

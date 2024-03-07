@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, SectionListRenderItem, View } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
 import { Slider, LastTransactions, Wallet } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
@@ -9,6 +9,7 @@ import { CardHolderDetails } from './CardHolderDetails';
 import { useCardDetails } from './container';
 import { TemporarilyInactiveDetails } from '../AccountDetailsScreen/TemporarilyInactiveDetails';
 import { CardSliderItem } from './CardSliderItem';
+import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -25,7 +26,7 @@ export const CardDetailsScreen = () => {
   const { actions, cards, card, blockedAmounts, lastTransactions, activeIndex, setActiveIndex } =
     useCardDetails(params.index);
 
-  const renderItem: SectionListRenderItem<any, any> = ({ section }) => {
+  const renderItem: SectionListRenderItemT = ({ section }) => {
     if (card.status === 13 && section.title !== 'main' && section.title !== 'details') {
       return null;
     }

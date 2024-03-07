@@ -17,6 +17,7 @@ import {
 } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { setSelectedIban } from 'store/slices/transfers';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 interface Section {
   title: string;
@@ -50,7 +51,7 @@ export const MyAccounts = () => {
   }, [isFocused, refetch]);
 
   useEffect(() => {
-    if (transferAccounts) {
+    if (transferAccounts && !budget) {
       const formattedSections = transferAccounts.map(group => {
         const filteredAccounts = group.accounts.filter(account => account.isDebit === true);
         return {
@@ -60,8 +61,20 @@ export const MyAccounts = () => {
       });
 
       setSections(formattedSections);
+    } else {
+      const formattedSections = transferAccounts.map(group => {
+        const filteredAccounts = group.accounts.filter(
+          account => account.isDebit === true && account.ccy === CurrencyEnum.GEL,
+        );
+        return {
+          title: group.accountName,
+          data: filteredAccounts,
+        };
+      });
+
+      setSections(formattedSections);
     }
-  }, [transferAccounts]);
+  }, [budget, transferAccounts]);
 
   useEffect(() => {
     if (sections && sections.length > 0) {
@@ -79,6 +92,9 @@ export const MyAccounts = () => {
       navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
       dispatch(setSelectedIban(selectedAccount));
     } else if (!!selectedAccount && budget) {
+      // if(){
+
+      // }
       navigate(BUDGET_TRANSACTION_SCREEN, { selected: selectedAccount });
     }
   }, [navigate, otherBanks, selectedAccount, budget, dispatch]);

@@ -13,6 +13,7 @@ const ProfileStack = createStackNavigator<ProfileStackParamsList>();
 export const ProfileNavigator = () => {
   const { Navigator, Screen } = ProfileStack;
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={PROFILE_SCREEN}

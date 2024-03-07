@@ -36,6 +36,9 @@ import {
   ActivatePackage,
   PrintLoanSchedulesReq,
   PrintLoanSchedulesRes,
+  TerabytesRes,
+  DepositByIdReq,
+  DepositByIdRes,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -273,6 +276,21 @@ export const productsAPI = createApi({
       }),
       transformResponse: (response: PrintLoanSchedulesRes) => response.fileId,
     }),
+
+    getTerabyte: builder.query<TerabytesRes, void>({
+      query: () => ({
+        url: URLS.getTerabyte,
+      }),
+    }),
+    getDepositById: builder.query<DepositByIdRes, DepositByIdReq>({
+      query: ({ culture, depositId }) => ({
+        url: URLS.getDepositById,
+        params: {
+          depositId,
+          culture,
+        },
+      }),
+    }),
   }),
 });
 
@@ -305,4 +323,6 @@ export const {
   useActivatePackageMutation,
   usePrintLoanSchedulesMutation,
   usePrintLoanPaymentsMutation,
+  useGetTerabyteQuery,
+  useGetDepositByIdQuery,
 } = productsAPI;

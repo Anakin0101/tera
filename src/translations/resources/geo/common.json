@@ -92,8 +92,9 @@
     "enable_from_settings": "ბიომეტრიული ავტორიზაციისთვის საჭიროა მობილურის პარამეტრებში Face ID / Touch ID-ის გააქტიურება “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "resend": {
-    "text": "დაადასტურეთ ტელეფონის ნომერი",
-    "label": "ერთჯდერადი კოდი გამოგზავნილია თქვენს ნომერზე"
+    "title": "დაადასტურეთ ტელეფონის ნომერი",
+    "label": "ერთჯდერადი კოდი გამოგზავნილია თქვენს ნომერზე",
+    "text": "ხელახლა გაგზავნა"
   },
   "dashboard": {
     "templates": "შაბლონები",
@@ -276,11 +277,13 @@
     "accruedBenefit": "დარიცხული სარგებელი",
     "utilizedBenefits": "ათვისებული სარგებელი",
     "agreementDoc": "ხელშეკრულების დოკუმენტი",
-    "addMoney": "თანხის დამატება",
+    "addMoney": "თანხის\nდამატება",
     "extraction": "ამონაწერი",
     "agreementNumCopied": "ხელშეკრულების ნომერი დაკოპირებულია",
     "endDate": "ანაბრის ვადა",
-    "willBeCancelled": "გაუქმდება {{value}} დღეში"
+    "willBeCancelled": "გაუქმდება {{value}} დღეში",
+    "months": "{{value}} თვე",
+    "lifetime": "უვადო"
   },
   "loans": {
     "title": "სესხები",
@@ -302,7 +305,7 @@
     "period": "ვადა",
     "restCreditPeriod": "დარჩენილი გადახდები",
     "startDate": "გაცემის თარიღი",
-    "endDate": "დასრულების დარიღი",
+    "endDate": "დასრულების თარიღი",
     "status": "სესხის სტატუსი",
     "usedAmount": "ათვისებული თანხა",
     "notUsedAmount": "აუთვისებელი თანხა",
@@ -317,6 +320,7 @@
     "overdueInterestAmount": "ვადაგადაცილებული პროცენტი",
     "overdueInterestPenalty": "ჯარიმა ვადაგადაცილებულ პროცენტზე",
     "defferdPrincipalAmount": "გადავადებული ძირი",
+    "defferdInterestAmount": "გადავადებული პროცენტი",
     "allDebt": "ჯამური დავალიანება",
     "creditPeriod": "{{value}} თვე",
     "billingDay": "დაანგარიშების რიცხვი",
@@ -330,21 +334,28 @@
     "operations": "ოპერაციები",
     "cover": "დაფარვა",
     "prepayment": "წინსწრებით დაფარვა",
-    "iban": "სესხის მომსახურე ანგარიში"
+    "iban": "სესხის მომსახურე ანგარიში",
+    "accountName": "ანგარიშის სახელი",
+    "accNumber": "ანგარიშის ნომერი",
+    "accType": "ანგარიშის ტიპი",
+    "cardAcc": "საბარათე",
+    "deposit": "დეპოზიტი",
+    "current": "მიმდინარე"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
     "totalPaid": "სულ გადახდილი",
     "principal": "ძირი: {{value}}",
     "interest": "პროცენტი: {{value}}",
-    "commission": "საკომისიო: {{value}}"
+    "commission": "განარტიის საკომისიო: {{value}}"
   },
   "creditStatus": {
     "current": "აქტიური",
     "late": "დაგვიანებული",
     "overdue": "ვადაგადაცილებული",
     "writtenOff": "ჩამოწერილი",
-    "Closed": "დასრულებული"
+    "Closed": "დასრულებული",
+    "expired": "ვადაგასული"
   },
   "common": {
     "save": "დამახსოვრება",

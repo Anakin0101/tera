@@ -5,10 +5,10 @@ import {
   usePrintLoanPaymentsMutation,
   usePrintLoanSchedulesMutation,
 } from 'services/apis/productsAPI/productsAPI';
-import { isDateBefore } from 'utils/formatDate';
 import { useCulture } from 'hooks/useCulture';
 import { downloadPdf } from 'utils/downloadPdf';
 import { FileFormatEnum } from 'services/apis/productsAPI/productsAPI.types';
+import { isDateBefore } from 'utils/formatDate';
 
 export const useLoanSchedules = (creditId: number, showHistory?: boolean) => {
   const { data: loanSchedule } = useGetLoanScheduleQuery(creditId, { skip: showHistory });
@@ -48,22 +48,21 @@ export const useLoanSchedules = (creditId: number, showHistory?: boolean) => {
     downloadPdf(fileId, title);
   }, [paymentsFileId, scheduleFileId, showHistory]);
 
-  const data = showHistory ? loanHistory : loanSchedule;
+  const data = useMemo(() => {
+    return showHistory ? loanHistory : loanSchedule;
+  }, [loanHistory, loanSchedule, showHistory]);
 
-  const totalPayable = useMemo(() => {
-    const current = loanSchedule?.find(item => isDateBefore(item.nextPaymentDay));
-    return current?.balance || 0;
-  }, [loanSchedule]);
+  const currentId = useMemo(() => {
+    if (showHistory) {
+      return;
+    }
 
-  const totalPaid = useMemo(() => {
-    return loanHistory?.reduce((acc, cur) => acc + cur.total, 0) || 0;
-  }, [loanHistory]);
-
-  const total = showHistory ? totalPaid : totalPayable;
+    return loanSchedule?.find(item => isDateBefore(item?.nextPaymentDay))?.id;
+  }, [loanSchedule, showHistory]);
 
   return {
     data,
-    total,
     downloadLoanSchedules,
+    currentId,
   };
 };

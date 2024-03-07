@@ -77,6 +77,8 @@ export const Colors = {
   pandingYellow: 'rgb(204, 189, 49)',
   lightGreen: 'rgba(128, 195, 66, 0.08)',
   packagesOverlay: 'rgba(245, 245, 245, 0.6)',
+  cardBlurLight: 'rgba(0,0,0,0.3)',
+  cardBlurDark: 'rgba(0,0,0,0.5)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
@@ -151,12 +153,7 @@ export const MetricsSizes = {
 };
 
 export const FontFamily = {
-  medium: 'TB-Public-2022Sans-Medium',
-  Black: 'TB-Public-2022Sans-Black',
-  DemiBold: 'TB-Public-2022Sans-DemiBold',
-  Light: 'TB-Public-2022Sans-Light',
-  LightItalic: 'TB-Public-2022Sans-LightItalic',
-  Regular: 'TB-Public-2022Sans-Regular',
+  main: 'TB-PublicSans-Medium',
 };
 
 export default {
