@@ -77,6 +77,7 @@ export const URLS = {
   printLoanPayments: 'Loan/PrintLoanPayments',
   getTerabyte: 'Account/GetTerabyte',
   getDepositById: 'Deposit/GetDepositById',
+  printAccountRequisites: 'Account/PrintAccountRequisites',
 };
 
 export const PROD_URLS = {

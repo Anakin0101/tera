@@ -1,26 +1,40 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { openModal } from 'utils/modal';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { groupCardsByPan } from 'utils/groupData';
 import { Card, Note, Share, Swap } from 'assets/SVGs';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
 import { setCards, setLastTransactions } from 'store/slices/products';
-import { RequisitesModal } from 'components/modals/RequisitesModal/RequisitesModal';
-import { useGetCustomerOperationsMutation } from 'services/apis/productsAPI/productsAPI';
-import { RequestStatusModal } from 'components/modals/RequestStatusModal/RequestStatusModal';
+import {
+  useGetCustomerOperationsMutation,
+  usePrintAccountRequisitesMutation,
+} from 'services/apis/productsAPI/productsAPI';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
+import { setAccountFromData } from 'store/slices/transfers';
+import { MainStackScreenProps } from 'navigation/types';
+import {
+  MODAL_STACK,
+  OTHER_BANK_TANSACTION_SCREEN,
+  TO_ACCOUNT_SCREEN,
+} from 'navigation/ScreenNames';
+import { useCulture } from 'hooks/useCulture';
+import { downloadPdf } from 'utils/downloadPdf';
 
 export const useAccountDetails = (iban: string, index: number) => {
   const dispatch = useAppDispatch();
+  const { culture } = useCulture();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const [activeIndex, setActiveIndex] = useState(index);
   const { groupedAccountsByIban, overdrafts } = useAppSelector(state => state.products);
+  const [getLastTransactions, { data: lastTransactions }] = useGetCustomerOperationsMutation();
+  const [printAccountRequisites, { isLoading: isLoadingFileId }] =
+    usePrintAccountRequisitesMutation();
+  const [activeAccountIndex, setActiveAccountIndex] = useState(0);
 
   const account = useMemo(() => {
     return groupedAccountsByIban?.[activeIndex];
   }, [groupedAccountsByIban, activeIndex]);
-
-  const [getLastTransactions, { data: lastTransactions }] = useGetCustomerOperationsMutation();
 
   useEffect(() => {
     if (account) {
@@ -35,7 +49,7 @@ export const useAccountDetails = (iban: string, index: number) => {
 
   const blockedAmounts = useMemo(() => {
     return account?.accounts
-      .filter(item => item.blockedAmount)
+      .filter(item => item?.blockedAmount)
       .map(({ blockedAmount, ccy }) => ({
         blockedAmount,
         ccy,
@@ -43,7 +57,7 @@ export const useAccountDetails = (iban: string, index: number) => {
   }, [account?.accounts]);
 
   const cardsAttachedToAccount = useMemo(() => {
-    return account?.accounts.filter(item => item.cards).flatMap(item => item.cards);
+    return account?.accounts?.filter(item => item?.cards)?.flatMap(item => item?.cards);
   }, [account?.accounts]);
 
   const groupedCardsByPan = useMemo(() => {
@@ -58,7 +72,7 @@ export const useAccountDetails = (iban: string, index: number) => {
   const overdraftRelatedToAcc = useMemo(() => {
     let result: RelatedOverdraft = null;
     account?.accounts?.forEach(item => {
-      const match = overdrafts?.find(overdraft => item.accountId === overdraft.accountId);
+      const match = overdrafts?.find(overdraft => item?.accountId === overdraft?.accountId);
       if (match) {
         result = match;
       }
@@ -66,37 +80,60 @@ export const useAccountDetails = (iban: string, index: number) => {
     return result;
   }, [account?.accounts, overdrafts]);
 
-  const handleRequisites = () => {
-    openModal({
-      element: <RequisitesModal />,
-      title: 'products.chooseLanguage',
-      titlePosition: 'center',
-      disablePanning: true,
+  const selectedAccountFromCard = useMemo(() => {
+    return account?.accounts?.[activeAccountIndex];
+  }, [account, activeAccountIndex]);
+
+  const transferToOwnAccount = useCallback(() => {
+    dispatch(setAccountFromData(selectedAccountFromCard));
+    navigate(MODAL_STACK, {
+      screen: TO_ACCOUNT_SCREEN,
+      params: { selected: selectedAccountFromCard?.accountId },
     });
-  };
-  const handlePayments = () => {
-    openModal({
-      element: <RequestStatusModal success message="პინ კოდს მიიღებთ SMS სახით" />,
-      disablePanning: true,
+  }, [dispatch, navigate, selectedAccountFromCard]);
+
+  const transferToSomeone = useCallback(() => {
+    dispatch(setAccountFromData(selectedAccountFromCard));
+    navigate(MODAL_STACK, {
+      screen: OTHER_BANK_TANSACTION_SCREEN,
+      params: { otherBanks: true },
     });
-  };
+  }, [dispatch, navigate, selectedAccountFromCard]);
+
+  const getAccountRequisites = useCallback(async () => {
+    await printAccountRequisites({
+      culture,
+      accountId: selectedAccountFromCard?.accountId,
+    })
+      .unwrap()
+      .then(fileId => {
+        const id = fileId?.slice(-10);
+        const title = `Account_Requisites_${selectedAccountFromCard?.ccy}_${id}`;
+        downloadPdf(fileId, title);
+      });
+  }, [
+    culture,
+    printAccountRequisites,
+    selectedAccountFromCard?.accountId,
+    selectedAccountFromCard?.ccy,
+  ]);
 
   const actions = useMemo(() => {
     return [
       {
         title: 'dashboard.transferToOwnAcc',
         icon: <Swap />,
-        handlePress: () => {},
+        handlePress: transferToOwnAccount,
       },
       {
         title: 'dashboard.transferToSomeone',
         icon: <Card />,
-        handlePress: handlePayments,
+        handlePress: transferToSomeone,
       },
       {
         title: 'products.requisite',
         icon: <Note />,
-        handlePress: handleRequisites,
+        handlePress: getAccountRequisites,
       },
       {
         title: 'dashboard.extraction',
@@ -104,7 +141,7 @@ export const useAccountDetails = (iban: string, index: number) => {
         handlePress: () => {},
       },
     ];
-  }, []);
+  }, [transferToOwnAccount, transferToSomeone, getAccountRequisites]);
 
   return {
     account,
@@ -116,5 +153,7 @@ export const useAccountDetails = (iban: string, index: number) => {
     lastTransactions,
     activeIndex,
     setActiveIndex,
+    setActiveAccountIndex,
+    isLoadingFileId,
   };
 };

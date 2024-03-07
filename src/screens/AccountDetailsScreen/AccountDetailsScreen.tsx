@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SectionList, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Cards } from './Cards';
 import { Details } from './Details';
 import { useAccountDetails } from './container';
 import { ActiveOverdraft } from './ActiveOverdraft';
-import { Slider, LastTransactions } from 'components';
+import { Slider, LastTransactions, TransparentLoadingView } from 'components';
 import { ModalStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { AccountSliderItem } from './AccountSliderItem';
@@ -32,61 +32,85 @@ export const AccountDetailsScreen = () => {
     lastTransactions,
     activeIndex,
     setActiveIndex,
+    setActiveAccountIndex,
+    isLoadingFileId,
   } = useAccountDetails(params.iban, params.index);
+
+  const renderItem: SectionListRenderItemT = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'main':
+          return (
+            <Slider
+              data={groupedAccountsByIban}
+              renderItem={AccountSliderItem}
+              actions={actions}
+              index={activeIndex}
+              setActiveIndex={setActiveIndex}
+              actionButtonsContainer={styles.actionButtons}
+              setActiveAccountIndex={setActiveAccountIndex}
+            />
+          );
+        case 'overdrafts':
+          return <ActiveOverdraft relatedOverdraft={overdraftRelatedToAcc} />;
+        case 'cards':
+          return (
+            <Cards
+              cards={groupedCardsByPan}
+              isCardAccount={account?.isCardAccount}
+              iban={account?.iban}
+              fromCardDetails={!!overdraftRelatedToAcc}
+            />
+          );
+        case 'details':
+          return (
+            <Details
+              name={account?.accountName}
+              iban={account?.iban}
+              displayDivider={!!lastTransactions?.length}
+              borderRadius={!account?.isCardAccount && !overdraftRelatedToAcc}
+              blockedAmounts={blockedAmounts}
+            />
+          );
+        case 'transactions':
+          return (
+            <LastTransactions
+              data={lastTransactions}
+              sectionTitle="products.lastTransactions"
+              style={styles.transactionsContainer}
+              headerLabelStyle={styles.headerLabelStyle}
+              headerContaienrStyle={styles.backgroundWhite}
+              accountNumber={account?.accountNumber}
+            />
+          );
+        default:
+          return null;
+      }
+    },
+    [
+      account?.accountName,
+      account?.accountNumber,
+      account?.iban,
+      account?.isCardAccount,
+      actions,
+      activeIndex,
+      blockedAmounts,
+      groupedAccountsByIban,
+      groupedCardsByPan,
+      lastTransactions,
+      overdraftRelatedToAcc,
+      setActiveAccountIndex,
+      setActiveIndex,
+      styles.actionButtons,
+      styles.backgroundWhite,
+      styles.headerLabelStyle,
+      styles.transactionsContainer,
+    ],
+  );
 
   if (!account) {
     return null;
   }
-
-  const renderItem: SectionListRenderItemT = ({ section }) => {
-    switch (section.title) {
-      case 'main':
-        return (
-          <Slider
-            data={groupedAccountsByIban}
-            renderItem={AccountSliderItem}
-            actions={actions}
-            index={activeIndex}
-            setActiveIndex={setActiveIndex}
-            actionButtonsContainer={styles.actionButtons}
-          />
-        );
-      case 'overdrafts':
-        return <ActiveOverdraft relatedOverdraft={overdraftRelatedToAcc} />;
-      case 'cards':
-        return (
-          <Cards
-            cards={groupedCardsByPan}
-            isCardAccount={account.isCardAccount}
-            iban={account.iban}
-            fromCardDetails={!!overdraftRelatedToAcc}
-          />
-        );
-      case 'details':
-        return (
-          <Details
-            name={account?.accountName}
-            iban={account.iban}
-            displayDivider={!!lastTransactions?.length}
-            borderRadius={!account.isCardAccount && !overdraftRelatedToAcc}
-            blockedAmounts={blockedAmounts}
-          />
-        );
-      case 'transactions':
-        return (
-          <LastTransactions
-            data={lastTransactions}
-            sectionTitle="products.lastTransactions"
-            style={styles.transactionsContainer}
-            headerLabelStyle={styles.headerLabelStyle}
-            headerContaienrStyle={styles.backgroundWhite}
-            accountNumber={account.accountNumber}
-          />
-        );
-      default:
-        return null;
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -98,6 +122,7 @@ export const AccountDetailsScreen = () => {
         style={styles.sectionList}
         contentContainerStyle={styles.contentContainer}
       />
+      {isLoadingFileId && <TransparentLoadingView />}
     </View>
   );
 };

@@ -39,6 +39,8 @@ import {
   TerabytesRes,
   DepositByIdReq,
   DepositByIdRes,
+  PrintAccountRequisites,
+  PrintAccountRequisitesRes,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -291,6 +293,14 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    printAccountRequisites: builder.mutation<string, PrintAccountRequisites>({
+      query: body => ({
+        url: URLS.printAccountRequisites,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: PrintAccountRequisitesRes) => response.fileId,
+    }),
   }),
 });
 
@@ -325,4 +335,5 @@ export const {
   usePrintLoanPaymentsMutation,
   useGetTerabyteQuery,
   useGetDepositByIdQuery,
+  usePrintAccountRequisitesMutation,
 } = productsAPI;

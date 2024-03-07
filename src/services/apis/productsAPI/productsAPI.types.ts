@@ -713,3 +713,12 @@ export type DepositByIdRes = {
     percentText: string;
   };
 };
+
+export type PrintAccountRequisites = {
+  culture: string;
+  accountId: number;
+};
+
+export interface PrintAccountRequisitesRes {
+  fileId: string;
+}
