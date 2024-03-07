@@ -96,6 +96,9 @@ import {
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  MONEY_TRANSFERS_SCREEN,
+  MONEY_TRANSFER_RECEIVE_SCREEN,
+  CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -110,6 +113,7 @@ import {
 import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
+import { MTSystemItemProps } from 'utils/moneyTransfer';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -189,6 +193,11 @@ export type ModalStackParamsList = {
     paymentResults: Array<PaymentResult>;
     sum: number;
     providerItems: Array<ProviderItemProps>;
+  };
+  [MONEY_TRANSFERS_SCREEN]: undefined;
+  [MONEY_TRANSFER_RECEIVE_SCREEN]: undefined;
+  [CHECK_MONEY_TRANSFER_PROVIDER_SCREEN]: {
+    providerItem: MTSystemItemProps;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;

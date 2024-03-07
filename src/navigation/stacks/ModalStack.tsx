@@ -29,11 +29,14 @@ import {
   CART_LIST_SCREEN,
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
+  CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
   CHECK_PAYMENT_PROVIDER_SCREEN,
   CHOOSE_MOBILE_PROVIDER_SCREEN,
   CHOOSE_PAYMENT_ACCOUNT_SCREEN,
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
+  MONEY_TRANSFERS_SCREEN,
+  MONEY_TRANSFER_RECEIVE_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
   NEW_AUTOMATIC_PAYMENT_SCREEN,
   NEW_PAYMENT_SCREEN,
@@ -54,6 +57,9 @@ import { CheckPaymentProviderScreen } from 'screens/CheckPaymentProviderScreen/C
 import { ChooseMobileProviderScreen } from 'screens/ChooseMobileProviderScreen/ChooseMobileProviderScreen';
 import { PaymentErrorScreen } from 'screens/PaymentErrorScreen/PaymentErrorScreen';
 import { CartPaymentSuccessScreen } from 'screens/CartPaymentSuccessScreen/CartPaymentSuccessScreen';
+import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfersScreen';
+import { MoneyTransferReceiveScreen } from 'screens/MoneyTransferReceiveScreen/MoneyTransferReceiveScreen';
+import { CheckMoneyTransferProviderScreen } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -225,6 +231,30 @@ export const ModalNavigator = () => {
           title: '',
           headerShown: false,
           gestureEnabled: false,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFERS_SCREEN}
+        component={MoneyTransfersScreen}
+        options={{
+          title: t('moneyTransfersScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_RECEIVE_SCREEN}
+        component={MoneyTransferReceiveScreen}
+        options={{
+          title: t('moneyTransferReceiveScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={CHECK_MONEY_TRANSFER_PROVIDER_SCREEN}
+        component={CheckMoneyTransferProviderScreen}
+        options={{
+          title: t('moneyTransferReceiveScreen.title'),
+          headerShadowVisible: true,
         }}
       />
       <Screen
