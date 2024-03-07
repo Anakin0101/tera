@@ -92,8 +92,9 @@
     "enable_from_settings": "For biometric authentication, you need to activate Face ID / Touch ID in the mobile settings “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "resend": {
-    "text": "Please accept your phone number",
-    "label": "One time code has been sent to your phone"
+    "title": "Please accept your phone number",
+    "label": "One time code has been sent to your phone",
+    "text": "Resend"
   },
   "dashboard": {
     "templates": "Templates",
