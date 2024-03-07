@@ -131,6 +131,7 @@ export { Contact } from './Contact';
 export { Timer } from './Timer';
 export { ClearWhite } from './ClearWhite';
 export { Warning } from './Warning';
+export { MoneyTransfers } from './MoneyTransfers';
 export { Percent } from './Percent';
 export { FailedSvg } from './Failed';
 export { Forward } from './Forward';
