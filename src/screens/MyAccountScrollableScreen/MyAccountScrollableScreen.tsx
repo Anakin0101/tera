@@ -1,20 +1,18 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { SectionList, View, TouchableOpacity, Text, SectionListRenderItem } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
-import { useStyles } from './MyAccountScrollableScreen.styles';
+import { FixedButton, Divider, LastTransactions } from 'components';
 import { Cards } from '../AccountDetailsScreen/Cards';
 import { Details } from '../AccountDetailsScreen/Details';
-import { Divider, LastTransactions } from 'components';
-import { CardPayment, Swap } from 'assets/SVGs';
-import { FixedButton } from 'components';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { useRoute } from '@react-navigation/native';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { CardPayment, Swap } from 'assets/SVGs';
+import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
+import { useStyles } from './MyAccountScrollableScreen.styles';
 
 export const MyAccountsScrollableScreen = () => {
-  const { setOptions } = useNavigation<ProductsStackScreenProps<'MyAccountScrollableScreen'>>();
-  const { params } = useRoute<ProductsStackRouteProps<'MyAccountScrollableScreen'>>();
+  const { setOptions } = useNavigation<ModalStackScreenProps<'MyAccountScrollableScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'MyAccountScrollableScreen'>>();
   const styles = useStyles();
   const sectionListRef = useRef<SectionList>(null);
   const [pressedIndex, setPressedIndex] = useState<number | null>(0);

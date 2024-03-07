@@ -1,6 +1,5 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -207,11 +206,6 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
-  [CARD_DETAILS_SCREEN]: {
-    iban: string;
-    index: number;
-    item: any;
-  };
   [MY_ACCOUNTS_SCREEN]: {
     otherBanks?: boolean;
     budget?: boolean;
@@ -276,17 +270,7 @@ export type ModalStackParamsList = {
     fromIban?: boolean;
     fromPersonal?: boolean;
   };
-};
-
-export type DashboardStackParamsList = {
-  [DASHBOARD_SCREEN]: undefined;
-  [ALL_TEMPLATES_SCREEN]: undefined;
-};
-
-export type ProductsStackParamsList = {
-  [PRODUCTS_SCREEN]: undefined;
   [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
-
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;
@@ -341,6 +325,15 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
   [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
+};
+
+export type DashboardStackParamsList = {
+  [DASHBOARD_SCREEN]: undefined;
+  [ALL_TEMPLATES_SCREEN]: undefined;
+};
+
+export type ProductsStackParamsList = {
+  [PRODUCTS_SCREEN]: undefined;
 };
 
 export type TransactionsStackParamsList = {

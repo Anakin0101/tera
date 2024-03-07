@@ -6,7 +6,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { setAdjustResize, setAdjustPan } from 'rn-android-keyboard-adjust';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setInitialAmount } from 'store/slices/deposit';
 import { openToast } from 'utils/toast';
@@ -18,7 +18,7 @@ export const useNewDepositInitialAmount = (ref: React.RefObject<TextInput>) => {
   const dispatch = useAppDispatch();
   const headerHeight = useHeaderHeight();
   const { offer } = useAppSelector(state => state.deposit);
-  const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositAdditionalInfoScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'NewDepositAdditionalInfoScreen'>>();
   const [amount, setAmount] = useState('');
   const [debouncedAmount, setDebouncedAmount] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyEnum>(CurrencyEnum.GEL);

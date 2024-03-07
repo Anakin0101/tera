@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import { Button, DetailsItem } from 'components';
 import { useRoute } from '@react-navigation/native';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps } from 'navigation/types';
 import { TariffDescriptionSingle } from './TariffDescriptionSingle';
 import { useStyles } from './TariffDescriptionSingle.styles';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import { getCommissions, getIcon } from 'screens/TariffPackagesListScreen/utilis
 import { PackageProducts } from 'services/apis/productsAPI/productsAPI.types';
 
 export const TariffPackagesSingleScreen = () => {
-  const { params } = useRoute<ProductsStackRouteProps<'TariffPackagesSingleScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TariffPackagesSingleScreen'>>();
   const { packageProducts, packageServices, name, id, isActive, pending } = params;
   const { commissionMnth, commissionYr } = getCommissions(packageServices);
   const styles = useStyles();

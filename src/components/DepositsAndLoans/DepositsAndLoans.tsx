@@ -16,9 +16,10 @@ import {
   DEPOSITS_SCREEN,
   LOAN_DETAILS_SCREEN,
   DEPOSIT_DETAILS_SCREEN,
+  MODAL_STACK,
 } from 'navigation/ScreenNames';
 import Images from 'theme/Images';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { useStyles } from './DepositsAndLoans.styles';
 
 const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll }) => {
@@ -44,14 +45,14 @@ const ListHeader: FC<HeaderProps> = ({ variant, quantity, totalAmount, seeAll })
 
 const ListFooter: FC<FooterProps> = ({ variant }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'DepositsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const navigateToDeposits = () => {
-    navigate(DEPOSITS_SCREEN);
+    navigate(MODAL_STACK, { screen: DEPOSITS_SCREEN });
   };
 
   const navigateToLoans = () => {
-    navigate(LOANS_SCREEN);
+    navigate(MODAL_STACK, { screen: LOANS_SCREEN });
   };
 
   return (
@@ -72,13 +73,13 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
   displayDivider,
 }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'DepositDetailsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const navigateToDepositDetails = useCallback(
     (index: number, id: number) => {
-      navigate(DEPOSIT_DETAILS_SCREEN, {
-        index,
-        id,
+      navigate(MODAL_STACK, {
+        screen: DEPOSIT_DETAILS_SCREEN,
+        params: { index, id },
       });
     },
     [navigate],
@@ -86,8 +87,9 @@ export const DepositsAndLoans: FC<DepositsAndLoansProps> = ({
 
   const navigateToLoanDetails = useCallback(
     (index: number) => {
-      navigate(LOAN_DETAILS_SCREEN, {
-        index,
+      navigate(MODAL_STACK, {
+        screen: LOAN_DETAILS_SCREEN,
+        params: { index },
       });
     },
     [navigate],

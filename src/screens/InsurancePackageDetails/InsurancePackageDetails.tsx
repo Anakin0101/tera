@@ -8,13 +8,13 @@ import { Colors } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
 import { CardSliderItem } from 'screens/CardDetailsScreen/CardSliderItem';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps } from 'navigation/types';
 import { useStyles } from './InsurancePackageDetails.styles';
 
 export const InsurancePackageDetails = () => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const { params } = useRoute<ProductsStackRouteProps<'InsurancePackageDetailsScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'InsurancePackageDetailsScreen'>>();
   const [agreed, setAgreed] = useState(false);
   const { cards } = useAppSelector(state => state.products);
   const card = cards.find(item => item.id === params.cardId);

@@ -8,7 +8,7 @@ import {
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { setDepositDuration } from 'store/slices/deposit';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { CalculateDeposit } from 'services/apis/productsAPI/productsAPI.types';
 import { NEW_DEPOSIT_SUMMARY_SCREEN } from 'navigation/ScreenNames';
 import { CIRCULAR_ITEM_SIZE } from 'constants/common';
@@ -25,7 +25,7 @@ export const useNewDepositAdditionalInfo = (ref: React.RefObject<FlatList>) => {
   const [duration, setDuration] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
   const lastValue = useRef('');
-  const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositSummaryScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'NewDepositSummaryScreen'>>();
   const { depositType, initialAmount, currency, offer, creditAccount, debitAccount, imageUrl } =
     useAppSelector(state => state.deposit);
   const [calculateDeposit, { data: benefit, isLoading: isLoadingBenefit }] =

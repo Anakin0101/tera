@@ -6,7 +6,7 @@ import { Details } from './Details';
 import { useAccountDetails } from './container';
 import { ActiveOverdraft } from './ActiveOverdraft';
 import { Slider, LastTransactions } from 'components';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps } from 'navigation/types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { AccountSliderItem } from './AccountSliderItem';
 import { SectionListRenderItemT } from 'screens/types';
@@ -21,7 +21,7 @@ const sections = [
 
 export const AccountDetailsScreen = () => {
   const styles = useStyles();
-  const { params } = useRoute<ProductsStackRouteProps<'AccountDetailsScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'AccountDetailsScreen'>>();
   const {
     account,
     groupedAccountsByIban,

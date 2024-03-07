@@ -3,7 +3,7 @@ import { SectionList } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { General } from './General';
 import { Packages } from './Packages';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps } from 'navigation/types';
 import { useStyles } from './CardInsuranceScreen.styles';
 import { SectionListRenderItemT } from 'screens/types';
 
@@ -14,7 +14,7 @@ const sections = [
 
 export const CardInsuranceScreen = () => {
   const styles = useStyles();
-  const { params } = useRoute<ProductsStackRouteProps<'CardInsuranceScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'CardInsuranceScreen'>>();
 
   const renderItem: SectionListRenderItemT = ({ section }) => {
     switch (section.title) {
