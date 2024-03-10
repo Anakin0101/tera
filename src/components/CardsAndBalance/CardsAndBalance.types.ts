@@ -13,6 +13,7 @@ export interface ActionButtonsProps {
   progress: SharedValue<number>;
   onSpacePress: () => void;
   selectedAccountFromCard?: SelectedAccountFromCard;
+  activeCardAccounts?: Account[];
 }
 
 export interface ActionButtonProps {

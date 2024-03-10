@@ -80,6 +80,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     activeCardIndex,
     selectedAccountFromCard,
     setSelectedAccountFromCard,
+    activeCardAccounts,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -270,6 +271,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           progress={cardsOffset}
           onSpacePress={closeCards}
           selectedAccountFromCard={selectedAccountFromCard}
+          activeCardAccounts={activeCardAccounts}
         >
           <Indicator data={cards} translateX={translateX} />
         </ActionButtons>

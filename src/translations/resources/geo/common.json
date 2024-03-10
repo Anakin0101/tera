@@ -265,7 +265,12 @@
     "cardSecurity": "ბარათის უსაფრთხოება",
     "noInsuranceWanted": "არ მსურს დაზღვევა",
     "agreeToBankingTerms": "ვეთანხმები საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
-    "orderAmount": "შეკვეთა - "
+    "orderAmount": "შეკვეთა - ",
+    "emptyOps": "ტრანზაქციები არ მოიძებნა",
+    "getExtract": "ამონაწერის ჩამოტვირთვა",
+    "download": "ჩამოტვირთვა",
+    "month": "{{value}} თვე",
+    "year": "{{value}} წელი"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",

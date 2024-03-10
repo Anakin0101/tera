@@ -6,7 +6,7 @@ export interface ModalHandler {
 }
 
 export interface ConfigureModal {
-  element: ReactNode;
+  element?: ReactNode;
   title?: string;
   titlePosition?: TitlePos;
   disableDynamicSizing?: boolean;
@@ -17,5 +17,6 @@ export interface ConfigureModal {
   hideCloseButton?: boolean;
   withKeyboard?: boolean;
   onCloseCallback?: () => void;
+  sectionList?: ReactNode;
 }
 export type TitlePos = 'center' | 'left';

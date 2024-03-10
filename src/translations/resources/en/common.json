@@ -266,7 +266,12 @@
     "cardSecurity": "Card security",
     "noInsuranceWanted": "I do not want insurance",
     "agreeToBankingTerms": "I agree to the standard terms of banking operations",
-    "orderAmount": "Order - "
+    "orderAmount": "Order - ",
+    "emptyOps": "No transactions found",
+    "getExtract": "Download the extract",
+    "download": "Download",
+    "month": "{{value}} Months",
+    "year": "{{value}} Year"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",

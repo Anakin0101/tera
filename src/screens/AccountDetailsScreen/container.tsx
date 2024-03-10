@@ -20,6 +20,8 @@ import {
 } from 'navigation/ScreenNames';
 import { useCulture } from 'hooks/useCulture';
 import { downloadPdf } from 'utils/downloadPdf';
+import { openModal } from 'utils/modal';
+import { AccountExtractionModal } from 'components/modals';
 
 export const useAccountDetails = (iban: string, index: number) => {
   const dispatch = useAppDispatch();
@@ -118,6 +120,19 @@ export const useAccountDetails = (iban: string, index: number) => {
     selectedAccountFromCard?.ccy,
   ]);
 
+  const handleAccountExraction = useCallback(() => {
+    openModal({
+      sectionList: (
+        <AccountExtractionModal
+          accounts={account?.accounts}
+          selectedAccountFromCard={selectedAccountFromCard}
+        />
+      ),
+      disableDynamicSizing: true,
+      snapPoints: ['90%'],
+    });
+  }, [account?.accounts, selectedAccountFromCard]);
+
   const actions = useMemo(() => {
     return [
       {
@@ -138,10 +153,10 @@ export const useAccountDetails = (iban: string, index: number) => {
       {
         title: 'dashboard.extraction',
         icon: <Share />,
-        handlePress: () => {},
+        handlePress: handleAccountExraction,
       },
     ];
-  }, [transferToOwnAccount, transferToSomeone, getAccountRequisites]);
+  }, [transferToOwnAccount, transferToSomeone, getAccountRequisites, handleAccountExraction]);
 
   return {
     account,

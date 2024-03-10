@@ -16,6 +16,8 @@ import {
 } from 'navigation/ScreenNames';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setAccountFromData } from 'store/slices/transfers';
+import { openModal } from 'utils/modal';
+import { AccountExtractionModal } from 'components/modals';
 
 const Button: FC<IButton> = ({ icon, label, onPress }) => {
   const styles = useStyles();
@@ -32,6 +34,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
   progress,
   onSpacePress,
   selectedAccountFromCard,
+  activeCardAccounts,
 }) => {
   const styles = useStyles();
   const dispatch = useAppDispatch();
@@ -71,7 +74,20 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
     });
   }, [navigate, selectedAccountFromCard]);
 
-  const handleExtraction = () => {};
+  const handleExtraction = useCallback(() => {
+    if (selectedAccountFromCard && activeCardAccounts) {
+      openModal({
+        sectionList: (
+          <AccountExtractionModal
+            accounts={activeCardAccounts}
+            selectedAccountFromCard={selectedAccountFromCard}
+          />
+        ),
+        disableDynamicSizing: true,
+        snapPoints: ['90%'],
+      });
+    }
+  }, [activeCardAccounts, selectedAccountFromCard]);
 
   return (
     <Pressable onPress={onSpacePress}>

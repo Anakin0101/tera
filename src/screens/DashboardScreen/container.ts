@@ -75,6 +75,10 @@ export const useDashboardScreen = () => {
     ];
   }, [groupedAccountsByIban]);
 
+  const activeCardAccounts = useMemo(() => {
+    return cards?.[activeCardIndex]?.accounts;
+  }, [activeCardIndex, cards]);
+
   const isLoading = useMemo(() => {
     return (
       customerOperationsLoading ||
@@ -134,5 +138,6 @@ export const useDashboardScreen = () => {
     activeCardIndex,
     selectedAccountFromCard,
     setSelectedAccountFromCard,
+    activeCardAccounts,
   };
 };
