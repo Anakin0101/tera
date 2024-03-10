@@ -18,6 +18,7 @@ import { openToast } from 'utils/toast';
 import { useKeyChain } from './useKeychain';
 import { resetKeychainValues } from 'utils/logKeychainValues';
 import { resetStateAction } from 'store/actions/reset';
+import { CustomBackendError } from 'services/types';
 
 export const useLogin = () => {
   const [loginUser, { isLoading: loginUserLoading }] = useLoginUserMutation();
@@ -29,6 +30,17 @@ export const useLogin = () => {
   const { navigate, replace } =
     useNavigation<RoutesGenericProp<'guestNavigator' | 'mainNavigator'>>();
   const { savedLoginName } = useKeyChain();
+
+  const handleException = (error: unknown) => {
+    if (typeof error === 'object' && error !== null && 'data' in error) {
+      const customError = error as CustomBackendError;
+      const toastMessage = customError.data?.detail;
+
+      if (customError?.data?.showErrorUi && toastMessage) {
+        openToast(toastMessage, 'error');
+      }
+    }
+  };
 
   const handleSignInWithOTP = (OTPCode: string, loginName: string, password: string) => {
     loginUser({
@@ -54,8 +66,9 @@ export const useLogin = () => {
         }
       })
       .catch(err => {
-        dispatch(setOTPCodeErrorTimes());
         console.warn('Error in loginUser with OTP: ', err);
+        handleException(err);
+        dispatch(setOTPCodeErrorTimes());
       });
   };
 
@@ -106,6 +119,7 @@ export const useLogin = () => {
         })
         .catch(err => {
           console.warn('Error in handleSignIn: ', err);
+          handleException(err);
         });
     }
   };
@@ -137,6 +151,7 @@ export const useLogin = () => {
       }
     } catch (error) {
       console.warn('Error in handlePasscodeSignIn:', error);
+      handleException(error);
     }
   };
 
