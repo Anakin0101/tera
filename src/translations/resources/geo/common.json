@@ -92,8 +92,9 @@
     "enable_from_settings": "ბიომეტრიული ავტორიზაციისთვის საჭიროა მობილურის პარამეტრებში Face ID / Touch ID-ის გააქტიურება “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "resend": {
-    "text": "დაადასტურეთ ტელეფონის ნომერი",
-    "label": "ერთჯდერადი კოდი გამოგზავნილია თქვენს ნომერზე"
+    "title": "დაადასტურეთ ტელეფონის ნომერი",
+    "label": "ერთჯდერადი კოდი გამოგზავნილია თქვენს ნომერზე",
+    "text": "ხელახლა გაგზავნა"
   },
   "dashboard": {
     "templates": "შაბლონები",
@@ -109,9 +110,10 @@
     "account": "ჩემი ანგარიში",
     "availableBalance": "ხელმისაწვდომი ნაშთი",
     "terabytes": "{{value}} ტერაბაიტი",
-    "transfer": "გადარიცხვა",
-    "pay": "გადახდა",
-    "fill": "შევსება",
+    "transferToOwnAcc": "საკუთარ\nანგარიშზე\nგადარიცხვა",
+    "transferToSomeone": "სხვასთან\n გადარიცხვა",
+    "payments": "გადახდები",
+    "extraction": "ამონაწერი",
     "savings": "დანაზოგი",
     "allPay": "ყველა გადახდა",
     "noTransactions": "თქვენ არ გაქვთ შესრულებული ტრანზაქცია",
@@ -264,7 +266,12 @@
     "cardSecurity": "ბარათის უსაფრთხოება",
     "noInsuranceWanted": "არ მსურს დაზღვევა",
     "agreeToBankingTerms": "ვეთანხმები საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
-    "orderAmount": "შეკვეთა - "
+    "orderAmount": "შეკვეთა - ",
+    "emptyOps": "ტრანზაქციები არ მოიძებნა",
+    "getExtract": "ამონაწერის ჩამოტვირთვა",
+    "download": "ჩამოტვირთვა",
+    "month": "{{value}} თვე",
+    "year": "{{value}} წელი"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",

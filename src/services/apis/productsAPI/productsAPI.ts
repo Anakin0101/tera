@@ -40,6 +40,9 @@ import {
   DepositByIdReq,
   DepositByIdRes,
   CreditDisbursementReq,
+  PrintAccountRequisites,
+  PrintAccountRequisitesRes,
+  GetStatementReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -301,6 +304,22 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    printAccountRequisites: builder.mutation<string, PrintAccountRequisites>({
+      query: body => ({
+        url: URLS.printAccountRequisites,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: PrintAccountRequisitesRes) => response.fileId,
+    }),
+    getStatement: builder.mutation<string, GetStatementReq>({
+      query: body => ({
+        url: URLS.getStatement,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      transformResponse: (response: PrintAccountRequisitesRes) => response.fileId,
+    }),
   }),
 });
 
@@ -336,4 +355,6 @@ export const {
   useGetTerabyteQuery,
   useGetDepositByIdQuery,
   useGetCreditDisbursementProductOfferDetailsQuery,
+  usePrintAccountRequisitesMutation,
+  useGetStatementMutation,
 } = productsAPI;

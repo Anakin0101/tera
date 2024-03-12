@@ -14,6 +14,7 @@ export const DashboardStack = () => {
   const { Navigator, Screen } = Stack;
   const st = useStyleTheme();
   const { t } = useTranslation();
+
   return (
     <Navigator
       initialRouteName={DASHBOARD_SCREEN}

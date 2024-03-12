@@ -78,6 +78,8 @@ export const URLS = {
   getTerabyte: 'Account/GetTerabyte',
   getDepositById: 'Deposit/GetDepositById',
   getCreditDisbursementProductOfferDetails: 'Loan/GetCreditDisbursementProductOfferDetails',
+  printAccountRequisites: 'Account/PrintAccountRequisites',
+  getStatement: 'Transaction/GetStatement',
 };
 
 export const PROD_URLS = {

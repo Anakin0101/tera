@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useEffect, useMemo, useRef } from 'react';
+import React, { FC, RefObject, useCallback, useEffect, useRef } from 'react';
 import { View, SectionList, Pressable, SectionListProps } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import Animated, {
@@ -34,7 +34,6 @@ import { OPEN_CARD_WIDTH } from 'constants/index';
 import { Card } from 'components/CardsAndBalance/Card';
 import { ActionButtons } from 'components/CardsAndBalance/ActionButtons';
 import Indicator from 'components/CardsAndBalance/Indicator';
-import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { ISections, SectionDataT, SectionListRenderItemT } from 'screens/types';
 
 const sections = [
@@ -74,9 +73,14 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     banker,
     totalSaving,
     isLoading,
-    groupedAccountsByIban,
     terabytes,
     offersData,
+    cards,
+    setActiveCardIndex,
+    activeCardIndex,
+    selectedAccountFromCard,
+    setSelectedAccountFromCard,
+    activeCardAccounts,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -132,7 +136,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
   });
 
   const animPaddingTop = useAnimatedStyle(() => {
-    const paddingTop = interpolate(cardsOffset.value, [0, 1], [230, 425]);
+    const paddingTop = interpolate(cardsOffset.value, [0, 1], [230, 450]);
     return {
       paddingTop,
     };
@@ -177,6 +181,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       animated: true,
     });
     cardsOffset.value = withTiming(1);
+    setActiveCardIndex(index);
   };
 
   const closeCards = () => {
@@ -186,6 +191,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       animated: true,
     });
     cardsOffset.value = withTiming(0);
+    setActiveCardIndex(0);
   };
 
   const handleScroll = useAnimatedScrollHandler(event => {
@@ -209,12 +215,10 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     };
   });
 
-  const cards = useMemo(() => {
-    return [
-      {} as IGroupedAccountsByIban, // temp
-      ...groupedAccountsByIban,
-    ];
-  }, [groupedAccountsByIban]);
+  const onMomentumScrollEnd = useCallback(() => {
+    const index = Math.round(translateX.value / (OPEN_CARD_WIDTH + 10));
+    setActiveCardIndex(index);
+  }, [setActiveCardIndex, translateX.value]);
 
   if (isLoading) {
     return (
@@ -241,6 +245,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
             snapToInterval={OPEN_CARD_WIDTH + 10}
             disableIntervalMomentum={true}
             showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={onMomentumScrollEnd}
             contentContainerStyle={[
               styles.content,
               {
@@ -256,11 +261,18 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
                 progress={cardsOffset}
                 translateX={translateX}
                 onCardPress={() => openCards(index)}
+                activeCardIndex={activeCardIndex}
+                setSelectedAccountFromCard={setSelectedAccountFromCard}
               />
             ))}
           </Animated.ScrollView>
         </Pressable>
-        <ActionButtons progress={cardsOffset} onSpacePress={closeCards}>
+        <ActionButtons
+          progress={cardsOffset}
+          onSpacePress={closeCards}
+          selectedAccountFromCard={selectedAccountFromCard}
+          activeCardAccounts={activeCardAccounts}
+        >
           <Indicator data={cards} translateX={translateX} />
         </ActionButtons>
         <AvailableBalance progress={cardsOffset} terabytes={terabytes?.teraBytes} />

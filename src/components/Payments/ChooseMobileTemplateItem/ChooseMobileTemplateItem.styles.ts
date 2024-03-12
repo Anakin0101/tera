@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily, FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing } = useTheme();
+  const { Colors, Layout, Spacing, Fonts, FontSize } = useTheme();
 
   return StyleSheet.create({
     wrapper: {
@@ -17,7 +16,7 @@ export const useStyles = () => {
       fontSize: FontSize.regularPlus,
       color: Colors.black,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       paddingHorizontal: Spacing.xl,
     },
     listWrapper: {
@@ -55,16 +54,15 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       letterSpacing: -0.2,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       lineHeight: 24,
     },
     itemDesc: {
       fontSize: FontSize.tiny,
       lineHeight: 12,
       letterSpacing: -0.5,
-      fontWeight: '400',
       color: Colors.textBlack500,
-      fontFamily: FontFamily.medium,
+      ...Fonts.regular,
     },
     allButton: {
       backgroundColor: Colors.white,
@@ -77,7 +75,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       lineHeight: 20,
       letterSpacing: -0.2,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginTop: Spacing.xxs,
     },
     headerButtonsWrapper: {
@@ -99,7 +97,7 @@ export const useStyles = () => {
       letterSpacing: -0.2,
       fontSize: FontSize.small,
       lineHeight: 20,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     contentContainer: {
       ...Layout.row,

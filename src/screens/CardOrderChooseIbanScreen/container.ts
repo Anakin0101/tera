@@ -5,11 +5,11 @@ import { useGetAccountsByCustomerIdQuery } from 'services/apis/productsAPI/produ
 import { saveIban } from 'store/slices/products';
 import { CARD_ORDER_CHOOSE_ADDRESS_SCREEN } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useForm } from 'react-hook-form';
 
 export const useCardOrderChooseIban = () => {
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardOrderChosenCardScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'CardOrderChosenCardScreen'>>();
   const dispatch = useAppDispatch();
   const { data: accounts } = useGetAccountsByCustomerIdQuery();
   const { control } = useForm();
@@ -44,7 +44,7 @@ export const useCardOrderChooseIban = () => {
         navigate(CARD_ORDER_CHOOSE_ADDRESS_SCREEN);
       }
     } catch (error) {
-      console.error('Error navigating to choose address screen:', error);
+      console.warn('Error navigating to choose address screen:', error);
     }
   };
 

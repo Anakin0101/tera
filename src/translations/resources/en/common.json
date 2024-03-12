@@ -92,8 +92,9 @@
     "enable_from_settings": "For biometric authentication, you need to activate Face ID / Touch ID in the mobile settings “Settings --> Face ID & Passcode / Touch ID & Passcode“"
   },
   "resend": {
-    "text": "Please accept your phone number",
-    "label": "One time code has been sent to your phone"
+    "title": "Please accept your phone number",
+    "label": "One time code has been sent to your phone",
+    "text": "Resend"
   },
   "dashboard": {
     "templates": "Templates",
@@ -109,9 +110,10 @@
     "account": "My Account",
     "availableBalance": "Available balance",
     "terabytes": "{{value}} terabyte",
-    "transfer": "Transfer",
-    "pay": "Payment",
-    "fill": "Top up",
+    "transferToOwnAcc": "Transfer To\nOwn Account\n",
+    "transferToSomeone": "Transfer To\n Someone",
+    "payments": "Payments",
+    "extraction": "Extraction",
     "savings": "Savings",
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
@@ -265,7 +267,12 @@
     "cardSecurity": "Card security",
     "noInsuranceWanted": "I do not want insurance",
     "agreeToBankingTerms": "I agree to the standard terms of banking operations",
-    "orderAmount": "Order - "
+    "orderAmount": "Order - ",
+    "emptyOps": "No transactions found",
+    "getExtract": "Download the extract",
+    "download": "Download",
+    "month": "{{value}} Months",
+    "year": "{{value}} Year"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",

@@ -64,7 +64,7 @@ export const OTPModal = ({ onFinished }: { onFinished?: (code: string) => void }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text children="resend.text" style={styles.OTPNumberLabel} />
+      <Text children="resend.title" style={styles.OTPNumberLabel} />
       <View>
         <Text children="resend.label" style={styles.label} />
       </View>
@@ -116,7 +116,7 @@ export const OTPModal = ({ onFinished }: { onFinished?: (code: string) => void }
 
       <TouchableOpacity style={styles.resendView}>
         <ResendIcon />
-        <Text children="ხელახლა გაგზავნა" style={styles.resendText} />
+        <Text children={'resend.text'} style={styles.resendText} />
       </TouchableOpacity>
     </SafeAreaView>
   );

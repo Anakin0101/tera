@@ -8,6 +8,11 @@ import { Plus } from 'assets/SVGs';
 import { useTheme } from 'hooks';
 import { useCardOrderChooseIban } from './container';
 
+const LeftIcon = () => {
+  const { Colors } = useTheme();
+  return <Plus color={Colors.primary} />;
+};
+
 export const CardOrderChooseIbanScreen = () => {
   const styles = useStyles();
   const {
@@ -18,11 +23,6 @@ export const CardOrderChooseIbanScreen = () => {
     navigateToChooseAddressScreen,
     control,
   } = useCardOrderChooseIban();
-
-  const LeftIcon = () => {
-    const { Colors } = useTheme();
-    return <Plus color={Colors.primary} />;
-  };
 
   return (
     <ScrollView style={styles.container}>

@@ -5,18 +5,22 @@ import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersA
 import { useSendTreasuryMutation } from 'services/apis';
 import { openModal } from 'utils/modal';
 import { OTPModal } from 'components/modals';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { TreasuryApiResponse } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
-import { TRANSACTION_FAILED_SCREEN, TRANSACTION_FINISHED_SCREEN } from 'navigation/ScreenNames';
+import {
+  MODAL_STACK,
+  TRANSACTION_FAILED_SCREEN,
+  TRANSACTION_FINISHED_SCREEN,
+} from 'navigation/ScreenNames';
 
 export const useBudgetTransferDetail = () => {
   const { handleTransferInfo } = useTransferDetails(false);
   const { t } = useTranslation();
   const PERSONAL_TRANSACTION = t('transactions.defaultTitle');
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
   );
@@ -66,9 +70,14 @@ export const useBudgetTransferDetail = () => {
       }
       const CheckedResponse = await handleTreasuryTransfer(false);
       if (CheckedResponse) {
-        navigate(TRANSACTION_FINISHED_SCREEN, { budgetTransaction: true });
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_FINISHED_SCREEN,
+          params: { budgetTransaction: true },
+        });
       } else {
-        navigate(TRANSACTION_FAILED_SCREEN);
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_FAILED_SCREEN,
+        });
       }
     } else {
       console.warn('error during treasury transfer');

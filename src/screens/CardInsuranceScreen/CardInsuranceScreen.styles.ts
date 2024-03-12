@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 import { config } from 'utils/config';
-import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing } = useTheme();
+  const { Colors, Layout, Spacing, Fonts } = useTheme();
 
   return StyleSheet.create({
     sectionList: {
@@ -71,7 +70,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.ml,
     },
     buttonText: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
   });
 };

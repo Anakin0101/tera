@@ -23,6 +23,7 @@ export const Collapsible: FC<CollapsibleProps> = ({
   iconColor = Colors.black700,
   headerHeight,
   contentHeight,
+  icon,
 }) => {
   const styles = useStyles();
   const height = useSharedValue(headerHeight);
@@ -58,7 +59,7 @@ export const Collapsible: FC<CollapsibleProps> = ({
         <View style={[styles.headerWrapper, headerWrapperStyle]}>
           <View style={[styles.headerContainer, headerContainerStyle]}>{renderHeader}</View>
           <Animated.View style={[iconContainerStyle, animatedIconContainerStyle]}>
-            <ChevronDown color={iconColor} />
+            {icon ? icon : <ChevronDown color={iconColor} />}
           </Animated.View>
         </View>
         <View style={contentContainerStyle}>{renderContent}</View>

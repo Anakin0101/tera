@@ -46,4 +46,7 @@ export interface AccountsSliderData {
 
 export type AccountSliderItemProps = {
   item: AccountsSliderData;
+  index?: number;
+  activeCardIndex?: number;
+  setActiveAccountIndex?: React.Dispatch<React.SetStateAction<number>>;
 };

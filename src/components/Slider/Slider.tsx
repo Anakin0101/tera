@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { FlatList, Platform, View } from 'react-native';
+import { FlatList, ListRenderItem, Platform, View } from 'react-native';
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 import { Spacing } from 'theme/Variables';
 import { horizontalScale } from 'utils/config';
@@ -20,10 +20,11 @@ const ReanimatedFlatlist = Animated.createAnimatedComponent<any>(FlatList);
 export const Slider = <ItemT,>({
   actions,
   data,
-  index,
+  index: activeCardIndex,
   setActiveIndex,
   renderItem: Item,
   actionButtonsContainer,
+  setActiveAccountIndex,
 }: SliderProps<ItemT>) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
@@ -42,9 +43,9 @@ export const Slider = <ItemT,>({
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
-      setTimeout(() => scrollTo(index), 0);
+      setTimeout(() => scrollTo(activeCardIndex), 0);
     } else {
-      scrollTo(index);
+      scrollTo(activeCardIndex);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -62,9 +63,17 @@ export const Slider = <ItemT,>({
     translateX.value = event.contentOffset.x;
   });
 
-  const renderItem = ({ item }: { item: ItemT }) => {
-    return <Item item={item} />;
-  };
+  const renderItem: ListRenderItem<ItemT> = useCallback(
+    ({ item, index }) => (
+      <Item
+        item={item}
+        index={index}
+        activeCardIndex={activeCardIndex}
+        setActiveAccountIndex={setActiveAccountIndex}
+      />
+    ),
+    [Item, activeCardIndex, setActiveAccountIndex],
+  );
 
   return (
     <View style={styles.slider}>

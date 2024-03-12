@@ -10,8 +10,12 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedPrice } from 'store/slices/transfers';
 import CardSwap from 'screens/TransferToAccountScreen/CardSwap';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
-import { BUDGET_TRANSFER_DETAILS, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import {
+  BUDGET_TRANSFER_DETAILS,
+  MODAL_STACK,
+  PRIVATE_TRANSACTION_SCREEN,
+} from 'navigation/ScreenNames';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { useRoute } from '@react-navigation/native';
@@ -24,13 +28,16 @@ export const TransferToBudget = () => {
     ? `${params.treasury.a ?? ''}${params.treasury.b ?? ''}${params.treasury.c ?? ''}`
     : params.budgetCode;
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransferDetailsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const navigateToTransferDetails = () => {
-    navigate(BUDGET_TRANSFER_DETAILS);
+    navigate(MODAL_STACK, {
+      screen: BUDGET_TRANSFER_DETAILS,
+    });
   };
   const openTransferScreen = () => {
-    navigate(PRIVATE_TRANSACTION_SCREEN, {
-      from: 'other',
+    navigate(MODAL_STACK, {
+      screen: PRIVATE_TRANSACTION_SCREEN,
+      params: { from: 'other' },
     });
   };
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);

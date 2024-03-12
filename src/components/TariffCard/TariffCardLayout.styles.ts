@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
 
 export const useStyles = () => {
-  const { FontSize, Spacing, Layout, Colors, FontFamily } = useTheme();
+  const { FontSize, Spacing, Layout, Colors, Fonts } = useTheme();
 
   const statusGeneralStyle = {
     ...Layout.center,
@@ -35,13 +35,13 @@ export const useStyles = () => {
     cardName: {
       color: Colors.textBlack,
       fontSize: FontSize.regular,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginRight: Spacing.s,
     },
     commission: {
       color: Colors.accountText500,
       fontSize: FontSize.small,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     statusWrapper: {
       ...statusGeneralStyle,
@@ -55,7 +55,7 @@ export const useStyles = () => {
       color: Colors.white,
       fontSize: FontSize.tiny,
       lineHeight: Spacing.lg,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     locationIcon: {
       width: 48,

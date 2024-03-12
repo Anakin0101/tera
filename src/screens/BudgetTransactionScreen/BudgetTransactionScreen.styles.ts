@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing, FontFamily, Fonts } = useTheme();
+  const { Layout, Colors, Spacing, Fonts } = useTheme();
   return StyleSheet.create({
     container: {
       ...Layout.fill,
@@ -18,7 +18,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.ml,
     },
     buttonText: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     list: {
       backgroundColor: Colors.white,

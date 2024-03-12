@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily, FontSize } from 'theme/Variables';
+import { FontSize } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Layout, Spacing } = useTheme();
+  const { Colors, Layout, Spacing, Fonts } = useTheme();
 
   return StyleSheet.create({
     swipeableWrapper: {
@@ -56,16 +56,15 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       lineHeight: 16,
     },
     itemDesc: {
       fontSize: FontSize.tiny,
       lineHeight: 12,
       letterSpacing: -0.5,
-      fontWeight: '400',
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      ...Fonts.regular,
       marginTop: Spacing.xxs,
     },
     allButton: {
@@ -79,7 +78,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       lineHeight: 20,
       letterSpacing: -0.2,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginTop: Spacing.xxs,
     },
     headerButtonsWrapper: {
@@ -101,7 +100,7 @@ export const useStyles = () => {
       letterSpacing: -0.2,
       fontSize: FontSize.small,
       lineHeight: 20,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     swipeableButtonsWrapper: {
       ...Layout.row,
@@ -134,7 +133,7 @@ export const useStyles = () => {
       lineHeight: 16,
       letterSpacing: -0.5,
       color: Colors.error,
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
       marginTop: Spacing.xxs,
     },
     loaderWrapper: {

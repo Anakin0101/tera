@@ -1,5 +1,6 @@
+import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   useGetBannersQuery,
   useGetDepositsQuery,
@@ -16,7 +17,7 @@ import {
   useGetLoanCustomerIdQuery,
   useGetBankerQuery,
 } from 'services/apis';
-import { OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
@@ -46,6 +47,8 @@ export const useDashboardScreen = () => {
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const { data: terabytes, isLoading: terabyteLoading } = useGetTerabyteQuery();
   const { data: offers } = useGetOffersQuery();
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [selectedAccountFromCard, setSelectedAccountFromCard] = useState<Account>();
 
   useEffect(() => {
     getTotalSaving({
@@ -84,6 +87,16 @@ export const useDashboardScreen = () => {
 
     return result;
   }, [banners, creditDisbursements]);
+  const cards = useMemo(() => {
+    return [
+      {} as IGroupedAccountsByIban, // temp
+      ...groupedAccountsByIban,
+    ];
+  }, [groupedAccountsByIban]);
+
+  const activeCardAccounts = useMemo(() => {
+    return cards?.[activeCardIndex]?.accounts;
+  }, [activeCardIndex, cards]);
 
   const isLoading = useMemo(() => {
     return (
@@ -140,5 +153,11 @@ export const useDashboardScreen = () => {
     groupedAccountsByIban,
     terabytes,
     offersData,
+    cards,
+    setActiveCardIndex,
+    activeCardIndex,
+    selectedAccountFromCard,
+    setSelectedAccountFromCard,
+    activeCardAccounts,
   };
 };

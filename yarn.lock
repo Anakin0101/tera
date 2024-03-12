@@ -2180,6 +2180,11 @@
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.11.tgz"
   integrity sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==
 
+"@types/react-native-background-timer@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-native-background-timer/-/react-native-background-timer-2.0.2.tgz#22f9126124068a0ee6a812e16f98e270c2b9b2c7"
+  integrity sha512-cMAep0M5yqUHjiiRPvGiviqiJYdI45KSjbI5ufsIFSQGFwHwrHJC/8yawNhy0G3Gix6fufWLsEj6jC5niUNHiQ==
+
 "@types/react-native@^0.72.2":
   version "0.72.8"
   resolved "https://registry.npmjs.org/@types/react-native/-/react-native-0.72.8.tgz"
@@ -6391,6 +6396,11 @@ react-native-autocomplete-input@^5.4.0:
   integrity sha512-Fw4jv4a7ySF08JGJfVILkL52LTwGRSbn5BF5EmOIu3CqRAwhkE5JtaEWT2kgCKBr9YE+lZZYNYpOQrRALxOszA==
   dependencies:
     deprecated-react-native-prop-types "^2.3.0"
+
+react-native-background-timer@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-background-timer/-/react-native-background-timer-2.4.1.tgz#a3bc1cafa8c1e3aeefd0611de120298b67978a0f"
+  integrity sha512-TE4Kiy7jUyv+hugxDxitzu38sW1NqjCk4uE5IgU2WevLv7sZacaBc6PZKOShNRPGirLl1NWkaG3LDEkdb9Um5g==
 
 react-native-biometrics@^3.0.1:
   version "3.0.1"

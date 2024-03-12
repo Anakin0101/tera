@@ -28,7 +28,7 @@ export const useCheckProviderInfo = () => {
   const { navigate, setOptions } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const { params } = useRoute<MainStackRouteProps<'CheckPaymentProviderScreen'>>();
-  const { providerItem, isAutomaticPayment, basket } = params || {};
+  const { providerItem, isAutomaticPayment, basket, selectedAccountFromCard } = params || {};
 
   const { isKeyboardOpened } = useKeyboard();
   const [subscriberFieldsValue, setSubscriberFieldsValue] = useState<SubscriberFieldsValue>([]);
@@ -86,6 +86,7 @@ export const useCheckProviderInfo = () => {
             providerItem,
             subscriberFieldsValue,
             debtVerifyResults: res?.debtVerifyResults || [],
+            selectedAccountFromCard,
           });
         }
       });
@@ -173,6 +174,7 @@ export const useCheckProviderInfo = () => {
               debtVerifyBasketInfo,
               debtVerifyResults: debtVerifyInfo || [],
               subscriberFieldsValue,
+              selectedAccountFromCard,
             },
           });
         }
@@ -190,6 +192,7 @@ export const useCheckProviderInfo = () => {
       navigate,
       debtVerifyBasketInfo,
       debtVerifyInfo,
+      selectedAccountFromCard,
     ],
   );
 
