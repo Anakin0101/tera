@@ -59,6 +59,8 @@ export { SubscriberInfo } from './Payments/SubscriberInfo/SubscriberInfo';
 export { PaymentDetails } from './Payments/PaymentDetails/PaymentDetails';
 export { ChooseTransferItem } from './MoneyTransfers/ChooseTransferItem/ChooseTransferItem';
 export { ChooseMobileTemplateItem } from './Payments/ChooseMobileTemplateItem/ChooseMobileTemplateItem';
+export { MoneyTransferInfo } from './MoneyTransfers/MoneyTransferInfo/MoneyTransferInfo';
+export { CurrencyConversion } from './MoneyTransfers/CurrencyConversion/CurrencyConversion';
 export { MyBalance } from './Payments/MyBalance/MyBalance';
 export { PaymentFieldInput } from './Payments/PaymentFieldInput/PaymentFieldInput';
 export { Collapsible } from './Collapsible/Collapsible';
