@@ -13,9 +13,15 @@ import { downloadPdf } from 'utils/downloadPdf';
 import { closeModal } from 'utils/modal';
 import { EXCEL_EXT, EXCEL_MIME_TYPE, PDF_EXT, PDF_MIME_TYPE } from 'constants/common';
 
+/**
+ * Get the start date based on the template ID.
+ * @param {number} id - The ID of the template.
+ * @returns {string} - The start date in ISO string format.
+ */
+
 const getStartDateByTemplateId = (id: number) => {
-  let value = 1;
-  let unit: dayjs.ManipulateType = 'month';
+  let value = 1; // Default value
+  let unit: dayjs.ManipulateType = 'month'; // Default unit is month
 
   switch (id) {
     case 1:
@@ -28,7 +34,7 @@ const getStartDateByTemplateId = (id: number) => {
       unit = 'year';
       break;
   }
-
+  // Calculate start date based on value and unit, then convert to ISO string
   return dayjs().subtract(value, unit).toISOString();
 };
 

@@ -5,7 +5,12 @@ import { Calendar, Text } from 'components';
 import { Colors } from 'theme/Variables';
 import { formatDate } from 'utils/formatDate';
 import { SPACED_YEAR, YYYY_MM_DD } from 'constants/DateTemplates';
-import { HeaderProps, Template, TemplateRenderItem } from './AccountExtractionModal.types';
+import {
+  CalendarType,
+  HeaderProps,
+  Template,
+  TemplateRenderItem,
+} from './AccountExtractionModal.types';
 import { useStyles } from './AccountExtractionModal.styles';
 
 const templates: Template[] = [
@@ -32,10 +37,10 @@ export const Header: FC<HeaderProps> = memo(
   ({ setStartDate, setEndDate, startDate, endDate, selectedTemplateId, setSelectedTemplateId }) => {
     const styles = useStyles();
     const [showCalendar, setShowCalendar] = useState(false);
-    const [type, setType] = useState('');
+    const [type, setType] = useState<CalendarType | null>(null);
 
     const selectDate = useCallback(
-      (variant: string) => {
+      (variant: CalendarType) => {
         if (showCalendar && type !== variant) {
           return;
         }
@@ -48,7 +53,7 @@ export const Header: FC<HeaderProps> = memo(
     const onDayPress = useCallback(
       (dateString: string) => {
         setSelectedTemplateId(null);
-        if (type === 'start') {
+        if (type === CalendarType.StartDate) {
           setStartDate(dateString);
         } else {
           setEndDate(dateString);
@@ -56,14 +61,14 @@ export const Header: FC<HeaderProps> = memo(
 
         setTimeout(() => {
           setShowCalendar(false);
-          setType('');
+          setType(null);
         }, 1000);
       },
       [setEndDate, setSelectedTemplateId, setStartDate, type],
     );
 
     const markedDates = useMemo(() => {
-      if (type === 'start') {
+      if (type === CalendarType.StartDate) {
         return {
           [startDate]: {
             selected: true,
@@ -72,7 +77,7 @@ export const Header: FC<HeaderProps> = memo(
         };
       }
 
-      if (type === 'end') {
+      if (type === CalendarType.EndDate) {
         return {
           [endDate]: {
             selected: true,
@@ -119,7 +124,7 @@ export const Header: FC<HeaderProps> = memo(
         <View style={styles.dateContainer}>
           <View style={styles.date}>
             <Text children="common.from" label color={Colors.textBlack400} />
-            <Pressable onPress={() => selectDate('start')}>
+            <Pressable onPress={() => selectDate(CalendarType.StartDate)}>
               <Text
                 children={
                   startDate ? formatDate(startDate, SPACED_YEAR) : 'transactions.selectDate'
@@ -129,7 +134,7 @@ export const Header: FC<HeaderProps> = memo(
           </View>
           <View style={styles.date}>
             <Text children="common.to" label color={Colors.textBlack400} />
-            <Pressable onPress={() => selectDate('end')}>
+            <Pressable onPress={() => selectDate(CalendarType.EndDate)}>
               <Text
                 children={endDate ? formatDate(endDate, SPACED_YEAR) : 'transactions.selectDate'}
               />
@@ -138,7 +143,7 @@ export const Header: FC<HeaderProps> = memo(
         </View>
         {showCalendar && (
           <Calendar
-            minDate={type === 'end' ? startDate : undefined}
+            minDate={type === CalendarType.EndDate ? startDate : undefined}
             maxDate={endDate || CURRENT_DATE}
             onDayPress={onDayPress}
             markedDates={markedDates}

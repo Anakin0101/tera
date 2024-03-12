@@ -11,13 +11,13 @@ import { useStyles } from './AccountDetailsScreen.styles';
 const DEFAULT_CARD = require('assets/images/DefaultCard.png');
 
 export const AccountSliderItem: FC<AccountSliderItemProps> = memo(
-  ({ item, index: idx, activeCardIndex, setActiveAccountIndex }) => {
+  ({ item, index: idx, activeCardIndex, setActiveAccountIndex = () => {} }) => {
     const styles = useStyles();
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
       if (idx === activeCardIndex) {
-        setActiveAccountIndex?.(index);
+        setActiveAccountIndex(index);
       }
     }, [activeCardIndex, idx, index, setActiveAccountIndex]);
 

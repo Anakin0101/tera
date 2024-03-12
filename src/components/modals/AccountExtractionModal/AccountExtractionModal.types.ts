@@ -68,3 +68,8 @@ export type Template = {
 };
 
 export type TemplateRenderItem = ListRenderItem<Template>;
+
+export enum CalendarType {
+  StartDate,
+  EndDate,
+}
