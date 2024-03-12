@@ -99,6 +99,7 @@ import {
   MONEY_TRANSFERS_SCREEN,
   MONEY_TRANSFER_RECEIVE_SCREEN,
   CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
+  MONEY_TRANSFER_PERMISSION_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -114,6 +115,8 @@ import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 import { MTSystemItemProps } from 'utils/moneyTransfer';
+import { FindTransferResponse } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
+import { BuyCurrencyDetails } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -161,6 +164,7 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue?: SubscriberFieldsValue;
     amount?: number;
     isBasketMode?: boolean;
+    transferResponse?: FindTransferResponse;
   };
   [CHOOSE_PAYMENT_ACCOUNT_SCREEN]: {
     providerItem: Provider;
@@ -198,6 +202,13 @@ export type ModalStackParamsList = {
   [MONEY_TRANSFER_RECEIVE_SCREEN]: undefined;
   [CHECK_MONEY_TRANSFER_PROVIDER_SCREEN]: {
     providerItem: MTSystemItemProps;
+  };
+  [MONEY_TRANSFER_PERMISSION_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    transferCode: string;
+    transferResponse: FindTransferResponse;
+    selectedAccount: Account;
+    buyDetails?: BuyCurrencyDetails;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
