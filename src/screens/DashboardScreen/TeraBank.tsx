@@ -72,11 +72,11 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     getLoanCustomerId,
     deposits,
     banker,
-    banners,
     totalSaving,
     isLoading,
     groupedAccountsByIban,
     terabytes,
+    offersData,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -155,7 +155,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           />
         );
       case 'offers':
-        return <Offers data={banners?.data} />;
+        return <Offers data={offersData} />;
       case 'pension':
         return <DashboardPensionFund data={totalSaving?.totalSaving} />;
       case 'banker':

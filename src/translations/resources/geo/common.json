@@ -338,7 +338,8 @@
     "accType": "ანგარიშის ტიპი",
     "cardAcc": "საბარათე",
     "deposit": "დეპოზიტი",
-    "current": "მიმდინარე"
+    "current": "მიმდინარე",
+    "activate": "გაიაქტიურე"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",

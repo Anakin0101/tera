@@ -713,3 +713,8 @@ export type DepositByIdRes = {
     percentText: string;
   };
 };
+
+export type CreditDisbursementReq = {
+  creditDisbursementId: string;
+  culture: string;
+};

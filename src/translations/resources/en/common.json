@@ -346,7 +346,8 @@
     "accType": "Account type",
     "cardAcc": "Card account",
     "deposit": "Deposit",
-    "current": "Current"
+    "current": "Current",
+    "activate": "Activate"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",

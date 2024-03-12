@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react';
 import {
   useGetBannersQuery,
   useGetDepositsQuery,
+  useGetOffersQuery,
   useGetTerabyteQuery,
   useGetTotalSavingMutation,
   useGetUserProfileInfoQuery,
@@ -15,6 +16,7 @@ import {
   useGetLoanCustomerIdQuery,
   useGetBankerQuery,
 } from 'services/apis';
+import { OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
 
@@ -43,6 +45,7 @@ export const useDashboardScreen = () => {
   });
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const { data: terabytes, isLoading: terabyteLoading } = useGetTerabyteQuery();
+  const { data: offers } = useGetOffersQuery();
 
   useEffect(() => {
     getTotalSaving({
@@ -63,6 +66,24 @@ export const useDashboardScreen = () => {
       !!templates?.templates.length && !!deposits && !!banker && !!profile?.firstName && !!banners;
     return mounted;
   }, [deposits, banker, profile?.firstName, templates?.templates.length, banners]);
+
+  const creditDisbursements = useMemo(() => {
+    return offers?.filter(offer => offer.type === OfferTypeEnum.CreditDisbursement);
+  }, [offers]);
+
+  const offersData = useMemo(() => {
+    const result = [];
+
+    if (creditDisbursements) {
+      result.push(...creditDisbursements);
+    }
+
+    if (banners && banners.data) {
+      result.push(...banners.data);
+    }
+
+    return result;
+  }, [banners, creditDisbursements]);
 
   const isLoading = useMemo(() => {
     return (
@@ -118,5 +139,6 @@ export const useDashboardScreen = () => {
     isLoading,
     groupedAccountsByIban,
     terabytes,
+    offersData,
   };
 };

@@ -39,6 +39,7 @@ import {
   TerabytesRes,
   DepositByIdReq,
   DepositByIdRes,
+  CreditDisbursementReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -291,6 +292,15 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getCreditDisbursementProductOfferDetails: builder.query<any, CreditDisbursementReq>({
+      query: ({ creditDisbursementId, culture }) => ({
+        url: URLS.getCreditDisbursementProductOfferDetails,
+        params: {
+          creditDisbursementId,
+          culture,
+        },
+      }),
+    }),
   }),
 });
 
@@ -325,4 +335,5 @@ export const {
   usePrintLoanPaymentsMutation,
   useGetTerabyteQuery,
   useGetDepositByIdQuery,
+  useGetCreditDisbursementProductOfferDetailsQuery,
 } = productsAPI;
