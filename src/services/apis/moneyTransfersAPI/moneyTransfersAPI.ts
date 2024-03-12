@@ -4,6 +4,10 @@ import { METHOD_NAMES, URLS } from 'services/constants';
 import {
   FindTransferRequestParams,
   FindTransferResponse,
+  GetMoneyTransferListRequestParams,
+  MoneyTransferListResponse,
+  ReceiveTransferRequestParams,
+  ReceiveTransferResponse,
   ReceiverTsMTSystemsResponse,
 } from './moneyTransfersAPI.types';
 
@@ -25,7 +29,29 @@ export const moneyTransfersAPI = createApi({
         params,
       }),
     }),
+    receiveTransfer: builder.mutation<ReceiveTransferResponse, ReceiveTransferRequestParams>({
+      query: body => ({
+        url: URLS.receiveTransfer,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+    listCustomerTransfers: builder.query<
+      MoneyTransferListResponse,
+      GetMoneyTransferListRequestParams
+    >({
+      query: params => ({
+        url: URLS.listCustomerTransfers,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
   }),
 });
 
-export const { useGetTwrMTSystemsQuery, useLazyFindTransferQuery } = moneyTransfersAPI;
+export const {
+  useGetTwrMTSystemsQuery,
+  useLazyFindTransferQuery,
+  useReceiveTransferMutation,
+  useListCustomerTransfersQuery,
+} = moneyTransfersAPI;

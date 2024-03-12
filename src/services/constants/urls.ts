@@ -51,6 +51,8 @@ export const URLS = {
   payService: 'Payment/Pay',
   getTwrMTSystems: 'MoneyTransfer/GetTwrMTSystems?channelCode=DigitalChannel',
   findTransfer: 'MoneyTransfer/FindTransfer',
+  listCustomerTransfers: 'MoneyTransfer/ListCustomerTransfers?channelCode=DigitalChannel',
+  receiveTransfer: 'MoneyTransfer/ReceiveTransfer',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
   requestForLoan: 'Loan/RequestForLoan',
