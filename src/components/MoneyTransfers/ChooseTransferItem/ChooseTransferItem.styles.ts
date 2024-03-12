@@ -17,7 +17,7 @@ export const useStyles = () => {
       fontSize: FontSize.regularPlus,
       color: Colors.black,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       paddingHorizontal: Spacing.xl,
     },
     listWrapper: {
@@ -57,7 +57,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       lineHeight: 16,
     },
     itemDesc: {
@@ -66,7 +66,7 @@ export const useStyles = () => {
       letterSpacing: -0.5,
       fontWeight: '400',
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       marginTop: Spacing.xxs,
     },
     allButton: {
@@ -80,7 +80,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       lineHeight: 20,
       letterSpacing: -0.2,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       marginTop: Spacing.xxs,
     },
     headerButtonsWrapper: {
@@ -102,7 +102,7 @@ export const useStyles = () => {
       letterSpacing: -0.2,
       fontSize: FontSize.small,
       lineHeight: 20,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
     },
     iconStyle: {
       width: 40,

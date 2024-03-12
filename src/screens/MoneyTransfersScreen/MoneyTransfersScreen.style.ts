@@ -13,7 +13,7 @@ export const useStyles = () => {
       fontSize: FontSize.large,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       lineHeight: 34,
       textAlign: 'center',
       marginTop: Spacing.xxxl,

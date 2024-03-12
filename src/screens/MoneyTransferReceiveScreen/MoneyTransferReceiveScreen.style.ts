@@ -14,7 +14,7 @@ export const useStyles = () => {
       fontSize: FontSize.regularPlus,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       lineHeight: 22,
       marginHorizontal: Spacing.xl,
     },

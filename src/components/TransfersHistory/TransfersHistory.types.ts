@@ -1,12 +1,12 @@
-export interface TransfersHistoryListItemProps {
-  id: string;
-  title: string;
-  desc: string;
-  value: string;
-  date: string;
-}
+import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
+import { TransferListTypeEnum } from './container';
 
 export interface TransfersHistoryItemProps {
   isLast: boolean;
-  item: TransfersHistoryListItemProps;
+  item: MoneyTransferList;
+  transferType: TransferListTypeEnum;
+}
+
+export interface TransfersHistoryProps {
+  transferType: TransferListTypeEnum;
 }

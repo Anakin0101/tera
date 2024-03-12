@@ -30,7 +30,7 @@ export const useStyles = () => {
       fontSize: 14,
       lineHeight: 17,
       letterSpacing: -0.25,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       paddingHorizontal: Spacing.xxs,
       marginVertical: Spacing.xxs,
     },

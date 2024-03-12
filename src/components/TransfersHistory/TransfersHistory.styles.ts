@@ -13,13 +13,15 @@ export const useStyles = () => {
       borderTopLeftRadius: Spacing.xl,
       paddingVertical: Spacing.xl,
       ...Layout.fill,
-      paddingBottom: 100,
+    },
+    container: {
+      paddingBottom: Spacing.xxxl,
     },
     mainTitle: {
       fontSize: FontSize.regularPlus,
       color: Colors.black,
       letterSpacing: -0.5,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       paddingHorizontal: Spacing.xl,
     },
     listWrapper: {
@@ -56,7 +58,7 @@ export const useStyles = () => {
       fontSize: FontSize.small,
       letterSpacing: -0.5,
       color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      fontFamily: FontFamily.main,
       lineHeight: 16,
     },
     itemDesc: {
@@ -64,8 +66,8 @@ export const useStyles = () => {
       lineHeight: 12,
       letterSpacing: -0.5,
       fontWeight: '400',
-      color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      color: Colors.textGray400,
+      fontFamily: FontFamily.main,
       marginTop: Spacing.xxs,
     },
     dateLabel: {
@@ -73,12 +75,36 @@ export const useStyles = () => {
       lineHeight: 12,
       letterSpacing: -0.5,
       fontWeight: '400',
-      color: Colors.textBlack,
-      fontFamily: FontFamily.medium,
+      color: Colors.textGray400,
+      fontFamily: FontFamily.main,
       marginTop: Spacing.xxs,
     },
     valueDateWrapper: {
       ...Layout.alignItemsEnd,
+    },
+    iconStyle: {
+      width: 40,
+      height: 40,
+      resizeMode: 'contain',
+    },
+    itemDescWrapper: {
+      ...Layout.row,
+      marginTop: Spacing.xxs,
+    },
+    descBorder: {
+      height: '100%',
+      width: 1,
+      backgroundColor: Colors.border,
+      marginHorizontal: Spacing.xxs,
+    },
+    pending: {
+      color: Colors.yellow,
+    },
+    rejected: {
+      color: Colors.red,
+    },
+    success: {
+      color: Colors.success,
     },
   });
 };

@@ -1,49 +1,51 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, View } from 'react-native';
 
 import { useStyles } from './TransfersHistory.styles';
 import { Text } from 'components/Text/Text';
 import { TransfersHistorytItem } from './TransfersHistoryItem';
-import { TransfersHistoryListItemProps } from './TransfersHistory.types';
+import { TransfersHistoryProps } from './TransfersHistory.types';
+import { TransferListTypeEnum, useTransfersHistoryServices } from './container';
+import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
+import { LoadingInView } from '../index';
 
-export const TransfersHistory = () => {
+export const TransfersHistory: React.FC<TransfersHistoryProps> = ({
+  transferType = TransferListTypeEnum.receive,
+}) => {
   const styles = useStyles();
 
-  const transfersList: Array<TransfersHistoryListItemProps> = useMemo(
-    () => [
-      {
-        id: '1',
-        title: 'დაუთაშვილი გივი',
-        desc: 'კონტაქტი',
-        value: '320.22',
-        date: '20 სექ, 2021, 12:20',
-      },
-      {
-        id: '2',
-        title: 'დაუთაშვილი გივი',
-        desc: 'კონტაქტი',
-        value: '320.22',
-        date: '20 სექ, 2021, 12:20',
-      },
-    ],
-    [],
-  );
+  const { data, isLoading } = useTransfersHistoryServices(transferType);
 
   const renderPaymentItem = useCallback(
-    ({ item, index }: { item: TransfersHistoryListItemProps; index: number }) => {
-      return <TransfersHistorytItem item={item} isLast={index + 1 === transfersList.length} />;
+    ({ item, index }: { item: MoneyTransferList; index: number }) => {
+      return (
+        <TransfersHistorytItem
+          transferType={transferType}
+          item={item}
+          isLast={index + 1 === data?.length}
+        />
+      );
     },
-    [transfersList.length],
+    [data?.length, transferType],
   );
+
+  if (isLoading) {
+    return (
+      <View style={styles.wrapper}>
+        <LoadingInView />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.wrapper}>
       <Text style={styles.mainTitle} children={'moneyTransfersScreen.transfersHistory'} />
       <FlatList
-        data={transfersList}
+        data={data}
         renderItem={renderPaymentItem}
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         style={styles.listWrapper}
+        contentContainerStyle={styles.container}
       />
     </View>
   );

@@ -1,19 +1,40 @@
 import React from 'react';
-import { SafeAreaView, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { Linking, View } from 'react-native';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useForm } from 'react-hook-form';
 
-import { Button, ControlledInput, Text } from 'components/index';
+import {
+  Button,
+  Checkbox,
+  ControlledInput,
+  CurrencyConversion,
+  MoneyTransferInfo,
+  MyBalance,
+  SwitchComponent,
+  Text,
+} from 'components/index';
 import { useStyles } from './CheckMoneyTransferProviderScreen.style';
 import { useCheckMoneyTransferProviderInfo } from './container';
 
 export const CheckMoneyTransferProviderScreen = () => {
-  const { t } = useTranslation();
   const styles = useStyles();
 
-  const { isLoading, isKeyboardOpened, setTransferCode, findTransferOnPress } =
-    useCheckMoneyTransferProviderInfo();
+  const {
+    isLoading,
+    setTransferCode,
+    findTransferOnPress,
+    transferResponse,
+    selectedAccount,
+    setSelectedAccount,
+    clearTransferResponse,
+    openMoneyTransferPermissionScreen,
+    termsAndConditionsAccepted,
+    setTermsAndConditionsAccepted,
+    currencyConversionEnable,
+    setCurrencyConversionEnable,
+    buyDetails,
+    setBuyDetails,
+  } = useCheckMoneyTransferProviderInfo();
 
   const {
     control,
@@ -22,28 +43,56 @@ export const CheckMoneyTransferProviderScreen = () => {
   } = useForm();
 
   const onSubmit = () => {
-    findTransferOnPress();
+    if (transferResponse) {
+      openMoneyTransferPermissionScreen();
+    } else {
+      findTransferOnPress();
+    }
+  };
+
+  const openTermsAndConditions = () => {
+    try {
+      Linking.openURL('https://terabank.ge/standterms');
+    } catch (e) {
+      console.warn('openTermsAndConditions', e);
+    }
   };
 
   return (
     <KeyboardAvoidingScrollView
       containerStyle={styles.container}
       contentContainerStyle={styles.wrapper}
+      showsVerticalScrollIndicator={false}
       stickyFooter={
-        <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
-          <Button.Primary
-            text={'common.check'}
-            onPress={handleSubmit(onSubmit)}
-            fullWidth
-            isLoading={isLoading}
-          />
+        <View style={[styles.ctaWrapper, transferResponse && styles.ctaBG]}>
+          {transferResponse && (
+            <>
+              <MyBalance
+                currency={
+                  buyDetails?.buyCurrency ? buyDetails?.buyCurrency : transferResponse.currency
+                }
+                selectedAccount={selectedAccount}
+                selectAccountOnPress={setSelectedAccount}
+              />
+            </>
+          )}
+          <View style={styles.customButtonWrapper}>
+            <Button.Primary
+              text={transferResponse ? 'common.next' : 'common.check'}
+              onPress={handleSubmit(onSubmit)}
+              fullWidth
+              isLoading={isLoading}
+              disabled={transferResponse && (!selectedAccount || !termsAndConditionsAccepted)}
+            />
+          </View>
         </View>
       }
     >
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.headerTitle}>
-          {t('checkMoneyTransferProviderScreen.enterSenderInfo')}
-        </Text>
+      <View style={styles.container}>
+        <Text
+          style={styles.headerTitle}
+          children={'checkMoneyTransferProviderScreen.enterSenderInfo'}
+        />
         <ControlledInput
           control={control}
           name={'transferCode'}
@@ -58,16 +107,65 @@ export const CheckMoneyTransferProviderScreen = () => {
             },
           }}
           handleChange={text => {
-            text && setTransferCode(text);
+            if (text) {
+              setTransferCode(text);
+              clearTransferResponse();
+            }
           }}
         />
-        {/* {!isAutomaticPayment && !!debtVerifyResults?.length && (
-          <SubscriberInfo
-            debtVerifyResults={debtVerifyResults}
-            feeRules={providerItem?.feeRules || []}
-          />
-        )} */}
-      </SafeAreaView>
+        {transferResponse && (
+          <>
+            <MoneyTransferInfo transferResponse={transferResponse} />
+            <View style={styles.currencyConversionWrapper}>
+              <Text
+                children={'checkMoneyTransferProviderScreen.currencyConversion'}
+                style={styles.currencyConversionLabel}
+              />
+              <SwitchComponent
+                onValueChange={() => {
+                  setCurrencyConversionEnable(!currencyConversionEnable);
+
+                  if (buyDetails) {
+                    setBuyDetails(undefined);
+                  }
+                  if (selectedAccount) {
+                    setSelectedAccount(undefined);
+                  }
+                }}
+                value={currencyConversionEnable}
+              />
+            </View>
+            {currencyConversionEnable && (
+              <CurrencyConversion
+                transferResponse={transferResponse}
+                buyDetails={buyDetails}
+                setBuyDetails={val => {
+                  setBuyDetails(val);
+                  if (selectedAccount) {
+                    setSelectedAccount(undefined);
+                  }
+                }}
+              />
+            )}
+            <View style={styles.termsWrapper}>
+              <Checkbox
+                isChecked={termsAndConditionsAccepted}
+                onChange={() => setTermsAndConditionsAccepted(!termsAndConditionsAccepted)}
+              />
+              <Text
+                children={'checkMoneyTransferProviderScreen.agree'}
+                style={[styles.termsText, styles.termsTextMargin]}
+              />
+              <Button.Text
+                text={'checkMoneyTransferProviderScreen.termsAndConditions'}
+                onPress={openTermsAndConditions}
+                customTextStyle={styles.termsText}
+                customWrapperStyle={styles.termsTextWrapper}
+              />
+            </View>
+          </>
+        )}
+      </View>
     </KeyboardAvoidingScrollView>
   );
 };

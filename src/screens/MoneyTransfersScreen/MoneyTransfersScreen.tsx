@@ -7,6 +7,7 @@ import { useStyles } from './MoneyTransfersScreen.style';
 import { MainStackScreenProps } from 'navigation/types';
 import Images from 'theme/Images';
 import { MONEY_TRANSFER_RECEIVE_SCREEN } from 'navigation/ScreenNames';
+import { TransferListTypeEnum } from 'components/TransfersHistory/container';
 
 const routes = [
   { key: 'receive', title: 'common.receive' },
@@ -60,7 +61,9 @@ export const MoneyTransfersScreen = () => {
           customTextStyle={styles.dateButtonLabel}
         />
       </View>
-      <TransfersHistory />
+      <TransfersHistory
+        transferType={tabIndex === 0 ? TransferListTypeEnum.receive : TransferListTypeEnum.send}
+      />
     </View>
   );
 };
