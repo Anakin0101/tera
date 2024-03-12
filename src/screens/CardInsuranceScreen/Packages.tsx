@@ -9,8 +9,9 @@ import { InsurancePackageItem } from './InsurancePackageItem';
 import { InsurancePackage, PackagesProps } from './CardInsuranceScreen.types';
 import { useStyles } from './CardInsuranceScreen.styles';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { INSURANCE_PACKAGE_DETAILS } from 'navigation/ScreenNames';
 
 const data: InsurancePackage[] = [
   {
@@ -90,10 +91,10 @@ const data: InsurancePackage[] = [
 export const Packages: FC<PackagesProps> = ({ cardId }) => {
   const styles = useStyles();
   const translateX = useSharedValue(0);
-  const { navigate } = useNavigation<ProductsStackScreenProps<'InsurancePackageDetailsScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'InsurancePackageDetailsScreen'>>();
 
   const handlePress = (packageName: string, commission: number) => {
-    navigate('InsurancePackageDetailsScreen', {
+    navigate(INSURANCE_PACKAGE_DETAILS, {
       packageName,
       commission,
       cardId,

@@ -713,3 +713,23 @@ export type DepositByIdRes = {
     percentText: string;
   };
 };
+
+export type PrintAccountRequisites = {
+  culture: string;
+  accountId: number;
+};
+
+export interface PrintAccountRequisitesRes {
+  fileId: string;
+}
+
+export type GetStatementReq = {
+  culture: string;
+  accountNumber: number;
+  currency: string;
+  startDate: string;
+  endDate: string;
+  fileFormat: FileFormatEnum;
+  otp: string;
+  isTeraWallet: boolean;
+};

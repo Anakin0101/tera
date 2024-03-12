@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 import { Button, Checkbox, DetailsItem, Image, Text } from 'components';
 import { formatMoney } from 'utils/formatMoney';
 import { useNewDepositSummary } from './container';
@@ -146,15 +146,16 @@ export const NewDepositSummaryScreen = () => {
               text="common.next"
               onPress={handlePress}
               customWrapperStyle={[styles.button, !isAgree && styles.disabled]}
+              isLoading={isLoadingRegistration}
             />
           </View>
         </View>
       </ScrollView>
-      {isLoadingRegistration && (
+      {/* {isLoadingRegistration && (
         <View style={styles.loader}>
           <ActivityIndicator />
         </View>
-      )}
+      )} */}
     </View>
   );
 };

@@ -43,7 +43,7 @@ export const useCartPaymentList = () => {
   const { t } = useTranslation();
   const { navigate, setOptions, goBack } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { params } = useRoute<ModalStackRouteProps<'CartPaymentListScreen'>>();
-  const { basket } = params || {};
+  const { basket, selectedAccountFromCard } = params || {};
   const savedLanguage = getValue(SELECTED_LANGUAGE);
   const { isAdult = false } = useAppSelector(state => state.profile?.userProfileInfo) || {};
 
@@ -272,5 +272,6 @@ export const useCartPaymentList = () => {
     isActionSheetVisible,
     toggleActionSheet,
     setProviderItems,
+    selectedAccountFromCard,
   };
 };

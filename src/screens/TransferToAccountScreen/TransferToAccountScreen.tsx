@@ -7,12 +7,16 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button, LoadingView } from 'components';
 import { setSelectedPrice } from 'store/slices/transfers';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { clearSelectedData } from 'store/slices/transfers';
 import { useDispatch } from 'react-redux';
 import { Convert } from './Convert';
 import { useConvertAmount } from './useConvertAmountBuy';
-import { TRANSFER_DETAIL_SCREEN, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
+import {
+  TRANSFER_DETAIL_SCREEN,
+  PRIVATE_TRANSACTION_SCREEN,
+  MODAL_STACK,
+} from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { useTransferDetails } from 'screens/TransferDetailScreen/container';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
@@ -31,8 +35,8 @@ interface TransferToAccountScreenProps {}
 
 export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = () => {
   const { isKeyboardOpened } = useKeyboard();
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { handleTransferInfo } = useTransferDetails(false);
   const { t } = useTranslation();
 
@@ -90,12 +94,14 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   const openTransferScreen = () => {
     const convertionValue = accountFromData?.ccy !== accountToData?.ccy;
     if (convertionValue) {
-      navigate(PRIVATE_TRANSACTION_SCREEN, {
-        from: 'convert',
+      navigate(MODAL_STACK, {
+        screen: PRIVATE_TRANSACTION_SCREEN,
+        params: { from: 'convert' },
       });
     } else {
-      navigate(PRIVATE_TRANSACTION_SCREEN, {
-        from: 'transfer',
+      navigate(MODAL_STACK, {
+        screen: PRIVATE_TRANSACTION_SCREEN,
+        params: { from: 'transfer' },
       });
     }
   };
@@ -120,9 +126,12 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
       openToast(`${t('transfers.balanceAvailable')}`, 'error');
       return;
     }
-    navigate(TRANSFER_DETAIL_SCREEN, {
-      convertion: convertionValue,
-      fromOtherBank: fromOtherBank,
+    navigate(MODAL_STACK, {
+      screen: TRANSFER_DETAIL_SCREEN,
+      params: {
+        convertion: convertionValue,
+        fromOtherBank: fromOtherBank,
+      },
     });
   };
 

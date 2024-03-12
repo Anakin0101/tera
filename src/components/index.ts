@@ -76,3 +76,4 @@ export { LoadingInView } from './LoadingView/LoadingInView';
 export { default as ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
 export { FallbackComponent } from './ErrorBoundary/components/FallbackComponent';
 export { ApplicationErrorWrapper } from './ErrorBoundary/components/ApplicationErrorWrapper/ApplicationErrorWrapper';
+export { TransparentLoadingView } from './LoadingView/TransparentLoadingView';

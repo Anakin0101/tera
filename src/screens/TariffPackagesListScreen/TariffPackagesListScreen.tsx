@@ -3,7 +3,7 @@ import { Alert, FlatList, Pressable } from 'react-native';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { TARIFF_PACKAGES_SINGLE_SCREEN } from 'navigation/ScreenNames';
 import { useTariffPackages } from './container';
 import { CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
@@ -13,7 +13,7 @@ import Images from 'theme/Images';
 import { useTranslation } from 'react-i18next';
 
 export const TariffPackagesListScreen = () => {
-  const { navigate } = useNavigation<ProductsStackScreenProps<'TariffPackagesSingleScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TariffPackagesSingleScreen'>>();
   const { packagesList, packagesIsLoading } = useTariffPackages();
   const hasStatusOrPending = packagesList?.customerPackages?.some(item => item.pending);
 

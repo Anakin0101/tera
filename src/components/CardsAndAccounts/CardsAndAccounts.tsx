@@ -6,8 +6,12 @@ import { Account } from './Account';
 import { Settings } from 'assets/SVGs';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import { ProductsStackScreenProps } from 'navigation/types';
-import { ACCOUNT_DETAILS_SCREEN, ALL_ACCOUNTS_AND_CARDS_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import {
+  ACCOUNT_DETAILS_SCREEN,
+  ALL_ACCOUNTS_AND_CARDS_SCREEN,
+  MODAL_STACK,
+} from 'navigation/ScreenNames';
 import { CardsAndAccountsProps, HeaderProps, RenderItem } from './CardsAndAccounts.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useStyles } from './CardsAndAccounts.styles';
@@ -39,10 +43,12 @@ const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance 
 
 const ListFooter = () => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'AllAccountsAndCardsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const onPress = () => {
-    navigate(ALL_ACCOUNTS_AND_CARDS_SCREEN);
+    navigate(MODAL_STACK, {
+      screen: ALL_ACCOUNTS_AND_CARDS_SCREEN,
+    });
   };
 
   return (
@@ -61,13 +67,16 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   seeAllAccounts,
 }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'AccountDetailsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const handlePress = useCallback(
     (iban: string, index: number) => {
-      navigate(ACCOUNT_DETAILS_SCREEN, {
-        iban,
-        index,
+      navigate(MODAL_STACK, {
+        screen: ACCOUNT_DETAILS_SCREEN,
+        params: {
+          iban,
+          index,
+        },
       });
     },
     [navigate],

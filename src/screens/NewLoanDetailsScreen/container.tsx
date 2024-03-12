@@ -6,10 +6,10 @@ import { closeModal, openModal } from 'utils/modal';
 import { useRequestForLoanMutation } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { LOAN_REQUEST_ACCEPTED_SCREEN } from 'navigation/ScreenNames';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 
 export const useNewLoanDetails = () => {
-  const { navigate } = useNavigation<ProductsStackScreenProps<'LoanRequestAcceptedScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'LoanRequestAcceptedScreen'>>();
   const newLoan = useAppSelector(state => state.loan);
   const [requestForLoan] = useRequestForLoanMutation();
 

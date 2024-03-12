@@ -7,9 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 import { SelectedItemProp, paramsTypes } from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
-import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useTransferDetails } from './container';
-import { TRANSACTION_FINISHED_SCREEN, TRANSACTION_FAILED_SCREEN } from 'navigation/ScreenNames';
+import {
+  TRANSACTION_FINISHED_SCREEN,
+  TRANSACTION_FAILED_SCREEN,
+  MODAL_STACK,
+} from 'navigation/ScreenNames';
 import { ConversionOrTranferDetails } from './ConversionOrTranferDetails';
 import { OtherBankList } from './OtherBankList';
 import { openModal, closeModal } from 'utils/modal';
@@ -34,11 +38,11 @@ export const TransferDetailScreen = () => {
     (state: { transfers: SelectedItemProp }) => state.transfers,
   );
 
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TransferDetailScreen'>>();
   const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeone, isLoading } =
     useTransferDetails(!!params?.mobileTransaction);
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const dispatch = useAppDispatch();
   const {
     accountFromData,
@@ -119,7 +123,10 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN, { fromIban: true });
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_FINISHED_SCREEN,
+          params: { fromIban: true },
+        });
       }
     } else {
       headers['Content-Type'] = 'application/json';
@@ -152,7 +159,10 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(TRANSACTION_FINISHED_SCREEN, { mobileTransaction: true });
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_FINISHED_SCREEN,
+          params: { mobileTransaction: true },
+        });
       }
     }
   };
@@ -160,7 +170,9 @@ export const TransferDetailScreen = () => {
     if ('data' in error) {
       const { data } = error as CustomBackendError;
       if (data?.status === 400) {
-        navigate(TRANSACTION_FAILED_SCREEN);
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_FAILED_SCREEN,
+        });
       } else {
         console.warn('Transfer Error:', error);
       }
@@ -197,7 +209,10 @@ export const TransferDetailScreen = () => {
         if (transferConvertion?.error) {
           handleTransferError(transferConvertion.error);
         } else {
-          navigate(TRANSACTION_FINISHED_SCREEN, { convertion: true });
+          navigate(MODAL_STACK, {
+            screen: TRANSACTION_FINISHED_SCREEN,
+            params: { convertion: true },
+          });
         }
       } catch (error) {
         console.warn('Exchange Amount Error:', error);
@@ -240,7 +255,10 @@ export const TransferDetailScreen = () => {
         if (transferResult?.error) {
           handleTransferError(transferResult.error);
         } else {
-          navigate(TRANSACTION_FINISHED_SCREEN, { internal: true });
+          navigate(MODAL_STACK, {
+            screen: TRANSACTION_FINISHED_SCREEN,
+            params: { internal: true },
+          });
         }
       } catch (error) {
         console.warn('Transfer to Own Account Error:', error);

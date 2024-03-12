@@ -5,14 +5,14 @@ import { ChevronRight } from 'assets/SVGs';
 import { Image, Text } from 'components';
 import { ItemProps } from './SelectDepositScreen.types';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setDepositType } from 'store/slices/deposit';
 import { NEW_DEPOSIT_DETAILS_SCREEN } from 'navigation/ScreenNames';
 
 export const Item: FC<ItemProps> = ({ item }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositDetailsScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'NewDepositDetailsScreen'>>();
   const dispatch = useAppDispatch();
 
   const onPress = () => {

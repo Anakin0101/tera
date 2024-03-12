@@ -145,3 +145,5 @@ export { More } from './More';
 export { Event } from './Event';
 export { ChevronDownLarge } from './ChevronDownLarge';
 export { AlertCircle } from './AlertCircle';
+export { Pdf } from './Pdf';
+export { Excel } from './Excel';

@@ -14,11 +14,17 @@ export type ActionType = {
 
 export type SliderProps<ItemT> = {
   data: ItemT[];
-  renderItem: React.FC<{ item: ItemT }>;
+  renderItem: React.FC<{
+    item: ItemT;
+    index?: number;
+    activeCardIndex?: number;
+    setActiveAccountIndex?: React.Dispatch<React.SetStateAction<number>>;
+  }>;
   actions: ActionType[];
   index: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
   actionButtonsContainer?: StyleProp<ViewStyle>;
+  setActiveAccountIndex?: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type ViewableItems = {

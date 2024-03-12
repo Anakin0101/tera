@@ -4,21 +4,25 @@ import { styles } from './PaymentsScreen.style';
 import { CustomHeader } from 'components/CustomHeader';
 import { useTranslation } from 'react-i18next';
 import { Carts, ChoosePaymentsService, DebtInfo, RecentPayments } from 'components/index';
+import { useRoute } from '@react-navigation/native';
+import { PaymentsStackRouteProps } from 'navigation/types';
 
 const data = [{ id: '0' }];
 export const PaymentsScreen = () => {
   const { t } = useTranslation();
+  const { params } = useRoute<PaymentsStackRouteProps<'PaymentsScreen'>>();
+  const { selectedAccountFromCard } = params || {};
 
   const renderItem = useCallback(() => {
     return (
       <View>
         <DebtInfo />
-        <ChoosePaymentsService />
-        <Carts />
+        <ChoosePaymentsService selectedAccountFromCard={selectedAccountFromCard} />
+        <Carts selectedAccountFromCard={selectedAccountFromCard} />
         <RecentPayments />
       </View>
     );
-  }, []);
+  }, [selectedAccountFromCard]);
 
   return (
     <View style={styles.container}>

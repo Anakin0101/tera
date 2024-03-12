@@ -5,11 +5,12 @@ import { useStyleTheme } from './TransferToAccountScreen.styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TinyChevron } from 'assets/SVGs';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getCurrencyIcon } from 'utils/currency';
 import { formatMoney } from 'utils/formatMoney';
 import {
+  MODAL_STACK,
   MY_ACCOUNTS_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TO_ACCOUNT_SCREEN,
@@ -88,7 +89,7 @@ export const CardSwap = ({
   fromBudget,
   fromOtherBanks = false,
 }: cardProps) => {
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );
@@ -100,12 +101,20 @@ export const CardSwap = ({
   const handlePress = useCallback(
     (arg: number) => {
       if (arg === 1) {
-        navigate(MY_ACCOUNTS_SCREEN, { otherBanks: fromOtherBanks });
+        navigate(MODAL_STACK, {
+          screen: MY_ACCOUNTS_SCREEN,
+          params: { otherBanks: fromOtherBanks },
+        });
       } else {
         if (fromOtherBanks) {
-          navigate(OTHER_BANK_TANSACTION_SCREEN);
+          navigate(MODAL_STACK, {
+            screen: OTHER_BANK_TANSACTION_SCREEN,
+          });
         } else {
-          navigate(TO_ACCOUNT_SCREEN, { selected: selectedIban });
+          navigate(MODAL_STACK, {
+            screen: TO_ACCOUNT_SCREEN,
+            params: { selected: selectedIban },
+          });
         }
       }
     },

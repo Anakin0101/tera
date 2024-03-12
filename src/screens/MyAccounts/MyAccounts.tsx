@@ -7,13 +7,14 @@ import { Text } from 'components';
 import { useStyles } from './MyAccounts.styles';
 import { DynamicAccount, LoadingView } from 'components';
 import { useTeraTransfers } from './container';
-import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountFromData } from 'store/slices/transfers';
 import {
   TO_ACCOUNT_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   BUDGET_TRANSACTION_SCREEN,
+  MODAL_STACK,
 } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { setSelectedIban } from 'store/slices/transfers';
@@ -29,9 +30,9 @@ interface AccountData {
 }
 
 export const MyAccounts = () => {
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const isFocused = useIsFocused();
-  const { params } = useRoute<TransactionsStackRouteProps<'MyAccountsScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'MyAccountsScreen'>>();
   const { otherBanks, budget } = params || {};
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -87,15 +88,21 @@ export const MyAccounts = () => {
 
   useEffect(() => {
     if (!!selectedAccount && otherBanks) {
-      navigate(OTHER_BANK_TANSACTION_SCREEN, { otherBanks: true });
+      navigate(MODAL_STACK, {
+        screen: OTHER_BANK_TANSACTION_SCREEN,
+        params: { otherBanks: true },
+      });
     } else if (!!selectedAccount && !otherBanks && !budget) {
-      navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
+      navigate(MODAL_STACK, {
+        screen: TO_ACCOUNT_SCREEN,
+        params: { selected: selectedAccount },
+      });
       dispatch(setSelectedIban(selectedAccount));
     } else if (!!selectedAccount && budget) {
-      // if(){
-
-      // }
-      navigate(BUDGET_TRANSACTION_SCREEN, { selected: selectedAccount });
+      navigate(MODAL_STACK, {
+        screen: BUDGET_TRANSACTION_SCREEN,
+        params: { selected: selectedAccount },
+      });
     }
   }, [navigate, otherBanks, selectedAccount, budget, dispatch]);
 
