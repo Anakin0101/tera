@@ -38,7 +38,7 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
             <Text
               regular
               size={14}
-              numberOfLines={1}
+              numberOfLines={3}
               color={Colors.textBlack500}
               children={title}
             />

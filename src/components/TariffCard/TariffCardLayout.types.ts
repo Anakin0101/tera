@@ -1,11 +1,12 @@
 export interface TariffCardProps {
   cardTypeName: string;
-  commissionMnth?: string;
-  commissionYr?: string;
+  commissionMnth?: number;
+  commissionYr?: number;
   icon: string;
   status?: boolean;
   id?: string;
   pending?: boolean;
   noData?: boolean;
   applyOverlay?: boolean;
+  onPress?: () => void;
 }
