@@ -13,7 +13,7 @@ export const useStyles = () => {
       borderColor: Colors.white,
     },
     button: {
-      paddingVertical: 14,
+      paddingVertical: Spacing.reg,
       marginVertical: Spacing.xl,
     },
   });

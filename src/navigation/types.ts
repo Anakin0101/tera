@@ -114,7 +114,7 @@ import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
-//  { isLastStep: boolean } | undefined
+
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
   [GUEST_NAVIGATOR]: {

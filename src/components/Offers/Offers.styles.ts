@@ -12,7 +12,6 @@ export const useStyles = () => {
     borderRadius: Spacing.m,
     height: 180,
     padding: Spacing.lg,
-    // aspectRatio: 16 / 9,
   };
   return StyleSheet.create({
     list: {

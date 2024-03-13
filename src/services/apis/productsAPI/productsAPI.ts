@@ -54,7 +54,15 @@ import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Products', 'Transactions', 'Loans', 'Offers', 'Accounts', 'Deposits'],
+  tagTypes: [
+    'Products',
+    'Transactions',
+    'Loans',
+    'Offers',
+    'Accounts',
+    'Deposits',
+    'CreditProduct',
+  ],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
       query: () => ({
@@ -66,7 +74,7 @@ export const productsAPI = createApi({
       query: () => ({
         url: URLS.getOffers,
       }),
-      providesTags: ['Offers'],
+      providesTags: ['Offers', 'CreditProduct'],
     }),
     getCustomerOperations: builder.mutation<TransactionType[], CustomerOperationsReq>({
       query: operations => ({
@@ -353,6 +361,11 @@ export const productsAPI = createApi({
         url: URLS.activateCreditProductOffer,
         params,
       }),
+      onQueryStarted: (arg, api) => {
+        api.queryFulfilled.then(() => {
+          api.dispatch(productsAPI.util.invalidateTags(['CreditProduct']));
+        });
+      },
     }),
   }),
 });

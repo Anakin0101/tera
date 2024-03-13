@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 
 export const useStyles = () => {
-  const { Colors } = useTheme();
+  const { Colors, Spacing } = useTheme();
 
   return StyleSheet.create({
     container: {
       backgroundColor: Colors.white,
     },
     button: {
-      paddingVertical: 14,
+      paddingVertical: Spacing.reg,
       marginTop: 40,
     },
   });

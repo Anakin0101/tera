@@ -59,6 +59,7 @@ export const useApproveLoanPdf = () => {
         sendOtp: true,
       });
 
+      // TODO change condition
       if (otp === '000000') {
         activateCreditProductOffer({
           sendOtp: false,
@@ -98,6 +99,5 @@ export const useApproveLoanPdf = () => {
     isChecked,
     setIsChecked,
     pdf,
-    // fileId,
   };
 };

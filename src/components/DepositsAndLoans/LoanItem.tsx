@@ -10,14 +10,15 @@ import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import { LOAN_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 import { CreditDisbursementItem } from './CreditDisbursementItem';
+import { CREDIT_DISBURSEMENT_ID, CREDIT_LIMIT, OVERDRAFT_LIMIT } from 'constants/loan';
 
 export const LoanItem: FC<LoanItemProps> = memo(({ item, isLast, index }) => {
   const styles = useStyles();
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  const isOverdraft = 'overdraftLimit' in item;
+  const isOverdraft = OVERDRAFT_LIMIT in item;
 
-  const isCreditCard = 'creditLimit' in item;
+  const isCreditCard = CREDIT_LIMIT in item;
 
   const navigateToLoanDetails = useCallback(() => {
     navigate(MODAL_STACK, {
@@ -26,7 +27,7 @@ export const LoanItem: FC<LoanItemProps> = memo(({ item, isLast, index }) => {
     });
   }, [index, navigate]);
 
-  if ('creditDisbursementId' in item) {
+  if (CREDIT_DISBURSEMENT_ID in item) {
     return <CreditDisbursementItem item={item} />;
   }
 
