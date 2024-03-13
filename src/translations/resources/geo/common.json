@@ -134,7 +134,8 @@
     "statement_history": "განცხადებების ისტორია",
     "choose_authorization_method": "ავტორიზაციის მეთოდის არჩევა",
     "switch_to_language": "შეცვალე ენა {{ language }}",
-    "confidentiality_policy": "კონფიდენციალურობის პოლიტიკა"
+    "confidentiality_policy": "კონფიდენციალურობის პოლიტიკა",
+    "atms_and_branches": "ბანკომატები და ფილიალები"
   },
   "transfers": {
     "toOwnAccount": "საკუთარ ანგარიშზე გადარიცხვა",
@@ -754,5 +755,14 @@
     "timeout_error": "დაფიქსირდა შეცდომა",
     "component_title": "შეცდომა",
     "component_description": "დაფიქსირდა შეცდომა, გთხოვთ ხელახლა სცადოთ"
+  },
+  "atmsAndBranches": {
+    "branch": "ფილიალი",
+    "atm": "ბანკომატი",
+    "title": "ლოკაციის გაზიარების უფლება",
+    "description": "იმისათვის რომ ნახოთ თქვენს ლოკაციასთან ახლოს მყოფი ფილიალები/ბანკომატები, გთხოვთ ჩართოთ წვდომა ლოკაციის გაზიარების სერვისზე",
+    "primaryCTA": "პარამეტრები",
+    "secondaryCTA": "გაუქმება",
+    "near": "ჩემთან ახლოს"
   }
 }

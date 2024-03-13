@@ -607,21 +607,34 @@ export enum AutoPaymentTypeEnum {
   FixedDateByDebt = 1,
   FixedAmount = 2,
 }
-interface BranchName {
+type BranchName = {
   Geo: string;
   Eng: string;
-}
+};
 
-export interface Branch {
+export type Branch = {
   id: number;
   name: BranchName;
-}
+};
 
-export interface BranchesResponse {
+export type BranchesResponse = {
   branches: Branch[];
-}
+};
 
-export interface AddCardRequest {
+export type AtmsResponse = {
+  id: number;
+  addresGeo: string;
+  addresEng: string;
+  descriptionGeo: string;
+  descriptionEng: string;
+  latitude: number;
+  longitude: number;
+  isExternal: false;
+  isActive: true;
+  distance: number;
+};
+
+export type AddCardRequest = {
   accountId: string | undefined;
   cardId: null;
   culture: string;
@@ -632,29 +645,30 @@ export interface AddCardRequest {
   sendOtp: boolean;
   timezoneOffset: number;
   updateReason: number;
-}
-export interface ActivatePackage {
+};
+export type ActivatePackage = {
   packageId?: string;
   packageServiceId?: string;
   otp?: string;
   sendOtp?: boolean;
   culture?: string;
   timezoneOffset?: number;
-}
+};
 
 export enum FileFormatEnum {
   Excel = 1,
   Pdf = 2,
 }
 
-export interface PrintLoanSchedulesReq {
+export type PrintLoanSchedulesReq = {
   culture: string;
   loanId: number;
   fileFormat: FileFormatEnum;
-}
-export interface PrintLoanSchedulesRes {
+};
+
+export type PrintLoanSchedulesRes = {
   fileId: string;
-}
+};
 
 export type TerabytesRes = {
   teraBytes: number;
