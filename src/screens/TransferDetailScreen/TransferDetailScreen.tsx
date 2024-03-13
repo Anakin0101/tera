@@ -215,9 +215,15 @@ export const TransferDetailScreen = () => {
       try {
         const transferResult: TransferToOwnAccountResponseType | undefined =
           await handleTransferToOwnAccount({
-            amount: selectedItemFromStore.selectedPrice,
-            creditAccountId: accountToData?.accountId,
-            debitAccountId: accountFromData?.accountId,
+            amount: params?.templateData
+              ? params?.templateData?.amount
+              : selectedItemFromStore.selectedPrice,
+            creditAccountId: params?.creditResult
+              ? params?.creditResult?.accountId
+              : accountToData?.accountId,
+            debitAccountId: params?.debitResult
+              ? params?.debitResult?.accountId
+              : accountFromData?.accountId,
           });
         dispatch(
           setTransferType({
@@ -229,10 +235,16 @@ export const TransferDetailScreen = () => {
           setSpecificTransferData({
             transferType: TRANSFER_TYPE.internal,
             data: {
-              debitIban: accountFromData.accountIban,
-              currency: accountFromData.ccy,
-              creditIban: accountToData.accountIban || accountToData.iban,
-              amount: selectedItemFromStore.selectedPrice,
+              debitIban: params?.debitResult
+                ? params?.debitResult?.accountIban
+                : accountFromData.accountIban,
+              currency: params?.templateData ? params?.templateData?.ccy : accountFromData.ccy,
+              creditIban: params?.creditResult
+                ? params?.creditResult.accountIban
+                : accountToData.accountIban || accountToData.iban,
+              amount: params?.templateData
+                ? params?.templateData?.amount
+                : selectedItemFromStore.selectedPrice,
             },
           }),
         );
@@ -260,6 +272,7 @@ export const TransferDetailScreen = () => {
             accountFromData={accountFromData}
             params={params}
             selectedPrice={selectedPrice}
+            templateData={params?.templateData}
           />
         </View>
         <View style={styles.container}>
@@ -275,6 +288,9 @@ export const TransferDetailScreen = () => {
                 <TransferDetailsList
                   selectedItemFromStore={selectedItemFromStore}
                   convertion={params?.convertion}
+                  debitResult={params?.debitResult}
+                  creditResult={params?.creditResult}
+                  templateData={params?.templateData}
                 />
               )}
             </View>

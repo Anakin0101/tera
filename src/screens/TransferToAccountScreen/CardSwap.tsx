@@ -15,12 +15,39 @@ import {
   TO_ACCOUNT_SCREEN,
 } from 'navigation/ScreenNames';
 
+export interface AccountDetails {
+  accountIban?: string;
+  accountId?: number;
+  accountName?: string;
+  accountNameCustom?: null | string;
+  accountNameLat?: string;
+  accountNumber?: number;
+  accountStatusId?: number;
+  accountSubType?: number | null;
+  accountType?: number;
+  availableBalance?: number;
+  balAcc?: number;
+  balance?: number;
+  blockedAmount?: number;
+  cards?: null;
+  ccy?: string;
+  isCredit?: boolean;
+  isDebit?: boolean;
+  isFavourite?: boolean;
+  isJuniorAccount?: boolean;
+  positionIndex?: number;
+  title?: string;
+  uiShown?: boolean;
+}
+
 export type cardProps = {
   accountFromData: any;
   accountToData: any;
   receiver?: string;
   fromBudget?: boolean;
   fromOtherBanks?: boolean;
+  debitResult?: AccountDetails | null;
+  creditResult?: AccountDetails | null;
 };
 interface SelectedItem {
   selectedIban: number | null;
@@ -87,6 +114,8 @@ export const CardSwap = ({
   receiver,
   fromBudget,
   fromOtherBanks = false,
+  debitResult,
+  creditResult,
 }: cardProps) => {
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ToAccountScreen'>>();
   const selectedItemFromStore = useAppSelector(
@@ -115,8 +144,12 @@ export const CardSwap = ({
   return (
     <View style={styles.cardWrapper}>
       <CardItem
-        title={accountFromData?.accountName}
-        balance={formatMoney(accountFromData?.availableBalance)}
+        title={debitResult?.accountName || accountFromData?.accountName}
+        balance={
+          creditResult
+            ? formatMoney(debitResult?.availableBalance)
+            : formatMoney(accountFromData?.availableBalance)
+        }
         ccy={accountFromData?.ccy}
         onPress={() => handlePress(1)}
       />
@@ -124,9 +157,11 @@ export const CardSwap = ({
       <CardItem
         reverse
         fromBudget={fromBudget}
-        title={receiverName}
+        title={creditResult?.accountName || receiverName}
         balance={
-          accountToData?.availableBalance || accountToData?.availableBalance === 0
+          creditResult
+            ? formatMoney(creditResult?.availableBalance)
+            : accountToData?.availableBalance || accountToData?.availableBalance === 0
             ? formatMoney(accountToData?.availableBalance)
             : accountToData?.iban
             ? accountToData?.iban

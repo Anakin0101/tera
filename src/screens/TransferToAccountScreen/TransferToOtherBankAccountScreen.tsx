@@ -22,6 +22,7 @@ import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
+import { setAccountFromData } from 'store/slices/transfers';
 
 export const TransferToOtherBankAccountScreen = () => {
   const { isKeyboardOpened } = useKeyboard();
@@ -39,7 +40,8 @@ export const TransferToOtherBankAccountScreen = () => {
     defaultTitle: t('transactions.defaultTitle'),
   };
   const formattedTransactionTitle = transactionTitles[fromMobile ? 'fromMobile' : 'defaultTitle'];
-
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const {
     accountFromData,
     accountToData,
@@ -63,11 +65,35 @@ export const TransferToOtherBankAccountScreen = () => {
     };
     receiverName: string;
   };
+  useEffect(() => {
+    if (isFocused && params?.templates) {
+      const templates = params.templates;
+      const dataSource = templates.internal
+        ? 'bankInternal'
+        : templates.bankExternal
+        ? 'bankExternal'
+        : null;
 
+      switch (dataSource) {
+        case 'bankInternal':
+          const { currency, debitIban } = templates.internal || {};
+
+          dispatch(
+            setAccountFromData({
+              accountId: debitIban,
+              ccy: currency,
+            }),
+          );
+
+          break;
+
+        default:
+      }
+    }
+  }, [isFocused, params, dispatch]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const dispatch = useDispatch();
+
   const inputRef = useRef<TextInput>(null);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     const navigationOptions =

@@ -171,7 +171,8 @@
     "specificCourse": "your course",
     "transfer": "transfer",
     "personalTransfer": "Personal transfer",
-    "balanceAvailable": "Not enough funds on the account"
+    "balanceAvailable": "Not enough funds on the account",
+    "toOther": "Transfer to other"
   },
   "products": {
     "accountsAndCards": "Accounts and Cards ({{value}})",
@@ -469,7 +470,12 @@
     "validContact": "Add from contacts failed",
     "validIbanPromptForeign": "please choose valid account",
     "validTransactionPrompt": "Please select a transaction type before proceeding.",
-    "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen."
+    "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen.",
+    "country": "country",
+    "foreignCode": "Foreign code",
+    "mediatorBankCode": "Mediator Bank code",
+    "city": "city",
+    "address": "address"
   },
   "filters": {
     "income": "Income",

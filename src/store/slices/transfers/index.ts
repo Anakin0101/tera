@@ -39,6 +39,16 @@ const initialState = {
     p2pTransfers: null,
   },
   isInternal: false,
+  foreignIbanData: {
+    receiverIban: '',
+    receiverName: '',
+    country: '',
+    city: '',
+    address: '',
+    selectedBankCode: '',
+    selectedBankName: '',
+    ccy: '',
+  },
 };
 interface SetTransferTypePayload {
   id?: null;
@@ -57,7 +67,20 @@ interface SetSpecificTransferDataPayload {
   transferType: TransferDataType;
   data: any;
 }
+interface BankerCodeOrName {
+  bankCode?: string;
+  bankName?: string;
+}
 
+interface UpdateForeignIbanDataPayload {
+  receiverIban?: string;
+  receiverName?: string;
+  country?: string;
+  city?: string;
+  address?: string;
+  bankerCodeOrName?: BankerCodeOrName;
+  ccy?: string;
+}
 const transfersSlice = createSlice({
   name: 'transfers',
   initialState,
@@ -151,6 +174,26 @@ const transfersSlice = createSlice({
     setIsInternal: (state, action) => {
       state.isInternal = action.payload;
     },
+    setForeignIbanData: (state, action: PayloadAction<UpdateForeignIbanDataPayload>) => {
+      const { receiverIban, receiverName, country, city, address, bankerCodeOrName, ccy } =
+        action.payload;
+
+      state.foreignIbanData = {
+        ...state.foreignIbanData,
+        ...(receiverIban !== undefined && { receiverIban }),
+        ...(receiverName !== undefined && { receiverName }),
+        ...(ccy !== undefined && { ccy }),
+        ...(country !== undefined && { country }),
+        ...(city !== undefined && { city }),
+        ...(address !== undefined && { address }),
+        ...(bankerCodeOrName?.bankCode !== undefined && {
+          selectedBankCode: bankerCodeOrName.bankCode,
+        }),
+        ...(bankerCodeOrName?.bankName !== undefined && {
+          selectedBankName: bankerCodeOrName.bankName,
+        }),
+      };
+    },
   },
 });
 
@@ -182,5 +225,6 @@ export const {
   clearCurrentTransfer,
   setIsInternal,
   setReceiverName,
+  setForeignIbanData,
 } = transfersSlice.actions;
 export const transfersReducer = transfersSlice.reducer;

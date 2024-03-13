@@ -6,11 +6,35 @@ import { TextInput } from 'components';
 import { useDispatch } from 'react-redux';
 import { setSelectedData } from 'store/slices/transfers';
 import { useNavigation } from '@react-navigation/native';
-// import { useRoute } from '@react-navigation/native';
-// import { TransactionsStackRouteProps } from 'navigation/types';
-
+import { useRoute } from '@react-navigation/native';
+import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
+import { useTranslation } from 'react-i18next';
+import { useLayoutEffect } from 'react';
+import { TransactionType } from 'utils/transactionUtils';
 export const PrivateTransactionScreen = () => {
-  // const { params } = useRoute<TransactionsStackRouteProps<'PrivateTransactionScreen'>>();
+  const { t } = useTranslation();
+  const { params } = useRoute<TransactionsStackRouteProps<'PrivateTransactionScreen'>>();
+  const { setOptions } = useNavigation<TransactionsStackScreenProps<'PrivateTransactionScreen'>>();
+
+  useLayoutEffect(() => {
+    if (params.from === TransactionType.CONVERTION) {
+      setOptions({
+        title: t('transfers.convertion'),
+      });
+    } else if (params.from === TransactionType.TRANSFER) {
+      setOptions({
+        title: t('transfers.toOwnAccount'),
+      });
+    } else if (params.from === TransactionType.BUDGET) {
+      setOptions({
+        title: t('transactions.inBudget'),
+      });
+    } else {
+      setOptions({
+        title: t('transfers.toOther'),
+      });
+    }
+  }, [params, setOptions, t]);
 
   const { goBack } = useNavigation();
   const styles = useStyles();

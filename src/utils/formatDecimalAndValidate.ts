@@ -4,12 +4,14 @@ interface FormatAndValidateTextProps {
   text: string;
   decimalPlaces: number;
   inputRef: React.RefObject<TextInput>;
+  template?: any;
 }
 
 export const formatAndValidateText = ({
   text,
   decimalPlaces,
   inputRef,
+  template,
 }: FormatAndValidateTextProps): { isInvalidInput: boolean; processedText: string } => {
   let processedText = text.replace(/,/g, '.').replace(/[^\d.]/g, '');
 
@@ -27,6 +29,6 @@ export const formatAndValidateText = ({
   }
 
   const isInvalidInput =
-    !processedText || processedText.trim() === '' || parseFloat(processedText) === 0;
+    template || !processedText || processedText.trim() === '' || parseFloat(processedText) === 0;
   return { isInvalidInput, processedText };
 };

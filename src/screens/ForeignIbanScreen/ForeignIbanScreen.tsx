@@ -1,123 +1,150 @@
-// import { View, Image, ScrollView, Pressable } from 'react-native';
-// import React, { useEffect, useCallback, useMemo, useState } from 'react';
-// import { Text } from 'components';
-// import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
-// import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
-// import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-// import { useNavigation } from '@react-navigation/native';
-// import { TransactionsStackScreenProps } from 'navigation/types';
-// import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
-// import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
-// import { useAppDispatch } from 'store/hooks/useAppDispatch';
-// import { setAccountToData, setReceiverInfo } from 'store/slices/transfers';
-// import { useStyles } from './ForeignIbanScreen.styles';
-// import { TransactionModal } from 'components/modals';
-// import { openModal } from 'utils/modal';
-// import { SelectedItem } from 'components/OtherBanksTransactionTabBar/OtherBanksTransactionTabBar.types';
-// import { useAppSelector } from 'store/hooks/useAppSelector';
-// import { ChevronDown } from 'assets/SVGs';
-// import { Colors } from 'theme/Variables';
-// import useBankIcons from './useIban';
-// import { IBAN } from 'constants/transactionConstants';
-// import { ibanRegex } from 'constants/transactionConstants';
-// import { Error } from 'assets/SVGs';
-// import { openToast } from 'utils/toast';
-// import { useTranslation } from 'react-i18next';
-// import { TERRA_BANK_CODE } from 'constants/BankCodes';
-// import { useForeignIban } from './container';
-// // import { useCopyToClipboard } from 'hooks';
-// import AutocompleteInput from 'components/AutoCompleteInput/AutocompleteInput';
-// const ForeignIbanScreen = () => {
-//   const dispatch = useAppDispatch();
-//   const { t } = useTranslation();
-//   const styles = useStyles();
-//   const { checkForeignIban } = useForeignIban();
+import { View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, DetailsItem, Button } from 'components';
+import { TextInput } from 'components';
+import { useStyles } from './ForeignIbanScreen.styles';
+import { useForeignIban } from './container';
+import { useTranslation } from 'react-i18next';
+import AutocompleteInput from 'components/AutoCompleteInput/AutocompleteInput';
+import { useRoute } from '@react-navigation/native';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
+import { setForeignIbanData } from 'store/slices/transfers';
+import { useKeyboard } from 'utils/useKeyboard';
+import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+import { TRANSFER_TO_FOREIGN_IBAN } from 'navigation/ScreenNames';
+const ForeignIbanScreen = () => {
+  const { params } = useRoute<TransactionsStackRouteProps<'ForeignIbanScreen'>>();
+  const { navigate } = useNavigation<TransactionsStackScreenProps<'ForeignIbanScreen'>>();
+  const { t } = useTranslation();
+  const { isKeyboardOpened } = useKeyboard();
+  const dispatch = useAppDispatch();
+  const styles = useStyles();
+  const { checkForeignIban } = useForeignIban();
 
-//   const handleSuggestionSelected = suggestion => {
-//     // Implement what happens when a suggestion is selected
-//     console.log('Selected suggestion:', suggestion);
-//   };
-//   // Function to fetch suggestions, which calls the API and returns the results
-//   const fetchSuggestions = async query => {
-//     try {
-//       const response = await checkForeignIban(query);
-//       return response; // You will need to adjust this according to the actual API response structure
-//     } catch (error) {
-//       console.error('Error fetching suggestions:', error);
-//       return []; // Return an empty array in case of an error
-//     }
-//   };
-//   return (
-//     <View style={styles.scroll}>
-//       <View style={{ paddingVertical: 10 }}>
-//         <Text children="personalNumber.Iban" size={18} demiBold />
-//         <>
-//           <AutocompleteInput
-//             label="Bank Name"
-//             fetchSuggestions={fetchSuggestions}
-//             onSuggestionSelected={handleSuggestionSelected}
-//             style={styles.autocompleteContainer}
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//           <TextInput
-//             inputStyle={styles.inputStyle}
-//             label="transactionDetails.receiver"
-//             value="asdasd"
-//             //   onChangeText={text => hendleRecieverName(text)}
-//             marginTop={32}
-//             autoFocus
-//           />
-//         </>
-//       </View>
-//     </View>
-//   );
-// };
+  const [receiverName, setReceiverName] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
 
-// export default ForeignIbanScreen;
+  const [bankDetails, setBankDetails] = useState({ bankName: '', bankCode: '' });
+
+  const clearSelection = () => {
+    setBankDetails({
+      bankName: '',
+      bankCode: '',
+    });
+  };
+
+  const navigateToTransferScreen = () => {
+    dispatch(
+      setForeignIbanData({
+        receiverIban: params.iban,
+        ccy: params.ccy,
+        receiverName,
+        country,
+        city,
+        address,
+      }),
+    );
+    navigate(TRANSFER_TO_FOREIGN_IBAN);
+  };
+  const handleSuggestionSelected = (suggestion: any, isFromBankNameInput: boolean) => {
+    if (isFromBankNameInput) {
+      setBankDetails({ bankName: suggestion.bankName, bankCode: suggestion.bankCode });
+    } else {
+      setBankDetails({ bankName: suggestion.bankName, bankCode: suggestion.bankCode });
+    }
+
+    dispatch(
+      setForeignIbanData({
+        bankerCodeOrName: {
+          bankCode: suggestion.bankCode,
+          bankName: suggestion.bankName,
+        },
+      }),
+    );
+  };
+
+  const fetchSuggestions = async (query: any) => {
+    try {
+      const response = await checkForeignIban(query);
+      return response;
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+      return [];
+    }
+  };
+  return (
+    <KeyboardAvoidingScrollView
+      scrollEnabled={isKeyboardOpened}
+      containerStyle={styles.keyboardContainer}
+      stickyFooter={
+        <View style={[styles.ctaWrapper, isKeyboardOpened && styles.ctaOpenWrapper]}>
+          <Button.Primary
+            text="personalNumber.next"
+            fullWidth
+            hitSlop={15}
+            onPress={navigateToTransferScreen}
+          />
+        </View>
+      }
+    >
+      <View>
+        <Text children="personalNumber.Iban" size={18} demiBold />
+        <>
+          <DetailsItem label="transactionDetails.receiverIban" value={params.iban} marginTop={20} />
+          <TextInput
+            inputStyle={styles.inputStyle}
+            label="transactionDetails.receiver"
+            value={receiverName}
+            onChangeText={setReceiverName}
+            marginTop={10}
+          />
+          <TextInput
+            inputStyle={styles.inputStyle}
+            label="transactionDetails.country"
+            value={country}
+            onChangeText={setCountry}
+            marginTop={10}
+          />
+          <TextInput
+            inputStyle={styles.inputStyle}
+            label="transactionDetails.city"
+            value={city}
+            onChangeText={setCity}
+            marginTop={10}
+          />
+          <TextInput
+            inputStyle={styles.inputStyle}
+            label="transactionDetails.address"
+            value={address}
+            onChangeText={setAddress}
+            marginTop={10}
+          />
+          <AutocompleteInput
+            label={t('transactionDetails.foreignCode')}
+            fetchSuggestions={fetchSuggestions}
+            onSuggestionSelected={(item: any) => handleSuggestionSelected(item, false)}
+            style={styles.autocompleteContainer}
+            value={bankDetails?.bankCode}
+            clearOnSelect={clearSelection}
+            isBankNameInput={false}
+          />
+          <AutocompleteInput
+            label={t('transactionDetails.mediatorBankCode')}
+            fetchSuggestions={fetchSuggestions}
+            onSuggestionSelected={(item: any) => handleSuggestionSelected(item, true)}
+            style={styles.autocompleteContainer}
+            value={bankDetails.bankName}
+            clearOnSelect={clearSelection}
+            isBankNameInput={true}
+          />
+        </>
+      </View>
+    </KeyboardAvoidingScrollView>
+  );
+};
+
+export default ForeignIbanScreen;

@@ -36,6 +36,7 @@ import { useKeyboard } from 'utils/useKeyboard';
 // import { RecepientNumberType } from 'components/PersonalNumberTransaction/PersonalNumberTransaction.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useIsFocused } from '@react-navigation/native';
+
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
   const isFocused = useIsFocused();
@@ -102,10 +103,18 @@ const IbanTransaction = () => {
       if (!checkGeorgianIban(debouncedAccountName) && accountFromData.ccy === CurrencyEnum.GEL) {
         openToast(`${t('transactionDetails.validIbanPromptForeign')}`, 'error');
       } else if (!checkGeorgianIban(debouncedAccountName)) {
-        navigate(FOREIGN_IBAN_SCREEN);
+        navigate(FOREIGN_IBAN_SCREEN, { iban: typedAccountName, ccy: accountFromData.ccy });
       }
     }
-  }, [INPUT_LENGTH, debouncedAccountName, navigate, data, accountFromData.ccy, t]);
+  }, [
+    INPUT_LENGTH,
+    debouncedAccountName,
+    navigate,
+    data,
+    accountFromData.ccy,
+    t,
+    typedAccountName,
+  ]);
 
   useEffect(() => {
     if (!isForeignIban && data && !data.ibanIsValid) {
@@ -248,28 +257,6 @@ const IbanTransaction = () => {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.bottomStretchStyle}>
         <Text children="personalNumber.Iban" size={18} demiBold />
         <View>
-          {/* <ControlledInput
-            control={control}
-            value={typedAccountName}
-            autoFocus
-            name="RecepientNumber"
-            label="personalNumber.Receiver"
-            maxLength={22}
-            marginTop={24}
-            errors={errors}
-            required={true}
-            rules={{
-              required: {
-                value: true,
-                message: 'common:form.is_required',
-              },
-              pattern: {
-                value: REGEX.MAX_LENGTH_22,
-                message: 'common:form.22_digits_required',
-              },
-            }}
-            handleChange={(value: string | null | undefined) => handleChange(value)}
-          /> */}
           <TextInput
             inputStyle={styles.inputStyle}
             label="personalNumber.Receiver"

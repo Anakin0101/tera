@@ -22,6 +22,9 @@ export interface TransferProps {
   accountFromData: any;
   fromOtherBanks?: boolean;
   transactionTitle?: keyof typeof transactionTitles;
+  templateData?: {
+    amount: string;
+  };
 }
 
 export interface TransferData {

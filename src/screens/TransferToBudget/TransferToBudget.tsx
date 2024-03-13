@@ -30,7 +30,7 @@ export const TransferToBudget = () => {
   };
   const openTransferScreen = () => {
     navigate(PRIVATE_TRANSACTION_SCREEN, {
-      from: 'other',
+      from: 'budget',
     });
   };
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);

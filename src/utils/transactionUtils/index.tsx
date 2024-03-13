@@ -13,6 +13,11 @@ export enum budgeTenum {
   FOR_OTHERS = 2,
 }
 
+export enum TransactionType {
+  BUDGET = 'budget',
+  CONVERTION = 'convert',
+  TRANSFER = 'transfer',
+}
 export const getTextForIndex = (activeIndex: createBudgetEnum): string => {
   switch (activeIndex) {
     case createBudgetEnum.FIRST_VIEW:

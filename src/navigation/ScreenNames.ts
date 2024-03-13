@@ -66,6 +66,8 @@ export const BUDGET_TRANSACTION_SCREEN = 'BudgetTransactionScreen';
 export const TRANSFER_TO_BUDGET = 'TransferToBudget';
 export const BUDGET_TRANSFER_DETAILS = 'BudgetTransferDetailsScreen';
 export const FOREIGN_IBAN_SCREEN = 'ForeignIbanScreen';
+export const TRANSFER_TO_FOREIGN_IBAN = 'TransferToForeignIbanScreen';
+export const FOREIGN_TRANSFER_DETAILS_SCREEN = 'ForeignTransferDetailsScreen';
 
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';

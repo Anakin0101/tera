@@ -25,6 +25,8 @@ import {
   TRANSFER_TO_BUDGET,
   BUDGET_TRANSFER_DETAILS,
   FOREIGN_IBAN_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { PrivateTransactionScreen } from 'screens/PrivateTransactionScreen/PrivateTransactionScreen';
 import { TransferDetailScreen } from 'screens/TransferDetailScreen/TransferDetailScreen';
@@ -35,7 +37,9 @@ import { HeaderBackArrow } from 'components/index';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
-// import ForeignIbanScreen from 'screens/ForeignIbanScreen/ForeignIbanScreen';
+import ForeignIbanScreen from 'screens/ForeignIbanScreen/ForeignIbanScreen';
+import { TransferToForeignIban } from 'screens/TransferToForeignIban/TransferToForeignIban';
+import { ForeignTransferDetailsScreen } from 'screens/ForeignTransferDetailsScreen/ForeignTransferDetailsScreen';
 
 export type TransactionsStackParamList = {
   [TRANSACTIONS_SCREEN]: undefined;
@@ -52,6 +56,8 @@ export type TransactionsStackParamList = {
   [TRANSFER_TO_BUDGET]: undefined;
   [BUDGET_TRANSFER_DETAILS]: undefined;
   [FOREIGN_IBAN_SCREEN]: undefined;
+  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
+  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<TransactionsStackParamList>();
@@ -89,7 +95,6 @@ export const TransactionsStack = () => {
           title: t('transfers.fromWhere'),
         }}
       />
-
       <Screen
         name={TO_ACCOUNT_SCREEN}
         component={ToAccountScreen}
@@ -169,13 +174,27 @@ export const TransactionsStack = () => {
           title: t('transactions.details'),
         }}
       />
-      {/* <Screen
+      <Screen
         name={FOREIGN_IBAN_SCREEN}
         component={ForeignIbanScreen}
         options={{
           title: t('transfers.where'),
         }}
-      /> */}
+      />
+      <Screen
+        name={TRANSFER_TO_FOREIGN_IBAN}
+        component={TransferToForeignIban}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={FOREIGN_TRANSFER_DETAILS_SCREEN}
+        component={ForeignTransferDetailsScreen}
+        options={{
+          title: t('transfers.details'),
+        }}
+      />
     </Navigator>
   );
 };

@@ -96,6 +96,8 @@ import {
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -110,6 +112,7 @@ import {
 import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
+import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -283,6 +286,7 @@ export type TransactionsStackParamsList = {
     receiver?: string;
     fromIban?: boolean;
     fromPersonal?: boolean;
+    templates?: Template;
   };
   [PRIVATE_TRANSACTION_SCREEN]: {
     from: any;
@@ -294,6 +298,9 @@ export type TransactionsStackParamsList = {
     mobileTransaction?: boolean;
     budgetTransaction?: boolean;
     receiver?: string;
+    debitResult?: any;
+    creditResult?: any;
+    templateData?: any;
   };
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined
@@ -317,7 +324,10 @@ export type TransactionsStackParamsList = {
     | { budgetCode: string };
 
   [BUDGET_TRANSFER_DETAILS]: undefined;
-  [FOREIGN_IBAN_SCREEN]: undefined;
+  [FOREIGN_IBAN_SCREEN]: {
+    iban?: string;
+    ccy?: string;
+  };
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
@@ -326,6 +336,8 @@ export type TransactionsStackParamsList = {
     fromIban?: boolean;
     fromPersonal?: boolean;
   };
+  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
+  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
 };
 
 export type PaymentsStackParamsList = {
