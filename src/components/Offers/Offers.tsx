@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { ListRenderItem, View, Image, Pressable } from 'react-native';
 import { OffersProps } from './Offers.types';
 import { horizontalScale } from 'utils/config';
@@ -19,19 +19,22 @@ export const Offers: FC<OffersProps> = ({ data, showAll = true }) => {
     translateX.value = event.contentOffset.x;
   });
 
-  const renderItem: ListRenderItem<any> = ({ item }) => {
-    if (item?.type === OfferTypeEnum.CreditDisbursement) {
-      return <CreditDisbursement item={item} />;
-    }
+  const renderItem: ListRenderItem<any> = useCallback(
+    ({ item }) => {
+      if (item?.type === OfferTypeEnum.CreditDisbursement) {
+        return <CreditDisbursement item={item} />;
+      }
 
-    return (
-      <Image
-        resizeMode={IMAGE_COVER}
-        source={{ uri: `data:image/jpeg;base64,${item?.imageBase64}` }}
-        style={item?.length === 1 ? styles.offerLengthOne : styles.offer}
-      />
-    );
-  };
+      return (
+        <Image
+          resizeMode={IMAGE_COVER}
+          source={{ uri: `data:image/jpeg;base64,${item?.imageBase64}` }}
+          style={item?.length === 1 ? styles.offerLengthOne : styles.offer}
+        />
+      );
+    },
+    [styles.offer, styles.offerLengthOne],
+  );
 
   return (
     <>

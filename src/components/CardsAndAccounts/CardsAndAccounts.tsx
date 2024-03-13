@@ -15,6 +15,7 @@ import {
 import { CardsAndAccountsProps, HeaderProps, RenderItem } from './CardsAndAccounts.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useStyles } from './CardsAndAccounts.styles';
+import { MAX_LIST_ITEM_AMOUNT } from 'constants/common';
 
 const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance }) => {
   const styles = useStyles();
@@ -82,15 +83,24 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
     [navigate],
   );
 
+  const isLast = useCallback(
+    (index: number) => {
+      return seeAllAccounts || accounts?.length < MAX_LIST_ITEM_AMOUNT
+        ? index === accounts?.length - 1
+        : index === MAX_LIST_ITEM_AMOUNT - 1;
+    },
+    [accounts?.length, seeAllAccounts],
+  );
+
   const renderItem: RenderItem = useCallback(
     ({ item, index }) => (
       <Account
         item={item}
-        isLast={index === accounts?.length - 1}
+        isLast={isLast(index)}
         handlePress={() => handlePress(item?.iban, index)}
       />
     ),
-    [accounts?.length, handlePress],
+    [handlePress, isLast],
   );
 
   if (!accounts?.length) {

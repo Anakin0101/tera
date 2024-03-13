@@ -12,6 +12,7 @@ export const useStyles = () => {
     buttonContainer: {
       marginHorizontal: Spacing.xl,
       marginBottom: Spacing.xl,
+      paddingTop: Spacing.xs,
     },
     button: {
       paddingVertical: 14,

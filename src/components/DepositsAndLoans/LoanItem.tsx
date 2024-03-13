@@ -1,37 +1,41 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { Pressable, View } from 'react-native';
 import { Divider, IconComponent, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import { useCulture, useTheme } from 'hooks';
-import { LanguageKeyForAPIEnum } from 'components/LanguageSwitcher/LanguageSwitcher.types';
-import { ListItemProps } from './DepositsAndLoans.types';
+import { Colors } from 'theme/Variables';
 import { useStyles } from './DepositsAndLoans.styles';
+import { LoanItemProps } from './DepositsAndLoans.types';
+import Images from 'theme/Images';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
+import { LOAN_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { CreditDisbursementItem } from './CreditDisbursementItem';
 
-export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => {
+export const LoanItem: FC<LoanItemProps> = memo(({ item, isLast, index }) => {
   const styles = useStyles();
-  const { Colors } = useTheme();
-  const { culture } = useCulture();
-
-  const isDeposit = 'depositId' in item;
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const isOverdraft = 'overdraftLimit' in item;
 
   const isCreditCard = 'creditLimit' in item;
 
-  const title = useMemo(() => {
-    if (isDeposit) {
-      if (item?.depositName) {
-        return culture === LanguageKeyForAPIEnum.KA ? item?.depositName : item?.depositNameEng;
-      }
-      return culture === LanguageKeyForAPIEnum.KA ? item?.depositType : item?.depositTypeEng;
-    } else {
-      return item?.productName;
-    }
-  }, [isDeposit, item, culture]);
+  const navigateToLoanDetails = useCallback(() => {
+    navigate(MODAL_STACK, {
+      screen: LOAN_DETAILS_SCREEN,
+      params: { index },
+    });
+  }, [index, navigate]);
+
+  if ('creditDisbursementId' in item) {
+    return <CreditDisbursementItem item={item} />;
+  }
 
   return (
-    <Pressable onPress={onPress} style={styles.account}>
-      <IconComponent customIconComponentStyles={styles.cardContainer} pngLocalIcon={icon} />
+    <Pressable onPress={navigateToLoanDetails} style={styles.account}>
+      <IconComponent
+        customIconComponentStyles={styles.cardContainer}
+        pngLocalIcon={Images().LiabilitiesIcon}
+      />
       <View style={styles.detailsWrapper}>
         <View style={styles.details}>
           <View style={styles.textContainer}>
@@ -40,7 +44,7 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
               size={14}
               numberOfLines={1}
               color={Colors.textBlack500}
-              children={title}
+              children={item?.productName}
             />
             <Text size={16}>
               {formatMoney(
@@ -53,15 +57,7 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
               )}
             </Text>
           </View>
-          {isDeposit && (
-            <View style={styles.interest}>
-              <Text children="products.interest" label color={Colors.textBlack500} />
-              <Text label color={Colors.success}>
-                +{formatMoney(item?.totalInterest, item?.currency)}
-              </Text>
-            </View>
-          )}
-          {!isDeposit && item?.nextPaymentAmount ? (
+          {item?.nextPaymentAmount ? (
             <View style={styles.fee}>
               <Text children="products.fee" label color={Colors.textBlack500} />
               <Text
@@ -76,4 +72,4 @@ export const ListItem: FC<ListItemProps> = ({ item, isLast, onPress, icon }) => 
       </View>
     </Pressable>
   );
-};
+});

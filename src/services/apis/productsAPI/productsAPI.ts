@@ -43,6 +43,10 @@ import {
   PrintAccountRequisites,
   PrintAccountRequisitesRes,
   GetStatementReq,
+  CreditDisbursementRes,
+  CreditProductOfferAgreementRes,
+  CreditProductOfferSchedule,
+  ActivateCreditProductOfferReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -295,7 +299,10 @@ export const productsAPI = createApi({
         },
       }),
     }),
-    getCreditDisbursementProductOfferDetails: builder.query<any, CreditDisbursementReq>({
+    getCreditDisbursementProductOfferDetails: builder.query<
+      CreditDisbursementRes,
+      CreditDisbursementReq
+    >({
       query: ({ creditDisbursementId, culture }) => ({
         url: URLS.getCreditDisbursementProductOfferDetails,
         params: {
@@ -319,6 +326,33 @@ export const productsAPI = createApi({
         body,
       }),
       transformResponse: (response: PrintAccountRequisitesRes) => response.fileId,
+    }),
+
+    getCreditProductOfferAgreement: builder.query<string, CreditDisbursementReq>({
+      query: ({ creditDisbursementId, culture }) => ({
+        url: URLS.getCreditProductOfferAgreement,
+        params: {
+          creditDisbursementId,
+          culture,
+        },
+      }),
+      transformResponse: (response: CreditProductOfferAgreementRes) => response.fileId,
+    }),
+
+    getCreditProductOfferSchedule: builder.mutation<string, CreditProductOfferSchedule>({
+      query: ({ id, culture }) => ({
+        url: URLS.getCreditProductOfferSchedule,
+        method: METHOD_NAMES.POST,
+        body: { id, culture },
+      }),
+      transformResponse: (response: CreditProductOfferAgreementRes) => response.fileId,
+    }),
+
+    activateCreditProductOffer: builder.query<any, ActivateCreditProductOfferReq>({
+      query: params => ({
+        url: URLS.activateCreditProductOffer,
+        params,
+      }),
     }),
   }),
 });
@@ -357,4 +391,7 @@ export const {
   useGetCreditDisbursementProductOfferDetailsQuery,
   usePrintAccountRequisitesMutation,
   useGetStatementMutation,
+  useGetCreditProductOfferAgreementQuery,
+  useGetCreditProductOfferScheduleMutation,
+  useLazyActivateCreditProductOfferQuery,
 } = productsAPI;

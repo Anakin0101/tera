@@ -78,6 +78,8 @@ export const Colors = {
   packagesOverlay: 'rgba(245, 245, 245, 0.6)',
   cardBlurLight: 'rgba(0,0,0,0.3)',
   cardBlurDark: 'rgba(0,0,0,0.5)',
+  lightPink: 'rgb(249,241,246)',
+  offerBgGreen: 'rgb(234, 246, 235)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

@@ -46,7 +46,7 @@ export const useDashboardScreen = () => {
   });
   const { groupedAccountsByIban, isLoadingAccounts } = useGroupedAccountsByIban();
   const { data: terabytes, isLoading: terabyteLoading } = useGetTerabyteQuery();
-  const { data: offers } = useGetOffersQuery();
+  const { data: offers, isLoading: offersLoading } = useGetOffersQuery();
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [selectedAccountFromCard, setSelectedAccountFromCard] = useState<Account>();
 
@@ -87,6 +87,7 @@ export const useDashboardScreen = () => {
 
     return result;
   }, [banners, creditDisbursements]);
+
   const cards = useMemo(() => {
     return [
       {} as IGroupedAccountsByIban, // temp
@@ -111,7 +112,8 @@ export const useDashboardScreen = () => {
       temlpatesLoading ||
       depositsLoading ||
       isLoadingAccounts ||
-      terabyteLoading
+      terabyteLoading ||
+      offersLoading
     );
   }, [
     bankerLoading,
@@ -126,6 +128,7 @@ export const useDashboardScreen = () => {
     totalSavingLoading,
     isLoadingAccounts,
     terabyteLoading,
+    offersLoading,
   ]);
 
   return {

@@ -66,6 +66,15 @@ export const useStyles = () => {
       ...Layout.justifyContentEnd,
       marginHorizontal: Spacing.xl,
     },
+    disbursementContainer: {
+      ...Layout.row,
+      padding: 26,
+      height: 180,
+      width: horizontalScale(320),
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.offerBgGreen,
+      gap: Spacing.xl,
+    },
     image: {
       ...Layout.overflowHidden,
       height: 180,
@@ -73,8 +82,8 @@ export const useStyles = () => {
       borderRadius: Spacing.m,
     },
     content: {
-      marginTop: Spacing.xl,
-      marginLeft: Spacing.xl,
+      flex: 1,
+      marginTop: Spacing.xxs,
     },
     button: {
       ...Layout.alignSelfStart,

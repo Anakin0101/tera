@@ -1,12 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Pdf from 'react-native-pdf';
-import {
-  Button,
-  Checkbox,
-  LoadingInView,
-  // LoadingView
-} from 'components';
+import { Button, Checkbox, LoadingInView, LoadingView } from 'components';
 import { PUBLIC_IMAGE_URL } from 'services/api';
 import { useStyles } from './ApprovedLoanPdfScreen.styles';
 import { useApproveLoanPdf } from './container';
@@ -17,16 +12,16 @@ export const ApprovedLoanPdfScreen = () => {
 
   return (
     <View style={styles.loanDocContainer}>
-      {/* {pdf ? ( */}
-      <Pdf
-        trustAllCerts={false}
-        source={{ uri: `${PUBLIC_IMAGE_URL}${pdf}` }}
-        style={styles.pdf}
-        renderActivityIndicator={() => <LoadingInView />}
-      />
-      {/* ) : (
+      {pdf ? (
+        <Pdf
+          style={styles.pdf}
+          trustAllCerts={false}
+          source={{ uri: `${PUBLIC_IMAGE_URL}${pdf}` }}
+          renderActivityIndicator={() => <LoadingInView />}
+        />
+      ) : (
         <LoadingView />
-      )} */}
+      )}
       <View style={styles.buttonContainer}>
         <Checkbox
           label="approvedLoan.agreeToTermsAndConditions"

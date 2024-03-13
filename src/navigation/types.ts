@@ -328,8 +328,8 @@ export type ModalStackParamsList = {
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
   [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
-  [APPROVED_LOAN_DETAILS_SCREEN]: undefined;
-  [APPROVED_LOAN_PDF_SCREEN]: { isLastStep: boolean } | undefined;
+  [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
+  [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
   [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
 };
 

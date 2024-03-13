@@ -1,25 +1,35 @@
-import React, { FC } from 'react';
-import { ImageBackground, View } from 'react-native';
-import { IMAGE_COVER } from 'constants/Images';
-import { CreditDisbursementProps } from './Offers.types';
-import { useStyles } from './Offers.styles';
+import React, { FC, useCallback } from 'react';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Button, Text } from '../index';
+import { OfferPercent } from 'assets/SVGs';
+import { APPROVED_LOAN_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { CreditDisbursementProps } from './Offers.types';
+import { MainStackScreenProps } from 'navigation/types';
+import { useStyles } from './Offers.styles';
 
 export const CreditDisbursement: FC<CreditDisbursementProps> = ({ item }) => {
   const styles = useStyles();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+
+  const handleActivateLoanPress = useCallback(() => {
+    navigate(MODAL_STACK, {
+      screen: APPROVED_LOAN_DETAILS_SCREEN,
+      params: { creditDisbursementId: item?.creditDisbursementId },
+    });
+  }, [item?.creditDisbursementId, navigate]);
 
   return (
-    <View>
-      <ImageBackground
-        source={{ uri: item?.images?.[0]?.url }}
-        style={styles.image}
-        resizeMode={IMAGE_COVER}
-      >
-        <View style={styles.content}>
-          <Text children={item?.title} size={18} />
-          <Button.Primary text="loans.activate" customWrapperStyle={styles.button} />
-        </View>
-      </ImageBackground>
+    <View style={styles.disbursementContainer}>
+      <OfferPercent />
+      <View style={styles.content}>
+        <Text medium children={item?.title} size={14} lineHeight={20} />
+        <Button.Primary
+          text="loans.activate"
+          onPress={handleActivateLoanPress}
+          customWrapperStyle={styles.button}
+        />
+      </View>
     </View>
   );
 };
