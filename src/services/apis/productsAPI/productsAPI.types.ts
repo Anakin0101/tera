@@ -403,7 +403,7 @@ export enum PackageServiceCode {
 export enum PackageServiceNames {
   classic = 'Classic Package',
   gold = 'Gold Package',
-  platinum = 'Platinium Package',
+  platinum = 'Platinum Package',
 }
 
 export type PackageService = {
