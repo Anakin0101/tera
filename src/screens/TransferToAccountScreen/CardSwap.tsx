@@ -22,6 +22,7 @@ export type cardProps = {
   receiver?: string;
   fromBudget?: boolean;
   fromOtherBanks?: boolean;
+  fromMobile?: boolean;
 };
 interface SelectedItem {
   selectedIban: number | null;
@@ -33,6 +34,7 @@ const CardItem = ({
   reverse,
   ccy,
   fromBudget,
+  fromMobile,
 }: {
   title: string | undefined;
   balance?: number | string;
@@ -40,6 +42,7 @@ const CardItem = ({
   reverse?: boolean;
   ccy: string;
   fromBudget?: boolean;
+  fromMobile?: boolean;
 }) => {
   const styles = useStyleTheme();
 
@@ -51,7 +54,11 @@ const CardItem = ({
             <View style={styles.card} />
           </View>
           <View style={styles.wrapCard}>
-            <Text children={title} style={styles.textAccount} numberOfLines={1} />
+            <Text
+              children={title}
+              style={!fromMobile ? styles.textAccount : styles.textAccountMobile}
+              numberOfLines={1}
+            />
             <Text
               children={`${balance} ${getCurrencyIcon(ccy)}`}
               style={styles.textLine}
@@ -62,7 +69,11 @@ const CardItem = ({
       ) : (
         <>
           <View style={styles.wrapCard}>
-            <Text children={title} style={styles.textAccount} numberOfLines={1} />
+            <Text
+              children={title}
+              style={fromBudget ? styles.textAccFromBudget : styles.textAccount}
+              numberOfLines={1}
+            />
             {fromBudget ? (
               <Text children={balance} style={styles.textLine} numberOfLines={1} />
             ) : (
@@ -73,9 +84,11 @@ const CardItem = ({
               />
             )}
           </View>
-          <View style={styles.cardContainer}>
-            <View style={styles.card} />
-          </View>
+          {!fromBudget ? (
+            <View style={styles.cardContainer}>
+              <View style={styles.card} />
+            </View>
+          ) : null}
         </>
       )}
     </TouchableOpacity>
@@ -88,6 +101,7 @@ export const CardSwap = ({
   receiver,
   fromBudget,
   fromOtherBanks = false,
+  fromMobile,
 }: cardProps) => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const selectedItemFromStore = useAppSelector(
@@ -128,22 +142,28 @@ export const CardSwap = ({
         balance={formatMoney(accountFromData?.availableBalance)}
         ccy={accountFromData?.ccy}
         onPress={() => handlePress(1)}
+        fromMobile={fromMobile}
       />
-      <TinyChevron style={styles.chevronIcon} />
-      <CardItem
-        reverse
-        fromBudget={fromBudget}
-        title={receiverName}
-        balance={
-          accountToData?.availableBalance || accountToData?.availableBalance === 0
-            ? formatMoney(accountToData?.availableBalance)
-            : accountToData?.iban
-            ? accountToData?.iban
-            : accountToData?.accountIban
-        }
-        ccy={accountToData?.ccy}
-        onPress={() => handlePress(2)}
-      />
+
+      {!fromMobile ? (
+        <>
+          <TinyChevron style={styles.chevronIcon} />
+          <CardItem
+            reverse
+            fromBudget={fromBudget}
+            title={receiverName}
+            balance={
+              accountToData?.availableBalance || accountToData?.availableBalance === 0
+                ? formatMoney(accountToData?.availableBalance)
+                : accountToData?.iban
+                ? accountToData?.iban
+                : accountToData?.accountIban
+            }
+            ccy={accountToData?.ccy}
+            onPress={() => handlePress(2)}
+          />
+        </>
+      ) : null}
     </View>
   );
 };

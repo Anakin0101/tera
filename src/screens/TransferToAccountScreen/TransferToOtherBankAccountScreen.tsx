@@ -249,6 +249,7 @@ export const TransferToOtherBankAccountScreen = () => {
           accountToData={accountToData}
           receiver={receiver}
           fromOtherBanks
+          fromMobile={fromMobile}
         />
       </View>
     </KeyboardAvoidingScrollView>
