@@ -70,7 +70,7 @@ export const productsAPI = createApi({
     }),
     getCustomerOperations: builder.mutation<TransactionType[], CustomerOperationsReq>({
       query: operations => ({
-        url: URLS.getCustomperOps,
+        url: URLS.getCustomerOps,
         method: METHOD_NAMES.POST,
         body: operations,
       }),

@@ -76,12 +76,14 @@ import {
   CartPaymentSuccessScreen,
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
+  AtmsAndBranchesScreen,
 } from 'screens';
 import {
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
   APPROVED_LOAN_PDF_SCREEN,
+  ATMS_AND_BRANCHES_SCREEN,
   AUTHORIZATION_METHODS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
   AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -347,6 +349,11 @@ export const ModalNavigator = () => {
         }}
       />
 
+      <Screen
+        name={ATMS_AND_BRANCHES_SCREEN}
+        component={AtmsAndBranchesScreen}
+        options={{ title: t('profile.atms_and_branches') }}
+      />
       <Screen
         name={TO_ACCOUNT_SCREEN}
         component={ToAccountScreen}

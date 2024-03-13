@@ -42,7 +42,7 @@ export const LoanItem: FC<LoanItemProps> = memo(({ item, isLast, index }) => {
             <Text
               regular
               size={14}
-              numberOfLines={1}
+              numberOfLines={3}
               color={Colors.textBlack500}
               children={item?.productName}
             />

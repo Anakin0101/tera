@@ -98,6 +98,7 @@ import {
   APPROVED_LOAN_DETAILS_SCREEN,
   APPROVED_LOAN_PDF_SCREEN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
+  ATMS_AND_BRANCHES_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -209,6 +210,7 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
+  [ATMS_AND_BRANCHES_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: {
     otherBanks?: boolean;
     budget?: boolean;

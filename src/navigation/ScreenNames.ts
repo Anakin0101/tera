@@ -21,6 +21,7 @@ export const PRODUCTS_SCREEN = 'ProductsScreen';
 
 // PROFILE
 export const PROFILE_SCREEN = 'ProfileScreen';
+export const ATMS_AND_BRANCHES_SCREEN = 'AtmsAndBranchesScreen';
 
 // auth - Login
 export const ONBOARDING_SCREEN = 'OnboardingScreen';

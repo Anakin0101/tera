@@ -135,7 +135,8 @@
     "statement_history": "Statement history",
     "choose_authorization_method": "Choose authorization method",
     "switch_to_language": "Switch to {{ language }}",
-    "confidentiality_policy": "Confidentiality policy"
+    "confidentiality_policy": "Confidentiality policy",
+    "atms_and_branches": "ATMs & branches"
   },
   "transfers": {
     "toOwnAccount": "Transfer to Own Account",
@@ -536,6 +537,7 @@
     "saveFreeMoney": "Save free money and get high interest benefits.",
     "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency.",
     "selectTariff": "Choose the tariff packages tailored to your wishes",
+    "nodataTarifDesc": "To activate the tariff package, contact the Office",
     "monthlyFee": "Monthly fee",
     "annualFee": "Annual fee",
     "cardStatus": "Active",
@@ -548,7 +550,7 @@
     "requestSuccess": "Request fulfilled",
     "changePackageText": "Your package payment type has been changed",
     "edit": "Edit",
-    "packageEdit": "Edit package",
+    "packageEdit": "Change package",
     "freeTariff": "free",
     "withoutPackage": "Without Package",
     "noTariff": "You have no tariff packages",
@@ -780,5 +782,14 @@
     "validPeriod": "Period during which the offer is valid",
     "agreeToTermsAndConditions": "Agree to the terms of the agreement",
     "accepted": "Request received"
+  },
+  "atmsAndBranches": {
+    "branch": "Branch",
+    "atm": "ATM",
+    "title": "Enable location services",
+    "description": "To access closest atms/branches, please enable location services from your settings",
+    "primaryCTA": "Settings",
+    "secondaryCTA": "Cancel",
+    "near": "Close to me"
   }
 }

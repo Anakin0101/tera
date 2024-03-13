@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, FlatList, Pressable } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import { TariffDescription } from './TariffDescription';
 import { TariffCardLayout } from 'components/TariffCard/TariffCardLayout';
 import { useNavigation } from '@react-navigation/native';
@@ -30,18 +30,17 @@ export const TariffPackagesListScreen = () => {
     };
 
     return (
-      <Pressable onPress={!hasStatusOrPending ? onTariffSingleScreen : undefined}>
-        <TariffCardLayout
-          cardTypeName={item.name}
-          id={item.id}
-          icon={getIcon(item.name)}
-          status={item.isActive}
-          pending={item.pending}
-          commissionMnth={commissionMnth}
-          commissionYr={commissionYr}
-          applyOverlay={hasStatusOrPending}
-        />
-      </Pressable>
+      <TariffCardLayout
+        cardTypeName={item.name}
+        id={item.id}
+        icon={getIcon(item.name)}
+        status={item.isActive}
+        pending={item.pending}
+        commissionMnth={commissionMnth}
+        commissionYr={commissionYr}
+        applyOverlay={hasStatusOrPending}
+        onPress={!hasStatusOrPending ? onTariffSingleScreen : undefined}
+      />
     );
   };
 
@@ -49,23 +48,24 @@ export const TariffPackagesListScreen = () => {
     return <LoadingInView />;
   }
 
+  const isData = packagesList?.customerPackages && packagesList?.customerPackages.length > 0;
+
   return (
     <>
-      <TariffDescription />
-      {packagesList?.customerPackages && packagesList?.customerPackages.length > 0 ? (
+      <TariffDescription noData={!isData ? true : false} />
+      {isData ? (
         <FlatList
           data={packagesList?.customerPackages}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
       ) : (
-        <Pressable onPress={onLocationsPress}>
-          <TariffCardLayout
-            cardTypeName={t('newDeposit.offices')}
-            icon={Images().Location}
-            noData={true}
-          />
-        </Pressable>
+        <TariffCardLayout
+          cardTypeName={t('newDeposit.offices')}
+          icon={Images().Location}
+          noData={true}
+          onPress={onLocationsPress}
+        />
       )}
     </>
   );
