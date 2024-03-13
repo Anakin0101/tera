@@ -31,17 +31,28 @@ export const useStyleTheme = () => {
     },
     title: {
       ...Fonts.medium,
-      maxWidth: horizontalScale(config.mobileWidth) - 130,
+      maxWidth: horizontalScale(config.mobileWidth) - 150,
+      fontSize: FontSize.regular,
+    },
+    titleFull: {
+      ...Fonts.medium,
+      marginRight: Spacing.xl,
       fontSize: FontSize.regular,
     },
     address: {
       lineHeight: FontSize.regular,
-      maxWidth: horizontalScale(config.mobileWidth) - 130,
+      maxWidth: horizontalScale(config.mobileWidth) - 150,
+      ...Fonts.textTiny,
+      fontSize: FontSize.small,
+    },
+    addressFull: {
+      lineHeight: FontSize.regular,
+      marginRight: Spacing.xl,
       ...Fonts.textTiny,
       fontSize: FontSize.small,
     },
     rightContainer: {
-      width: 50,
+      paddingLeft: Spacing.m,
       ...Layout.justifyContentCenter,
       ...Layout.alignItemsEnd,
     },
