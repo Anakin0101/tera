@@ -57,12 +57,20 @@ export function AtmAndBranchItem<T extends AtmsResponse | ServiceCentersResponse
         <View style={styles.contentWrapper}>
           <View style={styles.centerTextContainer}>
             {contentLocalized.address && (
-              <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              <Text
+                style={currentLocation?.latitude ? styles.title : styles.titleFull}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
                 {contentLocalized.address}
               </Text>
             )}
             {contentLocalized.description && (
-              <Text style={styles.address} numberOfLines={1} ellipsizeMode="tail">
+              <Text
+                style={currentLocation?.latitude ? styles.address : styles.addressFull}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
                 {contentLocalized.description}
               </Text>
             )}
