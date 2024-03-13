@@ -41,6 +41,7 @@ export const useCheckMoneyTransferProviderInfo = () => {
   const receiveTransferService = useCallback(
     async (sendOtp: boolean, OTPCode: string) => {
       try {
+        if (isLoading) return;
         let sellAccountId = 0;
         if (buyDetails?.buyAmount) {
           if (buyDetails?.buyAmount) {
@@ -101,6 +102,7 @@ export const useCheckMoneyTransferProviderInfo = () => {
       }
     },
     [
+      isLoading,
       buyDetails?.buyAmount,
       buyDetails?.buyCurrency,
       culture,

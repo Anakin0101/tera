@@ -9,6 +9,10 @@ import {
   ReceiveTransferRequestParams,
   ReceiveTransferResponse,
   ReceiverTsMTSystemsResponse,
+  TransferInfoRequestParams,
+  TransferInfoResponse,
+  TransferStatusRequestParams,
+  TransferStatusResponse,
 } from './moneyTransfersAPI.types';
 
 export const moneyTransfersAPI = createApi({
@@ -46,6 +50,20 @@ export const moneyTransfersAPI = createApi({
         params,
       }),
     }),
+    getMoneyTransferInfo: builder.query<TransferInfoResponse, TransferInfoRequestParams>({
+      query: params => ({
+        url: URLS.getMoneyTransferInfo,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
+    checkTransferStatus: builder.query<TransferStatusResponse, TransferStatusRequestParams>({
+      query: params => ({
+        url: URLS.checkTransferStatus,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
   }),
 });
 
@@ -54,4 +72,6 @@ export const {
   useLazyFindTransferQuery,
   useReceiveTransferMutation,
   useListCustomerTransfersQuery,
+  useLazyGetMoneyTransferInfoQuery,
+  useLazyCheckTransferStatusQuery,
 } = moneyTransfersAPI;

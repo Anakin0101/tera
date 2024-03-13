@@ -53,6 +53,8 @@ export const URLS = {
   findTransfer: 'MoneyTransfer/FindTransfer',
   listCustomerTransfers: 'MoneyTransfer/ListCustomerTransfers?channelCode=DigitalChannel',
   receiveTransfer: 'MoneyTransfer/ReceiveTransfer',
+  getMoneyTransferInfo: 'MoneyTransfer/GetTransferInfo?channelCode=DigitalChannel',
+  checkTransferStatus: 'MoneyTransfer/CheckTransferStatus?channelCode=DigitalChannel',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
   requestForLoan: 'Loan/RequestForLoan',

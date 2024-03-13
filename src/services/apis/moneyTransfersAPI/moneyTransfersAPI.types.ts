@@ -101,6 +101,7 @@ export interface MoneyTransferListResponse {
 }
 
 export interface MoneyTransferList {
+  transferId: number;
   amount: number;
   currency: string;
   mtSystem: string;
@@ -119,4 +120,61 @@ export enum MoneyTransferStatusEnum {
   rejected = 1,
   success = 2,
   received = 3,
+}
+
+export interface TransferInfoRequestParams {
+  internalTransferId: number;
+}
+
+export interface TransferInfoResponse {
+  transfer: Transfer;
+  success: boolean;
+}
+
+export interface Transfer {
+  payoutAmount: number;
+  payoutCurrency: string;
+  principalAmount: number;
+  principalCurrency: string;
+  receiveCity: string;
+  receiveCountry: string;
+  receivePoint: string;
+  receiveState: string;
+  sendCountry: string;
+  totalFee: number;
+  transferId: number;
+  transferIdSpecified: boolean;
+  transferNumber: string;
+  transferStatus: MoneyTransferStatusEnum;
+}
+
+export interface TransferStatusRequestParams {
+  transferId: number;
+}
+
+export interface TransferStatusResponse {
+  transferInfo: TransferInfo;
+}
+
+export interface TransferInfo {
+  amount: number;
+  amountFieldSpecified: boolean;
+  currency: string;
+  message: string;
+  mtSystem: string;
+  receiverFirstName: string;
+  receiverLastName: string;
+  TransferReceiveStatus: number;
+  rejectReasonFieldSpecified: boolean;
+  sendCountry: string;
+  senderFirstName: string;
+  senderLastName: string;
+  status: number;
+  statusFieldSpecified: boolean;
+  statusMessage: string;
+  time: Date;
+  timeFieldSpecified: boolean;
+  transferId: number;
+  transferNumber: string;
+  receiveBankAccountNumber: string;
 }
