@@ -36,6 +36,7 @@ import {
   CHOOSE_PAYMENT_PROVIDER_SCREEN,
   CREATE_PASSCODE_SCREEN,
   MONEY_TRANSFERS_SCREEN,
+  MONEY_TRANSFER_DETAILS_SCREEN,
   MONEY_TRANSFER_PERMISSION_SCREEN,
   MONEY_TRANSFER_RECEIVE_SCREEN,
   NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN,
@@ -62,6 +63,7 @@ import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfer
 import { MoneyTransferReceiveScreen } from 'screens/MoneyTransferReceiveScreen/MoneyTransferReceiveScreen';
 import { CheckMoneyTransferProviderScreen } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen';
 import { MoneyTransferPermissionScreen } from 'screens/MoneyTransferPermissionScreen/MoneyTransferPermissionScreen';
+import { MoneyTransferDetailsScreen } from 'screens/MoneyTransferDetailsScreen/MoneyTransferDetailsScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -265,6 +267,14 @@ export const ModalNavigator = () => {
         component={MoneyTransferPermissionScreen}
         options={{
           title: t('moneyTransferReceiveScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_DETAILS_SCREEN}
+        component={MoneyTransferDetailsScreen}
+        options={{
+          title: t('moneyTransferDetailsScreen.title'),
           headerShadowVisible: true,
         }}
       />

@@ -100,6 +100,7 @@ import {
   MONEY_TRANSFER_RECEIVE_SCREEN,
   CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
   MONEY_TRANSFER_PERMISSION_SCREEN,
+  MONEY_TRANSFER_DETAILS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -115,8 +116,12 @@ import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 import { MTSystemItemProps } from 'utils/moneyTransfer';
-import { FindTransferResponse } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
+import {
+  FindTransferResponse,
+  MoneyTransferList,
+} from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { BuyCurrencyDetails } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen.types';
+import { TransferListTypeEnum } from 'components/TransfersHistory/container';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -209,6 +214,10 @@ export type ModalStackParamsList = {
     transferResponse: FindTransferResponse;
     selectedAccount: Account;
     buyDetails?: BuyCurrencyDetails;
+  };
+  [MONEY_TRANSFER_DETAILS_SCREEN]: {
+    transferDetails: MoneyTransferList;
+    transferType: TransferListTypeEnum;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
