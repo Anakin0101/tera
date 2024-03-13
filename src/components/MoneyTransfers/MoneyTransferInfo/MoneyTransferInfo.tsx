@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View } from 'react-native';
 import { useStyles } from './MoneyTransferInfo.styles';
 import { MoneyTransferInfoProps } from './MoneyTransferInfo.types';
 import { Text } from 'components/Text/Text';
 import { formatMoney } from 'utils/formatMoney';
 
-export const MoneyTransferInfo: React.FC<MoneyTransferInfoProps> = ({ transferResponse }) => {
+export const MoneyTransferInfo: React.FC<MoneyTransferInfoProps> = memo(({ transferResponse }) => {
   const styles = useStyles();
 
   return (
@@ -39,4 +39,4 @@ export const MoneyTransferInfo: React.FC<MoneyTransferInfoProps> = ({ transferRe
       </View>
     </View>
   );
-};
+});

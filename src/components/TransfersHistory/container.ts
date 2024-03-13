@@ -1,5 +1,9 @@
-import { useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { MODAL_STACK, MONEY_TRANSFER_DETAILS_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import { useCallback, useMemo } from 'react';
 import { useListCustomerTransfersQuery } from 'services/apis';
+import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 
 export const enum TransferListTypeEnum {
   receive = 1,
@@ -7,6 +11,8 @@ export const enum TransferListTypeEnum {
 }
 
 export const useTransfersHistoryServices = (transferType: number) => {
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+
   const requestData = useMemo(
     () => ({
       transferType: transferType,
@@ -24,8 +30,22 @@ export const useTransfersHistoryServices = (transferType: number) => {
 
   const { data, isLoading, isFetching } = useListCustomerTransfersQuery(requestData);
 
+  const openTransferDetails = useCallback(
+    (item: MoneyTransferList) => {
+      navigate(MODAL_STACK, {
+        screen: MONEY_TRANSFER_DETAILS_SCREEN,
+        params: {
+          transferDetails: item,
+          transferType,
+        },
+      });
+    },
+    [navigate, transferType],
+  );
+
   return {
     isLoading: isLoading || isFetching,
     data: data?.customerTransferList || [],
+    openTransferDetails,
   };
 };

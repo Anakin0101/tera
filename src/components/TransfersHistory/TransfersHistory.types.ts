@@ -5,6 +5,7 @@ export interface TransfersHistoryItemProps {
   isLast: boolean;
   item: MoneyTransferList;
   transferType: TransferListTypeEnum;
+  onPress: () => void;
 }
 
 export interface TransfersHistoryProps {

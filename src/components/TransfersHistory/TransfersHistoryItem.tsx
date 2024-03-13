@@ -13,7 +13,7 @@ import { TransferListTypeEnum } from './container';
 import { MoneyTransferStatusEnum } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 
 export const TransfersHistorytItem: React.FC<TransfersHistoryItemProps> = memo(
-  ({ item, isLast = false, transferType }) => {
+  ({ item, isLast = false, transferType, onPress = () => {} }) => {
     const styles = useStyles();
 
     const getCurrentImage = () => {
@@ -43,10 +43,7 @@ export const TransfersHistorytItem: React.FC<TransfersHistoryItemProps> = memo(
     };
 
     return (
-      <Pressable
-        style={[!isLast && styles.itemWrapperMargin]}
-        // onPress={() => Alert.alert(item?.id)}
-      >
+      <Pressable style={[!isLast && styles.itemWrapperMargin]} onPress={onPress}>
         <View style={styles.itemWrapper}>
           <View style={[styles.itemWrapper, styles.contentWrapper]}>
             <View style={styles.itemIconWrapper}>

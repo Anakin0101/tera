@@ -387,6 +387,15 @@
     "pending": "Pending",
     "completed": "Completed",
     "received": "Received",
+    "details": "Details",
+    "status": "Status",
+    "receiver": "Receiver",
+    "country": "Country",
+    "city": "City",
+    "sender": "Sender",
+    "sendedMoney": "Sended Money",
+    "totalFee": "Total Fee",
+    "bankAccountNumber": "Account number (IBAN)",
     "to": "To",
     "next": "Next",
     "returnToMain": "Return to Main",
@@ -686,6 +695,10 @@
     "acceptConditions": "Agreement on data processing",
     "confirmText2": "I do not agree to the information about the income received from my remittances by JSC Terabank, identification number: 204546045, address: Georgia, Tbilisi, Ketevan Dedoplis Avenue N3, being provided to the Credit Information Bureau for the purpose of analyzing the customer's solvency and making it available to the lending organizations involved in the Credit Information Bureau in the manner established by law.",
     "notAcceptConditions": "Refusal to process data"
+  },
+  "moneyTransferDetailsScreen": {
+    "title": "Transfer details",
+    "transferCode": "Transfer code"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
