@@ -59,8 +59,8 @@ export const useTariffPackagesSingle = () => {
                   });
                 })
                 .catch(error => {
-                  console.warn('Error activating package:', error);
-                  openToast(t('newDeposit.packageError'), 'error');
+                  console.warn('Error activating package:', ErrorUtils);
+                  openToast(t(error.data.title), 'error');
                   closeModal();
                 });
             }
