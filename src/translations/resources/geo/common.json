@@ -346,7 +346,8 @@
     "accType": "ანგარიშის ტიპი",
     "cardAcc": "საბარათე",
     "deposit": "დეპოზიტი",
-    "current": "მიმდინარე"
+    "current": "მიმდინარე",
+    "activate": "გაიაქტიურე"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
@@ -756,6 +757,18 @@
     "timeout_error": "დაფიქსირდა შეცდომა",
     "component_title": "შეცდომა",
     "component_description": "დაფიქსირდა შეცდომა, გთხოვთ ხელახლა სცადოთ"
+  },
+  "approvedLoan": {
+    "amount": "სესხის თანხა",
+    "annualInterestRate": "წლიური საპროცენტო განაკვეთი",
+    "effectiveInterestRate": "ეფექტური საპროცენტო განაკვეთი",
+    "term": "ვადა",
+    "monthlyContribution": "ყოველთვიური შენატანი",
+    "issuingCommission": "სესხის გაცემის საკომისიო",
+    "prepaymentFee": "წინასწარ დაფარვის საკომისიო",
+    "validPeriod": "პერიოდი რომლის განმავლობაში ძალაშია შეთავაზება",
+    "agreeToTermsAndConditions": "ვეთანხმები ხელშეკრულების პირობებს",
+    "accepted": "მოთხოვნა მიღებულია"
   },
   "atmsAndBranches": {
     "branch": "ფილიალი",

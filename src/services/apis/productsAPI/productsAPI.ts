@@ -39,9 +39,14 @@ import {
   TerabytesRes,
   DepositByIdReq,
   DepositByIdRes,
+  CreditDisbursementReq,
   PrintAccountRequisites,
   PrintAccountRequisitesRes,
   GetStatementReq,
+  CreditDisbursementRes,
+  CreditProductOfferAgreementRes,
+  CreditProductOfferSchedule,
+  ActivateCreditProductOfferReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -49,7 +54,15 @@ import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
   baseQuery: baseQueryWithInterceptor,
-  tagTypes: ['Products', 'Transactions', 'Loans', 'Offers', 'Accounts', 'Deposits'],
+  tagTypes: [
+    'Products',
+    'Transactions',
+    'Loans',
+    'Offers',
+    'Accounts',
+    'Deposits',
+    'CreditProduct',
+  ],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
       query: () => ({
@@ -61,7 +74,7 @@ export const productsAPI = createApi({
       query: () => ({
         url: URLS.getOffers,
       }),
-      providesTags: ['Offers'],
+      providesTags: ['Offers', 'CreditProduct'],
     }),
     getCustomerOperations: builder.mutation<TransactionType[], CustomerOperationsReq>({
       query: operations => ({
@@ -294,6 +307,18 @@ export const productsAPI = createApi({
         },
       }),
     }),
+    getCreditDisbursementProductOfferDetails: builder.query<
+      CreditDisbursementRes,
+      CreditDisbursementReq
+    >({
+      query: ({ creditDisbursementId, culture }) => ({
+        url: URLS.getCreditDisbursementProductOfferDetails,
+        params: {
+          creditDisbursementId,
+          culture,
+        },
+      }),
+    }),
     printAccountRequisites: builder.mutation<string, PrintAccountRequisites>({
       query: body => ({
         url: URLS.printAccountRequisites,
@@ -309,6 +334,38 @@ export const productsAPI = createApi({
         body,
       }),
       transformResponse: (response: PrintAccountRequisitesRes) => response.fileId,
+    }),
+
+    getCreditProductOfferAgreement: builder.query<string, CreditDisbursementReq>({
+      query: ({ creditDisbursementId, culture }) => ({
+        url: URLS.getCreditProductOfferAgreement,
+        params: {
+          creditDisbursementId,
+          culture,
+        },
+      }),
+      transformResponse: (response: CreditProductOfferAgreementRes) => response.fileId,
+    }),
+
+    getCreditProductOfferSchedule: builder.mutation<string, CreditProductOfferSchedule>({
+      query: ({ id, culture }) => ({
+        url: URLS.getCreditProductOfferSchedule,
+        method: METHOD_NAMES.POST,
+        body: { id, culture },
+      }),
+      transformResponse: (response: CreditProductOfferAgreementRes) => response.fileId,
+    }),
+
+    activateCreditProductOffer: builder.query<any, ActivateCreditProductOfferReq>({
+      query: params => ({
+        url: URLS.activateCreditProductOffer,
+        params,
+      }),
+      onQueryStarted: (arg, api) => {
+        api.queryFulfilled.then(() => {
+          api.dispatch(productsAPI.util.invalidateTags(['CreditProduct']));
+        });
+      },
     }),
   }),
 });
@@ -344,6 +401,10 @@ export const {
   usePrintLoanPaymentsMutation,
   useGetTerabyteQuery,
   useGetDepositByIdQuery,
+  useGetCreditDisbursementProductOfferDetailsQuery,
   usePrintAccountRequisitesMutation,
   useGetStatementMutation,
+  useGetCreditProductOfferAgreementQuery,
+  useGetCreditProductOfferScheduleMutation,
+  useLazyActivateCreditProductOfferQuery,
 } = productsAPI;

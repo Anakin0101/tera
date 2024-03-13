@@ -11,3 +11,5 @@ export const PDF_EXT = 'pdf';
 export const EXCEL_EXT = 'xlsx';
 export const PDF_MIME_TYPE = 'application/pdf';
 export const EXCEL_MIME_TYPE = 'application/xlsx';
+export const MAX_LIST_ITEM_AMOUNT = 3;
+export const MAX_CREDIT_DISBURSEMENTS_AMOUNT = 2;

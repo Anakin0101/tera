@@ -147,6 +147,7 @@ export { ChevronDownLarge } from './ChevronDownLarge';
 export { AlertCircle } from './AlertCircle';
 export { Pdf } from './Pdf';
 export { Excel } from './Excel';
+export { OfferPercent } from './OfferPercent';
 export { Branch } from './Branch';
 export { ATM } from './ATM';
 export { Location } from './Location';

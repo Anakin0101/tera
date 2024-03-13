@@ -71,10 +71,10 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     getLoanCustomerId,
     deposits,
     banker,
-    banners,
     totalSaving,
     isLoading,
     terabytes,
+    offersData,
     cards,
     setActiveCardIndex,
     activeCardIndex,
@@ -159,7 +159,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
           />
         );
       case 'offers':
-        return <Offers data={banners?.data} />;
+        return <Offers data={offersData} />;
       case 'pension':
         return <DashboardPensionFund data={totalSaving?.totalSaving} />;
       case 'banker':

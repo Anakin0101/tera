@@ -8,6 +8,7 @@ import { HeaderBackArrow } from 'components';
 import {
   AddCartScreen,
   AllTransactionsScreen,
+  ApprovedLoanPdfScreen,
   AuthorizationMethodsScreen,
   AutomaticPaymentDetailsScreen,
   AutomaticPaymentsScreen,
@@ -73,11 +74,15 @@ import {
   ChooseMobileProviderScreen,
   PaymentErrorScreen,
   CartPaymentSuccessScreen,
+  ApprovedLoanDetailsScreen,
+  ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
 } from 'screens';
 import {
+  ACTIVATE_LOAN_SUCCESS_SCREEN,
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
+  APPROVED_LOAN_PDF_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
   AUTHORIZATION_METHODS_SCREEN,
   AUTOMATIC_PAYMENTS_SCREEN,
@@ -144,6 +149,7 @@ import {
   CARD_ORDER_DETAILS_SCREEN,
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  APPROVED_LOAN_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 
@@ -636,6 +642,21 @@ export const ModalNavigator = () => {
         name={TARIFF_PACKAGES_SINGLE_SCREEN}
         component={TariffPackagesSingleScreen}
         options={{ title: t('newDeposit.tariffPackages') }}
+      />
+      <Screen
+        name={APPROVED_LOAN_DETAILS_SCREEN}
+        component={ApprovedLoanDetailsScreen}
+        options={{ title: t('loans.details') }}
+      />
+      <Screen
+        name={APPROVED_LOAN_PDF_SCREEN}
+        component={ApprovedLoanPdfScreen}
+        options={hideHeader}
+      />
+      <Screen
+        name={ACTIVATE_LOAN_SUCCESS_SCREEN}
+        component={ActivateLoanSuccessScreen}
+        options={hideHeader}
       />
     </Navigator>
   );

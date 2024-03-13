@@ -64,5 +64,17 @@ export const useStyles = (seeAll?: boolean) => {
       ...Layout.fill,
       marginRight: Spacing.md,
     },
+    creditDisbursement: {
+      ...Layout.rowHCenter,
+      gap: Spacing.s,
+      paddingHorizontal: Spacing.m,
+      paddingVertical: Spacing.md,
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.lightPink,
+      marginTop: Spacing.l,
+    },
+    bgWhite: {
+      backgroundColor: Colors.white,
+    },
   });
 };
