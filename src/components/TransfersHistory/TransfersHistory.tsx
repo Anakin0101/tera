@@ -10,10 +10,13 @@ import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfer
 import { LoadingInView } from '../index';
 
 export const TransfersHistory: React.FC<TransfersHistoryProps> = memo(
-  ({ transferType = TransferListTypeEnum.receive }) => {
+  ({ transferType = TransferListTypeEnum.receive, filters }) => {
     const styles = useStyles();
 
-    const { data, isLoading, openTransferDetails } = useTransfersHistoryServices(transferType);
+    const { data, isLoading, openTransferDetails } = useTransfersHistoryServices(
+      transferType,
+      filters,
+    );
 
     const renderPaymentItem = useCallback(
       ({ item, index }: { item: MoneyTransferList; index: number }) => {

@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { MODAL_STACK, MONEY_TRANSFER_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { MainStackScreenProps } from 'navigation/types';
 import { useCallback, useMemo } from 'react';
+import { TransactionFilters } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
 import { useListCustomerTransfersQuery } from 'services/apis';
 import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 
@@ -10,7 +11,7 @@ export const enum TransferListTypeEnum {
   send = 0,
 }
 
-export const useTransfersHistoryServices = (transferType: number) => {
+export const useTransfersHistoryServices = (transferType: number, filters: TransactionFilters) => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const requestData = useMemo(
@@ -18,14 +19,14 @@ export const useTransfersHistoryServices = (transferType: number) => {
       transferType: transferType,
       minAmount: 0,
       maxAmount: 10000000000,
-      startDate: '2023-04-30T09:50:01.251Z',
-      endDate: new Date().toISOString(),
+      startDate: new Date(filters.startDate).toISOString(),
+      endDate: new Date(filters.endDate).toISOString(),
       page: 0,
       itemsPerPage: 1000000,
       sortField: 1,
       sortOrder: 1,
     }),
-    [transferType],
+    [filters.endDate, filters.startDate, transferType],
   );
 
   const { data, isLoading, isFetching } = useListCustomerTransfersQuery(requestData);

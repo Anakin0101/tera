@@ -1,5 +1,6 @@
 import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { TransferListTypeEnum } from './container';
+import { TransactionFilters } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
 
 export interface TransfersHistoryItemProps {
   isLast: boolean;
@@ -10,4 +11,5 @@ export interface TransfersHistoryItemProps {
 
 export interface TransfersHistoryProps {
   transferType: TransferListTypeEnum;
+  filters: TransactionFilters;
 }
