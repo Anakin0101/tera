@@ -33,7 +33,7 @@ export const useTariffPackagesSingle = () => {
       .unwrap()
       .catch(error => {
         console.warn('Error sending OTP:', error);
-        openToast(error?.data?.title?.length ? error?.data?.title : 'newDeposit.error', 'error');
+        openToast(error?.data?.title?.length ? error?.data?.title : t('newDeposit.error'), 'error');
       });
 
     openModal({
