@@ -17,6 +17,8 @@ import {
   MODAL_STACK,
 } from 'navigation/ScreenNames';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { useGetOffersQuery } from 'services/apis';
+import { OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -24,8 +26,13 @@ export const useTeraProducts = () => {
     state => state.products,
   );
   const { groupedAccountsByIban, isLoadingAccounts, refetch } = useGroupedAccountsByIban();
+  const { data: offers } = useGetOffersQuery();
 
-  const allLoans = [...overdrafts, ...creditCards, ...loans];
+  const creditDisbursements = useMemo(() => {
+    return offers?.filter(offer => offer?.type === OfferTypeEnum.CreditDisbursement) || [];
+  }, [offers]);
+
+  const allLoans = [...overdrafts, ...creditCards, ...loans, ...creditDisbursements];
 
   const totalDeposits = useMemo(() => {
     if (!deposits) {
@@ -122,5 +129,6 @@ export const useTeraProducts = () => {
     onNewProductsPress,
     isLoadingAccounts,
     refetch,
+    creditDisbursements,
   };
 };

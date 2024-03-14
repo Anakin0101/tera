@@ -78,8 +78,12 @@ export const URLS = {
   printLoanPayments: 'Loan/PrintLoanPayments',
   getTerabyte: 'Account/GetTerabyte',
   getDepositById: 'Deposit/GetDepositById',
+  getCreditDisbursementProductOfferDetails: 'Loan/GetCreditDisbursementProductOfferDetails',
   printAccountRequisites: 'Account/PrintAccountRequisites',
   getStatement: 'Transaction/GetStatement',
+  getCreditProductOfferAgreement: '/Loan/GetCreditProductOfferAgreement',
+  getCreditProductOfferSchedule: '/Loan/GetCreditProductOfferSchedule',
+  activateCreditProductOffer: '/Loan/ActivateCreditProductOffer',
 };
 
 export const PROD_URLS = {

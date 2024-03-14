@@ -95,6 +95,9 @@ export default function ({}: ThemeVariables) {
     alignSelfEnd: {
       alignSelf: 'flex-end',
     },
+    alignSelfStart: {
+      alignSelf: 'flex-start',
+    },
     selfCenter: {
       alignSelf: 'center',
     },

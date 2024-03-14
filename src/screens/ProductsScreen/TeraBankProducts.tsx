@@ -1,9 +1,9 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { SectionList, View } from 'react-native';
 import { useTheme } from 'hooks';
 import { useTeraProducts } from './teraProductsContainer';
 import { useIsFocused } from '@react-navigation/native';
-import { Button, CardsAndAccounts, DepositsAndLoans, Divider } from 'components';
+import { Button, CardsAndAccounts, DepositsList, Divider, LoansList } from 'components';
 import { useStyles } from './ProductsScreen.styles';
 import { Plus } from 'assets/SVGs';
 import { FooterProps } from './ProductsScreen.types';
@@ -51,6 +51,7 @@ const TeraBankProducts = () => {
     allLoans,
     onNewProductsPress,
     refetch,
+    creditDisbursements,
   } = useTeraProducts();
   const isFocused = useIsFocused();
 
@@ -60,31 +61,47 @@ const TeraBankProducts = () => {
     }
   }, [isFocused, refetch]);
 
-  const renderSectionListItem: SectionListRenderItemT = ({ section }) => {
-    switch (section.title) {
-      case 'accounts':
-        return (
-          <CardsAndAccounts
-            accounts={groupedAccountsByIban}
-            totalAvailableBalance={totalAvailableBalanceGEL}
-            showDivider={!!deposits?.length || !!allLoans?.length}
-          />
-        );
-      case 'deposits':
-        return (
-          <DepositsAndLoans
-            data={deposits}
-            variant="deposit"
-            totalAmount={totalDeposits}
-            displayDivider={!!allLoans?.length}
-          />
-        );
-      case 'loans':
-        return <DepositsAndLoans data={allLoans} variant="loan" totalAmount={totalLoans} />;
-      default:
-        return null;
-    }
-  };
+  const renderSectionListItem: SectionListRenderItemT = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'accounts':
+          return (
+            <CardsAndAccounts
+              accounts={groupedAccountsByIban}
+              totalAvailableBalance={totalAvailableBalanceGEL}
+              showDivider={!!deposits?.length || !!allLoans?.length}
+            />
+          );
+        case 'deposits':
+          return (
+            <DepositsList
+              data={deposits}
+              totalAmount={totalDeposits}
+              displayDivider={!!allLoans?.length}
+            />
+          );
+        case 'loans':
+          return (
+            <LoansList
+              data={allLoans}
+              creditDisbursements={creditDisbursements}
+              totalAmount={totalLoans}
+            />
+          );
+        default:
+          return null;
+      }
+    },
+    [
+      allLoans,
+      deposits,
+      groupedAccountsByIban,
+      totalAvailableBalanceGEL,
+      totalDeposits,
+      totalLoans,
+      creditDisbursements,
+    ],
+  );
 
   return (
     <View style={styles.sectionListWrapper}>

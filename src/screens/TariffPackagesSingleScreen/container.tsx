@@ -60,7 +60,7 @@ export const useTariffPackagesSingle = () => {
                 })
                 .catch(error => {
                   console.warn('Error activating package:', ErrorUtils);
-                  openToast(t(error.data.title), 'error');
+                  openToast(error.data.title, 'error');
                   closeModal();
                 });
             }

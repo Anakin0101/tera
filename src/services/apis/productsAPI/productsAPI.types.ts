@@ -2,6 +2,11 @@ import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
 
 export type Currency = 'GEL' | 'USD' | 'EUR' | 'GBP';
 
+export type BilingualText = {
+  en: string;
+  ka: string;
+};
+
 export enum CardStatusCode {
   Issued = 6,
   Blocked = 9,
@@ -374,11 +379,6 @@ export enum OfferTypeEnum {
   NewCard = 31,
 }
 
-type OfferName = {
-  en: string;
-  ka: string;
-};
-
 type OfferCurrencies = {
   currency: CurrencyEnum;
   minAmount: number;
@@ -387,7 +387,7 @@ type OfferCurrencies = {
 
 type DepositProduct = {
   productId: number;
-  name: OfferName;
+  name: BilingualText;
   minPeriod: number;
   maxPeriod: number;
   currencies: OfferCurrencies[];
@@ -728,6 +728,10 @@ export type DepositByIdRes = {
   };
 };
 
+export type CreditDisbursementReq = {
+  creditDisbursementId: number;
+  culture: string;
+};
 export type PrintAccountRequisites = {
   culture: string;
   accountId: number;
@@ -746,4 +750,55 @@ export type GetStatementReq = {
   fileFormat: FileFormatEnum;
   otp: string;
   isTeraWallet: boolean;
+};
+type RefinancingPurpose = {
+  amount: number;
+  nameEng: string;
+  name: string;
+  code: string;
+};
+
+export type CreditDisbursementRes = {
+  amount: number;
+  interest: number;
+  effectiveRate: number;
+  monthlyPayment: number;
+  lifeInsurance: number;
+  disbursementFee: number;
+  currency: CurrencyEnum;
+  endDate: string;
+  offerValidityStartTime: string;
+  offerValidityEndTime: string;
+  prepaymentConditions: BilingualText;
+  creditDeliveryConditions: BilingualText;
+  additionalConditions: BilingualText;
+  coveragePeriod: BilingualText;
+  hasSchedule: boolean;
+  hasOverdraft: boolean;
+  branchName: string;
+  creditOfficerName: string;
+  creditOfficerLastName: string;
+  creditOfficerMobile: string;
+  additionalExpencies: [];
+  refinancingPurposes: RefinancingPurpose[];
+};
+
+export type CreditProductOfferAgreementRes = {
+  fileId: string;
+  success: boolean;
+  error: boolean;
+  pending: boolean;
+  channelData: any;
+};
+
+export type CreditProductOfferSchedule = {
+  culture: string;
+  id: number;
+};
+
+export type ActivateCreditProductOfferReq = {
+  id?: number;
+  sendOtp?: boolean;
+  otp?: string;
+  culture?: string;
 };

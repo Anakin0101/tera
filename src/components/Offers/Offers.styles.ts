@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { horizontalScale } from 'utils/config';
+import { config, horizontalScale } from 'utils/config';
 
-export const useStyles = (padding: number) => {
+const padding = config.mobileWidth - horizontalScale(320) - 24;
+
+export const useStyles = () => {
   const { Spacing, Layout, Colors, Fonts, FontSize } = useTheme();
 
   const generaWrapperlStyle = {
@@ -10,7 +12,6 @@ export const useStyles = (padding: number) => {
     borderRadius: Spacing.m,
     height: 180,
     padding: Spacing.lg,
-    aspectRatio: 16 / 9,
   };
   return StyleSheet.create({
     list: {
@@ -55,7 +56,7 @@ export const useStyles = (padding: number) => {
       ...Layout.alignItemsCenter,
       marginTop: Spacing.l,
       paddingVertical: Spacing.xxs,
-      backgroundColor: '#43B64B',
+      backgroundColor: Colors.successToastTextColor,
       width: 100,
       borderRadius: 50,
     },
@@ -63,6 +64,32 @@ export const useStyles = (padding: number) => {
       ...Layout.fill,
       ...Layout.justifyContentEnd,
       marginHorizontal: Spacing.xl,
+    },
+    disbursementContainer: {
+      ...Layout.row,
+      padding: 26,
+      height: 180,
+      width: horizontalScale(320),
+      borderRadius: Spacing.m,
+      backgroundColor: Colors.offerBgGreen,
+      gap: Spacing.xl,
+    },
+    image: {
+      ...Layout.overflowHidden,
+      height: 180,
+      width: horizontalScale(320),
+      borderRadius: Spacing.m,
+    },
+    content: {
+      flex: 1,
+      marginTop: Spacing.xxs,
+    },
+    button: {
+      ...Layout.alignSelfStart,
+      backgroundColor: Colors.successToastTextColor,
+      paddingVertical: Spacing.xxs,
+      paddingHorizontal: Spacing.s,
+      marginTop: Spacing.m,
     },
   });
 };
