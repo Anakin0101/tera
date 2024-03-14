@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { HeaderRight } from './HeaderRight';
 import { useGetBannersQuery } from 'services/apis';
@@ -11,7 +11,7 @@ export const useAllAcounts = () => {
   const { groupedAccountsByIban, totalAvailableBalanceGEL } = useAppSelector(
     state => state.products,
   );
-  const { setOptions } = useNavigation<ProductsStackScreenProps<'AllAccountsAndCardsScreen'>>();
+  const { setOptions } = useNavigation<ModalStackScreenProps<'AllAccountsAndCardsScreen'>>();
 
   const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
     language,

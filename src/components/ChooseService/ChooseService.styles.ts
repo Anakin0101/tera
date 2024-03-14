@@ -7,8 +7,8 @@ export const useStyles = () => {
 
   return StyleSheet.create({
     cotentContainer: {
-      gap: 20,
-      paddingRight: Spacing.xxxl,
+      gap: Spacing.lg,
+      paddingRight: Spacing.xlg,
     },
     flatlist: {
       paddingLeft: Spacing.xl,

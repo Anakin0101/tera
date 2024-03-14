@@ -9,6 +9,7 @@ import { setSelectedPackage } from 'store/slices/products';
 import { useTariffPackagesSingle } from './container';
 import { PackagesOptionType } from './TariffPackagesSingle.types';
 import { PROD_URLS } from 'services/constants/urls';
+import { formatMoney } from 'utils/formatMoney';
 
 export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType) => {
   const { handleRequestPackage, checkboxValue, control, activatePackageLoading } =
@@ -45,7 +46,9 @@ export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType
               selectedId === pservices.id ? styles.activeButton : styles.inactiveButton,
             ]}
           >
-            <Text style={styles.buttonText}>{`${pservices.name} (${pservices.price})₾`}</Text>
+            <Text style={styles.buttonText}>{`${pservices.name} (${formatMoney(
+              pservices.price,
+            )})₾`}</Text>
           </Pressable>
         ))}
       </View>
@@ -62,7 +65,7 @@ export const PackagesOption = ({ packageServices, name, id }: PackagesOptionType
         onPress={handleRequestPackage}
         fullWidth
         text={t('common.confirm')}
-        disabled={!checkboxValue}
+        disabled={!checkboxValue || !selectedId}
         isLoading={activatePackageLoading}
       />
     </>

@@ -6,7 +6,7 @@ import {
   useGetTeraWalletInfoQuery,
 } from 'services/apis/productsAPI/productsAPI';
 import { SelectDepositModal } from 'components/modals/SelectDepositModal/SelectDepositModal';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { WalletAccount } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setWalletData } from 'store/slices/teraWallet';
@@ -17,7 +17,7 @@ import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useTeraWallet = (ref: FlatlistRef, scrollViewRef: ScrollViewRef) => {
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'TeraWalletPDFScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TeraWalletPDFScreen'>>();
   const [amount, setAmount] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);

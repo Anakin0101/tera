@@ -1,19 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import { PRODUCTS_SCREEN, TERA_WALLET_SCREEN } from 'navigation/ScreenNames';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { MODAL_STACK, PRODUCTS_SCREEN, TERA_WALLET_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
 
 export const useDepositSuccess = () => {
-  const { reset, navigate } = useNavigation<ProductsStackScreenProps<'ProductsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const handleHomePress = () => {
-    reset({
-      index: 0,
-      routes: [{ name: PRODUCTS_SCREEN }],
-    });
+    navigate(PRODUCTS_SCREEN);
   };
 
   const handleTeraWalletPress = () => {
-    navigate(TERA_WALLET_SCREEN);
+    navigate(MODAL_STACK, { screen: TERA_WALLET_SCREEN });
   };
 
   return {

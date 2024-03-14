@@ -21,10 +21,12 @@ const useModal = (ref: Ref<ModalHandler>) => {
   const [hideHandle, setHideHandle] = useState(false);
   const [hideCloseButton, setHideCloseButton] = useState(false);
   const [onCloseCallback, setOnCloseCallback] = useState<() => void | undefined>();
+  const [sectionList, setSectionList] = useState<ReactNode>(null);
 
   const open = (options: ConfigureModal) => {
-    setElement(options.element);
-    setTitle(options.title);
+    options?.sectionList && setSectionList(options?.sectionList);
+    setElement(options?.element);
+    setTitle(options?.title);
     setEnablePadding(options.enablePadding);
     options.titlePosition && setTitlePosition(options.titlePosition);
     options.disableDynamicSizing && setEnableDynamicSizing(false);
@@ -61,6 +63,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
   };
 
   const handleClose = () => {
+    setSectionList(null);
     setElement(null);
     setTitle('');
     setEnablePadding(false);
@@ -97,6 +100,7 @@ const useModal = (ref: Ref<ModalHandler>) => {
     hideHandle,
     enablePadding,
     hideCloseButton,
+    sectionList,
   };
 };
 

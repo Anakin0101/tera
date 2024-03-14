@@ -8,14 +8,17 @@ import { setTotalDebt, setTotalDeposits } from 'store/slices/products';
 import { calculateSum } from 'utils/calculateSum';
 import { closeModal, openModal } from 'utils/modal';
 import { NewProducts } from 'components/modals/NewProducts/NewProducts';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import {
   LOAN_REQUEST_SCREEN,
   SELECT_DEPOSIT_SCREEN,
   CARD_ORDER_TYPE_SCREEN,
   TARIFF_PACKAGES_SCREEN,
+  MODAL_STACK,
 } from 'navigation/ScreenNames';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { useGetOffersQuery } from 'services/apis';
+import { OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
@@ -23,8 +26,13 @@ export const useTeraProducts = () => {
     state => state.products,
   );
   const { groupedAccountsByIban, isLoadingAccounts, refetch } = useGroupedAccountsByIban();
+  const { data: offers } = useGetOffersQuery();
 
-  const allLoans = [...overdrafts, ...creditCards, ...loans];
+  const creditDisbursements = useMemo(() => {
+    return offers?.filter(offer => offer?.type === OfferTypeEnum.CreditDisbursement) || [];
+  }, [offers]);
+
+  const allLoans = [...overdrafts, ...creditCards, ...loans, ...creditDisbursements];
 
   const totalDeposits = useMemo(() => {
     if (!deposits) {
@@ -51,25 +59,25 @@ export const useTeraProducts = () => {
     dispatch(setTotalDebt(totalLoans));
   }, [dispatch, totalDeposits, totalLoans]);
 
-  const { navigate } = useNavigation<ProductsStackScreenProps<'SelectDepositScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const onDepositPress = useCallback(() => {
     closeModal();
-    navigate(SELECT_DEPOSIT_SCREEN);
+    navigate(MODAL_STACK, { screen: SELECT_DEPOSIT_SCREEN });
   }, [navigate]);
 
   const onLoanPress = useCallback(() => {
     closeModal();
-    navigate(LOAN_REQUEST_SCREEN);
+    navigate(MODAL_STACK, { screen: LOAN_REQUEST_SCREEN });
   }, [navigate]);
   const onTariffPress = useCallback(() => {
     closeModal();
-    navigate(TARIFF_PACKAGES_SCREEN);
+    navigate(MODAL_STACK, { screen: TARIFF_PACKAGES_SCREEN });
   }, [navigate]);
 
   const onCardPress = useCallback(() => {
     closeModal();
-    navigate(CARD_ORDER_TYPE_SCREEN);
+    navigate(MODAL_STACK, { screen: CARD_ORDER_TYPE_SCREEN });
   }, [navigate]);
 
   const products = useMemo(() => {
@@ -121,5 +129,6 @@ export const useTeraProducts = () => {
     onNewProductsPress,
     isLoadingAccounts,
     refetch,
+    creditDisbursements,
   };
 };

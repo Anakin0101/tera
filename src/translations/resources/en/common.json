@@ -110,9 +110,10 @@
     "account": "My Account",
     "availableBalance": "Available balance",
     "terabytes": "{{value}} terabyte",
-    "transfer": "Transfer",
-    "pay": "Payment",
-    "fill": "Top up",
+    "transferToOwnAcc": "Transfer To\nOwn Account\n",
+    "transferToSomeone": "Transfer To\n Someone",
+    "payments": "Payments",
+    "extraction": "Extraction",
     "savings": "Savings",
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
@@ -134,7 +135,8 @@
     "statement_history": "Statement history",
     "choose_authorization_method": "Choose authorization method",
     "switch_to_language": "Switch to {{ language }}",
-    "confidentiality_policy": "Confidentiality policy"
+    "confidentiality_policy": "Confidentiality policy",
+    "atms_and_branches": "ATMs & branches"
   },
   "transfers": {
     "toOwnAccount": "Transfer to Own Account",
@@ -267,7 +269,12 @@
     "cardSecurity": "Card security",
     "noInsuranceWanted": "I do not want insurance",
     "agreeToBankingTerms": "I agree to the standard terms of banking operations",
-    "orderAmount": "Order - "
+    "orderAmount": "Order - ",
+    "emptyOps": "No transactions found",
+    "getExtract": "Download the extract",
+    "download": "Download",
+    "month": "{{value}} Months",
+    "year": "{{value}} Year"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",
@@ -348,7 +355,8 @@
     "accType": "Account type",
     "cardAcc": "Card account",
     "deposit": "Deposit",
-    "current": "Current"
+    "current": "Current",
+    "activate": "Activate"
   },
   "loanSchedule": {
     "totalPayable": "Total Payable",
@@ -548,6 +556,7 @@
     "saveFreeMoney": "Save free money and get high interest benefits.",
     "getMoreInterest": "Get 0.1% more interest than standard on deposits opened in any currency.",
     "selectTariff": "Choose the tariff packages tailored to your wishes",
+    "nodataTarifDesc": "To activate the tariff package, contact the Office",
     "monthlyFee": "Monthly fee",
     "annualFee": "Annual fee",
     "cardStatus": "Active",
@@ -560,7 +569,7 @@
     "requestSuccess": "Request fulfilled",
     "changePackageText": "Your package payment type has been changed",
     "edit": "Edit",
-    "packageEdit": "Edit package",
+    "packageEdit": "Change package",
     "freeTariff": "free",
     "withoutPackage": "Without Package",
     "noTariff": "You have no tariff packages",
@@ -817,5 +826,26 @@
     "timeout_error": "An error occured",
     "component_title": "Error",
     "component_description": "Something went wrong, please try again"
+  },
+  "approvedLoan": {
+    "amount": "Loan amount",
+    "annualInterestRate": "Annual Interest Rate",
+    "effectiveInterestRate": "Effective Interest Rate",
+    "term": "Term",
+    "monthlyContribution": "Monthly Contribution",
+    "issuingCommission": "Loan Issuing Commission",
+    "prepaymentFee": "Prepayment Fee",
+    "validPeriod": "Period during which the offer is valid",
+    "agreeToTermsAndConditions": "Agree to the terms of the agreement",
+    "accepted": "Request received"
+  },
+  "atmsAndBranches": {
+    "branch": "Branch",
+    "atm": "ATM",
+    "title": "Enable location services",
+    "description": "To access closest atms/branches, please enable location services from your settings",
+    "primaryCTA": "Settings",
+    "secondaryCTA": "Cancel",
+    "near": "Close to me"
   }
 }

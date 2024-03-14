@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useStyles } from './TariffCardLayout.styles';
 import { useTranslation } from 'react-i18next';
 import { IconComponent, Text } from 'components';
@@ -15,12 +15,13 @@ export const TariffCardLayout: React.FC<TariffCardProps> = ({
   pending,
   noData,
   applyOverlay,
+  onPress,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
   return (
-    <View style={styles.cardContainer}>
+    <Pressable onPress={onPress} style={styles.cardContainer}>
       {applyOverlay && <View style={styles.overlay} />}
       <View style={styles.row}>
         <IconComponent
@@ -58,7 +59,7 @@ export const TariffCardLayout: React.FC<TariffCardProps> = ({
           )}
         </View>
       </View>
-      <IconComponent hasBorder={false} customIconSize={24} IconJSX={ArrowRight} />
-    </View>
+      <IconComponent hasBorder={false} customIconSize={24} IconJSX={ArrowRight} handler={onPress} />
+    </Pressable>
   );
 };

@@ -15,5 +15,10 @@ export const useStyles = () => {
       width: 35,
       height: 35,
     },
+    transparentLoadingView: {
+      ...StyleSheet.absoluteFillObject,
+      ...Layout.absolute,
+      ...Layout.center,
+    },
   });
 };

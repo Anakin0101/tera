@@ -1,3 +1,4 @@
+import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 import { ReactNode } from 'react';
 
 export interface ChoosePaymentsListProps {
@@ -10,4 +11,8 @@ export interface ChoosePaymentsListProps {
 export interface PaymentItemProps {
   item: ChoosePaymentsListProps;
   isLast: boolean;
+}
+
+export interface ChoosePaymentsServiceProps {
+  selectedAccountFromCard: SelectedAccountFromCard;
 }

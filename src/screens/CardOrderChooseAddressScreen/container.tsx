@@ -4,7 +4,7 @@ import { Branch } from 'services/apis/productsAPI/productsAPI.types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { saveBranch } from 'store/slices/products';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { CARD_ORDER_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useForm } from 'react-hook-form';
@@ -13,7 +13,7 @@ import { REGEX } from 'constants/index';
 export const useBranches = (initialSearchText: string = '') => {
   const dispatch = useAppDispatch();
   const { control } = useForm();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardOrderChosenCardScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'CardOrderChosenCardScreen'>>();
   const [getBranches, { data: branches, isLoading }] = useGetBranchesMutation();
   const [searchText, setSearchText] = useState<string>(initialSearchText);
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);

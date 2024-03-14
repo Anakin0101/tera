@@ -14,8 +14,9 @@ import { SELECTED_LANGUAGE } from 'storage/constants';
 import { openToast } from 'utils/toast';
 import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 
-export const useCartItem = () => {
+export const useCartItem = (selectedAccountFromCard: SelectedAccountFromCard) => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const savedLanguage = getValue(SELECTED_LANGUAGE);
   const { t } = useTranslation();
@@ -30,10 +31,11 @@ export const useCartItem = () => {
         screen: CART_PAYMENT_LIST_SCREEN,
         params: {
           basket: item,
+          selectedAccountFromCard,
         },
       });
     },
-    [navigate],
+    [navigate, selectedAccountFromCard],
   );
 
   const editOnPress = useCallback(

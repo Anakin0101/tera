@@ -1,6 +1,5 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -101,6 +100,10 @@ import {
   CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
   MONEY_TRANSFER_PERMISSION_SCREEN,
   MONEY_TRANSFER_DETAILS_SCREEN,
+  APPROVED_LOAN_DETAILS_SCREEN,
+  APPROVED_LOAN_PDF_SCREEN,
+  ACTIVATE_LOAN_SUCCESS_SCREEN,
+  ATMS_AND_BRANCHES_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -122,6 +125,7 @@ import {
 } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { BuyCurrencyDetails } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen.types';
 import { TransferListTypeEnum } from 'components/TransfersHistory/container';
+import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -143,17 +147,25 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
-  [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean; basket?: Basket };
+  [NEW_PAYMENT_SCREEN]:
+    | undefined
+    | {
+        isAutomaticPayment?: boolean;
+        basket?: Basket;
+        selectedAccountFromCard?: SelectedAccountFromCard;
+      };
   [CHECK_PAYMENT_PROVIDER_SCREEN]: {
     providerItem: Provider;
     isAutomaticPayment?: boolean;
     basket?: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [CHOOSE_PAYMENT_PROVIDER_SCREEN]: {
     providerInfo?: ProvidersGroup;
     isAutomaticPayment?: boolean;
     isParkingAndFines?: boolean;
     basket?: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -163,7 +175,9 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
   };
-  [CHOOSE_MOBILE_PROVIDER_SCREEN]: undefined;
+  [CHOOSE_MOBILE_PROVIDER_SCREEN]:
+    | { selectedAccountFromCard?: SelectedAccountFromCard }
+    | undefined;
   [PAYMENT_SUCCESS_SCREEN]: {
     providerItem?: Provider;
     subscriberInputFieldsValue?: SubscriberFieldsValue;
@@ -176,8 +190,9 @@ export type ModalStackParamsList = {
     debtVerifyResults: Array<DebtVerifyResult>;
     subscriberFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
-  [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
+  [AUTOMATIC_PAYMENTS_SCREEN]: { selectedAccountFromCard: SelectedAccountFromCard } | undefined;
   [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
     id: number;
     imageId: string;
@@ -186,6 +201,7 @@ export type ModalStackParamsList = {
     providerItem: Provider;
     debtVerifyResults: Array<DebtVerifyResult>;
     subscriberFieldsValue: SubscriberFieldsValue;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -197,6 +213,7 @@ export type ModalStackParamsList = {
   [CART_LIST_SCREEN]: undefined;
   [CART_PAYMENT_LIST_SCREEN]: {
     basket: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [CART_PAYMENT_SUCCESS_SCREEN]: {
     paymentResults: Array<PaymentResult>;
@@ -222,75 +239,7 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
-};
-
-export type DashboardStackParamsList = {
-  [DASHBOARD_SCREEN]: undefined;
-  [ALL_TEMPLATES_SCREEN]: undefined;
-};
-
-export type ProductsStackParamsList = {
-  [PRODUCTS_SCREEN]: undefined;
-  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
-
-  [ACCOUNT_DETAILS_SCREEN]: {
-    iban: string;
-    index: number;
-  };
-  [CARD_DETAILS_SCREEN]: {
-    iban: string;
-    index: number;
-    item: any;
-  };
-  [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
-    iban: string;
-  };
-  [CARD_INSURANCE]: {
-    cardId: number;
-  };
-  [INSURANCE_PACKAGE_DETAILS]: {
-    packageName: string;
-    commission: number;
-    cardId: number;
-  };
-  [DEPOSITS_SCREEN]: undefined;
-  [DEPOSIT_DETAILS_SCREEN]: {
-    index: number;
-    id?: number;
-  };
-  [LOANS_SCREEN]: undefined;
-  [LOAN_DETAILS_SCREEN]: {
-    index: number;
-  };
-  [SELECT_DEPOSIT_SCREEN]: undefined;
-  [NEW_DEPOSIT_DETAILS_SCREEN]: {
-    id: number;
-  };
-  [NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN]: undefined;
-  [NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN]: undefined;
-  [NEW_DEPOSIT_SUMMARY_SCREEN]: undefined;
-  [DEPOSIT_SUCCESS_SCREEN]: undefined;
-  [TERA_WALLET_SCREEN]: undefined;
-  [TERA_WALLET_PDF_SCREEN]: undefined;
-  [TERA_WALLET_SUCCESS_SCREEN]: undefined;
-  [LOAN_REQUEST_SCREEN]: undefined;
-  [LOAN_AMOUNT_SCREEN]: undefined;
-  [LOAN_REQUEST_TERMS_SCREEN]: undefined;
-  [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
-  [NEW_LOAN_DETAILS_SCREEN]: undefined;
-  [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
-  [CARD_ORDER_TYPE_SCREEN]: undefined;
-  [CARD_ORDER_CHOOSE_CARD_SCREEN]: undefined;
-  [CARD_ORDER_CHOSEN_CARD_SCREEN]: undefined;
-  [CARD_ORDER_CHOOSE_IBAN_SCREEN]: undefined;
-  [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
-  [CARD_ORDER_DETAILS_SCREEN]: undefined;
-  [TARIFF_PACKAGES_SCREEN]: undefined;
-  [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
-};
-
-export type TransactionsStackParamsList = {
-  [TRANSACTIONS_SCREEN]: undefined;
+  [ATMS_AND_BRANCHES_SCREEN]: undefined;
   [MY_ACCOUNTS_SCREEN]: {
     otherBanks?: boolean;
     budget?: boolean;
@@ -355,10 +304,81 @@ export type TransactionsStackParamsList = {
     fromIban?: boolean;
     fromPersonal?: boolean;
   };
+  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
+  [ACCOUNT_DETAILS_SCREEN]: {
+    iban: string;
+    index: number;
+  };
+  [CARD_DETAILS_SCREEN]: {
+    iban: string;
+    index: number;
+    item: any;
+  };
+  [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
+    iban: string;
+  };
+  [CARD_INSURANCE]: {
+    cardId: number;
+  };
+  [INSURANCE_PACKAGE_DETAILS]: {
+    packageName: string;
+    commission: number;
+    cardId: number;
+  };
+  [DEPOSITS_SCREEN]: undefined;
+  [DEPOSIT_DETAILS_SCREEN]: {
+    index: number;
+    id?: number;
+  };
+  [LOANS_SCREEN]: undefined;
+  [LOAN_DETAILS_SCREEN]: {
+    index: number;
+  };
+  [SELECT_DEPOSIT_SCREEN]: undefined;
+  [NEW_DEPOSIT_DETAILS_SCREEN]: {
+    id: number;
+  };
+  [NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN]: undefined;
+  [NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN]: undefined;
+  [NEW_DEPOSIT_SUMMARY_SCREEN]: undefined;
+  [DEPOSIT_SUCCESS_SCREEN]: undefined;
+  [TERA_WALLET_SCREEN]: undefined;
+  [TERA_WALLET_PDF_SCREEN]: undefined;
+  [TERA_WALLET_SUCCESS_SCREEN]: undefined;
+  [LOAN_REQUEST_SCREEN]: undefined;
+  [LOAN_AMOUNT_SCREEN]: undefined;
+  [LOAN_REQUEST_TERMS_SCREEN]: undefined;
+  [LOAN_REQUEST_ADDITIONAL_INFO_SCREEN]: undefined;
+  [NEW_LOAN_DETAILS_SCREEN]: undefined;
+  [LOAN_REQUEST_ACCEPTED_SCREEN]: undefined;
+  [CARD_ORDER_TYPE_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_CARD_SCREEN]: undefined;
+  [CARD_ORDER_CHOSEN_CARD_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_IBAN_SCREEN]: undefined;
+  [CARD_ORDER_CHOOSE_ADDRESS_SCREEN]: undefined;
+  [CARD_ORDER_DETAILS_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SCREEN]: undefined;
+  [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
+  [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
+  [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
+  [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+};
+
+export type DashboardStackParamsList = {
+  [DASHBOARD_SCREEN]: undefined;
+  [ALL_TEMPLATES_SCREEN]: undefined;
+};
+
+export type ProductsStackParamsList = {
+  [PRODUCTS_SCREEN]: undefined;
+};
+
+export type TransactionsStackParamsList = {
+  [TRANSACTIONS_SCREEN]: undefined;
 };
 
 export type PaymentsStackParamsList = {
-  [PAYMENTS_SCREEN]: undefined;
+  [PAYMENTS_SCREEN]: { selectedAccountFromCard?: Account } | undefined;
 };
 
 export type ProfileStackParamsList = {

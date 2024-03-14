@@ -4,8 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import ServiceItem from './ServiceItem';
 import { Divider, Text } from '../index';
 import { MODAL_STACK, MONEY_TRANSFERS_SCREEN, MY_ACCOUNTS_SCREEN } from 'navigation/ScreenNames';
-import { MainStackScreenProps, TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { Budget, Calendar, MoneyTransfers, Refreshing, UserArrowRight } from 'assets/SVGs';
+import { AUTOMATIC_PAYMENTS_SCREEN } from 'navigation/ScreenNames';
+import { ModalStackParamsList } from 'navigation/types';
 import { Service } from './ChooseService.types';
 import { useStyles } from './ChooseService.styles';
 import { openModal } from 'utils/modal';
@@ -33,7 +35,14 @@ interface FromTransaction {
   fromTransaction?: boolean;
 }
 
-const data = [
+export type DataT = {
+  name: string;
+  icon: React.JSX.Element;
+  screen: keyof ModalStackParamsList;
+  id: number;
+};
+
+const data: DataT[] = [
   {
     name: 'transfers.toOwnAccount',
     icon: <Refreshing />,
@@ -61,8 +70,8 @@ const data = [
   {
     name: 'transfers.automatic',
     icon: <Calendar />,
-    screen: '',
     id: TransfersTypeEnum.automatic,
+    screen: AUTOMATIC_PAYMENTS_SCREEN,
   },
 ];
 
@@ -72,9 +81,7 @@ export const ChooseService = ({
   transferParams,
 }: FromTransaction & ServiceData & ParamTypes) => {
   const styles = useStyles();
-  const transactionsStackNavigation =
-    useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
-  const mainStackNavigation = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const onPress = useCallback(
     (item: Service) => {
@@ -91,16 +98,12 @@ export const ChooseService = ({
           break;
       }
 
-      if (item.id === TransfersTypeEnum.automatic) {
-      } else if (item.id === TransfersTypeEnum.moneyTransfers) {
-        mainStackNavigation.navigate(MODAL_STACK, {
-          screen: item.screen,
-        });
-      } else {
-        transactionsStackNavigation.navigate(item.screen, params);
-      }
+      navigate(MODAL_STACK, {
+        screen: item.screen,
+        params,
+      });
     },
-    [mainStackNavigation, transactionsStackNavigation],
+    [navigate],
   );
 
   const onTemplatePress = useCallback(() => {

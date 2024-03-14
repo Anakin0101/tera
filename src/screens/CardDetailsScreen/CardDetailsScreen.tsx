@@ -4,7 +4,7 @@ import { Details } from '../AccountDetailsScreen/Details';
 import { Slider, LastTransactions, Wallet } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
 import { useRoute } from '@react-navigation/native';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps } from 'navigation/types';
 import { CardHolderDetails } from './CardHolderDetails';
 import { useCardDetails } from './container';
 import { TemporarilyInactiveDetails } from '../AccountDetailsScreen/TemporarilyInactiveDetails';
@@ -21,7 +21,7 @@ const sections = [
 
 export const CardDetailsScreen = () => {
   const styles = useStyles();
-  const { params } = useRoute<ProductsStackRouteProps<'CardDetailsScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'CardDetailsScreen'>>();
 
   const { actions, cards, card, blockedAmounts, lastTransactions, activeIndex, setActiveIndex } =
     useCardDetails(params.index);

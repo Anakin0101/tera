@@ -1,10 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   LanguageKeyForAPIEnum,
   LanguageKeys,
 } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { CHOOSE_PAYMENT_ACCOUNT_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
-import { MainStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useEffect, useMemo } from 'react';
 import {
   useDebtVerifyResultsMutation,
@@ -22,9 +22,9 @@ export const useChooseMobileProviderScreen = () => {
   const { userIp } = useAppSelector(state => state.deviceInfo);
   const savedLanguage = getValue(SELECTED_LANGUAGE);
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
-
   const { isAdult = false } = useAppSelector(state => state.profile?.userProfileInfo) || {};
-
+  const { params } = useRoute<ModalStackRouteProps<'ChooseMobileProviderScreen'>>();
+  const { selectedAccountFromCard } = params || {};
   const { data: providersGroupsResponse } = useGetPaymentServicesQuery({ isAdult });
   const { data, isLoading: temlpatesLoading } = useGetTemplatesQuery({
     headers: { 'X-Bank-UserIp': userIp },
@@ -78,6 +78,7 @@ export const useChooseMobileProviderScreen = () => {
                     debtVerifyBasketInfo,
                     debtVerifyResults: res.debtVerifyResults,
                     subscriberFieldsValue: [{ id: debtVerifyBasketInfo?.[0]?.id, value: number }],
+                    selectedAccountFromCard,
                   },
                 });
               }

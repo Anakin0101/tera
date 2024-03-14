@@ -7,12 +7,11 @@ import { useStyles } from './ToAccountScreen.styles';
 import { DynamicAccount } from 'components';
 import { useAccounts } from 'hooks';
 import { useRoute } from '@react-navigation/native';
-import { TransactionsStackRouteProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountToData } from 'store/slices/transfers';
-import { TRANSFER_TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+import { MODAL_STACK, TRANSFER_TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 
 interface Section {
   title: string;
@@ -24,8 +23,8 @@ interface AccountData {
 }
 
 export const ToAccountScreen = () => {
-  const { params } = useRoute<TransactionsStackRouteProps<'ToAccountScreen'>>();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'ToAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const isFocused = useIsFocused();
   const { selected } = params;
   const dispatch = useDispatch();
@@ -46,7 +45,10 @@ export const ToAccountScreen = () => {
 
   useEffect(() => {
     if (selectedAccount !== null) {
-      navigate(TRANSFER_TO_ACCOUNT_SCREEN, { fromOtherBank: false });
+      navigate(MODAL_STACK, {
+        screen: TRANSFER_TO_ACCOUNT_SCREEN,
+        params: { fromOtherBank: false },
+      });
     }
   }, [navigate, selectedAccount]);
 

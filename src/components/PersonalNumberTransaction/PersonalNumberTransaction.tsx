@@ -9,9 +9,9 @@ import { Colors } from 'theme/Variables';
 import { setAccountToData, setReceiverInfo, setTemplateForIban } from 'store/slices/transfers';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+import { MODAL_STACK, TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { PersonalNumberAccount, Account } from './PersonalNumberTransaction.types';
 import { PERSONAL, personalNumberRegex } from 'constants/transactionConstants';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
@@ -37,8 +37,7 @@ const PersonalNumberTransaction = () => {
   //     RecepientNumber: '',
   //   },
   // });
-  const { navigate } =
-    useNavigation<TransactionsStackScreenProps<'TransferToOtherBankAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const dispatch = useAppDispatch();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
@@ -149,9 +148,12 @@ const PersonalNumberTransaction = () => {
 
   const navigateToTransferScreen = () => {
     if (isSuccess && chosenAccount) {
-      navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
-        fromOtherBank: true,
-        fromPersonal: true,
+      navigate(MODAL_STACK, {
+        screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+        params: {
+          fromOtherBank: true,
+          fromPersonal: true,
+        },
       });
     } else {
       // toast of error

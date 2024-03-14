@@ -2,6 +2,11 @@ import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
 
 export type Currency = 'GEL' | 'USD' | 'EUR' | 'GBP';
 
+export type BilingualText = {
+  en: string;
+  ka: string;
+};
+
 export enum CardStatusCode {
   Issued = 6,
   Blocked = 9,
@@ -374,11 +379,6 @@ export enum OfferTypeEnum {
   NewCard = 31,
 }
 
-type OfferName = {
-  en: string;
-  ka: string;
-};
-
 type OfferCurrencies = {
   currency: CurrencyEnum;
   minAmount: number;
@@ -387,7 +387,7 @@ type OfferCurrencies = {
 
 type DepositProduct = {
   productId: number;
-  name: OfferName;
+  name: BilingualText;
   minPeriod: number;
   maxPeriod: number;
   currencies: OfferCurrencies[];
@@ -403,7 +403,7 @@ export enum PackageServiceCode {
 export enum PackageServiceNames {
   classic = 'Classic Package',
   gold = 'Gold Package',
-  platinum = 'Platinium Package',
+  platinum = 'Platinum Package',
 }
 
 export type PackageService = {
@@ -607,21 +607,34 @@ export enum AutoPaymentTypeEnum {
   FixedDateByDebt = 1,
   FixedAmount = 2,
 }
-interface BranchName {
+type BranchName = {
   Geo: string;
   Eng: string;
-}
+};
 
-export interface Branch {
+export type Branch = {
   id: number;
   name: BranchName;
-}
+};
 
-export interface BranchesResponse {
+export type BranchesResponse = {
   branches: Branch[];
-}
+};
 
-export interface AddCardRequest {
+export type AtmsResponse = {
+  id: number;
+  addresGeo: string;
+  addresEng: string;
+  descriptionGeo: string;
+  descriptionEng: string;
+  latitude: number;
+  longitude: number;
+  isExternal: false;
+  isActive: true;
+  distance: number;
+};
+
+export type AddCardRequest = {
   accountId: string | undefined;
   cardId: null;
   culture: string;
@@ -632,29 +645,30 @@ export interface AddCardRequest {
   sendOtp: boolean;
   timezoneOffset: number;
   updateReason: number;
-}
-export interface ActivatePackage {
+};
+export type ActivatePackage = {
   packageId?: string;
   packageServiceId?: string;
   otp?: string;
   sendOtp?: boolean;
   culture?: string;
   timezoneOffset?: number;
-}
+};
 
 export enum FileFormatEnum {
   Excel = 1,
   Pdf = 2,
 }
 
-export interface PrintLoanSchedulesReq {
+export type PrintLoanSchedulesReq = {
   culture: string;
   loanId: number;
   fileFormat: FileFormatEnum;
-}
-export interface PrintLoanSchedulesRes {
+};
+
+export type PrintLoanSchedulesRes = {
   fileId: string;
-}
+};
 
 export type TerabytesRes = {
   teraBytes: number;
@@ -712,4 +726,79 @@ export type DepositByIdRes = {
     percentScaleDatas: any;
     percentText: string;
   };
+};
+
+export type CreditDisbursementReq = {
+  creditDisbursementId: number;
+  culture: string;
+};
+export type PrintAccountRequisites = {
+  culture: string;
+  accountId: number;
+};
+
+export interface PrintAccountRequisitesRes {
+  fileId: string;
+}
+
+export type GetStatementReq = {
+  culture: string;
+  accountNumber: number;
+  currency: string;
+  startDate: string;
+  endDate: string;
+  fileFormat: FileFormatEnum;
+  otp: string;
+  isTeraWallet: boolean;
+};
+type RefinancingPurpose = {
+  amount: number;
+  nameEng: string;
+  name: string;
+  code: string;
+};
+
+export type CreditDisbursementRes = {
+  amount: number;
+  interest: number;
+  effectiveRate: number;
+  monthlyPayment: number;
+  lifeInsurance: number;
+  disbursementFee: number;
+  currency: CurrencyEnum;
+  endDate: string;
+  offerValidityStartTime: string;
+  offerValidityEndTime: string;
+  prepaymentConditions: BilingualText;
+  creditDeliveryConditions: BilingualText;
+  additionalConditions: BilingualText;
+  coveragePeriod: BilingualText;
+  hasSchedule: boolean;
+  hasOverdraft: boolean;
+  branchName: string;
+  creditOfficerName: string;
+  creditOfficerLastName: string;
+  creditOfficerMobile: string;
+  additionalExpencies: [];
+  refinancingPurposes: RefinancingPurpose[];
+};
+
+export type CreditProductOfferAgreementRes = {
+  fileId: string;
+  success: boolean;
+  error: boolean;
+  pending: boolean;
+  channelData: any;
+};
+
+export type CreditProductOfferSchedule = {
+  culture: string;
+  id: number;
+};
+
+export type ActivateCreditProductOfferReq = {
+  id?: number;
+  sendOtp?: boolean;
+  otp?: string;
+  culture?: string;
 };

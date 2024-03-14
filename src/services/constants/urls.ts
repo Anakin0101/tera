@@ -15,7 +15,6 @@ export const URLS = {
   getCreditCard: 'Loan/GetCreditCard',
   getOverdraft: 'Loan/GetOverDraft',
   getLoanCustomerId: 'Loan/GetLoanByCustomerId',
-  getCustomperOps: 'Transaction/GetCustomerOps',
   getDepositByClientId: 'Deposit/GetDepositByClientId',
   getPensions: 'Pensions/GetTotalSaving',
   getBankerInfo: 'Customers/GetBankerInfo',
@@ -61,6 +60,8 @@ export const URLS = {
   getRequestForLoanConsentTexts: 'Loan/GetRequestForLoanConsentTexts',
   treasury: 'Transfers/GetTreasuryCodeParts',
   getBranches: 'Catalogs/GetBranches',
+  getServiceCenters: 'Catalogs/GetServiceCenter',
+  getAtms: 'Catalogs/GetAtms',
   addCard: 'Account/AddCard',
   sendTreasury: 'Transfers/TransferToTreasury',
   saveTemplate: 'templates/SaveTemplate',
@@ -83,6 +84,12 @@ export const URLS = {
   printLoanPayments: 'Loan/PrintLoanPayments',
   getTerabyte: 'Account/GetTerabyte',
   getDepositById: 'Deposit/GetDepositById',
+  getCreditDisbursementProductOfferDetails: 'Loan/GetCreditDisbursementProductOfferDetails',
+  printAccountRequisites: 'Account/PrintAccountRequisites',
+  getStatement: 'Transaction/GetStatement',
+  getCreditProductOfferAgreement: '/Loan/GetCreditProductOfferAgreement',
+  getCreditProductOfferSchedule: '/Loan/GetCreditProductOfferSchedule',
+  activateCreditProductOffer: '/Loan/ActivateCreditProductOffer',
 };
 
 export const PROD_URLS = {

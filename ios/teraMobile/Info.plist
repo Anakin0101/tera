@@ -61,5 +61,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>to calculate distance between your current location and tera service centers</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>to calculate distance between your current location and tera service centers</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>to calculate distance between your current location and tera service centers</string>
 </dict>
 </plist>

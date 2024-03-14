@@ -4,7 +4,17 @@ import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { D, DD, DD_MM_YYYY, MMM, MMMM, MM_YYYY, YYYY, YYYY_MM_DD } from 'constants/DateTemplates';
+import {
+  D,
+  DD,
+  DD_MM_YYYY,
+  MMM,
+  MMMM,
+  MM_YYYY,
+  SPACED_YEAR_AND_TIME,
+  YYYY,
+  YYYY_MM_DD,
+} from 'constants/DateTemplates';
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(customParseFormat);
@@ -43,7 +53,7 @@ const georgianMonthsFull = {
   December: 'დეკემბერი',
 };
 
-export const formatDate = (dateString: string, template = 'YYYY,HH:mm') => {
+export const formatDate = (dateString: string, template = SPACED_YEAR_AND_TIME) => {
   if (!dateString) {
     return '';
   }

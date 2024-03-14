@@ -15,12 +15,18 @@ import { useKeyboard } from 'utils/useKeyboard';
 import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const ChoosePaymentAccountScreen = () => {
   const styles = useStyles();
   const { params } = useRoute<MainStackRouteProps<'ChoosePaymentAccountScreen'>>();
-  const { providerItem, debtVerifyResults, subscriberFieldsValue, debtVerifyBasketInfo } =
-    params || {};
+  const {
+    providerItem,
+    debtVerifyResults,
+    subscriberFieldsValue,
+    debtVerifyBasketInfo,
+    selectedAccountFromCard,
+  } = params || {};
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { isKeyboardOpened } = useKeyboard();
   const savedLanguage = getValue(SELECTED_LANGUAGE);
@@ -82,6 +88,21 @@ export const ChoosePaymentAccountScreen = () => {
     checkDefaultPayableValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const setAccountFromCard = useCallback(() => {
+    if (!selectedAccountFromCard) {
+      return;
+    }
+    const isGelAccount = selectedAccountFromCard?.ccy === CurrencyEnum.GEL;
+
+    if (isGelAccount) {
+      setSelectedAccount(selectedAccountFromCard);
+    }
+  }, [selectedAccountFromCard]);
+
+  useEffect(() => {
+    setAccountFromCard();
+  }, [setAccountFromCard]);
 
   const checkSubscriberInfo = useCallback(() => {
     const sum = sumForSubscriberFieldsValue(subscriberInputFieldsValue);

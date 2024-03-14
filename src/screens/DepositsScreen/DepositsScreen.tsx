@@ -1,34 +1,15 @@
-import React, { FC, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { SectionList } from 'react-native';
-import { Button, DepositsAndLoans, LoadingInView, Offers } from 'components';
+import { DepositsList, LoadingInView, Offers } from 'components';
 import { useDepositsScreen } from './container';
-import { Plus } from 'assets/SVGs';
 import { useStyles } from './DepositsScreen.styles';
-import { Colors } from 'theme/Variables';
-import { FooterProps } from './DepositScreen.types';
 import { SectionListRenderItemT } from 'screens/types';
+import { ListFooter } from './Footer';
 
 const sections = [
   { title: 'deposits', data: [{}] },
   { title: 'offers', data: [{}] },
 ];
-
-const LeftIcon = () => <Plus color={Colors.white} />;
-
-const ListFooter: FC<FooterProps> = ({ onPress }) => {
-  const styles = useStyles();
-
-  return (
-    <Button.Primary
-      fullWidth
-      text="products.newDeposit"
-      customWrapperStyle={styles.button}
-      customTextStyle={styles.buttonText}
-      leftIcon={LeftIcon}
-      onPress={onPress}
-    />
-  );
-};
 
 export const DepositsScreen = () => {
   const styles = useStyles();
@@ -40,10 +21,9 @@ export const DepositsScreen = () => {
       switch (section.title) {
         case 'deposits':
           return (
-            <DepositsAndLoans
+            <DepositsList
               seeAll
               data={deposits}
-              variant="deposit"
               totalAmount={totalDepositsGEL}
               displayDivider={!!banners?.length}
             />

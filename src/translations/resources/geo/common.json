@@ -110,9 +110,10 @@
     "account": "ჩემი ანგარიში",
     "availableBalance": "ხელმისაწვდომი ნაშთი",
     "terabytes": "{{value}} ტერაბაიტი",
-    "transfer": "გადარიცხვა",
-    "pay": "გადახდა",
-    "fill": "შევსება",
+    "transferToOwnAcc": "საკუთარ\nანგარიშზე\nგადარიცხვა",
+    "transferToSomeone": "სხვასთან\n გადარიცხვა",
+    "payments": "გადახდები",
+    "extraction": "ამონაწერი",
     "savings": "დანაზოგი",
     "allPay": "ყველა გადახდა",
     "noTransactions": "თქვენ არ გაქვთ შესრულებული ტრანზაქცია",
@@ -133,7 +134,8 @@
     "statement_history": "განცხადებების ისტორია",
     "choose_authorization_method": "ავტორიზაციის მეთოდის არჩევა",
     "switch_to_language": "შეცვალე ენა {{ language }}",
-    "confidentiality_policy": "კონფიდენციალურობის პოლიტიკა"
+    "confidentiality_policy": "კონფიდენციალურობის პოლიტიკა",
+    "atms_and_branches": "ბანკომატები და ფილიალები"
   },
   "transfers": {
     "toOwnAccount": "საკუთარ ანგარიშზე გადარიცხვა",
@@ -266,7 +268,12 @@
     "cardSecurity": "ბარათის უსაფრთხოება",
     "noInsuranceWanted": "არ მსურს დაზღვევა",
     "agreeToBankingTerms": "ვეთანხმები საბანკო ოპერაციების წარმოების სტანდარტულ პირობებს",
-    "orderAmount": "შეკვეთა - "
+    "orderAmount": "შეკვეთა - ",
+    "emptyOps": "ტრანზაქციები არ მოიძებნა",
+    "getExtract": "ამონაწერის ჩამოტვირთვა",
+    "download": "ჩამოტვირთვა",
+    "month": "{{value}} თვე",
+    "year": "{{value}} წელი"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",
@@ -340,7 +347,8 @@
     "accType": "ანგარიშის ტიპი",
     "cardAcc": "საბარათე",
     "deposit": "დეპოზიტი",
-    "current": "მიმდინარე"
+    "current": "მიმდინარე",
+    "activate": "გაიაქტიურე"
   },
   "loanSchedule": {
     "totalPayable": "სულ გადასახდელი",
@@ -539,6 +547,7 @@
     "saveFreeMoney": "შეინახე თავისუფალი თანხა და მიიღე მაღალი საპროცენტო სარგებელი.",
     "getMoreInterest": "მიიღე სტანდარტულზე 0.1%-ით მეტი სარგებელი ნებისმიერ ვალუტაში გახსნილ ანაბარზე",
     "selectTariff": "აირჩიე შენს სურვილზე მორგებული სატარიფო პაკეტები",
+    "nodataTarifDesc": "სატარიფო პაკეტის გასააქტიურებლად მიმართეთ ფილიალს",
     "monthlyFee": "თვიური საკომისიო",
     "annualFee": "წლიური საკომისიო",
     "cardStatus": "აქტიური",
@@ -551,7 +560,7 @@
     "requestSuccess": "მოთხოვნა შესრულებულია",
     "changePackageText": "თქვენი საპაკეტო გადახდის ტიპი შეცვლილია",
     "edit": "რედაქტირება",
-    "packageEdit": "პაკეტის რედაქტირება",
+    "packageEdit": "პაკეტის ცვლილება",
     "freeTariff": "უფასო",
     "withoutPackage": "პაკეტის გარეშე",
     "noTariff": "თქვენ არ გაქვთ სატარიფო პაკეტები",
@@ -804,5 +813,26 @@
     "timeout_error": "დაფიქსირდა შეცდომა",
     "component_title": "შეცდომა",
     "component_description": "დაფიქსირდა შეცდომა, გთხოვთ ხელახლა სცადოთ"
+  },
+  "approvedLoan": {
+    "amount": "სესხის თანხა",
+    "annualInterestRate": "წლიური საპროცენტო განაკვეთი",
+    "effectiveInterestRate": "ეფექტური საპროცენტო განაკვეთი",
+    "term": "ვადა",
+    "monthlyContribution": "ყოველთვიური შენატანი",
+    "issuingCommission": "სესხის გაცემის საკომისიო",
+    "prepaymentFee": "წინასწარ დაფარვის საკომისიო",
+    "validPeriod": "პერიოდი რომლის განმავლობაში ძალაშია შეთავაზება",
+    "agreeToTermsAndConditions": "ვეთანხმები ხელშეკრულების პირობებს",
+    "accepted": "მოთხოვნა მიღებულია"
+  },
+  "atmsAndBranches": {
+    "branch": "ფილიალი",
+    "atm": "ბანკომატი",
+    "title": "ლოკაციის გაზიარების უფლება",
+    "description": "იმისათვის რომ ნახოთ თქვენს ლოკაციასთან ახლოს მყოფი ფილიალები/ბანკომატები, გთხოვთ ჩართოთ წვდომა ლოკაციის გაზიარების სერვისზე",
+    "primaryCTA": "პარამეტრები",
+    "secondaryCTA": "გაუქმება",
+    "near": "ჩემთან ახლოს"
   }
 }

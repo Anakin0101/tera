@@ -7,9 +7,9 @@ import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { setAccountToData, setReceiverInfo, setTemplateForIban } from 'store/slices/transfers';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+import { MODAL_STACK, TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { MOBILE, mobileNumberRegex } from 'constants/transactionConstants';
 import { FinancialTransferTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import useBankIcons from 'components/IbanTransaction/useIban';
@@ -28,8 +28,7 @@ const MobileTransaction = () => {
   const { t } = useTranslation();
   const inputRef = useRef<RNInput>(null);
   const isFocused = useIsFocused();
-  const { navigate } =
-    useNavigation<TransactionsStackScreenProps<'TransferToOtherBankAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const dispatch = useAppDispatch();
 
   const styles = useStyles();
@@ -132,9 +131,12 @@ const MobileTransaction = () => {
 
   const navigateToTransferScreen = () => {
     if (isSuccess) {
-      navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
-        fromOtherBank: true,
-        fromMobile: true,
+      navigate(MODAL_STACK, {
+        screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
+        params: {
+          fromOtherBank: true,
+          fromMobile: true,
+        },
       });
     }
   };
