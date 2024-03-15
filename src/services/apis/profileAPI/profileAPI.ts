@@ -49,13 +49,13 @@ export const profileAPI = createApi({
     getAtms: builder.mutation<AtmsResponse[], void>({
       query: () => ({
         url: URLS.getAtms,
-        method: METHOD_NAMES.POST,
+        method: METHOD_NAMES.GET,
       }),
     }),
     getServiceCenters: builder.mutation<ServiceCentersResponse[], void>({
       query: () => ({
         url: URLS.getServiceCenters,
-        method: METHOD_NAMES.POST,
+        method: METHOD_NAMES.GET,
       }),
     }),
   }),
