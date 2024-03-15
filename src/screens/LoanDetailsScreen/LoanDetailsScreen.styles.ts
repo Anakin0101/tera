@@ -144,5 +144,8 @@ export const useStyles = () => {
     fill: {
       ...Layout.fill,
     },
+    name: {
+      textAlign: 'center',
+    },
   });
 };

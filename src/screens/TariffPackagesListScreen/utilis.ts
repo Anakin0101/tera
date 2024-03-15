@@ -17,7 +17,7 @@ type Icons = {
 const icons: Icons = {
   [PackageServiceNames.classic]: Images().ClasicMedal,
   [PackageServiceNames.gold]: Images().GoldMedal,
-  [PackageServiceNames.platinum]: Images().PlatinumMedal,
+  [PackageServiceNames.platinum]: Images().SelectMedal,
 };
 const defaultIcon: string = Images().PlatinumMedal;
 export const getIcon = (packageServiceName: PackageServiceNames): string => {

@@ -18,7 +18,12 @@ export const LoanSliderItem: FC<LoanSliderItemProps> = ({ item }) => {
   return (
     <View style={styles.card}>
       <View style={[styles.titleContainer, (isOverdraft || isCreditCard) && styles.fill]}>
-        <Text numberOfLines={2} children={item.productName} color={Colors.inactiveTint} />
+        <Text
+          numberOfLines={3}
+          children={item.productName}
+          color={Colors.inactiveTint}
+          style={styles.name}
+        />
         <Text size={30} medium lineHeight={36}>
           {formatMoney(
             isOverdraft
