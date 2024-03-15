@@ -36,7 +36,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>To unlock the device</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TB-PublicSans-Medium.woff2</string>

@@ -56,7 +56,7 @@
     "react": "18.2.0",
     "react-hook-form": "7.47.0",
     "react-i18next": "^13.0.1",
-    "react-native": "0.73.4",
+    "react-native": "0.73.6",
     "react-native-animatable": "^1.4.0",
     "react-native-autocomplete-input": "^5.4.0",
     "react-native-background-timer": "^2.4.1",

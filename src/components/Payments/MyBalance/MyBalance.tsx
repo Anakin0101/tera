@@ -8,8 +8,13 @@ import { MyBalanceProps } from './MyBalance.types';
 import { ChooseBankAccountModal } from 'components/modals';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { formatMoney } from 'utils/formatMoney';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
-export const MyBalance: React.FC<MyBalanceProps> = ({ selectedAccount, selectAccountOnPress }) => {
+export const MyBalance: React.FC<MyBalanceProps> = ({
+  selectedAccount,
+  selectAccountOnPress,
+  currency = CurrencyEnum.GEL,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -53,6 +58,7 @@ export const MyBalance: React.FC<MyBalanceProps> = ({ selectedAccount, selectAcc
           selectedAccount={selectedAccount}
           cancel={() => setShowBankAccounts(false)}
           confirm={confirmOnPress}
+          currency={currency}
         />
       )}
     </View>

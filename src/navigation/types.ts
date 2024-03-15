@@ -95,6 +95,11 @@ import {
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  MONEY_TRANSFERS_SCREEN,
+  MONEY_TRANSFER_RECEIVE_SCREEN,
+  CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
+  MONEY_TRANSFER_PERMISSION_SCREEN,
+  MONEY_TRANSFER_DETAILS_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
   APPROVED_LOAN_PDF_SCREEN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
@@ -113,6 +118,13 @@ import {
 import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
+import { MTSystemItemProps } from 'utils/moneyTransfer';
+import {
+  FindTransferResponse,
+  MoneyTransferList,
+} from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
+import { BuyCurrencyDetails } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen.types';
+import { TransferListTypeEnum } from 'components/TransfersHistory/container';
 import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 
 export type RoutesList = {
@@ -171,6 +183,7 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue?: SubscriberFieldsValue;
     amount?: number;
     isBasketMode?: boolean;
+    transferResponse?: FindTransferResponse;
   };
   [CHOOSE_PAYMENT_ACCOUNT_SCREEN]: {
     providerItem: Provider;
@@ -206,6 +219,22 @@ export type ModalStackParamsList = {
     paymentResults: Array<PaymentResult>;
     sum: number;
     providerItems: Array<ProviderItemProps>;
+  };
+  [MONEY_TRANSFERS_SCREEN]: undefined;
+  [MONEY_TRANSFER_RECEIVE_SCREEN]: undefined;
+  [CHECK_MONEY_TRANSFER_PROVIDER_SCREEN]: {
+    providerItem: MTSystemItemProps;
+  };
+  [MONEY_TRANSFER_PERMISSION_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    transferCode: string;
+    transferResponse: FindTransferResponse;
+    selectedAccount: Account;
+    buyDetails?: BuyCurrencyDetails;
+  };
+  [MONEY_TRANSFER_DETAILS_SCREEN]: {
+    transferDetails: MoneyTransferList;
+    transferType: TransferListTypeEnum;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;

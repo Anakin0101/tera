@@ -18,6 +18,7 @@ import {
   applicationStatePersistConfig,
   dashboardPersistConfig,
   deviceInfoPersistConfig,
+  moneyTransfersPersistConfig,
   paymentPersistConfig,
   profilePersistConfig,
   registerUserPersistConfig,
@@ -35,6 +36,7 @@ import {
   profileAPI,
   transfersAPI,
   paymentsAPI,
+  moneyTransfersAPI,
 } from 'services/apis';
 import { productsReducer } from './slices/products';
 import { depositReducer } from './slices/deposit';
@@ -45,6 +47,7 @@ import { loanReducer } from './slices/loan';
 import { clearStorageExceptKeys } from 'storage/index';
 import { APP_LAUNCHED, SELECTED_LANGUAGE } from 'storage/constants';
 import { applicationStateReducer } from './slices/applicationState';
+import { moneyTransfersReducer } from './slices/moneyTransfers';
 
 const __DEV__ = process.env.NODE_ENV === 'development';
 
@@ -54,6 +57,7 @@ const persistedDeviceInfo = persistReducer(deviceInfoPersistConfig, deviceInfoRe
 const persistedDashboard = persistReducer(dashboardPersistConfig, dashboardReducer);
 const persistedProfile = persistReducer(profilePersistConfig, profileReducer);
 const persistedPayments = persistReducer(paymentPersistConfig, paymentsReducer);
+const persistedMoneyTransfers = persistReducer(moneyTransfersPersistConfig, moneyTransfersReducer);
 const persistedUserRegister = persistReducer(registerUserPersistConfig, registerUserReducer);
 const persistedApplicationStateReducer = persistReducer(
   applicationStatePersistConfig,
@@ -68,6 +72,7 @@ const reducers = combineReducers({
   profile: persistedProfile,
   products: productsReducer,
   payments: persistedPayments,
+  moneyTransfers: persistedMoneyTransfers,
   transfers: transfersReducer,
   deposit: depositReducer,
   teraWallet: teraWalletReducer,
@@ -79,6 +84,7 @@ const reducers = combineReducers({
   [productsAPI.reducerPath]: productsAPI.reducer,
   [transfersAPI.reducerPath]: transfersAPI.reducer,
   [paymentsAPI.reducerPath]: paymentsAPI.reducer,
+  [moneyTransfersAPI.reducerPath]: moneyTransfersAPI.reducer,
   [filesAPI.reducerPath]: filesAPI.reducer,
   [profileAPI.reducerPath]: profileAPI.reducer,
 });
@@ -103,6 +109,7 @@ const middlewares = [
   transfersAPI.middleware,
   filesAPI.middleware,
   paymentsAPI.middleware,
+  moneyTransfersAPI.middleware,
   profileAPI.middleware,
 ];
 

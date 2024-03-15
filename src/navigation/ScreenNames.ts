@@ -48,6 +48,11 @@ export const CHOOSE_MOBILE_PROVIDER_SCREEN = 'ChooseMobileProviderScreen';
 export const ADD_CART_SCREEN = 'AddCartScreen';
 export const CART_LIST_SCREEN = 'CartListScreen';
 export const CART_PAYMENT_LIST_SCREEN = 'CartPaymentListScreen';
+export const MONEY_TRANSFERS_SCREEN = 'MoneyTransfersScreen';
+export const MONEY_TRANSFER_RECEIVE_SCREEN = 'MoneyTransferReceiveScreen';
+export const CHECK_MONEY_TRANSFER_PROVIDER_SCREEN = 'CheckMoneyTransferProviderScreen';
+export const MONEY_TRANSFER_PERMISSION_SCREEN = 'MoneyTransferPermissionScreen';
+export const MONEY_TRANSFER_DETAILS_SCREEN = 'MoneyTransferDetailsScreen';
 export const PAYMENT_ERROR_SCREEN = 'PaymentErrorScreen';
 export const NEW_PAYMENT_SCREEN = 'NewPaymentScreen';
 
