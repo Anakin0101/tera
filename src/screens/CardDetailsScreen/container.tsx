@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { openModal } from 'utils/modal';
 import { Block, Insurance, Pincode, UpdateCard } from 'assets/SVGs';
 import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
@@ -9,6 +11,7 @@ import {
   useBlockCardMutation,
   useCancelCardInsuranceMutation,
   useGetCustomerOperationsMutation,
+  useRequestForPinMutation,
   useUnblockCardMutation,
 } from 'services/apis/productsAPI/productsAPI';
 import { closeModal } from 'utils/modal';
@@ -16,9 +19,8 @@ import { CARD_INSURANCE } from 'navigation/ScreenNames';
 import { CardStatusCode, CardType } from 'services/apis/productsAPI/productsAPI.types';
 import { useCulture, useGroupedAccountsByIban } from 'hooks';
 import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
-import { useTranslation } from 'react-i18next';
-import { Alert } from 'react-native';
 import { openToast } from 'utils/toast';
+import { OTPModal } from 'components/modals';
 
 export const useCardDetails = () => {
   const { t } = useTranslation();
@@ -33,6 +35,8 @@ export const useCardDetails = () => {
   const [unblockCard] = useUnblockCardMutation();
   const [getLastTransactions, { data: lastTransactions }] = useGetCustomerOperationsMutation();
   const [cancelCardInsurance] = useCancelCardInsuranceMutation();
+  const [requestForPin, { isLoading }] = useRequestForPinMutation();
+  const [changingPin, setChangingPin] = useState(false);
 
   const activeAccount = useMemo(() => {
     return groupedAccountsByIban?.find(acc => acc?.iban === iban);
@@ -188,6 +192,63 @@ export const useCardDetails = () => {
     [blockPress],
   );
 
+  const onFinished = useCallback(
+    (otp: string) => {
+      // TODO change condition
+      if (otp === '000000') {
+        closeModal();
+        setChangingPin(true);
+        requestForPin({
+          otp,
+          culture,
+          cardId: activeCard?.id,
+          sendOtp: false,
+          generateNewPin: true,
+        })
+          .unwrap()
+          .then(() => {
+            openToast(t('common.successfullyOperation'), 'success');
+          })
+          .catch(err => {
+            if ('data' in err && err?.data?.detail) {
+              openToast(err.data.detail, 'error');
+            }
+          })
+          .finally(() => {
+            setChangingPin(false);
+          });
+      }
+    },
+    [activeCard, culture, requestForPin, t],
+  );
+
+  const changePinCode = useCallback(() => {
+    requestForPin({
+      sendOtp: true,
+    });
+
+    openModal({
+      element: <OTPModal onFinished={onFinished} />,
+      withKeyboard: true,
+      disableDynamicSizing: true,
+      disablePanning: true,
+    });
+  }, [onFinished, requestForPin]);
+
+  const handlePinChange = useCallback(() => {
+    Alert.alert(t('products.updatePin'), '', [
+      {
+        text: t('common.cancel'),
+        style: 'cancel',
+      },
+      {
+        text: t('common.confirm'),
+        onPress: changePinCode,
+        style: 'destructive',
+      },
+    ]);
+  }, [t, changePinCode]);
+
   const getUpdatedActions = useCallback(
     (isBlocked: boolean, isTemporarilyInactive: boolean) => {
       const defaultActions = [
@@ -210,7 +271,7 @@ export const useCardDetails = () => {
         {
           title: 'products.changePin',
           icon: <Pincode />,
-          handlePress: () => {},
+          handlePress: handlePinChange,
         },
       ];
 
@@ -220,7 +281,7 @@ export const useCardDetails = () => {
 
       return defaultActions;
     },
-    [handleBlockCard, handleInsurancePress],
+    [handleBlockCard, handleInsurancePress, handlePinChange],
   );
 
   const actions = useMemo(() => {
@@ -267,5 +328,7 @@ export const useCardDetails = () => {
     activeCard,
     setActiveIndex,
     iban,
+    isLoading,
+    changingPin,
   };
 };

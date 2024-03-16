@@ -86,6 +86,7 @@ export const URLS = {
   activateCreditProductOffer: '/Loan/ActivateCreditProductOffer',
   addCardInsurance: 'Account/AddCardsInsurance',
   cancelCardInsurance: 'Account/CancelCardInsurace',
+  requestForPin: 'Account/RequestForPin',
 };
 
 export const PROD_URLS = {

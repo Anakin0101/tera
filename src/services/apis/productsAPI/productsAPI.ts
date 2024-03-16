@@ -50,6 +50,7 @@ import {
   OfferByIdReq,
   CardInsuranceReq,
   CancelCardInsuranceReq,
+  RequestForPin,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -390,6 +391,14 @@ export const productsAPI = createApi({
       }),
       invalidatesTags: ['Accounts'],
     }),
+
+    requestForPin: builder.mutation<any, Partial<RequestForPin>>({
+      query: body => ({
+        url: URLS.requestForPin,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -432,4 +441,5 @@ export const {
   useLazyActivateCreditProductOfferQuery,
   useAddCardInsuranceMutation,
   useCancelCardInsuranceMutation,
+  useRequestForPinMutation,
 } = productsAPI;

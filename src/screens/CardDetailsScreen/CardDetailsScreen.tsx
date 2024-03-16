@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { SectionList, View } from 'react-native';
 import { Details } from '../AccountDetailsScreen/Details';
-import { Slider, LastTransactions, Wallet } from 'components';
+import { Slider, LastTransactions, Wallet, TransparentLoadingView } from 'components';
 import { useStyles } from './CardDetailsScreen.styles';
 import { CardHolderDetails } from './CardHolderDetails';
 import { useCardDetails } from './container';
@@ -29,6 +29,8 @@ export const CardDetailsScreen = () => {
     activeIndex,
     setActiveIndex,
     iban,
+    isLoading,
+    changingPin,
   } = useCardDetails();
 
   const renderItem: SectionListRenderItemT = useCallback(
@@ -127,6 +129,7 @@ export const CardDetailsScreen = () => {
         showsVerticalScrollIndicator={false}
         bounces={false}
       />
+      {changingPin && isLoading && <TransparentLoadingView />}
     </View>
   );
 };

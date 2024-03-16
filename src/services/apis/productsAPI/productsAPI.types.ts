@@ -841,3 +841,11 @@ export type CancelCardInsuranceReq = {
   approvalCode: string;
   anyData: string;
 };
+
+export type RequestForPin = {
+  culture: string;
+  cardId: number;
+  generateNewPin: boolean;
+  sendOtp: boolean;
+  otp: string;
+};

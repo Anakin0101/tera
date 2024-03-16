@@ -280,7 +280,8 @@
     "chipTransactions": "Transactions without PIN or chip on chip cards (over 100 GEL)",
     "internetTransactions": "Internet transaction",
     "unauthTransactions": "Unauthorized transaction",
-    "annualFee": "{{value}} Annual Fee"
+    "annualFee": "{{value}} Annual Fee",
+    "updatePin": "The pin code update fee is 5.00 GEL"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",
