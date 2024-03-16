@@ -273,7 +273,14 @@
     "getExtract": "Download the extract",
     "download": "Download",
     "month": "{{value}} Months",
-    "year": "{{value}} Year"
+    "year": "{{value}} Year",
+    "cancelInsurance": "Cancel\nInsurance",
+    "insuranceSuccess": "Card insurance has been successfully completed",
+    "cancelInsuranceMessage": "Are you sure you want to cancel insurance?",
+    "chipTransactions": "Transactions without PIN or chip on chip cards (over 100 GEL)",
+    "internetTransactions": "Internet transaction",
+    "unauthTransactions": "Unauthorized transaction",
+    "annualFee": "{{value}} Annual Fee"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",
@@ -407,7 +414,9 @@
     "successfullyOperation": "The operation was successfully performed",
     "edit": "Edit",
     "delete": "Delete",
-    "try_again": "Try again"
+    "try_again": "Try again",
+    "hide": "Hide",
+    "show": "Show"
   },
   "form": {
     "is_required": "is required",

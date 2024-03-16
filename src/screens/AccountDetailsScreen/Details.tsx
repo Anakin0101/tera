@@ -19,6 +19,7 @@ export const Details: FC<DetailsProps> = ({
   cardHolder,
   information,
   insure,
+  style,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -38,7 +39,7 @@ export const Details: FC<DetailsProps> = ({
   };
 
   return (
-    <View style={borderRadius ? styles.wrapperWithBorder : styles.backgroundWhite}>
+    <View style={[borderRadius ? styles.wrapperWithBorder : styles.backgroundWhite, style]}>
       {information ? (
         <View style={styles.detailsSectionWrapper}>
           <Text children="products.information" size={18} demiBold />

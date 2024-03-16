@@ -57,7 +57,6 @@ import {
   TeraWalletPDFScreen,
   AllAcountsAndCardsScreen,
   AccountDetailsScreen,
-  MyAccountsScrollableScreen,
   InsurancePackageDetails,
   DepositsScreen,
   DepositDetailsScreen,
@@ -77,6 +76,7 @@ import {
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
+  InsuranceSuccessScreen,
 } from 'screens';
 import {
   ACTIVATE_LOAN_SUCCESS_SCREEN,
@@ -125,7 +125,6 @@ import {
   INSURANCE_PACKAGE_DETAILS,
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
-  MY_ACCOUNT_SCROLLABLE_SCREEN,
   NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
   NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN,
@@ -150,6 +149,7 @@ import {
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
+  INSURANCE_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 
@@ -447,15 +447,6 @@ export const ModalNavigator = () => {
         options={{ title: t('products.accountDetails') }}
       />
       <Screen
-        name={MY_ACCOUNT_SCROLLABLE_SCREEN}
-        component={MyAccountsScrollableScreen}
-        options={
-          {
-            // TODO - add translation
-          }
-        }
-      />
-      <Screen
         name={CARD_DETAILS_SCREEN}
         component={CardDetailsScreen}
         options={{ title: t('products.cardDetails') }}
@@ -656,6 +647,11 @@ export const ModalNavigator = () => {
       <Screen
         name={ACTIVATE_LOAN_SUCCESS_SCREEN}
         component={ActivateLoanSuccessScreen}
+        options={hideHeader}
+      />
+      <Screen
+        name={INSURANCE_SUCCESS_SCREEN}
+        component={InsuranceSuccessScreen}
         options={hideHeader}
       />
     </Navigator>

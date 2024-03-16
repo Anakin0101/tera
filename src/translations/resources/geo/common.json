@@ -213,7 +213,7 @@
     "clipboard": "ანგარიშის ნომერი დაკოპირებულია",
     "insurance": "დაზღვევა",
     "block": "დაბლოკვა",
-    "changePin": "პინ კოდის შეცვლა",
+    "changePin": "პინ კოდის\nშეცვლა",
     "cardRenewal": "ბარათის განახლება",
     "informationName": "ბარათის სახელი",
     "informationCardOwner": "ბარათის მფლობელი",
@@ -226,7 +226,7 @@
     "chooseLanguage": "აირჩიეთ ენა",
     "requestRequisites": "რეკვიზიტების მოთხოვნა",
     "blockCard": "ბარათის დაბლოკვა",
-    "unblockCard": "ბარათის განბლოკვა",
+    "unblockCard": "ბარათის\nგანბლოკვა",
     "tempInactive": "მოლოდინის რეჟიმში",
     "completed": "მოქმედება შესრულებულია",
     "failed": "მოქმედება ვერ შესრულდა",
@@ -240,7 +240,7 @@
     "allDeposits": "ანაბრები",
     "newDeposit": "ახალი ანაბარი",
     "depositDetails": "ანაბრის დეტალები",
-    "updateCard": "ბარათის განახლება",
+    "updateCard": "ბარათის\nგანახლება",
     "insure": "სტანდარტი",
     "type": "ბარათის ტიპი",
     "getCardEasily": "აიღე ბარათი მარტივად",
@@ -272,7 +272,14 @@
     "getExtract": "ამონაწერის ჩამოტვირთვა",
     "download": "ჩამოტვირთვა",
     "month": "{{value}} თვე",
-    "year": "{{value}} წელი"
+    "year": "{{value}} წელი",
+    "cancelInsurance": "დაზღვევის\nგაუქმება",
+    "insuranceSuccess": "ბარათის დაზღვევა წარმატებით დასრულდა",
+    "cancelInsuranceMessage": "ნამდვილად გსურთ დაზღვევის გაუქმება?",
+    "chipTransactions": "ჩიპიან ბარათებზე პინის ან ჩიპის გარეშე ჩატარებული  ტრანზაქცია (100 ლარის ზევით)",
+    "internetTransactions": "ინტერნეტით ჩატარებული ტრანზაქცია",
+    "unauthTransactions": "უავტორიზაციო ტრანზაქცია",
+    "annualFee": "{{value}} წლიური საკომისიო"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",
@@ -399,7 +406,9 @@
     "successfullyOperation": "ოპერაცია წარმატებით შესრულდა",
     "edit": "რედაქტირება",
     "delete": "წაშლა",
-    "try_again": "ცადე ხელახლა"
+    "try_again": "ცადე ხელახლა",
+    "hide": "დამალვა",
+    "show": "გამოჩენა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",

@@ -439,6 +439,22 @@ export type CustomerPackages = {
   status: string;
 };
 
+export type CardInsuranceProducts = {
+  insuranceTypeId: number;
+  tariffProductId: string;
+  nameKa: string;
+  nameEn: string;
+  serviceFee: number;
+  serviceFeeCurrency: CurrencyEnum;
+  serviceFeeScheduleId: number;
+  serviceFeeScheduleServiceId: string;
+  isActive: boolean;
+  chipTransactions: number;
+  internetTransactions: number;
+  unauthTransactions: number;
+  order: number;
+};
+
 export type OfferDetails = {
   id: number;
   type: OfferTypeEnum;
@@ -449,6 +465,7 @@ export type OfferDetails = {
   depositProducts: DepositProduct[];
   cardProducts: CardProduct[];
   customerPackages?: CustomerPackages[];
+  cardInsuranceProducts?: CardInsuranceProducts[];
 };
 
 export type InterestRatesReq = {
@@ -801,4 +818,26 @@ export type ActivateCreditProductOfferReq = {
   sendOtp?: boolean;
   otp?: string;
   culture?: string;
+};
+
+export type OfferByIdReq = {
+  culture: string;
+  offerId?: number;
+  cardId?: number;
+};
+
+export type CardInsuranceReq = {
+  culture: string;
+  cardId: number;
+  insuranceTypeId: number;
+  anyData: string;
+  sendOtp: boolean;
+  otp: string;
+};
+
+export type CancelCardInsuranceReq = {
+  culture: string;
+  cardId: number;
+  approvalCode: string;
+  anyData: string;
 };

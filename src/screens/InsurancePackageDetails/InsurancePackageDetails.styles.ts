@@ -6,12 +6,15 @@ export const useStyles = () => {
 
   return StyleSheet.create({
     scrollView: {
-      backgroundColor: '#F9F9F9',
+      backgroundColor: Colors.defaultBackground,
+    },
+    contentContainer: {
+      ...Layout.growfull,
     },
     cardContainer: {
       ...Layout.alignItemsCenter,
       paddingVertical: Spacing.xl,
-      backgroundColor: '#F9F9F9',
+      backgroundColor: Colors.defaultBackground,
     },
     info: {
       ...Layout.fill,
@@ -19,7 +22,7 @@ export const useStyles = () => {
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
       paddingHorizontal: Spacing.xl,
-      paddingVertical: 32,
+      paddingVertical: Spacing.xlg,
     },
     footer: {
       paddingVertical: Spacing.ml,
@@ -41,6 +44,9 @@ export const useStyles = () => {
     },
     buttonText: {
       ...Fonts.medium,
+    },
+    disabled: {
+      opacity: 0.5,
     },
   });
 };

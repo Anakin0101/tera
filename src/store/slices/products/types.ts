@@ -1,6 +1,6 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import {
-  CardType,
+  // CardType,
   LoanType,
   DepositType,
   OverdraftType,
@@ -13,8 +13,6 @@ import {
 export type ProductsStateProps = {
   groupedAccountsByIban: IGroupedAccountsByIban[];
   totalAvailableBalanceGEL: number;
-  cards: CardType[];
-  lastTransactions: TransactionType[];
   overdrafts: OverdraftType[];
   deposits: DepositType[];
   totalDepositsGEL: number;

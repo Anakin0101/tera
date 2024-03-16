@@ -47,6 +47,9 @@ import {
   CreditProductOfferAgreementRes,
   CreditProductOfferSchedule,
   ActivateCreditProductOfferReq,
+  OfferByIdReq,
+  CardInsuranceReq,
+  CancelCardInsuranceReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -62,6 +65,7 @@ export const productsAPI = createApi({
     'Accounts',
     'Deposits',
     'CreditProduct',
+    'CardInsurance',
   ],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
@@ -155,12 +159,13 @@ export const productsAPI = createApi({
         },
       }),
     }),
-    getOfferById: builder.query<OfferDetails, number>({
-      query: OfferId => ({
+    getOfferById: builder.query<OfferDetails, OfferByIdReq>({
+      query: params => ({
         url: URLS.getOfferById,
         method: METHOD_NAMES.GET,
-        params: { OfferId, culture: 'ka' },
+        params,
       }),
+      providesTags: ['CardInsurance'],
     }),
 
     getInterestRates: builder.query<InterestRate[], InterestRatesReq>({
@@ -367,6 +372,24 @@ export const productsAPI = createApi({
         });
       },
     }),
+
+    addCardInsurance: builder.mutation<any, Partial<CardInsuranceReq>>({
+      query: body => ({
+        url: URLS.addCardInsurance,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    cancelCardInsurance: builder.mutation<any, Partial<CancelCardInsuranceReq>>({
+      query: body => ({
+        url: URLS.cancelCardInsurance,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
   }),
 });
 
@@ -407,4 +430,6 @@ export const {
   useGetCreditProductOfferAgreementQuery,
   useGetCreditProductOfferScheduleMutation,
   useLazyActivateCreditProductOfferQuery,
+  useAddCardInsuranceMutation,
+  useCancelCardInsuranceMutation,
 } = productsAPI;

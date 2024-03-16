@@ -1,3 +1,4 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import {
   Account,
   CardType,
@@ -8,7 +9,8 @@ import {
 export interface CardItemProps {
   item: CardType;
   isLast: boolean;
-  onPress?: () => void;
+  index: number;
+  iban?: string;
 }
 
 export interface CardsProps {
@@ -32,6 +34,7 @@ export interface DetailsProps {
   information?: boolean;
   cardHolder?: string;
   insure?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 export type RelatedOverdraft = OverdraftType | null;

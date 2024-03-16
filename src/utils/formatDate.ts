@@ -65,6 +65,7 @@ export const formatDate = (dateString: string, template = SPACED_YEAR_AND_TIME) 
 };
 
 export const getExpirationDate = (dateString: string) => {
+  if (!dateString) return;
   return dayjs(dateString).format(MM_YYYY);
 };
 

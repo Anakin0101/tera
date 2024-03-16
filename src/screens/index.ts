@@ -8,14 +8,11 @@ export { PasscodeLoginScreen } from './PassCodeLoginScreen/PassCodeLoginScreen';
 export { SettingsScreen } from './SettingsScreen/SettingsScreen';
 export { ProfileScreen } from './ProfileScreen/ProfileScreen';
 export { CreatePasscodeScreen } from './CreatePasscodeScreen/CreatePasscodeScreen';
-
 export { AuthorizationMethodsScreen } from './AuthorizationMethodsScreen/AuthorizationMethodsScreen';
-
 export { TransactionsScreen } from './TransactionsScreen/TransactionsScreen';
 export { MyAccounts } from './MyAccounts/MyAccounts';
 export { AllAcountsAndCardsScreen } from './AllAccountsAndCardsScreen/AllAcountsAndCardsScreen';
 export { AccountDetailsScreen } from './AccountDetailsScreen/AccountDetailsScreen';
-export { MyAccountsScrollableScreen } from './MyAccountScrollableScreen/MyAccountScrollableScreen';
 export { CardDetailsScreen } from './CardDetailsScreen/CardDetailsScreen';
 export { InsurancePackageDetails } from './InsurancePackageDetails/InsurancePackageDetails';
 export { DepositsScreen } from './DepositsScreen/DepositsScreen';
@@ -84,3 +81,4 @@ export { PaymentErrorScreen } from './PaymentErrorScreen/PaymentErrorScreen';
 export { CartPaymentSuccessScreen } from './CartPaymentSuccessScreen/CartPaymentSuccessScreen';
 export { ActivateLoanSuccessScreen } from './ActivateLoanSuccessScreen/ActivateLoanSuccessScreen';
 export { AtmsAndBranchesScreen } from './AtmsAndBranchesScreen/AtmsAndBranchesScreen';
+export { InsuranceSuccessScreen } from './InsuranceSuccessScreen/InsuranceSuccessScreen';

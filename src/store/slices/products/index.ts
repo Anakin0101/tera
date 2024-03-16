@@ -5,8 +5,6 @@ import { productsAPI } from 'services/apis';
 const initialState: ProductsStateProps = {
   groupedAccountsByIban: [],
   totalAvailableBalanceGEL: 0,
-  cards: [],
-  lastTransactions: [],
   overdrafts: [],
   deposits: [],
   loans: [],
@@ -28,18 +26,11 @@ const productsSlice = createSlice({
     setTransferAccounts: (state, { payload }) => {
       state.transferAccounts = payload;
     },
-
     setAccounts: (state, { payload }) => {
       state.groupedAccountsByIban = payload;
     },
     setTotalAvailableBalance: (state, { payload }) => {
       state.totalAvailableBalanceGEL = payload;
-    },
-    setCards: (state, { payload }) => {
-      state.cards = payload;
-    },
-    setLastTransactions: (state, { payload }) => {
-      state.lastTransactions = payload;
     },
     setTotalDeposits: (state, { payload }) => {
       state.totalDepositsGEL = payload;
@@ -88,8 +79,6 @@ const productsSlice = createSlice({
 export const {
   setAccounts,
   setTotalAvailableBalance,
-  setCards,
-  setLastTransactions,
   setTotalDeposits,
   setTotalDebt,
   setSelectedTransaction,

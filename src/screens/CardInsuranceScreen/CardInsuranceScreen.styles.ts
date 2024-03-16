@@ -22,8 +22,8 @@ export const useStyles = () => {
     },
     imageContainer: {
       ...Layout.center,
-      width: 48,
-      height: 48,
+      width: Spacing.xxxl,
+      height: Spacing.xxxl,
       borderWidth: 1,
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
@@ -48,7 +48,7 @@ export const useStyles = () => {
       padding: Spacing.xl,
       borderRadius: Spacing.m,
       marginLeft: Spacing.m,
-      width: config.mobileWidth - 48,
+      width: config.mobileWidth - Spacing.xxxl,
       backgroundColor: Colors.insuranceBg,
     },
     termsWrapper: {
@@ -59,10 +59,10 @@ export const useStyles = () => {
       ...Layout.alignItemsCenter,
     },
     nameContainer: {
-      width: '80%',
+      width: '70%',
     },
     limitContainer: {
-      width: '20%',
+      width: '30%',
       ...Layout.alignItemsEnd,
     },
     button: {

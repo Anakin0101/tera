@@ -27,7 +27,6 @@ export const AccountDetailsScreen = () => {
     groupedAccountsByIban,
     actions,
     overdraftRelatedToAcc,
-    groupedCardsByPan,
     blockedAmounts,
     lastTransactions,
     activeIndex,
@@ -56,7 +55,7 @@ export const AccountDetailsScreen = () => {
         case 'cards':
           return (
             <Cards
-              cards={groupedCardsByPan}
+              cards={account?.cards}
               isCardAccount={account?.isCardAccount}
               iban={account?.iban}
               fromCardDetails={!!overdraftRelatedToAcc}
@@ -88,15 +87,11 @@ export const AccountDetailsScreen = () => {
       }
     },
     [
-      account?.accountName,
-      account?.accountNumber,
-      account?.iban,
-      account?.isCardAccount,
+      account,
       actions,
       activeIndex,
       blockedAmounts,
       groupedAccountsByIban,
-      groupedCardsByPan,
       lastTransactions,
       overdraftRelatedToAcc,
       setActiveAccountIndex,
