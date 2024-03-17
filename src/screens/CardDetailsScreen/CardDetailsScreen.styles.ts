@@ -280,12 +280,19 @@ export const useStyles = () => {
     actionButtons: {
       ...Layout.justifyContentBetween,
     },
+    spaceEvenly: {
+      ...Layout.justifyContentEvenly,
+    },
     cardInner: {
       ...Layout.fill,
       ...Layout.justifyContentBetween,
     },
     padding: {
       paddingBottom: Spacing.xxxl,
+    },
+    cardInfoContainer: {
+      backgroundColor: Colors.white,
+      padding: Spacing.xl,
     },
   });
 };

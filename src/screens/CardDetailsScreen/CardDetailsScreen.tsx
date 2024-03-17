@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react';
 import { SectionList, View } from 'react-native';
-import { Details } from '../AccountDetailsScreen/Details';
 import { Slider, LastTransactions, Wallet, TransparentLoadingView } from 'components';
-import { useStyles } from './CardDetailsScreen.styles';
 import { CardHolderDetails } from './CardHolderDetails';
 import { useCardDetails } from './container';
-import { TemporarilyInactiveDetails } from '../AccountDetailsScreen/TemporarilyInactiveDetails';
 import { CardSliderItem } from './CardSliderItem';
+import { CardInformation } from './CardInformation';
 import { SectionListRenderItemT } from 'screens/types';
-import { CardStatusCode } from 'services/apis/productsAPI/productsAPI.types';
+import { useStyles } from './CardDetailsScreen.styles';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -28,20 +26,13 @@ export const CardDetailsScreen = () => {
     lastTransactions,
     activeIndex,
     setActiveIndex,
-    iban,
     isLoading,
     changingPin,
+    insurancePackage,
   } = useCardDetails();
 
   const renderItem: SectionListRenderItemT = useCallback(
     ({ section }) => {
-      if (
-        activeCard?.status === CardStatusCode.TemporarilyInactive &&
-        section.title !== 'main' &&
-        section.title !== 'details'
-      ) {
-        return null;
-      }
       switch (section.title) {
         case 'main':
           return (
@@ -51,44 +42,30 @@ export const CardDetailsScreen = () => {
               actions={actions}
               index={activeIndex}
               setActiveIndex={setActiveIndex}
-              actionButtonsContainer={styles.actionButtons}
+              actionButtonsContainer={
+                actions?.length > 3 ? styles.actionButtons : styles.spaceEvenly
+              }
             />
           );
         case 'wallet':
           return <Wallet />;
         case 'details':
-          if (activeCard?.status !== CardStatusCode.TemporarilyInactive) {
-            return (
-              <CardHolderDetails
-                accountNumber={activeCard?.pan}
-                endDate={activeCard?.endDate}
-                cvv={String(activeCard?.priority)}
-              />
-            );
-          } else {
-            return (
-              <TemporarilyInactiveDetails
-                cardHolder={activeCard.cardHolder}
-                name={activeCard?.cardProductName}
-                insure="products.insure"
-                displayDivider={!!lastTransactions?.length}
-                blockedAmounts={blockedAmounts}
-              />
-            );
-          }
-        case 'information':
           return (
-            <Details
-              cardHolder={activeCard.cardHolder}
-              name={activeCard?.cardProductName}
-              insure="products.insure"
-              displayDivider={!!lastTransactions?.length}
-              blockedAmounts={blockedAmounts}
-              iban={iban}
-              style={!lastTransactions?.length && styles.padding}
+            <CardHolderDetails
+              accountNumber={activeCard?.pan}
+              endDate={activeCard?.endDate}
+              cvv={String(activeCard?.priority)}
             />
           );
-
+        case 'information':
+          return (
+            <CardInformation
+              name={activeCard.cardProductName}
+              cardHolder={activeCard.cardHolder}
+              blockedAmounts={blockedAmounts}
+              insurance={insurancePackage}
+            />
+          );
         case 'transactions':
           return (
             <LastTransactions
@@ -104,7 +81,6 @@ export const CardDetailsScreen = () => {
       }
     },
     [
-      iban,
       actions,
       activeAccountCards,
       activeCard,
@@ -112,10 +88,11 @@ export const CardDetailsScreen = () => {
       blockedAmounts,
       lastTransactions,
       setActiveIndex,
+      insurancePackage,
       styles.actionButtons,
       styles.backgroundWhite,
       styles.headerLabelStyle,
-      styles.padding,
+      styles.spaceEvenly,
       styles.transactionsContainer,
     ],
   );

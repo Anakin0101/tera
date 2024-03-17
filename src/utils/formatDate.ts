@@ -163,3 +163,8 @@ export const getFormattedDateFromISO = (dateString?: string, template = DD_MM_YY
   const date = dateString?.split('T')[0];
   return dayjs(date).format(template);
 };
+
+export const isExpired = (endDate?: string) => {
+  if (!endDate) return;
+  return dayjs().isAfter(dayjs(endDate));
+};

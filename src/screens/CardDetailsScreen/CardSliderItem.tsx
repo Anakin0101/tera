@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ImageBackground, View } from 'react-native';
 import { Badge, Text } from 'components';
-import { getExpirationDate } from 'utils/formatDate';
+import { getExpirationDate, isExpired } from 'utils/formatDate';
 import { Colors } from 'theme/Variables';
 import { Alert, CheckShieldSmall, Lock } from 'assets/SVGs';
 import { CardStatusCode } from 'services/apis/productsAPI/productsAPI.types';
@@ -25,7 +25,8 @@ export const CardSliderItem: FC<CardSliderItemProps> = ({ item }) => {
       <View style={styles.card}>
         <View style={styles.cardInner}>
           <View style={styles.badgesContainer}>
-            {item?.status === CardStatusCode.Blocked && (
+            {(item?.status === CardStatusCode.Blocked ||
+              item?.status === CardStatusCode.TemporarilyInactive) && (
               <Badge
                 height={25}
                 icon={<Lock />}
@@ -33,20 +34,11 @@ export const CardSliderItem: FC<CardSliderItemProps> = ({ item }) => {
                 backgroundColor={Colors.white}
               />
             )}
-            {item?.status === CardStatusCode.Issued && (
+            {isExpired(item?.endDate) && (
               <Badge
                 height={25}
                 icon={<Alert />}
                 label="products.expired"
-                backgroundColor={Colors.white}
-              />
-            )}
-            {item?.status === CardStatusCode.TemporarilyInactive && (
-              <Badge
-                height={25}
-                icon={<Alert color={Colors.warningSolid} />}
-                label="products.tempInactive"
-                textColor={Colors.warningSolid}
                 backgroundColor={Colors.white}
               />
             )}

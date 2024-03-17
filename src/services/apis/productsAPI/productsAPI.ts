@@ -51,6 +51,7 @@ import {
   CardInsuranceReq,
   CancelCardInsuranceReq,
   RequestForPin,
+  UnblockCardReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -142,23 +143,21 @@ export const productsAPI = createApi({
         params: { loanId },
       }),
     }),
-    BlockCard: builder.mutation<any, any>({
-      query: ({ cardId }) => ({
+    blockCard: builder.mutation<any, Partial<UnblockCardReq>>({
+      query: body => ({
         url: URLS.BlockCard,
         method: METHOD_NAMES.POST,
-        body: {
-          cardId,
-        },
+        body,
       }),
+      invalidatesTags: ['Accounts'],
     }),
-    UnblockCard: builder.mutation<any, any>({
-      query: ({ cardId }) => ({
+    unblockCard: builder.mutation<any, Partial<UnblockCardReq>>({
+      query: body => ({
         url: URLS.UnblockCard,
         method: METHOD_NAMES.POST,
-        body: {
-          cardId,
-        },
+        body,
       }),
+      invalidatesTags: ['Accounts'],
     }),
     getOfferById: builder.query<OfferDetails, OfferByIdReq>({
       query: params => ({

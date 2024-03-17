@@ -1,7 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { openModal } from 'utils/modal';
 import { Block, Insurance, Pincode, UpdateCard } from 'assets/SVGs';
 import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
@@ -11,6 +9,7 @@ import {
   useBlockCardMutation,
   useCancelCardInsuranceMutation,
   useGetCustomerOperationsMutation,
+  useGetOfferByIdQuery,
   useRequestForPinMutation,
   useUnblockCardMutation,
 } from 'services/apis/productsAPI/productsAPI';
@@ -18,13 +17,13 @@ import { closeModal } from 'utils/modal';
 import { CARD_INSURANCE } from 'navigation/ScreenNames';
 import { CardStatusCode, CardType } from 'services/apis/productsAPI/productsAPI.types';
 import { useCulture, useGroupedAccountsByIban } from 'hooks';
-import { getCurrentDateISO, getDateThreeMonthAgeISO } from 'utils/formatDate';
-import { openToast } from 'utils/toast';
+import { getCurrentDateISO, getDateThreeMonthAgeISO, isExpired } from 'utils/formatDate';
 import { OTPModal } from 'components/modals';
+import { CARD_INSURANCE_ID } from 'constants/common';
+import { Colors } from 'theme/Variables';
 
 export const useCardDetails = () => {
-  const { t } = useTranslation();
-  const { culture } = useCulture();
+  const { culture, isGeo } = useCulture();
   const { groupedAccountsByIban } = useGroupedAccountsByIban();
   const { navigate } = useNavigation<ModalStackScreenProps<'CardInsuranceScreen'>>();
   const { params } = useRoute<ModalStackRouteProps<'CardDetailsScreen'>>();
@@ -41,6 +40,40 @@ export const useCardDetails = () => {
   const activeAccount = useMemo(() => {
     return groupedAccountsByIban?.find(acc => acc?.iban === iban);
   }, [groupedAccountsByIban, iban]);
+
+  const activeCard = useMemo(() => {
+    return activeAccountCards?.[activeIndex];
+  }, [activeAccountCards, activeIndex]);
+
+  const { data: offers } = useGetOfferByIdQuery(
+    {
+      culture,
+      cardId: activeCard?.id,
+      offerId: CARD_INSURANCE_ID,
+    },
+    { skip: !activeCard },
+  );
+
+  const insurancePackage = useMemo(() => {
+    const insurance = offers?.cardInsuranceProducts?.find(product => product?.isActive);
+
+    if (insurance) {
+      return isGeo ? insurance?.nameKa : insurance?.nameEn;
+    }
+
+    return '';
+  }, [isGeo, offers?.cardInsuranceProducts]);
+
+  const isActiveCardBlocked = useMemo(() => {
+    return (
+      activeCard?.status === CardStatusCode.Blocked ||
+      activeCard?.status === CardStatusCode.TemporarilyInactive
+    );
+  }, [activeCard]);
+
+  const isActiveCardExpired = useMemo(() => {
+    return isExpired(activeCard?.endDate);
+  }, [activeCard]);
 
   useEffect(() => {
     if (activeAccount) {
@@ -59,9 +92,21 @@ export const useCardDetails = () => {
     }
   }, [activeAccount, iban]);
 
-  const activeCard = useMemo(() => {
-    return activeAccountCards?.[activeIndex];
-  }, [activeAccountCards, activeIndex]);
+  const showResponsePopup = useCallback((message: string, isSuccess = true) => {
+    openModal({
+      element: <RequestStatusModal success={isSuccess} message={message} onClose={closeModal} />,
+      disablePanning: true,
+    });
+  }, []);
+
+  const showConfirmPopup = useCallback((title: string, content: string, onPress: () => void) => {
+    openModal({
+      element: <BlockCardModal content={content} onPress={onPress} />,
+      title,
+      titlePosition: 'center',
+      disablePanning: true,
+    });
+  }, []);
 
   const blockedAmounts = useMemo(() => {
     return activeAccount?.accounts
@@ -79,7 +124,7 @@ export const useCardDetails = () => {
     };
 
     setActiveAccountCards(prev => {
-      return prev.map(card => (card.id === activeCard.id ? updatedCard : card));
+      return prev.map(card => (card?.id === activeCard?.id ? updatedCard : card));
     });
   }, [activeCard]);
 
@@ -96,103 +141,85 @@ export const useCardDetails = () => {
       .unwrap()
       .then(() => {
         updateCardManually();
-        openToast(t('common.successfullyOperation'), 'success');
+        showResponsePopup('common.successfullyOperation');
+      })
+      .catch(() => {
+        showResponsePopup('cardDetails.error', false);
       });
-  }, [activeCard, cancelCardInsurance, culture, t, updateCardManually]);
+  }, [activeCard, cancelCardInsurance, culture, showResponsePopup, updateCardManually]);
 
   const cancelInsurance = useCallback(() => {
-    Alert.alert(t('products.cancelInsuranceMessage'), '', [
-      {
-        text: t('common.no'),
-        style: 'cancel',
-      },
-      {
-        text: t('common.yes'),
-        onPress: handleCancelInsurance,
-        style: 'destructive',
-      },
-    ]);
-  }, [t, handleCancelInsurance]);
+    if (isActiveCardBlocked) return;
+    showConfirmPopup(
+      'cardDetails.cancelInsurance',
+      'products.cancelInsuranceMessage',
+      handleCancelInsurance,
+    );
+  }, [handleCancelInsurance, isActiveCardBlocked, showConfirmPopup]);
 
   const handleInsurancePress = useCallback(() => {
+    if (isActiveCardBlocked) return;
     if (activeCard) {
       navigate(CARD_INSURANCE, { iban, activeCard });
     }
-  }, [activeCard, iban, navigate]);
+  }, [activeCard, iban, isActiveCardBlocked, navigate]);
 
-  const blockPress = useCallback(
-    (shouldBlock: boolean) => {
-      if (shouldBlock) {
-        blockCard({ cardId: activeCard?.id })
+  const handleBlock = useCallback(() => {
+    blockCard({
+      culture,
+      cardId: activeCard?.id,
+    })
+      .unwrap()
+      .then(() => {
+        showResponsePopup('cardDetails.isBlocked');
+      })
+      .catch(() => {
+        showResponsePopup('cardDetails.error', false);
+      });
+  }, [activeCard?.id, blockCard, culture, showResponsePopup]);
+
+  const onFinishedOtpUnblockCard = useCallback(
+    (otp: string) => {
+      // TODO change condition
+      if (otp === '000000') {
+        unblockCard({
+          otp,
+          culture,
+          sendOtp: false,
+          cardId: activeCard?.id,
+        })
           .unwrap()
           .then(() => {
-            openModal({
-              element: (
-                <RequestStatusModal success message="ბარათი დაბლოკილია" onClose={closeModal} />
-              ),
-              disablePanning: true,
-            });
+            showResponsePopup('cardDetails.isUnblocked');
           })
           .catch(() => {
-            openModal({
-              element: (
-                <RequestStatusModal
-                  success={false}
-                  message="დაფიქსირდა შეცდომა"
-                  onClose={closeModal}
-                />
-              ),
-              disablePanning: true,
-            });
-          });
-      } else {
-        unblockCard({ cardId: activeCard?.id })
-          .unwrap()
-          .then(() => {
-            openModal({
-              element: (
-                <RequestStatusModal success message="ბარათი განბლოკილია" onClose={closeModal} />
-              ),
-              disablePanning: true,
-            });
-          })
-          .catch(() => {
-            openModal({
-              element: (
-                <RequestStatusModal
-                  success={false}
-                  message="დაფიქსირდა შეცდომა"
-                  onClose={closeModal}
-                />
-              ),
-              disablePanning: true,
-            });
+            showResponsePopup('cardDetails.error', false);
           });
       }
     },
-    [blockCard, activeCard, unblockCard],
+    [activeCard?.id, culture, showResponsePopup, unblockCard],
   );
 
-  const handleBlockCard = useCallback(
-    (shouldBlock: boolean) => {
-      const blockAction = shouldBlock ? 'Block' : 'Unblock';
-      openModal({
-        element: (
-          <BlockCardModal
-            shouldBlock={shouldBlock}
-            onClose={closeModal}
-            onPress={() => blockPress(shouldBlock)}
-          />
-        ),
-        title: `products.${blockAction}Card`,
-        titlePosition: 'center',
-        disablePanning: true,
-      });
-    },
-    [blockPress],
-  );
+  const handleUnblock = useCallback(() => {
+    unblockCard({ sendOtp: true });
 
-  const onFinished = useCallback(
+    openModal({
+      element: <OTPModal onFinished={onFinishedOtpUnblockCard} />,
+      withKeyboard: true,
+      disableDynamicSizing: true,
+      disablePanning: true,
+    });
+  }, [onFinishedOtpUnblockCard, unblockCard]);
+
+  const onBlockCardPress = useCallback(() => {
+    showConfirmPopup('products.blockCard', 'products.blockCardMessage', handleBlock);
+  }, [handleBlock, showConfirmPopup]);
+
+  const onUnlockCardPress = useCallback(() => {
+    showConfirmPopup('products.unblockTitle', 'products.unblockCardMessage', handleUnblock);
+  }, [handleUnblock, showConfirmPopup]);
+
+  const onFinishedOtpPin = useCallback(
     (otp: string) => {
       // TODO change condition
       if (otp === '000000') {
@@ -201,123 +228,83 @@ export const useCardDetails = () => {
         requestForPin({
           otp,
           culture,
-          cardId: activeCard?.id,
           sendOtp: false,
           generateNewPin: true,
+          cardId: activeCard?.id,
         })
           .unwrap()
           .then(() => {
-            openToast(t('common.successfullyOperation'), 'success');
+            showResponsePopup('cardDetails.pinAsSms');
           })
-          .catch(err => {
-            if ('data' in err && err?.data?.detail) {
-              openToast(err.data.detail, 'error');
-            }
+          .catch(() => {
+            showResponsePopup('cardDetails.tryLater', false);
           })
           .finally(() => {
             setChangingPin(false);
           });
       }
     },
-    [activeCard, culture, requestForPin, t],
+    [activeCard?.id, culture, requestForPin, showResponsePopup],
   );
 
   const changePinCode = useCallback(() => {
-    requestForPin({
-      sendOtp: true,
-    });
+    requestForPin({ sendOtp: true });
 
     openModal({
-      element: <OTPModal onFinished={onFinished} />,
+      element: <OTPModal onFinished={onFinishedOtpPin} />,
       withKeyboard: true,
       disableDynamicSizing: true,
       disablePanning: true,
     });
-  }, [onFinished, requestForPin]);
+  }, [onFinishedOtpPin, requestForPin]);
 
   const handlePinChange = useCallback(() => {
-    Alert.alert(t('products.updatePin'), '', [
-      {
-        text: t('common.cancel'),
-        style: 'cancel',
-      },
-      {
-        text: t('common.confirm'),
-        onPress: changePinCode,
-        style: 'destructive',
-      },
-    ]);
-  }, [t, changePinCode]);
-
-  const getUpdatedActions = useCallback(
-    (isBlocked: boolean, isTemporarilyInactive: boolean) => {
-      const defaultActions = [
-        {
-          title: 'products.updateCard',
-          icon: <UpdateCard />,
-          isUpdate: true,
-          handlePress: () => {},
-        },
-        {
-          title: 'products.insurance',
-          icon: <Insurance />,
-          handlePress: handleInsurancePress,
-        },
-        {
-          title: 'products.block',
-          icon: <Block />,
-          handlePress: () => handleBlockCard(true),
-        },
-        {
-          title: 'products.changePin',
-          icon: <Pincode />,
-          handlePress: handlePinChange,
-        },
-      ];
-
-      if (isBlocked || isTemporarilyInactive) {
-        return defaultActions.slice(1);
-      }
-
-      return defaultActions;
-    },
-    [handleBlockCard, handleInsurancePress, handlePinChange],
-  );
+    if (isActiveCardBlocked) return;
+    showConfirmPopup('cardDetails.updatePin', 'products.updatePin', changePinCode);
+  }, [changePinCode, isActiveCardBlocked, showConfirmPopup]);
 
   const actions = useMemo(() => {
-    const isBlocked = activeCard?.status === CardStatusCode.Blocked;
-    const isTemporarilyInactive = activeCard?.status === CardStatusCode.TemporarilyInactive;
+    const color = isActiveCardExpired || isActiveCardBlocked ? Colors.textBlack400 : Colors.primary;
 
-    let updatedActions = getUpdatedActions(isBlocked, isTemporarilyInactive);
+    const renewalAction = {
+      icon: <UpdateCard />,
+      title: 'products.updateCard',
+      handlePress: () => {},
+    };
 
-    if (activeCard?.status === CardStatusCode.Issued) {
-      updatedActions = updatedActions.map(action => {
-        if (action.title === 'products.block') {
-          return {
-            title: 'products.unblockCard',
-            icon: <Block />,
-            handlePress: () => handleBlockCard(false),
-          };
-        }
-        return action;
-      });
+    const defaultActions = [
+      {
+        icon: <Insurance color={color} />,
+        title: activeCard?.isInsured ? 'products.cancelInsurance' : 'products.insurance',
+        handlePress: activeCard?.isInsured ? cancelInsurance : handleInsurancePress,
+      },
+      {
+        icon: <Block color={isActiveCardExpired ? Colors.textBlack400 : Colors.primary} />,
+        title: isActiveCardBlocked ? 'products.unblockCard' : 'products.block',
+        handlePress: isActiveCardBlocked ? onUnlockCardPress : onBlockCardPress,
+      },
+      {
+        icon: <Pincode color={color} />,
+        title: 'products.changePin',
+        handlePress: handlePinChange,
+      },
+    ];
+
+    if (isActiveCardExpired) {
+      defaultActions.unshift(renewalAction);
     }
 
-    if (activeCard?.isInsured) {
-      updatedActions = updatedActions.map(action => {
-        if (action.title === 'products.insurance') {
-          return {
-            title: 'products.cancelInsurance',
-            icon: <Insurance />,
-            handlePress: cancelInsurance,
-          };
-        }
-        return action;
-      });
-    }
-
-    return updatedActions;
-  }, [activeCard, cancelInsurance, getUpdatedActions, handleBlockCard]);
+    return defaultActions;
+  }, [
+    isActiveCardBlocked,
+    isActiveCardExpired,
+    activeCard,
+    cancelInsurance,
+    handleInsurancePress,
+    onUnlockCardPress,
+    onBlockCardPress,
+    handlePinChange,
+  ]);
 
   return {
     actions,
@@ -327,8 +314,8 @@ export const useCardDetails = () => {
     activeAccountCards,
     activeCard,
     setActiveIndex,
-    iban,
     isLoading,
     changingPin,
+    insurancePackage,
   };
 };

@@ -31,9 +31,6 @@ export interface DetailsProps {
   blockedAmounts?: BlockedAmount[];
   displayDivider: boolean;
   borderRadius?: boolean;
-  information?: boolean;
-  cardHolder?: string;
-  insure?: string;
   style?: StyleProp<ViewStyle>;
 }
 

@@ -280,7 +280,10 @@
     "internetTransactions": "ინტერნეტით ჩატარებული ტრანზაქცია",
     "unauthTransactions": "უავტორიზაციო ტრანზაქცია",
     "annualFee": "{{value}} წლიური საკომისიო",
-    "updatePin": "პინ კოდის განახლების საკომისიოა 5.00 ლარი"
+    "updatePin": "პინ კოდის განახლების საკომისიო\n5.00 ლარი",
+    "blockCardMessage": "ნამდვილად გსურთ ბარათის დაბლოკვა?",
+    "unblockCardMessage": "ნამდვილად გსურთ ბანათის განბლოკვა?",
+    "unblockTitle": "ბარათის განბლოკვა"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",
@@ -788,5 +791,14 @@
     "primaryCTA": "პარამეტრები",
     "secondaryCTA": "გაუქმება",
     "near": "ჩემთან ახლოს"
+  },
+  "cardDetails": {
+    "cancelInsurance": "დაზღვევის გაუქმება",
+    "isBlocked": "ბარათი დაბლოკილია",
+    "error": "დაფიქსირდა შეცდომა",
+    "isUnblocked": "ბარათი განბლოკილია",
+    "pinAsSms": "პინ კოდს მიიღებთ SMS სახით",
+    "tryLater": "სცადეთ მოგვიანებით",
+    "updatePin": "პინ კოდის განახლება"
   }
 }

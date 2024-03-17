@@ -849,3 +849,10 @@ export type RequestForPin = {
   sendOtp: boolean;
   otp: string;
 };
+
+export type UnblockCardReq = {
+  culture: string;
+  cardId: number;
+  sendOtp: boolean;
+  otp: string;
+};
