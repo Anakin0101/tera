@@ -33,6 +33,7 @@ export const AccountDetailsScreen = () => {
     setActiveIndex,
     setActiveAccountIndex,
     isLoadingFileId,
+    selectedAccountFromCard,
   } = useAccountDetails(params.iban, params.index);
 
   const renderItem: SectionListRenderItemT = useCallback(
@@ -64,11 +65,14 @@ export const AccountDetailsScreen = () => {
         case 'details':
           return (
             <Details
-              name={account?.accountName}
+              name={
+                selectedAccountFromCard?.accountNameCustom || selectedAccountFromCard?.accountName
+              }
               iban={account?.iban}
               displayDivider={!!lastTransactions?.length}
               borderRadius={!account?.isCardAccount && !overdraftRelatedToAcc}
               blockedAmounts={blockedAmounts}
+              accountId={selectedAccountFromCard?.accountId}
             />
           );
         case 'transactions':
@@ -96,6 +100,7 @@ export const AccountDetailsScreen = () => {
       overdraftRelatedToAcc,
       setActiveAccountIndex,
       setActiveIndex,
+      selectedAccountFromCard,
       styles.actionButtons,
       styles.backgroundWhite,
       styles.headerLabelStyle,

@@ -32,6 +32,7 @@ export interface DetailsProps {
   displayDivider: boolean;
   borderRadius?: boolean;
   style?: StyleProp<ViewStyle>;
+  accountId?: number;
 }
 
 export type RelatedOverdraft = OverdraftType | null;

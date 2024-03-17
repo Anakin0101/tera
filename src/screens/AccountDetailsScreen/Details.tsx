@@ -17,6 +17,7 @@ export const Details: FC<DetailsProps> = ({
   displayDivider,
   borderRadius,
   style,
+  accountId,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ export const Details: FC<DetailsProps> = ({
 
   const handleChangeName = () => {
     openModal({
-      element: <ChangeAccountNameModal name={name} />,
+      element: <ChangeAccountNameModal name={name} accountId={accountId} />,
       title: t('products.changeName'),
       titlePosition: 'center',
       disableDynamicSizing: true,

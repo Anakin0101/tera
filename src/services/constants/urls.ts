@@ -87,6 +87,7 @@ export const URLS = {
   addCardInsurance: 'Account/AddCardsInsurance',
   cancelCardInsurance: 'Account/CancelCardInsurace',
   requestForPin: 'Account/RequestForPin',
+  updateAccountName: 'Account/UpdateAccountName',
 };
 
 export const PROD_URLS = {

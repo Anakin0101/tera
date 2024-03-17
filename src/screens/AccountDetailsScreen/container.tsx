@@ -156,5 +156,6 @@ export const useAccountDetails = (iban: string, index: number) => {
     setActiveIndex,
     setActiveAccountIndex,
     isLoadingFileId,
+    selectedAccountFromCard,
   };
 };

@@ -23,7 +23,6 @@ import {
   TeraWalletPDFReq,
   TeraWalletRes,
   TransactionType,
-  UpdateAccountNameReq,
   BranchesResponse,
   Branch,
   AddCardRequest,
@@ -52,6 +51,7 @@ import {
   CancelCardInsuranceReq,
   RequestForPin,
   UnblockCardReq,
+  UpdateAccountNameReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -114,20 +114,6 @@ export const productsAPI = createApi({
         url: URLS.getDepositByClientId,
       }),
       providesTags: ['Deposits'],
-    }),
-    updateAccountName: builder.mutation<any, UpdateAccountNameReq>({
-      query: ({ userId, customerId, channelId, culture, accountId, accountName }) => ({
-        url: URLS.getCustomerOps,
-        method: METHOD_NAMES.PATCH,
-        body: {
-          userId,
-          customerId,
-          channelId,
-          culture,
-          accountId,
-          accountName,
-        },
-      }),
     }),
     getLoanSchedule: builder.query<LoanSchedule[], number>({
       query: loanId => ({
@@ -361,7 +347,7 @@ export const productsAPI = createApi({
       transformResponse: (response: CreditProductOfferAgreementRes) => response.fileId,
     }),
 
-    activateCreditProductOffer: builder.query<any, ActivateCreditProductOfferReq>({
+    activateCreditProductOffer: builder.query<{}, ActivateCreditProductOfferReq>({
       query: params => ({
         url: URLS.activateCreditProductOffer,
         params,
@@ -373,7 +359,7 @@ export const productsAPI = createApi({
       },
     }),
 
-    addCardInsurance: builder.mutation<any, Partial<CardInsuranceReq>>({
+    addCardInsurance: builder.mutation<{}, Partial<CardInsuranceReq>>({
       query: body => ({
         url: URLS.addCardInsurance,
         method: METHOD_NAMES.POST,
@@ -382,7 +368,7 @@ export const productsAPI = createApi({
       invalidatesTags: ['Accounts'],
     }),
 
-    cancelCardInsurance: builder.mutation<any, Partial<CancelCardInsuranceReq>>({
+    cancelCardInsurance: builder.mutation<{}, Partial<CancelCardInsuranceReq>>({
       query: body => ({
         url: URLS.cancelCardInsurance,
         method: METHOD_NAMES.POST,
@@ -391,12 +377,21 @@ export const productsAPI = createApi({
       invalidatesTags: ['Accounts'],
     }),
 
-    requestForPin: builder.mutation<any, Partial<RequestForPin>>({
+    requestForPin: builder.mutation<{}, Partial<RequestForPin>>({
       query: body => ({
         url: URLS.requestForPin,
         method: METHOD_NAMES.POST,
         body,
       }),
+    }),
+
+    updateAccountName: builder.mutation<{}, UpdateAccountNameReq>({
+      query: body => ({
+        url: URLS.updateAccountName,
+        method: METHOD_NAMES.PATCH,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
     }),
   }),
 });

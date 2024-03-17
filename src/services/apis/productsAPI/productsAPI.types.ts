@@ -333,15 +333,6 @@ export type Deposit = {
   typeId: DepositTypeEnum;
 };
 
-export type UpdateAccountNameReq = {
-  userId: number;
-  customerId: number;
-  channelId: number;
-  culture: string;
-  accountId: number;
-  accountName: string;
-};
-
 export type LoanSchedule = {
   nextPaymentDay: string;
   principal: number;
@@ -855,4 +846,10 @@ export type UnblockCardReq = {
   cardId: number;
   sendOtp: boolean;
   otp: string;
+};
+
+export type UpdateAccountNameReq = {
+  accountId: number;
+  accountName: string;
+  culture: string;
 };

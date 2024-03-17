@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 import { DetailsItem, Divider, Text } from 'components';
-import { ChevronRight, Edit } from 'assets/SVGs';
+import { ChevronRight } from 'assets/SVGs';
 import { CardInformationProps } from './CardDetailsScreen.types';
 import { useStyles } from './CardDetailsScreen.styles';
 
@@ -13,12 +13,7 @@ export const CardInformation: FC<CardInformationProps> = memo(
       <View>
         <View style={styles.cardInfoContainer}>
           <Text children="products.information" size={18} demiBold />
-          <DetailsItem
-            label="products.informationName"
-            value={name}
-            icon={<Edit />}
-            onPress={() => {}}
-          />
+          <DetailsItem label="products.informationName" value={name} />
           <DetailsItem label="products.informationCardOwner" value={cardHolder} />
           {insurance ? <DetailsItem label="products.insurance" value={insurance} /> : null}
           {blockedAmounts?.length ? (
