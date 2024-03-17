@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'components';
-import { Totals } from './Totals';
 import { openModal } from 'utils/modal';
 import { Clear, Search } from 'assets/SVGs';
 import { formatDate } from 'utils/formatDate';
@@ -178,7 +177,6 @@ export const ListHeader: FC<HeaderProps> = ({
           )}
         </View>
       </ScrollView>
-      <Totals income={2048} expense={1956} />
     </View>
   );
 };

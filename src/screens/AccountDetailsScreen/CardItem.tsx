@@ -10,6 +10,7 @@ import { CheckShieldSmall, ChevronRight, Visa, MasterCard, Lock, Alert } from 'a
 import { CardStatusCode } from 'services/apis/productsAPI/productsAPI.types';
 import { CardItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
+import { isExpired } from 'utils/formatDate';
 
 export const CardItem: FC<CardItemProps> = memo(({ item, index, iban, isLast }) => {
   const styles = useStyles();
@@ -41,12 +42,11 @@ export const CardItem: FC<CardItemProps> = memo(({ item, index, iban, isLast }) 
             </View>
           </View>
           <View style={styles.badgeContainer}>
-            {item?.status === CardStatusCode.Blocked && (
+            {(item?.status === CardStatusCode.Blocked ||
+              item?.status === CardStatusCode.TemporarilyInactive) && (
               <Badge icon={<Lock />} label="products.blocked" />
             )}
-            {item?.status === CardStatusCode.Issued && (
-              <Badge icon={<Alert />} label="products.expired" />
-            )}
+            {isExpired(item?.endDate) ? <Badge icon={<Alert />} label="products.expired" /> : null}
           </View>
           {!isLast && <Divider height={1} marginTop={16} marginBottom={16} width="100%" />}
         </View>

@@ -88,6 +88,8 @@ export const URLS = {
   cancelCardInsurance: 'Account/CancelCardInsurace',
   requestForPin: 'Account/RequestForPin',
   updateAccountName: 'Account/UpdateAccountName',
+  setAsFavourite: 'Account/SetAsFavourite',
+  removeFromFavourite: 'Account/RemoveFromFavourite',
 };
 
 export const PROD_URLS = {

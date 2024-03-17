@@ -52,6 +52,7 @@ import {
   RequestForPin,
   UnblockCardReq,
   UpdateAccountNameReq,
+  FavouriteReq,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -393,6 +394,24 @@ export const productsAPI = createApi({
       }),
       invalidatesTags: ['Accounts'],
     }),
+
+    setAsFavourite: builder.mutation<{}, FavouriteReq>({
+      query: body => ({
+        url: URLS.setAsFavourite,
+        method: METHOD_NAMES.PATCH,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    removeFromFavourite: builder.mutation<{}, FavouriteReq>({
+      query: body => ({
+        url: URLS.removeFromFavourite,
+        method: METHOD_NAMES.PATCH,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
   }),
 });
 
@@ -436,4 +455,6 @@ export const {
   useAddCardInsuranceMutation,
   useCancelCardInsuranceMutation,
   useRequestForPinMutation,
+  useSetAsFavouriteMutation,
+  useRemoveFromFavouriteMutation,
 } = productsAPI;

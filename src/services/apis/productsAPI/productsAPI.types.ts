@@ -853,3 +853,8 @@ export type UpdateAccountNameReq = {
   accountName: string;
   culture: string;
 };
+
+export type FavouriteReq = {
+  accountId: number;
+  culture: string;
+};
