@@ -1,14 +1,8 @@
-import {
-  Asterisks,
-  Email,
-  Key,
-  NotificationsManage,
-  Shield,
-  SmartPhoneChecked,
-  UserIcon,
-} from 'assets/SVGs';
+import { Key, NotificationsManage, Shield, UserIcon } from 'assets/SVGs';
 import { SettingsConfigType } from './SettingsScreen.types';
-import { AUTHORIZATION_METHODS_SCREEN } from 'navigation/ScreenNames';
+import { AUTHORIZATION_METHODS_SCREEN, EDIT_USER_INFO_SCREEN } from 'navigation/ScreenNames';
+import { CodeSecurity } from 'assets/SVGs/CodeSecurity';
+import { Trusted } from 'assets/SVGs/Trusted';
 
 export const SettingsScreenConfig: SettingsConfigType[] = [
   {
@@ -19,14 +13,7 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
         id: 'settings.edit_user',
         text: 'settings.edit_user',
         icon: UserIcon,
-        navigateTo: AUTHORIZATION_METHODS_SCREEN,
-      },
-      {
-        index: 1,
-        id: 'settings.email',
-        text: 'settings.email',
-        icon: Email,
-        navigateTo: AUTHORIZATION_METHODS_SCREEN,
+        navigateTo: EDIT_USER_INFO_SCREEN,
       },
     ],
   },
@@ -44,7 +31,7 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
         index: 1,
         id: 'settings.change_code_word',
         text: 'settings.change_code_word',
-        icon: Asterisks,
+        icon: CodeSecurity,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
       {
@@ -58,7 +45,7 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
         index: 3,
         id: 'settings.trusted_devices',
         text: 'settings.trusted_devices',
-        icon: SmartPhoneChecked,
+        icon: Trusted,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
     ],

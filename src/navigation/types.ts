@@ -104,6 +104,7 @@ import {
   APPROVED_LOAN_PDF_SCREEN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
+  EDIT_USER_INFO_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -144,6 +145,7 @@ export type MainStackParamsList = {
 
 export type ModalStackParamsList = {
   [SETTINGS_SCREEN]: undefined;
+  [EDIT_USER_INFO_SCREEN]: undefined;
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;

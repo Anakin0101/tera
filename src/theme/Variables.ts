@@ -84,6 +84,8 @@ export const Colors = {
   cardBlurDark: 'rgba(0,0,0,0.5)',
   lightPink: 'rgb(249,241,246)',
   offerBgGreen: 'rgb(234, 246, 235)',
+  rulesColor: 'rgb(119, 119, 119)',
+  checkColor: '#1AAE5F',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

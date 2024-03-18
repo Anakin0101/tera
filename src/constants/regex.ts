@@ -7,4 +7,6 @@ export const REGEX = {
   MATCH_ID: /id:(\d+)/,
   BUDGET: /^\d{8,}$/,
   PHONE: /^5\d{0,8}$/,
+  LATIN_REGEX: /^[A-Za-z]+$/,
+  CODE_WORD: /^[^\/.,)']+$/,
 };

@@ -8,9 +8,10 @@ export type ProfileItemType = {
   navigateTo?:
     | {
         stack: any;
-        screen: 'AuthorizationMethodsScreen' | 'SettingsScreen';
+        screen: 'AuthorizationMethodsScreen' | 'SettingsScreen' | 'EditUserInfo';
       }
     | 'AuthorizationMethodsScreen'
-    | 'SettingsScreen';
+    | 'SettingsScreen'
+    | 'EditUserInfo';
   handlePress?: () => void;
 };

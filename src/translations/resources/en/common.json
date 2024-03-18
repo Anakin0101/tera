@@ -71,7 +71,16 @@
     "additional_settings": "Additional settings",
     "manage_notifications": "Manage notifications",
     "biometrics_title": "With Biometric information",
-    "biometrics_desc": "With the use of Face ID or Fingerprint"
+    "biometrics_desc": "With the use of Face ID or Fingerprint",
+    "userName": "Username",
+    "newName": "New userName",
+    "enterlatin": "Enter the name in Latin",
+    "minLength": "At least 6 characters",
+    "codeWord": "Code word",
+    "dontInclude": "Must not contain characters (/.,)",
+    "phone": "Phone number",
+    "address": "Address",
+    "invalid": "is invalid"
   },
   "trustDevice": {
     "heading": "Device verification",
