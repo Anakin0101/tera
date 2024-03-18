@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FlatList, ListRenderItem, View } from 'react-native';
+import { FlatList, Keyboard, ListRenderItem, View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 import { OtherBanksTransactionTabBar } from 'components';
 import { config } from 'utils/config';
@@ -22,12 +22,15 @@ export const OtherBankTransactionScreen = () => {
     setActiveTab(index);
 
     translateX.value = withTiming(index * config.mobileWidth);
+    Keyboard.dismiss();
 
-    flatlistRef.current?.scrollToOffset({
-      animated: true,
+    setTimeout(() => {
+      flatlistRef.current?.scrollToOffset({
+        animated: true,
 
-      offset: index * config.mobileWidth,
-    });
+        offset: index * config.mobileWidth,
+      });
+    }, 0);
   };
 
   const renderItem: ListRenderItem<string> = ({ index }) => {
