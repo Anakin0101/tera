@@ -37,7 +37,7 @@ import { HeaderBackArrow } from 'components/index';
 import { TransactionFailedScreen } from 'screens/TransactionDeclinedScreen/TransactionDeclined';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { Colors } from 'theme/Variables';
-import ForeignIbanScreen from 'screens/ForeignIbanScreen/ForeignIbanScreen';
+import { ForeignIbanScreen } from 'screens/ForeignIbanScreen/ForeignIbanScreen';
 import { TransferToForeignIban } from 'screens/TransferToForeignIban/TransferToForeignIban';
 import { ForeignTransferDetailsScreen } from 'screens/ForeignTransferDetailsScreen/ForeignTransferDetailsScreen';
 

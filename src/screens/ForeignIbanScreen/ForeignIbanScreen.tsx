@@ -14,7 +14,7 @@ import { useKeyboard } from 'utils/useKeyboard';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import { TRANSFER_TO_FOREIGN_IBAN } from 'navigation/ScreenNames';
-const ForeignIbanScreen = () => {
+export const ForeignIbanScreen = () => {
   const { params } = useRoute<TransactionsStackRouteProps<'ForeignIbanScreen'>>();
   const { navigate } = useNavigation<TransactionsStackScreenProps<'ForeignIbanScreen'>>();
   const { t } = useTranslation();
@@ -146,5 +146,3 @@ const ForeignIbanScreen = () => {
     </KeyboardAvoidingScrollView>
   );
 };
-
-export default ForeignIbanScreen;

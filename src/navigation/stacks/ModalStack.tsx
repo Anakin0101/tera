@@ -17,6 +17,10 @@ import {
   PaymentSuccessScreen,
   SettingsScreen,
   TransactionDetailsScreen,
+  ForeignIbanScreen,
+  ForeignTransferDetailsScreen,
+  TransferToForeignIban,
+  TransactionFinishedScreen,
 } from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
@@ -43,6 +47,10 @@ import {
   SETTINGS_SCREEN,
   TRANSACTION_DETAILS_SCREEN,
   VERIFY_EASY_LOGIN_SCREEN,
+  TRANSACTION_FINISHED_SCREEN,
+  FOREIGN_IBAN_SCREEN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
 } from 'navigation/ScreenNames';
 import { VerifyEasyLoginScreen } from 'screens/VerifyEasyLoginScreen/VerifyEasyLoginScreen';
 import { Colors } from 'theme/Variables';
@@ -241,6 +249,36 @@ export const ModalNavigator = () => {
         name={TRANSACTION_DETAILS_SCREEN}
         component={TransactionDetailsScreen}
         options={{ title: t('transactions.details') }}
+      />
+      <Screen
+        name={FOREIGN_IBAN_SCREEN}
+        component={ForeignIbanScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_FOREIGN_IBAN}
+        component={TransferToForeignIban}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={FOREIGN_TRANSFER_DETAILS_SCREEN}
+        component={ForeignTransferDetailsScreen}
+        options={{
+          title: t('transfers.details'),
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FINISHED_SCREEN}
+        component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
       />
     </Navigator>
   );

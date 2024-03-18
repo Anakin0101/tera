@@ -196,6 +196,21 @@ export type ModalStackParamsList = {
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
+  [FOREIGN_IBAN_SCREEN]: {
+    iban?: string;
+    ccy?: string;
+  };
+  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
+  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: boolean;
+        internal?: boolean;
+        fromIban?: boolean;
+        mobileTransaction?: boolean;
+        budgetTransaction?: boolean;
+      };
 };
 
 export type DashboardStackParamsList = {

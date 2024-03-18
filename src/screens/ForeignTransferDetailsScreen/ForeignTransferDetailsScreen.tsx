@@ -20,11 +20,12 @@ import { OTPModal } from 'components/index';
 import { openModal } from 'utils/modal';
 import { TransferToSomeoneResultResponseType } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { TRANSACTION_FINISHED_SCREEN } from 'navigation/ScreenNames';
+
 export const ForeignTransferDetailsScreen = () => {
   const { t } = useTranslation();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TransactionFinishedScreen'>>();
   const { handleTransferInfo, isGetTransferInfoLoading } = useForeignTransfer();
   const [transferToSomeoneMutation] = useTransferToSomeoneMutation();
   const selectedItemFromStore = useAppSelector(
