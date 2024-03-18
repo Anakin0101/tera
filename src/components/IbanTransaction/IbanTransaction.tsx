@@ -80,6 +80,8 @@ const IbanTransaction = () => {
     apiCallInitiated,
     setApiCallInitiated,
     INPUT_LENGTH,
+    invoiceFile,
+    handleFilePick,
   } = useTransactionsScreen();
 
   const { bankIcon, debouncedHandleChange } = useBankIcons(
@@ -312,6 +314,15 @@ const IbanTransaction = () => {
                   onChangeText={text => hendleRecieverName(text)}
                   marginTop={32}
                   autoFocus
+                />
+                <TextInput
+                  inputStyle={styles.inputStyle}
+                  label={invoiceFile ? '' : 'personalNumber.Invoice'}
+                  value={invoiceFile || ''}
+                  editable={false}
+                  marginTop={32}
+                  invoice
+                  invoiceClick={handleFilePick}
                 />
                 {accountFromData.ccy === CurrencyEnum.GEL && (
                   <>
