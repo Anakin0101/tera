@@ -17,6 +17,7 @@ export const useEditUserInfo = () => {
   const [inputDisplay, setInputDisplay] = useState<boolean>();
   const {
     control,
+    handleSubmit,
     // setValue,
     formState: { errors },
   } = useForm<UserInfoFormData>({
@@ -66,5 +67,6 @@ export const useEditUserInfo = () => {
     validateCodewordInput,
     inputDisplay,
     onSubmit,
+    handleSubmit,
   };
 };

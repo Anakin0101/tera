@@ -3,13 +3,10 @@ import { Text, View } from 'react-native';
 import { Button, ControlledInput, IconComponent } from 'components';
 import { CheckCircle, UserIcon } from 'assets/SVGs';
 import { useStyles } from './EditUserInfo.styles';
-
-import { useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
 import { REGEX } from 'constants/index';
 import { CheckStatic } from 'assets/SVGs/CheckStatic';
 import { Colors } from 'theme/Variables';
-import { UserInfoFormData } from './EditUserInfo.types';
 import { useEditUserInfo } from './container';
 import { useTranslation } from 'react-i18next';
 import { SettingsEdit } from 'assets/SVGs/SettingsEdit';
@@ -29,13 +26,10 @@ export const EditUserInfo = () => {
     validateCodewordInput,
     inputDisplay,
     onSubmit,
-  } = useEditUserInfo();
-
-  const {
     control,
+    errors,
     handleSubmit,
-    formState: { errors },
-  } = useForm<UserInfoFormData>();
+  } = useEditUserInfo();
 
   return (
     <ScrollView>
