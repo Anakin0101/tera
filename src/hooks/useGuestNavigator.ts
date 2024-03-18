@@ -11,6 +11,7 @@ import {
 } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { resetKeychainValues } from 'utils/logKeychainValues';
+import { closeModal } from 'utils/modal';
 
 export const useGuestNavigator = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -22,6 +23,11 @@ export const useGuestNavigator = () => {
   const passcodeTries = useAppSelector(state => state.userInfo.passcodeTries);
   const shouldSaveUsername = useAppSelector(state => state.userInfo.shouldSaveUsername);
   const isLaunchedBefore = storageKeys().includes(APP_LAUNCHED);
+
+  //   If auto-logout happens and the modal had been opened, on guest navigator - any screen - modal must be closed
+  useEffect(() => {
+    closeModal();
+  }, []);
 
   useEffect(() => {
     const fetchInitialData = async () => {
