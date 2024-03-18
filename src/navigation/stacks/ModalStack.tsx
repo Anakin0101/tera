@@ -21,6 +21,8 @@ import {
   ForeignTransferDetailsScreen,
   TransferToForeignIban,
   TransactionFinishedScreen,
+  AllTemplatesScreen,
+  TransferToAccountScreen,
 } from 'screens';
 import { ModalStackParamsList } from 'navigation/types';
 import { hideHeader } from 'navigation/config';
@@ -51,6 +53,8 @@ import {
   FOREIGN_IBAN_SCREEN,
   FOREIGN_TRANSFER_DETAILS_SCREEN,
   TRANSFER_TO_FOREIGN_IBAN,
+  ALL_TEMPLATES_SCREEN,
+  TRANSFER_TO_ACCOUNT_SCREEN,
 } from 'navigation/ScreenNames';
 import { VerifyEasyLoginScreen } from 'screens/VerifyEasyLoginScreen/VerifyEasyLoginScreen';
 import { Colors } from 'theme/Variables';
@@ -278,6 +282,21 @@ export const ModalNavigator = () => {
           title: '',
           gestureEnabled: false,
           headerLeft: () => null,
+        }}
+      />
+      <Screen
+        name={ALL_TEMPLATES_SCREEN}
+        component={AllTemplatesScreen}
+        options={{
+          title: t('onboarding.templates'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_ACCOUNT_SCREEN}
+        component={TransferToAccountScreen}
+        options={{
+          title: t('transfers.toOwnAccount'),
         }}
       />
     </Navigator>

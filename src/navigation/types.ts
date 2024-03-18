@@ -211,6 +211,15 @@ export type ModalStackParamsList = {
         mobileTransaction?: boolean;
         budgetTransaction?: boolean;
       };
+  [ALL_TEMPLATES_SCREEN]: undefined;
+  [TRANSFER_TO_ACCOUNT_SCREEN]: {
+    fromOtherBank?: any;
+    fromMobile?: boolean;
+    receiver?: string;
+    fromIban?: boolean;
+    fromPersonal?: boolean;
+    templates?: Template;
+  };
 };
 
 export type DashboardStackParamsList = {

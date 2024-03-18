@@ -67,3 +67,4 @@ export { ForeignIbanScreen } from './ForeignIbanScreen/ForeignIbanScreen';
 export { ForeignTransferDetailsScreen } from './ForeignTransferDetailsScreen/ForeignTransferDetailsScreen';
 export { TransferToForeignIban } from './TransferToForeignIban/TransferToForeignIban';
 export { TransactionFinishedScreen } from './TransactionFinishedScreen/TransactionFinishedScreen';
+export { AllTemplatesScreen } from './AllTemplatesScreen/AllTemplatesScreen';

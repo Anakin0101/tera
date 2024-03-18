@@ -18,9 +18,9 @@ import {
 import { TemplatesSectionProps } from './AllTemplatesScreen.types';
 import { sectionKeys, trustedTransactions } from 'utils/transactionUtils';
 import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
-import { TRANSACTIONS_STACK, TRANSFER_TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
+import { TRANSFER_TO_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useNavigation } from '@react-navigation/native';
-import { MainStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 
 let rowRefs: Array<Swipeable | null> = [];
 let prevOpenedRow: Swipeable | null;
@@ -32,7 +32,7 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
   templateAddBtn,
 }: TemplatesSectionProps) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<MainStackScreenProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TransferToAccountScreen'>>();
   const dragX = useSharedValue(0);
 
   const isWithin24Hours = (timestamp: string | number | Date) => {
@@ -146,12 +146,7 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
         style={styles.templates}
         onPress={() => {
           if (templates.internal || templates.conversion) {
-            navigate(TRANSACTIONS_STACK, {
-              screen: TRANSFER_TO_ACCOUNT_SCREEN,
-              params: {
-                templates: templates,
-              },
-            });
+            navigate(TRANSFER_TO_ACCOUNT_SCREEN, { templates: templates });
           } else if (templates.bankExternal || templates.bankInternal) {
             // navigate(TRANSACTIONS_STACK, {
             //   screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
