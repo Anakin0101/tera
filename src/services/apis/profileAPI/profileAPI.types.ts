@@ -47,3 +47,27 @@ export type GetUnreadNotificationsCountResponseType = {
     notReadCountObligatory: number;
   };
 };
+
+export type AtmsResponse = {
+  id: number;
+  addresGeo: string;
+  addresEng: string;
+  descriptionGeo: string;
+  descriptionEng: string;
+  latitude: number;
+  longitude: number;
+  isActive: true;
+  isExternal: false;
+  distance: number;
+};
+
+export type ServiceCentersResponse = {
+  id: number;
+  addresGeo: string;
+  addresEng: string;
+  descriptionGeo: string;
+  descriptionEng: string;
+  latitude: number;
+  longitude: number;
+  isActive: true;
+};

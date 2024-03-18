@@ -7,7 +7,7 @@ import { IncomeTypeModal, SelectPaymentDateModal } from 'components/modals';
 import { TextInputRefType } from 'components/TextInput/TextInput.types';
 import { ItemType } from 'components/modals/IncomeTypeModal/IncomeTypeModal.types';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { NEW_LOAN_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setNewLoanAdditionalData } from 'store/slices/loan';
@@ -19,7 +19,7 @@ import { Colors } from 'theme/Variables';
 
 export const useLoanRequestAdditionalInfo = () => {
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'NewLoanDetailsScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'NewLoanDetailsScreen'>>();
   const paymentDateRef = useRef<TextInputRefType>(null);
   const typeOfIncomeRef = useRef<TextInputRefType>(null);
   const { control, setValue, watch } = useForm<FormData>({

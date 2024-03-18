@@ -5,6 +5,7 @@ import { PensionFund } from '../PensionFund/PensionFund';
 import { Notification } from '../Notification/Notification';
 import { useProfileScreen } from 'screens/ProfileScreen/container';
 import { useAppSelector } from 'store/hooks/useAppSelector';
+import { ATMS_AND_BRANCHES_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 
 export const useProfileCards = () => {
   const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
@@ -44,6 +45,10 @@ export const useProfileCards = () => {
       id: 'locations',
       icon: Images().Locations,
       text: 'profile.locations',
+      navigateTo: {
+        stack: MODAL_STACK,
+        screen: ATMS_AND_BRANCHES_SCREEN,
+      },
     },
     {
       id: 'pension_fund',

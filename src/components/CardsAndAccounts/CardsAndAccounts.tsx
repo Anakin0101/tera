@@ -6,11 +6,16 @@ import { Account } from './Account';
 import { Settings } from 'assets/SVGs';
 import { Divider, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
-import { ProductsStackScreenProps } from 'navigation/types';
-import { ACCOUNT_DETAILS_SCREEN, ALL_ACCOUNTS_AND_CARDS_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import {
+  ACCOUNT_DETAILS_SCREEN,
+  ALL_ACCOUNTS_AND_CARDS_SCREEN,
+  MODAL_STACK,
+} from 'navigation/ScreenNames';
 import { CardsAndAccountsProps, HeaderProps, RenderItem } from './CardsAndAccounts.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useStyles } from './CardsAndAccounts.styles';
+import { MAX_LIST_ITEM_AMOUNT } from 'constants/common';
 
 const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance }) => {
   const styles = useStyles();
@@ -39,10 +44,12 @@ const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance 
 
 const ListFooter = () => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'AllAccountsAndCardsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const onPress = () => {
-    navigate(ALL_ACCOUNTS_AND_CARDS_SCREEN);
+    navigate(MODAL_STACK, {
+      screen: ALL_ACCOUNTS_AND_CARDS_SCREEN,
+    });
   };
 
   return (
@@ -61,27 +68,39 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   seeAllAccounts,
 }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'AccountDetailsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const handlePress = useCallback(
     (iban: string, index: number) => {
-      navigate(ACCOUNT_DETAILS_SCREEN, {
-        iban,
-        index,
+      navigate(MODAL_STACK, {
+        screen: ACCOUNT_DETAILS_SCREEN,
+        params: {
+          iban,
+          index,
+        },
       });
     },
     [navigate],
+  );
+
+  const isLast = useCallback(
+    (index: number) => {
+      return seeAllAccounts || accounts?.length < MAX_LIST_ITEM_AMOUNT
+        ? index === accounts?.length - 1
+        : index === MAX_LIST_ITEM_AMOUNT - 1;
+    },
+    [accounts?.length, seeAllAccounts],
   );
 
   const renderItem: RenderItem = useCallback(
     ({ item, index }) => (
       <Account
         item={item}
-        isLast={index === accounts?.length - 1}
+        isLast={isLast(index)}
         handlePress={() => handlePress(item?.iban, index)}
       />
     ),
-    [accounts?.length, handlePress],
+    [handlePress, isLast],
   );
 
   if (!accounts?.length) {

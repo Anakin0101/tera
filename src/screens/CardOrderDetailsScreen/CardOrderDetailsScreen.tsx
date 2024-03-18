@@ -29,7 +29,7 @@ export const CardOrderDetailsScreen = () => {
         <View style={styles.section}>
           <Text children="products.details" medium size={18} />
           <DetailsItem
-            label={`products.type`}
+            label={'products.type'}
             value={`${selectedCardData?.cardKind}`}
             marginTop={24}
           />
@@ -39,17 +39,17 @@ export const CardOrderDetailsScreen = () => {
             marginTop={24}
           />
           <DetailsItem
-            label={`products.annualServiceFee`}
+            label={'products.annualServiceFee'}
             value={`${selectedCardData?.serviceFee}`}
             marginTop={24}
           />
           <DetailsItem
-            label={`products.nameOnCard`}
+            label={'products.nameOnCard'}
             value={`${selectedCardData?.cardHolderName}`}
             marginTop={24}
           />
           <DetailsItem
-            label={`products.accountNumber`}
+            label={'products.accountNumber'}
             value={`${selectedIban?.accountIban}`}
             marginTop={24}
           />
@@ -58,18 +58,18 @@ export const CardOrderDetailsScreen = () => {
         <View style={styles.section}>
           <Text children="products.delivery" medium size={18} />
           <DetailsItem
-            label={`products.cardDeliveryType`}
-            value={`products.pickupAtBranch`}
+            label={'products.cardDeliveryType'}
+            value={'products.pickupAtBranch'}
             marginTop={24}
           />
           <DetailsItem
-            label={`products.pinCodeReceivingMethod`}
-            value={`products.SMS`}
+            label={'products.pinCodeReceivingMethod'}
+            value={'products.SMS'}
             marginTop={24}
           />
-          <DetailsItem label={`products.phoneForPin`} value={`${userPhoneNumber}`} marginTop={24} />
+          <DetailsItem label={'products.phoneForPin'} value={`${userPhoneNumber}`} marginTop={24} />
           <DetailsItem
-            label={`products.branch`}
+            label={'products.branch'}
             value={`${selectedBranch?.branchName}`}
             marginTop={24}
           />
@@ -78,8 +78,8 @@ export const CardOrderDetailsScreen = () => {
         <View style={styles.section}>
           <Text children="products.cardSecurity" medium size={18} />
           <DetailsItem
-            label={`products.cardInsurance`}
-            value={`products.noInsuranceWanted`}
+            label={'products.cardInsurance'}
+            value={'products.noInsuranceWanted'}
             marginTop={24}
           />
         </View>

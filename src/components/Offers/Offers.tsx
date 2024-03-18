@@ -1,33 +1,41 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { ListRenderItem, View, Image, Pressable } from 'react-native';
 import { OffersProps } from './Offers.types';
-import { config, horizontalScale } from 'utils/config';
+import { horizontalScale } from 'utils/config';
 import { useStyles } from './Offers.styles';
 import useTheme from 'hooks/useTheme';
 import { Text } from 'components';
 import Indicator from 'components/CardsAndBalance/Indicator';
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 import { IMAGE_COVER } from 'constants/Images';
-
-const padding = config.mobileWidth - horizontalScale(320) - 24;
+import { OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
+import { CreditDisbursement } from './CreditDisbursement';
 
 export const Offers: FC<OffersProps> = ({ data, showAll = true }) => {
-  const styles = useStyles(padding);
+  const styles = useStyles();
   const translateX = useSharedValue(0);
   const { Colors } = useTheme();
   const scrollHandler = useAnimatedScrollHandler(event => {
     translateX.value = event.contentOffset.x;
   });
 
-  const renderItem: ListRenderItem<any> = ({ item }) => {
-    return (
-      <Image
-        resizeMode={IMAGE_COVER}
-        source={{ uri: `data:image/jpeg;base64,${item?.imageBase64}` }}
-        style={item?.length === 1 ? styles.offerLengthOne : styles.offer}
-      />
-    );
-  };
+  const renderItem: ListRenderItem<any> = useCallback(
+    ({ item }) => {
+      if (item?.type === OfferTypeEnum.CreditDisbursement) {
+        return <CreditDisbursement item={item} />;
+      }
+
+      return (
+        <Image
+          resizeMode={IMAGE_COVER}
+          source={{ uri: `data:image/jpeg;base64,${item?.imageBase64}` }}
+          style={item?.length === 1 ? styles.offerLengthOne : styles.offer}
+        />
+      );
+    },
+    [styles.offer, styles.offerLengthOne],
+  );
+
   return (
     <>
       {data?.length ? (

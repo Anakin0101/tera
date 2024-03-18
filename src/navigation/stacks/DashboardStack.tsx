@@ -12,6 +12,7 @@ const Stack = createStackNavigator<DashboardStackParamsList>();
 export const DashboardStack = () => {
   const { Navigator, Screen } = Stack;
   const st = useStyleTheme();
+
   return (
     <Navigator
       initialRouteName={DASHBOARD_SCREEN}

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SelectedItemProp, paramsTypes } from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
-import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
+import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
 import { useTransferDetails } from './container';
 import { TRANSACTION_FINISHED_SCREEN, TRANSACTION_FAILED_SCREEN } from 'navigation/ScreenNames';
 import { ConversionOrTranferDetails } from './ConversionOrTranferDetails';
@@ -34,11 +34,11 @@ export const TransferDetailScreen = () => {
     (state: { transfers: SelectedItemProp }) => state.transfers,
   );
 
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TransferDetailScreen'>>();
   const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeone, isLoading } =
     useTransferDetails(!!params?.mobileTransaction);
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TransferDetailScreen'>>();
   const dispatch = useAppDispatch();
   const {
     accountFromData,

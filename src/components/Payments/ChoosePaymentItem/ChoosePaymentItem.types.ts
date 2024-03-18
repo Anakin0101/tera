@@ -1,3 +1,4 @@
+import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 import { Basket, ProvidersGroup } from 'services/apis/paymentsAPI/paymentsAPI.types';
 
 export interface ChoosePaymentItemProps {
@@ -5,4 +6,5 @@ export interface ChoosePaymentItemProps {
   isLast?: boolean;
   isAutomaticPayment?: boolean;
   basket?: Basket;
+  selectedAccountFromCard?: SelectedAccountFromCard;
 }

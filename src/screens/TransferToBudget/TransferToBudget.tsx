@@ -10,7 +10,7 @@ import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedPrice } from 'store/slices/transfers';
 import CardSwap from 'screens/TransferToAccountScreen/CardSwap';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { BUDGET_TRANSFER_DETAILS, PRIVATE_TRANSACTION_SCREEN } from 'navigation/ScreenNames';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
@@ -24,16 +24,14 @@ export const TransferToBudget = () => {
     ? `${params.treasury.a ?? ''}${params.treasury.b ?? ''}${params.treasury.c ?? ''}`
     : params.budgetCode;
 
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransferDetailsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const navigateToTransferDetails = () => {
     navigate(BUDGET_TRANSFER_DETAILS);
   };
   const openTransferScreen = () => {
-    navigate(PRIVATE_TRANSACTION_SCREEN, {
-      from: 'budget',
-    });
+    navigate(PRIVATE_TRANSACTION_SCREEN, { from: 'other' });
   };
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItemProp }) => state.transfers,
@@ -43,6 +41,9 @@ export const TransferToBudget = () => {
   const inputRef = useRef(null);
 
   const handleTextChange = (text: string) => {
+    if (!text) {
+      setIsButtonDisabled(true);
+    }
     const { isInvalidInput, processedText } = formatAndValidateText({
       text: text,
       decimalPlaces: 2,

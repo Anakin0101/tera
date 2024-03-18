@@ -7,7 +7,7 @@ import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Button, LoadingView } from 'components';
 import { setSelectedPrice } from 'store/slices/transfers';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { clearSelectedData } from 'store/slices/transfers';
 import { useDispatch } from 'react-redux';
 import { Convert } from './Convert';
@@ -43,8 +43,8 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   const [templateData, setTemplateData] = useState<TemplateData | null>(null);
   const [inputValue, setInputValue] = useState('');
 
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferToAccountScreen'>>();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { handleTransferInfo } = useTransferDetails(false);
   const { t } = useTranslation();
   const isFocused = useIsFocused();
@@ -155,13 +155,9 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
   const openTransferScreen = () => {
     const convertionValue = accountFromData?.ccy !== accountToData?.ccy;
     if (convertionValue) {
-      navigate(PRIVATE_TRANSACTION_SCREEN, {
-        from: 'convert',
-      });
+      navigate(PRIVATE_TRANSACTION_SCREEN, { from: 'convert' });
     } else {
-      navigate(PRIVATE_TRANSACTION_SCREEN, {
-        from: 'transfer',
-      });
+      navigate(PRIVATE_TRANSACTION_SCREEN, { from: 'transfer' });
     }
   };
 
@@ -199,6 +195,10 @@ export const TransferToAccountScreen: React.FC<TransferToAccountScreenProps> = (
         fromOtherBank: fromOtherBank,
       });
     }
+    navigate(TRANSFER_DETAIL_SCREEN, {
+      convertion: convertionValue,
+      fromOtherBank: fromOtherBank,
+    });
   };
 
   useEffect(() => {

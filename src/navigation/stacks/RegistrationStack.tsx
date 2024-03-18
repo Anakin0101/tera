@@ -29,6 +29,7 @@ export const RegistrationNavigator = () => {
   const st = useStyleTheme();
   const { t } = useTranslation();
   const { flow } = useAppSelector(state => state.registerUser);
+
   return (
     <Navigator
       initialRouteName={REGISTRATION_METHOD_SCREEN}

@@ -5,7 +5,7 @@ import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
 import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/container';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { FOREIGN_IBAN_SCREEN, TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
@@ -48,7 +48,7 @@ const IbanTransaction = () => {
 
   const { isKeyboardOpened } = useKeyboard();
   const { selectedTransactionType, accountFromData } = selectedItemFromStore;
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferToAccountScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const { handleCheckIban, isSuccess, data } = useOtherBanksContainer(IBAN);
   const [receiver, setReceiver] = useState<string>('');
   const inputRef = useRef<RNInput>(null);

@@ -5,9 +5,9 @@ import { useStyles } from './BudgetTransactionScreen.styles';
 import { Budget } from 'components/Budget/Budget';
 import { useBudget } from './container';
 import { treasuryRes } from 'services/apis/transfersAPI/transfersAPI.types';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
-import { TRANSFER_TO_BUDGET } from 'navigation/ScreenNames';
+import { MODAL_STACK, TRANSFER_TO_BUDGET } from 'navigation/ScreenNames';
 import { setClearTreasuryFromCode, setClearWrappedCode } from 'store/slices/transfers';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { SectionListRenderItemT } from 'screens/types';
@@ -25,14 +25,20 @@ const ListFooter = (
   budgetCode: string,
 ) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'BudgetTransactionScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   const navigateToTransferBudget = () => {
     const isValidBudgetCode = REGEX.BUDGET.test(budgetCode);
     if (!clickedCreateCode && isValidBudgetCode) {
-      navigate(TRANSFER_TO_BUDGET, { budgetCode: budgetCode });
+      navigate(MODAL_STACK, {
+        screen: TRANSFER_TO_BUDGET,
+        params: { budgetCode: budgetCode },
+      });
     } else if (clickedCreateCode && (treasury || clickedCreateCode)) {
-      navigate(TRANSFER_TO_BUDGET, { treasury: wrappedCode });
+      navigate(MODAL_STACK, {
+        screen: TRANSFER_TO_BUDGET,
+        params: { treasury: wrappedCode },
+      });
     }
   };
 

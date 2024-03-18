@@ -3,17 +3,17 @@ import { StyleSheet } from 'react-native';
 import { moderateScale } from 'utils/config';
 
 export const useStyleTheme = () => {
-  const { Colors, FontSize, Fonts, FontFamily } = useTheme();
+  const { Colors, FontSize, Fonts } = useTheme();
   return StyleSheet.create({
     default: {
       fontSize: moderateScale(FontSize.small),
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
       lineHeight: FontSize.large,
       color: Colors.textBlack,
     },
     withoutLineHeight: {
       fontSize: moderateScale(FontSize.small),
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
 
       color: Colors.textBlack,
     },
@@ -44,23 +44,14 @@ export const useStyleTheme = () => {
     bold: {
       fontWeight: '700',
     },
-    black: {
-      fontFamily: FontFamily.Black,
-    },
     demiBold: {
-      fontFamily: FontFamily.DemiBold,
-    },
-    light: {
-      fontFamily: FontFamily.Light,
-    },
-    lightItalic: {
-      fontFamily: FontFamily.LightItalic,
+      ...Fonts.semiBold,
     },
     regular: {
-      fontFamily: FontFamily.Regular,
+      ...Fonts.regular,
     },
     medium: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
   });
 };

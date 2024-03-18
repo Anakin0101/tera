@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
@@ -22,6 +22,7 @@ import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { updateArrayValuesById } from 'utils/paymentUtils';
 import { formatMoney } from 'utils/formatMoney';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const CartPaymentListScreen = () => {
   const { t } = useTranslation();
@@ -51,7 +52,23 @@ export const CartPaymentListScreen = () => {
     isActionSheetVisible,
     toggleActionSheet,
     setProviderItems,
+    selectedAccountFromCard,
   } = useCartPaymentList();
+
+  const setAccountFromCard = useCallback(() => {
+    if (!selectedAccountFromCard) {
+      return;
+    }
+    const isGelAccount = selectedAccountFromCard?.ccy === CurrencyEnum.GEL;
+
+    if (isGelAccount) {
+      setSelectedAccount(selectedAccountFromCard);
+    }
+  }, [selectedAccountFromCard]);
+
+  useEffect(() => {
+    setAccountFromCard();
+  }, [setAccountFromCard]);
 
   const unSelectCartOnPress = useCallback(
     (id: string) => {

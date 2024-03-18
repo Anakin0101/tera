@@ -17,18 +17,13 @@ import {
 } from '../ScreenNames';
 import { useGuestNavigator } from 'hooks';
 import { logAllKeychainValues } from 'utils/logKeychainValues';
-import { LoadingView } from 'components/index';
 import { RegistrationNavigator } from 'navigation/stacks/RegistrationStack';
 
 const Stack = createStackNavigator<GuestStackParamList>();
 
 export const GuestNavigator = () => {
   const { Navigator, Screen } = Stack;
-  const { loading, initialRoute } = useGuestNavigator();
-
-  if (loading) {
-    return <LoadingView />;
-  }
+  const { initialRoute } = useGuestNavigator();
 
   //   TODO TEMp!
   logAllKeychainValues();

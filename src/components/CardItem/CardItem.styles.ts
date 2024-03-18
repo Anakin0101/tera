@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
-import { Spacing } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Layout, FontSize, Colors } = useTheme();
+  const { Layout, FontSize, Colors, Spacing } = useTheme();
 
   return StyleSheet.create({
     wrapper: {

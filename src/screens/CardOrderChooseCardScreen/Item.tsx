@@ -4,7 +4,7 @@ import { useStyles } from './CardOrderChooseCardScreen.styles';
 import { ChevronRight } from 'assets/SVGs';
 import { Image, Text } from 'components';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { CARD_ORDER_CHOSEN_CARD_SCREEN } from 'navigation/ScreenNames';
 import { Colors } from 'theme/Variables';
@@ -13,7 +13,7 @@ import { CardProduct } from 'services/apis/productsAPI/productsAPI.types';
 
 export const Item: FC<{ item: CardProduct }> = ({ item }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardOrderChosenCardScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'CardOrderChosenCardScreen'>>();
   const dispatch = useAppDispatch();
 
   const onPress = () => {

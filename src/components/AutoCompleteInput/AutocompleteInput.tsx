@@ -40,7 +40,7 @@ const AutocompleteInput = ({
         setSuggestions(response?.data);
         setIsQuerying(false);
       } catch (error) {
-        console.error('Error fetching suggestions:', error);
+        console.warn('Error fetching suggestions:', error);
         setIsQuerying(false);
       }
     }

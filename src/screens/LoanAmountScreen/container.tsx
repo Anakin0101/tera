@@ -4,7 +4,7 @@ import { openToast } from 'utils/toast';
 import { openModal } from 'utils/modal';
 
 import { SelectLoanTypeModal } from 'components/modals';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setNewLoanAmountAndDuration } from 'store/slices/loan';
 import { useGetRequestForLoanConfigQuery } from 'services/apis';
@@ -17,7 +17,7 @@ import { REGEX } from 'constants/index';
 
 export const useLoanAmount = (flatlistRef: FlatListRef) => {
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'LoanRequestTermsScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'LoanRequestTermsScreen'>>();
   const [amount, setAmount] = useState('');
   const [duration, setDuration] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');

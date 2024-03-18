@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { Slider } from 'components';
 import { useLoanDetails } from './container';
 import { LoanSliderItem } from './LoanSliderItem';
-import { ProductsStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps } from 'navigation/types';
 import { useStyles } from './LoanDetailsScreen.styles';
 import { NextPayment } from './NextPayment';
 import { formatDate } from 'utils/formatDate';
@@ -20,7 +20,7 @@ const sections = [
 
 export const LoanDetailsScreen = () => {
   const styles = useStyles();
-  const { params } = useRoute<ProductsStackRouteProps<'LoanDetailsScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'LoanDetailsScreen'>>();
   const { activeIndex, setActiveIndex, actions, loan, data, isCreditCardOrOverdraft } =
     useLoanDetails(params.index);
 

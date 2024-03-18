@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import useTheme from 'hooks/useTheme';
-import { Spacing } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Colors, Layout, FontSize } = useTheme();
+  const { Colors, Layout, FontSize, Spacing } = useTheme();
 
   return StyleSheet.create({
     AuthorizationMethodContainer: {

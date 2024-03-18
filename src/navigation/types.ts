@@ -1,6 +1,6 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-
+import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -30,7 +30,6 @@ import {
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
-  TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
   TRANSACTION_FINISHED_SCREEN,
@@ -96,8 +95,18 @@ import {
   CART_PAYMENT_LIST_SCREEN,
   CART_PAYMENT_SUCCESS_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
+  MONEY_TRANSFERS_SCREEN,
+  MONEY_TRANSFER_RECEIVE_SCREEN,
+  CHECK_MONEY_TRANSFER_PROVIDER_SCREEN,
+  MONEY_TRANSFER_PERMISSION_SCREEN,
+  MONEY_TRANSFER_DETAILS_SCREEN,
+  APPROVED_LOAN_DETAILS_SCREEN,
+  APPROVED_LOAN_PDF_SCREEN,
+  ACTIVATE_LOAN_SUCCESS_SCREEN,
+  ATMS_AND_BRANCHES_SCREEN,
   TRANSFER_TO_FOREIGN_IBAN,
   FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_ACCOUNT_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -112,7 +121,14 @@ import {
 import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
-import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
+import { MTSystemItemProps } from 'utils/moneyTransfer';
+import {
+  FindTransferResponse,
+  MoneyTransferList,
+} from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
+import { BuyCurrencyDetails } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen.types';
+import { TransferListTypeEnum } from 'components/TransfersHistory/container';
+import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -134,17 +150,25 @@ export type ModalStackParamsList = {
   [AUTHORIZATION_METHODS_SCREEN]: undefined;
   [CREATE_PASSCODE_SCREEN]: undefined;
   [VERIFY_EASY_LOGIN_SCREEN]: undefined;
-  [NEW_PAYMENT_SCREEN]: undefined | { isAutomaticPayment?: boolean; basket?: Basket };
+  [NEW_PAYMENT_SCREEN]:
+    | undefined
+    | {
+        isAutomaticPayment?: boolean;
+        basket?: Basket;
+        selectedAccountFromCard?: SelectedAccountFromCard;
+      };
   [CHECK_PAYMENT_PROVIDER_SCREEN]: {
     providerItem: Provider;
     isAutomaticPayment?: boolean;
     basket?: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [CHOOSE_PAYMENT_PROVIDER_SCREEN]: {
     providerInfo?: ProvidersGroup;
     isAutomaticPayment?: boolean;
     isParkingAndFines?: boolean;
     basket?: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -154,20 +178,24 @@ export type ModalStackParamsList = {
     subscriberInputFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
   };
-  [CHOOSE_MOBILE_PROVIDER_SCREEN]: undefined;
+  [CHOOSE_MOBILE_PROVIDER_SCREEN]:
+    | { selectedAccountFromCard?: SelectedAccountFromCard }
+    | undefined;
   [PAYMENT_SUCCESS_SCREEN]: {
     providerItem?: Provider;
     subscriberInputFieldsValue?: SubscriberFieldsValue;
     amount?: number;
     isBasketMode?: boolean;
+    transferResponse?: FindTransferResponse;
   };
   [CHOOSE_PAYMENT_ACCOUNT_SCREEN]: {
     providerItem: Provider;
     debtVerifyResults: Array<DebtVerifyResult>;
     subscriberFieldsValue: SubscriberFieldsValue;
     debtVerifyBasketInfo?: Array<DebtVerifyBasketResponse>;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
-  [AUTOMATIC_PAYMENTS_SCREEN]: undefined;
+  [AUTOMATIC_PAYMENTS_SCREEN]: { selectedAccountFromCard: SelectedAccountFromCard } | undefined;
   [AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
     id: number;
     imageId: string;
@@ -176,6 +204,7 @@ export type ModalStackParamsList = {
     providerItem: Provider;
     debtVerifyResults: Array<DebtVerifyResult>;
     subscriberFieldsValue: SubscriberFieldsValue;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN]: {
     providerItem: Provider;
@@ -187,21 +216,63 @@ export type ModalStackParamsList = {
   [CART_LIST_SCREEN]: undefined;
   [CART_PAYMENT_LIST_SCREEN]: {
     basket: Basket;
+    selectedAccountFromCard?: SelectedAccountFromCard;
   };
   [CART_PAYMENT_SUCCESS_SCREEN]: {
     paymentResults: Array<PaymentResult>;
     sum: number;
     providerItems: Array<ProviderItemProps>;
   };
+  [MONEY_TRANSFERS_SCREEN]: undefined;
+  [MONEY_TRANSFER_RECEIVE_SCREEN]: undefined;
+  [CHECK_MONEY_TRANSFER_PROVIDER_SCREEN]: {
+    providerItem: MTSystemItemProps;
+  };
+  [MONEY_TRANSFER_PERMISSION_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    transferCode: string;
+    transferResponse: FindTransferResponse;
+    selectedAccount: Account;
+    buyDetails?: BuyCurrencyDetails;
+  };
+  [MONEY_TRANSFER_DETAILS_SCREEN]: {
+    transferDetails: MoneyTransferList;
+    transferType: TransferListTypeEnum;
+  };
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
   [TRANSACTION_DETAILS_SCREEN]: undefined;
-  [FOREIGN_IBAN_SCREEN]: {
-    iban?: string;
-    ccy?: string;
+  [ATMS_AND_BRANCHES_SCREEN]: undefined;
+  [MY_ACCOUNTS_SCREEN]: {
+    otherBanks?: boolean;
+    budget?: boolean;
   };
-  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
-  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
+  [TRANSACTION_FAILED_SCREEN]: undefined;
+  [TO_ACCOUNT_SCREEN]: {
+    selected?: any;
+    otherBanks?: any;
+  };
+  [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
+  [OTHER_BANK_TANSACTION_SCREEN]?:
+    | {
+        otherBanks?: boolean;
+      }
+    | undefined;
+
+  [PRIVATE_TRANSACTION_SCREEN]: {
+    from: any;
+    transactionParam?: string;
+  };
+  [TRANSFER_DETAIL_SCREEN]: {
+    convertion?: boolean;
+    fromOtherBank?: boolean;
+    mobileTransaction?: boolean;
+    creditResult?: any;
+    templateData?: any;
+    budgetTransaction?: boolean;
+    debitResult?: any;
+    receiver?: string;
+  };
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined
     | {
@@ -211,26 +282,28 @@ export type ModalStackParamsList = {
         mobileTransaction?: boolean;
         budgetTransaction?: boolean;
       };
-  [ALL_TEMPLATES_SCREEN]: undefined;
-  [TRANSFER_TO_ACCOUNT_SCREEN]: {
-    fromOtherBank?: any;
+
+  [TRANSFER_TO_BUDGET]:
+    | undefined
+    | {
+        treasury?: {
+          a: string;
+          b: string;
+          c: string;
+        };
+      }
+    | { budgetCode: string };
+
+  [BUDGET_TRANSFER_DETAILS]: undefined;
+
+  [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
+    fromOtherBank?: boolean;
     fromMobile?: boolean;
     receiver?: string;
     fromIban?: boolean;
     fromPersonal?: boolean;
-    templates?: Template;
   };
-};
-
-export type DashboardStackParamsList = {
-  [DASHBOARD_SCREEN]: undefined;
-  [ALL_TEMPLATES_SCREEN]: undefined;
-};
-
-export type ProductsStackParamsList = {
-  [PRODUCTS_SCREEN]: undefined;
   [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
-
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;
@@ -285,47 +358,17 @@ export type ProductsStackParamsList = {
   [CARD_ORDER_DETAILS_SCREEN]: undefined;
   [TARIFF_PACKAGES_SCREEN]: undefined;
   [TARIFF_PACKAGES_SINGLE_SCREEN]: CustomerPackages;
-};
-
-export type TransactionsStackParamsList = {
-  [TRANSACTIONS_SCREEN]: undefined;
-  [MY_ACCOUNTS_SCREEN]: {
-    otherBanks?: boolean;
-    budget?: boolean;
-  };
-  [TRANSACTION_FAILED_SCREEN]: undefined;
-  [TO_ACCOUNT_SCREEN]: {
-    selected?: any;
-    otherBanks?: any;
-  };
-  [BUDGET_TRANSACTION_SCREEN]: { selected?: any };
-  [OTHER_BANK_TANSACTION_SCREEN]?:
+  [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
+  [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
+  [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+  [FOREIGN_IBAN_SCREEN]:
+    | undefined
     | {
-        otherBanks?: boolean;
-      }
-    | undefined;
-  [TRANSFER_TO_ACCOUNT_SCREEN]: {
-    fromOtherBank?: any;
-    fromMobile?: boolean;
-    receiver?: string;
-    fromIban?: boolean;
-    fromPersonal?: boolean;
-    templates?: Template;
-  };
-  [PRIVATE_TRANSACTION_SCREEN]: {
-    from: any;
-    transactionParam?: string;
-  };
-  [TRANSFER_DETAIL_SCREEN]: {
-    convertion?: boolean;
-    fromOtherBank?: boolean;
-    mobileTransaction?: boolean;
-    budgetTransaction?: boolean;
-    receiver?: string;
-    debitResult?: any;
-    creditResult?: any;
-    templateData?: any;
-  };
+        iban?: string;
+        ccy?: string;
+      };
+  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
+  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined
     | {
@@ -335,37 +378,34 @@ export type TransactionsStackParamsList = {
         mobileTransaction?: boolean;
         budgetTransaction?: boolean;
       };
-
-  [TRANSFER_TO_BUDGET]:
+  [ALL_TEMPLATES_SCREEN]: undefined;
+  [TRANSFER_TO_ACCOUNT_SCREEN]:
     | undefined
     | {
-        treasury?: {
-          a: string;
-          b: string;
-          c: string;
-        };
-      }
-    | { budgetCode: string };
+        fromOtherBank?: any;
+        fromMobile?: boolean;
+        receiver?: string;
+        fromIban?: boolean;
+        fromPersonal?: boolean;
+        templates?: Template;
+      };
+};
 
-  [BUDGET_TRANSFER_DETAILS]: undefined;
-  [FOREIGN_IBAN_SCREEN]: {
-    iban?: string;
-    ccy?: string;
-  };
+export type DashboardStackParamsList = {
+  [DASHBOARD_SCREEN]: undefined;
+  [ALL_TEMPLATES_SCREEN]: undefined;
+};
 
-  [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
-    fromOtherBank?: boolean;
-    fromMobile?: boolean;
-    receiver?: string;
-    fromIban?: boolean;
-    fromPersonal?: boolean;
-  };
-  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
-  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
+export type ProductsStackParamsList = {
+  [PRODUCTS_SCREEN]: undefined;
+};
+
+export type TransactionsStackParamsList = {
+  [TRANSACTIONS_SCREEN]: undefined;
 };
 
 export type PaymentsStackParamsList = {
-  [PAYMENTS_SCREEN]: undefined;
+  [PAYMENTS_SCREEN]: { selectedAccountFromCard?: Account } | undefined;
 };
 
 export type ProfileStackParamsList = {

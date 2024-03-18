@@ -21,6 +21,7 @@ export const PRODUCTS_SCREEN = 'ProductsScreen';
 
 // PROFILE
 export const PROFILE_SCREEN = 'ProfileScreen';
+export const ATMS_AND_BRANCHES_SCREEN = 'AtmsAndBranchesScreen';
 
 // auth - Login
 export const ONBOARDING_SCREEN = 'OnboardingScreen';
@@ -47,6 +48,11 @@ export const CHOOSE_MOBILE_PROVIDER_SCREEN = 'ChooseMobileProviderScreen';
 export const ADD_CART_SCREEN = 'AddCartScreen';
 export const CART_LIST_SCREEN = 'CartListScreen';
 export const CART_PAYMENT_LIST_SCREEN = 'CartPaymentListScreen';
+export const MONEY_TRANSFERS_SCREEN = 'MoneyTransfersScreen';
+export const MONEY_TRANSFER_RECEIVE_SCREEN = 'MoneyTransferReceiveScreen';
+export const CHECK_MONEY_TRANSFER_PROVIDER_SCREEN = 'CheckMoneyTransferProviderScreen';
+export const MONEY_TRANSFER_PERMISSION_SCREEN = 'MoneyTransferPermissionScreen';
+export const MONEY_TRANSFER_DETAILS_SCREEN = 'MoneyTransferDetailsScreen';
 export const PAYMENT_ERROR_SCREEN = 'PaymentErrorScreen';
 export const NEW_PAYMENT_SCREEN = 'NewPaymentScreen';
 
@@ -103,6 +109,9 @@ export const CARD_ORDER_CHOOSE_ADDRESS_SCREEN = 'CardOrderChooseAddressScreen';
 export const CARD_ORDER_DETAILS_SCREEN = 'CardOrderDetailsScreen';
 export const TARIFF_PACKAGES_SCREEN = 'TariffPackagesListScreen';
 export const TARIFF_PACKAGES_SINGLE_SCREEN = 'TariffPackagesSingleScreen';
+export const APPROVED_LOAN_DETAILS_SCREEN = 'ApprovedLoanDetailsScreen';
+export const APPROVED_LOAN_PDF_SCREEN = 'ApprovedLoanPdfScreen';
+export const ACTIVATE_LOAN_SUCCESS_SCREEN = 'ActivateLoanSuccessScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

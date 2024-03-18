@@ -1,14 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCulture } from 'hooks';
 import { SELECT_DEPOSIT_SCREEN } from 'navigation/ScreenNames';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useCallback } from 'react';
 import { useGetBannersQuery } from 'services/apis';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 
 export const useDepositsScreen = () => {
   const { culture: language } = useCulture();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'SelectDepositScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'SelectDepositScreen'>>();
   const { deposits, totalDepositsGEL } = useAppSelector(state => state.products);
   const { data: banners, isLoading: bannersLoading } = useGetBannersQuery({
     language,

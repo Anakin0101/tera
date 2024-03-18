@@ -3,7 +3,7 @@ import { openModal } from 'utils/modal';
 import { groupCardsByPan } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Block, Insurance, Pincode, UpdateCard } from 'assets/SVGs';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { BlockCardModal } from 'components/modals/BlockCardModal/BlockCardModal';
 import { RequestStatusModal } from 'components/modals/RequestStatusModal/RequestStatusModal';
@@ -13,13 +13,14 @@ import {
 } from 'services/apis/productsAPI/productsAPI';
 import { closeModal } from 'utils/modal';
 import { CardStatusCode } from 'services/apis/productsAPI/productsAPI.types';
+import { CARD_INSURANCE } from 'navigation/ScreenNames';
 
 export const useCardDetails = (index: number) => {
   const [activeIndex, setActiveIndex] = useState(index);
   const { lastTransactions, cards, groupedAccountsByIban } = useAppSelector(
     state => state.products,
   );
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardInsuranceScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'CardInsuranceScreen'>>();
 
   const [BlockCard] = useBlockCardMutation();
   const [UnblockCard] = useUnblockCardMutation();
@@ -50,9 +51,7 @@ export const useCardDetails = (index: number) => {
   }, [cardsAttachedToAccount]);
 
   const handleInsurancePress = useCallback(() => {
-    navigate('CardInsuranceScreen', {
-      cardId: card.id,
-    });
+    navigate(CARD_INSURANCE, { cardId: card.id });
   }, [card.id, navigate]);
 
   const blockPress = (shouldBlock: boolean) => {

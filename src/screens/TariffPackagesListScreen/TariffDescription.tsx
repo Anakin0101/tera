@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { IconComponent, Text } from 'components/index';
 import Images from 'theme/Images';
 import { useStyles } from './TariffDescription.styles';
+import { TariffPackagesListTypes } from './TariffPackagesList.types';
 
-export const TariffDescription = () => {
+export const TariffDescription = ({ noData }: TariffPackagesListTypes) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
@@ -17,9 +18,13 @@ export const TariffDescription = () => {
         customIconComponentStyles={styles.iconWrapper}
       />
       <Text style={styles.title}>{t('newDeposit.tariffPackages')}</Text>
-      <Text style={styles.descriptionText} numberOfLines={2}>
-        {t('newDeposit.selectTariff')}
-      </Text>
+      {noData ? (
+        <Text style={styles.descriptionText}> {t('newDeposit.nodataTarifDesc')}</Text>
+      ) : (
+        <Text style={styles.descriptionText} numberOfLines={2}>
+          {t('newDeposit.selectTariff')}
+        </Text>
+      )}
     </View>
   );
 };

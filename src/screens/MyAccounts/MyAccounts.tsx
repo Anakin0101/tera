@@ -7,7 +7,7 @@ import { Text } from 'components';
 import { useStyles } from './MyAccounts.styles';
 import { DynamicAccount, LoadingView } from 'components';
 import { useTeraTransfers } from './container';
-import { TransactionsStackScreenProps, TransactionsStackRouteProps } from 'navigation/types';
+import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
 import { useDispatch } from 'react-redux';
 import { setAccountFromData } from 'store/slices/transfers';
 import {
@@ -29,9 +29,9 @@ interface AccountData {
 }
 
 export const MyAccounts = () => {
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const isFocused = useIsFocused();
-  const { params } = useRoute<TransactionsStackRouteProps<'MyAccountsScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'MyAccountsScreen'>>();
   const { otherBanks, budget } = params || {};
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -92,9 +92,6 @@ export const MyAccounts = () => {
       navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
       dispatch(setSelectedIban(selectedAccount));
     } else if (!!selectedAccount && budget) {
-      // if(){
-
-      // }
       navigate(BUDGET_TRANSACTION_SCREEN, { selected: selectedAccount });
     }
   }, [navigate, otherBanks, selectedAccount, budget, dispatch]);

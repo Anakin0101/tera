@@ -3,14 +3,13 @@ import { BackHandler, View } from 'react-native';
 import { Button, Text } from 'components/index';
 import { useStyleTheme } from './TransactionFinishedScreen.styles';
 import { Calendar, Plus, Share, SuccessTransaction } from 'assets/SVGs';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { ModalStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { ChooseService } from 'components/index';
 import { TRANSACTIONS_SCREEN } from 'navigation/ScreenNames';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedData, clearCurrentTransfer } from 'store/slices/transfers';
-import { TransactionsStackRouteProps } from 'navigation/types';
 import { useRoute } from '@react-navigation/native';
 import { getCurrencyIcon } from 'utils/currency';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +24,7 @@ interface SelectedItem {
 
 export const TransactionFinishedScreen = () => {
   const dispatch = useAppDispatch();
-  const { params } = useRoute<TransactionsStackRouteProps<'TransferDetailScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'TransferDetailScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: SelectedItem }) => state.transfers,
   );

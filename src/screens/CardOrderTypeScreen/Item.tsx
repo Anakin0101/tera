@@ -5,13 +5,13 @@ import { ChevronRight } from 'assets/SVGs';
 import { Image, Text } from 'components';
 import { PlasticCardDetails } from './CardOrderTypeScreen.types';
 import { useNavigation } from '@react-navigation/native';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { CARD_ORDER_CHOOSE_CARD_SCREEN } from 'navigation/ScreenNames';
 import { Colors } from 'theme/Variables';
 
 export const Item: FC<{ item: PlasticCardDetails }> = ({ item }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'NewDepositDetailsScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'NewDepositDetailsScreen'>>();
 
   const onPress = () => {
     navigate(CARD_ORDER_CHOOSE_CARD_SCREEN);

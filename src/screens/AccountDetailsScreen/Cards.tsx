@@ -4,10 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Divider, Text } from 'components';
 import { CardItem } from './CardItem';
 import { CardsProps } from './AccountDetailsScreen.types';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { MainStackScreenProps } from 'navigation/types';
 import { EmptyCards, Plus } from 'assets/SVGs';
 import { CardType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './AccountDetailsScreen.styles';
+import { CARD_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 
 const ListHeader = () => {
   const styles = useStyles();
@@ -39,7 +40,7 @@ const EmptyComponent = () => {
 
 export const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'CardDetailsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
   if (!iban) {
     return null;
@@ -50,10 +51,13 @@ export const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, i
       <CardItem
         item={item}
         onPress={() => {
-          navigate('CardDetailsScreen', {
-            iban: iban,
-            item: item,
-            index,
+          navigate(MODAL_STACK, {
+            screen: CARD_DETAILS_SCREEN,
+            params: {
+              iban: iban,
+              item: item,
+              index,
+            },
           });
         }}
         isLast={index === cards.length - 1}

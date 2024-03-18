@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ServiceItem from './ServiceItem';
 import { Divider, Text } from '../index';
-import { MY_ACCOUNTS_SCREEN } from 'navigation/ScreenNames';
-import { TransactionsStackScreenProps } from 'navigation/types';
-import { Budget, Calendar, Refreshing, UserArrowRight } from 'assets/SVGs';
+import { MODAL_STACK, MONEY_TRANSFERS_SCREEN, MY_ACCOUNTS_SCREEN } from 'navigation/ScreenNames';
+import { MainStackScreenProps } from 'navigation/types';
+import { Budget, Calendar, MoneyTransfers, Refreshing, UserArrowRight } from 'assets/SVGs';
+import { AUTOMATIC_PAYMENTS_SCREEN } from 'navigation/ScreenNames';
+import { ModalStackParamsList } from 'navigation/types';
 import { Service } from './ChooseService.types';
 import { useStyles } from './ChooseService.styles';
 import { openModal } from 'utils/modal';
 import { SaveTemplateModal } from 'components/modals/SaveTemplate/SaveTemplateModal';
+import { TransfersTypeEnum } from './enums';
 
 interface ServiceData {
   serviceData?: any;
@@ -32,30 +35,43 @@ interface FromTransaction {
   fromTransaction?: boolean;
 }
 
-const data = [
+export type DataT = {
+  name: string;
+  icon: React.JSX.Element;
+  screen: keyof ModalStackParamsList;
+  id: number;
+};
+
+const data: DataT[] = [
   {
     name: 'transfers.toOwnAccount',
     icon: <Refreshing />,
     screen: MY_ACCOUNTS_SCREEN,
-    id: 1,
+    id: TransfersTypeEnum.toOwnAccount,
   },
   {
     name: 'transfers.otherBanks',
     icon: <UserArrowRight />,
     screen: MY_ACCOUNTS_SCREEN,
-    id: 2,
+    id: TransfersTypeEnum.otherBanks,
   },
   {
     name: 'transfers.budget',
     icon: <Budget />,
     screen: MY_ACCOUNTS_SCREEN,
-    id: 3,
+    id: TransfersTypeEnum.budget,
+  },
+  {
+    name: 'transfers.moneyTransfers',
+    icon: <MoneyTransfers />,
+    screen: MONEY_TRANSFERS_SCREEN,
+    id: TransfersTypeEnum.moneyTransfers,
   },
   {
     name: 'transfers.automatic',
     icon: <Calendar />,
-    screen: '',
-    id: 4,
+    id: TransfersTypeEnum.automatic,
+    screen: AUTOMATIC_PAYMENTS_SCREEN,
   },
 ];
 
@@ -65,36 +81,53 @@ export const ChooseService = ({
   transferParams,
 }: FromTransaction & ServiceData & ParamTypes) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'MyAccountsScreen'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  const renderItem: ListRenderItem<Service> = ({ item }) => {
-    const onPress = () => {
-      const params: Record<string, any> = {};
+  const onPress = useCallback(
+    (item: Service) => {
+      const params: { otherBanks?: boolean; budget?: boolean } = {};
 
       switch (item.id) {
-        case 2:
+        case TransfersTypeEnum.otherBanks:
           params.otherBanks = true;
           break;
-        case 3:
+        case TransfersTypeEnum.budget:
           params.budget = true;
           break;
         default:
-          params.otherBanks = false;
-          params.budget = false;
+          break;
       }
 
-      item.screen && navigate(item.screen, params);
-    };
-    const onTemplatePress = () => {
-      openModal({
-        element: <SaveTemplateModal />,
-        title: 'products.changeName',
-        titlePosition: 'center',
-        disableDynamicSizing: true,
+      navigate(MODAL_STACK, {
+        screen: item.screen,
+        params,
       });
-    };
+    },
+    [navigate],
+  );
 
-    return <ServiceItem item={item} onPress={transferParams ? onTemplatePress : onPress} />;
+  const onTemplatePress = useCallback(() => {
+    openModal({
+      element: <SaveTemplateModal />,
+      title: 'products.changeName',
+      titlePosition: 'center',
+      disableDynamicSizing: true,
+    });
+  }, []);
+
+  const itemOnPress = useCallback(
+    (item: Service) => {
+      if (transferParams) {
+        onTemplatePress();
+      } else {
+        onPress(item);
+      }
+    },
+    [onPress, onTemplatePress, transferParams],
+  );
+
+  const renderItem: ListRenderItem<Service> = ({ item }) => {
+    return <ServiceItem item={item} onPress={() => itemOnPress(item)} />;
   };
 
   return (

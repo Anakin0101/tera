@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { moderateScale } from 'utils/config';
 
 export const useStyles = () => {
-  const { Colors, FontFamily, Spacing, Layout } = useTheme();
+  const { Colors, Fonts, Spacing, Layout } = useTheme();
   return StyleSheet.create({
     buttonsContainer: {
       ...Layout.rowHCenter,
@@ -15,7 +15,7 @@ export const useStyles = () => {
       paddingVertical: moderateScale(16),
     },
     buttonLabel: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     outline: {
       width: Spacing.lg,

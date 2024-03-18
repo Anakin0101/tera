@@ -81,7 +81,7 @@ const useStyles = () => {
     },
     actionButtonContainer: {
       ...Layout.row,
-      ...Layout.center,
+      ...Layout.justifyContentCenter,
       gap: Spacing.lg,
       marginTop: MetricsSizes.regular,
     },
@@ -112,7 +112,7 @@ const useStyles = () => {
     dotContainer: {
       ...Layout.row,
       ...Layout.selfCenter,
-      marginTop: Spacing.xl,
+      marginTop: Spacing.ml,
       gap: 10,
     },
     dots: {

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ImageBackground, Pressable, View } from 'react-native';
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import {
@@ -13,10 +13,31 @@ import { CurrencySignMap } from 'utils/CurrencySignMap';
 import Images from 'theme/Images';
 import { CardProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from 'navigation/types';
+import { CARD_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { groupCardsByPan } from 'utils/groupData';
+import { useAppDispatch } from 'store/hooks/useAppDispatch';
+import { setCards } from 'store/slices/products';
 
-export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
+export const Card = ({
+  item,
+  index,
+  onCardPress,
+  progress,
+  activeCardIndex,
+  setSelectedAccountFromCard,
+}: CardProps) => {
   const styles = useStyles();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (activeCardIndex === index) {
+      setSelectedAccountFromCard(item?.accounts?.[currentIndex]);
+    }
+  }, [activeCardIndex, currentIndex, index, item?.accounts, setSelectedAccountFromCard]);
 
   const animScale = useAnimatedStyle(() => {
     const height = interpolate(
@@ -118,12 +139,37 @@ export const Card = ({ item, index, onCardPress, progress }: CardProps) => {
       )?.length;
   }, [item?.accounts]);
 
+  const handlePress = useCallback(() => {
+    if (progress.value === 1) {
+      const cardsAttachedToAccount = item?.accounts
+        ?.filter(acc => acc?.cards)
+        ?.flatMap(acc => acc?.cards);
+
+      if (!cardsAttachedToAccount?.length) {
+        return;
+      }
+      const groupedCardsByPan = groupCardsByPan(cardsAttachedToAccount, 'pan');
+      dispatch(setCards(groupedCardsByPan));
+
+      navigate(MODAL_STACK, {
+        screen: CARD_DETAILS_SCREEN,
+        params: {
+          iban: item?.iban,
+          item: groupedCardsByPan?.[0],
+          index: 0,
+        },
+      });
+    } else {
+      onCardPress();
+    }
+  }, [progress.value, item?.accounts, item?.iban, navigate, dispatch, onCardPress]);
+
   if (!index) {
     return <Animated.View style={[styles.card, animScale]} />;
   }
 
   return (
-    <Pressable onPress={onCardPress}>
+    <Pressable onPress={handlePress}>
       <Animated.View
         style={[styles.card, index === 1 && firstCardPos, index === 2 && secondCardPos, animScale]}
       >

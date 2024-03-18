@@ -1,3 +1,4 @@
+import { PDF_EXT, PDF_MIME_TYPE } from 'constants/common';
 import { Platform, Share } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import { PUBLIC_IMAGE_URL } from 'services/api';
@@ -5,9 +6,8 @@ import { PUBLIC_IMAGE_URL } from 'services/api';
 export const downloadPdf = async (
   fileId: string,
   title: string,
-  extension = 'pdf',
-  notification = true,
-  mime = 'application/pdf',
+  extension = PDF_EXT,
+  mime = PDF_MIME_TYPE,
 ) => {
   const { fs, config } = ReactNativeBlobUtil;
   const {
@@ -24,7 +24,7 @@ export const downloadPdf = async (
         path: `${DownloadDir}/${title}.${extension}`,
         mime,
         title,
-        notification,
+        notification: true,
         storeInDownloads: true,
       },
     }).fetch('GET', `${PUBLIC_IMAGE_URL}${fileId}`);

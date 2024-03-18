@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
 
 export const useStyles = () => {
-  const { FontFamily, Colors } = useTheme();
+  const { Fonts, Colors } = useTheme();
 
   return StyleSheet.create({
     sectionList: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
     otherBanksStyle: {
       borderWidth: 2,

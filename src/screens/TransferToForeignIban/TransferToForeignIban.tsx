@@ -13,11 +13,11 @@ import { formatAndValidateText } from 'utils/formatDecimalAndValidate';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { setSelectedPrice } from 'store/slices/transfers';
 import { useNavigation } from '@react-navigation/native';
-import { TransactionsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { FOREIGN_TRANSFER_DETAILS_SCREEN } from 'navigation/ScreenNames';
 export const TransferToForeignIban = () => {
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'TransferDetailScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TransferDetailScreen'>>();
   const transfers = useAppSelector(state => state?.transfers);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const { isKeyboardOpened } = useKeyboard();

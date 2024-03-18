@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { FlatList, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { useStyles } from './ChoosePaymentsService.styles';
 import { Text } from 'components/Text/Text';
 import { AutomaticPayment, MobilePayment, ParkingAndFines, Payments } from 'assets/SVGs';
-import { ChoosePaymentsListProps } from './ChoosePaymentsService.types';
+import { ChoosePaymentsListProps, ChoosePaymentsServiceProps } from './ChoosePaymentsService.types';
 import { PaymentItem } from './PaymentItem';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
@@ -17,7 +17,9 @@ import {
   NEW_PAYMENT_SCREEN,
 } from 'navigation/ScreenNames';
 
-export const ChoosePaymentsService = () => {
+export const ChoosePaymentsService: FC<ChoosePaymentsServiceProps> = ({
+  selectedAccountFromCard,
+}) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
@@ -25,9 +27,9 @@ export const ChoosePaymentsService = () => {
   const handleParkingAndFinesNavigation = useCallback(() => {
     navigate(MODAL_STACK, {
       screen: CHOOSE_PAYMENT_PROVIDER_SCREEN,
-      params: { isParkingAndFines: true },
+      params: { isParkingAndFines: true, selectedAccountFromCard },
     });
-  }, [navigate]);
+  }, [navigate, selectedAccountFromCard]);
 
   const choosePaymentsList: Array<ChoosePaymentsListProps> = useMemo(
     () => [
@@ -35,13 +37,21 @@ export const ChoosePaymentsService = () => {
         id: '1',
         title: t('payments.payments'),
         icon: <Payments />,
-        onPress: () => navigate(MODAL_STACK, { screen: NEW_PAYMENT_SCREEN }),
+        onPress: () =>
+          navigate(MODAL_STACK, {
+            screen: NEW_PAYMENT_SCREEN,
+            params: { selectedAccountFromCard },
+          }),
       },
       {
         id: '2',
         title: t('payments.mobilePayment'),
         icon: <MobilePayment />,
-        onPress: () => navigate(MODAL_STACK, { screen: CHOOSE_MOBILE_PROVIDER_SCREEN }),
+        onPress: () =>
+          navigate(MODAL_STACK, {
+            screen: CHOOSE_MOBILE_PROVIDER_SCREEN,
+            params: { selectedAccountFromCard },
+          }),
       },
       {
         id: '3',
@@ -50,6 +60,7 @@ export const ChoosePaymentsService = () => {
         onPress: () =>
           navigate(MODAL_STACK, {
             screen: AUTOMATIC_PAYMENTS_SCREEN,
+            params: { selectedAccountFromCard },
           }),
       },
       {
@@ -59,7 +70,7 @@ export const ChoosePaymentsService = () => {
         onPress: handleParkingAndFinesNavigation,
       },
     ],
-    [handleParkingAndFinesNavigation, navigate, t],
+    [handleParkingAndFinesNavigation, navigate, selectedAccountFromCard, t],
   );
 
   const renderPaymentItem = useCallback(

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { OTPModal } from 'components';
 import { closeModal, openModal } from 'utils/modal';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import {
   useActivateDepositMutation,
@@ -20,7 +20,7 @@ import {
 export const useNewDepositSummary = () => {
   const savedLanguage = getValue(SELECTED_LANGUAGE);
   const [isAgree, setIsAgree] = useState(false);
-  const { navigate } = useNavigation<ProductsStackScreenProps<'DepositSuccessScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'DepositSuccessScreen'>>();
   const newDeposit = useAppSelector(state => state.deposit);
   const [registerDeposit, { data: result, isLoading: isLoadingRegistration }] =
     useRegisterDepositMutation();

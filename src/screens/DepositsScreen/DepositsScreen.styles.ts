@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'hooks';
-import { FontFamily } from 'theme/Variables';
 
 export const useStyles = () => {
-  const { Layout, Colors, Spacing } = useTheme();
+  const { Layout, Colors, Spacing, Fonts } = useTheme();
   return StyleSheet.create({
     list: {
       backgroundColor: Colors.white,
@@ -22,7 +21,7 @@ export const useStyles = () => {
       paddingVertical: Spacing.ml,
     },
     buttonText: {
-      fontFamily: FontFamily.medium,
+      ...Fonts.medium,
     },
   });
 };

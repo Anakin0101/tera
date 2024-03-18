@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Text } from 'components';
 import { CalendarLarge } from 'assets/SVGs';
-import { AddNewPayment } from './AddNewPayment';
 import { useStyles } from './AutomaticPaymentsScreen.styles';
+import { EmptyComponentProps } from './AutomaticPaymentsScreen.types';
 
-export const EmptyComponent = () => {
+export const EmptyComponent: FC<EmptyComponentProps> = ({ children }) => {
   const styles = useStyles();
 
   return (
@@ -13,7 +13,7 @@ export const EmptyComponent = () => {
       <View style={styles.wrapper}>
         <CalendarLarge />
         <Text children={'automaticPayments.empty'} size={16} center marginTop={24} />
-        <AddNewPayment />
+        {children}
       </View>
     </View>
   );

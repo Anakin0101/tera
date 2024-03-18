@@ -7,15 +7,15 @@ import { useDispatch } from 'react-redux';
 import { setSelectedData } from 'store/slices/transfers';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
-import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
+import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
 import { useTranslation } from 'react-i18next';
 import { useLayoutEffect } from 'react';
 import { TransactionType } from 'utils/transactionUtils';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 export const PrivateTransactionScreen = () => {
   const { t } = useTranslation();
-  const { params } = useRoute<TransactionsStackRouteProps<'PrivateTransactionScreen'>>();
-  const { setOptions } = useNavigation<TransactionsStackScreenProps<'PrivateTransactionScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'PrivateTransactionScreen'>>();
+  const { setOptions } = useNavigation<ModalStackScreenProps<'PrivateTransactionScreen'>>();
   const selectedItemFromStore = useAppSelector(
     (state: { transfers: { selectedData: string } }) => state.transfers.selectedData,
   );

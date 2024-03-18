@@ -11,4 +11,5 @@ export interface CollapsibleProps {
   iconColor?: string;
   headerHeight: number;
   contentHeight: number;
+  icon?: React.JSX.Element;
 }

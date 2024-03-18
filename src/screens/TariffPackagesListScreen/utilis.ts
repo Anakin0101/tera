@@ -4,10 +4,11 @@ import {
   PackageServiceNames,
 } from 'services/apis/productsAPI/productsAPI.types';
 import Images from 'theme/Images';
+import { formatMoney } from 'utils/formatMoney';
 
 type Commissions = {
-  commissionMnth: string;
-  commissionYr: string;
+  commissionMnth?: number;
+  commissionYr?: number;
 };
 type Icons = {
   [key in PackageServiceNames]: string;
@@ -16,21 +17,22 @@ type Icons = {
 const icons: Icons = {
   [PackageServiceNames.classic]: Images().ClasicMedal,
   [PackageServiceNames.gold]: Images().GoldMedal,
-  [PackageServiceNames.platinum]: Images().PlatinumMedal,
+  [PackageServiceNames.platinum]: Images().SelectMedal,
 };
+const defaultIcon: string = Images().PlatinumMedal;
 export const getIcon = (packageServiceName: PackageServiceNames): string => {
-  return icons[packageServiceName];
+  return icons[packageServiceName] || defaultIcon;
 };
 
 export const getCommissions = (packageServices: PackageService[]): Commissions => {
-  let commissionMnth = '';
-  let commissionYr = '';
+  let commissionMnth;
+  let commissionYr;
 
   packageServices.forEach(service => {
     if (service.code === PackageServiceCode.Monthly) {
-      commissionMnth = `${service.price}`;
+      commissionMnth = `${formatMoney(service.price)}`;
     } else if (service.code === PackageServiceCode.Yearly) {
-      commissionYr = `${service.price}`;
+      commissionYr = `${formatMoney(service.price)}`;
     }
   });
 

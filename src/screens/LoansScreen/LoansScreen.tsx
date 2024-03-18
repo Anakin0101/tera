@@ -1,11 +1,9 @@
-import React, { FC } from 'react';
+import React, { useCallback } from 'react';
 import { SectionList } from 'react-native';
-import { Button, DepositsAndLoans } from 'components';
-import { Colors } from 'theme/Variables';
+import { LoansList } from 'components';
 import { useLoans } from './container';
-import { Plus } from 'assets/SVGs';
+import { Footer } from './Footer';
 import { useStyles } from './ LoansScreen.styles';
-import { FooterProps } from './LoanScreen.types';
 import { SectionListRenderItemT } from 'screens/types';
 
 const sections = [
@@ -13,43 +11,36 @@ const sections = [
   { title: 'offers', data: [{}] },
 ];
 
-const LeftIcon = () => <Plus color={Colors.white} />;
-
-const ListFooter: FC<FooterProps> = ({ onPress }) => {
-  const styles = useStyles();
-
-  return (
-    <Button.Primary
-      fullWidth
-      text="loans.new"
-      leftIcon={LeftIcon}
-      onPress={onPress}
-      customWrapperStyle={styles.button}
-      customTextStyle={styles.buttonText}
-    />
-  );
-};
-
 export const LoansScreen = () => {
   const styles = useStyles();
-  const { totalDebtGEL, data, handleNewLoanPress } = useLoans();
+  const { totalDebtGEL, allLoans, handleNewLoanPress, creditDisbursements } = useLoans();
 
-  const renderItem: SectionListRenderItemT = ({ section }) => {
-    switch (section.title) {
-      case 'loans':
-        return <DepositsAndLoans seeAll data={data} variant="loan" totalAmount={totalDebtGEL} />;
-      //   case 'offers':
-      //     return <Offers data={offers} />;
-      default:
-        return null;
-    }
-  };
+  const renderItem: SectionListRenderItemT = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'loans':
+          return (
+            <LoansList
+              seeAll
+              data={allLoans}
+              creditDisbursements={creditDisbursements}
+              totalAmount={totalDebtGEL}
+            />
+          );
+        //   case 'offers':
+        //     return <Offers data={offers} />;
+        default:
+          return null;
+      }
+    },
+    [allLoans, creditDisbursements, totalDebtGEL],
+  );
 
   return (
     <SectionList
       sections={sections}
       renderItem={renderItem}
-      ListFooterComponent={<ListFooter onPress={handleNewLoanPress} />}
+      ListFooterComponent={<Footer onPress={handleNewLoanPress} />}
       style={styles.list}
       ListFooterComponentStyle={styles.footer}
       contentContainerStyle={styles.contentContainer}

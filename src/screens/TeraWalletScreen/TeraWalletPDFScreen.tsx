@@ -10,13 +10,13 @@ import {
 import { PUBLIC_IMAGE_URL } from 'services/api';
 import { closeModal, openModal } from 'utils/modal';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { ProductsStackScreenProps } from 'navigation/types';
+import { ModalStackScreenProps } from 'navigation/types';
 import { useStyles } from './TeraWalletScreen.styles';
 import { TERA_WALLET_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 
 export const TeraWalletPDFScreen = () => {
   const styles = useStyles();
-  const { navigate } = useNavigation<ProductsStackScreenProps<'TeraWalletSuccessScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TeraWalletSuccessScreen'>>();
   const { accountId, amountId, currency } = useAppSelector(state => state.teraWallet);
   const [generateWalletPdf, { data: pdf }] = useGenerateTeraWalletPdfMutation();
   const [addOrUpdateTeraWallet] = useAddOrUpdateTeraWalletMutation();

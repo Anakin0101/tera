@@ -8,15 +8,15 @@ import { useTranslation } from 'react-i18next';
 import AutocompleteInput from 'components/AutoCompleteInput/AutocompleteInput';
 import { useRoute } from '@react-navigation/native';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navigation/types';
+import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
 import { setForeignIbanData } from 'store/slices/transfers';
 import { useKeyboard } from 'utils/useKeyboard';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import { TRANSFER_TO_FOREIGN_IBAN } from 'navigation/ScreenNames';
 export const ForeignIbanScreen = () => {
-  const { params } = useRoute<TransactionsStackRouteProps<'ForeignIbanScreen'>>();
-  const { navigate } = useNavigation<TransactionsStackScreenProps<'ForeignIbanScreen'>>();
+  const { params } = useRoute<ModalStackRouteProps<'ForeignIbanScreen'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'ForeignIbanScreen'>>();
   const { t } = useTranslation();
   const { isKeyboardOpened } = useKeyboard();
   const dispatch = useAppDispatch();
@@ -40,8 +40,8 @@ export const ForeignIbanScreen = () => {
   const navigateToTransferScreen = () => {
     dispatch(
       setForeignIbanData({
-        receiverIban: params.iban,
-        ccy: params.ccy,
+        receiverIban: params?.iban,
+        ccy: params?.ccy,
         receiverName,
         country,
         city,
@@ -72,7 +72,7 @@ export const ForeignIbanScreen = () => {
       const response = await checkForeignIban(query);
       return response;
     } catch (error) {
-      console.error('Error fetching suggestions:', error);
+      console.warn('Error fetching suggestions:', error);
       return [];
     }
   };
@@ -94,7 +94,11 @@ export const ForeignIbanScreen = () => {
       <View>
         <Text children="personalNumber.Iban" size={18} demiBold />
         <>
-          <DetailsItem label="transactionDetails.receiverIban" value={params.iban} marginTop={20} />
+          <DetailsItem
+            label="transactionDetails.receiverIban"
+            value={params?.iban}
+            marginTop={20}
+          />
           <TextInput
             inputStyle={styles.inputStyle}
             label="transactionDetails.receiver"

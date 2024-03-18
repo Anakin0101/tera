@@ -65,6 +65,7 @@ export const Colors = {
   creditCardBg: '#571538',
   warningSolid: '#FFC423',
   primaryActionButton: 'rgba(160, 34, 109, 0.1)',
+  tabBarDefaultColor: '#1D1D1D66', //rgba ას აქ ვერ გამოვიყენებ ანიმაციის სპეციფიკიდან გამომდინარე
   paleGray: '#D5D5D5',
   textLightBlue: 'rgba(143, 160, 204, 0.1)',
   actionSheetBg: 'rgb(219,219,219)',
@@ -73,11 +74,16 @@ export const Colors = {
   lightBlue: 'rgba(243, 245, 255, 1)',
   tariffPrice: 'rgba(183, 183, 183, 0.98)',
   greyText: 'rgba(29, 29, 29, 0.40)',
+  yellow: 'rgba(255, 204, 0, 1)',
+  red: 'rgba(178, 34, 52, 1)',
+  border: 'rgba(217, 217, 217, 1)',
   pandingYellow: 'rgb(204, 189, 49)',
   lightGreen: 'rgba(128, 195, 66, 0.08)',
   packagesOverlay: 'rgba(245, 245, 245, 0.6)',
   cardBlurLight: 'rgba(0,0,0,0.3)',
   cardBlurDark: 'rgba(0,0,0,0.5)',
+  lightPink: 'rgb(249,241,246)',
+  offerBgGreen: 'rgb(234, 246, 235)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
@@ -109,6 +115,7 @@ export const Spacing = {
   s: 8,
   md: 10,
   m: 12,
+  reg: 14,
   ml: 16,
   l: 18,
   lg: 20,
@@ -152,12 +159,7 @@ export const MetricsSizes = {
 };
 
 export const FontFamily = {
-  medium: 'TB-Public-2022Sans-Medium',
-  Black: 'TB-Public-2022Sans-Black',
-  DemiBold: 'TB-Public-2022Sans-DemiBold',
-  Light: 'TB-Public-2022Sans-Light',
-  LightItalic: 'TB-Public-2022Sans-LightItalic',
-  Regular: 'TB-Public-2022Sans-Regular',
+  main: 'TB-PublicSans-Medium',
 };
 
 export default {

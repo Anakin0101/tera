@@ -1,11 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
 import {
+  AtmsResponse,
   GetTotalSavingRequestType,
   GetTotalSavingResponseType,
   GetUnreadNotificationsCountRequestType,
   GetUnreadNotificationsCountResponseType,
   GetUserInfoAPIResponseType,
+  ServiceCentersResponse,
 } from './profileAPI.types';
 
 import { METHOD_NAMES, URLS } from 'services/constants';
@@ -44,6 +46,18 @@ export const profileAPI = createApi({
         body: credentials,
       }),
     }),
+    getAtms: builder.query<AtmsResponse[], void>({
+      query: () => ({
+        url: URLS.getAtms,
+        method: METHOD_NAMES.GET,
+      }),
+    }),
+    getServiceCenters: builder.query<ServiceCentersResponse[], void>({
+      query: () => ({
+        url: URLS.getServiceCenters,
+        method: METHOD_NAMES.GET,
+      }),
+    }),
   }),
 });
 
@@ -54,4 +68,6 @@ export const {
   useGetUnreadMessagesCountQuery,
   useLazyGetUnreadMessagesCountQuery,
   useGetUnreadNotificationsCountMutation,
+  useLazyGetAtmsQuery,
+  useLazyGetServiceCentersQuery,
 } = profileAPI;

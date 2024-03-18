@@ -29,6 +29,7 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
     hideHandle,
     enablePadding = false,
     hideCloseButton,
+    sectionList,
   } = useModal(ref);
   const styles = useStyles();
 
@@ -47,18 +48,22 @@ export const Modal = forwardRef<ModalHandler>((_, ref) => {
       android_keyboardInputMode="adjustPan"
       enablePanDownToClose={true}
     >
-      <BottomSheetView style={enablePadding ? styles.paddingContainer : styles.container}>
-        <View style={title ? styles.titleContainer : null}>
-          {titlePosition === 'center' && <View />}
-          {title && <Text style={styles.title}>{title}</Text>}
-          {!hideCloseButton && (
-            <Pressable onPress={close} style={styles.closeButton}>
-              <Close />
-            </Pressable>
-          )}
-        </View>
-        {element}
-      </BottomSheetView>
+      {sectionList ? (
+        sectionList
+      ) : (
+        <BottomSheetView style={enablePadding ? styles.paddingContainer : styles.container}>
+          <View style={title ? styles.titleContainer : null}>
+            {titlePosition === 'center' && <View />}
+            {title && <Text style={styles.title}>{title}</Text>}
+            {!hideCloseButton && (
+              <Pressable onPress={close} style={styles.closeButton}>
+                <Close />
+              </Pressable>
+            )}
+          </View>
+          {element}
+        </BottomSheetView>
+      )}
     </BottomSheetModal>
   );
 });
