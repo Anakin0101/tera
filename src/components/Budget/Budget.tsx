@@ -44,7 +44,7 @@ export const Budget = ({
         ref={inputRef}
         label="transactions.budgetCode"
         value={budgetCode || (createdWrappedCode === null ? '' : createdWrappedCode)}
-        onChangeText={onChangeBudgetCode}
+        onChangeText={text => onChangeBudgetCode(text)}
         keyboardType="numeric"
         marginTop={32}
         autoFocus

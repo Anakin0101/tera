@@ -7,7 +7,7 @@ import { SearchComponent } from 'components/index';
 import { getDashboardTemplates } from 'components/DashboardTemplates/utils/DashboardTemplatesMapper.utils';
 import { useTranslation } from 'react-i18next';
 import { LoadingView } from 'components/index';
-
+import { TransferTemplateTypeEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 export const AllTemplatesScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -21,8 +21,11 @@ export const AllTemplatesScreen = () => {
     deleteTemplateSuccessLoading,
     isTrustedTemplate,
   } = useAllTemplates();
+
   const dashboardTemplates = useMemo(() => {
-    return getDashboardTemplates(templates || []);
+    return getDashboardTemplates(templates ?? []).filter(
+      template => template?.type !== TransferTemplateTypeEnum.MobilePayment,
+    );
   }, [templates]);
 
   if (saveTemplateSuccessLoading || deleteTemplateSuccessLoading) {

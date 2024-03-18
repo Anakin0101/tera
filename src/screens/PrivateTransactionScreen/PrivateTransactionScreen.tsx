@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Button } from 'components';
 import { useStyles } from './PrivateTransactionScreen.styles';
@@ -11,10 +11,17 @@ import { TransactionsStackRouteProps, TransactionsStackScreenProps } from 'navig
 import { useTranslation } from 'react-i18next';
 import { useLayoutEffect } from 'react';
 import { TransactionType } from 'utils/transactionUtils';
+import { useAppSelector } from 'store/hooks/useAppSelector';
 export const PrivateTransactionScreen = () => {
   const { t } = useTranslation();
   const { params } = useRoute<TransactionsStackRouteProps<'PrivateTransactionScreen'>>();
   const { setOptions } = useNavigation<TransactionsStackScreenProps<'PrivateTransactionScreen'>>();
+  const selectedItemFromStore = useAppSelector(
+    (state: { transfers: { selectedData: string } }) => state.transfers.selectedData,
+  );
+  useEffect(() => {
+    setTextInputValue(selectedItemFromStore || '');
+  }, [selectedItemFromStore]);
 
   useLayoutEffect(() => {
     if (params.from === TransactionType.CONVERTION) {
@@ -52,13 +59,14 @@ export const PrivateTransactionScreen = () => {
       <View style={styles.header}>
         <View style={styles.textInputWrapperStyle}>
           <TextInput
-            label="დანიშნულება"
+            label="transfers.destination"
+            value={textInputValue}
             marginTop={32}
             autoFocus
             onChangeText={text => setTextInputValue(text)}
           />
           <View style={styles.buttonWrapperStyle}>
-            <Button.Primary fixedWidth text="შენახვა" onPress={handleSaveOtherValue} />
+            <Button.Primary fixedWidth text="loanRequest.save" onPress={handleSaveOtherValue} />
           </View>
         </View>
       </View>

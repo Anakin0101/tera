@@ -118,7 +118,7 @@
     "trustedTemplate": "სანდო შაბლონი",
     "template_trust_status": "შაბლონი წარმატებით {{status}}",
     "untrusted": "გახდა არასანდო",
-    "trusted": "გასანდოვდა"
+    "trusted": "შაბლონი წარმატებით გასანდოვდა"
   },
   "profile": {
     "edit_settings": "პარამეტრების ცვლილება",

@@ -133,10 +133,10 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
   }, [index]);
 
   const { name, icon, internalIban, internalAmount, currency } = templates || {};
-
   return (
     <Swipeable
       key={index}
+      friction={4}
       childrenContainerStyle={styles.childrenContainerStyle}
       ref={ref => (rowRefs[index] = ref)}
       onSwipeableOpen={() => closeRow()}
@@ -163,7 +163,12 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
         }}
       >
         <View>
-          <IconComponent customIconComponentStyles={styles.cardContainer} pngLocalIcon={icon} />
+          {typeof icon === 'number' ? (
+            <IconComponent customIconComponentStyles={styles.cardContainer} pngLocalIcon={icon} />
+          ) : (
+            <IconComponent imageId={icon} customIconComponentStyles={styles.cardContainer} />
+          )}
+
           {trusted && <View style={styles.trustIcon}>{renderTrustIcon()}</View>}
         </View>
         <View style={styles.detailsWrapper}>
@@ -173,7 +178,7 @@ export const TemplatesSection: React.FC<TemplatesSectionProps> = ({
               <Text children={internalIban} size={12} color={Colors.textBlack400} />
             </View>
             <Text
-              children={`${getCurrencyIcon(currency)} ${internalAmount}`}
+              children={`${internalAmount}${getCurrencyIcon(currency)}`}
               label
               color={Colors.textBlack}
             />

@@ -207,6 +207,9 @@ export const TransferDetailScreen = () => {
         openModal({
           element: <OTPModal onFinished={code => transferWithOTP(params, code)} />,
           withKeyboard: true,
+          disablePanning: true,
+          disableDynamicSizing: true,
+          snapPoints: ['70%'],
         });
       } else {
         await transferWithOTP(params);

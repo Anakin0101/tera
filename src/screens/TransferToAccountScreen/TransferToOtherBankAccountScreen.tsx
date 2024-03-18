@@ -150,14 +150,13 @@ export const TransferToOtherBankAccountScreen = () => {
 
       if (fromMobile && accountToData.iban) {
         transferData.mobile = accountToData.iban;
-        const transferToSomeoneResult = await transferToSomeone({
+        const transferToSomeoneResult: any = await transferToSomeone({
           headers: {
             'X-Bank-Isstrongauthrequest': 'true',
             'X-Bank-Getauthmethod': 'true',
           },
           body: transferData,
         });
-
         if (transferToSomeoneResult && 'data' in transferToSomeoneResult) {
           dispatch(setOtpData(transferToSomeoneResult.data));
 
@@ -168,7 +167,7 @@ export const TransferToOtherBankAccountScreen = () => {
             receiver: receiver,
           });
         } else {
-          openToast(t('authErrors.tryAgain'), 'error');
+          openToast(t(transferToSomeoneResult?.error?.data?.title), 'error');
         }
       } else {
         await handleTransferInfo({
@@ -185,7 +184,7 @@ export const TransferToOtherBankAccountScreen = () => {
           formData.append(key, value);
         }
 
-        const transferToSomeoneResult = await transferToSomeone({
+        const transferToSomeoneResult: any = await transferToSomeone({
           headers: {
             'X-Bank-Isstrongauthrequest': 'true',
             'X-Bank-Getauthmethod': 'true',
@@ -207,7 +206,7 @@ export const TransferToOtherBankAccountScreen = () => {
             receiver: receiver,
           });
         } else {
-          openToast(t('authErrors.tryAgain'), 'error');
+          openToast(t(transferToSomeoneResult?.error?.data?.title), 'error');
         }
       }
     } catch (error) {

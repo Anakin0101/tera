@@ -118,7 +118,7 @@
     "trustedTemplate": "Trusted Template",
     "template_trust_status": "Template successfully {{status}}",
     "untrusted": "untrusted",
-    "trusted": "trusted"
+    "trusted": "Template successfully trusted"
   },
 
   "profile": {

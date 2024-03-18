@@ -17,6 +17,7 @@ const Template: FC<ITemplateProps> = ({
   const { Colors } = useTheme();
 
   const bankData = item.bankExternal || item.bankInternal || item.internal || item.p2pTransfer;
+
   const choseTemplate = () => {
     if (fromPin && setChosenTemplateIban) {
       setChosenTemplateIban(bankData?.creditIban);
@@ -26,7 +27,9 @@ const Template: FC<ITemplateProps> = ({
         ? bankData?.personalId
         : bankData.mobile
         ? bankData.mobile
-        : bankData?.creditIban || bankData?.debitIban,
+        : bankData?.creditIban
+        ? bankData?.creditIban
+        : bankData?.debitIban,
     );
   };
   return (
@@ -36,9 +39,11 @@ const Template: FC<ITemplateProps> = ({
           <View style={styles.templateWrapper}>
             <View style={styles.imageContainer} />
             <View style={styles.details}>
-              <Text size={14}>{bankData?.receiverName || item?.name}</Text>
+              <Text size={14}>{bankData?.receiverName ? bankData.receiverName : item?.name}</Text>
               <Text size={12} color={Colors.textBlack400}>
-                {maskIban(bankData?.creditIban) || maskIban(bankData?.debitIban)}
+                {bankData?.creditIban
+                  ? `${maskIban(bankData.creditIban)}${bankData.currency}`
+                  : `${maskIban(bankData?.debitIban)}${bankData?.currency}`}
               </Text>
               <Divider height={1} marginTop={18} marginBottom={18} width="100%" />
             </View>
@@ -50,7 +55,9 @@ const Template: FC<ITemplateProps> = ({
           <View style={styles.details}>
             <Text size={14}>{bankData?.receiverName || item?.name}</Text>
             <Text size={12} color={Colors.textBlack400}>
-              {(fromPin && maskIban(bankData?.creditIban)) || bankData?.debitIban}
+              {fromPin
+                ? `${maskIban(bankData?.creditIban)} ${bankData?.currency}`
+                : `${maskIban(bankData?.debitIban)}${bankData?.currency}`}
             </Text>
             <Divider height={1} marginTop={18} marginBottom={18} width="100%" />
           </View>
