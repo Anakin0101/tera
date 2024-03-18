@@ -53,6 +53,9 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
       //     handleRemovePasscodeLoginOption();
       //   }, true);
       handleRemovePasscodeLoginOption();
+      //   TODO - needs to be deleted. Only for logical representation, of how verification will work with Passcode or Biometric.
+      //   Uncomment to see
+      //   verifyPasscode(handleRemovePasscodeLoginOption);
     } else if (newValue === true) {
       handleSetNewPasscode?.();
     }
