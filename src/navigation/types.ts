@@ -272,6 +272,8 @@ export type ModalStackParamsList = {
     mobileTransaction?: boolean;
     budgetTransaction?: boolean;
     receiver?: string;
+    fastPaymentFee?: number;
+    fee?: number;
   };
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined

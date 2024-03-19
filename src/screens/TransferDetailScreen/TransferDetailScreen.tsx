@@ -288,6 +288,8 @@ export const TransferDetailScreen = () => {
                   selectedItemFromStore={selectedItemFromStore}
                   receiver={params?.receiver}
                   mobileTransaction={params?.mobileTransaction}
+                  fastPaymentFee={params?.fastPaymentFee}
+                  fee={params?.fee}
                 />
               ) : (
                 <TransferDetailsList
