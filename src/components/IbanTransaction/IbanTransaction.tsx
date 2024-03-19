@@ -1,4 +1,4 @@
-import { Image, Text } from 'components';
+import { IconComponent, Image, Text } from 'components';
 import React, { useEffect, useCallback, useMemo, useState, useRef } from 'react';
 import { View, ScrollView, Pressable, TextInput as RNInput } from 'react-native';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
@@ -297,7 +297,13 @@ const IbanTransaction = () => {
 
           <View style={styles.wrapper}>
             {apiCallInitiated && data?.ibanIsValid && bankIcon && (
-              <Image source={bankIcon} style={styles.image} />
+              <>
+                {data?.imageId ? (
+                  <IconComponent imageId={data?.imageId} customImageIDStyle={styles.image} />
+                ) : (
+                  <Image source={bankIcon} style={styles.image} />
+                )}
+              </>
             )}
           </View>
         </View>
