@@ -65,6 +65,7 @@ export const Colors = {
   creditCardBg: '#571538',
   warningSolid: '#FFC423',
   primaryActionButton: 'rgba(160, 34, 109, 0.1)',
+  tabBarDefaultColor: '#1D1D1D66', //rgba ას აქ ვერ გამოვიყენებ ანიმაციის სპეციფიკიდან გამომდინარე
   paleGray: '#D5D5D5',
   textLightBlue: 'rgba(143, 160, 204, 0.1)',
   actionSheetBg: 'rgb(219,219,219)',
@@ -73,6 +74,9 @@ export const Colors = {
   lightBlue: 'rgba(243, 245, 255, 1)',
   tariffPrice: 'rgba(183, 183, 183, 0.98)',
   greyText: 'rgba(29, 29, 29, 0.40)',
+  yellow: 'rgba(255, 204, 0, 1)',
+  red: 'rgba(178, 34, 52, 1)',
+  border: 'rgba(217, 217, 217, 1)',
   pandingYellow: 'rgb(204, 189, 49)',
   lightGreen: 'rgba(128, 195, 66, 0.08)',
   packagesOverlay: 'rgba(245, 245, 245, 0.6)',

@@ -11,10 +11,16 @@ import { useNavigation } from '@react-navigation/core';
 import { GuestStackScreenProps } from 'navigation/types';
 import { setCurrentFlow } from 'store/slices/registerUser';
 import { REGISTRATION_METHOD_SCREEN, REGISTRATION_STACK } from 'navigation/ScreenNames';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useKeyboard } from 'utils/useKeyboard';
+import { useGlobalStyles } from 'theme/Global.styles';
 
 const PasswordOnlyLoginScreenBase = () => {
   const styles = useStyles();
+  const globalStyles = useGlobalStyles();
+
   const { savedLoginName } = useKeyChain();
+  const { isKeyboardOpened } = useKeyboard();
 
   const { handleSignIn, loginUserLoading } = useLogin();
   const { t } = useTranslation();
@@ -47,35 +53,44 @@ const PasswordOnlyLoginScreenBase = () => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <Account />
-      <Button.Secondary text={t('passAuth.change_user')} size="medium" onPress={resetUser} />
-      <ControlledInput
-        control={control}
-        name="password"
-        label="common:passAuth.password"
-        marginTop={5}
-        secureTextEntry
-        errors={errors}
-        rules={{
-          required: {
-            value: true,
-            message: 'common:form.is_required',
-          },
-        }}
-      />
-      <Pressable onPress={handlePasswordRecovery} style={styles.chechboxContainer}>
-        <Text children="common:passAuth.forgot" label special />
-      </Pressable>
-      <View style={styles.buttonCont}>
-        <Button.Primary
-          text="common:passAuth.signin"
-          onPress={handleSubmit(onSubmit)}
-          fullWidth
-          isLoading={loginUserLoading}
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="handled"
+      contentInsetAdjustmentBehavior="automatic"
+      extraScrollHeight={120}
+      showsVerticalScrollIndicator={false}
+      scrollEnabled={isKeyboardOpened}
+      style={globalStyles.fill}
+    >
+      <View style={styles.wrapper}>
+        <Account />
+        <Button.Secondary text={t('passAuth.change_user')} size="medium" onPress={resetUser} />
+        <ControlledInput
+          control={control}
+          name="password"
+          label="common:passAuth.password"
+          marginTop={5}
+          secureTextEntry
+          errors={errors}
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
         />
+        <Pressable onPress={handlePasswordRecovery} style={styles.chechboxContainer}>
+          <Text children="common:passAuth.forgot" label special />
+        </Pressable>
+        <View style={styles.buttonCont}>
+          <Button.Primary
+            text="common:passAuth.signin"
+            onPress={handleSubmit(onSubmit)}
+            fullWidth
+            isLoading={loginUserLoading}
+          />
+        </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

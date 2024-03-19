@@ -16,7 +16,8 @@ export const PaymentSuccessScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { params } = useRoute<MainStackRouteProps<'PaymentSuccessScreen'>>();
-  const { providerItem, subscriberInputFieldsValue, amount, isBasketMode } = params || {};
+  const { providerItem, subscriberInputFieldsValue, amount, isBasketMode, transferResponse } =
+    params || {};
 
   const { navigate } = useNavigation<MainStackScreenProps<'PaymentSuccessScreen'>>();
 
@@ -69,16 +70,40 @@ export const PaymentSuccessScreen = () => {
     navigate(DASHBOARD_SCREEN);
   };
 
+  /**
+   * Renders the title based on the conditions.
+   * @returns {string} The rendered title.
+   */
+  const renderTitle = () => {
+    if (transferResponse) {
+      return t('paymentSuccessScreen.transferTitle');
+    } else if (isBasketMode) {
+      return t('paymentSuccessScreen.basketTitle');
+    } else {
+      return t('paymentSuccessScreen.title');
+    }
+  };
+
+  /**
+   * Renders the money information based on the conditions.
+   * @returns {string} The rendered money information.
+   */
+  const renderMoney = () => {
+    if (transferResponse) {
+      return `${formatMoney(transferResponse.amount)} ${transferResponse.currency}`;
+    } else {
+      return `${latestPaymentValue} ₾`;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <SuccessTransaction width={80} height={80} />
-      <Text style={styles.headerTitle}>
-        {isBasketMode ? t('paymentSuccessScreen.basketTitle') : t('paymentSuccessScreen.title')}
-      </Text>
+      <Text style={styles.headerTitle}>{renderTitle()}</Text>
       {!isBasketMode && (
         <View style={styles.moneyWrapper}>
           <Text style={styles.moneyLabel}>{t('paymentSuccessScreen.money')}</Text>
-          <Text style={[styles.moneyLabel, styles.moneyLabelBlack]}>{latestPaymentValue} ₾</Text>
+          <Text style={[styles.moneyLabel, styles.moneyLabelBlack]}>{renderMoney()}</Text>
         </View>
       )}
 

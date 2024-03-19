@@ -1,4 +1,4 @@
-import { Image, Text } from 'components';
+import { IconComponent, Image, Text } from 'components';
 import React, { useEffect, useCallback, useMemo, useState, useRef } from 'react';
 import { View, ScrollView, Pressable, TextInput as RNInput } from 'react-native';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
@@ -80,6 +80,8 @@ const IbanTransaction = () => {
     apiCallInitiated,
     setApiCallInitiated,
     INPUT_LENGTH,
+    invoiceFile,
+    handleFilePick,
   } = useTransactionsScreen();
 
   const { bankIcon, debouncedHandleChange } = useBankIcons(
@@ -295,7 +297,13 @@ const IbanTransaction = () => {
 
           <View style={styles.wrapper}>
             {apiCallInitiated && data?.ibanIsValid && bankIcon && (
-              <Image source={bankIcon} style={styles.image} />
+              <>
+                {data?.imageId ? (
+                  <IconComponent imageId={data?.imageId} customImageIDStyle={styles.image} />
+                ) : (
+                  <Image source={bankIcon} style={styles.image} />
+                )}
+              </>
             )}
           </View>
         </View>
@@ -313,14 +321,23 @@ const IbanTransaction = () => {
                   marginTop={32}
                   autoFocus
                 />
+                <TextInput
+                  inputStyle={styles.inputStyle}
+                  label={invoiceFile ? '' : 'personalNumber.Invoice'}
+                  value={invoiceFile || ''}
+                  editable={false}
+                  marginTop={32}
+                  invoice
+                  invoiceClick={handleFilePick}
+                />
                 {accountFromData.ccy === CurrencyEnum.GEL && (
                   <>
                     <Pressable
                       onPress={() =>
                         openModal({
                           element: <TransactionModal />,
-                          title: 'transactions.type',
-                          titlePosition: 'center',
+                          title: 'transactionDetails.type',
+                          titlePosition: 'left',
                           disablePanning: true,
                         })
                       }

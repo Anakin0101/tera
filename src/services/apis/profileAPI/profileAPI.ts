@@ -46,16 +46,16 @@ export const profileAPI = createApi({
         body: credentials,
       }),
     }),
-    getAtms: builder.mutation<AtmsResponse[], void>({
+    getAtms: builder.query<AtmsResponse[], void>({
       query: () => ({
         url: URLS.getAtms,
-        method: METHOD_NAMES.POST,
+        method: METHOD_NAMES.GET,
       }),
     }),
-    getServiceCenters: builder.mutation<ServiceCentersResponse[], void>({
+    getServiceCenters: builder.query<ServiceCentersResponse[], void>({
       query: () => ({
         url: URLS.getServiceCenters,
-        method: METHOD_NAMES.POST,
+        method: METHOD_NAMES.GET,
       }),
     }),
   }),
@@ -68,6 +68,6 @@ export const {
   useGetUnreadMessagesCountQuery,
   useLazyGetUnreadMessagesCountQuery,
   useGetUnreadNotificationsCountMutation,
-  useGetAtmsMutation,
-  useGetServiceCentersMutation,
+  useLazyGetAtmsQuery,
+  useLazyGetServiceCentersQuery,
 } = profileAPI;

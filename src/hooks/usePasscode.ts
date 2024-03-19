@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { clearLoginName, getPasscode, setPasscode } from 'utils/keychain';
+import { clearLoginName, clearPasscode, getPasscode } from 'utils/keychain';
 import {
   resetUserCredentials,
   setPasscodeStatus,
@@ -37,8 +37,8 @@ export const usePasscode = () => {
   }, [dispatch]);
 
   //   sets passcode value to an empty string
-  const clearPasscode = async () => {
-    const result = await setPasscode('');
+  const removePasscode = async () => {
+    const result = await clearPasscode();
     if (result) {
       dispatch(setPasscodeStatus(null));
       setSavedPasscode(null);
@@ -116,7 +116,7 @@ export const usePasscode = () => {
   return {
     watchKeyboard,
     passcodeLength,
-    clearPasscode,
+    removePasscode,
     savedPasscode,
   };
 };

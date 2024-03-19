@@ -14,6 +14,7 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
   cancel = () => {},
   modalVisible = false,
   selectedAccount,
+  currency = CurrencyEnum.GEL,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -48,9 +49,9 @@ export const ChooseBankAccountModal: FC<ChooseBankAccountModalProps> = ({
   const getAccounts = useMemo(() => {
     return groupedAccountsByIban.map(group => ({
       ...group,
-      accounts: group.accounts.filter(account => account.ccy === CurrencyEnum.GEL),
+      accounts: group.accounts.filter(account => account.ccy === currency),
     }));
-  }, [groupedAccountsByIban]);
+  }, [currency, groupedAccountsByIban]);
 
   // local search
   const groupedAccountsByIbanList = useMemo(() => {
