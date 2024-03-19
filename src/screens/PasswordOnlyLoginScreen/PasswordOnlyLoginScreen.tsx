@@ -13,9 +13,12 @@ import { setCurrentFlow } from 'store/slices/registerUser';
 import { REGISTRATION_METHOD_SCREEN, REGISTRATION_STACK } from 'navigation/ScreenNames';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
+import { useGlobalStyles } from 'theme/Global.styles';
 
 const PasswordOnlyLoginScreenBase = () => {
   const styles = useStyles();
+  const globalStyles = useGlobalStyles();
+
   const { savedLoginName } = useKeyChain();
   const { isKeyboardOpened } = useKeyboard();
 
@@ -56,8 +59,7 @@ const PasswordOnlyLoginScreenBase = () => {
       extraScrollHeight={120}
       showsVerticalScrollIndicator={false}
       scrollEnabled={isKeyboardOpened}
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={{ flex: 1 }}
+      style={globalStyles.fill}
     >
       <View style={styles.wrapper}>
         <Account />
