@@ -15,7 +15,7 @@ export const CardInformation: FC<CardInformationProps> = memo(
           <Text children="products.information" size={18} demiBold />
           <DetailsItem label="products.informationName" value={name} />
           <DetailsItem label="products.informationCardOwner" value={cardHolder} />
-          {insurance ? <DetailsItem label="products.insurance" value={insurance} /> : null}
+          {insurance && <DetailsItem label="products.insurance" value={insurance} />}
           {blockedAmounts?.length ? (
             <DetailsItem
               label="products.blockedFunds"

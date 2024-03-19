@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Divider, Text } from 'components';
 import { useStyles } from './CardInsuranceScreen.styles';
 import { TermItemProps } from './CardInsuranceScreen.types';
-import { Colors } from 'theme/Variables';
+import { Colors, Spacing } from 'theme/Variables';
 
 export const TermItem: FC<TermItemProps> = memo(({ label, value, showDivider = true }) => {
   const styles = useStyles();
@@ -21,9 +21,9 @@ export const TermItem: FC<TermItemProps> = memo(({ label, value, showDivider = t
       {showDivider && (
         <Divider
           width="100%"
-          height={1}
-          marginTop={20}
-          marginBottom={20}
+          height={Spacing.one}
+          marginTop={Spacing.lg}
+          marginBottom={Spacing.lg}
           color={Colors.inputBlack50}
         />
       )}

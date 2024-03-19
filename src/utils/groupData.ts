@@ -36,11 +36,11 @@ export const groupAccountsByIban = (
       // Check if the account has cards
       if (account?.cards) {
         account?.cards?.forEach(card => {
-          const index = result[iban]?.cards?.findIndex(item => item?.pan === card?.pan); // Check if the card already exists
+          const index = result?.[iban]?.cards?.findIndex(item => item?.pan === card?.pan); // Check if the card already exists
 
           // If card doesn't exist in the result, push it
           if (index === -1) {
-            result[iban]?.cards?.push(card);
+            result?.[iban]?.cards?.push(card);
           }
         });
       }

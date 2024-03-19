@@ -106,10 +106,7 @@ export const Card = ({
   });
 
   const imageId = useMemo(() => {
-    if (item?.cards?.length) {
-      return item?.cards?.[0]?.cardLargeImageId;
-    }
-    return '';
+    return item?.cards?.[0]?.cardLargeImageId;
   }, [item.cards]);
 
   const getCurrencies = useCallback(() => {
@@ -141,12 +138,7 @@ export const Card = ({
       }
       navigate(MODAL_STACK, {
         screen: CARD_DETAILS_SCREEN,
-        params: {
-          // accountNumber: item.accountNumber,
-          // accounts: item.accounts,
-          // cards: item.cards,
-          iban: item.iban,
-        },
+        params: { iban: item.iban },
       });
     } else {
       onCardPress();

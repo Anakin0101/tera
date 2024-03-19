@@ -50,13 +50,7 @@ export const CardDetailsScreen = () => {
         case 'wallet':
           return <Wallet />;
         case 'details':
-          return (
-            <CardHolderDetails
-              accountNumber={activeCard?.pan}
-              endDate={activeCard?.endDate}
-              cvv={String(activeCard?.priority)}
-            />
-          );
+          return <CardHolderDetails pan={activeCard?.pan} endDate={activeCard?.endDate} />;
         case 'information':
           return (
             <CardInformation

@@ -1,6 +1,5 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import {
-  // CardType,
   LoanType,
   DepositType,
   OverdraftType,

@@ -3,7 +3,7 @@ import { Pressable, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Badge, Divider, IconComponent, Text } from 'components';
 import { useTheme } from 'hooks';
-import { ASTERISKS, VISA } from 'constants/common';
+import { VISA } from 'constants/common';
 import { ModalStackScreenProps } from 'navigation/types';
 import { CARD_DETAILS_SCREEN } from 'navigation/ScreenNames';
 import { CheckShieldSmall, ChevronRight, Visa, MasterCard, Lock, Alert } from 'assets/SVGs';
@@ -11,6 +11,7 @@ import { CardStatusCode } from 'services/apis/productsAPI/productsAPI.types';
 import { CardItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
 import { isExpired } from 'utils/formatDate';
+import { maskCardPanShort } from 'utils/maskCardPan';
 
 export const CardItem: FC<CardItemProps> = memo(({ item, index, iban, isLast }) => {
   const styles = useStyles();
@@ -34,7 +35,7 @@ export const CardItem: FC<CardItemProps> = memo(({ item, index, iban, isLast }) 
                 <Text children={item?.cardProductName} color={Colors.textBlack500} />
                 {item?.isInsured && <CheckShieldSmall />}
               </View>
-              <Text children={`${ASTERISKS} ${item?.pan?.slice(-4)}`} />
+              <Text children={maskCardPanShort(item?.pan)} />
             </View>
             <View style={styles.cardIconContainer}>
               {item?.cardProductName?.toLowerCase()?.includes(VISA) ? <Visa /> : <MasterCard />}
