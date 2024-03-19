@@ -858,3 +858,12 @@ export type FavouriteReq = {
   accountId: number;
   culture: string;
 };
+
+export type UserBalance = {
+  currency: CurrencyEnum;
+  amount: number;
+};
+
+export type GroupedUserBalanceRes = {
+  userBalance: UserBalance[];
+};

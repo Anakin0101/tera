@@ -304,7 +304,9 @@ export type ModalStackParamsList = {
     fromIban?: boolean;
     fromPersonal?: boolean;
   };
-  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
+  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: {
+    groupedUserBalance: number;
+  };
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;

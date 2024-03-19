@@ -53,9 +53,11 @@ import {
   UnblockCardReq,
   UpdateAccountNameReq,
   FavouriteReq,
+  GroupedUserBalanceRes,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
+import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
 
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
@@ -412,6 +414,12 @@ export const productsAPI = createApi({
       }),
       invalidatesTags: ['Accounts'],
     }),
+
+    getGroupedUserBalance: builder.query<number, void>({
+      query: () => ({ url: URLS.getGroupedUserBalance }),
+      transformResponse: (response: GroupedUserBalanceRes) =>
+        response?.userBalance?.find(item => item?.currency === CurrencyEnum.GEL)?.amount || 0,
+    }),
   }),
 });
 
@@ -457,4 +465,5 @@ export const {
   useRequestForPinMutation,
   useSetAsFavouriteMutation,
   useRemoveFromFavouriteMutation,
+  useGetGroupedUserBalanceQuery,
 } = productsAPI;

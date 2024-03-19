@@ -15,7 +15,7 @@ export interface CardsAndAccountsProps {
   showTitle?: boolean;
   showFooter?: boolean;
   showDivider?: boolean;
-  totalAvailableBalance?: number;
+  groupedUserBalance?: number;
   seeAllAccounts?: boolean;
   displayDivider?: boolean;
 }
@@ -29,7 +29,7 @@ export interface AccountProps {
 export interface HeaderProps {
   amount: number;
   showTitle: boolean;
-  totalAvailableBalance: number;
+  groupedUserBalance: number;
 }
 
 export type CurrencyMap = {
@@ -38,3 +38,8 @@ export type CurrencyMap = {
 };
 
 export type RenderItem = ListRenderItem<IGroupedAccountsByIban>;
+
+export interface FooterProps {
+  groupedUserBalance: number;
+  showFooter: boolean;
+}

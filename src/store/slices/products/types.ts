@@ -11,7 +11,6 @@ import {
 
 export type ProductsStateProps = {
   groupedAccountsByIban: IGroupedAccountsByIban[];
-  totalAvailableBalanceGEL: number;
   overdrafts: OverdraftType[];
   deposits: DepositType[];
   totalDepositsGEL: number;

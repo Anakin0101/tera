@@ -96,6 +96,7 @@ export const URLS = {
   updateAccountName: 'Account/UpdateAccountName',
   setAsFavourite: 'Account/SetAsFavourite',
   removeFromFavourite: 'Account/RemoveFromFavourite',
+  getGroupedUserBalance: 'Account/GetGroupedUserBalance',
 };
 
 export const PROD_URLS = {
