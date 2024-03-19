@@ -19,11 +19,13 @@ export const useStyleTheme = () => {
     },
     title: {
       fontSize: FontSize.large,
+      lineHeight: FontSize.large,
       marginBottom: Spacing.m,
       color: Colors.textBlack,
     },
     label: {
       fontSize: FontSize.small,
+      lineHeight: FontSize.small,
       marginBottom: verticalScale(56),
       color: Colors.textBlack500,
     },

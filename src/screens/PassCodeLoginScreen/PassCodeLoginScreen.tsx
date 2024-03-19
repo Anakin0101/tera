@@ -41,7 +41,9 @@ const PasscodeLoginScreenBase = () => {
     if (logoutStatus) {
       return;
     } else {
-      handleBiometricAuthOnLoad();
+      if (biometricAuthSet) {
+        handleBiometricAuthOnLoad();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoutStatus]);

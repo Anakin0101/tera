@@ -57,7 +57,7 @@ const PasswordLoginScreenBase = () => {
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
       contentInsetAdjustmentBehavior="automatic"
-      extraScrollHeight={100}
+      extraScrollHeight={120}
       showsVerticalScrollIndicator={false}
       scrollEnabled={isKeyboardOpened}
       style={styles.mainContainer}
