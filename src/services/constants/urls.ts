@@ -90,6 +90,7 @@ export const URLS = {
   getCreditProductOfferAgreement: '/Loan/GetCreditProductOfferAgreement',
   getCreditProductOfferSchedule: '/Loan/GetCreditProductOfferSchedule',
   activateCreditProductOffer: '/Loan/ActivateCreditProductOffer',
+  updateParameters: 'Customers/UpdateParameters',
 };
 
 export const PROD_URLS = {

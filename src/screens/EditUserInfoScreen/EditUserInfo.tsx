@@ -15,20 +15,19 @@ export const EditUserInfo = () => {
   const styles = useStyles();
   const { t } = useTranslation();
   const {
-    fullName,
+    loginName,
     isLatin,
     isMinLength,
-    inputValue,
     imageId,
-    codeInputValue,
     isValidCode,
     validateNameInput,
     validateCodewordInput,
     inputDisplay,
-    onSubmit,
     control,
     errors,
     handleSubmit,
+    handleRequestUdateParameters,
+    updateParametersLoading,
   } = useEditUserInfo();
 
   return (
@@ -54,16 +53,22 @@ export const EditUserInfo = () => {
             />
           </View>
           <Text style={styles.userNameTitle}>{t('settings.userName')}</Text>
-          <Text style={styles.userName}>{fullName}</Text>
+          <Text style={styles.userName}>{loginName}</Text>
         </View>
         <View>
           <ControlledInput
-            value={inputValue}
             marginTop={8}
             control={control}
+            errors={errors}
             name={'userName'}
             onChangeText={validateNameInput}
             label={t('settings.newName')}
+            rules={{
+              required: {
+                value: true,
+                message: 'common:form.is_required',
+              },
+            }}
           />
 
           <View style={styles.doneWrapper}>
@@ -87,12 +92,17 @@ export const EditUserInfo = () => {
             <Text style={isLatin ? styles.valid : styles.notValid}>{t('settings.enterlatin')}</Text>
           </View>
           <View style={styles.rulesWrapper}>
-            <IconComponent
-              IconJSX={() => (
-                <CheckStatic fillColor={isMinLength ? Colors.success : Colors.rulesColor} />
-              )}
-              hasBorder={false}
-            />
+            {isMinLength ? (
+              <IconComponent
+                IconJSX={() => <CheckStatic fillColor={Colors.success} />}
+                hasBorder={false}
+              />
+            ) : (
+              <IconComponent
+                IconJSX={() => <CheckStatic fillColor={Colors.rulesColor} />}
+                hasBorder={false}
+              />
+            )}
             <Text style={isMinLength ? styles.valid : styles.notValid}>
               {t('settings.minLength')}
             </Text>
@@ -117,20 +127,32 @@ export const EditUserInfo = () => {
         />
 
         <ControlledInput
-          value={codeInputValue}
           onChangeText={validateCodewordInput}
           control={control}
+          errors={errors}
           name="code"
           marginTop={8}
           label={t('settings.codeWord')}
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
         />
         <View style={styles.rulesWrapper}>
-          <IconComponent
-            IconJSX={() => (
-              <CheckStatic fillColor={isValidCode ? Colors.success : Colors.rulesColor} />
-            )}
-            hasBorder={false}
-          />
+          {isValidCode ? (
+            <IconComponent
+              IconJSX={() => <CheckStatic fillColor={Colors.success} />}
+              hasBorder={false}
+            />
+          ) : (
+            <IconComponent
+              IconJSX={() => <CheckStatic fillColor={Colors.rulesColor} />}
+              hasBorder={false}
+            />
+          )}
+
           <Text style={isValidCode ? styles.valid : styles.notValid}>
             {t('settings.dontInclude')}
           </Text>
@@ -139,18 +161,37 @@ export const EditUserInfo = () => {
         <ControlledInput
           keyboardType={'decimal-pad'}
           control={control}
+          errors={errors}
           name="phone"
           marginTop={8}
           label={t('settings.phone')}
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
         />
 
         <ControlledInput
           control={control}
           name="address"
+          errors={errors}
           marginTop={8}
           label={t('settings.address')}
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
         />
-        <Button.Primary text={t('common.save')} onPress={handleSubmit(onSubmit)} fullWidth />
+        <Button.Primary
+          text={t('common.save')}
+          onPress={handleSubmit(handleRequestUdateParameters)}
+          fullWidth
+          isLoading={updateParametersLoading}
+        />
       </View>
     </ScrollView>
   );

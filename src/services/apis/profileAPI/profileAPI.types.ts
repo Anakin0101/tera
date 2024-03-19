@@ -71,3 +71,20 @@ export type ServiceCentersResponse = {
   longitude: number;
   isActive: true;
 };
+
+export type UpdateParametersRequestType = {
+  culture?: string;
+  userName?: string | null;
+  email?: string;
+  secretWord?: string | undefined;
+  phone?: string | null;
+  address?: string | undefined;
+  sendOtp?: boolean;
+  otp?: string;
+};
+
+export type UpdateParametersRespType = {
+  title: string;
+  status: number;
+  detail: string;
+};

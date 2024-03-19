@@ -85,7 +85,7 @@ export const Colors = {
   lightPink: 'rgb(249,241,246)',
   offerBgGreen: 'rgb(234, 246, 235)',
   rulesColor: 'rgb(119, 119, 119)',
-  checkColor: '#1AAE5F',
+  checkColor: 'rgb(26, 174, 95)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
