@@ -18,8 +18,10 @@ import { Colors } from 'theme/Variables';
 
 import { useIsConnectionAlive } from 'hooks';
 import { ApplicationErrorWrapper } from 'components';
+import { useGlobalStyles } from 'theme/Global.styles';
 
 const App = () => {
+  const globalStyles = useGlobalStyles();
   //  We set statusbar custom color - only for android on the root level
   //   For IOS, we need to tweak the statusbar, so CustomStatusbar Component was created
   useLayoutEffect(() => {
@@ -33,8 +35,7 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      {/* eslint-disable-next-line react-native/no-inline-styles */}
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureHandlerRootView style={globalStyles.fill}>
         <SafeAreaProvider>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
