@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useStyleTheme } from './TransferToForeignIban.styles';
 import { TinyChevron } from 'assets/SVGs';
 import { Button } from 'components';
-import CardItem from './CardItem';
+import { ForeignCardItem } from './ForeignCardItem';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { ForeignIbanTransfer } from 'components/ForeignIbanTransfer/ForeignIbanTransfer';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
@@ -15,6 +15,15 @@ import { setSelectedPrice } from 'store/slices/transfers';
 import { useNavigation } from '@react-navigation/native';
 import { ModalStackScreenProps } from 'navigation/types';
 import { FOREIGN_TRANSFER_DETAILS_SCREEN } from 'navigation/ScreenNames';
+
+const initialState = {
+  accountFromData: {
+    ccy: '',
+    availableBalance: 0,
+    accountName: '',
+  },
+};
+
 export const TransferToForeignIban = () => {
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<ModalStackScreenProps<'TransferDetailScreen'>>();
@@ -28,11 +37,7 @@ export const TransferToForeignIban = () => {
     ccy: senderCcy,
     availableBalance,
     accountName,
-  } = transfers.accountFromData ?? {
-    ccy: '',
-    availableBalance: 0,
-    accountName: '',
-  };
+  } = transfers.accountFromData ?? initialState.accountFromData;
   const inputRef = useRef(null);
 
   const openTransferScreen = () => {
@@ -73,20 +78,13 @@ export const TransferToForeignIban = () => {
           openTransferScreen={openTransferScreen}
         />
         <View style={styles.cardWrapper}>
-          <CardItem
+          <ForeignCardItem
             title={accountName}
             balance={formatMoney(availableBalance)}
             ccy={senderCcy}
-            onPress={() => {}}
           />
           <TinyChevron style={styles.chevronIcon} />
-          <CardItem
-            reverse
-            title={receiverName}
-            balance={receiverIban}
-            ccy={ccy}
-            onPress={() => {}}
-          />
+          <ForeignCardItem reverse title={receiverName} balance={receiverIban} ccy={ccy} />
         </View>
       </View>
     </KeyboardAvoidingScrollView>

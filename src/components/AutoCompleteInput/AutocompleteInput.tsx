@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
+import { useStyles } from './AutoCompleteInput.styles';
 
+import { AutocompleteInputProps } from './AutoCompleteInput.types';
 const AutocompleteInput = ({
   label,
   fetchSuggestions,
@@ -11,11 +13,11 @@ const AutocompleteInput = ({
   value,
   clearOnSelect,
   isBankNameInput = false,
-}: any) => {
+}: AutocompleteInputProps) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isQuerying, setIsQuerying] = useState(false);
-
+  const styles = useStyles();
   useEffect(() => {
     if (value !== undefined && value !== query) {
       setQuery(value);
@@ -36,7 +38,7 @@ const AutocompleteInput = ({
     if (!isQuerying) {
       setIsQuerying(true);
       try {
-        const response = await fetchSuggestions(text);
+        const response: any = await fetchSuggestions(text);
         setSuggestions(response?.data);
         setIsQuerying(false);
       } catch (error) {
@@ -52,7 +54,7 @@ const AutocompleteInput = ({
         data={suggestions}
         defaultValue={query}
         onChangeText={handleSearch}
-        inputContainerStyle={{ borderWidth: 0 }}
+        inputContainerStyle={styles.input}
         placeholder={label}
         flatListProps={{
           keyExtractor: (item, index) => String(index),
@@ -66,7 +68,7 @@ const AutocompleteInput = ({
                 onSuggestionSelected(item);
               }}
             >
-              <Text style={{ padding: 10 }}>{isBankNameInput ? item.bankName : item.bankCode}</Text>
+              <Text style={styles.text}>{isBankNameInput ? item.bankName : item.bankCode}</Text>
             </TouchableOpacity>
           ),
         }}

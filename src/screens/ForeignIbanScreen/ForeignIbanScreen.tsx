@@ -67,7 +67,7 @@ export const ForeignIbanScreen = () => {
     );
   };
 
-  const fetchSuggestions = async (query: any) => {
+  const fetchSuggestions = async (query: string) => {
     try {
       const response = await checkForeignIban(query);
       return response;

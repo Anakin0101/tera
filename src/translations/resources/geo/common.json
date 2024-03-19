@@ -494,7 +494,9 @@
     "foreignCode": "ბანკის კოდი",
     "mediatorBankCode": "შუამავლის ბანკის კოდი ან დასახელება",
     "city": "ქალაქი",
-    "address": "მისამართი"
+    "address": "მისამართი",
+    "receiverBank": "მიმღები ბანკი",
+    "mediatorBank": "შუამავალი ბანკი"
   },
   "filters": {
     "income": "ჩარიცხვა / თანხის შეტანა",

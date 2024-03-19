@@ -49,3 +49,7 @@ export interface AccountData {
   accountId: any;
   ccy: string;
 }
+export enum DataSourceEnum {
+  BankInternal = 'bankInternal',
+  BankExternal = 'bankExternal',
+}

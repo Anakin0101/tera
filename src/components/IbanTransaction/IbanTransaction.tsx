@@ -36,7 +36,7 @@ import { useKeyboard } from 'utils/useKeyboard';
 // import { RecepientNumberType } from 'components/PersonalNumberTransaction/PersonalNumberTransaction.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useIsFocused } from '@react-navigation/native';
-
+// TODO - replace TextInput with react-hook-form controller
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
   const isFocused = useIsFocused();

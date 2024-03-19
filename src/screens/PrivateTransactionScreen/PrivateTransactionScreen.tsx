@@ -24,23 +24,15 @@ export const PrivateTransactionScreen = () => {
   }, [selectedItemFromStore]);
 
   useLayoutEffect(() => {
-    if (params.from === TransactionType.CONVERTION) {
-      setOptions({
-        title: t('transfers.convertion'),
-      });
-    } else if (params.from === TransactionType.TRANSFER) {
-      setOptions({
-        title: t('transfers.toOwnAccount'),
-      });
-    } else if (params.from === TransactionType.BUDGET) {
-      setOptions({
-        title: t('transactions.inBudget'),
-      });
-    } else {
-      setOptions({
-        title: t('transfers.toOther'),
-      });
-    }
+    const titleMap: any = {
+      [TransactionType.CONVERTION]: t('transfers.convertion'),
+      [TransactionType.TRANSFER]: t('transfers.toOwnAccount'),
+      [TransactionType.BUDGET]: t('transactions.inBudget'),
+    };
+
+    setOptions({
+      title: titleMap[params.from] || t('transfers.toOther'),
+    });
   }, [params, setOptions, t]);
 
   const { goBack } = useNavigation();

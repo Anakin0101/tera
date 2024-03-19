@@ -503,7 +503,9 @@
     "foreignCode": "Foreign code",
     "mediatorBankCode": "Mediator Bank code",
     "city": "city",
-    "address": "address"
+    "address": "address",
+    "receiverBank": "Receiver Bank",
+    "mediatorBank": "Mediator Bank"
   },
   "filters": {
     "income": "Income",

@@ -144,11 +144,11 @@ export const ForeignTransferDetailsScreen = () => {
                 'transactionDetails.amount',
                 `${formatToTwoDecimalPlaces(selectedPrice)} ₾`,
               )}
-              {renderDetailsItem('მიმღები', receiverName)}
-              {renderDetailsItem('მიმღების რეზიდენტობის ქვეყანა', country)}
-              {renderDetailsItem('მიმღები ბანკი', selectedBankName)}
-              {renderDetailsItem('შუამავალი ბანკი', selectedBankCode)}
-              {renderDetailsItem('ქალაქი', city)}
+              {renderDetailsItem('transactionDetails.receiver', receiverName)}
+              {renderDetailsItem('transactionDetails.country', country)}
+              {renderDetailsItem('transactionDetails.receiverBank', selectedBankName)}
+              {renderDetailsItem('transactionDetails.mediatorBank', selectedBankCode)}
+              {renderDetailsItem('transactionDetails.city', city)}
             </View>
           </View>
         </View>

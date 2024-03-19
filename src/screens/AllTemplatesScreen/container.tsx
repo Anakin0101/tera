@@ -109,11 +109,9 @@ export const useAllTemplates = () => {
         } else {
           refetch();
           setIsTrustedTemplate(false);
-          if (isDelete) {
-            openToast(`${t('common.successfullyOperation')}`, 'success');
-          } else {
-            openToast(`${t('dashboard.trusted')}`, 'success');
-          }
+          isDelete
+            ? openToast(`${t('common.successfullyOperation')}`, 'success')
+            : openToast(`${t('dashboard.trusted')}`, 'success');
         }
       } catch (err) {
         console.warn(`Failed to ${isDelete ? 'untrust' : 'trust'} template:`, err);
@@ -136,23 +134,21 @@ export const useAllTemplates = () => {
       });
   };
   const templateAddBtn = (data: Template, isDelete: boolean) => {
-    if (isDelete) {
-      BlockOrTrustFunction(false, data, isDelete);
-    } else {
-      openModal({
-        element: (
-          <BlockOrTrustTemplateModal
-            isDelete={isDelete}
-            shouldBlock={false}
-            onPress={() => BlockOrTrustFunction(false, data, isDelete)}
-          />
-        ),
-        title: 'dashboard.trustedTemplate',
-        titlePosition: 'left',
-        disablePanning: true,
-        disableDynamicSizing: true,
-      });
-    }
+    isDelete
+      ? BlockOrTrustFunction(false, data, isDelete)
+      : openModal({
+          element: (
+            <BlockOrTrustTemplateModal
+              isDelete={isDelete}
+              shouldBlock={false}
+              onPress={() => BlockOrTrustFunction(false, data, isDelete)}
+            />
+          ),
+          title: 'dashboard.trustedTemplate',
+          titlePosition: 'left',
+          disablePanning: true,
+          disableDynamicSizing: true,
+        });
   };
 
   const filteredTemplates =

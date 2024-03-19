@@ -146,7 +146,7 @@ export const transfersAPI = createApi({
     checkForeignIban: builder.query<any, any>({
       query: name => ({
         url: `${URLS.getBankInfo}?bankName=${name}`,
-        method: `${METHOD_NAMES.GET}`,
+        method: METHOD_NAMES.GET,
         headers: commonHeaders,
       }),
     }),

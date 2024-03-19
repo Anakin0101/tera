@@ -4,21 +4,15 @@ import { Text } from 'components';
 import { useStyleTheme } from './TransferToForeignIban.styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getCurrencyIcon } from 'utils/currency';
-const CardItem = ({
+import { ForeignCardItemProps } from './ForeignCardItem.types';
+export const ForeignCardItem = ({
   title,
   balance,
   onPress,
   reverse,
   ccy,
   fromBudget,
-}: {
-  title: string | undefined;
-  balance?: number | string;
-  onPress: () => void;
-  reverse?: boolean;
-  ccy: string;
-  fromBudget?: boolean;
-}) => {
+}: ForeignCardItemProps) => {
   const styles = useStyleTheme();
 
   return (
@@ -59,4 +53,3 @@ const CardItem = ({
     </TouchableOpacity>
   );
 };
-export default CardItem;

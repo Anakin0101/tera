@@ -218,15 +218,9 @@ export const TransferDetailScreen = () => {
       try {
         const transferResult: TransferToOwnAccountResponseType | undefined =
           await handleTransferToOwnAccount({
-            amount: params?.templateData
-              ? params?.templateData?.amount
-              : selectedItemFromStore.selectedPrice,
-            creditAccountId: params?.creditResult
-              ? params?.creditResult?.accountId
-              : accountToData?.accountId,
-            debitAccountId: params?.debitResult
-              ? params?.debitResult?.accountId
-              : accountFromData?.accountId,
+            amount: params?.templateData?.amount ?? selectedItemFromStore.selectedPrice,
+            creditAccountId: params?.creditResult?.accountId ?? accountToData?.accountId,
+            debitAccountId: params?.debitResult?.accountId ?? accountFromData?.accountId,
           });
         dispatch(
           setTransferType({

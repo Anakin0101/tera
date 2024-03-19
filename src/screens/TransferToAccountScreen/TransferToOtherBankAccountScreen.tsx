@@ -27,7 +27,7 @@ import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
 import { setAccountFromData } from 'store/slices/transfers';
-
+import { DataSourceEnum } from './TransferToAccountScreen.types';
 export const TransferToOtherBankAccountScreen = () => {
   const { isKeyboardOpened } = useKeyboard();
   const { params } = useRoute<ModalStackRouteProps<'TransferToAccountScreen'>>();
@@ -71,14 +71,15 @@ export const TransferToOtherBankAccountScreen = () => {
   useEffect(() => {
     if (isFocused && params?.templates) {
       const templates = params.templates;
-      const dataSource = templates.internal
-        ? 'bankInternal'
-        : templates.bankExternal
-        ? 'bankExternal'
-        : null;
+      let dataSource = null;
+      if (templates.internal) {
+        dataSource = DataSourceEnum.BankInternal;
+      } else if (templates.bankExternal) {
+        dataSource = DataSourceEnum.BankExternal;
+      }
 
       switch (dataSource) {
-        case 'bankInternal':
+        case DataSourceEnum.BankInternal:
           const { currency, debitIban } = templates.internal || {};
 
           dispatch(
