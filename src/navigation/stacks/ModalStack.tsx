@@ -77,6 +77,7 @@ import {
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
+  ExchangeRatesScreen,
 } from 'screens';
 import {
   ACTIVATE_LOAN_SUCCESS_SCREEN,
@@ -155,6 +156,7 @@ import {
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
+  EXCHANGE_RATES_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfersScreen';
@@ -707,6 +709,11 @@ export const ModalNavigator = () => {
         name={ACTIVATE_LOAN_SUCCESS_SCREEN}
         component={ActivateLoanSuccessScreen}
         options={hideHeader}
+      />
+      <Screen
+        name={EXCHANGE_RATES_SCREEN}
+        component={ExchangeRatesScreen}
+        options={{ title: t('exchange.title') }}
       />
     </Navigator>
   );

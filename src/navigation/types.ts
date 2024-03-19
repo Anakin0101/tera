@@ -104,6 +104,7 @@ import {
   APPROVED_LOAN_PDF_SCREEN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
+  EXCHANGE_RATES_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -364,6 +365,7 @@ export type ModalStackParamsList = {
   [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
   [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
   [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+  [EXCHANGE_RATES_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {
