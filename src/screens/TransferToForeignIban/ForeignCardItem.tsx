@@ -5,6 +5,7 @@ import { useStyleTheme } from './TransferToForeignIban.styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getCurrencyIcon } from 'utils/currency';
 import { ForeignCardItemProps } from './ForeignCardItem.types';
+
 export const ForeignCardItem = ({
   title,
   balance,

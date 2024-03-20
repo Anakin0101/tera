@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  accountFromData: null,
+  accountFromData: {
+    ccy: '',
+    availableBalance: 0,
+    accountName: '',
+  },
   accountToData: null,
   convertionData: null,
   selectedData: '',
@@ -95,7 +99,7 @@ const transfersSlice = createSlice({
       state.accountIban = payload;
     },
     clearAccountFromData: state => {
-      state.accountFromData = null;
+      state.accountFromData = initialState.accountFromData;
     },
     clearAccountToData: state => {
       state.accountToData = null;

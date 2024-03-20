@@ -37,6 +37,7 @@ export const ForeignTransferDetailsScreen = () => {
   const { receiverIban, receiverName, country, city, selectedBankCode, selectedBankName } =
     foreignIbanData;
 
+  // TODO move to container
   const transferWithOtp = async (formData: any, code: string) => {
     let headers: { [key: string]: string } = {
       'X-Bank-Isstrongauthrequest': 'true',
@@ -72,6 +73,7 @@ export const ForeignTransferDetailsScreen = () => {
       formData.append(key, value);
     }
 
+    // TODO move to container
     const checkTransfer = await handleTransferInfo({
       transferType: FinancialTransferTypeEnum.ToSomeoneOutOfGeorgia,
       debitAccountId: accountFromData.accountId,
