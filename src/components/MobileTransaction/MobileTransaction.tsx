@@ -60,6 +60,7 @@ const MobileTransaction = () => {
   } = useTransactionsScreen();
 
   const { handleMobileNumber, data, isSuccess, isError } = useOtherBanksContainer(MOBILE);
+
   const { debouncedHandleChange } = useBankIcons(
     null,
     setDebouncedAccountName,
@@ -217,7 +218,7 @@ const MobileTransaction = () => {
 
         {apiCallInitiated && data ? (
           <View>
-            <DetailsItem label="personalNumber.Address" value={data.customerName} underline />
+            <DetailsItem label="personalNumber.name" value={data.customerName} underline />
           </View>
         ) : (
           <>

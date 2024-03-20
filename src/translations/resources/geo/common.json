@@ -120,7 +120,7 @@
     "trustedTemplate": "სანდო შაბლონი",
     "template_trust_status": "შაბლონი წარმატებით {{status}}",
     "untrusted": "გახდა არასანდო",
-    "trusted": "გასანდოვდა"
+    "trusted": "შაბლონი წარმატებით გასანდოვდა"
   },
   "profile": {
     "edit_settings": "პარამეტრების ცვლილება",
@@ -174,7 +174,8 @@
     "specificCourse": "შენი კურსი",
     "transfer": "გადარიცხვა",
     "personalTransfer": "პირადი გადარიცხვა",
-    "balanceAvailable": "ანგარიშზე არ არის საკმარისი თანხა"
+    "balanceAvailable": "ანგარიშზე არ არის საკმარისი თანხა",
+    "toOther": "სხვასთან გადარიცხვა"
   },
   "products": {
     "accountsAndCards": "ანგარიშები და ბარათები ({{value}})",
@@ -502,7 +503,14 @@
     "validContact": "კონტაქტებიდან დამატება ვერ მოხერხდა",
     "validIbanPromptForeign": "გთხოვთ მიუთითოთ სწორი ანგარიში",
     "validTransactionPrompt": "გთხოვთ, აირჩიეთ ტრანზაქციის ტიპი გაგრძელებამდე.",
-    "validRecieverPrompt": "მიმღების ველი სავალდებულოა. გთხოვთ, შეავსეთ მიმღების ველი გაგრძელებამდე."
+    "validRecieverPrompt": "მიმღების ველი სავალდებულოა. გთხოვთ, შეავსეთ მიმღების ველი გაგრძელებამდე.",
+    "country": "მიმღების რეზიდენტობის ქვეყანა",
+    "foreignCode": "ბანკის კოდი",
+    "mediatorBankCode": "შუამავლის ბანკის კოდი ან დასახელება",
+    "city": "ქალაქი",
+    "address": "მისამართი",
+    "receiverBank": "მიმღები ბანკი",
+    "mediatorBank": "შუამავალი ბანკი"
   },
   "filters": {
     "income": "ჩარიცხვა / თანხის შეტანა",

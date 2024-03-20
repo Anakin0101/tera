@@ -16,12 +16,39 @@ import {
   TO_ACCOUNT_SCREEN,
 } from 'navigation/ScreenNames';
 
+export interface AccountDetails {
+  accountIban?: string;
+  accountId?: number;
+  accountName?: string;
+  accountNameCustom?: null | string;
+  accountNameLat?: string;
+  accountNumber?: number;
+  accountStatusId?: number;
+  accountSubType?: number | null;
+  accountType?: number;
+  availableBalance?: number;
+  balAcc?: number;
+  balance?: number;
+  blockedAmount?: number;
+  cards?: null;
+  ccy?: string;
+  isCredit?: boolean;
+  isDebit?: boolean;
+  isFavourite?: boolean;
+  isJuniorAccount?: boolean;
+  positionIndex?: number;
+  title?: string;
+  uiShown?: boolean;
+}
+
 export type cardProps = {
   accountFromData: any;
   accountToData: any;
   receiver?: string;
   fromBudget?: boolean;
   fromOtherBanks?: boolean;
+  debitResult?: AccountDetails | null;
+  creditResult?: AccountDetails | null;
   fromMobile?: boolean;
 };
 interface SelectedItem {
@@ -101,6 +128,8 @@ export const CardSwap = ({
   receiver,
   fromBudget,
   fromOtherBanks = false,
+  debitResult,
+  creditResult,
   fromMobile,
 }: cardProps) => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
@@ -138,16 +167,19 @@ export const CardSwap = ({
   return (
     <View style={styles.cardWrapper}>
       <CardItem
-        title={accountFromData?.accountName}
-        balance={formatMoney(accountFromData?.availableBalance)}
+        title={debitResult?.accountName || accountFromData?.accountName}
+        balance={
+          creditResult
+            ? formatMoney(debitResult?.availableBalance)
+            : formatMoney(accountFromData?.availableBalance)
+        }
         ccy={accountFromData?.ccy}
         onPress={() => handlePress(1)}
         fromMobile={fromMobile}
       />
-
+      <TinyChevron style={styles.chevronIcon} />
       {!fromMobile ? (
         <>
-          <TinyChevron style={styles.chevronIcon} />
           <CardItem
             reverse
             fromBudget={fromBudget}

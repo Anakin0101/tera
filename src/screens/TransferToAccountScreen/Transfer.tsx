@@ -17,6 +17,7 @@ export const Transfer = ({
   accountFromData,
   fromOtherBanks,
   transactionTitle,
+  templateData,
 }: TransferProps) => {
   const styles = useStyleTheme();
   const dispatch = useAppDispatch();
@@ -41,6 +42,7 @@ export const Transfer = ({
           placeholder="00.00"
           onTextChange={onTextChange}
           focusOnMount={true}
+          value={templateData?.amount?.toString() || ''}
         />
       </View>
       {fromOtherBanks ? (

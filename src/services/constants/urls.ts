@@ -25,7 +25,7 @@ export const URLS = {
   getLoanHistory: 'Loan/GetLoanPayments',
   BlockCard: 'Account/BlockCard',
   UnblockCard: 'Account/UnblockCard',
-  getAmount: 'transfers/ConvertAmount',
+  getAmount: 'Transfers/ConvertAmount',
   transferToOwnAccount: 'Transfers/TransferToOwnAccount',
   exchange: 'Transfers/Exchange',
   checkIban: 'Transfers/GetReceiverInfo',

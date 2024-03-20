@@ -22,6 +22,9 @@ export interface TransferProps {
   accountFromData: any;
   fromOtherBanks?: boolean;
   transactionTitle?: keyof typeof transactionTitles;
+  templateData?: {
+    amount: string;
+  };
 }
 
 export interface TransferData {
@@ -45,4 +48,8 @@ export interface AccountData {
   iban: any;
   accountId: any;
   ccy: string;
+}
+export enum DataSourceEnum {
+  BankInternal = 'bankInternal',
+  BankExternal = 'bankExternal',
 }

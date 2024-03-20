@@ -14,7 +14,6 @@ import {
   TO_ACCOUNT_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   BUDGET_TRANSACTION_SCREEN,
-  MODAL_STACK,
 } from 'navigation/ScreenNames';
 import { useRoute } from '@react-navigation/native';
 import { setSelectedIban } from 'store/slices/transfers';
@@ -88,21 +87,12 @@ export const MyAccounts = () => {
 
   useEffect(() => {
     if (!!selectedAccount && otherBanks) {
-      navigate(MODAL_STACK, {
-        screen: OTHER_BANK_TANSACTION_SCREEN,
-        params: { otherBanks: true },
-      });
+      navigate(OTHER_BANK_TANSACTION_SCREEN, { otherBanks: true });
     } else if (!!selectedAccount && !otherBanks && !budget) {
-      navigate(MODAL_STACK, {
-        screen: TO_ACCOUNT_SCREEN,
-        params: { selected: selectedAccount },
-      });
+      navigate(TO_ACCOUNT_SCREEN, { selected: selectedAccount });
       dispatch(setSelectedIban(selectedAccount));
     } else if (!!selectedAccount && budget) {
-      navigate(MODAL_STACK, {
-        screen: BUDGET_TRANSACTION_SCREEN,
-        params: { selected: selectedAccount },
-      });
+      navigate(BUDGET_TRANSACTION_SCREEN, { selected: selectedAccount });
     }
   }, [navigate, otherBanks, selectedAccount, budget, dispatch]);
 

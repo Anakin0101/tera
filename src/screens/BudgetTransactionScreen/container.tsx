@@ -48,7 +48,7 @@ export const useBudget = (withoutQuery: boolean) => {
         }`;
         dispatch(setAccountToData({ iban: createdWrappedCode, name: 'transactions.budgetTitle' }));
       } else {
-        setBudgetCode(code);
+        setBudgetCode(sanitizedCode);
         dispatch(setAccountToData({ iban: sanitizedCode, name: 'transactions.budgetTitle' }));
       }
       setQueryParams(queryParamsNew);

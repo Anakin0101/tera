@@ -76,9 +76,16 @@ import {
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
+  ForeignIbanScreen,
+  ForeignTransferDetailsScreen,
+  TransferToForeignIban,
+  AllTemplatesScreen,
   InsuranceSuccessScreen,
 } from 'screens';
 import {
+  FOREIGN_IBAN_SCREEN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
@@ -154,6 +161,7 @@ import {
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
+  ALL_TEMPLATES_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
@@ -398,7 +406,6 @@ export const ModalNavigator = () => {
           title: t('transfers.fromWhere'),
         }}
       />
-
       <Screen
         name={ATMS_AND_BRANCHES_SCREEN}
         component={AtmsAndBranchesScreen}
@@ -547,7 +554,6 @@ export const ModalNavigator = () => {
           headerStyle: st.whiteHeader,
         }}
       />
-
       <Screen
         name={NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN}
         component={NewDepositInitialAmountScreen}
@@ -698,6 +704,51 @@ export const ModalNavigator = () => {
         name={ACTIVATE_LOAN_SUCCESS_SCREEN}
         component={ActivateLoanSuccessScreen}
         options={hideHeader}
+      />
+      <Screen
+        name={FOREIGN_IBAN_SCREEN}
+        component={ForeignIbanScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_FOREIGN_IBAN}
+        component={TransferToForeignIban}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={FOREIGN_TRANSFER_DETAILS_SCREEN}
+        component={ForeignTransferDetailsScreen}
+        options={{
+          title: t('transfers.details'),
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FINISHED_SCREEN}
+        component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Screen
+        name={ALL_TEMPLATES_SCREEN}
+        component={AllTemplatesScreen}
+        options={{
+          title: t('onboarding.templates'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_ACCOUNT_SCREEN}
+        component={TransferToAccountScreen}
+        options={{
+          title: t('transfers.toOwnAccount'),
+        }}
       />
       <Screen
         name={INSURANCE_SUCCESS_SCREEN}

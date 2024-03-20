@@ -1,5 +1,6 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -28,7 +29,6 @@ import {
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
-  TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
   TRANSACTION_FINISHED_SCREEN,
@@ -103,6 +103,9 @@ import {
   APPROVED_LOAN_PDF_SCREEN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_ACCOUNT_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
 } from './ScreenNames';
 import {
@@ -255,13 +258,7 @@ export type ModalStackParamsList = {
         otherBanks?: boolean;
       }
     | undefined;
-  [TRANSFER_TO_ACCOUNT_SCREEN]: {
-    fromOtherBank?: any;
-    fromMobile?: boolean;
-    receiver?: string;
-    fromIban?: boolean;
-    fromPersonal?: boolean;
-  };
+
   [PRIVATE_TRANSACTION_SCREEN]: {
     from: any;
     transactionParam?: string;
@@ -270,7 +267,10 @@ export type ModalStackParamsList = {
     convertion?: boolean;
     fromOtherBank?: boolean;
     mobileTransaction?: boolean;
+    creditResult?: any;
+    templateData?: any;
     budgetTransaction?: boolean;
+    debitResult?: any;
     receiver?: string;
     fastPaymentFee?: number;
     fee?: number;
@@ -297,7 +297,6 @@ export type ModalStackParamsList = {
     | { budgetCode: string };
 
   [BUDGET_TRANSFER_DETAILS]: undefined;
-  [FOREIGN_IBAN_SCREEN]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
@@ -365,6 +364,34 @@ export type ModalStackParamsList = {
   [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
   [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
   [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+  [FOREIGN_IBAN_SCREEN]:
+    | undefined
+    | {
+        iban?: string;
+        ccy?: string;
+      };
+  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
+  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: boolean;
+        internal?: boolean;
+        fromIban?: boolean;
+        mobileTransaction?: boolean;
+        budgetTransaction?: boolean;
+      };
+  [ALL_TEMPLATES_SCREEN]: undefined;
+  [TRANSFER_TO_ACCOUNT_SCREEN]:
+    | undefined
+    | {
+        fromOtherBank?: any;
+        fromMobile?: boolean;
+        receiver?: string;
+        fromIban?: boolean;
+        fromPersonal?: boolean;
+        templates?: Template;
+      };
   [INSURANCE_SUCCESS_SCREEN]: undefined;
 };
 
