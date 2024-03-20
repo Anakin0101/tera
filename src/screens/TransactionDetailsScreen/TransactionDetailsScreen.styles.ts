@@ -16,12 +16,15 @@ export const useStyles = () => {
       marginHorizontal: Spacing.xl,
       backgroundColor: Colors.white,
       borderRadius: Spacing.m,
-      padding: Spacing.xlg,
+      paddingVertical: Spacing.xlg,
+      paddingHorizontal: Spacing.lg,
       paddingBottom: Spacing.ml,
     },
     headerSection: {
       ...Layout.row,
+      flex: 1,
       gap: 14,
+      ...Layout.alignItemsCenter,
     },
     headerDesc: {
       ...Layout.fill,
@@ -30,17 +33,11 @@ export const useStyles = () => {
       ...Layout.center,
       width: 48,
       height: 48,
-
-      borderWidth: 1,
-      borderRadius: Spacing.xl,
-      borderColor: Colors.inputBlack50,
     },
     Icon: {
       width: 16,
       height: 16,
-    },
-    marginTop: {
-      marginTop: 5,
+      padding: Spacing.xl,
     },
     actionButtonsContainer: {
       ...Layout.fill,
@@ -55,6 +52,9 @@ export const useStyles = () => {
     section: {
       paddingHorizontal: Spacing.xl,
       paddingVertical: Spacing.xlg,
+    },
+    lastSection: {
+      marginBottom: Spacing.xlg,
     },
   });
 };

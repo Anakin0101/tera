@@ -6,7 +6,7 @@ import { Image } from 'components/Image/Image';
 import Images from 'theme/Images';
 import { Button } from 'components/Button/Button';
 
-export const FallbackComponent = ({ onRetry }: { onRetry: () => void }) => {
+export const FallbackComponent = ({ onRetry }: { onRetry?: () => void }) => {
   const styles = useStyles();
 
   return (
@@ -21,7 +21,7 @@ export const FallbackComponent = ({ onRetry }: { onRetry: () => void }) => {
           <Text children={'error.component_title'} style={styles.title} />
           <Text children={'error.component_description'} style={styles.text} />
         </View>
-        <Button.Primary text="common.try_again" onPress={onRetry} fullWidth />
+        {onRetry ? <Button.Primary text="common.try_again" onPress={onRetry} fullWidth /> : null}
       </View>
     </SafeAreaView>
   );

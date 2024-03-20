@@ -36,6 +36,9 @@ export const ListHeader: FC<HeaderProps> = ({
   search,
   onChangeText,
   iban,
+  requestBlockedTransactions,
+  blockedTransactionsFilterActive,
+  clearBlockedTransactions,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -88,6 +91,10 @@ export const ListHeader: FC<HeaderProps> = ({
       ...prev,
       category: null,
     }));
+  };
+
+  const onRequestBlockedTransactions = () => {
+    requestBlockedTransactions?.();
   };
 
   return (
@@ -173,6 +180,30 @@ export const ListHeader: FC<HeaderProps> = ({
           ) : (
             <Pressable onPress={onTransactionTypePress}>
               <Text children="transactions.transactionType" special />
+            </Pressable>
+          )}
+        </View>
+        <View
+          style={[
+            styles.filterItem,
+            blockedTransactionsFilterActive ? styles.selectedFilterWrapper : {},
+          ]}
+        >
+          {blockedTransactionsFilterActive ? (
+            <View style={styles.selectedFilterContainer}>
+              <Text
+                special
+                numberOfLines={1}
+                style={styles.transactionTypeLabel}
+                children={'transactions.blockedMoney'}
+              />
+              <Pressable onPress={clearBlockedTransactions}>
+                <Clear />
+              </Pressable>
+            </View>
+          ) : (
+            <Pressable onPress={onRequestBlockedTransactions}>
+              <Text children="transactions.blockedMoney" special />
             </Pressable>
           )}
         </View>

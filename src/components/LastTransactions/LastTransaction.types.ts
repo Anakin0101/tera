@@ -1,11 +1,12 @@
 import { ListRenderItem, StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { TransactionItem } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
 
-export interface LastTransactionProps {
-  item: TransactionType;
-  onPress: (item: TransactionType) => void;
+export type LastTransactionProps = {
+  item: TransactionItem;
+  onPress: (item: TransactionItem) => void;
   showUnderline?: boolean;
-}
+  blockedTransactionsFilterActive?: boolean;
+};
 
 export interface ILastTransaction {
   title: string;
@@ -29,4 +30,4 @@ export interface FooterProps {
   showFooter: boolean;
 }
 
-export type RenderItem = ListRenderItem<TransactionType>;
+export type RenderItem = ListRenderItem<TransactionItem>;
