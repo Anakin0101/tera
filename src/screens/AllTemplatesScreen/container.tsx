@@ -64,6 +64,7 @@ export const useAllTemplates = () => {
       'X-Bank-Isstrongauthrequest': true,
       ...(code && { 'X-Bank-Otp': code }),
     };
+
     closeModal();
     return await saveTemplate({
       headers,
@@ -73,6 +74,9 @@ export const useAllTemplates = () => {
       .then(response => {
         refetch();
         setIsTrustedTemplate(true);
+        if (!response?.otpRequired || code) {
+          openToast(`${t('dashboard.trusted')}`, 'success');
+        }
         return response;
       });
   };
@@ -87,7 +91,6 @@ export const useAllTemplates = () => {
         .unwrap()
         .then(() => {
           refetch();
-          openToast('Template successfully deleted', 'success');
         })
         .catch(err => {
           console.warn('Delete template failed:', err);
@@ -99,15 +102,16 @@ export const useAllTemplates = () => {
         if (response?.otpRequired) {
           openModal({
             element: <OTPModal onFinished={code => templateTrustFunction(!isDelete, data, code)} />,
+            disablePanning: true,
+            disableDynamicSizing: true,
+            snapPoints: ['70%'],
           });
         } else {
           refetch();
           setIsTrustedTemplate(false);
-          openToast(
-            t('dashboard.template_trust_status', {
-              status: isDelete ? `${t('dashboard.untrusted')}` : `${t('dashboard.trusted')}`,
-            }),
-          );
+          isDelete
+            ? openToast(`${t('common.successfullyOperation')}`, 'success')
+            : openToast(`${t('dashboard.trusted')}`, 'success');
         }
       } catch (err) {
         console.warn(`Failed to ${isDelete ? 'untrust' : 'trust'} template:`, err);
@@ -115,32 +119,36 @@ export const useAllTemplates = () => {
     }
   };
 
-  const templateDeleteBtn = (data: Template) => {
-    openModal({
-      element: (
-        <BlockOrTrustTemplateModal
-          shouldBlock={true}
-          onPress={() => BlockOrTrustFunction(true, data)}
-        />
-      ),
-      title: 'dashboard.trustedTemplate',
-      titlePosition: 'left',
-      disablePanning: true,
-    });
+  const templateDeleteBtn = async (data: Template) => {
+    return await deleteTemplate({
+      headers: { 'X-Bank-userip': userIp },
+      body: { templateId: data.id },
+    })
+      .unwrap()
+      .then(() => {
+        refetch();
+      })
+      .catch(err => {
+        console.warn('Delete template failed:', err);
+        throwError(String(err));
+      });
   };
   const templateAddBtn = (data: Template, isDelete: boolean) => {
-    openModal({
-      element: (
-        <BlockOrTrustTemplateModal
-          isDelete={isDelete}
-          shouldBlock={false}
-          onPress={() => BlockOrTrustFunction(false, data, isDelete)}
-        />
-      ),
-      title: 'dashboard.trustedTemplate',
-      titlePosition: 'left',
-      disablePanning: true,
-    });
+    isDelete
+      ? BlockOrTrustFunction(false, data, isDelete)
+      : openModal({
+          element: (
+            <BlockOrTrustTemplateModal
+              isDelete={isDelete}
+              shouldBlock={false}
+              onPress={() => BlockOrTrustFunction(false, data, isDelete)}
+            />
+          ),
+          title: 'dashboard.trustedTemplate',
+          titlePosition: 'left',
+          disablePanning: true,
+          disableDynamicSizing: true,
+        });
   };
 
   const filteredTemplates =

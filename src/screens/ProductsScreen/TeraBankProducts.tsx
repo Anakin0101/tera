@@ -43,7 +43,6 @@ const TeraBankProducts = () => {
   const styles = useStyles();
   const { Colors } = useTheme();
   const {
-    totalAvailableBalanceGEL,
     deposits,
     totalDeposits,
     totalLoans,
@@ -52,6 +51,7 @@ const TeraBankProducts = () => {
     onNewProductsPress,
     refetch,
     creditDisbursements,
+    groupedUserBalance,
   } = useTeraProducts();
   const isFocused = useIsFocused();
 
@@ -68,7 +68,7 @@ const TeraBankProducts = () => {
           return (
             <CardsAndAccounts
               accounts={groupedAccountsByIban}
-              totalAvailableBalance={totalAvailableBalanceGEL}
+              groupedUserBalance={groupedUserBalance}
               showDivider={!!deposits?.length || !!allLoans?.length}
             />
           );
@@ -96,10 +96,10 @@ const TeraBankProducts = () => {
       allLoans,
       deposits,
       groupedAccountsByIban,
-      totalAvailableBalanceGEL,
       totalDeposits,
       totalLoans,
       creditDisbursements,
+      groupedUserBalance,
     ],
   );
 

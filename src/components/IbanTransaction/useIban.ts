@@ -6,6 +6,14 @@ import {
   VTB_BANK_CODE,
   CREDO_BANK_CODE,
   TERRA_BANK_CODE,
+  LIBERTY_BANK_CODE,
+  KHALIK_BANK_CODE,
+  BASIS_BANK_CODE,
+  PROCREDIT_BANK_CODE,
+  CARTU_BANK_CODE,
+  PASHA_BANK_CODE,
+  ZIRAAT_BANK_CODE,
+  SILK_BANK_CODE,
 } from 'constants/BankCodes';
 import { debounce } from 'utils/debounce';
 import { setAccountToData } from 'store/slices/transfers';
@@ -46,6 +54,37 @@ const useBankIcons = (
       case CREDO_BANK_CODE:
         setBankIcon(Images()?.CredoBankLogoIcon);
         break;
+      case LIBERTY_BANK_CODE:
+        setBankIcon(Images()?.LibertyBankLogoIcon);
+        break;
+      case LIBERTY_BANK_CODE:
+        setBankIcon(Images()?.LibertyBankLogoIcon);
+        break;
+      case KHALIK_BANK_CODE:
+        setBankIcon(Images()?.KhalikBankLogoIcon);
+        break;
+      case BASIS_BANK_CODE:
+        setBankIcon(Images()?.BasisBankLogoIcon);
+        break;
+      case PROCREDIT_BANK_CODE:
+        setBankIcon(Images()?.ProcreditBankLogoIcon);
+        break;
+      case CARTU_BANK_CODE:
+        setBankIcon(Images()?.KartuBankLogoIcon);
+        break;
+      case PASHA_BANK_CODE:
+        setBankIcon(Images()?.PashaBankLogoIcon);
+        break;
+      case ZIRAAT_BANK_CODE:
+        setBankIcon(Images()?.ZiraatBankLogoIcon);
+        break;
+      case SILK_BANK_CODE:
+        setBankIcon(Images()?.SilkBankLogoIcon);
+        break;
+      //TODO WE DON"T HAVE ICON OF NATIONAL BANK
+      // case NATIONAL_BANK_CODE:
+      //   setBankIcon(Images()?.);
+      // break;
     }
   }, [externalBankCode]);
 

@@ -16,9 +16,8 @@ export const Details: FC<DetailsProps> = ({
   blockedAmounts,
   displayDivider,
   borderRadius,
-  cardHolder,
-  information,
-  insure,
+  style,
+  accountId,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -26,7 +25,7 @@ export const Details: FC<DetailsProps> = ({
 
   const handleChangeName = () => {
     openModal({
-      element: <ChangeAccountNameModal name={name} />,
+      element: <ChangeAccountNameModal name={name} accountId={accountId} />,
       title: t('products.changeName'),
       titlePosition: 'center',
       disableDynamicSizing: true,
@@ -38,56 +37,30 @@ export const Details: FC<DetailsProps> = ({
   };
 
   return (
-    <View style={borderRadius ? styles.wrapperWithBorder : styles.backgroundWhite}>
-      {information ? (
-        <View style={styles.detailsSectionWrapper}>
-          <Text children="products.information" size={18} demiBold />
+    <View style={[borderRadius ? styles.wrapperWithBorder : styles.backgroundWhite, style]}>
+      <View style={styles.detailsSectionWrapper}>
+        <Text children="products.details" size={18} demiBold />
+        <DetailsItem
+          label="products.name"
+          value={name}
+          icon={<Edit />}
+          onPress={handleChangeName}
+        />
+        <DetailsItem
+          label="products.accountNumber"
+          value={iban}
+          icon={<Copy />}
+          onPress={copyIban}
+        />
+        {blockedAmounts?.length ? (
           <DetailsItem
-            label="products.informationName"
-            value={name}
-            icon={<Edit />}
-            onPress={handleChangeName}
-          />
-          <DetailsItem
-            label="products.informationCardOwner"
-            value={cardHolder}
+            label="products.blockedFunds"
+            value={blockedAmounts}
+            icon={<ChevronRight />}
             onPress={() => {}}
           />
-          <DetailsItem label="დაზღვევა" value={insure} onPress={handleChangeName} />
-          {blockedAmounts?.length ? (
-            <DetailsItem
-              label="products.blockedFunds"
-              value={blockedAmounts}
-              icon={<ChevronRight />}
-              onPress={() => {}}
-            />
-          ) : null}
-        </View>
-      ) : (
-        <View style={styles.detailsSectionWrapper}>
-          <Text children="products.details" size={18} demiBold />
-          <DetailsItem
-            label="products.name"
-            value={name}
-            icon={<Edit />}
-            onPress={handleChangeName}
-          />
-          <DetailsItem
-            label="products.accountNumber"
-            value={iban}
-            icon={<Copy />}
-            onPress={copyIban}
-          />
-          {blockedAmounts?.length ? (
-            <DetailsItem
-              label="products.blockedFunds"
-              value={blockedAmounts}
-              icon={<ChevronRight />}
-              onPress={() => {}}
-            />
-          ) : null}
-        </View>
-      )}
+        ) : null}
+      </View>
       {displayDivider && <Divider />}
     </View>
   );

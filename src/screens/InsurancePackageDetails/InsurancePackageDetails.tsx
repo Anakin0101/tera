@@ -1,55 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
-import { useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Divider, Text } from 'components';
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
-import { Colors } from 'theme/Variables';
+import { useInsurancePackageDetails } from './container';
 import { formatMoney } from 'utils/formatMoney';
 import { CardSliderItem } from 'screens/CardDetailsScreen/CardSliderItem';
-import { useAppSelector } from 'store/hooks/useAppSelector';
-import { ModalStackRouteProps } from 'navigation/types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { useStyles } from './InsurancePackageDetails.styles';
 
 export const InsurancePackageDetails = () => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const { params } = useRoute<ModalStackRouteProps<'InsurancePackageDetailsScreen'>>();
-  const [agreed, setAgreed] = useState(false);
-  const { cards } = useAppSelector(state => state.products);
-  const card = cards.find(item => item.id === params.cardId);
+  const { packageName, commission, agreed, setAgreed, activeCard, handlePress, iban } =
+    useInsurancePackageDetails();
 
-  if (!card) {
-    return null;
+  if (!activeCard) {
+    return <View />;
   }
 
   return (
-    <ScrollView bounces={false} style={styles.scrollView}>
+    <ScrollView
+      bounces={false}
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+    >
       <View style={styles.cardContainer}>
-        <CardSliderItem item={card} />
+        <CardSliderItem item={activeCard} />
       </View>
       <View style={styles.info}>
         <Text children="products.info" medium size={18} />
-        <DetailsItem label="products.package" value={params.packageName} />
-        <DetailsItem label="products.commission" value={formatMoney(params.commission)} />
-        <DetailsItem label="products.account" value={String(card.accountNumber)} />
+        <DetailsItem label="products.package" value={packageName} />
+        <DetailsItem
+          label="products.commission"
+          value={formatMoney(commission, CurrencyEnum.GEL)}
+        />
+        <DetailsItem label="products.account" value={iban} />
       </View>
       <Divider height={1} />
       <View style={styles.footer}>
         <View style={styles.agreementContainer}>
           <Checkbox isChecked={agreed} onChange={setAgreed} />
           <Pressable style={styles.agreement}>
-            <Text label color={Colors.textBlack400} lineHeight={22}>
+            <Text label secondary lineHeight={22}>
               {t('products.agree')}
               <Text label special lineHeight={22} children={'products.standardConditions'} />
             </Text>
           </Pressable>
         </View>
         <Button.Primary
-          text="products.select"
-          customWrapperStyle={styles.button}
-          customTextStyle={styles.buttonText}
           fullWidth
+          text="common.select"
+          onPress={handlePress}
+          customWrapperStyle={[styles.button, !agreed && styles.disabled]}
+          customTextStyle={[styles.buttonText]}
         />
       </View>
     </ScrollView>

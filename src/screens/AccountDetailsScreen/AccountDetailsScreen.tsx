@@ -27,13 +27,13 @@ export const AccountDetailsScreen = () => {
     groupedAccountsByIban,
     actions,
     overdraftRelatedToAcc,
-    groupedCardsByPan,
     blockedAmounts,
     lastTransactions,
     activeIndex,
     setActiveIndex,
     setActiveAccountIndex,
     isLoadingFileId,
+    selectedAccountFromCard,
   } = useAccountDetails(params.iban, params.index);
 
   const renderItem: SectionListRenderItemT = useCallback(
@@ -56,7 +56,7 @@ export const AccountDetailsScreen = () => {
         case 'cards':
           return (
             <Cards
-              cards={groupedCardsByPan}
+              cards={account?.cards}
               isCardAccount={account?.isCardAccount}
               iban={account?.iban}
               fromCardDetails={!!overdraftRelatedToAcc}
@@ -65,11 +65,14 @@ export const AccountDetailsScreen = () => {
         case 'details':
           return (
             <Details
-              name={account?.accountName}
+              name={
+                selectedAccountFromCard?.accountNameCustom || selectedAccountFromCard?.accountName
+              }
               iban={account?.iban}
               displayDivider={!!lastTransactions?.length}
               borderRadius={!account?.isCardAccount && !overdraftRelatedToAcc}
               blockedAmounts={blockedAmounts}
+              accountId={selectedAccountFromCard?.accountId}
             />
           );
         case 'transactions':
@@ -88,19 +91,16 @@ export const AccountDetailsScreen = () => {
       }
     },
     [
-      account?.accountName,
-      account?.accountNumber,
-      account?.iban,
-      account?.isCardAccount,
+      account,
       actions,
       activeIndex,
       blockedAmounts,
       groupedAccountsByIban,
-      groupedCardsByPan,
       lastTransactions,
       overdraftRelatedToAcc,
       setActiveAccountIndex,
       setActiveIndex,
+      selectedAccountFromCard,
       styles.actionButtons,
       styles.backgroundWhite,
       styles.headerLabelStyle,

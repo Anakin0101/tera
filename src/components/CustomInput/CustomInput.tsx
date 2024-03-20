@@ -2,18 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native';
 import { customInputTypes } from './CustomInput.types';
 import { useStyleTheme } from './CustomInput.styles';
+
 export const CustomTextInput = ({
   focusOnMount,
   onTextChange,
   inputRef,
   placeholder,
+  value = '',
   ...props
 }: customInputTypes) => {
   const styles = useStyleTheme();
-  const [, setTextInput] = useState('');
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    setText(value);
+  }, [value]);
 
   const handleTextChange = (text: string) => {
-    setTextInput(text);
+    setText(text);
     onTextChange(text);
   };
 
@@ -26,6 +32,7 @@ export const CustomTextInput = ({
   return (
     <TextInput
       ref={inputRef}
+      value={text}
       keyboardType="numeric"
       onChangeText={handleTextChange}
       placeholder={placeholder}

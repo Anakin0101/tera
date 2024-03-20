@@ -26,11 +26,12 @@ import { openToast } from 'utils/toast';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-sticky-footer-avoiding-scroll-view';
 import { useKeyboard } from 'utils/useKeyboard';
-
+import { setAccountFromData } from 'store/slices/transfers';
+import { DataSourceEnum } from './TransferToAccountScreen.types';
 export const TransferToOtherBankAccountScreen = () => {
   const { isKeyboardOpened } = useKeyboard();
   const { params } = useRoute<ModalStackRouteProps<'TransferToAccountScreen'>>();
-  const { fromOtherBank, fromMobile, receiver } = params;
+  const { fromOtherBank, fromMobile, receiver } = params || {};
   const { t } = useTranslation();
 
   const PERSONAL_TRANSACTION = t('transactions.defaultTitle');
@@ -42,7 +43,8 @@ export const TransferToOtherBankAccountScreen = () => {
     defaultTitle: t('transactions.defaultTitle'),
   };
   const formattedTransactionTitle = transactionTitles[fromMobile ? 'fromMobile' : 'defaultTitle'];
-
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const {
     accountFromData,
     accountToData,
@@ -66,11 +68,36 @@ export const TransferToOtherBankAccountScreen = () => {
     };
     receiverName: string;
   };
+  useEffect(() => {
+    if (isFocused && params?.templates) {
+      const templates = params.templates;
+      let dataSource = null;
+      if (templates.internal) {
+        dataSource = DataSourceEnum.BankInternal;
+      } else if (templates.bankExternal) {
+        dataSource = DataSourceEnum.BankExternal;
+      }
 
+      switch (dataSource) {
+        case DataSourceEnum.BankInternal:
+          const { currency, debitIban } = templates.internal || {};
+
+          dispatch(
+            setAccountFromData({
+              accountId: debitIban,
+              ccy: currency,
+            }),
+          );
+
+          break;
+
+        default:
+      }
+    }
+  }, [isFocused, params, dispatch]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const dispatch = useDispatch();
+
   const inputRef = useRef<TextInput>(null);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     const navigationOptions =
@@ -128,14 +155,13 @@ export const TransferToOtherBankAccountScreen = () => {
 
       if (fromMobile && accountToData.iban) {
         transferData.mobile = accountToData.iban;
-        const transferToSomeoneResult = await transferToSomeone({
+        const transferToSomeoneResult: any = await transferToSomeone({
           headers: {
             'X-Bank-Isstrongauthrequest': 'true',
             'X-Bank-Getauthmethod': 'true',
           },
           body: transferData,
         });
-
         if (transferToSomeoneResult && 'data' in transferToSomeoneResult) {
           dispatch(setOtpData(transferToSomeoneResult.data));
 
@@ -149,10 +175,10 @@ export const TransferToOtherBankAccountScreen = () => {
             },
           });
         } else {
-          openToast(t('authErrors.tryAgain'), 'error');
+          openToast(t(transferToSomeoneResult?.error?.data?.title), 'error');
         }
       } else {
-        await handleTransferInfo({
+        const response = await handleTransferInfo({
           transferType,
           debitAccountId: accountFromData.accountId,
           amount: selectedPrice,
@@ -166,7 +192,7 @@ export const TransferToOtherBankAccountScreen = () => {
           formData.append(key, value);
         }
 
-        const transferToSomeoneResult = await transferToSomeone({
+        const transferToSomeoneResult: any = await transferToSomeone({
           headers: {
             'X-Bank-Isstrongauthrequest': 'true',
             'X-Bank-Getauthmethod': 'true',
@@ -188,10 +214,12 @@ export const TransferToOtherBankAccountScreen = () => {
               convertion: false,
               fromOtherBank: fromOtherBank,
               receiver: receiver,
+              fastPaymentFee: response?.data?.fastPaymentFee,
+              fee: response?.data?.fee,
             },
           });
         } else {
-          openToast(t('authErrors.tryAgain'), 'error');
+          openToast(t(transferToSomeoneResult?.error?.data?.title), 'error');
         }
       }
     } catch (error) {

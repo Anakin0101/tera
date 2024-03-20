@@ -7,7 +7,7 @@ import { AuthorizationMethod } from '../AuthorizationMethod';
 import { DialPad } from 'assets/SVGs';
 import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { useVerifyPasscode } from 'hooks/useVerifyPasscode';
+import { usePasscode } from 'hooks';
 import { useBiometrics } from 'hooks/useBiometrics';
 import { clearLoginName } from 'utils/keychain';
 
@@ -19,7 +19,7 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
   handleSetNewPasscode,
 }) => {
   const isFocused = useIsFocused();
-  const { removePasscode } = useVerifyPasscode();
+  const { removePasscode } = usePasscode();
   const { clearBiometrics } = useBiometrics();
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
   const isBiometricSet = useAppSelector(state => state.userInfo.isBiometricSet);
@@ -49,6 +49,9 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
 
   const handleSwitchToggle = async (newValue: boolean) => {
     if (newValue === false) {
+      //   verifyPasscode(() => {
+      //     handleRemovePasscodeLoginOption();
+      //   }, true);
       handleRemovePasscodeLoginOption();
     } else if (newValue === true) {
       handleSetNewPasscode?.();

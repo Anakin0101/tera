@@ -3,4 +3,5 @@ export interface customInputTypes {
   onTextChange: (text: string) => void;
   placeholder: string;
   inputRef: any;
+  value?: string;
 }

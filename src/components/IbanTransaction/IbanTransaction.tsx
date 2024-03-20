@@ -1,4 +1,4 @@
-import { Image, Text } from 'components';
+import { IconComponent, Image, Text } from 'components';
 import React, { useEffect, useCallback, useMemo, useState, useRef } from 'react';
 import { View, ScrollView, Pressable, TextInput as RNInput } from 'react-native';
 import { Button, TextInput, TransferTemplates, LoadingView } from 'components';
@@ -6,11 +6,7 @@ import { useOtherBanksContainer } from 'screens/OtherBanksTransactionScreen/cont
 import { DetailsItem } from 'components/DetailsItem/DetailsItem';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import {
-  FOREIGN_IBAN_SCREEN,
-  MODAL_STACK,
-  TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
-} from 'navigation/ScreenNames';
+import { FOREIGN_IBAN_SCREEN, TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN } from 'navigation/ScreenNames';
 import { useTransactionsScreen } from 'screens/TransactionsScreen/container';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import {
@@ -39,10 +35,9 @@ import { useKeyboard } from 'utils/useKeyboard';
 // import { REGEX } from 'constants/index';
 // import { RecepientNumberType } from 'components/PersonalNumberTransaction/PersonalNumberTransaction.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
-import { useIsFocused } from '@react-navigation/native';
+// TODO - replace TextInput with react-hook-form controller
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
-  const isFocused = useIsFocused();
   const { t } = useTranslation();
   const styles = useStyles();
   const selectedItemFromStore = useAppSelector(
@@ -80,6 +75,8 @@ const IbanTransaction = () => {
     apiCallInitiated,
     setApiCallInitiated,
     INPUT_LENGTH,
+    invoiceFile,
+    handleFilePick,
   } = useTransactionsScreen();
 
   const { bankIcon, debouncedHandleChange } = useBankIcons(
@@ -106,12 +103,18 @@ const IbanTransaction = () => {
       if (!checkGeorgianIban(debouncedAccountName) && accountFromData.ccy === CurrencyEnum.GEL) {
         openToast(`${t('transactionDetails.validIbanPromptForeign')}`, 'error');
       } else if (!checkGeorgianIban(debouncedAccountName)) {
-        navigate(MODAL_STACK, {
-          screen: FOREIGN_IBAN_SCREEN,
-        });
+        navigate(FOREIGN_IBAN_SCREEN, { iban: typedAccountName, ccy: accountFromData.ccy });
       }
     }
-  }, [INPUT_LENGTH, debouncedAccountName, navigate, data, accountFromData.ccy, t]);
+  }, [
+    INPUT_LENGTH,
+    debouncedAccountName,
+    navigate,
+    data,
+    accountFromData.ccy,
+    t,
+    typedAccountName,
+  ]);
 
   useEffect(() => {
     if (!isForeignIban && data && !data.ibanIsValid) {
@@ -183,13 +186,17 @@ const IbanTransaction = () => {
     setApiCallInitiated(false);
   }, [setApiCallInitiated]);
 
-  useEffect(() => {
-    if (typedAccountName) {
-      setTimeout(() => {
-        inputRef?.current?.focus();
-      }, 300);
-    }
-  }, [typedAccountName, isFocused]);
+  useFocusEffect(
+    useCallback(() => {
+      const focus = () => {
+        setTimeout(() => {
+          inputRef?.current?.focus();
+        }, 300);
+      };
+      focus();
+      return focus;
+    }, []),
+  );
 
   const navigateToTransferScreen = () => {
     if (data?.bicCode !== TERRA_BANK_CODE && !receiver) {
@@ -197,13 +204,10 @@ const IbanTransaction = () => {
     }
     if (data?.bicCode === TERRA_BANK_CODE) {
       if (isSuccess && data.ibanIsValid) {
-        navigate(MODAL_STACK, {
-          screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
-          params: {
-            fromOtherBank: true,
-            fromIban: true,
-            receiver: receiver,
-          },
+        navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
+          fromOtherBank: true,
+          fromIban: true,
+          receiver: receiver,
         });
       }
     } else {
@@ -213,13 +217,10 @@ const IbanTransaction = () => {
         (accountFromData.ccy === CurrencyEnum.GEL ? selectedTransactionType.name : true) &&
         receiver
       ) {
-        navigate(MODAL_STACK, {
-          screen: TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
-          params: {
-            fromOtherBank: true,
-            fromIban: true,
-            receiver: receiver,
-          },
+        navigate(TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN, {
+          fromOtherBank: true,
+          fromIban: true,
+          receiver: receiver,
         });
       } else if (!selectedTransactionType.name && accountFromData.ccy === CurrencyEnum.GEL) {
         openToast(`${t('transactionDetails.validTransactionPrompt')}`, 'error');
@@ -260,28 +261,6 @@ const IbanTransaction = () => {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.bottomStretchStyle}>
         <Text children="personalNumber.Iban" size={18} demiBold />
         <View>
-          {/* <ControlledInput
-            control={control}
-            value={typedAccountName}
-            autoFocus
-            name="RecepientNumber"
-            label="personalNumber.Receiver"
-            maxLength={22}
-            marginTop={24}
-            errors={errors}
-            required={true}
-            rules={{
-              required: {
-                value: true,
-                message: 'common:form.is_required',
-              },
-              pattern: {
-                value: REGEX.MAX_LENGTH_22,
-                message: 'common:form.22_digits_required',
-              },
-            }}
-            handleChange={(value: string | null | undefined) => handleChange(value)}
-          /> */}
           <TextInput
             inputStyle={styles.inputStyle}
             label="personalNumber.Receiver"
@@ -295,7 +274,13 @@ const IbanTransaction = () => {
 
           <View style={styles.wrapper}>
             {apiCallInitiated && data?.ibanIsValid && bankIcon && (
-              <Image source={bankIcon} style={styles.image} />
+              <>
+                {data?.imageId ? (
+                  <IconComponent imageId={data?.imageId} customImageIDStyle={styles.image} />
+                ) : (
+                  <Image source={bankIcon} style={styles.image} />
+                )}
+              </>
             )}
           </View>
         </View>
@@ -313,14 +298,23 @@ const IbanTransaction = () => {
                   marginTop={32}
                   autoFocus
                 />
+                <TextInput
+                  inputStyle={styles.inputStyle}
+                  label={invoiceFile ? '' : 'personalNumber.Invoice'}
+                  value={invoiceFile || ''}
+                  editable={false}
+                  marginTop={32}
+                  invoice
+                  invoiceClick={handleFilePick}
+                />
                 {accountFromData.ccy === CurrencyEnum.GEL && (
                   <>
                     <Pressable
                       onPress={() =>
                         openModal({
                           element: <TransactionModal />,
-                          title: 'transactions.type',
-                          titlePosition: 'center',
+                          title: 'transactionDetails.type',
+                          titlePosition: 'left',
                           disablePanning: true,
                         })
                       }

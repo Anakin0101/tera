@@ -6,6 +6,12 @@ export const TERRA_BANK_CODE = 'TEBAGE22';
 export const CREDO_BANK_CODE = 'JSCRGE22';
 export const LIBERTY_BANK_CODE = 'LBRTGE22';
 export const KHALIK_BANK_CODE = 'HABGGE22';
+export const PROCREDIT_BANK_CODE = 'MIBGGE22';
+export const CARTU_BANK_CODE = 'CRTUGE22';
+export const PASHA_BANK_CODE = 'PAHAGE22';
+export const ZIRAAT_BANK_CODE = 'TCZBGE22';
+export const SILK_BANK_CODE = 'DISNGE22';
+export const NATIONAL_BANK_CODE = 'DISNGE22';
 
 export const bankCodesList = [
   BOG_CODE,

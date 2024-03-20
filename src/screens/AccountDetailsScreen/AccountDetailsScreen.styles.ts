@@ -62,8 +62,8 @@ export const useStyles = () => {
       gap: Spacing.ml,
     },
     footerContainer: {
-      margin: Spacing.xl,
-      marginBottom: Spacing.zero,
+      marginTop: Spacing.xlm,
+      marginHorizontal: Spacing.xl,
     },
     badgeContainer: {
       ...Layout.row,

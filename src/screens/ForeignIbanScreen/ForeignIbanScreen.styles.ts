@@ -13,17 +13,27 @@ export const useStyles = () => {
     },
     scroll: {
       width: config.mobileWidth,
+      paddingVertical: Spacing.xxxl,
       paddingHorizontal: Spacing.xl,
       backgroundColor: Colors.white,
     },
     inputView: { paddingVertical: 120 },
     autocompleteContainer: {
-      flex: 1,
-      left: 0,
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      zIndex: 1,
+      position: 'relative',
+      bottom: 0,
+    },
+    keyboardContainer: {
+      ...Layout.fill,
+      paddingVertical: Spacing.xxxl,
+      paddingHorizontal: Spacing.xl,
+      backgroundColor: Colors.white,
+    },
+    ctaWrapper: {
+      paddingHorizontal: Spacing.xl,
+      marginTop: Spacing.ml,
+    },
+    ctaOpenWrapper: {
+      paddingVertical: Spacing.md,
     },
     inputStyle: { width: horizontalScale(250) },
     sectionListContent: {

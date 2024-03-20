@@ -11,6 +11,7 @@ export const ConversionOrTranferDetails = ({
   params,
   selectedPrice,
   accountFromData,
+  templateData,
 }: any) => {
   const styles = useStyleTheme();
   const { specialRate, specialRateUsed, standardRate } = buyAmount || {};
@@ -72,9 +73,9 @@ export const ConversionOrTranferDetails = ({
               />
             ) : (
               <Text
-                children={`${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(
-                  accountFromData?.ccy,
-                )}`}
+                children={`${formatToTwoDecimalPlaces(
+                  templateData ? templateData?.amount : selectedPrice,
+                )} ${getCurrencyIcon(templateData ? templateData?.ccy : accountFromData?.ccy)}`}
                 style={styles.text}
               />
             )}
