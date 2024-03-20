@@ -23,7 +23,6 @@ import {
   TeraWalletPDFReq,
   TeraWalletRes,
   TransactionType,
-  UpdateAccountNameReq,
   BranchesResponse,
   Branch,
   AddCardRequest,
@@ -47,9 +46,18 @@ import {
   CreditProductOfferAgreementRes,
   CreditProductOfferSchedule,
   ActivateCreditProductOfferReq,
+  OfferByIdReq,
+  CardInsuranceReq,
+  CancelCardInsuranceReq,
+  RequestForPin,
+  UnblockCardReq,
+  UpdateAccountNameReq,
+  FavouriteReq,
+  GroupedUserBalanceRes,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
+import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
 
 export const productsAPI = createApi({
   reducerPath: 'productsAPI',
@@ -62,6 +70,7 @@ export const productsAPI = createApi({
     'Accounts',
     'Deposits',
     'CreditProduct',
+    'CardInsurance',
   ],
   endpoints: builder => ({
     getAccountsByCustomerId: builder.query<Account[], void>({
@@ -109,20 +118,6 @@ export const productsAPI = createApi({
       }),
       providesTags: ['Deposits'],
     }),
-    updateAccountName: builder.mutation<any, UpdateAccountNameReq>({
-      query: ({ userId, customerId, channelId, culture, accountId, accountName }) => ({
-        url: URLS.getCustomerOps,
-        method: METHOD_NAMES.PATCH,
-        body: {
-          userId,
-          customerId,
-          channelId,
-          culture,
-          accountId,
-          accountName,
-        },
-      }),
-    }),
     getLoanSchedule: builder.query<LoanSchedule[], number>({
       query: loanId => ({
         url: URLS.getLoanSchedule,
@@ -137,30 +132,29 @@ export const productsAPI = createApi({
         params: { loanId },
       }),
     }),
-    BlockCard: builder.mutation<any, any>({
-      query: ({ cardId }) => ({
+    blockCard: builder.mutation<any, Partial<UnblockCardReq>>({
+      query: body => ({
         url: URLS.BlockCard,
         method: METHOD_NAMES.POST,
-        body: {
-          cardId,
-        },
+        body,
       }),
+      invalidatesTags: ['Accounts'],
     }),
-    UnblockCard: builder.mutation<any, any>({
-      query: ({ cardId }) => ({
+    unblockCard: builder.mutation<any, Partial<UnblockCardReq>>({
+      query: body => ({
         url: URLS.UnblockCard,
         method: METHOD_NAMES.POST,
-        body: {
-          cardId,
-        },
+        body,
       }),
+      invalidatesTags: ['Accounts'],
     }),
-    getOfferById: builder.query<OfferDetails, number>({
-      query: OfferId => ({
+    getOfferById: builder.query<OfferDetails, OfferByIdReq>({
+      query: params => ({
         url: URLS.getOfferById,
         method: METHOD_NAMES.GET,
-        params: { OfferId, culture: 'ka' },
+        params,
       }),
+      providesTags: ['CardInsurance'],
     }),
 
     getInterestRates: builder.query<InterestRate[], InterestRatesReq>({
@@ -356,7 +350,7 @@ export const productsAPI = createApi({
       transformResponse: (response: CreditProductOfferAgreementRes) => response.fileId,
     }),
 
-    activateCreditProductOffer: builder.query<any, ActivateCreditProductOfferReq>({
+    activateCreditProductOffer: builder.query<{}, ActivateCreditProductOfferReq>({
       query: params => ({
         url: URLS.activateCreditProductOffer,
         params,
@@ -366,6 +360,65 @@ export const productsAPI = createApi({
           api.dispatch(productsAPI.util.invalidateTags(['CreditProduct']));
         });
       },
+    }),
+
+    addCardInsurance: builder.mutation<{}, Partial<CardInsuranceReq>>({
+      query: body => ({
+        url: URLS.addCardInsurance,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    cancelCardInsurance: builder.mutation<{}, Partial<CancelCardInsuranceReq>>({
+      query: body => ({
+        url: URLS.cancelCardInsurance,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    requestForPin: builder.mutation<{}, Partial<RequestForPin>>({
+      query: body => ({
+        url: URLS.requestForPin,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+
+    updateAccountName: builder.mutation<{}, UpdateAccountNameReq>({
+      query: body => ({
+        url: URLS.updateAccountName,
+        method: METHOD_NAMES.PATCH,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    setAsFavourite: builder.mutation<{}, FavouriteReq>({
+      query: body => ({
+        url: URLS.setAsFavourite,
+        method: METHOD_NAMES.PATCH,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    removeFromFavourite: builder.mutation<{}, FavouriteReq>({
+      query: body => ({
+        url: URLS.removeFromFavourite,
+        method: METHOD_NAMES.PATCH,
+        body,
+      }),
+      invalidatesTags: ['Accounts'],
+    }),
+
+    getGroupedUserBalance: builder.query<number, void>({
+      query: () => ({ url: URLS.getGroupedUserBalance }),
+      transformResponse: (response: GroupedUserBalanceRes) =>
+        response?.userBalance?.find(item => item?.currency === CurrencyEnum.GEL)?.amount || 0,
     }),
   }),
 });
@@ -407,4 +460,10 @@ export const {
   useGetCreditProductOfferAgreementQuery,
   useGetCreditProductOfferScheduleMutation,
   useLazyActivateCreditProductOfferQuery,
+  useAddCardInsuranceMutation,
+  useCancelCardInsuranceMutation,
+  useRequestForPinMutation,
+  useSetAsFavouriteMutation,
+  useRemoveFromFavouriteMutation,
+  useGetGroupedUserBalanceQuery,
 } = productsAPI;

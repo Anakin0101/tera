@@ -1,56 +1,43 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SectionList } from 'react-native';
-import { Button, CardsAndAccounts, Offers } from 'components';
-import { useStyles } from './AllAcountsAndCardsScreen.styles';
-import { Plus } from 'assets/SVGs';
-import { Colors } from 'theme/Variables';
+import { CardsAndAccounts, Offers } from 'components';
 import { useAllAcounts } from './container';
+import { ListFooter } from './Footer';
 import { LoadingInView } from 'components/LoadingView/LoadingInView';
 import { SectionListRenderItemT } from 'screens/types';
+import { useStyles } from './AllAcountsAndCardsScreen.styles';
 
 const sections = [
   { title: 'accounts', data: [{}] },
   { title: 'offers', data: [{}] },
 ];
 
-const LeftIcon = () => <Plus color={Colors.white} />;
-
-const ListFooter = () => {
-  const styles = useStyles();
-  return (
-    <Button.Primary
-      fullWidth
-      text="products.newAccount"
-      customWrapperStyle={styles.button}
-      leftIcon={LeftIcon}
-    />
-  );
-};
-
 export const AllAcountsAndCardsScreen = () => {
   const styles = useStyles();
-  const { groupedAccountsByIban, totalAvailableBalanceGEL, banners, bannersLoading } =
-    useAllAcounts();
+  const { groupedAccountsByIban, groupedUserBalance, banners, bannersLoading } = useAllAcounts();
 
-  const renderItem: SectionListRenderItemT = ({ section }) => {
-    switch (section.title) {
-      case 'accounts':
-        return (
-          <CardsAndAccounts
-            accounts={groupedAccountsByIban}
-            showTitle={false}
-            showFooter={false}
-            showDivider={!!banners?.length}
-            totalAvailableBalance={totalAvailableBalanceGEL}
-            seeAllAccounts
-          />
-        );
-      case 'offers':
-        return <Offers data={banners} showAll={false} />;
-      default:
-        return null;
-    }
-  };
+  const renderItem: SectionListRenderItemT = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'accounts':
+          return (
+            <CardsAndAccounts
+              accounts={groupedAccountsByIban}
+              showTitle={false}
+              showFooter={false}
+              showDivider={!!banners?.length}
+              groupedUserBalance={groupedUserBalance}
+              seeAllAccounts
+            />
+          );
+        case 'offers':
+          return <Offers data={banners} showAll={false} />;
+        default:
+          return null;
+      }
+    },
+    [banners, groupedAccountsByIban, groupedUserBalance],
+  );
 
   if (bannersLoading) {
     return <LoadingInView />;

@@ -20,7 +20,6 @@ import {
   MY_ACCOUNTS_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   ACCOUNT_DETAILS_SCREEN,
-  MY_ACCOUNT_SCROLLABLE_SCREEN,
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
   INSURANCE_PACKAGE_DETAILS,
@@ -104,6 +103,7 @@ import {
   APPROVED_LOAN_PDF_SCREEN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
+  INSURANCE_SUCCESS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -115,7 +115,7 @@ import {
   ProviderItemProps,
   // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
-import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CardType, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 import { MTSystemItemProps } from 'utils/moneyTransfer';
@@ -306,26 +306,27 @@ export type ModalStackParamsList = {
     fromIban?: boolean;
     fromPersonal?: boolean;
   };
-  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
+  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: {
+    groupedUserBalance: number;
+  };
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;
   };
   [CARD_DETAILS_SCREEN]: {
-    iban: string;
-    index: number;
-    item: any;
-  };
-  [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
-    iban: string;
+    iban?: string;
+    index?: number;
   };
   [CARD_INSURANCE]: {
-    cardId: number;
+    activeCard: CardType;
+    iban?: string;
   };
   [INSURANCE_PACKAGE_DETAILS]: {
     packageName: string;
     commission: number;
-    cardId: number;
+    activeCard: CardType;
+    insuranceTypeId: number;
+    iban?: string;
   };
   [DEPOSITS_SCREEN]: undefined;
   [DEPOSIT_DETAILS_SCREEN]: {
@@ -364,6 +365,7 @@ export type ModalStackParamsList = {
   [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
   [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
   [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+  [INSURANCE_SUCCESS_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

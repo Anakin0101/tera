@@ -7,13 +7,18 @@ import { PUBLIC_IMAGE_URL } from 'services/api';
 import { ChevronUp, ChevronDown, Star, FullStar } from 'assets/SVGs';
 import { AccountSliderItemProps } from './AccountDetailsScreen.types';
 import { useStyles } from './AccountDetailsScreen.styles';
+import { useRemoveFromFavouriteMutation, useSetAsFavouriteMutation } from 'services/apis';
+import { useCulture } from 'hooks/useCulture';
 
 const DEFAULT_CARD = require('assets/images/DefaultCard.png');
 
 export const AccountSliderItem: FC<AccountSliderItemProps> = memo(
   ({ item, index: idx, activeCardIndex, setActiveAccountIndex = () => {} }) => {
+    const { culture } = useCulture();
     const styles = useStyles();
     const [index, setIndex] = useState(0);
+    const [setAsFavourite] = useSetAsFavouriteMutation();
+    const [removeFromFavourite] = useRemoveFromFavouriteMutation();
 
     useEffect(() => {
       if (idx === activeCardIndex) {
@@ -54,6 +59,15 @@ export const AccountSliderItem: FC<AccountSliderItemProps> = memo(
       setIndex(prev => (prev === item?.accounts?.length - 1 ? prev : prev + 1));
     };
 
+    const handleFavourite = () => {
+      const config = {
+        culture,
+        accountId: item?.accounts?.[index]?.accountId,
+      };
+
+      item?.accounts?.[index]?.isFavourite ? removeFromFavourite(config) : setAsFavourite(config);
+    };
+
     return (
       <ImageBackground
         source={imageId ? { uri: `${PUBLIC_IMAGE_URL}${imageId}` } : DEFAULT_CARD}
@@ -91,7 +105,7 @@ export const AccountSliderItem: FC<AccountSliderItemProps> = memo(
             </View>
           </View>
           <View style={styles.currencies}>{getAmounts()}</View>
-          <Pressable style={styles.starContainer}>
+          <Pressable style={styles.starContainer} onPress={handleFavourite}>
             {item?.accounts?.[index]?.isFavourite ? <FullStar /> : <Star />}
           </Pressable>
         </View>

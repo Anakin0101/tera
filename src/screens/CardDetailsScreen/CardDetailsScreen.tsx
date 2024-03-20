@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SectionList, View } from 'react-native';
-import { Details } from '../AccountDetailsScreen/Details';
-import { Slider, LastTransactions, Wallet } from 'components';
-import { useStyles } from './CardDetailsScreen.styles';
-import { useRoute } from '@react-navigation/native';
-import { ModalStackRouteProps } from 'navigation/types';
+import { Slider, LastTransactions, Wallet, TransparentLoadingView } from 'components';
 import { CardHolderDetails } from './CardHolderDetails';
 import { useCardDetails } from './container';
-import { TemporarilyInactiveDetails } from '../AccountDetailsScreen/TemporarilyInactiveDetails';
 import { CardSliderItem } from './CardSliderItem';
+import { CardInformation } from './CardInformation';
 import { SectionListRenderItemT } from 'screens/types';
+import { useStyles } from './CardDetailsScreen.styles';
 
 const sections = [
   { title: 'main', data: [{}] },
@@ -21,73 +18,78 @@ const sections = [
 
 export const CardDetailsScreen = () => {
   const styles = useStyles();
-  const { params } = useRoute<ModalStackRouteProps<'CardDetailsScreen'>>();
+  const {
+    actions,
+    activeAccountCards,
+    activeCard,
+    blockedAmounts,
+    lastTransactions,
+    activeIndex,
+    setActiveIndex,
+    isLoading,
+    changingPin,
+    insurancePackage,
+  } = useCardDetails();
 
-  const { actions, cards, card, blockedAmounts, lastTransactions, activeIndex, setActiveIndex } =
-    useCardDetails(params.index);
-
-  const renderItem: SectionListRenderItemT = ({ section }) => {
-    if (card.status === 13 && section.title !== 'main' && section.title !== 'details') {
-      return null;
-    }
-    switch (section.title) {
-      case 'main':
-        return (
-          <Slider
-            data={cards}
-            renderItem={CardSliderItem}
-            actions={actions}
-            index={activeIndex}
-            setActiveIndex={setActiveIndex}
-          />
-        );
-      case 'wallet':
-        return <Wallet />;
-      case 'details':
-        if (card.status !== 13) {
+  const renderItem: SectionListRenderItemT = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'main':
           return (
-            <CardHolderDetails
-              accountNumber={card.pan}
-              endDate={card.endDate}
-              cvv={String(card.priority)}
+            <Slider
+              data={activeAccountCards}
+              renderItem={CardSliderItem}
+              actions={actions}
+              index={activeIndex}
+              setActiveIndex={setActiveIndex}
+              actionButtonsContainer={
+                actions?.length > 3 ? styles.actionButtons : styles.spaceEvenly
+              }
             />
           );
-        } else {
+        case 'wallet':
+          return <Wallet />;
+        case 'details':
+          return <CardHolderDetails pan={activeCard?.pan} endDate={activeCard?.endDate} />;
+        case 'information':
           return (
-            <TemporarilyInactiveDetails
-              cardHolder={card.cardHolder}
-              name={card?.cardProductName}
-              insure="products.insure"
-              displayDivider={!!lastTransactions?.length}
+            <CardInformation
+              name={activeCard.cardProductName}
+              cardHolder={activeCard.cardHolder}
               blockedAmounts={blockedAmounts}
+              insurance={insurancePackage}
             />
           );
-        }
-      case 'information':
-        return (
-          <Details
-            cardHolder={card.cardHolder}
-            name={card?.cardProductName}
-            insure="products.insure"
-            displayDivider={!!lastTransactions?.length}
-            blockedAmounts={blockedAmounts}
-          />
-        );
-
-      case 'transactions':
-        return (
-          <LastTransactions
-            data={lastTransactions}
-            sectionTitle="products.lastTransactions"
-            style={styles.transactionsContainer}
-            headerLabelStyle={styles.headerLabelStyle}
-            headerContaienrStyle={styles.backgroundWhite}
-          />
-        );
-      default:
-        return null;
-    }
-  };
+        case 'transactions':
+          return (
+            <LastTransactions
+              data={lastTransactions}
+              sectionTitle="products.lastTransactions"
+              style={styles.transactionsContainer}
+              headerLabelStyle={styles.headerLabelStyle}
+              headerContaienrStyle={styles.backgroundWhite}
+            />
+          );
+        default:
+          return null;
+      }
+    },
+    [
+      actions,
+      activeAccountCards,
+      activeCard,
+      activeIndex,
+      blockedAmounts,
+      lastTransactions,
+      setActiveIndex,
+      insurancePackage,
+      styles.actionButtons,
+      styles.backgroundWhite,
+      styles.headerLabelStyle,
+      styles.spaceEvenly,
+      styles.transactionsContainer,
+    ],
+  );
 
   return (
     <View style={styles.container}>
@@ -98,6 +100,7 @@ export const CardDetailsScreen = () => {
         showsVerticalScrollIndicator={false}
         bounces={false}
       />
+      {changingPin && isLoading && <TransparentLoadingView />}
     </View>
   );
 };
