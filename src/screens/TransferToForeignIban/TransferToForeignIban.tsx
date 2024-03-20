@@ -16,14 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 import { ModalStackScreenProps } from 'navigation/types';
 import { FOREIGN_TRANSFER_DETAILS_SCREEN } from 'navigation/ScreenNames';
 
-const initialState = {
-  accountFromData: {
-    ccy: '',
-    availableBalance: 0,
-    accountName: '',
-  },
-};
-
 export const TransferToForeignIban = () => {
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<ModalStackScreenProps<'TransferDetailScreen'>>();
@@ -33,11 +25,7 @@ export const TransferToForeignIban = () => {
   const styles = useStyleTheme();
   const { receiverIban, receiverName, ccy } = transfers.foreignIbanData;
 
-  const {
-    ccy: senderCcy,
-    availableBalance,
-    accountName,
-  } = transfers.accountFromData ?? initialState.accountFromData;
+  const { ccy: senderCcy, availableBalance, accountName } = transfers.accountFromData;
   const inputRef = useRef(null);
 
   const openTransferScreen = () => {
