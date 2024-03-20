@@ -6,7 +6,7 @@ export const useStyles = () => {
 
   return StyleSheet.create({
     container: {
-      flex: 1,
+      ...Layout.fill,
     },
     enterMobileNumber: {
       marginTop: Spacing.xlg,
@@ -72,9 +72,9 @@ export const useStyles = () => {
       marginLeft: Spacing.md,
     },
     nextButtonWrapper: {
-      position: 'absolute',
+      ...Layout.absolute,
       bottom: Spacing.xlm,
-      width: '100%',
+      ...Layout.fullWidth,
       paddingHorizontal: Spacing.xl,
       zIndex: 2,
     },

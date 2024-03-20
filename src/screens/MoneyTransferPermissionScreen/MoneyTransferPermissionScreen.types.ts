@@ -6,3 +6,8 @@ export type SubscriberFieldValue = {
 
 // Define the type for the array
 export type SubscriberFieldsValue = Array<SubscriberFieldValue>;
+
+export enum CheckedValueEnum {
+  accept = 'accept',
+  notAccept = 'notAccept',
+}

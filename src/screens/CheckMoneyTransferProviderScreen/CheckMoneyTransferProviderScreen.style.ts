@@ -36,10 +36,10 @@ export const useStyles = () => {
       marginTop: Spacing.m,
     },
     termsWrapper: {
-      flexDirection: 'row',
+      ...Layout.row,
       marginTop: Spacing.xl,
       marginBottom: Spacing.lg,
-      alignItems: 'center',
+      ...Layout.alignItemsCenter,
     },
     termsText: {
       fontSize: FontSize.tiny,
@@ -54,8 +54,8 @@ export const useStyles = () => {
       marginLeft: -Spacing.m,
     },
     currencyConversionWrapper: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      ...Layout.row,
+      ...Layout.alignItemsCenter,
       marginTop: Spacing.lg,
     },
     currencyConversionLabel: {
