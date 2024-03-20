@@ -1,9 +1,9 @@
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export type TeraWalletStateProps = {
   accountId: number | null;
   amountId: number | null;
-  currency: Currency;
+  currency: CurrencyEnum;
 };
 
 export interface WalletDataPayload {

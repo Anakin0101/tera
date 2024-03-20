@@ -1,7 +1,5 @@
 import { CurrencyEnum } from '../transfersAPI/transfersAPI.types';
 
-export type Currency = 'GEL' | 'USD' | 'EUR' | 'GBP';
-
 export type BilingualText = {
   en: string;
   ka: string;
@@ -456,7 +454,7 @@ export type InterestRatesReq = {
   productId: number | null;
   creditAccountId: number;
   debitAccountId: number;
-  currency: Currency;
+  currency: CurrencyEnum;
 };
 
 export type InterestRate = {
@@ -531,7 +529,7 @@ export type WalletAccount = {
 };
 
 export type TeraWalletRes = {
-  ccy: Currency[];
+  ccy: CurrencyEnum[];
   amount: WalletAmount[];
   account: WalletAccount[];
   canCreateTeraWallet: boolean;
@@ -544,7 +542,7 @@ export type TeraWalletPDFReq = {
 
 export type AddOrUpdateTeraWalletReq = {
   culture?: string;
-  ccy?: Currency;
+  ccy?: CurrencyEnum;
   amountId?: number;
   accountId?: number;
   teraWalletId?: number;
@@ -801,4 +799,18 @@ export type ActivateCreditProductOfferReq = {
   sendOtp?: boolean;
   otp?: string;
   culture?: string;
+};
+
+export enum ExchangeRateTypeEnum {
+  Special = 1,
+  Standard = 2,
+  Official = 3,
+}
+
+export type ExchangeRate = {
+  currency: CurrencyEnum;
+  amountBuy: number;
+  amountSell: number;
+  items: number;
+  type: ExchangeRateTypeEnum;
 };

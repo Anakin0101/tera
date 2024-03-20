@@ -1,9 +1,9 @@
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface Term {
   name: string;
   limit: number;
-  ccy: Currency;
+  ccy: CurrencyEnum;
 }
 
 export interface InsurancePackage {
@@ -11,7 +11,7 @@ export interface InsurancePackage {
   name: string;
   commission: number;
   isSelected: boolean;
-  commissionCcy: Currency;
+  commissionCcy: CurrencyEnum;
   terms: Term[];
 }
 

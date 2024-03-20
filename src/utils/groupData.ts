@@ -1,6 +1,13 @@
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { CARD_ACCOUNT } from 'constants/common';
-import { Account, CardType, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import { ExchageRateType } from 'screens/ExchangeRatesScreen/ExchangeRatesScreen.types';
+import {
+  Account,
+  CardType,
+  ExchangeRate,
+  ExchangeRateTypeEnum,
+  TransactionType,
+} from 'services/apis/productsAPI/productsAPI.types';
 
 export const groupCardsByPan = (data: CardType[] = [], property: keyof CardType): CardType[] => {
   return Object.values(
@@ -55,4 +62,39 @@ export const groupTransactionsByDate = (transactions: TransactionType[]) => {
     title: docDate,
     data,
   }));
+};
+
+export const groupRates = (data?: ExchangeRate[]) => {
+  if (!data) return [];
+
+  return Object.values(
+    data.reduce((acc, item) => {
+      if (!acc[item.currency]) {
+        acc[item.currency] = {
+          currency: item.currency,
+        };
+      }
+
+      if (item.type === ExchangeRateTypeEnum.Special) {
+        acc[item.currency].special = {
+          buy: item.amountBuy,
+          sell: item.amountSell,
+        };
+      }
+      if (item.type === ExchangeRateTypeEnum.Standard) {
+        acc[item.currency].standard = {
+          buy: item.amountBuy,
+          sell: item.amountSell,
+        };
+      }
+
+      if (item.type === ExchangeRateTypeEnum.Official) {
+        acc[item.currency].official = {
+          buy: item.amountBuy,
+          sell: item.amountSell,
+        };
+      }
+      return acc;
+    }, {} as Record<string, ExchageRateType>),
+  );
 };

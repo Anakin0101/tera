@@ -3,7 +3,6 @@ import { Image, Pressable, View } from 'react-native';
 import { Divider, IconComponent, Text } from '../index';
 import { formatMoney } from 'utils/formatMoney';
 import { useTheme } from 'hooks';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
 import { AccountProps, CurrencyMap } from './CardsAndAccounts.types';
 import { useStyles } from './CardsAndAccounts.styles';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
@@ -32,7 +31,7 @@ const DEFAULT_CARD = require('assets/images/DefaultCard.png');
 export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(item?.accounts?.[0]?.ccy);
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyEnum>(item?.accounts?.[0]?.ccy);
 
   const currency = useMemo(() => {
     return item?.accounts?.find(account => account?.ccy === selectedCurrency);
@@ -53,7 +52,7 @@ export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
     return <Image source={DEFAULT_CARD} style={styles.card} />;
   }, [imageId, styles.card]);
 
-  const handleCurrencyPress = (selectedCur: Currency) => {
+  const handleCurrencyPress = (selectedCur: CurrencyEnum) => {
     setSelectedCurrency(selectedCur);
   };
 

@@ -1,5 +1,6 @@
 import { ListRenderItem } from 'react-native';
-import { Account, Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { Account } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface IGroupedAccountsByIban {
   accountNumber: number;
@@ -32,7 +33,7 @@ export interface HeaderProps {
 }
 
 export type CurrencyMap = {
-  cur: Currency;
+  cur: CurrencyEnum;
   sign: string;
 };
 

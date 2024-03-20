@@ -850,6 +850,11 @@
     "near": "Close to me"
   },
   "exchange": {
-    "title": "Exchange rates"
+    "title": "Exchange rates",
+    "official": "Official rate",
+    "tera": "Tera Bank",
+    "buy": "Buy",
+    "sell": "Sell",
+    "calculator": "Calculator"
   }
 }

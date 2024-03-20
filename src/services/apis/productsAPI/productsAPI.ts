@@ -47,6 +47,7 @@ import {
   CreditProductOfferAgreementRes,
   CreditProductOfferSchedule,
   ActivateCreditProductOfferReq,
+  ExchangeRate,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -367,6 +368,13 @@ export const productsAPI = createApi({
         });
       },
     }),
+
+    getRates: builder.query<ExchangeRate[], void>({
+      query: () => ({
+        url: URLS.getRates,
+      }),
+      keepUnusedDataFor: 0,
+    }),
   }),
 });
 
@@ -407,4 +415,5 @@ export const {
   useGetCreditProductOfferAgreementQuery,
   useGetCreditProductOfferScheduleMutation,
   useLazyActivateCreditProductOfferQuery,
+  useGetRatesQuery,
 } = productsAPI;
