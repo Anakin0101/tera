@@ -35,11 +35,9 @@ import { useKeyboard } from 'utils/useKeyboard';
 // import { REGEX } from 'constants/index';
 // import { RecepientNumberType } from 'components/PersonalNumberTransaction/PersonalNumberTransaction.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
-import { useIsFocused } from '@react-navigation/native';
 // TODO - replace TextInput with react-hook-form controller
 const IbanTransaction = () => {
   const dispatch = useAppDispatch();
-  const isFocused = useIsFocused();
   const { t } = useTranslation();
   const styles = useStyles();
   const selectedItemFromStore = useAppSelector(
@@ -188,13 +186,17 @@ const IbanTransaction = () => {
     setApiCallInitiated(false);
   }, [setApiCallInitiated]);
 
-  useEffect(() => {
-    if (typedAccountName) {
-      setTimeout(() => {
-        inputRef?.current?.focus();
-      }, 300);
-    }
-  }, [typedAccountName, isFocused]);
+  useFocusEffect(
+    useCallback(() => {
+      const focus = () => {
+        setTimeout(() => {
+          inputRef?.current?.focus();
+        }, 300);
+      };
+      focus();
+      return focus;
+    }, []),
+  );
 
   const navigateToTransferScreen = () => {
     if (data?.bicCode !== TERRA_BANK_CODE && !receiver) {

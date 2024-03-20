@@ -272,6 +272,8 @@ export type ModalStackParamsList = {
     budgetTransaction?: boolean;
     debitResult?: any;
     receiver?: string;
+    fastPaymentFee?: number;
+    fee?: number;
   };
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined

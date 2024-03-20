@@ -178,7 +178,7 @@ export const TransferToOtherBankAccountScreen = () => {
           openToast(t(transferToSomeoneResult?.error?.data?.title), 'error');
         }
       } else {
-        await handleTransferInfo({
+        const response = await handleTransferInfo({
           transferType,
           debitAccountId: accountFromData.accountId,
           amount: selectedPrice,
@@ -214,6 +214,8 @@ export const TransferToOtherBankAccountScreen = () => {
               convertion: false,
               fromOtherBank: fromOtherBank,
               receiver: receiver,
+              fastPaymentFee: response?.data?.fastPaymentFee,
+              fee: response?.data?.fee,
             },
           });
         } else {
