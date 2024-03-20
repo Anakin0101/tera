@@ -1,3 +1,5 @@
+import { StyleProp, ViewStyle } from 'react-native';
+
 export type SearchProps = {
   value: string;
   onChangeText: (val: string) => void;
@@ -5,4 +7,5 @@ export type SearchProps = {
   placeholder: string;
   autoFocus?: boolean;
   onClearTextOnPress?: () => void;
+  customWrapperStyle?: StyleProp<ViewStyle>;
 };

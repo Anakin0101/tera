@@ -4,8 +4,8 @@ import { FlatList, View } from 'react-native';
 import { useStyles } from './TransfersHistory.styles';
 import { Text } from 'components/Text/Text';
 import { TransfersHistorytItem } from './TransfersHistoryItem';
-import { TransfersHistoryProps } from './TransfersHistory.types';
-import { TransferListTypeEnum, useTransfersHistoryServices } from './container';
+import { TransferListTypeEnum, TransfersHistoryProps } from './TransfersHistory.types';
+import { useTransfersHistoryServices } from './container';
 import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { LoadingInView } from '../index';
 

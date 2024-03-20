@@ -1,6 +1,6 @@
 import useTheme from 'hooks/useTheme';
 import { StyleSheet } from 'react-native';
-import { Spacing } from 'theme/Variables';
+import { FontSize, Spacing } from 'theme/Variables';
 
 export const useStyles = () => {
   const { FontFamily, Colors, Layout } = useTheme();
@@ -27,7 +27,7 @@ export const useStyles = () => {
     },
     tabItemLabel: {
       color: Colors.black,
-      fontSize: 14,
+      fontSize: FontSize.small,
       lineHeight: 17,
       letterSpacing: -0.25,
       fontFamily: FontFamily.main,
