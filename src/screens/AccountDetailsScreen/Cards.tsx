@@ -1,14 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { FlatList, ListRenderItem, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Button, Divider, Text } from 'components';
 import { CardItem } from './CardItem';
-import { CardsProps } from './AccountDetailsScreen.types';
-import { MainStackScreenProps } from 'navigation/types';
 import { EmptyCards, Plus } from 'assets/SVGs';
+import { CardsProps } from './AccountDetailsScreen.types';
 import { CardType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './AccountDetailsScreen.styles';
-import { CARD_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 
 const ListHeader = () => {
   const styles = useStyles();
@@ -38,32 +35,15 @@ const EmptyComponent = () => {
   );
 };
 
-export const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, iban }) => {
+export const Cards: FC<CardsProps> = memo(({ cards, fromCardDetails, isCardAccount, iban }) => {
   const styles = useStyles();
-  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  if (!iban) {
-    return null;
-  }
-
-  const renderItem: ListRenderItem<CardType> = ({ item, index }) => {
-    return (
-      <CardItem
-        item={item}
-        onPress={() => {
-          navigate(MODAL_STACK, {
-            screen: CARD_DETAILS_SCREEN,
-            params: {
-              iban: iban,
-              item: item,
-              index,
-            },
-          });
-        }}
-        isLast={index === cards.length - 1}
-      />
-    );
-  };
+  const renderItem: ListRenderItem<CardType> = useCallback(
+    ({ item, index }) => (
+      <CardItem item={item} index={index} iban={iban} isLast={index === cards?.length - 1} />
+    ),
+    [cards.length, iban],
+  );
 
   if (!isCardAccount) {
     return null;
@@ -81,4 +61,4 @@ export const Cards: FC<CardsProps> = ({ cards, fromCardDetails, isCardAccount, i
       <Divider marginTop={32} />
     </View>
   );
-};
+});

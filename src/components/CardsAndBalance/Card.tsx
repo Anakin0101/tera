@@ -16,9 +16,6 @@ import useStyles from './CardsAndBalance.styles';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
 import { CARD_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
-import { groupCardsByPan } from 'utils/groupData';
-import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setCards } from 'store/slices/products';
 
 export const Card = ({
   item,
@@ -31,7 +28,6 @@ export const Card = ({
   const styles = useStyles();
   const [currentIndex, setCurrentIndex] = useState(0);
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (activeCardIndex === index) {
@@ -110,12 +106,8 @@ export const Card = ({
   });
 
   const imageId = useMemo(() => {
-    const accWithCards = item?.accounts?.find(acc => !!acc?.cards?.length);
-    if (accWithCards) {
-      return accWithCards?.cards?.[0]?.cardLargeImageId;
-    }
-    return '';
-  }, [item.accounts]);
+    return item?.cards?.[0]?.cardLargeImageId;
+  }, [item.cards]);
 
   const getCurrencies = useCallback(() => {
     return item?.accounts?.map((account, idx) => (
@@ -141,28 +133,17 @@ export const Card = ({
 
   const handlePress = useCallback(() => {
     if (progress.value === 1) {
-      const cardsAttachedToAccount = item?.accounts
-        ?.filter(acc => acc?.cards)
-        ?.flatMap(acc => acc?.cards);
-
-      if (!cardsAttachedToAccount?.length) {
+      if (!item?.cards?.length) {
         return;
       }
-      const groupedCardsByPan = groupCardsByPan(cardsAttachedToAccount, 'pan');
-      dispatch(setCards(groupedCardsByPan));
-
       navigate(MODAL_STACK, {
         screen: CARD_DETAILS_SCREEN,
-        params: {
-          iban: item?.iban,
-          item: groupedCardsByPan?.[0],
-          index: 0,
-        },
+        params: { iban: item.iban },
       });
     } else {
       onCardPress();
     }
-  }, [progress.value, item?.accounts, item?.iban, navigate, dispatch, onCardPress]);
+  }, [progress.value, item, navigate, onCardPress]);
 
   if (!index) {
     return <Animated.View style={[styles.card, animScale]} />;

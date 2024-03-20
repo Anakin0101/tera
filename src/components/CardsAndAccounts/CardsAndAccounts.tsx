@@ -1,70 +1,22 @@
 import React, { FC, useCallback } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'hooks';
 import { Account } from './Account';
-import { Settings } from 'assets/SVGs';
-import { Divider, Text } from '../index';
-import { formatMoney } from 'utils/formatMoney';
+import { Divider } from '../index';
 import { MainStackScreenProps } from 'navigation/types';
-import {
-  ACCOUNT_DETAILS_SCREEN,
-  ALL_ACCOUNTS_AND_CARDS_SCREEN,
-  MODAL_STACK,
-} from 'navigation/ScreenNames';
-import { CardsAndAccountsProps, HeaderProps, RenderItem } from './CardsAndAccounts.types';
-import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { ACCOUNT_DETAILS_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import { CardsAndAccountsProps, RenderItem } from './CardsAndAccounts.types';
 import { useStyles } from './CardsAndAccounts.styles';
 import { MAX_LIST_ITEM_AMOUNT } from 'constants/common';
-
-const ListHeader: FC<HeaderProps> = ({ amount, showTitle, totalAvailableBalance }) => {
-  const styles = useStyles();
-  const { Colors } = useTheme();
-  return (
-    <View style={styles.headerWrapper}>
-      {showTitle && (
-        <View style={styles.headerContainer}>
-          <Text
-            title
-            color={Colors.textBlack500}
-            translateProp={{ value: amount }}
-            children="products.accountsAndCards"
-          />
-          <View style={styles.iconContainer}>
-            <Settings />
-          </View>
-        </View>
-      )}
-      <Text regular size={30} lineHeight={36} marginTop={!showTitle ? 24 : 0}>
-        {formatMoney(totalAvailableBalance, CurrencyEnum.GEL)}
-      </Text>
-    </View>
-  );
-};
-
-const ListFooter = () => {
-  const styles = useStyles();
-  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
-
-  const onPress = () => {
-    navigate(MODAL_STACK, {
-      screen: ALL_ACCOUNTS_AND_CARDS_SCREEN,
-    });
-  };
-
-  return (
-    <Pressable onPress={onPress} style={styles.seeAll}>
-      <Text children="transfers.all" special size={14} lineHeight={20} />
-    </Pressable>
-  );
-};
+import { ListFooter } from './Footer';
+import { ListHeader } from './Header';
 
 export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   accounts = [],
   showTitle = true,
   showFooter = true,
   showDivider = false,
-  totalAvailableBalance = 0,
+  groupedUserBalance = 0,
   seeAllAccounts,
 }) => {
   const styles = useStyles();
@@ -74,10 +26,7 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
     (iban: string, index: number) => {
       navigate(MODAL_STACK, {
         screen: ACCOUNT_DETAILS_SCREEN,
-        params: {
-          iban,
-          index,
-        },
+        params: { iban, index },
       });
     },
     [navigate],
@@ -104,7 +53,7 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
   );
 
   if (!accounts?.length) {
-    return <View />;
+    return <></>;
   }
 
   return (
@@ -114,12 +63,14 @@ export const CardsAndAccounts: FC<CardsAndAccountsProps> = ({
         renderItem={renderItem}
         ListHeaderComponent={
           <ListHeader
-            amount={accounts.length}
+            amount={accounts?.length}
             showTitle={showTitle}
-            totalAvailableBalance={totalAvailableBalance}
+            groupedUserBalance={groupedUserBalance}
           />
         }
-        ListFooterComponent={showFooter ? ListFooter : null}
+        ListFooterComponent={
+          <ListFooter groupedUserBalance={groupedUserBalance} showFooter={showFooter} />
+        }
         style={styles.flatlist}
       />
       {showDivider && <Divider marginTop={24} marginBottom={12} />}

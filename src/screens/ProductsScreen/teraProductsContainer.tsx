@@ -17,16 +17,15 @@ import {
   MODAL_STACK,
 } from 'navigation/ScreenNames';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
-import { useGetOffersQuery } from 'services/apis';
+import { useGetGroupedUserBalanceQuery, useGetOffersQuery } from 'services/apis';
 import { OfferTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
 
 export const useTeraProducts = () => {
   const dispatch = useAppDispatch();
-  const { totalAvailableBalanceGEL, deposits, loans, overdrafts, creditCards } = useAppSelector(
-    state => state.products,
-  );
+  const { deposits, loans, overdrafts, creditCards } = useAppSelector(state => state.products);
   const { groupedAccountsByIban, isLoadingAccounts, refetch } = useGroupedAccountsByIban();
   const { data: offers } = useGetOffersQuery();
+  const { data: groupedUserBalance } = useGetGroupedUserBalanceQuery();
 
   const creditDisbursements = useMemo(() => {
     return offers?.filter(offer => offer?.type === OfferTypeEnum.CreditDisbursement) || [];
@@ -70,6 +69,7 @@ export const useTeraProducts = () => {
     closeModal();
     navigate(MODAL_STACK, { screen: LOAN_REQUEST_SCREEN });
   }, [navigate]);
+
   const onTariffPress = useCallback(() => {
     closeModal();
     navigate(MODAL_STACK, { screen: TARIFF_PACKAGES_SCREEN });
@@ -120,7 +120,6 @@ export const useTeraProducts = () => {
 
   return {
     groupedAccountsByIban,
-    totalAvailableBalanceGEL,
     deposits,
     totalDeposits,
     loans,
@@ -130,5 +129,6 @@ export const useTeraProducts = () => {
     isLoadingAccounts,
     refetch,
     creditDisbursements,
+    groupedUserBalance,
   };
 };

@@ -78,7 +78,6 @@ export const FOREIGN_TRANSFER_DETAILS_SCREEN = 'ForeignTransferDetailsScreen';
 // products
 export const ALL_ACCOUNTS_AND_CARDS_SCREEN = 'AllAccountsAndCardsScreen';
 export const ACCOUNT_DETAILS_SCREEN = 'AccountDetailsScreen';
-export const MY_ACCOUNT_SCROLLABLE_SCREEN = 'MyAccountScrollableScreen';
 export const CARD_DETAILS_SCREEN = 'CardDetailsScreen';
 export const CARD_INSURANCE = 'CardInsuranceScreen';
 export const INSURANCE_PACKAGE_DETAILS = 'InsurancePackageDetailsScreen';
@@ -112,6 +111,7 @@ export const TARIFF_PACKAGES_SINGLE_SCREEN = 'TariffPackagesSingleScreen';
 export const APPROVED_LOAN_DETAILS_SCREEN = 'ApprovedLoanDetailsScreen';
 export const APPROVED_LOAN_PDF_SCREEN = 'ApprovedLoanPdfScreen';
 export const ACTIVATE_LOAN_SUCCESS_SCREEN = 'ActivateLoanSuccessScreen';
+export const INSURANCE_SUCCESS_SCREEN = 'InsuranceSuccessScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';

@@ -2,16 +2,13 @@ import { useCallback, useEffect } from 'react';
 import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAccounts.types';
 import { useGetAccountsByCustomerIdQuery } from 'services/apis/productsAPI/productsAPI';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
-import { setAccounts, setTotalAvailableBalance } from 'store/slices/products';
-import { calculateSum } from 'utils/calculateSum';
+import { setAccounts } from 'store/slices/products';
 import { groupAccountsByIban } from 'utils/groupData';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { Account, AccountTypeEnum } from 'services/apis/productsAPI/productsAPI.types';
-import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export const useGroupedAccountsByIban = () => {
   const dispatch = useAppDispatch();
-
   const { groupedAccountsByIban } = useAppSelector(state => state.products);
 
   const {
@@ -23,18 +20,13 @@ export const useGroupedAccountsByIban = () => {
   const saveAccounts = useCallback(
     (allAccounts?: Account[]) => {
       try {
-        if (!allAccounts) {
-          return;
-        }
+        if (!allAccounts) return;
+
         const accs =
           allAccounts?.filter(({ accountType }) => accountType !== AccountTypeEnum.Deposit) ?? [];
 
         const groupedAccounts: IGroupedAccountsByIban[] = groupAccountsByIban(accs, 'accountIban');
-        const balanceGEL = accs?.filter(acc => acc?.ccy === CurrencyEnum.GEL);
-        const totalAvailableGEL = calculateSum(balanceGEL, 'balance');
-
         dispatch(setAccounts(groupedAccounts));
-        dispatch(setTotalAvailableBalance(totalAvailableGEL));
       } catch (err) {
         console.warn('Error in useGroupedAccountsByIban hook: saveAccounts', err);
       }

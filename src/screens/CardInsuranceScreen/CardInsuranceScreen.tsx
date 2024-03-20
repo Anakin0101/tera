@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SectionList } from 'react-native';
-import { useRoute } from '@react-navigation/native';
 import { General } from './General';
 import { Packages } from './Packages';
-import { ModalStackRouteProps } from 'navigation/types';
 import { useStyles } from './CardInsuranceScreen.styles';
 import { SectionListRenderItemT } from 'screens/types';
+import { useCardInsurance } from './container';
 
 const sections = [
   { title: 'general', data: [{}] },
@@ -14,18 +13,21 @@ const sections = [
 
 export const CardInsuranceScreen = () => {
   const styles = useStyles();
-  const { params } = useRoute<ModalStackRouteProps<'CardInsuranceScreen'>>();
+  const { packages, iban, activeCard } = useCardInsurance();
 
-  const renderItem: SectionListRenderItemT = ({ section }) => {
-    switch (section.title) {
-      case 'general':
-        return <General />;
-      case 'package':
-        return <Packages cardId={params.cardId} />;
-      default:
-        return null;
-    }
-  };
+  const renderItem: SectionListRenderItemT = useCallback(
+    ({ section }) => {
+      switch (section.title) {
+        case 'general':
+          return <General />;
+        case 'package':
+          return <Packages packages={packages} activeCard={activeCard} iban={iban} />;
+        default:
+          return null;
+      }
+    },
+    [activeCard, iban, packages],
+  );
 
   return (
     <SectionList
