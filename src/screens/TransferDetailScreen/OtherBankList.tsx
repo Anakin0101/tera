@@ -11,10 +11,14 @@ export const OtherBankList = ({
   selectedItemFromStore,
   receiver,
   mobileTransaction,
+  fastPaymentFee,
+  fee,
 }: {
   selectedItemFromStore: SelectedItemProp;
   receiver?: string;
   mobileTransaction?: boolean;
+  fastPaymentFee?: number;
+  fee?: number;
 }) => {
   const {
     accountFromData,
@@ -60,6 +64,8 @@ export const OtherBankList = ({
             'transactionDetails.amount',
             `${formatToTwoDecimalPlaces(selectedPrice)} ₾`,
           )}
+          {fee !== 0 && renderDetailsItem('common.totalFee', `${fee} ₾`)}
+          {fastPaymentFee !== 0 && renderDetailsItem('transactions.fastFee', `${fastPaymentFee} ₾`)}
           {renderDetailsItem(
             'transfers.destination',
             selectedData ? selectedData : selectedOtherBankDataTitle,

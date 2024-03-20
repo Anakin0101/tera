@@ -1,5 +1,4 @@
 export interface CardHolderDetailProps {
-  accountNumber: string;
+  pan: string;
   endDate: string;
-  cvv: string;
 }

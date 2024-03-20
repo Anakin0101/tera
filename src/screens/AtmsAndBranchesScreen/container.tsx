@@ -1,19 +1,19 @@
-import { useGetAtmsMutation, useGetServiceCentersMutation } from 'services/apis';
 import { AtmsResponse, ServiceCentersResponse } from 'services/apis/profileAPI/profileAPI.types';
 import { useCallback } from 'react';
 import { Alert, Linking, NativeModules, Platform } from 'react-native';
 import { openModal } from 'utils/modal';
 import { LocationSettingsModal } from 'components/AtmsAndBranches';
 import React from 'react';
+import { useLazyGetAtmsQuery, useLazyGetServiceCentersQuery } from 'services/apis';
 
 export const useAtmsAndBranches = <T extends AtmsResponse | ServiceCentersResponse>() => {
   const [
     getServiceCenters,
     { data: serviceCenters, isLoading: isServiceCentersLoading, error: serviceCentersError },
-  ] = useGetServiceCentersMutation();
-  const [getAtms, { data: atms, isLoading: isAtmsLoading, error: atmsError }] =
-    useGetAtmsMutation();
+  ] = useLazyGetServiceCentersQuery();
 
+  const [getAtms, { data: atms, isLoading: isAtmsLoading, error: atmsError }] =
+    useLazyGetAtmsQuery();
   const fetchBranches = useCallback(() => {
     getServiceCenters();
   }, [getServiceCenters]);

@@ -57,7 +57,6 @@ import {
   TeraWalletPDFScreen,
   AllAcountsAndCardsScreen,
   AccountDetailsScreen,
-  MyAccountsScrollableScreen,
   InsurancePackageDetails,
   DepositsScreen,
   DepositDetailsScreen,
@@ -77,8 +76,16 @@ import {
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
+  ForeignIbanScreen,
+  ForeignTransferDetailsScreen,
+  TransferToForeignIban,
+  AllTemplatesScreen,
+  InsuranceSuccessScreen,
 } from 'screens';
 import {
+  FOREIGN_IBAN_SCREEN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
@@ -130,7 +137,6 @@ import {
   INSURANCE_PACKAGE_DETAILS,
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
-  MY_ACCOUNT_SCROLLABLE_SCREEN,
   NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
   NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN,
@@ -161,6 +167,8 @@ import {
   MONEY_TRANSFER_SEND_MONEY_SCREEN,
   MONEY_TRANSFER_SEND_PERMISSION_SCREEN,
   MONEY_TRANSFER_SEND_DETAILS_SCREEN,
+  ALL_TEMPLATES_SCREEN,
+  INSURANCE_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfersScreen';
@@ -556,15 +564,6 @@ export const ModalNavigator = () => {
         options={{ title: t('products.accountDetails') }}
       />
       <Screen
-        name={MY_ACCOUNT_SCROLLABLE_SCREEN}
-        component={MyAccountsScrollableScreen}
-        options={
-          {
-            // TODO - add translation
-          }
-        }
-      />
-      <Screen
         name={CARD_DETAILS_SCREEN}
         component={CardDetailsScreen}
         options={{ title: t('products.cardDetails') }}
@@ -764,6 +763,56 @@ export const ModalNavigator = () => {
       <Screen
         name={ACTIVATE_LOAN_SUCCESS_SCREEN}
         component={ActivateLoanSuccessScreen}
+        options={hideHeader}
+      />
+      <Screen
+        name={FOREIGN_IBAN_SCREEN}
+        component={ForeignIbanScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_FOREIGN_IBAN}
+        component={TransferToForeignIban}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={FOREIGN_TRANSFER_DETAILS_SCREEN}
+        component={ForeignTransferDetailsScreen}
+        options={{
+          title: t('transfers.details'),
+        }}
+      />
+      <Screen
+        name={TRANSACTION_FINISHED_SCREEN}
+        component={TransactionFinishedScreen}
+        options={{
+          title: '',
+          gestureEnabled: false,
+          headerLeft: () => null,
+        }}
+      />
+      <Screen
+        name={ALL_TEMPLATES_SCREEN}
+        component={AllTemplatesScreen}
+        options={{
+          title: t('onboarding.templates'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_ACCOUNT_SCREEN}
+        component={TransferToAccountScreen}
+        options={{
+          title: t('transfers.toOwnAccount'),
+        }}
+      />
+      <Screen
+        name={INSURANCE_SUCCESS_SCREEN}
+        component={InsuranceSuccessScreen}
         options={hideHeader}
       />
     </Navigator>

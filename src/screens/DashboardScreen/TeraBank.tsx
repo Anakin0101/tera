@@ -81,6 +81,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     selectedAccountFromCard,
     setSelectedAccountFromCard,
     activeCardAccounts,
+    groupedUserBalance,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -275,7 +276,11 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
         >
           <Indicator data={cards} translateX={translateX} />
         </ActionButtons>
-        <AvailableBalance progress={cardsOffset} terabytes={terabytes?.teraBytes} />
+        <AvailableBalance
+          balance={groupedUserBalance}
+          progress={cardsOffset}
+          terabytes={terabytes?.teraBytes}
+        />
       </Animated.View>
       <Animated.View style={[styles.backdrop, backDropAnimation]} />
       <Animated.View style={[styles.sectionList, borderColor]}>

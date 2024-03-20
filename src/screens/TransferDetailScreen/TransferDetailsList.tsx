@@ -6,7 +6,13 @@ import { BlockedAmount } from 'screens/AccountDetailsScreen/AccountDetailsScreen
 import { formatToTwoDecimalPlaces } from 'utils/formatToDecimal';
 import { getCurrencyIcon } from 'utils/currency';
 import { useTranslation } from 'react-i18next';
-export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) => {
+export const TransferDetailsList = ({
+  selectedItemFromStore,
+  convertion,
+  debitResult,
+  creditResult,
+  templateData,
+}: any) => {
   const { t } = useTranslation();
   const { accountFromData, accountToData, selectedData, selectedPrice, convertionData } =
     selectedItemFromStore;
@@ -22,7 +28,7 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
   };
 
   const renderTransferDetails = () => {
-    const accountName = accountToData.accountName ? `${accountToData.accountName}  ` : '';
+    const accountName = accountToData?.accountName ? `${accountToData.accountName}  ` : '';
     const renderSelectedData = () => {
       if (selectedData !== '') {
         return renderDetailsItem('transfers.destination', selectedData);
@@ -37,13 +43,15 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
       <View style={styles.backgroundWhite}>
         {renderDetailsItem(
           'transfers.fromWhere',
-          `${accountFromData?.accountName}  `,
-          accountFromData?.accountIban,
+          `${debitResult ? debitResult.title : accountFromData?.accountName}  `,
+          debitResult ? debitResult?.accountIban : accountFromData?.accountIban,
         )}
         {renderDetailsItem(
           'transfers.where',
-          accountName,
-          accountToData?.accountIban || accountToData?.iban,
+          creditResult ? creditResult.title : accountName,
+          creditResult
+            ? creditResult.accountIban
+            : accountToData?.accountIban || accountToData?.iban,
         )}
         {convertion
           ? renderDetailsItem(
@@ -54,13 +62,15 @@ export const TransferDetailsList = ({ selectedItemFromStore, convertion }: any) 
             )
           : renderDetailsItem(
               'transactionDetails.amount',
-              `${formatToTwoDecimalPlaces(selectedPrice)} ${getCurrencyIcon(accountFromData?.ccy)}`,
+              `${formatToTwoDecimalPlaces(
+                templateData ? templateData?.amount : selectedPrice,
+              )} ${getCurrencyIcon(templateData ? templateData?.ccy : accountFromData?.ccy)}`,
             )}
         {convertion &&
           renderDetailsItem(
             'transfers.acceptable',
             `${formatToTwoDecimalPlaces(convertionData?.buyAmount?.amountSell)}  ${getCurrencyIcon(
-              accountToData.ccy,
+              accountToData?.ccy,
             )}`,
           )}
         {convertion &&

@@ -26,8 +26,6 @@ export const useStyles = () => {
     card: {
       ...Layout.justifyContentBetween,
       padding: 26,
-      borderRadius: Spacing.m,
-      backgroundColor: Colors.titleBlack,
       width: horizontalScale(340),
       height: 200,
     },
@@ -157,7 +155,15 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.xl,
       paddingVertical: Spacing.xl,
     },
-    wrapper: { ...Layout.row, ...Layout.justifyContentBetween, ...Layout.alignItemsCenter },
+    wrapper: {
+      ...Layout.row,
+      ...Layout.justifyContentBetween,
+      ...Layout.alignItemsCenter,
+    },
+    text: {
+      fontSize: FontSize.regular,
+      lineHeight: Spacing.xl,
+    },
     detailsWrapper: {
       ...Layout.row,
       ...Layout.justifyContentBetween,
@@ -232,14 +238,11 @@ export const useStyles = () => {
       borderRadius: Spacing.xlm,
       paddingHorizontal: Spacing.ml,
       paddingVertical: Spacing.s,
-    },
-    text: {
-      marginLeft: Spacing.xs,
+      gap: Spacing.xs,
     },
     cardView: {
       ...Layout.row,
-      width: '80%',
-      ...Layout.justifyContentBetween,
+      gap: Spacing.xl,
     },
     cardItem: {
       ...Layout.justifyContentBetween,
@@ -270,8 +273,26 @@ export const useStyles = () => {
       gap: Spacing.m,
     },
     badgesContainer: {
-      ...Layout.row,
+      ...Layout.rowHCenter,
+      ...Layout.justifyContentEnd,
       gap: Spacing.s,
+    },
+    actionButtons: {
+      ...Layout.justifyContentBetween,
+    },
+    spaceEvenly: {
+      ...Layout.justifyContentEvenly,
+    },
+    cardInner: {
+      ...Layout.fill,
+      ...Layout.justifyContentBetween,
+    },
+    padding: {
+      paddingBottom: Spacing.xxxl,
+    },
+    cardInfoContainer: {
+      backgroundColor: Colors.white,
+      padding: Spacing.xl,
     },
   });
 };

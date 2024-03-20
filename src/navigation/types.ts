@@ -1,5 +1,6 @@
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Template } from 'services/apis/dashboardAPI/dashboardAPI.types';
 import {
   AUTHORIZATION_METHODS_SCREEN,
   DASHBOARD_SCREEN,
@@ -20,7 +21,6 @@ import {
   MY_ACCOUNTS_SCREEN,
   ALL_ACCOUNTS_AND_CARDS_SCREEN,
   ACCOUNT_DETAILS_SCREEN,
-  MY_ACCOUNT_SCROLLABLE_SCREEN,
   CARD_DETAILS_SCREEN,
   CARD_INSURANCE,
   INSURANCE_PACKAGE_DETAILS,
@@ -29,7 +29,6 @@ import {
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
   TO_ACCOUNT_SCREEN,
-  TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
   TRANSACTION_FINISHED_SCREEN,
@@ -110,6 +109,10 @@ import {
   MONEY_TRANSFER_SEND_MONEY_SCREEN,
   MONEY_TRANSFER_SEND_PERMISSION_SCREEN,
   MONEY_TRANSFER_SEND_DETAILS_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_ACCOUNT_SCREEN,
+  INSURANCE_SUCCESS_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -121,7 +124,7 @@ import {
   ProviderItemProps,
   // FeeRule,
 } from 'services/apis/paymentsAPI/paymentsAPI.types';
-import { Account, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CardType, CustomerPackages } from 'services/apis/productsAPI/productsAPI.types';
 import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 import { MTSystemItemProps } from 'utils/moneyTransfer';
@@ -304,13 +307,7 @@ export type ModalStackParamsList = {
         otherBanks?: boolean;
       }
     | undefined;
-  [TRANSFER_TO_ACCOUNT_SCREEN]: {
-    fromOtherBank?: any;
-    fromMobile?: boolean;
-    receiver?: string;
-    fromIban?: boolean;
-    fromPersonal?: boolean;
-  };
+
   [PRIVATE_TRANSACTION_SCREEN]: {
     from: any;
     transactionParam?: string;
@@ -319,8 +316,13 @@ export type ModalStackParamsList = {
     convertion?: boolean;
     fromOtherBank?: boolean;
     mobileTransaction?: boolean;
+    creditResult?: any;
+    templateData?: any;
     budgetTransaction?: boolean;
+    debitResult?: any;
     receiver?: string;
+    fastPaymentFee?: number;
+    fee?: number;
   };
   [TRANSACTION_FINISHED_SCREEN]:
     | undefined
@@ -344,7 +346,6 @@ export type ModalStackParamsList = {
     | { budgetCode: string };
 
   [BUDGET_TRANSFER_DETAILS]: undefined;
-  [FOREIGN_IBAN_SCREEN]: undefined;
 
   [TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN]: {
     fromOtherBank?: boolean;
@@ -353,26 +354,27 @@ export type ModalStackParamsList = {
     fromIban?: boolean;
     fromPersonal?: boolean;
   };
-  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: undefined;
+  [ALL_ACCOUNTS_AND_CARDS_SCREEN]: {
+    groupedUserBalance: number;
+  };
   [ACCOUNT_DETAILS_SCREEN]: {
     iban: string;
     index: number;
   };
   [CARD_DETAILS_SCREEN]: {
-    iban: string;
-    index: number;
-    item: any;
-  };
-  [MY_ACCOUNT_SCROLLABLE_SCREEN]: {
-    iban: string;
+    iban?: string;
+    index?: number;
   };
   [CARD_INSURANCE]: {
-    cardId: number;
+    activeCard: CardType;
+    iban?: string;
   };
   [INSURANCE_PACKAGE_DETAILS]: {
     packageName: string;
     commission: number;
-    cardId: number;
+    activeCard: CardType;
+    insuranceTypeId: number;
+    iban?: string;
   };
   [DEPOSITS_SCREEN]: undefined;
   [DEPOSIT_DETAILS_SCREEN]: {
@@ -411,6 +413,35 @@ export type ModalStackParamsList = {
   [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
   [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
   [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+  [FOREIGN_IBAN_SCREEN]:
+    | undefined
+    | {
+        iban?: string;
+        ccy?: string;
+      };
+  [TRANSFER_TO_FOREIGN_IBAN]: undefined;
+  [FOREIGN_TRANSFER_DETAILS_SCREEN]: undefined;
+  [TRANSACTION_FINISHED_SCREEN]:
+    | undefined
+    | {
+        convertion?: boolean;
+        internal?: boolean;
+        fromIban?: boolean;
+        mobileTransaction?: boolean;
+        budgetTransaction?: boolean;
+      };
+  [ALL_TEMPLATES_SCREEN]: undefined;
+  [TRANSFER_TO_ACCOUNT_SCREEN]:
+    | undefined
+    | {
+        fromOtherBank?: any;
+        fromMobile?: boolean;
+        receiver?: string;
+        fromIban?: boolean;
+        fromPersonal?: boolean;
+        templates?: Template;
+      };
+  [INSURANCE_SUCCESS_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

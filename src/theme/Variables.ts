@@ -110,6 +110,7 @@ export const FontSize = {
 
 export const Spacing = {
   zero: 0,
+  one: 1,
   xxxs: 2,
   xxs: 4,
   xs: 6,

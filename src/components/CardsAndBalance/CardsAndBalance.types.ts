@@ -6,6 +6,7 @@ export type SelectedAccountFromCard = Account | undefined;
 export interface AvailableBalanceProps {
   progress: SharedValue<number>;
   terabytes?: number;
+  balance?: number;
 }
 
 export interface ActionButtonsProps {
