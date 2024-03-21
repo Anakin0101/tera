@@ -8,6 +8,7 @@ import { DialPad } from 'assets/SVGs';
 import { useIsFocused } from '@react-navigation/native';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { usePasscode } from 'hooks';
+// import { useVerifyPasscode } from 'hooks'; // TODO - should be deleted
 import { useBiometrics } from 'hooks/useBiometrics';
 import { clearLoginName } from 'utils/keychain';
 
@@ -20,6 +21,7 @@ export const AuthorizationMethodPasscode: FC<AuthorizationMethodPasscodeProps> =
 }) => {
   const isFocused = useIsFocused();
   const { removePasscode } = usePasscode();
+  //   const {verifyPasscode, removePasscode} = useVerifyPasscode(); // TODO - should be deleted
   const { clearBiometrics } = useBiometrics();
   const isPasscodeSet = useAppSelector(state => state.userInfo.isPasscodeSet);
   const isBiometricSet = useAppSelector(state => state.userInfo.isBiometricSet);
