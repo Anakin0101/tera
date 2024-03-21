@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Button } from 'components';
-import { SelectPaymentFieldModalProps } from './SelectPaymentFieldModal.types';
+import { SelectPaymentFieldModalProps, SelectedItemProps } from './SelectPaymentFieldModal.types';
 import { useStyles } from './SelectPaymentFieldModal.styles';
 import { closeModal } from 'utils/modal';
 import { FieldItem } from 'services/apis/paymentsAPI/paymentsAPI.types';
@@ -13,7 +13,7 @@ export const SelectPaymentFieldModal: FC<SelectPaymentFieldModalProps> = ({
   selectedValue,
 }) => {
   const styles = useStyles();
-  const [selected, setSelected] = useState<string>(selectedValue);
+  const [selected, setSelected] = useState<SelectedItemProps>({ value: selectedValue, key: '' });
 
   /**
    * Handles the press event for the selected item.
@@ -25,7 +25,7 @@ export const SelectPaymentFieldModal: FC<SelectPaymentFieldModalProps> = ({
    * @returns {void}
    */
   const handlePress = useCallback(() => {
-    confirm(selected);
+    confirm(selected.value, selected.key);
     closeModal();
   }, [confirm, selected]);
 
@@ -50,8 +50,8 @@ export const SelectPaymentFieldModal: FC<SelectPaymentFieldModalProps> = ({
     ({ item, index }: { item: FieldItem; index: number }) => (
       <SelectPaymentFieldItem
         fieldItem={item}
-        onPress={setSelected}
-        isSelected={selected === item.value}
+        onPress={(val: string, key: string) => setSelected({ value: val, key })}
+        isSelected={selected.value === item.value}
         isLast={fieldItems?.length !== undefined && fieldItems?.length - 1 === index}
       />
     ),
