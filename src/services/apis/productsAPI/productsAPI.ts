@@ -422,7 +422,7 @@ export const productsAPI = createApi({
         response?.userBalance?.find(item => item?.currency === CurrencyEnum.GEL)?.amount || 0,
     }),
 
-    getBlockedTransactions: builder.query<BlockedTransactionType[], any>({
+    getBlockedTransactions: builder.query<BlockedTransactionType[], void>({
       query: () => ({
         url: URLS.getBlockedTransactions,
       }),

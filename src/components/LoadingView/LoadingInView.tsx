@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { View } from 'react-native';
 import { useStyles } from './LoadingView.styles';
 import LottieView from 'lottie-react-native';
+import { LoadingInViewType } from './LoadingInView.types';
 
-export const LoadingInView = ({ containerStyle }: { containerStyle?: StyleProp<ViewStyle> }) => {
+export const LoadingInView = ({ containerStyle }: LoadingInViewType) => {
   const styles = useStyles();
   return (
     <View style={[styles.loadingSpinnerContainer, containerStyle]}>

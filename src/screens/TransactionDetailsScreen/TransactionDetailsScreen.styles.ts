@@ -22,7 +22,7 @@ export const useStyles = () => {
     },
     headerSection: {
       ...Layout.row,
-      flex: 1,
+      ...Layout.fill,
       gap: 14,
       ...Layout.alignItemsCenter,
     },

@@ -186,7 +186,7 @@ export const ListHeader: FC<HeaderProps> = ({
         <View
           style={[
             styles.filterItem,
-            blockedTransactionsFilterActive ? styles.selectedFilterWrapper : {},
+            blockedTransactionsFilterActive && styles.selectedFilterWrapper,
           ]}
         >
           {blockedTransactionsFilterActive ? (

@@ -77,10 +77,12 @@ export const Sections: FC<FooterProps> = ({
   return (
     <View style={styles.sectionListWrapper}>
       {loading && <LoadingInView />}
-      {sections?.length === 0 && <NoTransactions containerStyle={styles.noTransactionsContainer} />}
-      {(sections || []).length > 0 && (
+      {sections && sections.length === 0 && (
+        <NoTransactions containerStyle={styles.noTransactionsContainer} />
+      )}
+      {sections && sections.length > 0 && (
         <SectionList
-          sections={sections || []}
+          sections={sections}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           renderSectionHeader={renderSectionHeader}

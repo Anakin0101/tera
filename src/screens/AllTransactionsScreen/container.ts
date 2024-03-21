@@ -127,7 +127,7 @@ export const useAllTransactions = () => {
 
   const requestBlockedTransactions = async () => {
     setFilters(initialFilters);
-    const result = await getBlockedTransactions({});
+    const result = await getBlockedTransactions();
     if (result && result.data) {
       //   setBlockedTransactionsLocal(result.data);
       const extendedTransactions = getMoreDetailsAboutBlockedTransactions(result.data);
