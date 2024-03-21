@@ -410,6 +410,7 @@
     "bankAccountNumber": "ანგარიშის ნომერი (IBAN)",
     "myFinancial": "ჩემი ანგარიში",
     "receivingPoint": "მიმღები პუნქტი",
+    "fullAmount": "სრული თანხა",
     "money": "თანხა",
     "search": "ძებნა",
     "date": "თარიღი",

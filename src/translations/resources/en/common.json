@@ -416,6 +416,7 @@
     "bankAccountNumber": "Account number (IBAN)",
     "myFinancial": "My Financial",
     "receivingPoint": "Receiving Point",
+    "fullAmount": "Full amount",
     "money": "Money",
     "search": "Search",
     "to": "To",

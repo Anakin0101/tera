@@ -33,7 +33,7 @@ export const MoneyTransferSendDetailsScreen = () => {
             <Text children={'💸'} />
           </View>
           <View>
-            <Text children={'გზავნილის გაგზავნა'} style={styles.title} />
+            <Text children={'moneyTransferSendScreen.title'} style={styles.title} />
             <Text
               style={styles.value}
               children={`${formatMoney(

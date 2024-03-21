@@ -103,11 +103,11 @@ export const MoneyTransferSendMoneyScreen = () => {
         {transferSendPrepareResponse && (
           <View style={styles.infoWrapper}>
             <View style={styles.infoItemWrapper}>
-              <Text children="საკომისიო" style={styles.infoLabel} />
+              <Text children="common.totalFee" style={styles.infoLabel} />
               <Text children={feeValue()} />
             </View>
             <View style={styles.infoItemWrapper}>
-              <Text children="სრული თანხა" style={styles.infoLabel} />
+              <Text children="common.fullAmount" style={styles.infoLabel} />
               <Text children={getPayableValue()} />
             </View>
           </View>
