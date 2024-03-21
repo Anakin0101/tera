@@ -5,6 +5,7 @@ import Routes from './Router';
 import { useBootstrapApp } from 'hooks';
 import { useActivityTimeout } from 'hooks';
 import {
+  GUEST_NAVIGATOR,
   PASSCODE_LOGIN_SCREEN,
   PASSWORD_LOGIN_SCREEN,
   PASSWORD_ONLY_LOGIN_SCREEN,
@@ -61,6 +62,11 @@ export const Navigation = () => {
 
         // If the route has changed and it's not a guest stack item, reset the activity timer.
         if (typeof currentRouteName === 'string') {
+          // navigation changes state twice, first it gets value of 'guestNavigator' then the child of 'guestNavigator'
+          //   therefore, we need to override any action when stack loads, we only take action when screen loads
+          if (currentRouteName === GUEST_NAVIGATOR) {
+            return;
+          }
           if (previousRouteName !== currentRouteName) {
             // Save the current route name for later comparison
             routeNameRef.current = currentRouteName;
