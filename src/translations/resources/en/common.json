@@ -131,6 +131,7 @@
     "savings": "Savings",
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
+    "transactionsError": "An error occured while loading transactions",
     "trustedTemplate": "Trusted Template",
     "template_trust_status": "Template successfully {{status}}",
     "untrusted": "untrusted",
@@ -423,10 +424,16 @@
     "receiver": "Receiver",
     "country": "Country",
     "city": "City",
+    "address": "Address",
     "sender": "Sender",
     "sendedMoney": "Sended Money",
     "totalFee": "Total Fee",
     "bankAccountNumber": "Account number (IBAN)",
+    "myFinancial": "My Financial",
+    "receivingPoint": "Receiving Point",
+    "fullAmount": "Full amount",
+    "money": "Money",
+    "search": "Search",
     "to": "To",
     "next": "Next",
     "returnToMain": "Return to Main",
@@ -498,7 +505,11 @@
     "unblockCard": "Do you really want to unblock 'My Card'?",
     "trustedTemplate": "Make template trusted and after 24 hours perform operations up to 1,000 GEL (or equivalent in GEL) without additional SMS/Digipass code.",
     "untrust": "untrust template",
-    "deleteTemplate": "Do you really want to delete the template?"
+    "deleteTemplate": "Do you really want to delete the template?",
+    "blockedMoney": "Blocked money",
+    "money": "Money",
+    "incomes": "Incomes",
+    "outcomes": "Outcomes"
   },
   "transactionDetails": {
     "to": "To",
@@ -508,7 +519,7 @@
     "receiverIban": "Receiver Iban",
     "paymentType": "Payment Type",
     "amount": "Amount",
-    "desc": "Description",
+    "desc": "Reason",
     "docNumber": "Document Number",
     "refund": "Refund",
     "automaticTransfers": "Automatic\nTransfers",
@@ -530,7 +541,8 @@
     "city": "city",
     "address": "address",
     "receiverBank": "Receiver Bank",
-    "mediatorBank": "Mediator Bank"
+    "mediatorBank": "Mediator Bank",
+    "downloadReceiptError": "Error during receipt download. Please try again later"
   },
   "filters": {
     "income": "Income",
@@ -704,7 +716,8 @@
     "mainPage": "Return to main page",
     "basketTitle": "Payment successfully was\n added",
     "someItemRejected": "All templates could not be paid",
-    "transferTitle": "The transfer has been cashed"
+    "transferTitle": "The transfer has been cashed",
+    "transferSendTitle": "The transaction was completed successfully"
   },
   "moneyTransfersScreen": {
     "title": "Money transfers",
@@ -741,6 +754,29 @@
   "moneyTransferDetailsScreen": {
     "title": "Transfer details",
     "transferCode": "Transfer code"
+  },
+  "moneyTransferSendScreen": {
+    "title": "Send Money",
+    "desc": "Select a receiving point"
+  },
+  "moneyTransferSendAddressScreen": {
+    "title": "Enter the recipient's address"
+  },
+  "moneyTransferSendInfoScreen": {
+    "title": "Enter the recipient's information",
+    "receiverName": "Receiver's Name",
+    "receiverSurname": "Receiver's Surname"
+  },
+  "moneyTransferSendMoneyScreen": {
+    "title": "Transfer to own account",
+    "send": "To be send",
+    "recieve": "Acceptable"
+  },
+  "moneyTransferSendPermissionScreen": {
+    "text": "Be careful when using remittances and keep in mind that even in the case of confirmed fraud, you will not be able to return the amount sent after cashing out. For security reasons, do not perform the transfer \n• in the name of an unknown person or a person whom you cannot identify;\n• to purchase any item or service on the internet;\n• to pay utility or telecommunications service fees, debts, etc.\n• to confirm the lack of funds in the account due to making an online purchase, using a rental service, receiving credit or for any other reason.\nProtect confidentiality and inform the details of operation usage only to the recipient of the message."
+  },
+  "moneyTransferSendDetailsScreen": {
+    "title": "Transfer details"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",

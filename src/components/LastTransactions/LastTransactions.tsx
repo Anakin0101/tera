@@ -13,8 +13,9 @@ import {
   TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
 import { LastTransactionsProps, RenderItem } from './LastTransaction.types';
-import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { useStyles } from './LastTransactions.styles';
+import { TransactionItem } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
+import { isTransactionType } from 'utils/transactionUtils/isTransactionType';
 
 export const LastTransactions: FC<LastTransactionsProps> = ({
   data,
@@ -36,12 +37,15 @@ export const LastTransactions: FC<LastTransactionsProps> = ({
     });
   }, [accountNumber, navigate]);
 
+  //   only navigate to transaction details, if no blocked transactions
   const onTransactionPress = useCallback(
-    (item: TransactionType) => {
-      dispatch(setSelectedTransaction(item));
-      navigate(MODAL_STACK, {
-        screen: TRANSACTION_DETAILS_SCREEN,
-      });
+    (item: TransactionItem) => {
+      if (isTransactionType(item)) {
+        dispatch(setSelectedTransaction(item));
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_DETAILS_SCREEN,
+        });
+      }
     },
     [dispatch, navigate],
   );

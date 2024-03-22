@@ -92,7 +92,7 @@ export const useStyles = () => {
       marginTop: Spacing.xxs,
     },
     descBorder: {
-      height: '100%',
+      ...Layout.fullHeight,
       width: 1,
       backgroundColor: Colors.border,
       marginHorizontal: Spacing.xxs,

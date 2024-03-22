@@ -32,7 +32,6 @@ import {
   BudgetTransferDetailsScreen,
   PrivateTransactionScreen,
   TransferDetailScreen,
-  TransactionFinishedScreen,
   OtherBankTransactionScreen,
   TransferToOtherBankAccountScreen,
   TransactionFailedScreen,
@@ -122,7 +121,6 @@ import {
   TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
-  TRANSACTION_FINISHED_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
   TRANSACTION_FAILED_SCREEN,
@@ -162,6 +160,12 @@ import {
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
   EDIT_USER_INFO_SCREEN,
+  MONEY_TRANSFER_SEND_SCREEN,
+  MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
+  MONEY_TRANSFER_SEND_INFO_SCREEN,
+  MONEY_TRANSFER_SEND_MONEY_SCREEN,
+  MONEY_TRANSFER_SEND_PERMISSION_SCREEN,
+  MONEY_TRANSFER_SEND_DETAILS_SCREEN,
   ALL_TEMPLATES_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
@@ -172,6 +176,12 @@ import { CheckMoneyTransferProviderScreen } from 'screens/CheckMoneyTransferProv
 import { MoneyTransferPermissionScreen } from 'screens/MoneyTransferPermissionScreen/MoneyTransferPermissionScreen';
 import { MoneyTransferDetailsScreen } from 'screens/MoneyTransferDetailsScreen/MoneyTransferDetailsScreen';
 import { EditUserInfo } from 'screens/EditUserInfoScreen/EditUserInfo';
+import { MoneyTransferSendScreen } from 'screens/MoneyTransferSendScreen/MoneyTransferSendScreen';
+import { MoneyTransferSendAddressScreen } from 'screens/MoneyTransferSendAddressScreen/MoneyTransferSendAddressScreen';
+import { MoneyTransferSendInfoScreen } from 'screens/MoneyTransferSendInfoScreen/MoneyTransferSendInfoScreen';
+import { MoneyTransferSendMoneyScreen } from 'screens/MoneyTransferSendMoneyScreen/MoneyTransferSendMoneyScreen';
+import { MoneyTransferSendPermissionScreen } from 'screens/MoneyTransferSendPermissionScreen/MoneyTransferSendPermissionScreen';
+import { MoneyTransferSendDetailsScreen } from 'screens/MoneyTransferSendDetailsScreen/MoneyTransferSendDetailsScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -392,6 +402,54 @@ export const ModalNavigator = () => {
         }}
       />
       <Screen
+        name={MONEY_TRANSFER_SEND_SCREEN}
+        component={MoneyTransferSendScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_ADDRESS_SCREEN}
+        component={MoneyTransferSendAddressScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_INFO_SCREEN}
+        component={MoneyTransferSendInfoScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_MONEY_SCREEN}
+        component={MoneyTransferSendMoneyScreen}
+        options={{
+          title: t('moneyTransferSendMoneyScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_PERMISSION_SCREEN}
+        component={MoneyTransferSendPermissionScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_DETAILS_SCREEN}
+        component={MoneyTransferSendDetailsScreen}
+        options={{
+          title: t('moneyTransferSendDetailsScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
         name={NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN}
         component={NewAutomaticPaymentDetailsScreen}
         options={{ title: t('automaticPayments.paymentDetails') }}
@@ -444,15 +502,6 @@ export const ModalNavigator = () => {
         component={TransferDetailScreen}
         options={{
           title: t('transactions.transDetails'),
-        }}
-      />
-      <Screen
-        name={TRANSACTION_FINISHED_SCREEN}
-        component={TransactionFinishedScreen}
-        options={{
-          title: '',
-          gestureEnabled: false,
-          headerLeft: () => null,
         }}
       />
       <Screen
@@ -733,7 +782,6 @@ export const ModalNavigator = () => {
           title: t('transfers.details'),
         }}
       />
-
       <Screen
         name={ALL_TEMPLATES_SCREEN}
         component={AllTemplatesScreen}
@@ -742,7 +790,6 @@ export const ModalNavigator = () => {
           headerShadowVisible: true,
         }}
       />
-
       <Screen
         name={INSURANCE_SUCCESS_SCREEN}
         component={InsuranceSuccessScreen}

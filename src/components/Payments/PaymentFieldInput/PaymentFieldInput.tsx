@@ -1,6 +1,6 @@
 import React from 'react';
 import { ServiceFieldTypeEnum } from 'services/apis/paymentsAPI/paymentEnums';
-import { ControlledInput, TextInput } from 'components';
+import { ControlledInput } from 'components';
 import { PaymentFieldInputProps } from './PaymentFieldInput.types';
 import { PaymentDropDownFieldInput } from './PaymentDropDownFieldInput';
 
@@ -22,6 +22,7 @@ export const PaymentFieldInput: React.FC<PaymentFieldInputProps> = ({
   onChangeText,
   control,
   errors,
+  subscriberFieldsValue,
 }) => {
   switch (item.fieldType) {
     case ServiceFieldTypeEnum.Text:
@@ -35,12 +36,12 @@ export const PaymentFieldInput: React.FC<PaymentFieldInputProps> = ({
           required={true}
           rules={{
             required: {
-              value: item.required,
+              value: true,
               message: 'common:form.is_required',
             },
           }}
           handleChange={text => {
-            text && onChangeText(item.id, text);
+            text && onChangeText(item.id, text, item.key);
           }}
         />
       );
@@ -49,23 +50,42 @@ export const PaymentFieldInput: React.FC<PaymentFieldInputProps> = ({
     case ServiceFieldTypeEnum.DropDown:
       return (
         <PaymentDropDownFieldInput
+          control={control}
+          name={item.key}
+          errors={errors}
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
           item={item}
           value={value}
-          onChangeText={text => {
-            onChangeText(item.id, text);
+          onChangeText={(text, key) => {
+            onChangeText(item.id, text, key);
           }}
+          subscriberFieldsValue={subscriberFieldsValue}
         />
       );
     case ServiceFieldTypeEnum.Number:
       return (
-        <TextInput
+        <ControlledInput
+          control={control}
+          name={item.key}
           label={item.name}
-          value={value}
-          onChangeText={text => {
-            onChangeText(item.id, text);
-          }}
           marginTop={24}
+          errors={errors}
+          required={true}
           keyboardType="numeric"
+          rules={{
+            required: {
+              value: true,
+              message: 'common:form.is_required',
+            },
+          }}
+          handleChange={text => {
+            text && onChangeText(item.id, text, item.key);
+          }}
         />
       );
     default:

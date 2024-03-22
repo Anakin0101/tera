@@ -29,7 +29,11 @@ export const useDashboardScreen = () => {
   });
   const [
     getCustomerOperations,
-    { data: customerOperations, isLoading: customerOperationsLoading },
+    {
+      data: customerOperations,
+      isLoading: customerOperationsLoading,
+      error: customerOperationsError,
+    },
   ] = useGetCustomerOperationsMutation();
   const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
   const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
@@ -167,5 +171,6 @@ export const useDashboardScreen = () => {
     setSelectedAccountFromCard,
     activeCardAccounts,
     groupedUserBalance,
+    customerOperationsError,
   };
 };

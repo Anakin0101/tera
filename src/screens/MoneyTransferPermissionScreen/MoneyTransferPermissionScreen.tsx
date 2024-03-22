@@ -3,17 +3,14 @@ import { ScrollView, View } from 'react-native';
 
 import { Button, Checkbox, Text } from 'components/index';
 import { useStyles } from './MoneyTransferPermissionScreen.style';
-import { CheckedValueEnum, useCheckMoneyTransferProviderInfo } from './container';
+import { useCheckMoneyTransferProviderInfo } from './container';
+import { CheckedValueEnum } from './MoneyTransferPermissionScreen.types';
 
 export const MoneyTransferPermissionScreen = () => {
   const styles = useStyles();
 
   const { checkedValue, setCheckedValue, receiveTransferOnPress, isLoading } =
     useCheckMoneyTransferProviderInfo();
-
-  const onSubmit = () => {
-    receiveTransferOnPress();
-  };
 
   return (
     <View style={styles.container}>
@@ -57,7 +54,7 @@ export const MoneyTransferPermissionScreen = () => {
         <View style={styles.customButtonWrapper}>
           <Button.Primary
             text={'common.next'}
-            onPress={onSubmit}
+            onPress={receiveTransferOnPress}
             fullWidth
             isLoading={isLoading}
             disabled={!checkedValue || isLoading}

@@ -6,11 +6,6 @@ import { TransactionFilters } from 'screens/AllTransactionsScreen/AllTransaction
 import { useListCustomerTransfersQuery } from 'services/apis';
 import { MoneyTransferList } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 
-export const enum TransferListTypeEnum {
-  receive = 1,
-  send = 0,
-}
-
 export const useTransfersHistoryServices = (transferType: number, filters: TransactionFilters) => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
@@ -18,11 +13,11 @@ export const useTransfersHistoryServices = (transferType: number, filters: Trans
     () => ({
       transferType: transferType,
       minAmount: 0,
-      maxAmount: 10000000000,
+      maxAmount: 10000000000, // TODO: change this
       startDate: new Date(filters.startDate).toISOString(),
       endDate: new Date(filters.endDate).toISOString(),
       page: 0,
-      itemsPerPage: 1000000,
+      itemsPerPage: 1000000, // TODO: change this
       sortField: 1,
       sortOrder: 1,
     }),

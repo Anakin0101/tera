@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { Path, Rect } from 'react-native-svg';
 
-export const NoTransactions = () => (
+export const NoTransactionsIcon = () => (
   <Svg width="56" height="56" viewBox="0 0 56 56" fill="none">
     <Rect width="56" height="56" rx="10" fill="#F9F1F6" />
     <Path d="M10 16H10.9394" stroke="white" strokeWidth="4" strokeLinecap="round" />

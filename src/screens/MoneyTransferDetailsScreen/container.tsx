@@ -3,9 +3,9 @@ import { useRoute } from '@react-navigation/native';
 
 import { MainStackRouteProps } from 'navigation/types';
 import { useLazyCheckTransferStatusQuery, useLazyGetMoneyTransferInfoQuery } from 'services/apis';
-import { TransferListTypeEnum } from 'components/TransfersHistory/container';
 import { Transfer, TransferInfo } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { openToast } from 'utils/toast';
+import { TransferListTypeEnum } from 'components/TransfersHistory/TransfersHistory.types';
 
 export const useMoneyTransferDetails = () => {
   const { params } = useRoute<MainStackRouteProps<'MoneyTransferDetailsScreen'>>();

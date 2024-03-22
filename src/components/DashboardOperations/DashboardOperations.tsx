@@ -11,13 +11,15 @@ import {
   ALL_TRANSACTIONS_SCREEN,
   TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
-import { NoTransactions } from 'assets/SVGs';
+import { NoTransactionsIcon } from 'assets/SVGs';
 import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
-import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { MainStackScreenProps } from 'navigation/types';
 import { useStyles } from './DashboardOperations.styles';
+import { NoTransactions } from 'components';
+import { isTransactionType } from 'utils/transactionUtils/isTransactionType';
+import { TransactionItem } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
 
-export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
+export const DashboardOperations: FC<DashboardOperationsProps> = ({ data, hasError }) => {
   const styles = useStyles();
   const { Colors } = useTheme();
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
@@ -29,12 +31,15 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
     });
   }, [navigate]);
 
+  //   only navigate to transaction details, if no blocked transactions
   const onOperationPress = useCallback(
-    (item: TransactionType) => {
-      dispatch(setSelectedTransaction(item));
-      navigate(MODAL_STACK, {
-        screen: TRANSACTION_DETAILS_SCREEN,
-      });
+    (item: TransactionItem) => {
+      if (isTransactionType(item)) {
+        dispatch(setSelectedTransaction(item));
+        navigate(MODAL_STACK, {
+          screen: TRANSACTION_DETAILS_SCREEN,
+        });
+      }
     },
     [dispatch, navigate],
   );
@@ -64,19 +69,16 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data }) => {
             />
           </View>
           <View style={styles.dashboardTemplatesWrapper}>
-            {data?.length ? (
+            {hasError && <NoTransactions text="dashboard.transactionsError" />}
+            {data?.length && (
               <FlatList
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
                 showsHorizontalScrollIndicator={false}
               />
-            ) : (
-              <View style={styles.noTransactionsWrapper}>
-                <NoTransactions />
-                <Text children="dashboard.noTransactions" style={styles.noTransactionsText} />
-              </View>
             )}
+            {!data?.length && !hasError && <NoTransactionsIcon />}
           </View>
         </View>
       </View>

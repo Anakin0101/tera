@@ -27,14 +27,12 @@ export const useStyles = () => {
     imageContainer: {
       width: 48,
       height: 48,
-      borderWidth: 1,
-      borderRadius: 24,
-      borderColor: Colors.inputBlack50,
       ...Layout.center,
     },
     Icon: {
       width: 16,
       height: 16,
+      padding: Spacing.lg,
     },
     seeAll: {
       borderWidth: 1,

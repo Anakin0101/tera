@@ -59,6 +59,7 @@ export const Colors = {
   accountText500: 'rgba(15, 15, 15, 0.64)',
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
+  borderBackground: 'rgba(244, 244, 244, 0.4)',
   grayBorderColor: 'rgba(29, 29, 29, 0.10)',
   primaryToggleButtonCollor: 'rgba(159, 29, 107, 0.06)',
   insuranceBg: 'rgb(249, 243, 247)',
@@ -86,6 +87,7 @@ export const Colors = {
   offerBgGreen: 'rgb(234, 246, 235)',
   rulesColor: 'rgb(119, 119, 119)',
   checkColor: 'rgb(26, 174, 95)',
+  textDisabled: 'rgba(108, 108, 108, 1)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {

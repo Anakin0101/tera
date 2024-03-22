@@ -158,4 +158,5 @@ export { CheckStatic } from './CheckStatic';
 export { SettingsEdit } from './SettingsEdit';
 export { Trusted } from './Trusted';
 export { ArrowHeader } from './ArrowHeader';
-export { NoTransactions } from './NoTransactions';
+export { NoTransactionsIcon } from './NoTransactionsIcon';
+export { TransactionLock } from './TransactionLock';
