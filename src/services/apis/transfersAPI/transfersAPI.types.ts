@@ -276,3 +276,18 @@ export type treasuryReq = {
   b?: string;
   c?: string;
 };
+
+export type ConvertAmountRes = {
+  amountBuy: number;
+  currencyBuy: CurrencyEnum;
+  amountSell: number;
+  currencySell: CurrencyEnum;
+  specialRateUsed: boolean;
+  standardItems: number;
+  standardRate: number;
+  standardReversed: boolean;
+  specialItems: number;
+  specialRate: number;
+  specialReversed: boolean;
+  conversionAvailableLimit: number;
+};

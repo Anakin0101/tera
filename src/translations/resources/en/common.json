@@ -855,6 +855,10 @@
     "tera": "Tera Bank",
     "buy": "Buy",
     "sell": "Sell",
-    "calculator": "Calculator"
+    "calculator": "Calculator",
+    "standardRate": "Standard rate 1{{fromSign}}={{value}}{{toSign}}",
+    "specialRate": " / Your rate 1{{fromSign}}={{value}}{{toSign}}",
+    "convert": "Conversion",
+    "specRateLimit": "Special rate limit: {{value}}₾"
   }
 }

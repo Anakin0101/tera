@@ -1,15 +1,15 @@
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 import { Divider, IconComponent, Text } from 'components';
-import { useStyles } from './ExchangeRatesScreen.styles';
-import { ListItemProps, OfficialRateSignProps } from './ExchangeRatesScreen.types';
 import { formatRate } from 'utils/formatRate';
-import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import Images from 'theme/Images';
 import { Colors } from 'theme/Variables';
-import { ChevronDown, ChevronUp } from 'assets/SVGs';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { ListItemProps } from './ExchangeRatesScreen.types';
+import { useStyles } from './ExchangeRatesScreen.styles';
+import { OfficialRateSign } from './OfficialRateSign';
 
-const getIcon = (currency?: CurrencyEnum) => {
+export const getExchangeIcon = (currency?: CurrencyEnum) => {
   if (!currency) return;
   const currencyIcons = {
     [CurrencyEnum.USD]: Images().Usd,
@@ -22,14 +22,6 @@ const getIcon = (currency?: CurrencyEnum) => {
   return currencyIcons[currency];
 };
 
-const OfficialRateSign: FC<OfficialRateSignProps> = ({ buy }) => {
-  return buy > 0 ? (
-    <ChevronUp color={Colors.success} width={12} height={12} />
-  ) : (
-    <ChevronDown color={Colors.error} width={12} height={12} />
-  );
-};
-
 export const ListItem: FC<ListItemProps> = memo(({ item }) => {
   const styles = useStyles();
 
@@ -37,7 +29,7 @@ export const ListItem: FC<ListItemProps> = memo(({ item }) => {
     <View>
       <View style={styles.item}>
         <IconComponent
-          pngLocalIcon={getIcon(item?.currency)}
+          pngLocalIcon={getExchangeIcon(item?.currency)}
           pngLocalIconCustomStyle={styles.icon}
           customIconComponentStyles={styles.iconContainer}
         />
@@ -56,7 +48,7 @@ export const ListItem: FC<ListItemProps> = memo(({ item }) => {
               letterSpacing={-0.5}
               children={formatRate(item?.official?.sell || 0)}
             />
-            {item.official && (
+            {item?.official && (
               <View style={styles.official}>
                 <OfficialRateSign buy={item?.official?.buy} />
                 <Text
@@ -74,7 +66,7 @@ export const ListItem: FC<ListItemProps> = memo(({ item }) => {
           <View style={styles.fill}>
             <Text size={12} lineHeight={16} secondary children="exchange.buy" />
             {item?.special && (
-              <Text size={16} lineHeight={24} children={formatRate(item?.special.buy)} />
+              <Text size={16} lineHeight={24} children={formatRate(item?.special?.buy)} />
             )}
             <Text
               size={16}
@@ -85,7 +77,7 @@ export const ListItem: FC<ListItemProps> = memo(({ item }) => {
           <View style={styles.fill}>
             <Text size={12} lineHeight={16} secondary children="exchange.sell" />
             {item?.special && (
-              <Text size={16} lineHeight={24} children={formatRate(item?.special.sell)} />
+              <Text size={16} lineHeight={24} children={formatRate(item?.special?.sell)} />
             )}
             <Text
               size={16}

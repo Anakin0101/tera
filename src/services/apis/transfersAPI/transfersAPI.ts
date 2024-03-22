@@ -11,6 +11,7 @@ import {
   treasuryReq,
   sendTreasuryRes,
   sendTreasuryReq,
+  ConvertAmountRes,
 } from './transfersAPI.types';
 
 const commonHeaders = {
@@ -23,7 +24,7 @@ export const transfersAPI = createApi({
   baseQuery: baseQueryWithInterceptor,
   tagTypes: ['Transfers'],
   endpoints: builder => ({
-    convertAmountBuy: builder.query<any, convertAmountBuyRequestType>({
+    convertAmountBuy: builder.query<ConvertAmountRes, convertAmountBuyRequestType>({
       query: ({ amountBuy, currencyBuy, currencySell }) => ({
         url: `${URLS.getAmount}?amountBuy=${amountBuy}&currencyBuy=${currencyBuy}&currencySell=${currencySell}`,
         method: METHOD_NAMES.GET,

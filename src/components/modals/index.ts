@@ -15,3 +15,4 @@ export { SelectPaymentFieldModal } from './SelectPaymentFieldModal/SelectPayment
 export { CodeWordModal } from './CodeWordModal/CodeWordModal';
 export { AutomaticPaymentDateModal } from './AutomaticPaymentDateModal/AutomaticPaymentDateModal';
 export { AccountExtractionModal } from './AccountExtractionModal/AccountExtractionModal';
+export { ExchangeRateCalculatorModal } from './ExchangeRateCalculatorModal/ExchangeRateCalculatorModal';

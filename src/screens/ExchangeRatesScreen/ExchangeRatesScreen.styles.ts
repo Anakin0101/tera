@@ -8,12 +8,12 @@ export const useStyles = () => {
       ...Layout.fill,
       backgroundColor: Colors.white,
       paddingBottom: 20,
+      borderTopLeftRadius: Spacing.xl,
+      borderTopRightRadius: Spacing.xl,
     },
     header: {
       ...Layout.row,
       backgroundColor: Colors.white,
-      borderTopLeftRadius: Spacing.xl,
-      borderTopRightRadius: Spacing.xl,
       paddingTop: Spacing.xl,
       paddingBottom: Spacing.m,
       marginTop: Spacing.xl,
@@ -44,8 +44,7 @@ export const useStyles = () => {
       margin: Spacing.zero,
     },
     marginTop: {
-      // top: Spacing.xs,
-      top: 8,
+      top: Spacing.s,
     },
     officialRates: {
       ...Layout.fill,
