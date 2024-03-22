@@ -30,12 +30,8 @@ export const useStyles = () => {
       marginHorizontal: Spacing.xl,
     },
     iconWrapper: {
-      width: 48,
-      height: 48,
-      ...Layout.center,
-      borderWidth: 1,
-      borderColor: Colors.borderColor,
-      borderRadius: 50,
+      width: 40,
+      height: 40,
       marginRight: Spacing.m,
     },
     title: {

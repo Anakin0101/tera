@@ -35,5 +35,10 @@ export const useStyles = () => {
     searchWrapper: {
       marginHorizontal: 0,
     },
+    headerTitle: {
+      fontSize: FontSize.regularPlus,
+      lineHeight: 22,
+      letterSpacing: -0.5,
+    },
   });
 };

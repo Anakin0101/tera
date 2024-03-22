@@ -45,11 +45,6 @@ export const SelectCurrencyModal: FC<SelectCurrencyModalProps> = memo(
           renderItem={renderItem}
           contentContainerStyle={styles.listWrapper}
           showsVerticalScrollIndicator={false}
-          removeClippedSubviews={true}
-          initialNumToRender={15}
-          maxToRenderPerBatch={15}
-          windowSize={15}
-          updateCellsBatchingPeriod={15}
         />
         <Button.Primary
           fullWidth

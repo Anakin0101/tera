@@ -42,7 +42,7 @@ export const SelectTransferFieldModal: FC<SelectTransferFieldModalProps> = memo(
 
     return (
       <View style={styles.container}>
-        <Text>
+        <Text style={styles.headerTitle}>
           {t('common.choose')} {name}
         </Text>
         <SearchComponent
@@ -57,7 +57,6 @@ export const SelectTransferFieldModal: FC<SelectTransferFieldModalProps> = memo(
           renderItem={renderItem}
           contentContainerStyle={styles.listWrapper}
           showsVerticalScrollIndicator={false}
-          removeClippedSubviews={true}
           initialNumToRender={15}
           maxToRenderPerBatch={15}
           windowSize={15}

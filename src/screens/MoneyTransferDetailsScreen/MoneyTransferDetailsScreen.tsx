@@ -36,7 +36,8 @@ export const MoneyTransferDetailsScreen = () => {
       case MoneyTransferStatusEnum.received:
         return <Text style={[styles.itemDesc, styles.success]} children={'common.received'} />;
     }
-  }, [styles.itemDesc, styles.pending, styles.rejected, styles.success, transferDetails?.status]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transferDetails?.status]);
 
   const copyToClipboard = () => {
     Clipboard.setString(

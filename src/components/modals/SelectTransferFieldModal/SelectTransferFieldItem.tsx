@@ -13,7 +13,7 @@ export const SelectTransferFieldItem: FC<SelectTransferFieldItemProps> = memo(
       <Pressable onPress={() => onPress(fieldItem)} style={styles.itemWrapper}>
         <View style={styles.itemContainer}>
           <Text style={[styles.itemTitle, isSelected && styles.itemSelected]}>
-            {fieldItem.value}
+            {fieldItem?.value}
           </Text>
           {isSelected && <CheckCircle />}
         </View>

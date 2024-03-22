@@ -1,12 +1,13 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { Button, Text } from 'components/index';
+import { Button, IconComponent, Text } from 'components/index';
 import { useStyles } from './MoneyTransferSendDetailsScreen.style';
 import { useMoneyTransferSendDetails } from './container';
 import { formatMoney } from 'utils/formatMoney';
 import { getCurrencyIcon } from 'utils/currency';
 import { useTranslation } from 'react-i18next';
+import Images from 'theme/Images';
 
 export const MoneyTransferSendDetailsScreen = () => {
   const styles = useStyles();
@@ -29,9 +30,11 @@ export const MoneyTransferSendDetailsScreen = () => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.wrapper} showsVerticalScrollIndicator={false}>
         <View style={styles.infoWrapper}>
-          <View style={styles.iconWrapper}>
-            <Text children={'💸'} />
-          </View>
+          <IconComponent
+            customIconComponentStyles={styles.iconWrapper}
+            pngLocalIcon={Images().SendIcon}
+            pressable={false}
+          />
           <View>
             <Text children={'moneyTransferSendScreen.title'} style={styles.title} />
             <Text
