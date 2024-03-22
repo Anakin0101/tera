@@ -53,6 +53,12 @@ export const MONEY_TRANSFER_RECEIVE_SCREEN = 'MoneyTransferReceiveScreen';
 export const CHECK_MONEY_TRANSFER_PROVIDER_SCREEN = 'CheckMoneyTransferProviderScreen';
 export const MONEY_TRANSFER_PERMISSION_SCREEN = 'MoneyTransferPermissionScreen';
 export const MONEY_TRANSFER_DETAILS_SCREEN = 'MoneyTransferDetailsScreen';
+export const MONEY_TRANSFER_SEND_SCREEN = 'MoneyTransferSendScreen';
+export const MONEY_TRANSFER_SEND_MONEY_SCREEN = 'MoneyTransferSendMoneyScreen';
+export const MONEY_TRANSFER_SEND_ADDRESS_SCREEN = 'MoneyTransferSendAddressScreen';
+export const MONEY_TRANSFER_SEND_PERMISSION_SCREEN = 'MoneyTransferSendPermissionScreen';
+export const MONEY_TRANSFER_SEND_INFO_SCREEN = 'MoneyTransferSendInfoScreen';
+export const MONEY_TRANSFER_SEND_DETAILS_SCREEN = 'MoneyTransferSendDetailsScreen';
 export const PAYMENT_ERROR_SCREEN = 'PaymentErrorScreen';
 export const NEW_PAYMENT_SCREEN = 'NewPaymentScreen';
 

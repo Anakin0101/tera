@@ -14,4 +14,6 @@ export { ChooseBankAccountModal } from './ChooseBankAccountModal/ChooseBankAccou
 export { SelectPaymentFieldModal } from './SelectPaymentFieldModal/SelectPaymentFieldModal';
 export { CodeWordModal } from './CodeWordModal/CodeWordModal';
 export { AutomaticPaymentDateModal } from './AutomaticPaymentDateModal/AutomaticPaymentDateModal';
+export { SelectTransferFieldModal } from './SelectTransferFieldModal/SelectTransferFieldModal';
+export { SelectCurrencyModal } from './SelectCurrencyModal/SelectCurrencyModal';
 export { AccountExtractionModal } from './AccountExtractionModal/AccountExtractionModal';

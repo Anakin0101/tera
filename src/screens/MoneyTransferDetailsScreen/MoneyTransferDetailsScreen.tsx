@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Pressable, ScrollView } from 'react-native';
 
 import { Divider, IconComponent, LoadingView, Text } from 'components/index';
 import { useStyles } from './MoneyTransferDetailsScreen.style';
 import Images from 'theme/Images';
-import { TransferListTypeEnum } from 'components/TransfersHistory/container';
 import { MoneyTransferStatusEnum } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { Copy } from 'assets/SVGs';
 import { formatDateFullMonth } from 'utils/formatDate';
@@ -13,6 +12,7 @@ import { formatMoney } from 'utils/formatMoney';
 import { getCurrencyIcon } from 'utils/currency';
 import { Spacing } from 'theme/Variables';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { TransferListTypeEnum } from 'components/TransfersHistory/TransfersHistory.types';
 
 export const MoneyTransferDetailsScreen = () => {
   const styles = useStyles();
@@ -25,7 +25,7 @@ export const MoneyTransferDetailsScreen = () => {
     return images[transferDetails?.mtSystem] || null;
   };
 
-  const renderStatus = () => {
+  const renderStatus = useCallback(() => {
     switch (transferDetails?.status) {
       case MoneyTransferStatusEnum.pending:
         return <Text style={[styles.itemDesc, styles.pending]} children={'common.pending'} />;
@@ -36,7 +36,8 @@ export const MoneyTransferDetailsScreen = () => {
       case MoneyTransferStatusEnum.received:
         return <Text style={[styles.itemDesc, styles.success]} children={'common.received'} />;
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transferDetails?.status]);
 
   const copyToClipboard = () => {
     Clipboard.setString(
@@ -47,11 +48,7 @@ export const MoneyTransferDetailsScreen = () => {
     );
   };
 
-  if (isLoading) {
-    return <LoadingView />;
-  }
-
-  const renderDetails = () => {
+  const renderDetails = useCallback(() => {
     if (transferType === TransferListTypeEnum.receive) {
       return (
         <>
@@ -59,14 +56,14 @@ export const MoneyTransferDetailsScreen = () => {
           {renderStatus()}
           <Text children={'common.receiver'} style={styles.itemDescTitle} />
           <Text
-            children={`${transferDetails.receiverFirstName} ${transferDetails.receiverLastName}`}
+            children={`${transferDetails?.receiverFirstName} ${transferDetails?.receiverLastName}`}
             style={styles.itemDesc}
           />
           <Text children={'common.bankAccountNumber'} style={styles.itemDescTitle} />
           <Text children={transferInfo?.receiveBankAccountNumber} style={styles.itemDesc} />
           <Text children={'common.sender'} style={styles.itemDescTitle} />
           <Text
-            children={`${transferDetails.senderFirstName} ${transferDetails.senderLastName}`}
+            children={`${transferDetails?.senderFirstName} ${transferDetails?.senderLastName}`}
             style={styles.itemDesc}
           />
           <Text children={'common.country'} style={styles.itemDescTitle} />
@@ -80,7 +77,7 @@ export const MoneyTransferDetailsScreen = () => {
           {renderStatus()}
           <Text children={'common.receiver'} style={styles.itemDescTitle} />
           <Text
-            children={`${transferDetails.receiverFirstName} ${transferDetails.receiverLastName}`}
+            children={`${transferDetails?.receiverFirstName} ${transferDetails?.receiverLastName}`}
             style={styles.itemDesc}
           />
           <Text children={'common.country'} style={styles.itemDescTitle} />
@@ -89,7 +86,7 @@ export const MoneyTransferDetailsScreen = () => {
           <Text children={transfer?.receiveCity} style={styles.itemDesc} />
           <Text children={'common.sender'} style={styles.itemDescTitle} />
           <Text
-            children={`${transferDetails.senderFirstName} ${transferDetails.senderLastName}`}
+            children={`${transferDetails?.senderFirstName} ${transferDetails?.senderLastName}`}
             style={styles.itemDesc}
           />
           <Text children={'common.country'} style={styles.itemDescTitle} />
@@ -101,8 +98,27 @@ export const MoneyTransferDetailsScreen = () => {
         </>
       );
     }
-  };
+  }, [
+    renderStatus,
+    styles.itemDesc,
+    styles.itemDescTitle,
+    transfer?.payoutAmount,
+    transfer?.receiveCity,
+    transfer?.receiveCountry,
+    transfer?.sendCountry,
+    transfer?.totalFee,
+    transferDetails?.receiverFirstName,
+    transferDetails?.receiverLastName,
+    transferDetails?.senderFirstName,
+    transferDetails?.senderLastName,
+    transferInfo?.receiveBankAccountNumber,
+    transferInfo?.sendCountry,
+    transferType,
+  ]);
 
+  if (isLoading) {
+    return <LoadingView />;
+  }
   return (
     <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.wrapper}>

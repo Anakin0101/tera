@@ -15,6 +15,7 @@ import {
 } from 'components/index';
 import { useStyles } from './CheckMoneyTransferProviderScreen.style';
 import { useCheckMoneyTransferProviderInfo } from './container';
+import { PROD_URLS } from 'services/constants/urls';
 
 export const CheckMoneyTransferProviderScreen = () => {
   const styles = useStyles();
@@ -52,7 +53,7 @@ export const CheckMoneyTransferProviderScreen = () => {
 
   const openTermsAndConditions = () => {
     try {
-      Linking.openURL('https://terabank.ge/standterms');
+      Linking.openURL(PROD_URLS.TERMS_URL);
     } catch (e) {
       console.warn('openTermsAndConditions', e);
     }

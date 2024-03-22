@@ -21,7 +21,7 @@ export const useStyles = () => {
       letterSpacing: -0.2,
       color: Colors.textBlack,
       fontFamily: FontFamily.main,
-      textAlign: 'center',
+      ...Layout.alignItemsCenter,
     },
     desc: {
       marginTop: Spacing.xlm,
@@ -36,9 +36,9 @@ export const useStyles = () => {
       paddingBottom: Spacing.xxxl,
     },
     ctaWrapper: {
-      position: 'absolute',
+      ...Layout.absolute,
       bottom: Spacing.ml,
-      width: '100%',
+      ...Layout.fullWidth,
     },
     customButtonWrapper: {
       paddingHorizontal: Spacing.xl,

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { View, Pressable, Alert } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, IconComponent, TabBarComponent, Text, TransfersHistory } from 'components/index';
 import { useStyles } from './MoneyTransfersScreen.style';
 import { MainStackScreenProps } from 'navigation/types';
 import Images from 'theme/Images';
-import { MONEY_TRANSFER_RECEIVE_SCREEN } from 'navigation/ScreenNames';
-import { TransferListTypeEnum } from 'components/TransfersHistory/container';
+import { MONEY_TRANSFER_RECEIVE_SCREEN, MONEY_TRANSFER_SEND_SCREEN } from 'navigation/ScreenNames';
 import { openModal } from 'utils/modal';
 import { FilterByDate } from 'components/modals/FilterTransactionsModal/FilterByDate';
 import { TransactionFilters } from 'screens/AllTransactionsScreen/AllTransactionsScreen.types';
+import { TransferListTypeEnum } from 'components/TransfersHistory/TransfersHistory.types';
 
 const routes = [
   { key: 'receive', title: 'common.receive' },
@@ -23,7 +23,7 @@ export const MoneyTransfersScreen = () => {
 
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [filters, setFilters] = useState<TransactionFilters>({
-    startDate: '2023-04-30T09:50:01.251Z',
+    startDate: '2023-04-30T09:50:01.251Z', // TODO: change this, აქ ეს საოცარი თარიღი ჭირდება აზრის სერვისისთვის
     endDate: new Date().toISOString(),
     accountNumber: null,
     currency: null,
@@ -32,6 +32,10 @@ export const MoneyTransfersScreen = () => {
 
   const receiveMoneyOnPress = () => {
     navigate(MONEY_TRANSFER_RECEIVE_SCREEN);
+  };
+
+  const sendMoneyOnPress = () => {
+    navigate(MONEY_TRANSFER_SEND_SCREEN);
   };
 
   const onDatePress = () => {
@@ -48,7 +52,7 @@ export const MoneyTransfersScreen = () => {
       <View style={styles.headerButtonsWrapper}>
         <Pressable
           style={[styles.headerButtonItem, styles.headerButtonItemMargin]}
-          onPress={() => Alert.alert('send')}
+          onPress={sendMoneyOnPress}
         >
           <IconComponent
             customIconComponentStyles={styles.icon}

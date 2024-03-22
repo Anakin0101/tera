@@ -2,10 +2,22 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { baseQueryWithInterceptor } from 'services/api';
 import { METHOD_NAMES, URLS } from 'services/constants';
 import {
+  DictionariesParams,
+  DictionariesResponse,
   FindTransferRequestParams,
   FindTransferResponse,
+  GerCitiesResponse,
+  GetAddressRequestParams,
+  GetAddressResponse,
+  GetCitiesRequestParams,
   GetMoneyTransferListRequestParams,
+  GetMtSystemParams,
+  GetMtSystemResponse,
   MoneyTransferListResponse,
+  MoneyTransferSendRequestParams,
+  MoneyTransferSendResponse,
+  PrepareTransferRequestParams,
+  PrepareTransferResponse,
   ReceiveTransferRequestParams,
   ReceiveTransferResponse,
   ReceiverTsMTSystemsResponse,
@@ -13,6 +25,7 @@ import {
   TransferInfoResponse,
   TransferStatusRequestParams,
   TransferStatusResponse,
+  TsMTSystemsResponse,
 } from './moneyTransfersAPI.types';
 
 export const moneyTransfersAPI = createApi({
@@ -64,6 +77,54 @@ export const moneyTransfersAPI = createApi({
         params,
       }),
     }),
+    getTsMTSystems: builder.query<TsMTSystemsResponse, void>({
+      query: () => ({
+        url: URLS.getTsMTSystems,
+        method: METHOD_NAMES.GET,
+      }),
+    }),
+    getMTSystem: builder.query<GetMtSystemResponse, GetMtSystemParams>({
+      query: params => ({
+        url: URLS.getMTSystem,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
+    getDirections: builder.query<DictionariesResponse, DictionariesParams>({
+      query: params => ({
+        url: URLS.getDirections,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
+    getCities: builder.query<GerCitiesResponse, GetCitiesRequestParams>({
+      query: params => ({
+        url: URLS.getCities,
+        method: METHOD_NAMES.GET,
+        params,
+      }),
+    }),
+    getAddress: builder.mutation<GetAddressResponse, GetAddressRequestParams>({
+      query: body => ({
+        url: URLS.getAddress,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+    prepareTransferSend: builder.mutation<PrepareTransferResponse, PrepareTransferRequestParams>({
+      query: body => ({
+        url: URLS.prepareTransferSend,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
+    sendTransfer: builder.mutation<MoneyTransferSendResponse, MoneyTransferSendRequestParams>({
+      query: body => ({
+        url: URLS.sendTransfer,
+        method: METHOD_NAMES.POST,
+        body,
+      }),
+    }),
   }),
 });
 
@@ -74,4 +135,11 @@ export const {
   useListCustomerTransfersQuery,
   useLazyGetMoneyTransferInfoQuery,
   useLazyCheckTransferStatusQuery,
+  useGetTsMTSystemsQuery,
+  useGetMTSystemQuery,
+  useGetDirectionsQuery,
+  useLazyGetCitiesQuery,
+  useGetAddressMutation,
+  usePrepareTransferSendMutation,
+  useSendTransferMutation,
 } = moneyTransfersAPI;
