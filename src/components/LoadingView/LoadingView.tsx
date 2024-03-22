@@ -1,19 +1,15 @@
 import React from 'react';
 import { Modal, View } from 'react-native';
 import { useStyles } from './LoadingView.styles';
-import LottieView from 'lottie-react-native';
+import { LoadingIconComponent } from './LoadingIconComponent';
+import { LoadingViewType } from './LoadingView.types';
 
-export const LoadingView = () => {
+export const LoadingView = ({ size }: LoadingViewType) => {
   const styles = useStyles();
   return (
     <Modal visible={true} transparent={false}>
       <View style={styles.loadingSpinnerContainer}>
-        <LottieView
-          style={styles.loadingSpinner}
-          source={require('./LoadingViewAnimation.json')}
-          autoPlay
-          loop
-        />
+        <LoadingIconComponent size={size} />
       </View>
     </Modal>
   );

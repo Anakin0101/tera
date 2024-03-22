@@ -521,7 +521,8 @@
     "city": "city",
     "address": "address",
     "receiverBank": "Receiver Bank",
-    "mediatorBank": "Mediator Bank"
+    "mediatorBank": "Mediator Bank",
+    "downloadReceiptError": "Error during receipt download. Please try again later"
   },
   "filters": {
     "income": "Income",

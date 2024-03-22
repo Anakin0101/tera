@@ -1,19 +1,15 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import LottieView from 'lottie-react-native';
 import { useStyles } from './LoadingView.styles';
+import { LoadingIconComponent } from './LoadingIconComponent';
+import { LoadingViewType } from './LoadingView.types';
 
-export const TransparentLoadingView = () => {
+export const TransparentLoadingView = ({ size }: LoadingViewType) => {
   const styles = useStyles();
 
   return (
     <SafeAreaView style={styles.transparentLoadingView}>
-      <LottieView
-        style={styles.loadingSpinner}
-        source={require('./LoadingViewAnimation.json')}
-        autoPlay
-        loop
-      />
+      <LoadingIconComponent size={size} />
     </SafeAreaView>
   );
 };

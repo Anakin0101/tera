@@ -98,6 +98,7 @@ export const URLS = {
   removeFromFavourite: 'Account/RemoveFromFavourite',
   getGroupedUserBalance: 'Account/GetGroupedUserBalance',
   getBlockedTransactions: '/Transaction/GetAccountsBlocks',
+  printOps: 'Transaction/PrintOps',
 };
 
 export const PROD_URLS = {
