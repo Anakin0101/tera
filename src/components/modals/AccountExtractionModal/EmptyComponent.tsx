@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'components';
 import { Colors } from 'theme/Variables';
-import { NoTransactions } from 'assets/SVGs/NoTransactions';
+import { NoTransactions } from 'assets/SVGs';
 import { useStyles } from './AccountExtractionModal.styles';
 
 export const EmptyComponent = () => {

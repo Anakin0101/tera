@@ -733,15 +733,7 @@ export const ModalNavigator = () => {
           title: t('transfers.details'),
         }}
       />
-      <Screen
-        name={TRANSACTION_FINISHED_SCREEN}
-        component={TransactionFinishedScreen}
-        options={{
-          title: '',
-          gestureEnabled: false,
-          headerLeft: () => null,
-        }}
-      />
+
       <Screen
         name={ALL_TEMPLATES_SCREEN}
         component={AllTemplatesScreen}
@@ -750,13 +742,7 @@ export const ModalNavigator = () => {
           headerShadowVisible: true,
         }}
       />
-      <Screen
-        name={TRANSFER_TO_ACCOUNT_SCREEN}
-        component={TransferToAccountScreen}
-        options={{
-          title: t('transfers.toOwnAccount'),
-        }}
-      />
+
       <Screen
         name={INSURANCE_SUCCESS_SCREEN}
         component={InsuranceSuccessScreen}

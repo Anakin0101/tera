@@ -8,7 +8,7 @@ import { useStyles } from './CreateCodeModal.styles';
 import BudgetRenderItem from './BudgetRenderItem';
 import { renderItemProps } from './CreateModal.types';
 import { getTextForIndex } from 'utils/transactionUtils';
-import { ArrowHeader } from 'assets/SVGs/ArrowHeader';
+import { ArrowHeader } from 'assets/SVGs';
 import LottieView from 'lottie-react-native';
 
 export const CreateCodeModal = memo(() => {

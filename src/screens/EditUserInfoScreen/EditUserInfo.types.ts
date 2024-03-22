@@ -5,3 +5,7 @@ export type UserInfoFormData = {
   phone: string | null;
   address: string | undefined;
 };
+
+export type ModalPropsType = {
+  onPress: (isDelete: boolean) => void;
+};

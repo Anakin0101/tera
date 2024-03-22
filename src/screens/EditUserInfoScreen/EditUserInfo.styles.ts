@@ -43,7 +43,7 @@ export const useStyles = () => {
     EditIconWrapper: {
       ...Layout.center,
       ...Layout.absolute,
-      top: 60,
+      top: 45,
       right: 135,
     },
     doneWrapper: {
@@ -60,13 +60,18 @@ export const useStyles = () => {
       fontSize: FontSize.tiny,
       color: Colors.rulesColor,
       fontFamily: FontFamily.main,
-      marginTop: Spacing.xxs,
     },
     userName: {
       fontSize: FontSize.regular,
       color: Colors.pinColor,
       fontFamily: FontFamily.main,
       marginTop: Spacing.xxs,
+    },
+    deleteText: {
+      color: Colors.red,
+    },
+    selectText: {
+      color: Colors.black700,
     },
   });
 };

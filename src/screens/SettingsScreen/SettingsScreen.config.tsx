@@ -1,22 +1,9 @@
-import { Key, NotificationsManage, Shield, UserIcon } from 'assets/SVGs';
+import { Key, NotificationsManage, Shield } from 'assets/SVGs';
 import { SettingsConfigType } from './SettingsScreen.types';
-import { AUTHORIZATION_METHODS_SCREEN, EDIT_USER_INFO_SCREEN } from 'navigation/ScreenNames';
-import { CodeSecurity } from 'assets/SVGs/CodeSecurity';
-import { Trusted } from 'assets/SVGs/Trusted';
+import { AUTHORIZATION_METHODS_SCREEN } from 'navigation/ScreenNames';
+import { Trusted } from 'assets/SVGs';
 
 export const SettingsScreenConfig: SettingsConfigType[] = [
-  {
-    title: 'settings.personal_info',
-    subContent: [
-      {
-        index: 0,
-        id: 'settings.edit_user',
-        text: 'settings.edit_user',
-        icon: UserIcon,
-        navigateTo: EDIT_USER_INFO_SCREEN,
-      },
-    ],
-  },
   {
     title: 'settings.security_settings',
     subContent: [
@@ -25,13 +12,6 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
         id: 'settings.change_password',
         text: 'settings.change_password',
         icon: Key,
-        navigateTo: AUTHORIZATION_METHODS_SCREEN,
-      },
-      {
-        index: 1,
-        id: 'settings.change_code_word',
-        text: 'settings.change_code_word',
-        icon: CodeSecurity,
         navigateTo: AUTHORIZATION_METHODS_SCREEN,
       },
       {

@@ -11,7 +11,7 @@ import {
   ALL_TRANSACTIONS_SCREEN,
   TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
-import { NoTransactions } from 'assets/SVGs/NoTransactions';
+import { NoTransactions } from 'assets/SVGs';
 import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
 import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 import { MainStackScreenProps } from 'navigation/types';

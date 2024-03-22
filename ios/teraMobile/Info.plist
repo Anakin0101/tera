@@ -67,5 +67,7 @@
 	<string>to calculate distance between your current location and tera service centers</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>to calculate distance between your current location and tera service centers</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+<string>Tera Bank requests permission to access your photo library to enable you to upload a photo directly from your library for your user profile.</string>
 </dict>
 </plist>

@@ -88,3 +88,8 @@ export type UpdateParametersRespType = {
   status: number;
   detail: string;
 };
+
+export type UpdateUserProfileRequestType = {
+  image?: string;
+  culture?: string;
+};

@@ -98,6 +98,7 @@ export const URLS = {
   setAsFavourite: 'Account/SetAsFavourite',
   removeFromFavourite: 'Account/RemoveFromFavourite',
   getGroupedUserBalance: 'Account/GetGroupedUserBalance',
+  updateUserProfile: 'Customers/UpdateProfilePicture',
 };
 
 export const PROD_URLS = {

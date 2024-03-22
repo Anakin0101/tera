@@ -1,21 +1,21 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { Button, ControlledInput, IconComponent } from 'components';
-import { CheckCircle, UserIcon } from 'assets/SVGs';
+import { CheckCircle, CheckStatic } from 'assets/SVGs';
 import { useStyles } from './EditUserInfo.styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { REGEX } from 'constants/index';
-import { CheckStatic } from 'assets/SVGs/CheckStatic';
+
 import { Colors } from 'theme/Variables';
 import { useEditUserInfo } from './container';
 import { useTranslation } from 'react-i18next';
-import { SettingsEdit } from 'assets/SVGs/SettingsEdit';
+import { SettingsEdit } from 'assets/SVGs';
+import { DefaultImage } from './utilis';
 
 export const EditUserInfo = () => {
   const styles = useStyles();
   const { t } = useTranslation();
   const {
-    loginName,
     isLatin,
     isMinLength,
     imageId,
@@ -28,21 +28,19 @@ export const EditUserInfo = () => {
     handleSubmit,
     handleRequestUdateParameters,
     updateParametersLoading,
+
+    onProfileImagePress,
+    fullName,
   } = useEditUserInfo();
 
   return (
     <ScrollView>
       <View style={styles.main}>
-        <View style={styles.userWrapper}>
+        <Pressable onPress={onProfileImagePress} style={styles.userWrapper}>
           {imageId ? (
             <IconComponent imageId={imageId} />
           ) : (
-            <IconComponent
-              customIconSize={38}
-              IconJSX={UserIcon}
-              customIconComponentStyles={styles.icon}
-              hasBorder={false}
-            />
+            <IconComponent base64Image={DefaultImage} isSecure={true} />
           )}
           <View style={styles.EditIconWrapper}>
             <IconComponent
@@ -50,11 +48,14 @@ export const EditUserInfo = () => {
               IconJSX={SettingsEdit}
               customIconComponentStyles={styles.EditIcon}
               hasBorder={false}
+              handler={onProfileImagePress}
             />
           </View>
-          <Text style={styles.userNameTitle}>{t('settings.userName')}</Text>
-          <Text style={styles.userName}>{loginName}</Text>
+        </Pressable>
+        <View style={styles.userWrapper}>
+          <Text style={styles.userName}>{fullName}</Text>
         </View>
+
         <View>
           <ControlledInput
             marginTop={8}
