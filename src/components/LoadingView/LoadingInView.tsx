@@ -7,7 +7,7 @@ import { LoadingViewType } from './LoadingView.types';
 export const LoadingInView = ({ size, containerStyle }: LoadingViewType) => {
   const styles = useStyles();
   return (
-    <View style={[(styles.loadingSpinnerContainer, containerStyle)]}>
+    <View style={[styles.loadingSpinnerContainer, containerStyle]}>
       <LoadingIconComponent size={size} />
     </View>
   );
