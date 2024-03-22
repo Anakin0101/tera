@@ -7,5 +7,11 @@ export const useGlobalStyles = () => {
     fill: {
       ...Layout.fill,
     },
+    zIndexFull: {
+      zIndex: 999,
+    },
+    row: {
+      ...Layout.row,
+    },
   });
 };

@@ -54,6 +54,7 @@ export const FilterByTransactionType: FC<TransactionByAccModalProps> = ({ setFil
       <View style={styles.transactionTypeModal}>
         {types.map(item => (
           <Pressable
+            key={item.id}
             style={[styles.type, type === item.id && styles.selectedItem]}
             onPress={() => setType(item.id)}
           >

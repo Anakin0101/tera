@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useDefaultHeaderHeight, useTheme } from 'hooks';
-import { config, moderateScale } from 'utils/config';
+import { config, moderateScale, verticalScale } from 'utils/config';
 
 export const useStyles = () => {
   const { Layout, Spacing, Colors, Fonts } = useTheme();
@@ -52,7 +52,7 @@ export const useStyles = () => {
       borderTopRightRadius: Spacing.xl,
       borderColor: Colors.white,
       backgroundColor: Colors.white,
-      minHeight: config.mobileHeight - headerHeight - 240,
+      minHeight: config.mobileHeight - headerHeight - 170,
     },
     sectionHeader: {
       margin: Spacing.xl,
@@ -111,6 +111,10 @@ export const useStyles = () => {
       height: 50,
       backgroundColor: Colors.white,
     },
+    loadingView: {
+      ...Layout.justifyContentStart,
+      marginTop: verticalScale(Spacing.xxxl),
+    },
     unselected: {
       backgroundColor: Colors.white,
     },
@@ -126,6 +130,9 @@ export const useStyles = () => {
     },
     transactionTypeLabel: {
       maxWidth: 150,
+    },
+    noTransactionsContainer: {
+      flexGrow: 1,
     },
   });
 };
