@@ -7,7 +7,7 @@ import { closeModal, openModal } from 'utils/modal';
 import { OTPModal } from 'components/modals';
 import { useCulture } from 'hooks/useCulture';
 import { openToast } from 'utils/toast';
-import { MODAL_STACK, PAYMENT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
+import { PAYMENT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 import { useChooseBankAccount } from 'components/modals/ChooseBankAccountModal/container';
 
 export enum CheckedValueEnum {
@@ -86,12 +86,7 @@ export const useCheckMoneyTransferProviderInfo = () => {
           }
         } else if (response) {
           if (response.data.transferInfo) {
-            navigate(MODAL_STACK, {
-              screen: PAYMENT_SUCCESS_SCREEN,
-              params: {
-                transferResponse,
-              },
-            });
+            navigate(PAYMENT_SUCCESS_SCREEN, transferResponse);
           } else {
             return response.data;
           }

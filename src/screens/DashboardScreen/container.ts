@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   useGetBannersQuery,
   useGetDepositsQuery,
+  useGetGroupedUserBalanceQuery,
   useGetOffersQuery,
   useGetTerabyteQuery,
   useGetTotalSavingMutation,
@@ -28,7 +29,11 @@ export const useDashboardScreen = () => {
   });
   const [
     getCustomerOperations,
-    { data: customerOperations, isLoading: customerOperationsLoading },
+    {
+      data: customerOperations,
+      isLoading: customerOperationsLoading,
+      error: customerOperationsError,
+    },
   ] = useGetCustomerOperationsMutation();
   const { data: creditCards, isLoading: creditCardsLoading } = useGetCreditCardsQuery();
   const { data: overDraft, isLoading: overDraftLoading } = useGetOverDraftQuery();
@@ -49,6 +54,7 @@ export const useDashboardScreen = () => {
   const { data: offers, isLoading: offersLoading } = useGetOffersQuery();
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [selectedAccountFromCard, setSelectedAccountFromCard] = useState<Account>();
+  const { data: groupedUserBalance, isLoading: balanceLoading } = useGetGroupedUserBalanceQuery();
 
   useEffect(() => {
     getTotalSaving({
@@ -113,7 +119,8 @@ export const useDashboardScreen = () => {
       depositsLoading ||
       isLoadingAccounts ||
       terabyteLoading ||
-      offersLoading
+      offersLoading ||
+      balanceLoading
     );
   }, [
     bankerLoading,
@@ -129,6 +136,7 @@ export const useDashboardScreen = () => {
     isLoadingAccounts,
     terabyteLoading,
     offersLoading,
+    balanceLoading,
   ]);
 
   return {
@@ -162,5 +170,7 @@ export const useDashboardScreen = () => {
     selectedAccountFromCard,
     setSelectedAccountFromCard,
     activeCardAccounts,
+    groupedUserBalance,
+    customerOperationsError,
   };
 };

@@ -134,9 +134,9 @@ export type sendTreasuryReq = {
 };
 
 type InternalTransaction = {
-  debitIban: string;
+  debitIban: string | null;
   creditIban: string;
-  currency: string;
+  currency: string | null;
   amount: number;
 };
 

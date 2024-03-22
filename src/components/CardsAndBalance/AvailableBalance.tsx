@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, {
   withTiming,
@@ -12,71 +12,76 @@ import { formatMoney } from 'utils/formatMoney';
 import { Dots, Eye, EyeSlash, Tera } from 'assets/SVGs';
 import { AvailableBalanceProps } from './CardsAndBalance.types';
 import useStyles from './CardsAndBalance.styles';
-import { useAppSelector } from 'store/hooks/useAppSelector';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
-const AvailableBalance: FC<AvailableBalanceProps> = ({ progress, terabytes = 0 }) => {
-  const styles = useStyles();
-  const { Colors } = useTheme();
-  const balanceScale = useSharedValue(0);
-  const { totalAvailableBalanceGEL } = useAppSelector(state => state.products);
+const AvailableBalance: FC<AvailableBalanceProps> = memo(
+  ({ progress, terabytes = 0, balance = 0 }) => {
+    const styles = useStyles();
+    const { Colors } = useTheme();
+    const balanceScale = useSharedValue(0);
 
-  const balanceStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(balanceScale.value, [0, 1], [1, 0]);
-    return { opacity };
-  });
+    const balanceStyle = useAnimatedStyle(() => {
+      const opacity = interpolate(balanceScale.value, [0, 1], [1, 0]);
+      return { opacity };
+    });
 
-  const dotsStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(balanceScale.value, [0, 1], [0, 1]);
-    return { opacity };
-  });
+    const dotsStyle = useAnimatedStyle(() => {
+      const opacity = interpolate(balanceScale.value, [0, 1], [0, 1]);
+      return { opacity };
+    });
 
-  const animStyleBalance = useAnimatedStyle(() => {
-    const marginLeft = interpolate(progress.value, [0, 1], [0, -250]);
-    const value = interpolate(progress.value, [0, 1], [1, 0]);
+    const animStyleBalance = useAnimatedStyle(() => {
+      const marginLeft = interpolate(progress.value, [0, 1], [0, -250]);
+      const value = interpolate(progress.value, [0, 1], [1, 0]);
 
-    return {
-      marginLeft,
-      opacity: value,
-      transform: [{ scale: value }],
+      return {
+        marginLeft,
+        opacity: value,
+        transform: [{ scale: value }],
+      };
+    });
+
+    const onPressHandler = () => {
+      balanceScale.value
+        ? (balanceScale.value = withTiming(0))
+        : (balanceScale.value = withTiming(1));
     };
-  });
 
-  const onPressHandler = () => {
-    balanceScale.value
-      ? (balanceScale.value = withTiming(0))
-      : (balanceScale.value = withTiming(1));
-  };
-
-  return (
-    <Animated.View style={[styles.balanceContainer, animStyleBalance]}>
-      <View style={styles.availableBalance}>
-        <Text children="dashboard.availableBalance" size={14} color={Colors.inactiveTint} />
-        <Pressable onPress={onPressHandler}>
-          <Animated.View style={[styles.iconContainer, dotsStyle]}>
-            <Eye />
-          </Animated.View>
-          <Animated.View style={[styles.iconContainer, styles.closeEye, balanceStyle]}>
-            <EyeSlash />
-          </Animated.View>
-        </Pressable>
-      </View>
-      <Animated.View style={[styles.balance, balanceStyle]}>
-        <Text size={28} lineHeight={36}>
-          {formatMoney(totalAvailableBalanceGEL, CurrencyEnum.GEL)}
-        </Text>
-      </Animated.View>
-      <Animated.View style={[styles.dots, dotsStyle]}>
-        <Dots />
-      </Animated.View>
-      <Pressable onPress={() => {}}>
-        <View style={styles.terabytes}>
-          <Tera />
-          <Text children="dashboard.terabytes" translateProp={{ value: terabytes }} label special />
+    return (
+      <Animated.View style={[styles.balanceContainer, animStyleBalance]}>
+        <View style={styles.availableBalance}>
+          <Text children="dashboard.availableBalance" size={14} color={Colors.inactiveTint} />
+          <Pressable onPress={onPressHandler}>
+            <Animated.View style={[styles.iconContainer, dotsStyle]}>
+              <Eye />
+            </Animated.View>
+            <Animated.View style={[styles.iconContainer, styles.closeEye, balanceStyle]}>
+              <EyeSlash />
+            </Animated.View>
+          </Pressable>
         </View>
-      </Pressable>
-    </Animated.View>
-  );
-};
+        <Animated.View style={[styles.balance, balanceStyle]}>
+          <Text size={28} lineHeight={36}>
+            {formatMoney(balance, CurrencyEnum.GEL)}
+          </Text>
+        </Animated.View>
+        <Animated.View style={[styles.dots, dotsStyle]}>
+          <Dots />
+        </Animated.View>
+        <Pressable onPress={() => {}}>
+          <View style={styles.terabytes}>
+            <Tera />
+            <Text
+              children="dashboard.terabytes"
+              translateProp={{ value: terabytes }}
+              label
+              special
+            />
+          </View>
+        </Pressable>
+      </Animated.View>
+    );
+  },
+);
 
 export default AvailableBalance;

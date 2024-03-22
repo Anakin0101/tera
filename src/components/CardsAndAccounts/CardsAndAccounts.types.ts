@@ -1,6 +1,6 @@
 import { ListRenderItem } from 'react-native';
-import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { Account, CardType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface IGroupedAccountsByIban {
   accountNumber: number;
@@ -8,6 +8,7 @@ export interface IGroupedAccountsByIban {
   accounts: Account[];
   iban: string;
   isCardAccount: boolean;
+  cards: CardType[];
 }
 
 export interface CardsAndAccountsProps {
@@ -15,7 +16,7 @@ export interface CardsAndAccountsProps {
   showTitle?: boolean;
   showFooter?: boolean;
   showDivider?: boolean;
-  totalAvailableBalance?: number;
+  groupedUserBalance?: number;
   seeAllAccounts?: boolean;
   displayDivider?: boolean;
 }
@@ -29,7 +30,7 @@ export interface AccountProps {
 export interface HeaderProps {
   amount: number;
   showTitle: boolean;
-  totalAvailableBalance: number;
+  groupedUserBalance: number;
 }
 
 export type CurrencyMap = {
@@ -38,3 +39,8 @@ export type CurrencyMap = {
 };
 
 export type RenderItem = ListRenderItem<IGroupedAccountsByIban>;
+
+export interface FooterProps {
+  groupedUserBalance: number;
+  showFooter: boolean;
+}

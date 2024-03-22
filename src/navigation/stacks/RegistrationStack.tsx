@@ -1,9 +1,8 @@
 import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { RegistrationStackParamsList } from 'navigation/types';
-
-import { useStyleTheme } from 'navigation/Navigation.styles';
 import { useTranslation } from 'react-i18next';
+import { RegistrationStackParamsList } from 'navigation/types';
+import { useStyleTheme } from 'navigation/Navigation.styles';
 import {
   CODE_WORD_SCREEN,
   ENTER_USERNAME_SCREEN,
@@ -11,7 +10,7 @@ import {
   REGISTRATION_METHOD_SCREEN,
   VERIFICATION_TYPE_SCREEN,
 } from 'navigation/ScreenNames';
-import { HeaderBackArrow } from 'components/index';
+import { HeaderBackArrow } from 'components';
 import { Colors } from 'theme/Variables';
 import {
   CodeWordScreen,

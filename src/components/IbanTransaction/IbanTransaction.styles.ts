@@ -58,12 +58,11 @@ export const useStyles = () => {
       paddingHorizontal: Spacing.xl,
       marginTop: Spacing.ml,
     },
-    keyboardContainer: {
-      ...Layout.fill,
-    },
-
     ctaOpenWrapper: {
       paddingVertical: Spacing.md,
+    },
+    keyboardContainer: {
+      ...Layout.fill,
     },
   });
 };

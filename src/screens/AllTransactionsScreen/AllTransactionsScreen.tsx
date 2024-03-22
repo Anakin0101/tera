@@ -7,11 +7,28 @@ import { Sections } from './Sections';
 
 export const AllTransactionsScreen = () => {
   const styles = useStyles();
-  const { setFilters, sections, filters, search, onChangeText, iban } = useAllTransactions();
+  const {
+    setFilters,
+    sections,
+    filters,
+    search,
+    onChangeText,
+    iban,
+    requestBlockedTransactions,
+    loading,
+    blockedTransactionsFilterActive,
+    clearBlockedTransactions,
+  } = useAllTransactions();
 
   const renderItem = useCallback(() => {
-    return <Sections sections={sections} />;
-  }, [sections]);
+    return (
+      <Sections
+        sections={sections}
+        loading={loading}
+        blockedTransactionsFilterActive={blockedTransactionsFilterActive}
+      />
+    );
+  }, [sections, loading, blockedTransactionsFilterActive]);
 
   return (
     <View style={styles.listWrapper}>
@@ -27,6 +44,9 @@ export const AllTransactionsScreen = () => {
             filters={filters}
             setFilters={setFilters}
             onChangeText={onChangeText}
+            requestBlockedTransactions={requestBlockedTransactions}
+            blockedTransactionsFilterActive={blockedTransactionsFilterActive}
+            clearBlockedTransactions={clearBlockedTransactions}
           />
         }
       />

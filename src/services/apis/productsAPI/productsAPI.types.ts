@@ -331,15 +331,6 @@ export type Deposit = {
   typeId: DepositTypeEnum;
 };
 
-export type UpdateAccountNameReq = {
-  userId: number;
-  customerId: number;
-  channelId: number;
-  culture: string;
-  accountId: number;
-  accountName: string;
-};
-
 export type LoanSchedule = {
   nextPaymentDay: string;
   principal: number;
@@ -437,6 +428,22 @@ export type CustomerPackages = {
   status: string;
 };
 
+export type CardInsuranceProducts = {
+  insuranceTypeId: number;
+  tariffProductId: string;
+  nameKa: string;
+  nameEn: string;
+  serviceFee: number;
+  serviceFeeCurrency: CurrencyEnum;
+  serviceFeeScheduleId: number;
+  serviceFeeScheduleServiceId: string;
+  isActive: boolean;
+  chipTransactions: number;
+  internetTransactions: number;
+  unauthTransactions: number;
+  order: number;
+};
+
 export type OfferDetails = {
   id: number;
   type: OfferTypeEnum;
@@ -447,6 +454,7 @@ export type OfferDetails = {
   depositProducts: DepositProduct[];
   cardProducts: CardProduct[];
   customerPackages?: CustomerPackages[];
+  cardInsuranceProducts?: CardInsuranceProducts[];
 };
 
 export type InterestRatesReq = {
@@ -813,4 +821,83 @@ export type ExchangeRate = {
   amountSell: number;
   items: number;
   type: ExchangeRateTypeEnum;
+};
+
+export type OfferByIdReq = {
+  culture: string;
+  offerId?: number;
+  cardId?: number;
+};
+
+export type CardInsuranceReq = {
+  culture: string;
+  cardId: number;
+  insuranceTypeId: number;
+  anyData: string;
+  sendOtp: boolean;
+  otp: string;
+};
+
+export type CancelCardInsuranceReq = {
+  culture: string;
+  cardId: number;
+  approvalCode: string;
+  anyData: string;
+};
+
+export type RequestForPin = {
+  culture: string;
+  cardId: number;
+  generateNewPin: boolean;
+  sendOtp: boolean;
+  otp: string;
+};
+
+export type UnblockCardReq = {
+  culture: string;
+  cardId: number;
+  sendOtp: boolean;
+  otp: string;
+};
+
+export type UpdateAccountNameReq = {
+  accountId: number;
+  accountName: string;
+  culture: string;
+};
+
+export type FavouriteReq = {
+  accountId: number;
+  culture: string;
+};
+
+export type UserBalance = {
+  currency: CurrencyEnum;
+  amount: number;
+};
+
+export type GroupedUserBalanceRes = {
+  userBalance: UserBalance[];
+};
+
+export type BlockedTransactionType = {
+  accountId: number;
+  time: string;
+  cardPan: unknown;
+  amount: number;
+  owner: string;
+  address: string | null;
+  city: string | null;
+};
+
+export type BlockedTransactionsApiResponseType = {
+  accountBlocks: BlockedTransactionType[];
+};
+
+export type BlockedTransactionExtendedType = BlockedTransactionType & {
+  id: number;
+  description: string;
+  docDate: string;
+  currency: CurrencyEnum;
+  isIncome: boolean;
 };

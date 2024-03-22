@@ -65,6 +65,7 @@ export const IconComponent = memo(
             width={customIconSize || ICON_JSX_SIZE}
             height={customIconSize || ICON_JSX_SIZE}
             fill={fillColor}
+            color={fillColor}
           />
         )}
         {pngLocalIcon && (

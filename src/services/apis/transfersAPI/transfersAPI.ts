@@ -144,13 +144,13 @@ export const transfersAPI = createApi({
         body: operations.body,
       }),
     }),
-    // checkForeignIban: builder.query<any, any>({
-    //   query: name => ({
-    //     url: `${URLS.getBankInfo}?bankName=${name}`,
-    //     method: `${METHOD_NAMES.GET}`,
-    //     headers: commonHeaders,
-    //   }),
-    // }),
+    checkForeignIban: builder.query<any, any>({
+      query: name => ({
+        url: `${URLS.getBankInfo}?bankName=${name}`,
+        method: METHOD_NAMES.GET,
+        headers: commonHeaders,
+      }),
+    }),
   }),
 });
 
@@ -168,5 +168,5 @@ export const {
   useLazyCheckPersonalNumberQuery,
   useGetTreasuryCodeQuery,
   useSendTreasuryMutation,
-  // useLazyCheckForeignIbanQuery,
+  useLazyCheckForeignIbanQuery,
 } = transfersAPI;

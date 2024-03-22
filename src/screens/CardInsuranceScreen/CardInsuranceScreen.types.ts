@@ -14,12 +14,25 @@ export interface InsurancePackage {
   commissionCcy: CurrencyEnum;
   terms: Term[];
 }
+import { ListRenderItem } from 'react-native';
+import { CardInsuranceProducts, CardType } from 'services/apis/productsAPI/productsAPI.types';
 
 export interface InsurancePackageItemProps {
-  item: InsurancePackage;
-  onPress: (packageName: string, commission: number) => void;
+  item: CardInsuranceProducts;
+  iban?: string;
+  activeCard: CardType;
 }
 
 export interface PackagesProps {
-  cardId: number;
+  iban?: string;
+  activeCard: CardType;
+  packages?: CardInsuranceProducts[];
 }
+
+export type RenderItem = ListRenderItem<CardInsuranceProducts>;
+
+export type TermItemProps = {
+  label: string;
+  value: string;
+  showDivider?: boolean;
+};

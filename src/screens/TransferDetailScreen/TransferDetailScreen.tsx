@@ -7,13 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import { SelectedItemProp, paramsTypes } from './TransferDetailScreen.types';
 import { TransferDetailsList } from './TransferDetailsList';
 import { useRoute } from '@react-navigation/native';
-import { MainStackScreenProps, ModalStackRouteProps } from 'navigation/types';
+import { ModalStackRouteProps, ModalStackScreenProps } from 'navigation/types';
 import { useTransferDetails } from './container';
-import {
-  TRANSACTION_FINISHED_SCREEN,
-  TRANSACTION_FAILED_SCREEN,
-  MODAL_STACK,
-} from 'navigation/ScreenNames';
+import { TRANSACTION_FINISHED_SCREEN, TRANSACTION_FAILED_SCREEN } from 'navigation/ScreenNames';
 import { ConversionOrTranferDetails } from './ConversionOrTranferDetails';
 import { OtherBankList } from './OtherBankList';
 import { openModal, closeModal } from 'utils/modal';
@@ -42,7 +38,7 @@ export const TransferDetailScreen = () => {
   const { handleExchangeAmount, handleTransferToOwnAccount, transferToSomeone, isLoading } =
     useTransferDetails(!!params?.mobileTransaction);
 
-  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const { navigate } = useNavigation<ModalStackScreenProps<'TransferDetailScreen'>>();
   const dispatch = useAppDispatch();
   const {
     accountFromData,
@@ -123,10 +119,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(MODAL_STACK, {
-          screen: TRANSACTION_FINISHED_SCREEN,
-          params: { fromIban: true },
-        });
+        navigate(TRANSACTION_FINISHED_SCREEN, { fromIban: true });
       }
     } else {
       headers['Content-Type'] = 'application/json';
@@ -159,10 +152,7 @@ export const TransferDetailScreen = () => {
       }
 
       if (transferToSomeoneResult) {
-        navigate(MODAL_STACK, {
-          screen: TRANSACTION_FINISHED_SCREEN,
-          params: { mobileTransaction: true },
-        });
+        navigate(TRANSACTION_FINISHED_SCREEN, { mobileTransaction: true });
       }
     }
   };
@@ -170,9 +160,7 @@ export const TransferDetailScreen = () => {
     if ('data' in error) {
       const { data } = error as CustomBackendError;
       if (data?.status === 400) {
-        navigate(MODAL_STACK, {
-          screen: TRANSACTION_FAILED_SCREEN,
-        });
+        navigate(TRANSACTION_FAILED_SCREEN);
       } else {
         console.warn('Transfer Error:', error);
       }
@@ -209,10 +197,7 @@ export const TransferDetailScreen = () => {
         if (transferConvertion?.error) {
           handleTransferError(transferConvertion.error);
         } else {
-          navigate(MODAL_STACK, {
-            screen: TRANSACTION_FINISHED_SCREEN,
-            params: { convertion: true },
-          });
+          navigate(TRANSACTION_FINISHED_SCREEN, { convertion: true });
         }
       } catch (error) {
         console.warn('Exchange Amount Error:', error);
@@ -222,6 +207,9 @@ export const TransferDetailScreen = () => {
         openModal({
           element: <OTPModal onFinished={code => transferWithOTP(params, code)} />,
           withKeyboard: true,
+          disablePanning: true,
+          disableDynamicSizing: true,
+          snapPoints: ['70%'],
         });
       } else {
         await transferWithOTP(params);
@@ -230,9 +218,9 @@ export const TransferDetailScreen = () => {
       try {
         const transferResult: TransferToOwnAccountResponseType | undefined =
           await handleTransferToOwnAccount({
-            amount: selectedItemFromStore.selectedPrice,
-            creditAccountId: accountToData?.accountId,
-            debitAccountId: accountFromData?.accountId,
+            amount: params?.templateData?.amount ?? selectedItemFromStore.selectedPrice,
+            creditAccountId: params?.creditResult?.accountId ?? accountToData?.accountId,
+            debitAccountId: params?.debitResult?.accountId ?? accountFromData?.accountId,
           });
         dispatch(
           setTransferType({
@@ -244,10 +232,16 @@ export const TransferDetailScreen = () => {
           setSpecificTransferData({
             transferType: TRANSFER_TYPE.internal,
             data: {
-              debitIban: accountFromData.accountIban,
-              currency: accountFromData.ccy,
-              creditIban: accountToData.accountIban || accountToData.iban,
-              amount: selectedItemFromStore.selectedPrice,
+              debitIban: params?.debitResult
+                ? params?.debitResult?.accountIban
+                : accountFromData.accountIban,
+              currency: params?.templateData ? params?.templateData?.ccy : accountFromData.ccy,
+              creditIban: params?.creditResult
+                ? params?.creditResult.accountIban
+                : accountToData.accountIban || accountToData.iban,
+              amount: params?.templateData
+                ? params?.templateData?.amount
+                : selectedItemFromStore.selectedPrice,
             },
           }),
         );
@@ -255,10 +249,7 @@ export const TransferDetailScreen = () => {
         if (transferResult?.error) {
           handleTransferError(transferResult.error);
         } else {
-          navigate(MODAL_STACK, {
-            screen: TRANSACTION_FINISHED_SCREEN,
-            params: { internal: true },
-          });
+          navigate(TRANSACTION_FINISHED_SCREEN, { internal: true });
         }
       } catch (error) {
         console.warn('Transfer to Own Account Error:', error);
@@ -278,6 +269,7 @@ export const TransferDetailScreen = () => {
             accountFromData={accountFromData}
             params={params}
             selectedPrice={selectedPrice}
+            templateData={params?.templateData}
           />
         </View>
         <View style={styles.container}>
@@ -295,6 +287,9 @@ export const TransferDetailScreen = () => {
                 <TransferDetailsList
                   selectedItemFromStore={selectedItemFromStore}
                   convertion={params?.convertion}
+                  debitResult={params?.debitResult}
+                  creditResult={params?.creditResult}
+                  templateData={params?.templateData}
                 />
               )}
             </View>

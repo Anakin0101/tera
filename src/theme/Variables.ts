@@ -84,6 +84,7 @@ export const Colors = {
   cardBlurDark: 'rgba(0,0,0,0.5)',
   lightPink: 'rgb(249,241,246)',
   offerBgGreen: 'rgb(234, 246, 235)',
+  textDisabled: 'rgba(108, 108, 108, 1)',
 };
 
 export const NavigationColors: Partial<ThemeNavigationColors> = {
@@ -109,6 +110,7 @@ export const FontSize = {
 
 export const Spacing = {
   zero: 0,
+  one: 1,
   xxxs: 2,
   xxs: 4,
   xs: 6,

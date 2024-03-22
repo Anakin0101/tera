@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'components';
-import { Totals } from './Totals';
 import { openModal } from 'utils/modal';
 import { Clear, Search } from 'assets/SVGs';
 import { formatDate } from 'utils/formatDate';
@@ -37,6 +36,9 @@ export const ListHeader: FC<HeaderProps> = ({
   search,
   onChangeText,
   iban,
+  requestBlockedTransactions,
+  blockedTransactionsFilterActive,
+  clearBlockedTransactions,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -89,6 +91,10 @@ export const ListHeader: FC<HeaderProps> = ({
       ...prev,
       category: null,
     }));
+  };
+
+  const onRequestBlockedTransactions = () => {
+    requestBlockedTransactions?.();
   };
 
   return (
@@ -177,8 +183,31 @@ export const ListHeader: FC<HeaderProps> = ({
             </Pressable>
           )}
         </View>
+        <View
+          style={[
+            styles.filterItem,
+            blockedTransactionsFilterActive && styles.selectedFilterWrapper,
+          ]}
+        >
+          {blockedTransactionsFilterActive ? (
+            <View style={styles.selectedFilterContainer}>
+              <Text
+                special
+                numberOfLines={1}
+                style={styles.transactionTypeLabel}
+                children={'transactions.blockedMoney'}
+              />
+              <Pressable onPress={clearBlockedTransactions}>
+                <Clear />
+              </Pressable>
+            </View>
+          ) : (
+            <Pressable onPress={onRequestBlockedTransactions}>
+              <Text children="transactions.blockedMoney" special />
+            </Pressable>
+          )}
+        </View>
       </ScrollView>
-      <Totals income={2048} expense={1956} />
     </View>
   );
 };

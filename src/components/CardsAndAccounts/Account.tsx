@@ -38,12 +38,11 @@ export const Account: FC<AccountProps> = ({ item, isLast, handlePress }) => {
   }, [item?.accounts, selectedCurrency]);
 
   const imageId = useMemo(() => {
-    const accWithCards = item?.accounts?.find(acc => !!acc?.cards?.length);
-    if (accWithCards) {
-      return accWithCards?.cards?.[0]?.cardLargeImageId;
+    if (item?.cards.length) {
+      return item?.cards?.[0]?.cardLargeImageId;
     }
     return '';
-  }, [item.accounts]);
+  }, [item?.cards]);
 
   const renderIcon = useCallback(() => {
     if (imageId) {

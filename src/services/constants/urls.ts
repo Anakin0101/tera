@@ -25,7 +25,7 @@ export const URLS = {
   getLoanHistory: 'Loan/GetLoanPayments',
   BlockCard: 'Account/BlockCard',
   UnblockCard: 'Account/UnblockCard',
-  getAmount: 'transfers/ConvertAmount',
+  getAmount: 'Transfers/ConvertAmount',
   transferToOwnAccount: 'Transfers/TransferToOwnAccount',
   exchange: 'Transfers/Exchange',
   checkIban: 'Transfers/GetReceiverInfo',
@@ -91,6 +91,14 @@ export const URLS = {
   getCreditProductOfferSchedule: '/Loan/GetCreditProductOfferSchedule',
   activateCreditProductOffer: '/Loan/ActivateCreditProductOffer',
   getRates: '/Account/GetRates',
+  addCardInsurance: 'Account/AddCardsInsurance',
+  cancelCardInsurance: 'Account/CancelCardInsurace',
+  requestForPin: 'Account/RequestForPin',
+  updateAccountName: 'Account/UpdateAccountName',
+  setAsFavourite: 'Account/SetAsFavourite',
+  removeFromFavourite: 'Account/RemoveFromFavourite',
+  getGroupedUserBalance: 'Account/GetGroupedUserBalance',
+  getBlockedTransactions: '/Transaction/GetAccountsBlocks',
 };
 
 export const PROD_URLS = {

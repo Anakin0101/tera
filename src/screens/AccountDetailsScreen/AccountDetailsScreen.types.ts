@@ -1,10 +1,12 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import { Account, CardType, OverdraftType } from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface CardItemProps {
   item: CardType;
   isLast: boolean;
-  onPress?: () => void;
+  index: number;
+  iban?: string;
 }
 
 export interface CardsProps {
@@ -25,9 +27,8 @@ export interface DetailsProps {
   blockedAmounts?: BlockedAmount[];
   displayDivider: boolean;
   borderRadius?: boolean;
-  information?: boolean;
-  cardHolder?: string;
-  insure?: string;
+  style?: StyleProp<ViewStyle>;
+  accountId?: number;
 }
 
 export type RelatedOverdraft = OverdraftType | null;

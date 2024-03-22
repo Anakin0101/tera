@@ -11,7 +11,6 @@ import { useTransactionDetails } from './container';
 import { Income, Outcome } from 'assets/SVGs';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { getTransactionTypeNameByEnum } from 'screens/AllTransactionsScreen/ListHeader';
-import Images from 'theme/Images';
 
 export const TransactionDetailsScreen = () => {
   const styles = useStyles();
@@ -27,30 +26,22 @@ export const TransactionDetailsScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.headerSection}>
-            <View style={[styles.iconContainer, styles.marginTop]}>
+            <View style={styles.iconContainer}>
               <IconComponent
+                customIconSize={20}
                 customIconComponentStyles={styles.Icon}
-                pngLocalIcon={op.isIncome ? Images().IncomeIcon : Images().PayOutIcon}
+                IconJSX={op.isIncome ? Income : Outcome}
               />
             </View>
             <View style={styles.headerDesc}>
-              <Text children={op.receiverName} color={Colors.inactiveTint} />
               <Text
                 medium
                 size={30}
-                lineHeight={34}
+                lineHeight={35}
                 color={op.isIncome ? Colors.success : Colors.error}
                 children={formatMoney(op.amount, op.currency)}
               />
               <Text label children={formatDateFullMonth(op.docDate)} color={Colors.textBlack500} />
-            </View>
-          </View>
-          <Divider height={1} width="100%" marginTop={16} marginBottom={16} />
-          <View style={styles.headerSection}>
-            <View style={styles.iconContainer}>{op.isIncome ? <Income /> : <Outcome />}</View>
-            <View style={styles.headerDesc}>
-              <Text children="შემოსავლები" color={Colors.inactiveTint} />
-              <Text children="ჩარიცხვა" medium size={16} />
             </View>
           </View>
         </View>
@@ -78,7 +69,7 @@ export const TransactionDetailsScreen = () => {
             />
           </View>
           <Divider />
-          <View style={styles.section}>
+          <View style={[styles.section, styles.lastSection]}>
             <Text children="products.details" medium size={18} />
             <DetailsItem
               label="transactionDetails.paymentType"
@@ -98,7 +89,7 @@ export const TransactionDetailsScreen = () => {
             />
             <DetailsItem
               label="transactionDetails.docNumber"
-              value={String(op.docNumber)}
+              value={op.docNumber ? String(op.docNumber) : ''}
               marginTop={20}
             />
           </View>

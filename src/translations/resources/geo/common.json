@@ -117,10 +117,11 @@
     "savings": "დანაზოგი",
     "allPay": "ყველა გადახდა",
     "noTransactions": "თქვენ არ გაქვთ შესრულებული ტრანზაქცია",
+    "transactionsError": "დაფიქსირდა შეცდომა",
     "trustedTemplate": "სანდო შაბლონი",
     "template_trust_status": "შაბლონი წარმატებით {{status}}",
     "untrusted": "გახდა არასანდო",
-    "trusted": "გასანდოვდა"
+    "trusted": "შაბლონი წარმატებით გასანდოვდა"
   },
   "profile": {
     "edit_settings": "პარამეტრების ცვლილება",
@@ -174,7 +175,8 @@
     "specificCourse": "შენი კურსი",
     "transfer": "გადარიცხვა",
     "personalTransfer": "პირადი გადარიცხვა",
-    "balanceAvailable": "ანგარიშზე არ არის საკმარისი თანხა"
+    "balanceAvailable": "ანგარიშზე არ არის საკმარისი თანხა",
+    "toOther": "სხვასთან გადარიცხვა"
   },
   "products": {
     "accountsAndCards": "ანგარიშები და ბარათები ({{value}})",
@@ -214,7 +216,7 @@
     "clipboard": "ანგარიშის ნომერი დაკოპირებულია",
     "insurance": "დაზღვევა",
     "block": "დაბლოკვა",
-    "changePin": "პინ კოდის შეცვლა",
+    "changePin": "პინ კოდის\nშეცვლა",
     "cardRenewal": "ბარათის განახლება",
     "informationName": "ბარათის სახელი",
     "informationCardOwner": "ბარათის მფლობელი",
@@ -227,7 +229,7 @@
     "chooseLanguage": "აირჩიეთ ენა",
     "requestRequisites": "რეკვიზიტების მოთხოვნა",
     "blockCard": "ბარათის დაბლოკვა",
-    "unblockCard": "ბარათის განბლოკვა",
+    "unblockCard": "ბარათის\nგანბლოკვა",
     "tempInactive": "მოლოდინის რეჟიმში",
     "completed": "მოქმედება შესრულებულია",
     "failed": "მოქმედება ვერ შესრულდა",
@@ -241,7 +243,7 @@
     "allDeposits": "ანაბრები",
     "newDeposit": "ახალი ანაბარი",
     "depositDetails": "ანაბრის დეტალები",
-    "updateCard": "ბარათის განახლება",
+    "updateCard": "ბარათის\nგანახლება",
     "insure": "სტანდარტი",
     "type": "ბარათის ტიპი",
     "getCardEasily": "აიღე ბარათი მარტივად",
@@ -273,7 +275,18 @@
     "getExtract": "ამონაწერის ჩამოტვირთვა",
     "download": "ჩამოტვირთვა",
     "month": "{{value}} თვე",
-    "year": "{{value}} წელი"
+    "year": "{{value}} წელი",
+    "cancelInsurance": "დაზღვევის\nგაუქმება",
+    "insuranceSuccess": "ბარათის დაზღვევა წარმატებით დასრულდა",
+    "cancelInsuranceMessage": "ნამდვილად გსურთ დაზღვევის გაუქმება?",
+    "chipTransactions": "ჩიპიან ბარათებზე პინის ან ჩიპის გარეშე ჩატარებული  ტრანზაქცია (100 ლარის ზევით)",
+    "internetTransactions": "ინტერნეტით ჩატარებული ტრანზაქცია",
+    "unauthTransactions": "უავტორიზაციო ტრანზაქცია",
+    "annualFee": "{{value}} წლიური საკომისიო",
+    "updatePin": "პინ კოდის განახლების საკომისიო\n5.00 ლარი",
+    "blockCardMessage": "ნამდვილად გსურთ ბარათის დაბლოკვა?",
+    "unblockCardMessage": "ნამდვილად გსურთ ბანათის განბლოკვა?",
+    "unblockTitle": "ბარათის განბლოკვა"
   },
   "deposits": {
     "agreementNumber": "ხელშეკრულების ნომერი",
@@ -418,7 +431,9 @@
     "successfullyOperation": "ოპერაცია წარმატებით შესრულდა",
     "edit": "რედაქტირება",
     "delete": "წაშლა",
-    "try_again": "ცადე ხელახლა"
+    "try_again": "ცადე ხელახლა",
+    "hide": "დამალვა",
+    "show": "გამოჩენა"
   },
   "form": {
     "is_required": "უნდა იყოს შევსებული",
@@ -464,7 +479,11 @@
     "unblockCard": "ნამდვილად გსურთ “ჩემი ბარათის”\nგანბლოკვა?",
     "trustedTemplate": "გახადე შაბლონი სანდო და 24 საათის შემდეგ შეასრულე 1 000 ლარამდე (ან ექვივალენტი ლარში) ოპერაციები დამატებით სმს/დიჯიპას კოდის გარეშე.",
     "untrust": "გასანდოებიდან წაშლა",
-    "deleteTemplate": "ნამდვილად გსურთ შაბლონის წაშლა?"
+    "deleteTemplate": "ნამდვილად გსურთ შაბლონის წაშლა?",
+    "blockedMoney": "ბლოკირებული თანხები",
+    "money": "თანხა",
+    "incomes": "შემოსავლები",
+    "outcomes": "გასავლები"
   },
   "transactionDetails": {
     "to": "სად",
@@ -474,7 +493,7 @@
     "receiverIban": "მიმღების ანგარიში",
     "paymentType": "გადახდის ტიპი",
     "amount": "თანხა",
-    "desc": "აღწერა",
+    "desc": "დანიშნულება",
     "docNumber": "დოკუმენტის ნომერი",
     "refund": "თანხის\nდაბრუნება",
     "automaticTransfers": "ავტომატური\nგადარიცხვები",
@@ -489,7 +508,14 @@
     "validContact": "კონტაქტებიდან დამატება ვერ მოხერხდა",
     "validIbanPromptForeign": "გთხოვთ მიუთითოთ სწორი ანგარიში",
     "validTransactionPrompt": "გთხოვთ, აირჩიეთ ტრანზაქციის ტიპი გაგრძელებამდე.",
-    "validRecieverPrompt": "მიმღების ველი სავალდებულოა. გთხოვთ, შეავსეთ მიმღების ველი გაგრძელებამდე."
+    "validRecieverPrompt": "მიმღების ველი სავალდებულოა. გთხოვთ, შეავსეთ მიმღების ველი გაგრძელებამდე.",
+    "country": "მიმღების რეზიდენტობის ქვეყანა",
+    "foreignCode": "ბანკის კოდი",
+    "mediatorBankCode": "შუამავლის ბანკის კოდი ან დასახელება",
+    "city": "ქალაქი",
+    "address": "მისამართი",
+    "receiverBank": "მიმღები ბანკი",
+    "mediatorBank": "შუამავალი ბანკი"
   },
   "filters": {
     "income": "ჩარიცხვა / თანხის შეტანა",
@@ -847,5 +873,14 @@
     "specialRate": " / შენი კურსი 1{{fromSign}}={{value}}{{toSign}}",
     "convert": "კონვერტაცია",
     "specRateLimit": "სპეც. კურსის ლიმიტი: {{value}}₾"
+  },
+  "cardDetails": {
+    "cancelInsurance": "დაზღვევის გაუქმება",
+    "isBlocked": "ბარათი დაბლოკილია",
+    "error": "დაფიქსირდა შეცდომა",
+    "isUnblocked": "ბარათი განბლოკილია",
+    "pinAsSms": "პინ კოდს მიიღებთ SMS სახით",
+    "tryLater": "სცადეთ მოგვიანებით",
+    "updatePin": "პინ კოდის განახლება"
   }
 }

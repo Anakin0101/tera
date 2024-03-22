@@ -7,11 +7,10 @@ export const useStyles = () => {
   return StyleSheet.create({
     badge: {
       ...Layout.row,
-      ...Layout.alignItemsCenter,
+      ...Layout.center,
       backgroundColor: Colors.error100,
       gap: Spacing.xxs,
-      padding: 5,
-      minWidth: 100,
+      paddingHorizontal: 5,
       borderRadius: 50,
     },
   });

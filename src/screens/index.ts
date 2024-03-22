@@ -8,14 +8,11 @@ export { PasscodeLoginScreen } from './PassCodeLoginScreen/PassCodeLoginScreen';
 export { SettingsScreen } from './SettingsScreen/SettingsScreen';
 export { ProfileScreen } from './ProfileScreen/ProfileScreen';
 export { CreatePasscodeScreen } from './CreatePasscodeScreen/CreatePasscodeScreen';
-
 export { AuthorizationMethodsScreen } from './AuthorizationMethodsScreen/AuthorizationMethodsScreen';
-
 export { TransactionsScreen } from './TransactionsScreen/TransactionsScreen';
 export { MyAccounts } from './MyAccounts/MyAccounts';
 export { AllAcountsAndCardsScreen } from './AllAccountsAndCardsScreen/AllAcountsAndCardsScreen';
 export { AccountDetailsScreen } from './AccountDetailsScreen/AccountDetailsScreen';
-export { MyAccountsScrollableScreen } from './MyAccountScrollableScreen/MyAccountScrollableScreen';
 export { CardDetailsScreen } from './CardDetailsScreen/CardDetailsScreen';
 export { InsurancePackageDetails } from './InsurancePackageDetails/InsurancePackageDetails';
 export { DepositsScreen } from './DepositsScreen/DepositsScreen';
@@ -63,6 +60,10 @@ export { CardOrderChooseIbanScreen } from './CardOrderChooseIbanScreen/CardOrder
 export { CardOrderChooseAddressScreen } from './CardOrderChooseAddressScreen/CardOrderChooseAddressScreen';
 export { CardOrderDetailsScreen } from './CardOrderDetailsScreen/CardOrderDetailsScreen';
 export { NewAutomaticPaymentDetailsScreen } from './NewAutomaticPaymentDetailsScreen/NewAutomaticPaymentDetailsScreen';
+export { ForeignIbanScreen } from './ForeignIbanScreen/ForeignIbanScreen';
+export { ForeignTransferDetailsScreen } from './ForeignTransferDetailsScreen/ForeignTransferDetailsScreen';
+export { TransferToForeignIban } from './TransferToForeignIban/TransferToForeignIban';
+export { AllTemplatesScreen } from './AllTemplatesScreen/AllTemplatesScreen';
 export { ApprovedLoanDetailsScreen } from './ApprovedLoanDetailsScreen/ApprovedLoanDetailsScreen';
 export { ApprovedLoanPdfScreen } from './ApprovedLoanPdfScreen/ApprovedLoanPdfScreen';
 export { PrivateTransactionScreen } from './PrivateTransactionScreen/PrivateTransactionScreen';
@@ -85,3 +86,4 @@ export { CartPaymentSuccessScreen } from './CartPaymentSuccessScreen/CartPayment
 export { ActivateLoanSuccessScreen } from './ActivateLoanSuccessScreen/ActivateLoanSuccessScreen';
 export { AtmsAndBranchesScreen } from './AtmsAndBranchesScreen/AtmsAndBranchesScreen';
 export { ExchangeRatesScreen } from './ExchangeRatesScreen/ExchangeRatesScreen';
+export { InsuranceSuccessScreen } from './InsuranceSuccessScreen/InsuranceSuccessScreen';

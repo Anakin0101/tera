@@ -32,7 +32,6 @@ import {
   BudgetTransferDetailsScreen,
   PrivateTransactionScreen,
   TransferDetailScreen,
-  TransactionFinishedScreen,
   OtherBankTransactionScreen,
   TransferToOtherBankAccountScreen,
   TransactionFailedScreen,
@@ -57,7 +56,6 @@ import {
   TeraWalletPDFScreen,
   AllAcountsAndCardsScreen,
   AccountDetailsScreen,
-  MyAccountsScrollableScreen,
   InsurancePackageDetails,
   DepositsScreen,
   DepositDetailsScreen,
@@ -78,8 +76,16 @@ import {
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
   ExchangeRatesScreen,
+  ForeignIbanScreen,
+  ForeignTransferDetailsScreen,
+  TransferToForeignIban,
+  AllTemplatesScreen,
+  InsuranceSuccessScreen,
 } from 'screens';
 import {
+  FOREIGN_IBAN_SCREEN,
+  FOREIGN_TRANSFER_DETAILS_SCREEN,
+  TRANSFER_TO_FOREIGN_IBAN,
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ADD_CART_SCREEN,
   ALL_TRANSACTIONS_SCREEN,
@@ -116,7 +122,6 @@ import {
   TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
-  TRANSACTION_FINISHED_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
   TRANSACTION_FAILED_SCREEN,
@@ -131,7 +136,6 @@ import {
   INSURANCE_PACKAGE_DETAILS,
   LOANS_SCREEN,
   LOAN_DETAILS_SCREEN,
-  MY_ACCOUNT_SCROLLABLE_SCREEN,
   NEW_DEPOSIT_ADDITIONAL_INFO_SCREEN,
   NEW_DEPOSIT_DETAILS_SCREEN,
   NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN,
@@ -157,6 +161,8 @@ import {
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
   EXCHANGE_RATES_SCREEN,
+  ALL_TEMPLATES_SCREEN,
+  INSURANCE_SUCCESS_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfersScreen';
@@ -400,7 +406,6 @@ export const ModalNavigator = () => {
           title: t('transfers.fromWhere'),
         }}
       />
-
       <Screen
         name={ATMS_AND_BRANCHES_SCREEN}
         component={AtmsAndBranchesScreen}
@@ -432,15 +437,6 @@ export const ModalNavigator = () => {
         component={TransferDetailScreen}
         options={{
           title: t('transactions.transDetails'),
-        }}
-      />
-      <Screen
-        name={TRANSACTION_FINISHED_SCREEN}
-        component={TransactionFinishedScreen}
-        options={{
-          title: '',
-          gestureEnabled: false,
-          headerLeft: () => null,
         }}
       />
       <Screen
@@ -499,15 +495,6 @@ export const ModalNavigator = () => {
         options={{ title: t('products.accountDetails') }}
       />
       <Screen
-        name={MY_ACCOUNT_SCROLLABLE_SCREEN}
-        component={MyAccountsScrollableScreen}
-        options={
-          {
-            // TODO - add translation
-          }
-        }
-      />
-      <Screen
         name={CARD_DETAILS_SCREEN}
         component={CardDetailsScreen}
         options={{ title: t('products.cardDetails') }}
@@ -558,7 +545,6 @@ export const ModalNavigator = () => {
           headerStyle: st.whiteHeader,
         }}
       />
-
       <Screen
         name={NEW_DEPOSIT_INITIAL_AMOUNT_SCREEN}
         component={NewDepositInitialAmountScreen}
@@ -714,6 +700,40 @@ export const ModalNavigator = () => {
         name={EXCHANGE_RATES_SCREEN}
         component={ExchangeRatesScreen}
         options={{ title: t('exchange.title') }}
+      />
+      <Screen
+        name={FOREIGN_IBAN_SCREEN}
+        component={ForeignIbanScreen}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={TRANSFER_TO_FOREIGN_IBAN}
+        component={TransferToForeignIban}
+        options={{
+          title: t('transfers.where'),
+        }}
+      />
+      <Screen
+        name={FOREIGN_TRANSFER_DETAILS_SCREEN}
+        component={ForeignTransferDetailsScreen}
+        options={{
+          title: t('transfers.details'),
+        }}
+      />
+      <Screen
+        name={ALL_TEMPLATES_SCREEN}
+        component={AllTemplatesScreen}
+        options={{
+          title: t('onboarding.templates'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={INSURANCE_SUCCESS_SCREEN}
+        component={InsuranceSuccessScreen}
+        options={hideHeader}
       />
     </Navigator>
   );

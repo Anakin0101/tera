@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { groupCardsByPan } from 'utils/groupData';
 import { Card, Note, Share, Swap } from 'assets/SVGs';
 import { useAppDispatch } from 'store/hooks/useAppDispatch';
 import { useAppSelector } from 'store/hooks/useAppSelector';
 import { RelatedOverdraft } from './AccountDetailsScreen.types';
-import { setCards, setLastTransactions } from 'store/slices/products';
 import {
   useGetCustomerOperationsMutation,
   usePrintAccountRequisitesMutation,
@@ -22,13 +20,15 @@ import { useCulture } from 'hooks/useCulture';
 import { downloadPdf } from 'utils/downloadPdf';
 import { openModal } from 'utils/modal';
 import { AccountExtractionModal } from 'components/modals';
+import { useGroupedAccountsByIban } from 'hooks/useGroupedAccountsByIban';
 
 export const useAccountDetails = (iban: string, index: number) => {
   const dispatch = useAppDispatch();
   const { culture } = useCulture();
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const [activeIndex, setActiveIndex] = useState(index);
-  const { groupedAccountsByIban, overdrafts } = useAppSelector(state => state.products);
+  const { overdrafts } = useAppSelector(state => state.products);
+  const { groupedAccountsByIban } = useGroupedAccountsByIban();
   const [getLastTransactions, { data: lastTransactions }] = useGetCustomerOperationsMutation();
   const [printAccountRequisites, { isLoading: isLoadingFileId }] =
     usePrintAccountRequisitesMutation();
@@ -57,19 +57,6 @@ export const useAccountDetails = (iban: string, index: number) => {
         ccy,
       }));
   }, [account?.accounts]);
-
-  const cardsAttachedToAccount = useMemo(() => {
-    return account?.accounts?.filter(item => item?.cards)?.flatMap(item => item?.cards);
-  }, [account?.accounts]);
-
-  const groupedCardsByPan = useMemo(() => {
-    return groupCardsByPan(cardsAttachedToAccount, 'pan');
-  }, [cardsAttachedToAccount]);
-
-  useEffect(() => {
-    dispatch(setCards(groupedCardsByPan));
-    dispatch(setLastTransactions(lastTransactions));
-  }, [dispatch, groupedCardsByPan, lastTransactions]);
 
   const overdraftRelatedToAcc = useMemo(() => {
     let result: RelatedOverdraft = null;
@@ -163,12 +150,12 @@ export const useAccountDetails = (iban: string, index: number) => {
     groupedAccountsByIban,
     actions,
     overdraftRelatedToAcc,
-    groupedCardsByPan,
     blockedAmounts,
     lastTransactions,
     activeIndex,
     setActiveIndex,
     setActiveAccountIndex,
     isLoadingFileId,
+    selectedAccountFromCard,
   };
 };

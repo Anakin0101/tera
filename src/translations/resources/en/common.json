@@ -117,10 +117,11 @@
     "savings": "Savings",
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
+    "transactionsError": "An error occured while loading transactions",
     "trustedTemplate": "Trusted Template",
     "template_trust_status": "Template successfully {{status}}",
     "untrusted": "untrusted",
-    "trusted": "trusted"
+    "trusted": "Template successfully trusted"
   },
 
   "profile": {
@@ -175,7 +176,8 @@
     "specificCourse": "your course",
     "transfer": "transfer",
     "personalTransfer": "Personal transfer",
-    "balanceAvailable": "Not enough funds on the account"
+    "balanceAvailable": "Not enough funds on the account",
+    "toOther": "Transfer to other"
   },
   "products": {
     "accountsAndCards": "Accounts and Cards ({{value}})",
@@ -274,7 +276,15 @@
     "getExtract": "Download the extract",
     "download": "Download",
     "month": "{{value}} Months",
-    "year": "{{value}} Year"
+    "year": "{{value}} Year",
+    "cancelInsurance": "Cancel\nInsurance",
+    "insuranceSuccess": "Card insurance has been successfully completed",
+    "cancelInsuranceMessage": "Are you sure you want to cancel insurance?",
+    "chipTransactions": "Transactions without PIN or chip on chip cards (over 100 GEL)",
+    "internetTransactions": "Internet transaction",
+    "unauthTransactions": "Unauthorized transaction",
+    "annualFee": "{{value}} Annual Fee",
+    "updatePin": "The pin code update fee is 5.00 GEL"
   },
   "deposits": {
     "agreementNumber": "Agreement Number",
@@ -426,7 +436,9 @@
     "successfullyOperation": "The operation was successfully performed",
     "edit": "Edit",
     "delete": "Delete",
-    "try_again": "Try again"
+    "try_again": "Try again",
+    "hide": "Hide",
+    "show": "Show"
   },
   "form": {
     "is_required": "is required",
@@ -473,7 +485,11 @@
     "unblockCard": "Do you really want to unblock 'My Card'?",
     "trustedTemplate": "Make template trusted and after 24 hours perform operations up to 1,000 GEL (or equivalent in GEL) without additional SMS/Digipass code.",
     "untrust": "untrust template",
-    "deleteTemplate": "Do you really want to delete the template?"
+    "deleteTemplate": "Do you really want to delete the template?",
+    "blockedMoney": "Blocked money",
+    "money": "Money",
+    "incomes": "Incomes",
+    "outcomes": "Outcomes"
   },
   "transactionDetails": {
     "to": "To",
@@ -483,7 +499,7 @@
     "receiverIban": "Receiver Iban",
     "paymentType": "Payment Type",
     "amount": "Amount",
-    "desc": "Description",
+    "desc": "Reason",
     "docNumber": "Document Number",
     "refund": "Refund",
     "automaticTransfers": "Automatic\nTransfers",
@@ -498,7 +514,14 @@
     "validContact": "Add from contacts failed",
     "validIbanPromptForeign": "please choose valid account",
     "validTransactionPrompt": "Please select a transaction type before proceeding.",
-    "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen."
+    "validRecieverPrompt": "The receiver field is required. Please fill in the receiver's field to proceed to the next screen.",
+    "country": "country",
+    "foreignCode": "Foreign code",
+    "mediatorBankCode": "Mediator Bank code",
+    "city": "city",
+    "address": "address",
+    "receiverBank": "Receiver Bank",
+    "mediatorBank": "Mediator Bank"
   },
   "filters": {
     "income": "Income",

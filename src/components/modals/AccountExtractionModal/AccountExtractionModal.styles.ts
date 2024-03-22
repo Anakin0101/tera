@@ -114,7 +114,6 @@ export const useStyles = () => {
       marginTop: Spacing.lg,
     },
     noTransactionsWrapper: {
-      ...Layout.center,
       marginTop: Spacing.xxxl,
     },
     noTransactionsText: {
