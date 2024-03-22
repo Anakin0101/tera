@@ -98,7 +98,7 @@ export const MoneyTransferSendMoneyScreen = () => {
           setSelectedSendCurrencyVal={setSelectedSendCurrencyVal}
           selectedReceiveCurrencyVal={selectedReceiveCurrencyVal}
           setSelectedReceiveCurrencyVal={setSelectedReceiveCurrencyVal}
-          isLoading={false}
+          isLoading={isLoading}
         />
         {transferSendPrepareResponse && (
           <View style={styles.infoWrapper}>
