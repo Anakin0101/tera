@@ -67,7 +67,12 @@ export { ProgressBar } from './ProgressBar/ProgressBar';
 export { OtherBanksTransactionTabBar } from './OtherBanksTransactionTabBar/OtherBanksTransactionTabBar';
 export { CustomStatusBar } from './CustomStatusBar/CustomStatusBar';
 export { DetailsItem } from './DetailsItem/DetailsItem';
-export { LoadingView } from './LoadingView/LoadingView';
+export {
+  LoadingView,
+  LoadingIconComponent,
+  LoadingInView,
+  TransparentLoadingView,
+} from './LoadingView';
 export { Calendar } from './Calendar/Calendar';
 export { RegistrationTitle } from './Registration/RegistrationTitle/RegistrationTitle';
 export { RegistrationMethodCard } from './Registration/RegistrationMethodCard/RegistrationMethodCard';
@@ -76,11 +81,9 @@ export { FinishScreenContent } from './FinishScreenContent/FinishScreenContent';
 export { BlockOrTrustTemplateModal } from './modals/BlockOrTrustTemplateModal/ BlockOrTrustTemplateModal';
 export { HeaderBackArrow } from 'components/HeaderBackArrow/HeaderBackArrow';
 export { ActionSheet } from './ActionSheet/ActionSheet';
-export { LoadingInView } from './LoadingView/LoadingInView';
 export { default as ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
 export { FallbackComponent } from './ErrorBoundary/components/FallbackComponent';
 export { ApplicationErrorWrapper } from './ErrorBoundary/components/ApplicationErrorWrapper/ApplicationErrorWrapper';
-export { TransparentLoadingView } from './LoadingView/TransparentLoadingView';
 export { DepositsList } from './DepositsAndLoans/DepositsList';
 export { LoansList } from './DepositsAndLoans/LoansList';
 export { NoTransactions } from './Transactions/index';

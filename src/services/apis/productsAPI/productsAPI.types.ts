@@ -889,3 +889,16 @@ export type BlockedTransactionExtendedType = BlockedTransactionType & {
   currency: CurrencyEnum;
   isIncome: boolean;
 };
+
+export type PrintOpsRequestType = {
+  params: {
+    opId: number;
+  };
+  body: {
+    culture?: string;
+  };
+};
+
+export type PrintOpsResponseType = {
+  fileId: string;
+};

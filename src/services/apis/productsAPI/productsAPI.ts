@@ -56,6 +56,8 @@ import {
   GroupedUserBalanceRes,
   BlockedTransactionsApiResponseType,
   BlockedTransactionType,
+  PrintOpsRequestType,
+  PrintOpsResponseType,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -415,18 +417,24 @@ export const productsAPI = createApi({
       }),
       invalidatesTags: ['Accounts'],
     }),
-
     getGroupedUserBalance: builder.query<number, void>({
       query: () => ({ url: URLS.getGroupedUserBalance }),
       transformResponse: (response: GroupedUserBalanceRes) =>
         response?.userBalance?.find(item => item?.currency === CurrencyEnum.GEL)?.amount || 0,
     }),
-
     getBlockedTransactions: builder.query<BlockedTransactionType[], void>({
       query: () => ({
         url: URLS.getBlockedTransactions,
       }),
       transformResponse: (response: BlockedTransactionsApiResponseType) => response.accountBlocks,
+    }),
+    printOps: builder.mutation<PrintOpsResponseType, PrintOpsRequestType>({
+      query: ({ params, body }) => ({
+        url: URLS.printOps,
+        method: METHOD_NAMES.POST,
+        body,
+        params: params,
+      }),
     }),
   }),
 });
@@ -475,4 +483,5 @@ export const {
   useRemoveFromFavouriteMutation,
   useGetGroupedUserBalanceQuery,
   useLazyGetBlockedTransactionsQuery,
+  usePrintOpsMutation,
 } = productsAPI;
