@@ -18,3 +18,4 @@ export { useAsyncError } from './useAsyncError';
 export { useTrackKeyboardActivity } from './useTrackKeyboardActivity';
 export { useActivityTimeout } from './useActivityTimeout';
 export { useInitialScreenNavigation } from './useInitialScreenNavigation';
+export { useVerifyPasscode } from './useVerifyPasscode';

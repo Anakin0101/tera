@@ -11,5 +11,9 @@ export const useStyleTheme = () => {
       marginTop: verticalScale(99),
     },
     pinLine: { marginTop: Spacing.xl, marginBottom: Spacing.xlg },
+    pinKeyboardContainer: {
+      ...Layout.row,
+      height: '70%',
+    },
   });
 };
