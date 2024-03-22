@@ -32,7 +32,6 @@ import {
   BudgetTransferDetailsScreen,
   PrivateTransactionScreen,
   TransferDetailScreen,
-  TransactionFinishedScreen,
   OtherBankTransactionScreen,
   TransferToOtherBankAccountScreen,
   TransactionFailedScreen,
@@ -122,7 +121,6 @@ import {
   TRANSFER_TO_ACCOUNT_SCREEN,
   PRIVATE_TRANSACTION_SCREEN,
   TRANSFER_DETAIL_SCREEN,
-  TRANSACTION_FINISHED_SCREEN,
   OTHER_BANK_TANSACTION_SCREEN,
   TRANSFER_TO_OTHER_BANK_ACCOUNT_SCREEN,
   TRANSACTION_FAILED_SCREEN,
@@ -497,15 +495,6 @@ export const ModalNavigator = () => {
         component={TransferDetailScreen}
         options={{
           title: t('transactions.transDetails'),
-        }}
-      />
-      <Screen
-        name={TRANSACTION_FINISHED_SCREEN}
-        component={TransactionFinishedScreen}
-        options={{
-          title: '',
-          gestureEnabled: false,
-          headerLeft: () => null,
         }}
       />
       <Screen

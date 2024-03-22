@@ -1,5 +1,9 @@
 import { SectionListRenderItem } from 'react-native';
-import { OpCategoryEnum, TransactionType } from 'services/apis/productsAPI/productsAPI.types';
+import {
+  OpCategoryEnum,
+  BlockedTransactionExtendedType,
+  TransactionType,
+} from 'services/apis/productsAPI/productsAPI.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface TotalsProps {
@@ -20,14 +24,19 @@ export interface HeaderProps {
   search: string;
   onChangeText: React.Dispatch<React.SetStateAction<string>>;
   iban?: string;
+  requestBlockedTransactions?: () => void;
+  blockedTransactionsFilterActive?: boolean;
+  clearBlockedTransactions?: () => void;
 }
 
 export interface ISections {
   title: string;
-  data: TransactionType[];
+  data: TransactionItem[];
 }
 export interface FooterProps {
   sections?: ISections[];
+  loading?: boolean;
+  blockedTransactionsFilterActive?: boolean;
 }
 
 type SectionHeaderProps = {
@@ -36,6 +45,8 @@ type SectionHeaderProps = {
 
 export type RenderSectionHeader = (section: { section: SectionHeaderProps }) => JSX.Element;
 
-export type KeyExtractor = (item: TransactionType, index: number) => string;
+export type TransactionItem = TransactionType | BlockedTransactionExtendedType;
 
-export type RenderItem = SectionListRenderItem<TransactionType, ISections>;
+export type KeyExtractor = (item: TransactionItem, index: number) => string;
+
+export type RenderItem = SectionListRenderItem<TransactionItem, ISections>;

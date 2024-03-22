@@ -867,3 +867,25 @@ export type UserBalance = {
 export type GroupedUserBalanceRes = {
   userBalance: UserBalance[];
 };
+
+export type BlockedTransactionType = {
+  accountId: number;
+  time: string;
+  cardPan: unknown;
+  amount: number;
+  owner: string;
+  address: string | null;
+  city: string | null;
+};
+
+export type BlockedTransactionsApiResponseType = {
+  accountBlocks: BlockedTransactionType[];
+};
+
+export type BlockedTransactionExtendedType = BlockedTransactionType & {
+  id: number;
+  description: string;
+  docDate: string;
+  currency: CurrencyEnum;
+  isIncome: boolean;
+};

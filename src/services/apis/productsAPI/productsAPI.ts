@@ -54,6 +54,8 @@ import {
   UpdateAccountNameReq,
   FavouriteReq,
   GroupedUserBalanceRes,
+  BlockedTransactionsApiResponseType,
+  BlockedTransactionType,
 } from './productsAPI.types';
 import { store } from 'store/index';
 import { setMinMaxPaymendDayAfterRequested } from 'store/slices/loan';
@@ -361,7 +363,6 @@ export const productsAPI = createApi({
         });
       },
     }),
-
     addCardInsurance: builder.mutation<{}, Partial<CardInsuranceReq>>({
       query: body => ({
         url: URLS.addCardInsurance,
@@ -420,6 +421,13 @@ export const productsAPI = createApi({
       transformResponse: (response: GroupedUserBalanceRes) =>
         response?.userBalance?.find(item => item?.currency === CurrencyEnum.GEL)?.amount || 0,
     }),
+
+    getBlockedTransactions: builder.query<BlockedTransactionType[], void>({
+      query: () => ({
+        url: URLS.getBlockedTransactions,
+      }),
+      transformResponse: (response: BlockedTransactionsApiResponseType) => response.accountBlocks,
+    }),
   }),
 });
 
@@ -466,4 +474,5 @@ export const {
   useSetAsFavouriteMutation,
   useRemoveFromFavouriteMutation,
   useGetGroupedUserBalanceQuery,
+  useLazyGetBlockedTransactionsQuery,
 } = productsAPI;

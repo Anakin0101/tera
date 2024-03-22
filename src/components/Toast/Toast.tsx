@@ -15,6 +15,7 @@ import { useStyleTheme } from './Toast.styles';
 import { WithTimingConfig } from 'react-native-reanimated';
 import useTheme from 'hooks/useTheme';
 import { Text } from '../index';
+import { useGlobalStyles } from 'theme/Global.styles';
 interface ToastProps {
   errorMessage?: string;
   type?: 'error' | 'success' | 'warning' | 'default';
@@ -57,6 +58,7 @@ export const Toast = forwardRef<ToastRef, ToastProps>((props, ref) => {
   const delay = useSharedValue(4000);
   const [toast, setToast] = useState<string>('');
   const s = useStyleTheme();
+  const globalStyles = useGlobalStyles();
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const insets = useSafeAreaInsets();
   const [height, setHeight] = useState(DEFAULT_HEIGHT);
@@ -155,7 +157,7 @@ export const Toast = forwardRef<ToastRef, ToastProps>((props, ref) => {
 
   return (
     <PanGestureHandler onGestureEvent={panGestureHandler} onHandlerStateChange={panGestureHandler}>
-      <Animated.View style={[toastStyle, s.container, { height, zIndex: 1000 }]}>
+      <Animated.View style={[toastStyle, s.container, { height }, globalStyles.zIndexFull]}>
         <Text>{backgroundStyle.icon}</Text>
         <Text label children={toast} style={[s.toastText, { color: backgroundStyle.textColor }]} />
       </Animated.View>

@@ -10,7 +10,7 @@ import { clearPasscode, getPasscode } from 'utils/keychain';
 export const useVerifyPasscode = () => {
   const [pinNumber, setPinNumber] = useState<string>('');
   const [savedPasscode, setSavedPasscode] = useState<string | null>('');
-  const { goBack, navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
+  const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
   const dispatch = useAppDispatch();
 
   //   checks whether passcode is set or not in keychain
@@ -33,18 +33,15 @@ export const useVerifyPasscode = () => {
     }
   };
 
-  //   handles verification of entered passcode, accepts callback fn
-  const verifyPasscode = (onSuccess?: () => void, shouldGoBack?: boolean) => {
-    if (!onSuccess) {
-      onSuccess = () => {};
-    }
-
-    passcodeEvents.on(PASSCODE_EVENTS_PASSCODE_VERIFIED, () => {
-      if (shouldGoBack) {
-        goBack();
-      }
+  const verifyPasscode = (onSuccess?: () => void) => {
+    const successHandler = () => {
       onSuccess?.();
-    });
+      // Cleanup after handling success
+      passcodeEvents.off(PASSCODE_EVENTS_PASSCODE_VERIFIED, successHandler);
+    };
+
+    // listen to an event
+    passcodeEvents.on(PASSCODE_EVENTS_PASSCODE_VERIFIED, successHandler);
 
     navigate(MODAL_STACK, {
       screen: VERIFY_EASY_LOGIN_SCREEN,
@@ -52,15 +49,11 @@ export const useVerifyPasscode = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      if (pinNumber.length === 4) {
-        if (savedPasscode === null || savedPasscode !== pinNumber) {
-          setPinNumber('');
-        } else {
-          passcodeEvents.emit(PASSCODE_EVENTS_PASSCODE_VERIFIED);
-        }
+    if (pinNumber.length === 4) {
+      if (savedPasscode === null || savedPasscode !== pinNumber) {
+        setPinNumber('');
       }
-    })();
+    }
   }, [pinNumber, savedPasscode]);
 
   const watchKeyboard = (value: number) => {
@@ -82,5 +75,7 @@ export const useVerifyPasscode = () => {
     watchKeyboard,
     passcodeLength,
     removePasscode,
+    pinNumber,
+    savedPasscode,
   };
 };

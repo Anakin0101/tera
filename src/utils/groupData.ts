@@ -2,6 +2,7 @@ import { IGroupedAccountsByIban } from 'components/CardsAndAccounts/CardsAndAcco
 import {
   Account,
   AccountTypeEnum,
+  BlockedTransactionExtendedType,
   TransactionType,
 } from 'services/apis/productsAPI/productsAPI.types';
 
@@ -52,7 +53,7 @@ export const groupAccountsByIban = (
 export const groupTransactionsByDate = (transactions: TransactionType[]) => {
   return Object.entries(
     transactions.reduce((result: Record<string, TransactionType[]>, item) => {
-      const docDate = item.docDate;
+      const docDate = item.docDate.split('T')[0];
 
       if (!result[docDate]) {
         result[docDate] = [];
@@ -64,6 +65,26 @@ export const groupTransactionsByDate = (transactions: TransactionType[]) => {
     }, {}),
   ).map(([docDate, data]) => ({
     title: docDate,
+    data,
+  }));
+};
+
+export const groupBlockedTransactionsByTime = (transactions: BlockedTransactionExtendedType[]) => {
+  return Object.entries(
+    transactions.reduce((result: Record<string, BlockedTransactionExtendedType[]>, item) => {
+      // splits the string at 'T' and takes the first part (the date)
+      const dateKey = item.time.split('T')[0];
+
+      if (!result[dateKey]) {
+        result[dateKey] = [];
+      }
+
+      result[dateKey].push(item);
+
+      return result;
+    }, {}),
+  ).map(([time, data]) => ({
+    title: time,
     data,
   }));
 };

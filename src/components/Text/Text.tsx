@@ -29,6 +29,7 @@ export const Text = forwardRef<RNText, TextProps>(
       medium,
       letterSpacing,
       style,
+      disabled,
       ...props
     },
     ref,
@@ -57,6 +58,7 @@ export const Text = forwardRef<RNText, TextProps>(
           regular && styles.regular,
           medium && styles.medium,
           letterSpacing ? { letterSpacing } : null,
+          disabled && styles.disabled,
           style,
         ]}
         children={translate && typeof children === 'string' ? t(children, translateProp) : children}

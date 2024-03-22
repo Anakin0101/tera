@@ -82,6 +82,7 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
     setSelectedAccountFromCard,
     activeCardAccounts,
     groupedUserBalance,
+    customerOperationsError,
   } = useDashboardScreen();
 
   useScrollToTop(sectionListRef);
@@ -166,7 +167,9 @@ const MainBank: FC<ITeraBankProps> = ({ scroll }) => {
       case 'banker':
         return <Banker {...banker} />;
       case 'transactions':
-        return <DashboardOperations data={customerOperations} />;
+        return (
+          <DashboardOperations data={customerOperations} hasError={!!customerOperationsError} />
+        );
       default:
         return null;
     }

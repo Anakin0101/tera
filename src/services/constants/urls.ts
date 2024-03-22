@@ -104,6 +104,7 @@ export const URLS = {
   setAsFavourite: 'Account/SetAsFavourite',
   removeFromFavourite: 'Account/RemoveFromFavourite',
   getGroupedUserBalance: 'Account/GetGroupedUserBalance',
+  getBlockedTransactions: '/Transaction/GetAccountsBlocks',
 };
 
 export const PROD_URLS = {

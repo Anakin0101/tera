@@ -3,8 +3,10 @@ import React from 'react';
 import { View } from 'react-native';
 import { horizontalScale, verticalScale } from 'utils/config';
 import { Divider } from 'components';
+import { useStyles } from './DashboardSkeleton.styles';
 
 export const DashboardSkeleton = () => {
+  const styles = useStyles();
   return (
     <>
       <SkeletonPlaceholder.Item
@@ -71,7 +73,7 @@ export const DashboardSkeleton = () => {
         </>
         <SkeletonPlaceholder.Item marginLeft={5}>
           <>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.row}>
               {[...Array(4)].map((_, index) => (
                 <View key={index}>
                   <SkeletonPlaceholder.Item
@@ -95,7 +97,7 @@ export const DashboardSkeleton = () => {
           </>
         </SkeletonPlaceholder.Item>
       </SkeletonPlaceholder.Item>
-      <Divider style={{ marginTop: 20 }} />
+      <Divider style={styles.marginTopLg} />
       <SkeletonPlaceholder.Item
         borderRadius={8}
         marginTop={16}

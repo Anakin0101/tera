@@ -5,7 +5,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button, IconComponent, MyBalance, Text, TextInput } from 'components/index';
 import { useStyles } from './ChoosePaymentAccountScreen.style';
 import { MainStackRouteProps, MainStackScreenProps } from 'navigation/types';
-import { SubscriberFieldsValue } from './ChoosePaymentAccountScreen.types';
 import { Account } from 'services/apis/productsAPI/productsAPI.types';
 import { ServiceField } from 'services/apis/paymentsAPI/paymentsAPI.types';
 import { MODAL_STACK, PAYMENT_DETAILS_SCREEN } from 'navigation/ScreenNames';
@@ -16,6 +15,7 @@ import { getValue } from 'storage/index';
 import { SELECTED_LANGUAGE } from 'storage/constants';
 import { LanguageKeys } from 'components/LanguageSwitcher/LanguageSwitcher.types';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
+import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 
 export const ChoosePaymentAccountScreen = () => {
   const styles = useStyles();

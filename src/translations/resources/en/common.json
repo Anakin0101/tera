@@ -117,6 +117,7 @@
     "savings": "Savings",
     "allPay": "All payments",
     "noTransactions": "You don't have transactions",
+    "transactionsError": "An error occured while loading transactions",
     "trustedTemplate": "Trusted Template",
     "template_trust_status": "Template successfully {{status}}",
     "untrusted": "untrusted",
@@ -490,7 +491,11 @@
     "unblockCard": "Do you really want to unblock 'My Card'?",
     "trustedTemplate": "Make template trusted and after 24 hours perform operations up to 1,000 GEL (or equivalent in GEL) without additional SMS/Digipass code.",
     "untrust": "untrust template",
-    "deleteTemplate": "Do you really want to delete the template?"
+    "deleteTemplate": "Do you really want to delete the template?",
+    "blockedMoney": "Blocked money",
+    "money": "Money",
+    "incomes": "Incomes",
+    "outcomes": "Outcomes"
   },
   "transactionDetails": {
     "to": "To",
@@ -500,7 +505,7 @@
     "receiverIban": "Receiver Iban",
     "paymentType": "Payment Type",
     "amount": "Amount",
-    "desc": "Description",
+    "desc": "Reason",
     "docNumber": "Document Number",
     "refund": "Refund",
     "automaticTransfers": "Automatic\nTransfers",

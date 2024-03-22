@@ -53,5 +53,8 @@ export const useStyleTheme = () => {
     medium: {
       ...Fonts.medium,
     },
+    disabled: {
+      color: Colors.textDisabled,
+    },
   });
 };

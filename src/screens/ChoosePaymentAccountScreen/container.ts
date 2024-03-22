@@ -13,7 +13,7 @@ import { PaymentFieldValue, Provider } from 'services/apis/paymentsAPI/paymentsA
 import { useNavigation } from '@react-navigation/native';
 import { ModalStackScreenProps } from 'navigation/types';
 import { NEW_AUTOMATIC_PAYMENT_SCREEN } from 'navigation/ScreenNames';
-import { SubscriberFieldsValue } from './ChoosePaymentAccountScreen.types';
+import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckPaymentProviderScreen.types';
 
 export const useCheckProviderInfo = (providerItem: Provider) => {
   const savedLanguage = getValue(SELECTED_LANGUAGE);

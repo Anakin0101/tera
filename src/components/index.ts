@@ -85,3 +85,4 @@ export { ApplicationErrorWrapper } from './ErrorBoundary/components/ApplicationE
 export { TransparentLoadingView } from './LoadingView/TransparentLoadingView';
 export { DepositsList } from './DepositsAndLoans/DepositsList';
 export { LoansList } from './DepositsAndLoans/LoansList';
+export { NoTransactions } from './Transactions/index';

@@ -3,6 +3,7 @@ import { TransactionType } from 'services/apis/productsAPI/productsAPI.types';
 
 export type DashboardOperationsProps = {
   data?: TransactionType[];
+  hasError?: boolean;
 };
 
 export type RenderItem = ListRenderItem<TransactionType>;
