@@ -26,5 +26,8 @@ export const useStyles = () => {
       ...Fonts.medium,
       letterSpacing: -0.2,
     },
+    content: {
+      ...Layout.fill,
+    },
   });
 };
