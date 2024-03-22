@@ -130,7 +130,6 @@ export const CheckPaymentProviderScreen = () => {
 
   const onSubmit = useCallback(() => {
     // If any field has an empty value, return early without invoking getDebtVerifyResultsHandler.
-    // if (areAllNonEmpty) {
     if (debtVerifyResults?.length) {
       /**
        * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
@@ -144,7 +143,6 @@ export const CheckPaymentProviderScreen = () => {
        */
       getDebtVerifyResultsHandler(subscriberFieldsValue);
     }
-    // }
   }, [
     subscriberFieldsValue,
     debtVerifyResults?.length,

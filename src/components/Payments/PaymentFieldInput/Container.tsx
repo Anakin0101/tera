@@ -27,7 +27,7 @@ export const usePaymentFieldItemDropDown = (
     );
   }, [fieldItems, subscriberFieldsValue]);
 
-  const changeFieldOnPress = (cb: (val: string) => void) => {
+  const changeFieldOnPress = (callbackFn: (val: string) => void) => {
     Keyboard.dismiss();
     if (filteredFieldItems?.length > 0) {
       openModal({
@@ -35,7 +35,7 @@ export const usePaymentFieldItemDropDown = (
           <SelectPaymentFieldModal
             confirm={(val: string, key: string) => {
               onChangeText(val, key);
-              cb(key);
+              callbackFn(key);
             }}
             selectedValue={selectedValue}
             fieldItems={filteredFieldItems}
