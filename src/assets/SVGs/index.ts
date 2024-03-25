@@ -154,3 +154,4 @@ export { ATM } from './ATM';
 export { Location } from './Location';
 export { NoTransactionsIcon } from './NoTransactionsIcon';
 export { TransactionLock } from './TransactionLock';
+export { CheckMark } from './CheckMark';

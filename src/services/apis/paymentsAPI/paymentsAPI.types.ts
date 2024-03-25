@@ -59,15 +59,20 @@ export interface DebtVerifyBasketResponse {
   fieldItems: Array<FieldItem> | null;
   fieldDirection: number;
   value: string;
-  relations: any; // ეს ფრონტშიც ეგრეა აღწერილი, რას აყოლებენ ვერ მივხვდი // TODO გავაკეთოთ აღწერა
+  relations?: Array<Relation>;
 }
 
 export interface FieldItem {
   key: string;
   name: string;
   value: string;
-  relations: any; // ეს ფრონტშიც ეგრეა აღწერილი, რას აყოლებენ ვერ მივხვდი // TODO გავაკეთოთ აღწერა
+  relations?: Array<Relation>;
   order: number;
+}
+
+export interface Relation {
+  parentFieldId: number;
+  parentFieldValue: string;
 }
 
 export interface GetDebtVerifyBasketParams {
@@ -106,7 +111,7 @@ export interface ServiceField {
   fieldItems: any[]; // ეს ფრონტშიც ეგრეა აღწერილი, რას აყოლებენ ვერ მივხვდი // TODO გავაკეთოთ აღწერა
   fieldDirection: number;
   value: any; // ეს ფრონტშიც ეგრეა აღწერილი, რას აყოლებენ ვერ მივხვდი // TODO გავაკეთოთ აღწერა
-  relations: any[]; // ეს ფრონტშიც ეგრეა აღწერილი, რას აყოლებენ ვერ მივხვდი // TODO გავაკეთოთ აღწერა
+  relations?: Array<Relation>;
 }
 
 export interface DebtVerifyRequestBody {
@@ -118,6 +123,7 @@ export interface DebtVerifyRequestBody {
 export interface PaymentFieldValue {
   id: number;
   value: string;
+  key?: string;
 }
 
 export interface PayRequestBody {

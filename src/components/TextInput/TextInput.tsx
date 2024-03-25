@@ -1,4 +1,11 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { View, TextInput as RNTextInput, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, FieldValues } from 'react-hook-form';
@@ -55,17 +62,23 @@ export const TextInput = forwardRef<TextInputRefType, TextInputProps & { showErr
       blur: () => handleBlur(),
     }));
 
-    const handleFocus = () => {
+    const handleFocus = useCallback(() => {
       if (!value) {
         position.value = withTiming(1, { easing: Easing.inOut(Easing.ease) });
       }
-    };
+    }, [position, value]);
 
-    const handleLayout = () => {
+    const handleLayout = useCallback(() => {
       if (value) {
         position.value = withTiming(1, { easing: Easing.inOut(Easing.ease) });
       }
-    };
+    }, [position, value]);
+
+    useEffect(() => {
+      if (value) {
+        handleLayout();
+      }
+    }, [handleLayout, value]);
 
     const handleBlur = () => {
       if (!value) {

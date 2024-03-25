@@ -16,8 +16,14 @@ export const PaymentSuccessScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
   const { params } = useRoute<MainStackRouteProps<'PaymentSuccessScreen'>>();
-  const { providerItem, subscriberInputFieldsValue, amount, isBasketMode, transferResponse } =
-    params || {};
+  const {
+    providerItem,
+    subscriberInputFieldsValue,
+    amount,
+    isBasketMode,
+    transferResponse,
+    transferSendPrepareResponse,
+  } = params || {};
 
   const { navigate } = useNavigation<MainStackScreenProps<'PaymentSuccessScreen'>>();
 
@@ -79,6 +85,8 @@ export const PaymentSuccessScreen = () => {
       return t('paymentSuccessScreen.transferTitle');
     } else if (isBasketMode) {
       return t('paymentSuccessScreen.basketTitle');
+    } else if (transferSendPrepareResponse) {
+      return t('paymentSuccessScreen.transferSendTitle');
     } else {
       return t('paymentSuccessScreen.title');
     }
@@ -91,6 +99,10 @@ export const PaymentSuccessScreen = () => {
   const renderMoney = () => {
     if (transferResponse) {
       return `${formatMoney(transferResponse.amount)} ${transferResponse.currency}`;
+    } else if (transferSendPrepareResponse) {
+      return `${formatMoney(transferSendPrepareResponse.payoutAmount)} ${
+        transferSendPrepareResponse.payoutCurrency
+      }`;
     } else {
       return `${latestPaymentValue} ₾`;
     }

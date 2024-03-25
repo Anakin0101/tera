@@ -54,6 +54,13 @@ export const URLS = {
   receiveTransfer: 'MoneyTransfer/ReceiveTransfer',
   getMoneyTransferInfo: 'MoneyTransfer/GetTransferInfo?channelCode=DigitalChannel',
   checkTransferStatus: 'MoneyTransfer/CheckTransferStatus?channelCode=DigitalChannel',
+  getTsMTSystems: 'MoneyTransfer/GetTsMTSystems?channelCode=DigitalChannel',
+  getMTSystem: 'MoneyTransfer/GetMTSystem?channelCode=DigitalChannel',
+  getDirections: 'MoneyTransfer/GetDictionaries?channelCode=DigitalChannel',
+  getCities: 'MoneyTransfer/FindCities?channelCode=DigitalChannel',
+  getAddress: 'MoneyTransfer/FindPoints?channelCode=DigitalChannel',
+  prepareTransferSend: 'MoneyTransfer/PrepareTransferSend',
+  sendTransfer: 'MoneyTransfer/SendTransfer',
   getUnreadNotificationsCount: 'Pensions/GetUnreadNotificationsCount',
   getRequestForLoanConfig: 'Loan/GetRequestForLoanConfig',
   requestForLoan: 'Loan/RequestForLoan',
@@ -99,6 +106,8 @@ export const URLS = {
   removeFromFavourite: 'Account/RemoveFromFavourite',
   getGroupedUserBalance: 'Account/GetGroupedUserBalance',
   getBlockedTransactions: '/Transaction/GetAccountsBlocks',
+  printOps: 'Transaction/PrintOps',
+  changePassword: 'Auth/ChangePassword',
 };
 
 export const PROD_URLS = {

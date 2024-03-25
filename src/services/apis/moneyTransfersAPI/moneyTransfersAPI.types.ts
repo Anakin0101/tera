@@ -178,3 +178,162 @@ export interface TransferInfo {
   transferNumber: string;
   receiveBankAccountNumber: string;
 }
+
+export interface TsMTSystemsResponse {
+  mtSystem: Array<MtSystem>;
+}
+
+export interface MtSystem {
+  mtSystem: number;
+  requiredFieldsForFeeCalculation: Array<RequiredFieldsForFeeCalculation>;
+  name?: string;
+  key?: string;
+}
+
+export interface RequiredFieldsForFeeCalculation {
+  fieldId: string;
+}
+
+export interface GetMtSystemParams {
+  mtSystem: string;
+}
+
+export interface GetMtSystemResponse {
+  mtSystem: MtSystem;
+}
+
+export interface DictionariesParams {
+  mtSystem: number;
+}
+
+export interface DictionariesResponse {
+  success: boolean;
+  error: string;
+  pending: boolean;
+  countries: Array<Country>;
+  currencies: Array<Currency>;
+}
+
+export interface Country {
+  allowedInIdDocument: boolean;
+  caption: string;
+  code: string;
+  currency: Array<string>;
+  iso2: string;
+  iso3: string;
+  isoNo: number;
+  mtSystemSpecificCode: string;
+  receiveAllowed: boolean;
+  state: Array<State>;
+}
+
+export interface State {
+  caption: string;
+  cities: Array<string>;
+  code: string;
+}
+
+export interface GetCitiesRequestParams {
+  MTSystem: number;
+  country: string;
+}
+
+export interface GerCitiesResponse {
+  success: boolean;
+  error: string;
+  pending: boolean;
+  city: Array<City>;
+}
+
+export interface City {
+  acceptedCurrencies: string;
+  cityId: string;
+  country: string;
+  name: string;
+  region: string;
+}
+
+export interface GetAddressResponse {
+  mtPoint: Array<MtPoint>;
+}
+
+export interface MtPoint {
+  address: string;
+  city: string;
+  code: string;
+  feeInfos: Array<FeeInfo>;
+  name: string;
+}
+
+export interface FeeInfo {
+  currency: string;
+  payOutCurrency: string;
+}
+
+export interface GetAddressRequestParams {
+  additionalFilter: string;
+  channelCode: string;
+  city?: City;
+  country: string;
+  culture: string;
+  mtSystem: number;
+}
+
+export interface PrepareTransferRequestParams {
+  mtSystem: number;
+  fieldValues: Array<FieldValue>;
+  channelCode: string;
+  culture: string;
+}
+
+export interface FieldValue {
+  code: string;
+  value: string;
+}
+
+export interface PrepareTransferResponse {
+  transferSendPrepareResponse: TransferSendPrepareResponse;
+}
+
+export interface TransferSendPrepareResponse {
+  // fieldInfos: FieldInfo[]
+  mtFee: MtFee;
+  payoutAmount: number;
+  payoutCurrency: string;
+  principalAmount: number;
+  principalCurrency: string;
+  receiveCity: string;
+  receiveCountry: string;
+  receivePoint: string;
+  receiveState: string;
+  invalidReceiveCountry: boolean;
+  success: boolean;
+  errorMessage: string;
+}
+
+export interface MtFee {
+  agentFee: number;
+  mtsFee: number;
+}
+
+export interface Client {
+  bankAccountNumber: string;
+  clientId: number;
+  clientIdSpecified: boolean;
+}
+
+export interface MoneyTransferSendRequestParams {
+  transferId: string;
+  client: Client;
+  channelCode: string;
+  fieldValues: Array<FieldValue>;
+  agreeCreditInfoAgreement: boolean;
+  otp: string;
+  sendOtp: boolean;
+  culture: string;
+}
+
+export interface MoneyTransferSendResponse {
+  transfer: Transfer;
+  otpRequired: boolean;
+}

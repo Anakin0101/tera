@@ -3,13 +3,12 @@ import { Pressable, View } from 'react-native';
 
 import { useStyles } from './TransfersHistory.styles';
 import { Text } from 'components/Text/Text';
-import { TransfersHistoryItemProps } from './TransfersHistory.types';
+import { TransferListTypeEnum, TransfersHistoryItemProps } from './TransfersHistory.types';
 import { IconComponent } from '../index';
 import Images from 'theme/Images';
 import { formatMoney } from 'utils/formatMoney';
 import { formatDate } from 'utils/formatDate';
 import { getCurrencyIcon } from 'utils/currency';
-import { TransferListTypeEnum } from './container';
 import { MoneyTransferStatusEnum } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 
 export const TransfersHistorytItem: React.FC<TransfersHistoryItemProps> = memo(

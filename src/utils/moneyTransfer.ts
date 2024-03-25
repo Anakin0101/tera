@@ -4,6 +4,7 @@ export interface MTSystemItemProps {
   key: string;
 }
 
+// MT full list
 export const mtSystemList: Array<MTSystemItemProps> = [
   { id: 0, name: 'CONTACT', key: 'Contact' },
   { id: 1, name: '', key: 'Anelik' },
@@ -27,4 +28,19 @@ export const mtSystemList: Array<MTSystemItemProps> = [
   { id: 19, name: '', key: 'WIC' },
   { id: 20, name: '', key: 'Elva' },
   { id: 21, name: '', key: 'Mimino' },
+];
+
+// MT receive list
+export const mtReceiveSystemList: Array<MTSystemItemProps> = [
+  { id: 0, name: 'CONTACT', key: 'Contact' },
+  { id: 6, name: 'RIA', key: 'Ria' },
+  { id: 14, name: 'INTEL_EXPRESS', key: 'IntelExpress' },
+  { id: 18, name: 'RICO_GRAM', key: 'RicoGram' },
+];
+
+// MT send list
+export const mtSendSystemList: Array<MTSystemItemProps> = [
+  { id: 0, name: 'CONTACT', key: 'Contact' },
+  { id: 14, name: 'INTEL_EXPRESS', key: 'IntelExpress' },
+  { id: 18, name: 'RICO_GRAM', key: 'RicoGram' },
 ];

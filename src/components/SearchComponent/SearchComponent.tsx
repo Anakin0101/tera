@@ -12,6 +12,7 @@ export const SearchComponent: FC<SearchProps> = ({
   placeholder = '',
   autoFocus = false,
   onClearTextOnPress = () => {},
+  customWrapperStyle = {},
 }) => {
   const styles = useStyleTheme();
 
@@ -21,7 +22,7 @@ export const SearchComponent: FC<SearchProps> = ({
   };
   return (
     <View>
-      <View style={[styles.container]}>
+      <View style={[styles.container, customWrapperStyle]}>
         <Search />
         <TextInput
           style={styles.input}

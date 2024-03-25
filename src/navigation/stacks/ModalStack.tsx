@@ -161,8 +161,15 @@ import {
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
   EXCHANGE_RATES_SCREEN,
+  MONEY_TRANSFER_SEND_SCREEN,
+  MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
+  MONEY_TRANSFER_SEND_INFO_SCREEN,
+  MONEY_TRANSFER_SEND_MONEY_SCREEN,
+  MONEY_TRANSFER_SEND_PERMISSION_SCREEN,
+  MONEY_TRANSFER_SEND_DETAILS_SCREEN,
   ALL_TEMPLATES_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
+  CHANGE_PASSWORD_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfersScreen';
@@ -170,6 +177,13 @@ import { MoneyTransferReceiveScreen } from 'screens/MoneyTransferReceiveScreen/M
 import { CheckMoneyTransferProviderScreen } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen';
 import { MoneyTransferPermissionScreen } from 'screens/MoneyTransferPermissionScreen/MoneyTransferPermissionScreen';
 import { MoneyTransferDetailsScreen } from 'screens/MoneyTransferDetailsScreen/MoneyTransferDetailsScreen';
+import { MoneyTransferSendScreen } from 'screens/MoneyTransferSendScreen/MoneyTransferSendScreen';
+import { MoneyTransferSendAddressScreen } from 'screens/MoneyTransferSendAddressScreen/MoneyTransferSendAddressScreen';
+import { MoneyTransferSendInfoScreen } from 'screens/MoneyTransferSendInfoScreen/MoneyTransferSendInfoScreen';
+import { MoneyTransferSendMoneyScreen } from 'screens/MoneyTransferSendMoneyScreen/MoneyTransferSendMoneyScreen';
+import { MoneyTransferSendPermissionScreen } from 'screens/MoneyTransferSendPermissionScreen/MoneyTransferSendPermissionScreen';
+import { MoneyTransferSendDetailsScreen } from 'screens/MoneyTransferSendDetailsScreen/MoneyTransferSendDetailsScreen';
+import { ChangePasswordScreen } from 'screens/ChangePasswordScreen/ChangePasswordScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -381,6 +395,54 @@ export const ModalNavigator = () => {
         component={MoneyTransferDetailsScreen}
         options={{
           title: t('moneyTransferDetailsScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_SCREEN}
+        component={MoneyTransferSendScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_ADDRESS_SCREEN}
+        component={MoneyTransferSendAddressScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_INFO_SCREEN}
+        component={MoneyTransferSendInfoScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_MONEY_SCREEN}
+        component={MoneyTransferSendMoneyScreen}
+        options={{
+          title: t('moneyTransferSendMoneyScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_PERMISSION_SCREEN}
+        component={MoneyTransferSendPermissionScreen}
+        options={{
+          title: t('moneyTransferSendScreen.title'),
+          headerShadowVisible: true,
+        }}
+      />
+      <Screen
+        name={MONEY_TRANSFER_SEND_DETAILS_SCREEN}
+        component={MoneyTransferSendDetailsScreen}
+        options={{
+          title: t('moneyTransferSendDetailsScreen.title'),
           headerShadowVisible: true,
         }}
       />
@@ -734,6 +796,14 @@ export const ModalNavigator = () => {
         name={INSURANCE_SUCCESS_SCREEN}
         component={InsuranceSuccessScreen}
         options={hideHeader}
+      />
+      <Screen
+        name={CHANGE_PASSWORD_SCREEN}
+        component={ChangePasswordScreen}
+        options={{
+          title: t('changePassword.header'),
+          headerShadowVisible: true,
+        }}
       />
     </Navigator>
   );

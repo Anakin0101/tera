@@ -8,7 +8,7 @@ import {
   UserIcon,
 } from 'assets/SVGs';
 import { SettingsConfigType } from './SettingsScreen.types';
-import { AUTHORIZATION_METHODS_SCREEN } from 'navigation/ScreenNames';
+import { AUTHORIZATION_METHODS_SCREEN, CHANGE_PASSWORD_SCREEN } from 'navigation/ScreenNames';
 
 export const SettingsScreenConfig: SettingsConfigType[] = [
   {
@@ -38,7 +38,7 @@ export const SettingsScreenConfig: SettingsConfigType[] = [
         id: 'settings.change_password',
         text: 'settings.change_password',
         icon: Key,
-        navigateTo: AUTHORIZATION_METHODS_SCREEN,
+        navigateTo: CHANGE_PASSWORD_SCREEN,
       },
       {
         index: 1,

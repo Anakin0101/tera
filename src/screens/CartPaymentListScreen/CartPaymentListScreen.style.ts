@@ -23,8 +23,8 @@ export const useStyles = () => {
     },
     buttonContainer: {
       zIndex: 2,
-      position: 'absolute',
-      width: '100%',
+      ...Layout.absolute,
+      ...Layout.fullWidth,
       bottom: Spacing.s + StaticSafeAreaInsets.safeAreaInsetsBottom,
     },
     btnContainer: {

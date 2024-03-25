@@ -12,7 +12,7 @@ export const useStyles = () => {
       borderColor: Colors.borderColor,
       paddingVertical: Spacing.ml,
       paddingHorizontal: Spacing.lg,
-      backgroundColor: 'rgba(244, 244, 244, 0.4)',
+      backgroundColor: Colors.borderBackground,
       borderRadius: 8,
     },
     title: {

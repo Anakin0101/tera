@@ -59,6 +59,7 @@ export const Colors = {
   accountText500: 'rgba(15, 15, 15, 0.64)',
   lightGray: 'rgba(249, 249, 249, 1)',
   borderColor: 'rgba(196, 196, 196, 0.3)',
+  borderBackground: 'rgba(244, 244, 244, 0.4)',
   grayBorderColor: 'rgba(29, 29, 29, 0.10)',
   primaryToggleButtonCollor: 'rgba(159, 29, 107, 0.06)',
   insuranceBg: 'rgb(249, 243, 247)',

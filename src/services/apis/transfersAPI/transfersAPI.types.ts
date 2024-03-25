@@ -187,6 +187,7 @@ export enum CurrencyEnum {
   RUR = 'RUR',
   CHF = 'CHF',
 }
+
 export enum TRANSFER_TYPE {
   bankInternal = 'bankInternal',
   bankExternal = 'bankExternal',

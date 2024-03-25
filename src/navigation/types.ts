@@ -104,10 +104,17 @@ import {
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
   EXCHANGE_RATES_SCREEN,
+  MONEY_TRANSFER_SEND_SCREEN,
+  MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
+  MONEY_TRANSFER_SEND_INFO_SCREEN,
+  MONEY_TRANSFER_SEND_MONEY_SCREEN,
+  MONEY_TRANSFER_SEND_PERMISSION_SCREEN,
+  MONEY_TRANSFER_SEND_DETAILS_SCREEN,
   TRANSFER_TO_FOREIGN_IBAN,
   FOREIGN_TRANSFER_DETAILS_SCREEN,
   TRANSFER_TO_ACCOUNT_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
+  CHANGE_PASSWORD_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -124,12 +131,16 @@ import { SubscriberFieldsValue } from 'screens/CheckPaymentProviderScreen/CheckP
 import { AutomaticPaymentForm } from 'screens/NewAutomaticPaymentScreen/NewAutomaticPaymentScreen.types';
 import { MTSystemItemProps } from 'utils/moneyTransfer';
 import {
+  City,
+  Country,
   FindTransferResponse,
   MoneyTransferList,
+  MtPoint,
+  TransferSendPrepareResponse,
 } from 'services/apis/moneyTransfersAPI/moneyTransfersAPI.types';
 import { BuyCurrencyDetails } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen.types';
-import { TransferListTypeEnum } from 'components/TransfersHistory/container';
 import { SelectedAccountFromCard } from 'components/CardsAndBalance/CardsAndBalance.types';
+import { TransferListTypeEnum } from 'components/TransfersHistory/TransfersHistory.types';
 
 export type RoutesList = {
   [AUTH_LOADING_SCREEN]: undefined;
@@ -188,6 +199,7 @@ export type ModalStackParamsList = {
     amount?: number;
     isBasketMode?: boolean;
     transferResponse?: FindTransferResponse;
+    transferSendPrepareResponse?: TransferSendPrepareResponse;
   };
   [CHOOSE_PAYMENT_ACCOUNT_SCREEN]: {
     providerItem: Provider;
@@ -226,6 +238,7 @@ export type ModalStackParamsList = {
   };
   [MONEY_TRANSFERS_SCREEN]: undefined;
   [MONEY_TRANSFER_RECEIVE_SCREEN]: undefined;
+  [MONEY_TRANSFER_SEND_SCREEN]: undefined;
   [CHECK_MONEY_TRANSFER_PROVIDER_SCREEN]: {
     providerItem: MTSystemItemProps;
   };
@@ -239,6 +252,43 @@ export type ModalStackParamsList = {
   [MONEY_TRANSFER_DETAILS_SCREEN]: {
     transferDetails: MoneyTransferList;
     transferType: TransferListTypeEnum;
+  };
+  [MONEY_TRANSFER_SEND_ADDRESS_SCREEN]: {
+    providerItem: MTSystemItemProps;
+  };
+  [MONEY_TRANSFER_SEND_INFO_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    selectedCountry?: Country;
+    selectedCity?: City;
+    mtPoint?: MtPoint;
+  };
+  [MONEY_TRANSFER_SEND_MONEY_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    selectedCountry?: Country;
+    selectedCity?: City;
+    mtPoint?: MtPoint;
+    firstName: string;
+    lastName: string;
+  };
+  [MONEY_TRANSFER_SEND_PERMISSION_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    selectedCountry?: Country;
+    selectedCity?: City;
+    mtPoint?: MtPoint;
+    firstName: string;
+    lastName: string;
+    transferSendPrepareResponse: TransferSendPrepareResponse;
+    selectedAccount: Account;
+  };
+  [MONEY_TRANSFER_SEND_DETAILS_SCREEN]: {
+    providerItem: MTSystemItemProps;
+    selectedCountry?: Country;
+    selectedCity?: City;
+    mtPoint?: MtPoint;
+    firstName: string;
+    lastName: string;
+    transferSendPrepareResponse: TransferSendPrepareResponse;
+    selectedAccount: Account;
   };
   [PAYMENT_ERROR_SCREEN]: undefined;
   [ALL_TRANSACTIONS_SCREEN]: { accountNumber?: number } | undefined;
@@ -395,6 +445,7 @@ export type ModalStackParamsList = {
         templates?: Template;
       };
   [INSURANCE_SUCCESS_SCREEN]: undefined;
+  [CHANGE_PASSWORD_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

@@ -10,7 +10,7 @@ export const SelectPaymentFieldItem: FC<SelectPaymentFieldItemProps> = memo(
     const styles = useStyles();
 
     return (
-      <Pressable onPress={() => onPress(fieldItem.value)} style={styles.itemWrapper}>
+      <Pressable onPress={() => onPress(fieldItem.value, fieldItem.key)} style={styles.itemWrapper}>
         <View style={styles.itemContainer}>
           <Text style={[styles.itemTitle, isSelected && styles.itemSelected]}>
             {fieldItem.name}

@@ -10,6 +10,17 @@ import { KeyboardAvoidingScrollView } from '@cassianosch/react-native-keyboard-s
 
 import { useForm } from 'react-hook-form';
 
+/**
+ * Create a new array of subscriber fields with empty values based on debtVerifyBasketInfo.
+ * @param {DebtVerifyBasketResponse} item - An item from the debt verification basket.
+ * @returns {SubscriberFieldValue} An object with id and an empty value.
+ */
+const createSubscriberField = (item: DebtVerifyBasketResponse) => ({
+  id: item.id,
+  value: item.value || '',
+  key: item.key || '',
+});
+
 export const CheckPaymentProviderScreen = () => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -44,16 +55,6 @@ export const CheckPaymentProviderScreen = () => {
    * @param {function} setSubscriberFieldsValue - State updater function for subscriberFieldsValue.
    */
   useEffect(() => {
-    /**
-     * Create a new array of subscriber fields with empty values based on debtVerifyBasketInfo.
-     * @param {DebtVerifyBasketResponse} item - An item from the debt verification basket.
-     * @returns {SubscriberFieldValue} An object with id and an empty value.
-     */
-    const createSubscriberField = (item: DebtVerifyBasketResponse) => ({
-      id: item.id,
-      value: item.value || '',
-    });
-
     // Check if debtVerifyBasketInfo is available
     if (debtVerifyBasketInfo) {
       // Create a new array of subscriber fields with empty values based on debtVerifyBasketInfo
@@ -68,34 +69,56 @@ export const CheckPaymentProviderScreen = () => {
    * @returns {JSX.Element[]} An array of JSX elements representing PaymentFieldInput components.
    */
   const renderCorrectInput = useCallback(() => {
-    return debtVerifyBasketInfo?.map(item => (
-      <PaymentFieldInput
-        key={item.id}
-        item={item}
-        value={subscriberFieldsValue.find(field => field.id === item.id)?.value || ''}
-        onChangeText={(id, text) => {
-          // clear old debt verify info
-          clearDebtVerifyInfo();
-          // Update the subscriberFieldsValue state with the new text for the specified id.
-          setSubscriberFieldsValue(prev => {
-            const updatedFields = [...prev];
-            const fieldIndex = updatedFields.findIndex(field => field.id === id);
+    return debtVerifyBasketInfo?.map(item => {
+      /**
+       * Checks if the parentFieldValue in the item's relations matches any item in the mainArray.
+       * If the item doesn't have relations, it's considered a match and returned as true.
+       * @param {Object} item - The item to check.
+       * @param {Array} mainArray - The main array to compare against.
+       * @returns {boolean} - True if the parentFieldValue is matched or if the item doesn't have relations, false otherwise.
+       */
+      const isParentFieldValueMatched = item?.relations?.length
+        ? subscriberFieldsValue.some(mainItem =>
+            item?.relations?.some(
+              relation =>
+                mainItem?.id === relation?.parentFieldId &&
+                mainItem?.value === relation?.parentFieldValue,
+            ),
+          )
+        : true;
 
-            if (fieldIndex !== -1) {
-              // If the field with the specified id exists, update its value
-              updatedFields[fieldIndex] = { id, value: text };
-            } else {
-              // If the field doesn't exist, add a new field to the array
-              updatedFields.push({ id, value: text });
-            }
+      if (isParentFieldValueMatched) {
+        return (
+          <PaymentFieldInput
+            key={item.key}
+            item={item}
+            subscriberFieldsValue={subscriberFieldsValue}
+            value={subscriberFieldsValue.find(field => field.id === item.id)?.value || ''}
+            onChangeText={(id, text, key) => {
+              // clear old debt verify info
+              clearDebtVerifyInfo();
+              // Update the subscriberFieldsValue state with the new text for the specified id.
+              setSubscriberFieldsValue(prev => {
+                const updatedFields = [...prev];
+                const fieldIndex = updatedFields.findIndex(field => field.id === id);
 
-            return updatedFields;
-          });
-        }}
-        control={control}
-        errors={errors}
-      />
-    ));
+                if (fieldIndex !== -1) {
+                  // If the field with the specified id exists, update its value
+                  updatedFields[fieldIndex] = { id, value: text, key };
+                } else {
+                  // If the field doesn't exist, add a new field to the array
+                  updatedFields.push({ id, value: text, key });
+                }
+
+                return updatedFields;
+              });
+            }}
+            control={control}
+            errors={errors}
+          />
+        );
+      }
+    });
   }, [
     debtVerifyBasketInfo,
     subscriberFieldsValue,
@@ -105,28 +128,20 @@ export const CheckPaymentProviderScreen = () => {
     setSubscriberFieldsValue,
   ]);
 
-  const checkSubscriberInfo = useCallback(() => {
-    /**
-     * Check if any field value in the subscriberFieldsValue array is empty.
-     * @type {boolean} True if at least one field has an empty value, otherwise false.
-     */
-    const areAllNonEmpty = subscriberFieldsValue.every(field => !!field?.value);
-
+  const onSubmit = useCallback(() => {
     // If any field has an empty value, return early without invoking getDebtVerifyResultsHandler.
-    if (areAllNonEmpty) {
-      if (debtVerifyResults?.length) {
-        /**
-         * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
-         * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
-         */
-        openChoosePaymentAccountScreenOnPress(subscriberFieldsValue);
-      } else {
-        /**
-         * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
-         * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
-         */
-        getDebtVerifyResultsHandler(subscriberFieldsValue);
-      }
+    if (debtVerifyResults?.length) {
+      /**
+       * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
+       * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
+       */
+      openChoosePaymentAccountScreenOnPress(subscriberFieldsValue);
+    } else {
+      /**
+       * All field values are non-empty, so invoke the getDebtVerifyResultsHandler function.
+       * @param {SubscriberFieldsValue} fields - The array of subscriber fields with non-empty values.
+       */
+      getDebtVerifyResultsHandler(subscriberFieldsValue);
     }
   }, [
     subscriberFieldsValue,
@@ -134,10 +149,6 @@ export const CheckPaymentProviderScreen = () => {
     openChoosePaymentAccountScreenOnPress,
     getDebtVerifyResultsHandler,
   ]);
-
-  const onSubmit = () => {
-    checkSubscriberInfo();
-  };
 
   if (isLoading) {
     return <LoadingView />;

@@ -154,3 +154,23 @@ export type RefreshTokenAPIResponse = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type ChangePasswordAPIResponseType = {
+  hasDigipass: boolean;
+  otpRequired: boolean;
+  authMethod: string;
+  authorized: boolean;
+  authContext: unknown;
+  success: boolean;
+  error: unknown;
+  pending: boolean;
+  channelData: unknown;
+};
+export type ChangePasswordAPIRequestType = {
+  headers?: Record<string, any>;
+  body: {
+    culture: string;
+    existingPassword: string;
+    newPassword: string;
+  };
+};

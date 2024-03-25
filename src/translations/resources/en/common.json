@@ -410,10 +410,16 @@
     "receiver": "Receiver",
     "country": "Country",
     "city": "City",
+    "address": "Address",
     "sender": "Sender",
     "sendedMoney": "Sended Money",
     "totalFee": "Total Fee",
     "bankAccountNumber": "Account number (IBAN)",
+    "myFinancial": "My Financial",
+    "receivingPoint": "Receiving Point",
+    "fullAmount": "Full amount",
+    "money": "Money",
+    "search": "Search",
     "to": "To",
     "next": "Next",
     "returnToMain": "Return to Main",
@@ -445,7 +451,15 @@
     "11_digits_required": "must consist of 11 digits",
     "22_digits_required": "must consist of 22 digits",
     "9_digits_required": "must consist of 9 digits",
-    "invalid_email": "format is incorrect"
+    "8_digits_required": "must consist of 8 digits",
+    "invalid_email": "format is incorrect",
+    "minSymbols": "Min. 6 symbols (required)",
+    "numbers": "Digits (from 0 to 9)",
+    "lowercaseLetters": "Lowercase letters (a-z)",
+    "upperCaseLetters": "Uppercase letters (A-Z)",
+    "symbols": "Symbols (e.g.: !@#$%^&*()_+)",
+    "does_not_match": "does not match",
+    "does_not_match_with": "does not match with"
   },
 
   "transactions": {
@@ -521,7 +535,8 @@
     "city": "city",
     "address": "address",
     "receiverBank": "Receiver Bank",
-    "mediatorBank": "Mediator Bank"
+    "mediatorBank": "Mediator Bank",
+    "downloadReceiptError": "Error during receipt download. Please try again later"
   },
   "filters": {
     "income": "Income",
@@ -695,7 +710,8 @@
     "mainPage": "Return to main page",
     "basketTitle": "Payment successfully was\n added",
     "someItemRejected": "All templates could not be paid",
-    "transferTitle": "The transfer has been cashed"
+    "transferTitle": "The transfer has been cashed",
+    "transferSendTitle": "The transaction was completed successfully"
   },
   "moneyTransfersScreen": {
     "title": "Money transfers",
@@ -732,6 +748,29 @@
   "moneyTransferDetailsScreen": {
     "title": "Transfer details",
     "transferCode": "Transfer code"
+  },
+  "moneyTransferSendScreen": {
+    "title": "Send Money",
+    "desc": "Select a receiving point"
+  },
+  "moneyTransferSendAddressScreen": {
+    "title": "Enter the recipient's address"
+  },
+  "moneyTransferSendInfoScreen": {
+    "title": "Enter the recipient's information",
+    "receiverName": "Receiver's Name",
+    "receiverSurname": "Receiver's Surname"
+  },
+  "moneyTransferSendMoneyScreen": {
+    "title": "Transfer to own account",
+    "send": "To be send",
+    "recieve": "Acceptable"
+  },
+  "moneyTransferSendPermissionScreen": {
+    "text": "Be careful when using remittances and keep in mind that even in the case of confirmed fraud, you will not be able to return the amount sent after cashing out. For security reasons, do not perform the transfer \n• in the name of an unknown person or a person whom you cannot identify;\n• to purchase any item or service on the internet;\n• to pay utility or telecommunications service fees, debts, etc.\n• to confirm the lack of funds in the account due to making an online purchase, using a rental service, receiving credit or for any other reason.\nProtect confidentiality and inform the details of operation usage only to the recipient of the message."
+  },
+  "moneyTransferSendDetailsScreen": {
+    "title": "Transfer details"
   },
   "teraWallet": {
     "collectMoney": "Collect money easily",
@@ -883,5 +922,14 @@
     "specialRate": " / Your rate 1{{fromSign}}={{value}}{{toSign}}",
     "convert": "Conversion",
     "specRateLimit": "Special rate limit: {{value}}₾"
+  },
+  "changePassword": {
+    "header": "Change password",
+    "existingPassword": "Existing password",
+    "newPassword": "New password",
+    "repeatPassword": "Repeat password",
+    "change_password_success": "Password has been changed successfully!",
+    "change_password_error": "Could not change password. Please try again later",
+    "new_password_criterias": "Password must satisfy minimum 3 of the following criterias:"
   }
 }

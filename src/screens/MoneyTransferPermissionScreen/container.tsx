@@ -9,11 +9,7 @@ import { useCulture } from 'hooks/useCulture';
 import { openToast } from 'utils/toast';
 import { PAYMENT_SUCCESS_SCREEN } from 'navigation/ScreenNames';
 import { useChooseBankAccount } from 'components/modals/ChooseBankAccountModal/container';
-
-export enum CheckedValueEnum {
-  accept = 'accept',
-  notAccept = 'notAccept',
-}
+import { CheckedValueEnum } from './MoneyTransferPermissionScreen.types';
 
 export const useCheckMoneyTransferProviderInfo = () => {
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
