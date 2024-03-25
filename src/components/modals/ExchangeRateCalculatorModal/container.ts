@@ -3,15 +3,16 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useConvertAmountBuyQuery } from 'services/apis';
 import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 import { CurrencySignMap } from 'utils/CurrencySignMap';
+import { debounce } from 'utils/debounce';
 import { formatRate } from 'utils/formatRate';
 
 export const useExchangeRateCalculator = (currencies: CurrencyEnum[]) => {
-  const [fromCurrency, setFromCurrency] = useState(CurrencyEnum.GEL);
-  const [toCurrency, setToCurrency] = useState(CurrencyEnum.USD);
-  const [amount, setAmount] = useState('');
-  const [debouncedValue, setDebouncedValue] = useState('');
-  const [result, setResult] = useState(INITIAL_AMOUNT_PLACEHOLDER);
-  const [isReversed, setIsReversed] = useState(false);
+  const [fromCurrency, setFromCurrency] = useState<CurrencyEnum>(CurrencyEnum.GEL);
+  const [toCurrency, setToCurrency] = useState<CurrencyEnum>(CurrencyEnum.USD);
+  const [amount, setAmount] = useState<string>('');
+  const [debouncedValue, setDebouncedValue] = useState<string>('');
+  const [result, setResult] = useState<string>(INITIAL_AMOUNT_PLACEHOLDER);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
 
   const { data: defaultRate, isLoading: isLoadingDefaultRate } = useConvertAmountBuyQuery({
     amountBuy: parseFloat(debouncedValue) || 0.001,
@@ -33,15 +34,13 @@ export const useExchangeRateCalculator = (currencies: CurrencyEnum[]) => {
   }, [amount, debouncedValue]);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
+    const handler = debounce(() => {
       if (amount) {
         setDebouncedValue(amount);
       }
     }, 300);
-
-    return () => {
-      clearTimeout(handler);
-    };
+    handler();
+    return () => handler.cancel();
   }, [amount]);
 
   const onChangeAmount = useCallback((text: string) => {

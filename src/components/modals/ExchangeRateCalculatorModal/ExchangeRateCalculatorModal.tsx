@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { Button, Text, Divider } from 'components';
-import { Colors } from 'theme/Variables';
+import { Colors, FontSize, Spacing } from 'theme/Variables';
 import { formatMoney } from 'utils/formatMoney';
 import { SelectCurrency } from './SelectCurrency';
 import { useExchangeRateCalculator } from './container';
@@ -34,11 +34,11 @@ export const ExchangeRateCalculatorModal: FC<ExchangeRateCalculatorModalProps> =
 
   return (
     <View>
-      <Divider height={1} marginTop={4} />
+      <Divider height={Spacing.one} marginTop={Spacing.xxs} />
       <View style={styles.inputsWrapper}>
         <View style={styles.fill}>
           <Text
-            lineHeight={16.45}
+            lineHeight={Spacing.ml}
             letterSpacing={-0.5}
             children="exchange.sell"
             color={Colors.textBlack500}
@@ -63,13 +63,19 @@ export const ExchangeRateCalculatorModal: FC<ExchangeRateCalculatorModalProps> =
         </Pressable>
         <View style={styles.toCurrency}>
           <Text
-            marginTop={2}
-            lineHeight={16.45}
+            marginTop={Spacing.xxxs}
+            lineHeight={Spacing.ml}
             letterSpacing={-0.5}
             children="exchange.buy"
             color={Colors.textBlack500}
           />
-          <Text size={16} lineHeight={19} numberOfLines={1} children={result} marginTop={7} />
+          <Text
+            size={FontSize.regular}
+            lineHeight={Spacing.lg}
+            numberOfLines={1}
+            children={result}
+            marginTop={Spacing.s}
+          />
           <SelectCurrency
             currency={isReversed ? fromCurrency : toCurrency}
             setCurrency={isReversed ? setFromCurrency : setToCurrency}
@@ -77,13 +83,13 @@ export const ExchangeRateCalculatorModal: FC<ExchangeRateCalculatorModalProps> =
           />
         </View>
       </View>
-      <Divider height={1} marginTop={24} marginBottom={24} />
+      <Divider height={Spacing.one} marginTop={Spacing.xl} marginBottom={Spacing.xl} />
       {defaultRate && (
         <View>
           <View style={styles.rates}>
             <Text
               center
-              size={12}
+              size={FontSize.tiny}
               children="exchange.standardRate"
               translateProp={translateProp}
               color={Colors.textBlack500}
@@ -91,7 +97,7 @@ export const ExchangeRateCalculatorModal: FC<ExchangeRateCalculatorModalProps> =
             {defaultRate?.specialRateUsed && (
               <Text
                 center
-                size={12}
+                size={FontSize.tiny}
                 children="exchange.specialRate"
                 translateProp={specRateTranslateProp}
                 color={Colors.textBlack500}
@@ -101,8 +107,8 @@ export const ExchangeRateCalculatorModal: FC<ExchangeRateCalculatorModalProps> =
           {defaultRate?.specialRateUsed && (
             <View>
               <Text
-                size={12}
                 center
+                size={FontSize.dwarf}
                 color={Colors.textBlack500}
                 children="exchange.specRateLimit"
                 translateProp={{ value: formatMoney(defaultRate?.conversionAvailableLimit) }}

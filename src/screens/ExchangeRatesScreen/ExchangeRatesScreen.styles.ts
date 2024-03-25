@@ -7,7 +7,7 @@ export const useStyles = () => {
     container: {
       ...Layout.fill,
       backgroundColor: Colors.white,
-      paddingBottom: 20,
+      paddingBottom: Spacing.lg,
       borderTopLeftRadius: Spacing.xl,
       borderTopRightRadius: Spacing.xl,
     },
@@ -17,9 +17,9 @@ export const useStyles = () => {
       paddingTop: Spacing.xl,
       paddingBottom: Spacing.m,
       marginTop: Spacing.xl,
-      paddingLeft: 90,
+      paddingLeft: Spacing.xc,
       borderBottomColor: Colors.dashboardBackground,
-      borderBottomWidth: 1,
+      borderBottomWidth: Spacing.one,
     },
     list: {
       backgroundColor: Colors.white,
@@ -40,7 +40,7 @@ export const useStyles = () => {
       height: Spacing.xxxl,
       borderRadius: Spacing.xl,
       borderColor: Colors.inputBlack50,
-      borderWidth: 1,
+      borderWidth: Spacing.one,
       margin: Spacing.zero,
     },
     marginTop: {
@@ -73,7 +73,7 @@ export const useStyles = () => {
       gap: Spacing.xxxs,
     },
     top: {
-      top: 1,
+      top: Spacing.one,
     },
     buttonContainer: {
       marginHorizontal: Spacing.xl,
