@@ -9,6 +9,7 @@ import { useChangePassword } from './container';
 import { ChangePasswordFormData } from './ChangePasswordScreen.types';
 import { PasswordCriteriaList } from 'components/PasswordCriteriaList/PasswordCriteriaList';
 import { useTranslation } from 'react-i18next';
+import { REGEX } from 'constants/regex';
 
 export const ChangePasswordScreen = () => {
   const { changePasswordLoading, handleChangePassword } = useChangePassword();
@@ -42,10 +43,10 @@ export const ChangePasswordScreen = () => {
   const validatePasswordComplexity = (value: string | undefined) => {
     if (!value) return;
     const criteria = [
-      /[!@#$%^&*(),.?":{}|<>]/, // Symbols - adjust according to your requirements
-      /[a-z]/, // Lowercase letters
-      /[A-Z]/, // Uppercase letters
-      /\d/, // Numbers
+      REGEX.SYMBOLS,
+      REGEX.LOWECASE_LETTERS,
+      REGEX.UPPERCASE_LETTERS,
+      REGEX.NUMBERS,
     ];
 
     // Correctly sum the number of criteria met

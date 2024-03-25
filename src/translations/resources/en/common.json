@@ -917,6 +917,7 @@
     "newPassword": "New password",
     "repeatPassword": "Repeat password",
     "change_password_success": "Password has been changed successfully!",
-    "change_password_error": "Could not change password. Please try again later"
+    "change_password_error": "Could not change password. Please try again later",
+    "new_password_criterias": "Password must satisfy minimum 3 of the following criterias:"
   }
 }

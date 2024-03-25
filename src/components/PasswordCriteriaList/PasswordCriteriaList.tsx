@@ -3,6 +3,10 @@ import { Text } from 'components';
 import React from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { ChangePasswordFormData } from 'screens/ChangePasswordScreen/ChangePasswordScreen.types';
+import { Colors } from 'theme/Variables';
+import { useStyles } from './PasswordCriteriaList.styles';
+import { CheckMark } from 'assets/SVGs';
+import { REGEX } from 'constants/regex';
 
 const passwordCriteria = [
   {
@@ -10,19 +14,19 @@ const passwordCriteria = [
     message: 'form.minSymbols',
   },
   {
-    test: (value: string) => /\d/.test(value),
+    test: (value: string) => REGEX.NUMBERS.test(value),
     message: 'form.numbers',
   },
   {
-    test: (value: string) => /[a-z]/.test(value),
+    test: (value: string) => REGEX.LOWECASE_LETTERS.test(value),
     message: 'form.lowercaseLetters',
   },
   {
-    test: (value: string) => /[A-Z]/.test(value),
+    test: (value: string) => REGEX.UPPERCASE_LETTERS.test(value),
     message: 'form.upperCaseLetters',
   },
   {
-    test: (value: string) => /[$%^&*]/.test(value),
+    test: (value: string) => REGEX.SYMBOLS.test(value),
     message: 'form.symbols',
   },
 ];
@@ -34,22 +38,35 @@ export const PasswordCriteriaList = ({
   password: string;
   errors: FieldErrors<ChangePasswordFormData>;
 }) => {
-  const getCriteriaColor = (isMet: boolean, fieldErrors: FieldErrors<ChangePasswordFormData>) => {
+  const styles = useStyles();
+
+  const getCriteriaColor = (isMet: boolean, fieldErrors?: FieldErrors<ChangePasswordFormData>) => {
     if (fieldErrors && fieldErrors.newPassword) {
-      //   return 'red';
+      // for future, if we need to handle red case scenarios
     }
     if (password === '') {
-      return 'black';
+      return Colors.textBlack400;
     }
-    return isMet ? 'green' : 'black';
+    return isMet ? Colors.success : Colors.textBlack400;
   };
 
   return (
-    <View>
+    <View style={styles.criteriaContainer}>
+      <Text
+        children={'changePassword.new_password_criterias'}
+        color={Colors.black}
+        style={[styles.textStyle, styles.criteriaHeading]}
+      />
       {passwordCriteria.map((criteria, index) => (
-        <Text key={index} style={{ color: getCriteriaColor(criteria.test(password), errors) }}>
-          {criteria.message}
-        </Text>
+        <View style={styles.criteria}>
+          <CheckMark color={getCriteriaColor(criteria.test(password))} />
+          <Text
+            key={index}
+            style={[{ color: getCriteriaColor(criteria.test(password), errors) }, styles.textStyle]}
+          >
+            {criteria.message}
+          </Text>
+        </View>
       ))}
     </View>
   );

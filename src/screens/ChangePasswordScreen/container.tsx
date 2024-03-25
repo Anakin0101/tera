@@ -86,7 +86,7 @@ export const useChangePassword = () => {
 
         if (response && 'data' in response && response.data.success) {
           if (response.data.otpRequired) {
-            // Back-end bug. even when device is trusted, otpRequired is returned as "true" - FIX - DEA
+            // No matter device is trusted or not - Back-end always requires for OTP verification
             openModal({
               element: (
                 <OTPModal
