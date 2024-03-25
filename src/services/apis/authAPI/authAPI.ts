@@ -3,6 +3,8 @@ import { baseQueryWithInterceptor } from 'services/api';
 import {
   AddTrustedDeviceAPIRequestType,
   AddTrustedDeviceAPIResponseType,
+  ChangePasswordAPIRequestType,
+  ChangePasswordAPIResponseType,
   DeleteTrustedDeviceAPIRequestType,
   DeleteTrustedDeviceAPIResponseType,
   GetTrustedDevicesAPIRequestType,
@@ -101,6 +103,14 @@ export const authAPI = createApi({
         body: credentials,
       }),
     }),
+    changePassword: builder.mutation<ChangePasswordAPIResponseType, ChangePasswordAPIRequestType>({
+      query: ({ headers, body }) => ({
+        url: URLS.changePassword,
+        method: METHOD_NAMES.POST,
+        headers: headers,
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -114,4 +124,5 @@ export const {
   useDeleteTrustedDevicesMutation,
   useRegisterUserMutation,
   useRecoverPasswordMutation,
+  useChangePasswordMutation,
 } = authAPI;

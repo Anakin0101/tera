@@ -446,7 +446,15 @@
     "11_digits_required": "უნდა შედგებოდეს 11 ციფრისგან",
     "22_digits_required": "უნდა შედგებოდეს 22 ციფრისგან",
     "9_digits_required": "უნდა შედგებოდეს 9 ციფრისგან",
-    "invalid_email": "არ შეესაბამება ფორმატს"
+    "8_digits_required": "უნდა შედგებოდეს 8 ციფრისგან",
+    "invalid_email": "არ შეესაბამება ფორმატს",
+    "minSymbols": "მინიმუმ 8 სიმბოლო (აუცილებელი)",
+    "numbers": "ციფრები (0-დან 9მდე)",
+    "lowercaseLetters": "პატარა ლათინური ასოები (a-z)",
+    "upperCaseLetters": "დიდი ლათინური ასოები (A-Z)",
+    "symbols": "სიმბოლოები (მაგ.: !@#$%^&*()_+)",
+    "does_not_match": "არ ემთხვევა",
+    "does_not_match_with": "არ ემთხვევა ველს"
   },
   "transactions": {
     "title": "ტრანზაქციები",
@@ -901,5 +909,14 @@
     "pinAsSms": "პინ კოდს მიიღებთ SMS სახით",
     "tryLater": "სცადეთ მოგვიანებით",
     "updatePin": "პინ კოდის განახლება"
+  },
+  "changePassword": {
+    "header": "პაროლის შეცვლა",
+    "existingPassword": "ძველი პაროლი",
+    "newPassword": "ახალი პაროლი",
+    "repeatPassword": "გაიმეორე ახალი პაროლი",
+    "change_password_success": "პაროლი წარმატებით შეიცვალა",
+    "change_password_error": "პაროლის შეცვლა ვერ განხორციელდა. გთხოვთ სცადოთ მოგვიანებით",
+    "new_password_criterias": "პაროლი უნდა აკმაყოფილებდეს მინიმუმ 3 პირობას:"
   }
 }
