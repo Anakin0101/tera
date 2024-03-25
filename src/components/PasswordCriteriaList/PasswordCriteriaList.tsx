@@ -58,7 +58,7 @@ export const PasswordCriteriaList = ({
         style={[styles.textStyle, styles.criteriaHeading]}
       />
       {passwordCriteria.map((criteria, index) => (
-        <View style={styles.criteria}>
+        <View style={styles.criteria} key={index}>
           <CheckMark color={getCriteriaColor(criteria.test(password))} />
           <Text
             key={index}
