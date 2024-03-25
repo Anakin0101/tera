@@ -82,6 +82,7 @@ export const ChangePasswordScreen = () => {
           control={control}
           name="existingPassword"
           label="changePassword.existingPassword"
+          secureTextEntry
           marginTop={30}
           errors={errors}
           rules={{
