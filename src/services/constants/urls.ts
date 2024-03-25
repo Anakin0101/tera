@@ -106,6 +106,7 @@ export const URLS = {
   getGroupedUserBalance: 'Account/GetGroupedUserBalance',
   getBlockedTransactions: '/Transaction/GetAccountsBlocks',
   printOps: 'Transaction/PrintOps',
+  changePassword: 'Auth/ChangePassword',
 };
 
 export const PROD_URLS = {

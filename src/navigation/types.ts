@@ -113,6 +113,7 @@ import {
   FOREIGN_TRANSFER_DETAILS_SCREEN,
   TRANSFER_TO_ACCOUNT_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
+  CHANGE_PASSWORD_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -442,6 +443,7 @@ export type ModalStackParamsList = {
         templates?: Template;
       };
   [INSURANCE_SUCCESS_SCREEN]: undefined;
+  [CHANGE_PASSWORD_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

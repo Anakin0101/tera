@@ -118,6 +118,7 @@ export const APPROVED_LOAN_DETAILS_SCREEN = 'ApprovedLoanDetailsScreen';
 export const APPROVED_LOAN_PDF_SCREEN = 'ApprovedLoanPdfScreen';
 export const ACTIVATE_LOAN_SUCCESS_SCREEN = 'ActivateLoanSuccessScreen';
 export const INSURANCE_SUCCESS_SCREEN = 'InsuranceSuccessScreen';
+export const CHANGE_PASSWORD_SCREEN = 'ChangePasswordScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';
