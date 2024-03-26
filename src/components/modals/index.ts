@@ -17,3 +17,4 @@ export { AutomaticPaymentDateModal } from './AutomaticPaymentDateModal/Automatic
 export { SelectTransferFieldModal } from './SelectTransferFieldModal/SelectTransferFieldModal';
 export { SelectCurrencyModal } from './SelectCurrencyModal/SelectCurrencyModal';
 export { AccountExtractionModal } from './AccountExtractionModal/AccountExtractionModal';
+export { ExchangeRateCalculatorModal } from './ExchangeRateCalculatorModal/ExchangeRateCalculatorModal';

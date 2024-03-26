@@ -75,6 +75,7 @@ import {
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
+  ExchangeRatesScreen,
   ForeignIbanScreen,
   ForeignTransferDetailsScreen,
   TransferToForeignIban,
@@ -159,6 +160,7 @@ import {
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
+  EXCHANGE_RATES_SCREEN,
   MONEY_TRANSFER_SEND_SCREEN,
   MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
   MONEY_TRANSFER_SEND_INFO_SCREEN,
@@ -755,6 +757,11 @@ export const ModalNavigator = () => {
         name={ACTIVATE_LOAN_SUCCESS_SCREEN}
         component={ActivateLoanSuccessScreen}
         options={hideHeader}
+      />
+      <Screen
+        name={EXCHANGE_RATES_SCREEN}
+        component={ExchangeRatesScreen}
+        options={{ title: t('exchange.title') }}
       />
       <Screen
         name={FOREIGN_IBAN_SCREEN}

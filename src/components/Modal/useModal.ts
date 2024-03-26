@@ -31,13 +31,13 @@ const useModal = (ref: Ref<ModalHandler>) => {
     options.titlePosition && setTitlePosition(options.titlePosition);
     options.disableDynamicSizing && setEnableDynamicSizing(false);
     options.disablePanning && setEnableContentPanningGesture(false);
-    options.snapPoints && setSnapPoints(options.snapPoints);
     options.withKeyboard &&
       setSnapPoints([
         Platform.OS === 'ios'
           ? ModalConfig.MODAL_HEIGHT_IOS
           : ModalConfig.MODAL_HEIGHT_WITH_KEYBOARD_ANDROID,
       ]);
+    options.snapPoints && setSnapPoints(options.snapPoints);
     options.hideHandle && setHideHandle(options.hideHandle);
     options.hideCloseButton && setHideCloseButton(options.hideCloseButton);
     modalRef?.current?.present();

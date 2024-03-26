@@ -901,6 +901,18 @@
     "secondaryCTA": "გაუქმება",
     "near": "ჩემთან ახლოს"
   },
+  "exchange": {
+    "title": "ვალუტის კურსები",
+    "official": "ოფიციალური კურსი",
+    "tera": "ტერა ბანკი",
+    "buy": "ყიდვა",
+    "sell": "გაყიდვა",
+    "calculator": "კალკულატორი",
+    "standardRate": "სტანდარტული კურსი 1{{fromSign}}={{value}}{{toSign}}",
+    "specialRate": " / შენი კურსი 1{{fromSign}}={{value}}{{toSign}}",
+    "convert": "კონვერტაცია",
+    "specRateLimit": "სპეც. კურსის ლიმიტი: {{value}}₾"
+  },
   "cardDetails": {
     "cancelInsurance": "დაზღვევის გაუქმება",
     "isBlocked": "ბარათი დაბლოკილია",

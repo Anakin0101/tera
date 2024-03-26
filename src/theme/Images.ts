@@ -58,5 +58,10 @@ export default function () {
     DefaultCardImage: require('assets/images/DefaultCard.png'),
     Bags: require('assets/images/Bags.png'),
     SelectMedal: require('assets/images/silverMedal.png'),
+    Usd: require('assets/images/USD.png'),
+    Eur: require('assets/images/EUR.png'),
+    Gbp: require('assets/images/GBP.png'),
+    Rur: require('assets/images/RUR.png'),
+    Chf: require('assets/images/CHF.png'),
   };
 }

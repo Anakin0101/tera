@@ -911,6 +911,18 @@
     "secondaryCTA": "Cancel",
     "near": "Close to me"
   },
+  "exchange": {
+    "title": "Exchange rates",
+    "official": "Official rate",
+    "tera": "Tera Bank",
+    "buy": "Buy",
+    "sell": "Sell",
+    "calculator": "Calculator",
+    "standardRate": "Standard rate 1{{fromSign}}={{value}}{{toSign}}",
+    "specialRate": " / Your rate 1{{fromSign}}={{value}}{{toSign}}",
+    "convert": "Conversion",
+    "specRateLimit": "Special rate limit: {{value}}₾"
+  },
   "changePassword": {
     "header": "Change password",
     "existingPassword": "Existing password",

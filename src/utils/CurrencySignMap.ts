@@ -3,4 +3,6 @@ export const CurrencySignMap = {
   USD: '$',
   EUR: '€',
   GBP: '£',
+  RUR: '₽',
+  CHF: '₣',
 };

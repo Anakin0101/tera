@@ -1,10 +1,10 @@
 import { SharedValue } from 'react-native-reanimated';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface ItemProps {
   item: string;
   index: number;
   scrollX: SharedValue<number>;
-  currency?: Currency;
+  currency?: CurrencyEnum;
   onPress: (index: number) => void;
 }

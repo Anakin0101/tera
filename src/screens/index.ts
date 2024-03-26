@@ -85,4 +85,5 @@ export { PaymentErrorScreen } from './PaymentErrorScreen/PaymentErrorScreen';
 export { CartPaymentSuccessScreen } from './CartPaymentSuccessScreen/CartPaymentSuccessScreen';
 export { ActivateLoanSuccessScreen } from './ActivateLoanSuccessScreen/ActivateLoanSuccessScreen';
 export { AtmsAndBranchesScreen } from './AtmsAndBranchesScreen/AtmsAndBranchesScreen';
+export { ExchangeRatesScreen } from './ExchangeRatesScreen/ExchangeRatesScreen';
 export { InsuranceSuccessScreen } from './InsuranceSuccessScreen/InsuranceSuccessScreen';

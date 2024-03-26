@@ -1,10 +1,10 @@
 import { TOptions } from 'i18next';
 import { StyleProp, TextStyle } from 'react-native';
-import { Currency } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export type BlockedAmount = {
   blockedAmount: number;
-  ccy: Currency;
+  ccy: CurrencyEnum;
 };
 
 export interface DetailsItemProps {
