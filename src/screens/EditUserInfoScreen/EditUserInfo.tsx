@@ -10,7 +10,7 @@ import { Colors } from 'theme/Variables';
 import { useEditUserInfo } from './container';
 import { useTranslation } from 'react-i18next';
 import { SettingsEdit } from 'assets/SVGs';
-import { DefaultImage } from './utilis';
+import Images from 'theme/Images';
 
 export const EditUserInfo = () => {
   const styles = useStyles();
@@ -40,7 +40,7 @@ export const EditUserInfo = () => {
           {imageId ? (
             <IconComponent imageId={imageId} />
           ) : (
-            <IconComponent base64Image={DefaultImage} isSecure={true} />
+            <IconComponent base64Image={Images().DefaultImage} isSecure={true} />
           )}
           <View style={styles.EditIconWrapper}>
             <IconComponent

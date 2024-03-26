@@ -23,12 +23,11 @@ export const useStyles = () => {
       padding: Spacing.md,
     },
     rulesContainer: {
-      width: '100%',
+      ...Layout.fullWidth,
     },
     rulesWrapper: {
       ...Layout.rowHCenter,
     },
-
     valid: {
       color: Colors.success,
     },
@@ -66,12 +65,6 @@ export const useStyles = () => {
       color: Colors.pinColor,
       fontFamily: FontFamily.main,
       marginTop: Spacing.xxs,
-    },
-    deleteText: {
-      color: Colors.red,
-    },
-    selectText: {
-      color: Colors.black700,
     },
   });
 };

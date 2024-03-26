@@ -13,18 +13,24 @@ import {
   useUpdateParametersMutation,
   useUpdateUserProfileImageMutation,
 } from 'services/apis';
-import { getValue } from 'storage/index';
-import { SELECTED_LANGUAGE } from 'storage/constants';
-import {
-  LanguageKeyForAPIEnum,
-  LanguageKeys,
-} from 'components/LanguageSwitcher/LanguageSwitcher.types';
-import { launchImageLibrary } from 'react-native-image-picker';
-import { DefaultImage, ImageConfig, checkPhotoLibraryPermissions } from './utilis';
-import { UpdateProfileModal } from './UpdateProfileModal';
+import { ImageLibraryOptions, ImagePickerResponse } from 'react-native-image-picker';
+import { UpdateProfileModal } from '../../components/modals/UpdateProfileModal/UpdateProfileModal';
+import { useCulture } from 'hooks/useCulture';
+import { UseGalleryPicker } from 'utils/useImagePicker';
+import Images from 'theme/Images';
+
+const galleryOptions: ImageLibraryOptions = {
+  mediaType: 'photo',
+  quality: 0.5,
+  includeBase64: true,
+  selectionLimit: 1,
+  maxWidth: 500,
+  maxHeight: 500,
+};
 
 export const useEditUserInfo = () => {
   const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
+  const { culture } = useCulture();
   const {
     loginName,
     secretWord,
@@ -37,7 +43,6 @@ export const useEditUserInfo = () => {
 
   const fullName = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName]);
   const { userIp } = useAppSelector(state => state.deviceInfo);
-  const savedLanguage = getValue(SELECTED_LANGUAGE);
   const [isLatin, setIsLatin] = useState(false);
   const [isMinLength, setIsMinLength] = useState<boolean>(false);
   const [isValidCode, setIsValidCode] = useState(false);
@@ -45,6 +50,7 @@ export const useEditUserInfo = () => {
   const [updateParameters, { isLoading: updateParametersLoading }] = useUpdateParametersMutation();
   const { refetch: refetchUserProfile } = useGetUserProfileInfoQuery();
   const [updateUserProfileImage] = useUpdateUserProfileImageMutation();
+
   const {
     control,
     handleSubmit,
@@ -109,10 +115,7 @@ export const useEditUserInfo = () => {
                 },
                 body: {
                   address: allFields.address,
-                  culture:
-                    savedLanguage === LanguageKeys.geo
-                      ? LanguageKeyForAPIEnum.KA
-                      : LanguageKeyForAPIEnum.EN,
+                  culture,
                   email: allFields.userEmail,
                   otp: code,
                   phone: allFields.phone,
@@ -141,21 +144,32 @@ export const useEditUserInfo = () => {
       ),
       disablePanning: true,
     });
-  }, [t, updateParameters, allFields, savedLanguage, userIp, refetchUserProfile]);
+  }, [
+    updateParameters,
+    userIp,
+    t,
+    allFields.address,
+    allFields.userEmail,
+    allFields.phone,
+    allFields.code,
+    allFields.userName,
+    culture,
+    refetchUserProfile,
+  ]);
 
-  const prepareFormData = useCallback((imageUri: string, savedLanguage: string | undefined) => {
-    const formData = new FormData();
-    formData.append('image', {
-      name: 'profile.jpg',
-      type: 'image/jpeg',
-      uri: imageUri,
-    });
-    formData.append(
-      'culture',
-      savedLanguage === LanguageKeys.geo ? LanguageKeyForAPIEnum.KA : LanguageKeyForAPIEnum.EN,
-    );
-    return formData;
-  }, []);
+  const prepareFormData = useCallback(
+    (imageUri: string) => {
+      const formData = new FormData();
+      formData.append('image', {
+        name: 'profile.jpg',
+        type: 'image/jpeg',
+        uri: imageUri,
+      });
+      formData.append('culture', culture);
+      return formData;
+    },
+    [culture],
+  );
 
   const performImageUpdate = useCallback(
     async (formData: any) => {
@@ -176,25 +190,30 @@ export const useEditUserInfo = () => {
     async (isDelete?: boolean) => {
       try {
         if (isDelete) {
-          const formData = prepareFormData(`data:image/png;base64,${DefaultImage}`, savedLanguage);
+          const formData = prepareFormData(`data:image/png;base64,${Images().DefaultImage}`);
           await performImageUpdate(formData);
           return;
         }
-        const hasPermission = await checkPhotoLibraryPermissions();
-        if (!hasPermission) return;
-        const result = await launchImageLibrary({ ...ImageConfig });
-        if (result.assets) {
-          const { base64 } = result.assets[0];
+
+        const updateImageCallback = async (response: ImagePickerResponse | boolean) => {
+          if (!response || typeof response === 'boolean' || !response?.assets?.[0]?.uri) {
+            return;
+          }
+
+          const { base64 = '' } = response.assets[0];
           const imageData = `data:image/png;base64,${base64}`;
-          const formData = prepareFormData(imageData, savedLanguage);
+          const formData = prepareFormData(imageData);
           await performImageUpdate(formData);
-        }
+        };
+
+        UseGalleryPicker(galleryOptions, updateImageCallback);
       } catch (error) {
         console.warn('Error during photo selection or upload:', error);
       }
     },
-    [prepareFormData, performImageUpdate, savedLanguage],
+    [prepareFormData, performImageUpdate],
   );
+
   const onProfileImagePress = useCallback(() => {
     openModal({
       element: <UpdateProfileModal onPress={onChoosePhoto} />,

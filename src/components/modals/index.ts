@@ -16,4 +16,5 @@ export { CodeWordModal } from './CodeWordModal/CodeWordModal';
 export { AutomaticPaymentDateModal } from './AutomaticPaymentDateModal/AutomaticPaymentDateModal';
 export { SelectTransferFieldModal } from './SelectTransferFieldModal/SelectTransferFieldModal';
 export { SelectCurrencyModal } from './SelectCurrencyModal/SelectCurrencyModal';
+export { UpdateProfileModal } from './UpdateProfileModal/UpdateProfileModal';
 export { AccountExtractionModal } from './AccountExtractionModal/AccountExtractionModal';
