@@ -71,7 +71,21 @@
     "additional_settings": "Additional settings",
     "manage_notifications": "Manage notifications",
     "biometrics_title": "With Biometric information",
-    "biometrics_desc": "With the use of Face ID or Fingerprint"
+    "biometrics_desc": "With the use of Face ID or Fingerprint",
+    "userName": "Username",
+    "newName": "UserName",
+    "enterlatin": "Enter the name in Latin",
+    "minLength": "At least 6 characters",
+    "codeWord": "Code word",
+    "dontInclude": "Must not contain characters (/.,)",
+    "phone": "Phone number",
+    "address": "Address",
+    "invalid": "is invalid",
+    "mediaError": "Media Library access was not granted. Please go to your phone's settings and allow Media Library access.",
+    "changePhoto": "Photo changed successfully",
+    "changePhotoTitle": "Change photo",
+    "selectGallery": "Select from gallery",
+    "deletePhoto": "Delete photo"
   },
   "trustDevice": {
     "heading": "Device verification",

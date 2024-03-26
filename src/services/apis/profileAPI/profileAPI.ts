@@ -8,6 +8,9 @@ import {
   GetUnreadNotificationsCountResponseType,
   GetUserInfoAPIResponseType,
   ServiceCentersResponse,
+  UpdateParametersRequestType,
+  UpdateParametersRespType,
+  UpdateUserProfileRequestType,
 } from './profileAPI.types';
 
 import { METHOD_NAMES, URLS } from 'services/constants';
@@ -58,6 +61,28 @@ export const profileAPI = createApi({
         method: METHOD_NAMES.GET,
       }),
     }),
+    updateParameters: builder.mutation<
+      UpdateParametersRespType,
+      { body: UpdateParametersRequestType; headers: Record<string, any> }
+    >({
+      query: ({ headers, body }) => ({
+        url: URLS.updateParameters,
+        method: METHOD_NAMES.POST,
+        headers: headers,
+        body: body,
+      }),
+    }),
+    updateUserProfileImage: builder.mutation<
+      void,
+      { body: UpdateUserProfileRequestType | any; headers: Record<string, any> }
+    >({
+      query: ({ headers, body }) => ({
+        url: URLS.updateUserProfile,
+        method: METHOD_NAMES.POST,
+        headers: headers,
+        body: body,
+      }),
+    }),
   }),
 });
 
@@ -70,4 +95,6 @@ export const {
   useGetUnreadNotificationsCountMutation,
   useLazyGetAtmsQuery,
   useLazyGetServiceCentersQuery,
+  useUpdateParametersMutation,
+  useUpdateUserProfileImageMutation,
 } = profileAPI;

@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { Pressable } from 'react-native';
-import { ArrowHeader } from 'assets/SVGs/ArrowHeader';
+import { ArrowHeader } from 'assets/SVGs';
 import { useNavigation } from '@react-navigation/native';
 import { BackArrowProps } from './HeaderBackArrow.types';
 import { useStyles } from './HeaderBackArrow.styles';

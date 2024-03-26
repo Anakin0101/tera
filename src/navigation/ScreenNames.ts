@@ -35,6 +35,7 @@ export const ALL_TEMPLATES_SCREEN = 'AllTemplatesScreen';
 
 // modal screens
 export const SETTINGS_SCREEN = 'SettingsScreen';
+export const EDIT_USER_INFO_SCREEN = 'EditUserInfo';
 export const AUTHORIZATION_METHODS_SCREEN = 'AuthorizationMethodsScreen';
 export const CREATE_PASSCODE_SCREEN = 'CreatePasscodeScreen';
 export const VERIFY_EASY_LOGIN_SCREEN = 'VerifyEasyLoginScreen';

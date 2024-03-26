@@ -11,6 +11,7 @@ import {
   ALL_TRANSACTIONS_SCREEN,
   TRANSACTION_DETAILS_SCREEN,
 } from 'navigation/ScreenNames';
+import { NoTransactionsIcon } from 'assets/SVGs';
 import { DashboardOperationsProps, RenderItem } from './DashboardOperations.types';
 import { MainStackScreenProps } from 'navigation/types';
 import { useStyles } from './DashboardOperations.styles';
@@ -77,7 +78,7 @@ export const DashboardOperations: FC<DashboardOperationsProps> = ({ data, hasErr
                 showsHorizontalScrollIndicator={false}
               />
             )}
-            {!data?.length && !hasError && <NoTransactions />}
+            {!data?.length && !hasError && <NoTransactionsIcon />}
           </View>
         </View>
       </View>

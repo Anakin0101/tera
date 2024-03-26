@@ -85,6 +85,8 @@ export const Colors = {
   cardBlurDark: 'rgba(0,0,0,0.5)',
   lightPink: 'rgb(249,241,246)',
   offerBgGreen: 'rgb(234, 246, 235)',
+  rulesColor: 'rgb(119, 119, 119)',
+  checkColor: 'rgb(26, 174, 95)',
   textDisabled: 'rgba(108, 108, 108, 1)',
 };
 

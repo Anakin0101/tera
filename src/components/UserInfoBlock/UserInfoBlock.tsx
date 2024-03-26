@@ -7,23 +7,23 @@ import { UserIcon } from 'assets/SVGs';
 import { Colors } from 'theme/Variables';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from 'navigation/types';
-import { MODAL_STACK, SETTINGS_SCREEN } from 'navigation/ScreenNames';
+import { EDIT_USER_INFO_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
 
 export const UserInfoBlock = () => {
   const styles = useStyleTheme();
-  const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
-  const { firstName = '', lastName = '', imageId } = userProfileInfo || {};
-  const fullName = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName]);
   const { navigate } = useNavigation<MainStackScreenProps<'ModalStack'>>();
 
-  const navigateToSettings = () => {
-    navigate(MODAL_STACK, {
-      screen: SETTINGS_SCREEN,
-    });
+  const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
+  const { firstName = '', lastName = '', imageId } = userProfileInfo || {};
+
+  const fullName = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName]);
+
+  const onUserInfoNavigation = () => {
+    navigate(MODAL_STACK, { screen: EDIT_USER_INFO_SCREEN });
   };
 
   return (
-    <Pressable style={styles.userInfoBlockContainer} onPress={navigateToSettings}>
+    <Pressable onPress={onUserInfoNavigation} style={styles.userInfoBlockContainer}>
       <View style={styles.userIconContainer}>
         {imageId ? (
           <IconComponent imageId={imageId} />

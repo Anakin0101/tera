@@ -53,7 +53,7 @@ export const CurrencyConversionItem: React.FC<CurrencyConversionItemProps> = mem
                 onPress={() => {
                   if (buyDetails?.buyCurrency === currentCurrency) return;
                   setBuyDetails({
-                    buyAmount: data.amountSell,
+                    buyAmount: data?.amountSell || 0,
                     buyCurrency: currentCurrency,
                   });
                 }}

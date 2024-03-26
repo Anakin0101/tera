@@ -160,6 +160,7 @@ import {
   TARIFF_PACKAGES_SCREEN,
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
+  EDIT_USER_INFO_SCREEN,
   EXCHANGE_RATES_SCREEN,
   MONEY_TRANSFER_SEND_SCREEN,
   MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
@@ -177,6 +178,7 @@ import { MoneyTransferReceiveScreen } from 'screens/MoneyTransferReceiveScreen/M
 import { CheckMoneyTransferProviderScreen } from 'screens/CheckMoneyTransferProviderScreen/CheckMoneyTransferProviderScreen';
 import { MoneyTransferPermissionScreen } from 'screens/MoneyTransferPermissionScreen/MoneyTransferPermissionScreen';
 import { MoneyTransferDetailsScreen } from 'screens/MoneyTransferDetailsScreen/MoneyTransferDetailsScreen';
+import { EditUserInfo } from 'screens/EditUserInfoScreen/EditUserInfo';
 import { MoneyTransferSendScreen } from 'screens/MoneyTransferSendScreen/MoneyTransferSendScreen';
 import { MoneyTransferSendAddressScreen } from 'screens/MoneyTransferSendAddressScreen/MoneyTransferSendAddressScreen';
 import { MoneyTransferSendInfoScreen } from 'screens/MoneyTransferSendInfoScreen/MoneyTransferSendInfoScreen';
@@ -212,6 +214,11 @@ export const ModalNavigator = () => {
         name={SETTINGS_SCREEN}
         component={SettingsScreen}
         options={{ title: t('navigation.settings') }}
+      />
+      <Screen
+        name={EDIT_USER_INFO_SCREEN}
+        component={EditUserInfo}
+        options={{ title: t('settings.edit_user') }}
       />
       <Screen
         name={AUTHORIZATION_METHODS_SCREEN}

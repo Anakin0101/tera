@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string> 
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -31,12 +31,22 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Terabank requests permission to access your media library to enable you to upload a photo directly from your library for your user profile.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Terabank requests permission to access your Camera to upload a photo directly from your phone for your user profile.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>We need access to your mobile device in order to make mobile balance top-ups easier. Please enable it in the Settings app to continue</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>To unlock the device</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>to calculate distance between your current location and tera service centers</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>to calculate distance between your current location and tera service centers</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>to calculate distance between your current location and tera service centers</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Tera Bank requests permission to access your photo library to enable you to upload a photo directly from your library for your user profile.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TB-PublicSans-Medium.woff2</string>
@@ -61,11 +71,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>to calculate distance between your current location and tera service centers</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>to calculate distance between your current location and tera service centers</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>to calculate distance between your current location and tera service centers</string>
 </dict>
 </plist>
