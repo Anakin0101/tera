@@ -1,10 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native';
-import {
-  Account,
-  CardType,
-  Currency,
-  OverdraftType,
-} from 'services/apis/productsAPI/productsAPI.types';
+import { Account, CardType, OverdraftType } from 'services/apis/productsAPI/productsAPI.types';
+import { CurrencyEnum } from 'services/apis/transfersAPI/transfersAPI.types';
 
 export interface CardItemProps {
   item: CardType;
@@ -22,7 +18,7 @@ export interface CardsProps {
 
 export type BlockedAmount = {
   blockedAmount: number;
-  ccy: Currency;
+  ccy: CurrencyEnum;
 };
 
 export interface DetailsProps {

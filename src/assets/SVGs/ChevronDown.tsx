@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Svg, { SvgProps, Path } from 'react-native-svg';
 
-export const ChevronDown = ({ color = '#FDFDFD', ...props }: SvgProps) => (
-  <Svg width={16} height={16} fill="none" {...props}>
+export const ChevronDown = ({ color = '#FDFDFD', width = 16, height = 16, ...props }: SvgProps) => (
+  <Svg width={width} height={height} fill="none" {...props}>
     <Path
       fill={color}
       fillOpacity={0.98}

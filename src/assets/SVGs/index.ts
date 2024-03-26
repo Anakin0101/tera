@@ -160,3 +160,4 @@ export { Trusted } from './Trusted';
 export { ArrowHeader } from './ArrowHeader';
 export { NoTransactionsIcon } from './NoTransactionsIcon';
 export { TransactionLock } from './TransactionLock';
+export { CheckMark } from './CheckMark';

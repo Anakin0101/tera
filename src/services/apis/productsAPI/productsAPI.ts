@@ -46,6 +46,7 @@ import {
   CreditProductOfferAgreementRes,
   CreditProductOfferSchedule,
   ActivateCreditProductOfferReq,
+  ExchangeRate,
   OfferByIdReq,
   CardInsuranceReq,
   CancelCardInsuranceReq,
@@ -365,6 +366,13 @@ export const productsAPI = createApi({
         });
       },
     }),
+
+    getRates: builder.query<ExchangeRate[], void>({
+      query: () => ({
+        url: URLS.getRates,
+      }),
+      keepUnusedDataFor: 0,
+    }),
     addCardInsurance: builder.mutation<{}, Partial<CardInsuranceReq>>({
       query: body => ({
         url: URLS.addCardInsurance,
@@ -476,6 +484,7 @@ export const {
   useGetCreditProductOfferAgreementQuery,
   useGetCreditProductOfferScheduleMutation,
   useLazyActivateCreditProductOfferQuery,
+  useGetRatesQuery,
   useAddCardInsuranceMutation,
   useCancelCardInsuranceMutation,
   useRequestForPinMutation,

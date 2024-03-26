@@ -104,6 +104,7 @@ import {
   ACTIVATE_LOAN_SUCCESS_SCREEN,
   ATMS_AND_BRANCHES_SCREEN,
   EDIT_USER_INFO_SCREEN,
+  EXCHANGE_RATES_SCREEN,
   MONEY_TRANSFER_SEND_SCREEN,
   MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
   MONEY_TRANSFER_SEND_INFO_SCREEN,
@@ -114,6 +115,7 @@ import {
   FOREIGN_TRANSFER_DETAILS_SCREEN,
   TRANSFER_TO_ACCOUNT_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
+  CHANGE_PASSWORD_SCREEN,
 } from './ScreenNames';
 import {
   ProvidersGroup,
@@ -415,6 +417,7 @@ export type ModalStackParamsList = {
   [APPROVED_LOAN_DETAILS_SCREEN]: { creditDisbursementId: number };
   [APPROVED_LOAN_PDF_SCREEN]: { isLastStep?: boolean; creditDisbursementId: number };
   [ACTIVATE_LOAN_SUCCESS_SCREEN]: undefined;
+  [EXCHANGE_RATES_SCREEN]: undefined;
   [FOREIGN_IBAN_SCREEN]:
     | undefined
     | {
@@ -444,6 +447,7 @@ export type ModalStackParamsList = {
         templates?: Template;
       };
   [INSURANCE_SUCCESS_SCREEN]: undefined;
+  [CHANGE_PASSWORD_SCREEN]: undefined;
 };
 
 export type DashboardStackParamsList = {

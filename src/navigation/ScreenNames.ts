@@ -119,6 +119,7 @@ export const APPROVED_LOAN_DETAILS_SCREEN = 'ApprovedLoanDetailsScreen';
 export const APPROVED_LOAN_PDF_SCREEN = 'ApprovedLoanPdfScreen';
 export const ACTIVATE_LOAN_SUCCESS_SCREEN = 'ActivateLoanSuccessScreen';
 export const INSURANCE_SUCCESS_SCREEN = 'InsuranceSuccessScreen';
+export const CHANGE_PASSWORD_SCREEN = 'ChangePasswordScreen';
 
 // independent screens:
 export const LOADING_SCREEN = 'LoadingScreen';
@@ -135,3 +136,4 @@ export const AUTOMATIC_PAYMENTS_SCREEN = 'AutomaticPaymentsScreen';
 export const AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'AutomaticPaymentDetailsScreen';
 export const NEW_AUTOMATIC_PAYMENT_SCREEN = 'NewAutomaticPaymentScreen';
 export const NEW_AUTOMATIC_PAYMENT_DETAILS_SCREEN = 'NewAutomaticPaymentDetailsScreen';
+export const EXCHANGE_RATES_SCREEN = 'ExchangeRatesScreen';

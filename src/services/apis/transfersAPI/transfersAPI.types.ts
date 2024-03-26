@@ -1,5 +1,4 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import { Currency } from '../productsAPI/productsAPI.types';
 import { SerializedError } from '@reduxjs/toolkit';
 import { CustomBackendError } from 'services/types';
 
@@ -62,7 +61,7 @@ export type OverdraftType = {
   startDate: string | null;
   endDate: string | null;
   overdraftLimit: number;
-  currency: Currency;
+  currency: CurrencyEnum;
   totalDebt: number;
   totalInterest: number;
   usedPrincipalAmount: number;
@@ -185,6 +184,8 @@ export enum CurrencyEnum {
   USD = 'USD',
   EUR = 'EUR',
   GBP = 'GBP',
+  RUR = 'RUR',
+  CHF = 'CHF',
 }
 
 export enum TRANSFER_TYPE {
@@ -235,7 +236,7 @@ export type Asset = {
   amount: number;
   canCredit: boolean;
   canDebit: boolean;
-  currency: Currency;
+  currency: CurrencyEnum;
   depositId: number;
   depositName: string;
   depositNameEng: string;
@@ -275,4 +276,19 @@ export type treasuryReq = {
   a?: string;
   b?: string;
   c?: string;
+};
+
+export type ConvertAmountRes = {
+  amountBuy: number;
+  currencyBuy: CurrencyEnum;
+  amountSell: number;
+  currencySell: CurrencyEnum;
+  specialRateUsed: boolean;
+  standardItems: number;
+  standardRate: number;
+  standardReversed: boolean;
+  specialItems: number;
+  specialRate: number;
+  specialReversed: boolean;
+  conversionAvailableLimit: number;
 };

@@ -5,7 +5,11 @@ import { PensionFund } from '../PensionFund/PensionFund';
 import { Notification } from '../Notification/Notification';
 import { useProfileScreen } from 'screens/ProfileScreen/container';
 import { useAppSelector } from 'store/hooks/useAppSelector';
-import { ATMS_AND_BRANCHES_SCREEN, MODAL_STACK } from 'navigation/ScreenNames';
+import {
+  ATMS_AND_BRANCHES_SCREEN,
+  EXCHANGE_RATES_SCREEN,
+  MODAL_STACK,
+} from 'navigation/ScreenNames';
 
 export const useProfileCards = () => {
   const userProfileInfo = useAppSelector(state => state.profile.userProfileInfo);
@@ -40,6 +44,10 @@ export const useProfileCards = () => {
       id: 'currency_rates',
       icon: Images().CurrencyRates,
       text: 'profile.currency_rates',
+      navigateTo: {
+        stack: MODAL_STACK,
+        screen: EXCHANGE_RATES_SCREEN,
+      },
     },
     {
       id: 'locations',

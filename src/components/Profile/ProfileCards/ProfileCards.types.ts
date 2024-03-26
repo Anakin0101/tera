@@ -10,7 +10,7 @@ export type ProfileCardType = {
   navigateTo?:
     | {
         stack: any;
-        screen: 'AtmsAndBranchesScreen'; // Add screen names of ProfileCards
+        screen: 'AtmsAndBranchesScreen' | 'ExchangeRatesScreen'; // Add screen names of ProfileCards
       }
     | 'AtmsAndBranchesScreen'; // Add screen names of ProfileCards
 };

@@ -42,10 +42,10 @@ export const Convert = ({
 
   const calculateWithRate = useCallback(
     (value: number) => {
-      if (specialRateUsed && conversionAvailableLimit > 0) {
-        return value * specialRate;
+      if (specialRateUsed && Number(conversionAvailableLimit || 0) > 0) {
+        return value * Number(specialRate || 0);
       } else {
-        return value * standardRate;
+        return value * Number(standardRate || 0);
       }
     },
     [specialRateUsed, specialRate, standardRate, conversionAvailableLimit],
@@ -207,7 +207,7 @@ export const Convert = ({
         />
         <Text
           children={`${t('transfers.specificCourse')}: ${
-            specialRateUsed && conversionAvailableLimit > 0
+            specialRateUsed && Number(conversionAvailableLimit || 0) > 0
               ? buyAmount?.specialRate.toFixed(4)
               : buyAmount?.standardRate.toFixed(4)
           }`}

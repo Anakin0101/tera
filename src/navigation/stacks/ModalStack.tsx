@@ -75,6 +75,7 @@ import {
   ApprovedLoanDetailsScreen,
   ActivateLoanSuccessScreen,
   AtmsAndBranchesScreen,
+  ExchangeRatesScreen,
   ForeignIbanScreen,
   ForeignTransferDetailsScreen,
   TransferToForeignIban,
@@ -160,6 +161,7 @@ import {
   TARIFF_PACKAGES_SINGLE_SCREEN,
   APPROVED_LOAN_DETAILS_SCREEN,
   EDIT_USER_INFO_SCREEN,
+  EXCHANGE_RATES_SCREEN,
   MONEY_TRANSFER_SEND_SCREEN,
   MONEY_TRANSFER_SEND_ADDRESS_SCREEN,
   MONEY_TRANSFER_SEND_INFO_SCREEN,
@@ -168,6 +170,7 @@ import {
   MONEY_TRANSFER_SEND_DETAILS_SCREEN,
   ALL_TEMPLATES_SCREEN,
   INSURANCE_SUCCESS_SCREEN,
+  CHANGE_PASSWORD_SCREEN,
 } from 'navigation/ScreenNames';
 import { useStyleTheme } from 'navigation/Navigation.styles';
 import { MoneyTransfersScreen } from 'screens/MoneyTransfersScreen/MoneyTransfersScreen';
@@ -182,6 +185,7 @@ import { MoneyTransferSendInfoScreen } from 'screens/MoneyTransferSendInfoScreen
 import { MoneyTransferSendMoneyScreen } from 'screens/MoneyTransferSendMoneyScreen/MoneyTransferSendMoneyScreen';
 import { MoneyTransferSendPermissionScreen } from 'screens/MoneyTransferSendPermissionScreen/MoneyTransferSendPermissionScreen';
 import { MoneyTransferSendDetailsScreen } from 'screens/MoneyTransferSendDetailsScreen/MoneyTransferSendDetailsScreen';
+import { ChangePasswordScreen } from 'screens/ChangePasswordScreen/ChangePasswordScreen';
 
 const ModalStack = createStackNavigator<ModalStackParamsList>();
 
@@ -762,6 +766,11 @@ export const ModalNavigator = () => {
         options={hideHeader}
       />
       <Screen
+        name={EXCHANGE_RATES_SCREEN}
+        component={ExchangeRatesScreen}
+        options={{ title: t('exchange.title') }}
+      />
+      <Screen
         name={FOREIGN_IBAN_SCREEN}
         component={ForeignIbanScreen}
         options={{
@@ -794,6 +803,14 @@ export const ModalNavigator = () => {
         name={INSURANCE_SUCCESS_SCREEN}
         component={InsuranceSuccessScreen}
         options={hideHeader}
+      />
+      <Screen
+        name={CHANGE_PASSWORD_SCREEN}
+        component={ChangePasswordScreen}
+        options={{
+          title: t('changePassword.header'),
+          headerShadowVisible: true,
+        }}
       />
     </Navigator>
   );

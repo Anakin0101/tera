@@ -129,6 +129,7 @@ export const Spacing = {
   xlg: 32,
   xxl: 36,
   xxxl: 48,
+  xc: 90,
 };
 
 export const BorderRadius = {
@@ -155,12 +156,16 @@ export const Opacity = {
 const tiny = 10;
 const small = tiny * 2; // 20
 const regular = tiny * 3; // 30
+const medium = 50;
 const large = regular * 2; // 60
+const extraLarge = 100;
 export const MetricsSizes = {
   tiny,
   small,
+  medium,
   regular,
   large,
+  extraLarge,
 };
 
 export const FontFamily = {

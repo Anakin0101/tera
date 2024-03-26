@@ -465,7 +465,15 @@
     "11_digits_required": "must consist of 11 digits",
     "22_digits_required": "must consist of 22 digits",
     "9_digits_required": "must consist of 9 digits",
-    "invalid_email": "format is incorrect"
+    "8_digits_required": "must consist of 8 digits",
+    "invalid_email": "format is incorrect",
+    "minSymbols": "Min. 6 symbols (required)",
+    "numbers": "Digits (from 0 to 9)",
+    "lowercaseLetters": "Lowercase letters (a-z)",
+    "upperCaseLetters": "Uppercase letters (A-Z)",
+    "symbols": "Symbols (e.g.: !@#$%^&*()_+)",
+    "does_not_match": "does not match",
+    "does_not_match_with": "does not match with"
   },
 
   "transactions": {
@@ -916,5 +924,26 @@
     "primaryCTA": "Settings",
     "secondaryCTA": "Cancel",
     "near": "Close to me"
+  },
+  "exchange": {
+    "title": "Exchange rates",
+    "official": "Official rate",
+    "tera": "Tera Bank",
+    "buy": "Buy",
+    "sell": "Sell",
+    "calculator": "Calculator",
+    "standardRate": "Standard rate 1{{fromSign}}={{value}}{{toSign}}",
+    "specialRate": " / Your rate 1{{fromSign}}={{value}}{{toSign}}",
+    "convert": "Conversion",
+    "specRateLimit": "Special rate limit: {{value}}₾"
+  },
+  "changePassword": {
+    "header": "Change password",
+    "existingPassword": "Existing password",
+    "newPassword": "New password",
+    "repeatPassword": "Repeat password",
+    "change_password_success": "Password has been changed successfully!",
+    "change_password_error": "Could not change password. Please try again later",
+    "new_password_criterias": "Password must satisfy minimum 3 of the following criterias:"
   }
 }

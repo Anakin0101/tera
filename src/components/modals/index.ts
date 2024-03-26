@@ -18,3 +18,4 @@ export { SelectTransferFieldModal } from './SelectTransferFieldModal/SelectTrans
 export { SelectCurrencyModal } from './SelectCurrencyModal/SelectCurrencyModal';
 export { UpdateProfileModal } from './UpdateProfileModal/UpdateProfileModal';
 export { AccountExtractionModal } from './AccountExtractionModal/AccountExtractionModal';
+export { ExchangeRateCalculatorModal } from './ExchangeRateCalculatorModal/ExchangeRateCalculatorModal';

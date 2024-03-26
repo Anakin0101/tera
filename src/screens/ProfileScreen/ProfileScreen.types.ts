@@ -12,6 +12,7 @@ export type ProfileItemType = {
       }
     | 'AuthorizationMethodsScreen'
     | 'SettingsScreen'
-    | 'EditUserInfo';
+    | 'EditUserInfo'
+    | 'ChangePasswordScreen';
   handlePress?: () => void;
 };

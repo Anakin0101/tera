@@ -98,6 +98,7 @@ export const URLS = {
   getCreditProductOfferSchedule: '/Loan/GetCreditProductOfferSchedule',
   activateCreditProductOffer: '/Loan/ActivateCreditProductOffer',
   updateParameters: 'Customers/UpdateParameters',
+  getRates: '/Account/GetRates',
   addCardInsurance: 'Account/AddCardsInsurance',
   cancelCardInsurance: 'Account/CancelCardInsurace',
   requestForPin: 'Account/RequestForPin',
@@ -108,6 +109,7 @@ export const URLS = {
   updateUserProfile: 'Customers/UpdateProfilePicture',
   getBlockedTransactions: '/Transaction/GetAccountsBlocks',
   printOps: 'Transaction/PrintOps',
+  changePassword: 'Auth/ChangePassword',
 };
 
 export const PROD_URLS = {
