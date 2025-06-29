@@ -45,7 +45,7 @@ export const useStyleTheme = () => {
     listWrapper: { flex: 1 },
 
     itemSeparatorStyle: {
-      maxWidth: '80%',
+      maxWidth: '90%',
       marginLeft: Spacing.xxxl + Spacing.m,
     },
   });
